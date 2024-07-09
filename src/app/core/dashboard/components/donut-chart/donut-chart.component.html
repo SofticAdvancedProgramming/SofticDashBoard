@@ -1,0 +1,11 @@
+<div class="align-items-center Chartcard d-flex flex  justify-content-center border-0">
+  <p-chart type="doughnut" [data]="getModifiedData()" [options]="options"></p-chart>
+  <div class="chart-legend" *ngIf="!isAllDataZero()">
+    <ul>
+      <li *ngFor="let item of getLegendItems()">
+        <span class="legend-color" [ngStyle]="{'background-color': item.color, 'border-radius': '50%'}"></span>
+        {{item.label}} <span class="legend-value">{{item.value}}%</span>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+.card {
+    border-radius: 10px;
+    padding: 20px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-bottom: none;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.title {
+    font-family: Nunito;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.value {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.percentage {
+    margin-top: 10px;
+}
+
+.percentage.positive {
+    color: #05C212;
+}
+
+.percentage.negative {
+    color: #ff5e5e;
+}
+
+.card-footer {
+    font-size: 12px;
+    background-color: white;
+    color: #777;
+}

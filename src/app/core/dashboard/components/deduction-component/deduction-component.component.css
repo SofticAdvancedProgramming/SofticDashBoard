@@ -1,0 +1,57 @@
+.card {
+  border-radius: 10px;
+  padding: 20px;
+  border: none;
+  background-color: white;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+.title {
+  font-family: Nunito;
+  font-weight: bold;
+}
+
+.amount {
+  font-size: 1.5em;
+  color: #05C212;
+}
+
+.card-content {
+  margin-top: 10px;
+}
+
+.category {
+  margin-bottom: 20px;
+}
+
+.category-title {
+  font-weight: bold;
+}
+
+.category-amount {
+  color: #ff5e5e;
+}
+
+.Allowance {
+  margin-top: 10px;
+  padding-left: 20px;
+  list-style-type: none; /* Remove dots from ul */
+}
+
+.Allowance li {
+  color: #F47B7B;
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.Allowance li span {
+  float: right;
+}

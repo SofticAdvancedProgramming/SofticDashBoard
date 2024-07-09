@@ -1,0 +1,16 @@
+<div class="card" [ngClass]="cardClass" [ngStyle]="{'background-color': bgColor}">
+    <div class="card-header d-flex align-items-center">
+      <img class="icon" [src]="icon" alt="icon">
+      <span class="title">{{ title }}</span>
+    </div>
+    <div class="card-body d-flex justify-content-between">
+      <span class="value">{{ value }}</span>
+      <div class="percentage" [ngClass]="{'positive': percentage.startsWith('+'), 'negative': percentage.startsWith('-')}">
+        {{ percentage }}
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Update: {{ updateDate }}</span>
+    </div>
+  </div>
+  

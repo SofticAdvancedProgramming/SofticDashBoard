@@ -1,0 +1,21 @@
+<div class="card mt-3" [ngStyle]="{'background-color': bgColor}">
+  <div class="card-header d-flex align-items-center">
+    <span class="title">
+      <img class="mx-2" [src]="imgSrc">{{ title }}
+    </span>
+    <span class="amount">{{ amount }}</span>
+  </div>
+  <div class="card-content">
+    <div *ngFor="let category of categories" class="category">
+      <div class="text d-flex justify-content-between align-items-center">
+        <span class="category-title">
+          <img src="../../../../../assets/images/basil_add-solid.png">{{ category.title }}
+        </span>
+        <span class="category-amount">{{ category.amount }}</span>
+      </div>
+      <ul *ngIf="category.items" class="Allowance">
+        <li *ngFor="let item of category.items">- {{ item.name }} <span>{{ item.value }}</span></li>
+      </ul>
+    </div>
+  </div>
+</div>

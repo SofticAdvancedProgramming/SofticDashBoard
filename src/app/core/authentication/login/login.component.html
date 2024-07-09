@@ -1,0 +1,49 @@
+<div class="container-fluid landing">
+  <div class="row py-3">
+    <div class="logo">
+      <div routerLink="mainForm"> <img src="../../../../assets/images/lightLogo.png"> </div>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="mainCard">
+      <div class="header">
+        <p class="blueHeader">Nice to see you!</p>
+        <p class="lightDescription">Enter your email and password to sign in</p>
+      </div>
+      <div class="customLabels">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <label>Email</label>
+            <input formControlName="email" placeholder="Your email" type="text" autocomplete="email">
+            <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+              <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</small>
+            </div>
+          </div>
+          <div class="row">
+            <label>Password</label>
+            <div class="password-container p-0">
+              <input [type]="passwordFieldType" formControlName="password" placeholder="Your password"
+                autocomplete="new-password">
+              <i (click)="togglePasswordVisibility()" class="authIcon fa"
+                [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i>
+            </div>
+            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+              <small *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</small>
+            </div>
+          </div>
+          <div class="justify-content-end d-flex w-100 mt-2">
+            <p routerLink="forgetPassword" class="lightDescription">Forgot Password?</p>
+          </div>
+          <div class="row">
+            <button type="submit" class="authBtn">SIGN IN</button>
+          </div>
+        </form>
+        <div class="row pt-5">
+          <p class="lightDescription">Don't have an account? <span routerLink="companyExtension" class="customSpan">Sign up</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'"
+[hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>

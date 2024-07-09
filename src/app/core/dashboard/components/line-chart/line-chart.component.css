@@ -1,0 +1,26 @@
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  border: none;
+  outline: none;
+}
+
+.p-chart {
+  position: relative;
+  height: 300px;
+}
+.custom-chart {
+  height: var(--custom-height, 300px);
+}
+
+.custom-chart-container {
+  position: relative;
+}
+
+.custom-chart {
+  height: 100%; /* This allows the chart to take full height of the container */
+}
+canvas{
+  height: 360px !important;
+}

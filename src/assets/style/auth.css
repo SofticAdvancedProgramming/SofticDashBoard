@@ -1,0 +1,178 @@
+.landing {
+    background-image: url(../images/authLanding.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4em;
+    padding-bottom: 1em;
+}
+
+.logo img {
+    width: 15%;
+    min-width: 180px;
+}
+
+.header {
+    color: #0047B3;
+    font-family: Nunito;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 0.03em;
+    text-align: left;
+    width: 75%;
+}
+
+.row {
+    width: 100%;
+}
+
+.lightDescription {
+    color: #A0AEC0;
+    font-family: Nunito;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0.03em;
+    display: flex;
+    justify-content: center;
+    margin: 0px;
+    cursor: pointer;
+
+}
+
+.mainCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #E6F0FF;
+    border-radius: 10px;
+    padding: 3em;
+    flex-direction: column;
+    width: 40%;
+
+}
+
+.customLabels label {
+    color: #0047B3;
+    font-family: Nunito;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0.03em;
+    text-align: left;
+    margin-top: 0.3em
+}
+
+.customLabels input {
+    border: 1px solid #0065FF;
+    background-color: white;
+    border-radius: 10px;
+    padding: 0.4em;
+}
+
+.customLabels input:focus {
+    border-color: #0065FF;
+    outline: none;
+}
+
+.customLabels input::placeholder {
+    color: #A9AEB4;
+    font-family: Nunito;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 26px;
+    letter-spacing: 0.03em;
+    text-align: left;
+
+}
+
+.authBtn {
+    padding: 8px;
+    gap: 0px;
+    border-radius: 10px;
+    opacity: 0px;
+    background: #0075FF;
+    color: white;
+    border: none;
+    margin-top: 1em;
+}
+
+.customSpan {
+    color: #0047B3;
+    cursor: pointer;
+
+}
+
+@media (max-width: 991.98px) {
+    .mainCard {
+        width: 80%;
+    }
+}
+
+@media (max-width: 576px) {
+    .mainCard {
+        width: 100%;
+    }
+}
+
+.customLabels {
+    width: 75%;
+    line-height: 2;
+}
+
+.backArrow {
+    cursor: pointer;
+}
+
+.ng-otp-input-wrapper {
+    justify-content: center;
+    display: flex;
+}
+
+.ng-otp-input-wrapper[_ngcontent-ng-c1701526001] .otp-input[_ngcontent-ng-c1701526001],
+.ng-otp-input-wrapper[_ngcontent-ng-c1701526001] .otp-input[_ngcontent-ng-c1701526001]:not(:last-child) {
+    background-color: transparent;
+    color: #0065FF;
+    border-color: #0065FF;
+    border-radius: 10px;
+}
+
+.customLabels .row select {
+    outline: none;
+    border: #0075ff 1px solid;
+    border-radius: 10px;
+    padding: 0.7em;
+}
+.custom-option {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 10px;
+}
+
+.custom-option:hover {
+    background-color: #0075FF;
+    color: #fffdfd;
+}
+.password-container {
+    position: relative;
+  }
+  
+  .authIcon {
+    position: absolute;
+    right: 24px;
+      top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }

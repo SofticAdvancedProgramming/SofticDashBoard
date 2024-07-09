@@ -1,0 +1,18 @@
+<div class="tabs">
+    <ul>
+      <li class="tab" [ngClass]="{'active': activeTab === 'personal'}" (click)="activeTab = 'personal'">Personal Information</li>
+      <li class="tab" [ngClass]="{'active': activeTab === 'professional'}" (click)="activeTab = 'professional'">Professional Information</li>
+      <!-- Add more tabs as needed -->
+    </ul>
+  </div>
+  <div class="tab-content">
+    <div *ngIf="activeTab === 'personal'">
+      <app-custom-form sectionTitle="Personal Information" [fields]="personalInfoFields"></app-custom-form>
+    </div>
+    <div *ngIf="activeTab === 'professional'">
+      <app-custom-form sectionTitle="Professional Information" [fields]="professionalInfoFields"></app-custom-form>
+    </div>
+    <!-- Add more tab contents as needed -->
+  </div>
+  <button (click)="save()" class="btn btn-primary">Next</button>
+  

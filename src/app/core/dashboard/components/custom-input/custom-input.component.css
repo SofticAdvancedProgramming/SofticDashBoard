@@ -1,0 +1,28 @@
+.input-container {
+    margin-bottom: 1em;
+    margin-top: 1em;
+  }
+  
+  .input-container label {
+    display: block;
+    margin-bottom: 0.2em;
+    font-weight: bold;
+    color: #0047B3;
+    font-family: Nunito;
+    font-size: 14px;
+    line-height: 21px;  
+  }
+  
+  .input-container input {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #0065FF;
+    border-radius: 10px;
+    font-size: 1em;
+  }
+  
+  .input-container input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+  }

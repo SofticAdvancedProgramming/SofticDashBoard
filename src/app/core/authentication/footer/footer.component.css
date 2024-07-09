@@ -1,0 +1,15 @@
+.footerText{
+    font-family: Nunito;
+font-size: 14px;
+font-weight: 400;
+line-height: 25px;
+color: #A9AEB4;
+margin: 0px;
+}
+.footerText span {
+    color: #2B7FFF;
+}
+@media (max-width: 991.98px) { 
+    .customFooter{
+gap: 1em;    }
+    }

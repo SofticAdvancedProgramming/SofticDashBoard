@@ -1,0 +1,40 @@
+.activeCard {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.company-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.company-item {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.company-icon {
+    width: 14px;
+    height: 14px;
+    background-color: #8ed600;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+}
+.card{
+    padding: 28px;
+border-radius: 15px;
+opacity: 0px;
+border: none;
+}

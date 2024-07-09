@@ -1,0 +1,49 @@
+<div class="table-container">
+  <div class="row mb-3 align-items-center tableContainer">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+      <h5 class="tableTitle">{{ tableTitle }}</h5>
+    </div>
+    <div class="col-lg-3">
+      <input [(ngModel)]="searchText" [placeholder]="searchPlaceholder" class="form-control custom-search" />
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-6">
+      <input type="date" [(ngModel)]="fromDate" class="form-control custom-date-filter" placeholder="From Date" />
+    </div>
+    <div class="col-lg-2 col-md-6 col-sm-6">
+      <input type="date" [(ngModel)]="toDate" class="form-control custom-date-filter" placeholder="To Date" />
+    </div>
+    <div class="col-lg-2 col-md-12 col-sm-12 text-end">
+      <button (click)="exportToExcel()" class="btn btn-primary custom-button">Export to Excel</button>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table custom-table">
+      <thead>
+        <tr>
+          <th class="customColumn" *ngFor="let column of columns">{{ column }}</th>
+          <th class="customColumn">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filteredData">
+          <td class="tabelText" *ngFor="let column of columns">{{ item[column] }}</td>
+          <td class="tableText">
+            <button class="btn btn-sm mx-2" data-bs-toggle="modal" [attr.data-bs-target]="'#' + modalId" (click)="editItem.emit(item)"><i class="fa-solid fa-lg fa-pen"></i></button>
+            <button class="btn btn-sm" (click)="deleteItem.emit(item)"> <i class="fas fa-lg fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-center custom-pagination">
+    <pagination
+      [totalItems]="tableData.length"
+      [(ngModel)]="currentPage"
+      [itemsPerPage]="itemsPerPage"
+      (pageChanged)="handlePageChange($event)"
+      previousText="&laquo;"
+      nextText="&raquo;">
+    </pagination>
+  </div>
+</div>

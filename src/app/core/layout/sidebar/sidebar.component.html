@@ -1,0 +1,61 @@
+<div class="sidebar-toggle-btn d-md-none">
+  <button class="toggle-btn" type="button" (click)="toggleSidebar()">
+    <i class="lni lni-grid-alt"></i> ☰
+  </button>
+</div>
+<aside id="sidebar" [ngClass]="{ 'expand': isExpanded, 'd-none': !isVisible }" class="h-100">
+  <div class="d-flex">
+    <button class="toggle-btn d-none d-md-block" type="button" (click)="toggleSidebar()">
+      <i class="lni lni-grid-alt"></i> ☰
+    </button>
+    <div class="sidebar-logo">
+      <a href="#"><img src="../../../../assets/images/softic/softicLogo.png"></a>
+    </div>
+  </div>
+  <ul class="sidebar-nav">
+    <li class="sidebar-item">
+      <a class="sidebar-link">
+        <span class="lightDescription justify-content-between">Quick Access</span>
+      </a>
+    </li>
+    <li class="sidebar-item" routerLinkActive="active">
+      <a routerLink="/dashboard/home" class="sidebar-link">
+      <img src="../../../../assets/images/softic/dashboardIcon.png">
+       <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="sidebar-item" routerLinkActive="active">
+      <a routerLink="/dashboard/home" class="sidebar-link">
+      <img src="../../../../assets/images/softic/companyIcon.png">
+       <span>Companies</span>
+      </a>
+    </li>
+    <li class="sidebar-item" routerLinkActive="active">
+      <a routerLink="/dashboard/home" class="sidebar-link">
+      <img src="../../../../assets/images/softic/orgIcon.png">
+       <span>Organizational Chart </span>
+      </a>
+    </li>
+  </ul>
+  <div class="sidebar-footer">
+    <a routerLink="GeneralLookups" class="sidebar-link">
+      <img src="../../../../assets/images/softic/user-add.png">
+      <span class="settingText">Add Admin</span>
+    </a>
+    <a routerLink="GeneralLookups" class="sidebar-link">
+      <img src="../../../../assets/images/settings.png">
+      <span class="settingText">Setting</span>
+    </a>
+    <a href="#" class="sidebar-link">
+      <img src="../../../../assets/images/help.png">
+      <span class="helpText">Help</span>
+    </a>
+    <div>
+      <a class="sidebar-link" (click)="logout()">
+        <img src="../../../../assets/images/logout.png">
+        <span class="logoutText"> Logout</span>
+      </a>
+    </div>
+
+  </div>
+</aside>

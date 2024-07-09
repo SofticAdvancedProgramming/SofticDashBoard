@@ -1,0 +1,35 @@
+<div class="container-fluid landing">
+    <div class="row py-3 ">
+        <div class="logo">
+            <img src="../../../../assets/images/lightLogo.png">
+        </div>
+    </div>
+    <div class="row  d-flex justify-content-center">
+        <div class="mainCard">
+            <div class="row">
+                <div class="backArrow" routerLink="">
+                <img  src="../../../../assets/images/backArrow.png">
+            </div>
+        </div>
+            <div class="header mt-4">
+                <p class="blueHeader">Company Extention</p>
+            </div>
+            <div class="customLabels">
+              <form  [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+             <div class="row">
+                  <label> Company Extention </label>
+                  <input required placeholder="Your company Extention" formControlName="companyExtention">
+              </div>
+              <div class="row">
+                  <button type="submit" class="authBtn"> Search </button>
+              </div>
+              <div class="row pt-5">
+                  <p class="lightDescription"> </p>
+              </div>
+              </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'200ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>

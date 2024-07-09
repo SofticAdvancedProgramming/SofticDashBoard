@@ -1,0 +1,21 @@
+<div class="container-fluid p-5">
+  <div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <app-active-companies></app-active-companies>
+     </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <app-uncompleted-companies></app-uncompleted-companies>
+
+      </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <app-notifications></app-notifications>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <app-line-chart [data]="chartData" [options]="chartOptions" height="500px"></app-line-chart> 
+    </div>
+  </div>
+
+</div>
+

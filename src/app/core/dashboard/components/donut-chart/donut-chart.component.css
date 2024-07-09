@@ -1,0 +1,48 @@
+
+/* donut-chart.component.css */
+.Chartcard {
+    align-items: center;
+  }
+  
+  .chart-legend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .chart-legend ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .chart-legend li {
+    display: flex;
+    align-items: center;
+    margin: 5px 10px;
+  }
+  
+  .legend-color {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+  }
+  @media (max-width: 767px) {
+    .Chartcard {
+      width: 100%;
+      flex-direction: column !important;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .Chartcard {
+      width: 100%;
+      flex-direction: row !important;
+    }
+  }
+  

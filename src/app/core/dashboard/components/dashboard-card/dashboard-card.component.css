@@ -1,0 +1,38 @@
+.lightCard {
+  background: #FFFFFF;
+  padding: 1em;
+  border-radius: 10px;
+  opacity: 1; /* Set opacity to 1 for the default state */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 15em;
+  transition: background 0.3s ease, opacity 0.3s ease; /* Add transition for smooth effect */
+}
+
+.lightCard:hover {
+  background: #E5ECF6;
+  opacity: 1;
+}
+
+.lightCard p:first-of-type, .greyCard p:first-of-type {
+  color: #0047B3;
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+}
+
+.lightCard .text p:last-of-type, .greyCard .text p:last-of-type {
+  color: #2D3A49;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.text {
+  display: flex;
+  gap: 2em;
+}

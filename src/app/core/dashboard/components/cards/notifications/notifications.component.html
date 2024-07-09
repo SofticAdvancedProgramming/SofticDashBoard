@@ -1,0 +1,15 @@
+<div class="card">
+    <h2 class="card-title">Notification</h2>
+    <ul class="notification-list">
+      <li class="notification-item" *ngFor="let notification of notifications">
+        <img [src]="notification.pic" alt="Profile Picture" class="profile-pic">
+        <div class="notification-text">
+          <span class="name">{{ notification.name }}</span>
+          <span class="message" [class.activate]="notification.activate">{{ notification.message }}</span>
+        </div>
+        <span class="date">{{ notification.date }}</span>
+      </li>
+    </ul>
+    <div class="view-all">View All</div>
+  </div>
+  

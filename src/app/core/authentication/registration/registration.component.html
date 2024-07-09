@@ -1,0 +1,86 @@
+<div class="container-fluid landing">
+  <div class="row py-3">
+    <div class="logo">
+      <img routerLink="CompanyExtention" src="../../../../assets/images/lightLogo.png" alt="Logo">
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="mainCard">
+      <div class="header">
+        <p class="blueHeader">Nice to see you!</p>
+      </div>
+      <div class="customLabels">
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <label>First name</label>
+            <input formControlName="firstName" placeholder="First Name" type="text">
+            <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="text-danger">
+              <small *ngIf="firstName?.errors?.['required']">First name is required.</small>
+            </div>
+          </div>
+          <div class="row">
+            <label>Last name</label>
+            <input formControlName="lastName" placeholder="Last Name" type="text">
+            <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="text-danger">
+              <small *ngIf="lastName?.errors?.['required']">Last name is required.</small>
+            </div>
+          </div>
+          <div class="row">
+            <label>Email </label>
+            <div class="d-flex extentionContainer">
+              <input class="customExtention" formControlName="email" placeholder="email" type="text" appNoEmailFormat>
+              <input class="customExtention text-center cutsomDisable" readonly type="text" [value]="extension">
+            </div>
+          </div>
+          <div class="row p-0">
+            <label>Phone Number</label>
+            <ngx-intl-tel-input [cssClass]="'custom w-100'" [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+              [searchCountryField]="searchCountryFields" [selectFirstCountry]="false"
+              [selectedCountryISO]="selectedCountryISO" [maxLength]="15"
+              formControlName="phoneNumber"></ngx-intl-tel-input>
+            <div *ngIf="phoneNumber?.invalid && phoneNumber?.touched" class="text-danger">
+              <small *ngIf="phoneNumber?.errors?.['required']">Phone number is required.</small>
+            </div>
+          </div>
+          <div class="row">
+            <label>Password</label>
+            <div class="password-container">
+              <input [type]="passwordFieldType" formControlName="password" placeholder="Your password"
+                autocomplete="new-password">
+              <i (click)="togglePasswordVisibility()" class="authIcon fa"
+                [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i>
+            </div>
+            <div *ngIf="password?.invalid && password?.touched" class="text-danger">
+              <small *ngIf="password?.errors?.['required']">Password is required.</small>
+              <small *ngIf="password?.errors?.['complexPassword']">
+                Password must contain at least one uppercase letter, one number, and one special character.
+              </small>
+            </div>
+          </div>
+          <div class="row">
+            <label>Confirm Password</label>
+            <div class="password-container">
+              <input [type]="confirmPasswordFieldType" formControlName="confirmPassword"
+                placeholder="Confirm your password" autocomplete="new-password">
+              <i (click)="toggleConfirmPasswordVisibility()" class="authIcon fa"
+                [ngClass]="confirmPasswordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i>
+            </div>
+            <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="text-danger">
+              <small *ngIf="confirmPassword?.errors?.['required']">Confirm password is required.</small>
+            </div>
+            <div *ngIf="registrationForm.errors?.['passwordMismatch'] && confirmPassword?.touched" class="text-danger">
+              <small>Passwords must match.</small>
+            </div>
+          </div>
+          <div class="row">
+            <button type="submit" class="authBtn">SIGN UP</button>
+          </div>
+        </form>
+        <div class="row pt-5">
+          <p class="lightDescription">Already have an account? <span routerLink="/" class="customSpan">Login</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+.header {
+    font-family: Nunito;
+    font-size: 32px;
+    font-weight: 700;
+    color: #2D3A49;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+    margin: 0px;
+}
+
+.card {
+    border-radius: 10px;
+    padding: 20px;
+    border: none;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    background-color: white;
+}
+
+.card-header .title {
+    font-weight: bold;
+    color: #0065FF;
+}
+
+.card-header .amount {
+    color: #FFB649;
+    font-weight: bold;
+}
+
+.card-content {
+    padding-top: 10px;
+}
+
+.category {
+    margin-bottom: 10px;
+}
+
+.category-title {
+    font-weight: bold;
+    color: #1F2933;
+    display: block;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.category-title img {
+    margin-right: 0.4em;
+    margin-left: 0.4em;
+}
+
+.category-amount {
+    color: #757575;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.category ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category li {
+    display: flex;
+    justify-content: space-between;
+    color: #9e9e9e;
+    margin-bottom: 3px;
+}
+.Allowance li {
+    color: #96C0FF;
+    font-family: Nunito;
+font-size: 16px;
+font-weight: 500;
+}
+.Allowance li span {
+    color: #A9AEB4;
+}

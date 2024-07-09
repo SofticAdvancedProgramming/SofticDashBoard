@@ -1,0 +1,87 @@
+import {
+  BrowserDomAdapter,
+  BrowserGetTestability,
+  BrowserModule,
+  By,
+  DomEventsPlugin,
+  DomRendererFactory2,
+  DomSanitizer,
+  DomSanitizerImpl,
+  EVENT_MANAGER_PLUGINS,
+  EventManager,
+  EventManagerPlugin,
+  HAMMER_GESTURE_CONFIG,
+  HAMMER_LOADER,
+  HammerGestureConfig,
+  HammerGesturesPlugin,
+  HammerModule,
+  HydrationFeatureKind,
+  INTERNAL_BROWSER_PLATFORM_PROVIDERS,
+  KeyEventsPlugin,
+  Meta,
+  REMOVE_STYLES_ON_COMPONENT_DESTROY,
+  SharedStylesHost,
+  Title,
+  VERSION,
+  bootstrapApplication,
+  createApplication,
+  disableDebugTools,
+  enableDebugTools,
+  initDomAdapter,
+  platformBrowser,
+  provideClientHydration,
+  provideProtractorTestingSupport,
+  withEventReplay,
+  withHttpTransferCacheOptions,
+  withI18nSupport,
+  withNoHttpTransferCache
+} from "./chunk-VECP3A63.js";
+import "./chunk-S4HYPTHR.js";
+import {
+  getDOM
+} from "./chunk-IAAO223F.js";
+import "./chunk-7HAUOQG2.js";
+import "./chunk-IUXTJ6OT.js";
+import "./chunk-TG2U4K3F.js";
+import "./chunk-LSIJBZW4.js";
+import "./chunk-J4B6MK7R.js";
+export {
+  BrowserModule,
+  By,
+  DomSanitizer,
+  EVENT_MANAGER_PLUGINS,
+  EventManager,
+  EventManagerPlugin,
+  HAMMER_GESTURE_CONFIG,
+  HAMMER_LOADER,
+  HammerGestureConfig,
+  HammerModule,
+  HydrationFeatureKind,
+  Meta,
+  REMOVE_STYLES_ON_COMPONENT_DESTROY,
+  Title,
+  VERSION,
+  bootstrapApplication,
+  createApplication,
+  disableDebugTools,
+  enableDebugTools,
+  platformBrowser,
+  provideClientHydration,
+  provideProtractorTestingSupport,
+  withEventReplay,
+  withHttpTransferCacheOptions,
+  withI18nSupport,
+  withNoHttpTransferCache,
+  BrowserDomAdapter as ɵBrowserDomAdapter,
+  BrowserGetTestability as ɵBrowserGetTestability,
+  DomEventsPlugin as ɵDomEventsPlugin,
+  DomRendererFactory2 as ɵDomRendererFactory2,
+  DomSanitizerImpl as ɵDomSanitizerImpl,
+  HammerGesturesPlugin as ɵHammerGesturesPlugin,
+  INTERNAL_BROWSER_PLATFORM_PROVIDERS as ɵINTERNAL_BROWSER_PLATFORM_PROVIDERS,
+  KeyEventsPlugin as ɵKeyEventsPlugin,
+  SharedStylesHost as ɵSharedStylesHost,
+  getDOM as ɵgetDOM,
+  initDomAdapter as ɵinitDomAdapter
+};
+//# sourceMappingURL=@angular_platform-browser.js.map

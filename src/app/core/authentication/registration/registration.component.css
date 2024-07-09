@@ -1,0 +1,42 @@
+.row{
+    margin-top: .5rem !important;
+    margin-bottom: .5rem !important;
+}
+.iti--allow-dropdown input, .iti--allow-dropdown input[type=text], .iti--allow-dropdown input[type=tel], .iti--separate-dial-code input, .iti--separate-dial-code input[type=text], .iti--separate-dial-code input[type=tel]  {
+    width: 100% !important;
+}
+.custom {
+    width: 100% !important;
+  }
+  
+ .ngx-intl-tel-input input {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+input{
+    width: 100% !important;
+}
+.customExtention{
+    border: none;
+    border-radius: 0px;
+}
+.extentionContainer{
+    border: 1px solid #0065FF;
+    background-color: white;
+    border-radius: 10px;
+}
+.cutsomDisable{
+    color: #80808099;
+    cursor:not-allowed;
+}
+.password-container {
+  position: relative;
+}
+
+.fa {
+  position: absolute;
+  right: 24px;
+    top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
