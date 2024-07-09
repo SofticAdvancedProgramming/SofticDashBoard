@@ -10,7 +10,7 @@ import { user } from '../../../../models/user';
 import { PasswordValidator } from '../../../../Modules/passwordValidator';
 import { SearchCountryField, CountryISO, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { CommonModule } from '@angular/common';
-import { NoEmailFormatDirective } from '../../../../directives/NoEmailFormatDirective/no-email-format.directive';
+
 
 @Component({
   selector: 'app-registration',
@@ -22,7 +22,7 @@ import { NoEmailFormatDirective } from '../../../../directives/NoEmailFormatDire
     CommonModule,
     ReactiveFormsModule,
     ToastModule,
-    NgxIntlTelInputModule, RouterLink , NoEmailFormatDirective
+    NgxIntlTelInputModule, RouterLink
   ],
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
