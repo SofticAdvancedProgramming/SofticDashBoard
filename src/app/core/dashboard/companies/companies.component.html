@@ -1,14 +1,33 @@
-<div class="card">
-    <div class="card-content">
-      <div class="card-header">
-        <img *ngIf="iconSrc" [src]="iconSrc" alt="{{ title }}" class="card-icon">
-        <a [href]="link" target="_blank" class="card-title">{{ title }}</a>
-      </div>
-      <div class="card-details">
-        <p>{{ branches }} Branch{{ branches > 1 ? 'es' : '' }}</p>
-        <p>{{ cities }} {{ cities > 1 ? 'cities' : 'city' }}</p>
-        <p>{{ description }}</p>
-      </div>
+<div class="container">
+    <div class="firstSection">
+        <div class="header-container">
+            <div class="col-lg-4 title-section">
+                <i class="icon fa fa-table"></i>
+                <h2 class="title">Companies</h2>
+            </div>
+            <div class="col-lg-4 search-section">
+                <form class="d-flex w-100" role="search">
+                    <input class="customSearch" type="search" placeholder="Search" aria-label="Search">
+                    <button class="search-btn" type="submit">
+                        <img src="../../../../assets/images/search-normal.png" alt="Search" width="16" height="16">
+                    </button>
+                </form>
+            </div>
+            <div class="col-lg-4 add-button-section">
+                <button class="add-button">
+                    <i class="fa fa-plus"></i> Add New Company
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-  
+    <div class="cardContainer">
+        <h3>Subscripted Software Companies</h3>
+        <div class="row">
+            <div *ngFor="let company of companies" class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <app-company-card [title]="company.title" [branches]="company.branches" [cities]="company.cities"
+                    [description]="company.description" [iconSrc]="company.iconSrc" [link]="company.link">
+                </app-company-card>
+            </div>
+        </div>
+    </div>
+</div>

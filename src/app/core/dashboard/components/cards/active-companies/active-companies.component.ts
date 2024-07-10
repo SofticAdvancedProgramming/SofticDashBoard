@@ -9,6 +9,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './active-companies.component.css'
 })
 export class ActiveCompaniesComponent {
-  companies = ['IOBTE Company', 'Al madany Company', 'QNP Company', 'Safari Company'];
+  companies = ['IOBTE Company', 'Al madany Company', 'QNP Company'];
 
 }

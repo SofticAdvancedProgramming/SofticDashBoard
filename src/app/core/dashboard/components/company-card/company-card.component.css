@@ -1,0 +1,36 @@
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-content {
+    text-align: left;
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #000;
+}
+
+.card-details {
+    margin-top: 8px;
+}
+
+.card-details p {
+    margin: 0;
+    color: #555;
+}

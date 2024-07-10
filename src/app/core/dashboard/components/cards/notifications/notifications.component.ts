@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 })
 export class NotificationsComponent {
   notifications = [
-    { name: 'Yomna Ashraf', message: 'logged in to Softic company', date: '12/4/2024', pic: 'path/to/image1.jpg', activate: false },
-    { name: 'Iboit Company', message: 'Activate', date: '12/4/2024', pic: 'path/to/image2.jpg', activate: true }
+    { name: 'Yomna Ashraf', message: 'logged in to Softic company', date: '12/4/2024', pic: '../../../../assets/images/softic/Avatar.png', activate: false },
+    { name: 'Iboit Company', message: 'Activate', date: '12/4/2024', pic: '../../../../assets/images/softic/Avatar.png', activate: true }
   ];
 }
