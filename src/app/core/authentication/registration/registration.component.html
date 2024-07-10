@@ -1,15 +1,13 @@
 <div class="container-fluid landing">
-  <div class="row py-3">
+  <div class="row">
     <div class="logo">
-      <img routerLink="CompanyExtention" src="../../../../assets/images/lightLogo.png" alt="Logo">
+      <img src="../../../../assets/images/softic/softicLogo.png">
     </div>
-  </div>
-  <div class="row d-flex justify-content-center">
-    <div class="mainCard">
-      <div class="header">
-        <p class="blueHeader">Nice to see you!</p>
-      </div>
+    <div class="col-lg-6 authContainer">
       <div class="customLabels">
+        <div class="header">
+          <p class="blackHeader">Nice to see you!</p>
+        </div>
         <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
           <div class="row">
             <label>First name</label>
@@ -77,10 +75,13 @@
             <button type="submit" class="authBtn">SIGN UP</button>
           </div>
         </form>
-        <div class="row pt-5">
+        <div class="row pt-2">
           <p class="lightDescription">Already have an account? <span routerLink="/" class="customSpan">Login</span></p>
         </div>
       </div>
+    </div>
+    <div class="col-lg-6">
+      <img class="imgContainer" src="../../../../assets/images/auth/login.png">
     </div>
   </div>
 </div>

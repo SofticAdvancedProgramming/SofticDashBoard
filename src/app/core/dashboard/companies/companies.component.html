@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-content">
+      <div class="card-header">
+        <img *ngIf="iconSrc" [src]="iconSrc" alt="{{ title }}" class="card-icon">
+        <a [href]="link" target="_blank" class="card-title">{{ title }}</a>
+      </div>
+      <div class="card-details">
+        <p>{{ branches }} Branch{{ branches > 1 ? 'es' : '' }}</p>
+        <p>{{ cities }} {{ cities > 1 ? 'cities' : 'city' }}</p>
+        <p>{{ description }}</p>
+      </div>
+    </div>
+  </div>
+  

@@ -17,13 +17,14 @@ input{
     width: 100% !important;
 }
 .customExtention{
-    border: none;
+    border: none !important;
     border-radius: 0px;
 }
 .extentionContainer{
-    border: 1px solid #0065FF;
-    background-color: white;
+  border: 1px solid #e7e6e86f !important;
     border-radius: 10px;
+    background: #FBFBFB;
+
 }
 .cutsomDisable{
     color: #80808099;

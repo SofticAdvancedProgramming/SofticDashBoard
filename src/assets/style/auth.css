@@ -42,7 +42,6 @@
     font-weight: 700;
     line-height: 40px;
     letter-spacing: 0.03em;
-    text-align: left;
     width: 75%;
 }
 
@@ -56,7 +55,6 @@
     font-weight: 300;
     line-height: 26px;
     letter-spacing: 0.03em;
-    text-align: left;
     color: #534f58;
 }
 
@@ -102,8 +100,6 @@
     font-weight: 300;
     line-height: 26px;
     letter-spacing: 0.03em;
-    text-align: left;
-
 }
 
 .authBtn {
@@ -113,6 +109,7 @@
     background: #663895;
     color: white;
     border: none;
+    margin-top: 0.8em;
 }
 
 .customSpan {
@@ -125,12 +122,14 @@
     .mainCard {
         width: 80%;
     }
+
     .imgContainer {
-        display: none;  
-          }
+        display: none;
+    }
 }
+
 @media (max-width: 776.98px) {
-    .authContainer{
+    .authContainer {
         padding: 0px;
     }
 }
@@ -152,10 +151,11 @@
 
 .ng-otp-input-wrapper[_ngcontent-ng-c1701526001] .otp-input[_ngcontent-ng-c1701526001],
 .ng-otp-input-wrapper[_ngcontent-ng-c1701526001] .otp-input[_ngcontent-ng-c1701526001]:not(:last-child) {
-    background-color: transparent;
-    color: #0065FF;
-    border-color: #0065FF;
+    background-color: #f4ebebbd;
+    color: black;
+    border-color: #E7E6E8;
     border-radius: 10px;
+    padding: 0px;
 }
 
 .customLabels .row select {
@@ -190,5 +190,13 @@
 
 .imgContainer {
     width: 75%;
-    height: 75%;
+}
+.iti {
+    width: 100%;
+}
+.backArrow{
+    width: 30px;
+    height: 30px;
+    margin-right: 0.3em;
+    margin-left: 0.3em;
 }
