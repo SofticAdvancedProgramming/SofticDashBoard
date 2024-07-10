@@ -1,15 +1,13 @@
 <div class="container-fluid landing">
-  <div class="row py-3">
-    <div class="logo">
-      <div routerLink="mainForm"> <img src="../../../../assets/images/lightLogo.png"> </div>
-    </div>
+<div class="row">
+  <div class="logo"> 
+    <img src="../../../../assets/images/softic/softicLogo.png">
   </div>
-  <div class="row d-flex justify-content-center">
-    <div class="mainCard">
-      <div class="header">
-        <p class="blueHeader">Nice to see you!</p>
-        <p class="lightDescription">Enter your email and password to sign in</p>
-      </div>
+  <div class="col-lg-6 authContainer">
+    <div class="customContainer"> 
+    <p class="blackHeader">Welcome Back  👋</p>
+    <p class="lightDescription">Today is a new day. It's your day. You shape it. 
+      Sign in to start managing your projects.</p>
       <div class="customLabels">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="row">
@@ -38,12 +36,16 @@
             <button type="submit" class="authBtn">SIGN IN</button>
           </div>
         </form>
-        <div class="row pt-5">
+        <div class="row justify-content-center d-flex pt-5">
           <p class="lightDescription">Don't have an account? <span routerLink="companyExtension" class="customSpan">Sign up</span></p>
         </div>
       </div>
     </div>
   </div>
+  <div class="col-lg-6 ">
+    <img class="imgContainer" src="../../../../assets/images/auth/login.png">
+  </div>
 </div>
+  </div>
 <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'"
 [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
