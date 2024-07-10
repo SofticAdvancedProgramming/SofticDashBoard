@@ -7,6 +7,7 @@ import { RegistrationComponent } from './core/authentication/registration/regist
 import { ResetPasswordComponent } from './core/authentication/reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './core/authentication/forget-password/forget-password.component';
 import { CompaniesComponent } from './core/dashboard/companies/companies.component';
+import { AuthGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
   {
@@ -14,13 +15,13 @@ export const routes: Routes = [
     component: AuthLayoutComponent,
     children: [
       { path: '', component: LoginComponent },
-      { path: 'registration', component: RegistrationComponent },
       { path: 'ResetPassword', component: ResetPasswordComponent },
       { path: 'forgetPassword', component: ForgetPasswordComponent },
     ],
   }, {
     path: 'dashboard',
     component: DashboardLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },

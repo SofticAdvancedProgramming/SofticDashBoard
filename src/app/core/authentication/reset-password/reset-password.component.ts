@@ -55,7 +55,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.resetPasswordForm.invalid || this.otp.length !== 6) {
+    if (this.resetPasswordForm.invalid || this.otp.length !== 7) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please check your inputs and ensure OTP is 7 digits.' });
       return;
     }

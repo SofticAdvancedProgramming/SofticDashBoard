@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://attendance.sap-pro.xyz:44333",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

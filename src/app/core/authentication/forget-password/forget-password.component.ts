@@ -36,7 +36,7 @@ export class ForgetPasswordComponent {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Password reset link sent. Please check your email.' });
         const whatsappLink = response.data.token;
         window.open(whatsappLink, '_blank');
-        this.router.navigate(['/resetPassword', { email: this.email }]);
+        this.router.navigate(['/ResetPassword', { email: this.email }]);
       },
       error :(error:any)=> {
         const errorKey = error.error.errors[0];
