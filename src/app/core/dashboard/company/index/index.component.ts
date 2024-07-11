@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CompanyCardComponent } from "../../components/company-card/company-card.component";
 import { CommonModule } from '@angular/common';
-import { CompanyCardComponent } from '../components/company-card/company-card.component';
-
+import { RouterLink } from '@angular/router';
 interface Company {
   title: string;
   branches: number;
@@ -12,13 +12,13 @@ interface Company {
 }
 
 @Component({
-  selector: 'app-companies',
-  standalone: true,
-  templateUrl: './companies.component.html',
-  styleUrls: ['./companies.component.css'],
-  imports: [CommonModule, CompanyCardComponent]
+    selector: 'app-index',
+    standalone: true,
+    templateUrl: './index.component.html',
+    styleUrl: './index.component.css',
+    imports: [CompanyCardComponent , CommonModule , RouterLink]
 })
-export class CompaniesComponent implements OnInit {
+export class IndexComponent {
   companies: Company[] = [
     {
       title: 'IObit',

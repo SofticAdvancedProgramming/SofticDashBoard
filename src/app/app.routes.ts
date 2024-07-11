@@ -6,8 +6,9 @@ import { LoginComponent } from './core/authentication/login/login.component';
 import { RegistrationComponent } from './core/authentication/registration/registration.component';
 import { ResetPasswordComponent } from './core/authentication/reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './core/authentication/forget-password/forget-password.component';
-import { CompaniesComponent } from './core/dashboard/companies/companies.component';
+import { CompaniesComponent } from './core/dashboard/company/companies/companies.component';
 import { AuthGuard } from './guard/auth.guard';
+import { IndexComponent } from './core/dashboard/company/index/index.component';
 
 export const routes: Routes = [
   {
@@ -25,7 +26,8 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
-      { path: 'Companies', component: CompaniesComponent },
+      { path: 'indexCompany', component: IndexComponent },
+      { path: 'companies', component: CompaniesComponent },
     ],
   },
 ];
