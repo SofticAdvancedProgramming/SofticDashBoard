@@ -1,0 +1,90 @@
+<div class="row py-3 my-3">
+    <div class="form-container">
+        <div class="upload-section">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <img src="../../../../../assets/images/softic/default.png" alt="Upload Icon" class="upload-icon">
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div>
+                        <p class="upload-text">uploud company logo</p>
+                        <p class="upload-instructions">
+                            GPAG/PNG/PDF Files should be uplpded &gt; the file must be hight in resolution and
+                            original in
+                            design
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="company-name-en" label="Company name (English)"
+                        placeholder="Company name (English)"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="company-name-ar" label="Company name (Arabic)"
+                        placeholder="Company name (Arabic)"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="company-field" label="Company Field"
+                        placeholder="Software"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="company-code" label="Company Code"
+                        value="1212156646489"></app-input-component>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="city" label="City" placeholder="City"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="country" label="Country" placeholder="Country"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="address" label="Address" placeholder="Address"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="email" label="Email" placeholder="Email"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="mobile" label="Mobile" placeholder="Mobile"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="phone" label="Phone" placeholder="Phone"></app-input-component>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="website" label="Website" placeholder="Website"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="facebook" label="Facebook" placeholder="Facebook"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="twitter" label="Twitter(x)" placeholder="Twitter"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="instagram" label="Instagram" placeholder="Instagram"></app-input-component>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <app-input-component id="linkedin" label="LinkedIn" placeholder="LinkedIn"></app-input-component>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <app-drop-down id="company-type" label="Company Plan" [options]="[{value: '1', label: 'plan 1'}, {value: '2', label: 'plan 2'}]" placeholder="Select Company plan"></app-drop-down>
+            </div>
+            <div class="row form-actions">
+                <div class="col-lg-6"> <button type="button" class="btn btn-cancel">Cancel</button>
+                </div>
+                <div class="col-lg-6"> <button type="submit" class="btn btn-next">Next</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

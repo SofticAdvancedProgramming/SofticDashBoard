@@ -1,0 +1,32 @@
+form {
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+input {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid #E7E6E8;
+    background: #FBFBFB;
+}
+
+input[readonly] {
+    background-color: #e9ecef;
+}
+
+input:focus {
+    border-color: #E7E6E8;
+    outline: none;
+}
