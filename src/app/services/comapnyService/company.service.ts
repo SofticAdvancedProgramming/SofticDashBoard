@@ -9,16 +9,20 @@ import { ApiCall } from '../apiCall/apicall.service';
   providedIn: 'root',
 })
 export class CompanyService {
-  private apiUrl = `${environment.apiBaseUrl}Company/Get`;
+  private apiUrl = `${environment.apiBaseUrl}Company`;
 
   constructor(private apiCall: ApiCall) {}
 
   loadCompanies(): Observable<company[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(this.apiUrl, 'post', {}, headers);
+    return this.apiCall.request<any>(this.apiUrl+'/Get', 'post', {}, headers);
   }
   getCompany(request:any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(this.apiUrl, 'post',request, headers);
+    return this.apiCall.request<any>(this.apiUrl+'/Get', 'post',request, headers);
+  }
+  AddCompany(request:any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.apiCall.request<any>(this.apiUrl+'/Add', 'post',request, headers);
   }
 }

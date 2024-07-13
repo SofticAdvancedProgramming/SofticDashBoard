@@ -1,90 +1,158 @@
 <div class="row py-3 my-3">
-    <div class="form-container">
-        <div class="upload-section">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 col-sm-12">
-                    <img src="../../../../../assets/images/softic/default.png" alt="Upload Icon" class="upload-icon">
-                </div>
-                <div class="col-lg-6 col-md-12 col-sm-12">
-                    <div>
-                        <p class="upload-text">uploud company logo</p>
-                        <p class="upload-instructions">
-                            GPAG/PNG/PDF Files should be uplpded &gt; the file must be hight in resolution and
-                            original in
-                            design
-                        </p>
-                    </div>
-                </div>
-            </div>
+  <div class="form-container was-validated" [formGroup]="addCompanyForm">
+    <div class="upload-section">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+          <label for="fileInput">
+            <img [src]="uploadedImageBase64 || '../../../../../assets/images/softic/default.png'" alt="Upload Icon" class="upload-icon" style="cursor: pointer;">
+          </label>
         </div>
-        <form>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="company-name-en" label="Company name (English)"
-                        placeholder="Company name (English)"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="company-name-ar" label="Company name (Arabic)"
-                        placeholder="Company name (Arabic)"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="company-field" label="Company Field"
-                        placeholder="Software"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="company-code" label="Company Code"
-                        value="1212156646489"></app-input-component>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="city" label="City" placeholder="City"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="country" label="Country" placeholder="Country"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="address" label="Address" placeholder="Address"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="email" label="Email" placeholder="Email"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="mobile" label="Mobile" placeholder="Mobile"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="phone" label="Phone" placeholder="Phone"></app-input-component>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="website" label="Website" placeholder="Website"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="facebook" label="Facebook" placeholder="Facebook"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="twitter" label="Twitter(x)" placeholder="Twitter"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="instagram" label="Instagram" placeholder="Instagram"></app-input-component>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <app-input-component id="linkedin" label="LinkedIn" placeholder="LinkedIn"></app-input-component>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <app-drop-down id="company-type" label="Company Plan" [options]="[{value: '1', label: 'plan 1'}, {value: '2', label: 'plan 2'}]" placeholder="Select Company plan"></app-drop-down>
-            </div>
-            <div class="row form-actions">
-                <div class="col-lg-6"> <button type="button" class="btn btn-cancel">Cancel</button>
-                </div>
-                <div class="col-lg-6"> <button type="submit" class="btn btn-next">Next</button>
-                </div>
-            </div>
-        </form>
+        <div class="col-lg-6 col-md-12 col-sm-12">
+          <div>
+            <p class="upload-text">Upload company logo</p>
+            <p class="upload-instructions">
+              GPAG/PNG/PDF files should be uploaded. The file must be high in resolution and original in design.
+            </p>
+            <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*" style="display: none;">
+          </div>
+        </div>
+      </div>
     </div>
+
+    <form >
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="companyNameEn">Company Name (English)</label>
+            <input type="text" id="companyNameEn" formControlName="companyNameEn" class="form-control"
+              placeholder="Enter company name (English)">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="companyNameAr">Company Name (Arabic)</label>
+            <input type="text" id="companyNameAr" formControlName="companyNameAr" class="form-control"
+              placeholder="Enter company name (Arabic)">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="companyField">Company Field</label>
+            <input type="text" id="companyField" formControlName="companyField" class="form-control"
+              placeholder="Software">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="companyCode">Company Code</label>
+            <input type="text" id="companyCode" formControlName="companyCode" class="form-control"
+              placeholder="1212156646489">
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" formControlName="city" class="form-control"
+              placeholder="City">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" id="country" formControlName="country" class="form-control"
+              placeholder="Country">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" formControlName="address" class="form-control"
+              placeholder="Address">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-control"
+              placeholder="Email">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="mobile">Mobile</label>
+            <input type="text" id="mobile" formControlName="mobile" class="form-control"
+              placeholder="Mobile">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" formControlName="phone" class="form-control"
+              placeholder="Phone">
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="website">Website</label>
+            <input type="text" id="website" formControlName="website" class="form-control"
+              placeholder="Website">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="facebook">Facebook</label>
+            <input type="text" id="facebook" formControlName="facebook" class="form-control"
+              placeholder="Facebook">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="twitter">Twitter(x)</label>
+            <input type="text" id="twitter" formControlName="twitter" class="form-control"
+              placeholder="Twitter">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="instagram">Instagram</label>
+            <input type="text" id="instagram" formControlName="instagram" class="form-control"
+              placeholder="Instagram">
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="linkedin">LinkedIn</label>
+            <input type="text" id="linkedin" formControlName="linkedin" class="form-control"
+              placeholder="LinkedIn">
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 w-100 mb-2">
+          <div class="form-group">
+            <label for="companyPlan">Company Plan</label>
+            <select id="companyPlan" formControlName="companyPlan" class="form-control">
+              <option value="1">Plan 1</option>
+              <option value="2">Plan 2</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row form-actions">
+        <div class="col-lg-6">
+          <button type="button" class="btn btn-cancel">Cancel</button>
+        </div>
+        <div class="col-lg-6">
+          <button type="button" class="btn btn-next" (click)="onSubmit()">Next</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
