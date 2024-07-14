@@ -9,6 +9,7 @@ import { ForgetPasswordComponent } from './core/authentication/forget-password/f
 import { AuthGuard } from './guard/auth.guard';
 import { IndexComponent } from './core/dashboard/company/index/index.component';
 import { AddCompanyComponent } from './core/dashboard/company/add-company/add-company.component';
+import { AddAdminComponent } from './core/dashboard/company/add-admin/add-admin.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,7 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'indexCompany', component: IndexComponent },
       { path: 'addCompany', component: AddCompanyComponent },
+      { path: 'addAdmin', component: AddAdminComponent },
     ],
   },
 ];

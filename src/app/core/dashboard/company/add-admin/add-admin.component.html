@@ -1,1 +1,78 @@
-<p>add-admin works!</p>
+<div class="row py-3 my-3">
+    <div class="form-container" [formGroup]="addCompanyForm">
+        <div class="upload-section">
+            <div class="row">
+                <div class="col-lg-6 justify-content-center d-flex col-md-12 col-sm-12">
+                    <label for="fileInput">
+                        <img [src]="uploadedImageBase64 || '../../../../../assets/images/softic/default.png'"
+                            alt="Upload Icon" class="upload-icon" style="cursor: pointer;">
+                    </label>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div>
+                        <p class="upload-text">Upload company logo</p>
+                        <p class="upload-instructions">
+                            GPAG/PNG/PDF files should be uploaded. The file must be high in resolution and original in
+                            design.
+                        </p>
+                        <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*"
+                            style="display: none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form>
+            <div class="row was-validated">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyNameEn')}">
+                        <label for="companyNameEn">Company Name (English)</label>
+                        <input required type="text" id="companyNameEn" formControlName="companyNameEn"
+                            class="form-control" placeholder="Enter company name (English)">
+                        <div *ngIf="isFieldInvalid('companyNameEn')" class="invalid-feedback">
+                            Company Name (English) is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyNameAr')}">
+                        <label for="companyNameAr">Company Name (Arabic)</label>
+                        <input required type="text" id="companyNameAr" formControlName="companyNameAr"
+                            class="form-control" placeholder="Enter company name (Arabic)">
+                        <div *ngIf="isFieldInvalid('companyNameAr')" class="invalid-feedback">
+                            Company Name (Arabic) is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyField')}">
+                        <label for="companyField">Company Field</label>
+                        <input required type="text" id="companyField" formControlName="companyField"
+                            class="form-control" placeholder="Software">
+                        <div *ngIf="isFieldInvalid('companyField')" class="invalid-feedback">
+                            Company Field is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyCode')}">
+                        <label for="companyCode">Company Code</label>
+                        <input required type="text" id="companyCode" formControlName="companyCode" class="form-control"
+                            placeholder="1212156646489">
+                        <div *ngIf="isFieldInvalid('companyCode')" class="invalid-feedback">
+                            Company Code is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-actions">
+                <div class="col-lg-6">
+                    <button type="button" routerLink="../addAdmin" class="btn btn-cancel">Cancel</button>
+                </div>
+                <div class="col-lg-6">
+                    <button type="button" class="btn btn-next" (click)="onSubmit()">Next</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

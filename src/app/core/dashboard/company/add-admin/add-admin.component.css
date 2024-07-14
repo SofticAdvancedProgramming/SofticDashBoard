@@ -1,0 +1,73 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 6em;
+    padding-right: 6em;
+    background-color: white;
+    border-radius: 10px;
+    margin: auto;
+    width: 75%;
+}
+
+.upload-section {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 3em;
+    align-items: center;
+}
+
+.upload-text {
+    font-family: Lama Sans;
+    font-size: 19.07px;
+    font-weight: 700;
+    line-height: 38.13px;
+}
+
+.upload-instructions {
+    color: #9C999F;
+    font-family: Lama Sans;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 26px;
+    width: 80%;
+}
+
+
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn-cancel {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.btn-next {
+    background-color: #6f42c1;
+    color: #fff;
+}
+
+@media (max-width: 991.98px) {
+    .form-container {
+        padding-left: 1em;
+        padding-right: 1em;
+        width: 100%;
+    }
+}
+.form-group{
+    margin-top: 1.6em;
+}

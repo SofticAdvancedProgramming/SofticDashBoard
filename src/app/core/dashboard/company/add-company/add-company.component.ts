@@ -4,6 +4,7 @@ import { ImageUploadService } from '../../../../services/ImageUploadService/imag
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyService } from '../../../../services/comapnyService/company.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-add-company',
@@ -12,7 +13,8 @@ import { CompanyService } from '../../../../services/comapnyService/company.serv
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ]
 })
 export class AddCompanyComponent implements OnInit {
