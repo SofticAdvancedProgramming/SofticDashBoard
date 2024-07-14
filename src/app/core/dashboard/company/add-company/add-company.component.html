@@ -1,5 +1,5 @@
 <div class="row py-3 my-3">
-  <div class="form-container was-validated" [formGroup]="addCompanyForm">
+  <div class="form-container" [formGroup]="addCompanyForm">
     <div class="upload-section">
       <div class="row">
         <div class="col-lg-6 justify-content-center d-flex col-md-12 col-sm-12">
@@ -19,81 +19,99 @@
       </div>
     </div>
 
-    <form >
-      <div class="row">
+    <form>
+      <div class="row was-validated">
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyNameEn')}">
             <label for="companyNameEn">Company Name (English)</label>
             <input required type="text" id="companyNameEn" formControlName="companyNameEn" class="form-control" placeholder="Enter company name (English)">
-            <div *ngIf="addCompanyForm.get('companyNameEn')?.touched && addCompanyForm.get('companyNameEn')?.invalid" class="invalid-feedback">
+            <div *ngIf="isFieldInvalid('companyNameEn')" class="invalid-feedback">
               Company Name (English) is required.
             </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyNameAr')}">
             <label for="companyNameAr">Company Name (Arabic)</label>
-            <input required type="text" id="companyNameAr" formControlName="companyNameAr" class="form-control"
-              placeholder="Enter company name (Arabic)">
+            <input required type="text" id="companyNameAr" formControlName="companyNameAr" class="form-control" placeholder="Enter company name (Arabic)">
+            <div *ngIf="isFieldInvalid('companyNameAr')" class="invalid-feedback">
+              Company Name (Arabic) is required.
+            </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyField')}">
             <label for="companyField">Company Field</label>
-            <input required type="text" id="companyField" formControlName="companyField" class="form-control"
-              placeholder="Software">
+            <input required type="text" id="companyField" formControlName="companyField" class="form-control" placeholder="Software">
+            <div *ngIf="isFieldInvalid('companyField')" class="invalid-feedback">
+              Company Field is required.
+            </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyCode')}">
             <label for="companyCode">Company Code</label>
-            <input required type="text" id="companyCode" formControlName="companyCode" class="form-control"
-              placeholder="1212156646489">
+            <input required type="text" id="companyCode" formControlName="companyCode" class="form-control" placeholder="1212156646489">
+            <div *ngIf="isFieldInvalid('companyCode')" class="invalid-feedback">
+              Company Code is required.
+            </div>
           </div>
         </div>
       </div>
       <hr>
-      <div class="row">
+      <div class="row was-validated">
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('city')}">
             <label for="city">City</label>
-            <input required type="text" id="city" formControlName="city" class="form-control"
-              placeholder="City">
+            <input required type="text" id="city" formControlName="city" class="form-control" placeholder="City">
+            <div *ngIf="isFieldInvalid('city')" class="invalid-feedback">
+              City is required.
+            </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('country')}">
             <label for="country">Country</label>
-            <input required type="text" id="country" formControlName="country" class="form-control"
-              placeholder="Country">
+            <input required type="text" id="country" formControlName="country" class="form-control" placeholder="Country">
+            <div *ngIf="isFieldInvalid('country')" class="invalid-feedback">
+              Country is required.
+            </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('address')}">
             <label for="address">Address</label>
-            <input required type="text" id="address" formControlName="address" class="form-control"
-              placeholder="Address">
+            <input required type="text" id="address" formControlName="address" class="form-control" placeholder="Address">
+            <div *ngIf="isFieldInvalid('address')" class="invalid-feedback">
+              Address is required.
+            </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('email')}">
             <label for="email">Email</label>
-            <input  required type="email" id="email" formControlName="email" class="form-control"
-              placeholder="Email">
+            <input required type="email" id="email" formControlName="email" class="form-control" placeholder="Email">
+            <div *ngIf="isFieldInvalid('email')" class="invalid-feedback">
+              A valid Email is required.
+            </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('mobile')}">
             <label for="mobile">Mobile</label>
-            <input required type="text" id="mobile" formControlName="mobile" class="form-control"
-              placeholder="Mobile">
+            <input required type="text" id="mobile" formControlName="mobile" class="form-control" placeholder="Mobile">
+            <div *ngIf="isFieldInvalid('mobile')" class="invalid-feedback">
+              Mobile is required.
+            </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phone')}">
             <label for="phone">Phone</label>
-            <input required type="text" id="phone" formControlName="phone" class="form-control"
-              placeholder="Phone">
+            <input required type="text" id="phone" formControlName="phone" class="form-control" placeholder="Phone">
+            <div *ngIf="isFieldInvalid('phone')" class="invalid-feedback">
+              Phone is required.
+            </div>
           </div>
         </div>
       </div>
@@ -102,48 +120,46 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">
             <label for="website">Website</label>
-            <input required type="text" id="website" formControlName="website" class="form-control"
-              placeholder="Website">
+            <input type="text" id="website" formControlName="website" class="form-control" placeholder="Website">
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">
             <label for="facebook">Facebook</label>
-            <input type="text" id="facebook" formControlName="facebook" class="form-control"
-              placeholder="Facebook">
+            <input type="text" id="facebook" formControlName="facebook" class="form-control" placeholder="Facebook">
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">
             <label for="twitter">Twitter(x)</label>
-            <input type="text" id="twitter" formControlName="twitter" class="form-control"
-              placeholder="Twitter">
+            <input type="text" id="twitter" formControlName="twitter" class="form-control" placeholder="Twitter">
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">
             <label for="instagram">Instagram</label>
-            <input type="text" id="instagram" formControlName="instagram" class="form-control"
-              placeholder="Instagram">
+            <input type="text" id="instagram" formControlName="instagram" class="form-control" placeholder="Instagram">
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">
             <label for="linkedin">LinkedIn</label>
-            <input type="text" id="linkedin" formControlName="linkedin" class="form-control"
-              placeholder="LinkedIn">
+            <input type="text" id="linkedin" formControlName="linkedin" class="form-control" placeholder="LinkedIn">
           </div>
         </div>
       </div>
       <hr>
-      <div class="row">
+      <div class="row was-validated">
         <div class="col-lg-6 col-md-6 col-sm-12 w-100 mb-2">
-          <div class="form-group">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyPlan')}">
             <label for="companyPlan">Company Plan</label>
             <select required id="companyPlan" formControlName="companyPlan" class="form-control">
               <option value="1">Plan 1</option>
               <option value="2">Plan 2</option>
             </select>
+            <div *ngIf="isFieldInvalid('companyPlan')" class="invalid-feedback">
+              Company Plan is required.
+            </div>
           </div>
         </div>
       </div>
@@ -156,5 +172,5 @@
         </div>
       </div>
     </form>
-  </div>
+  </div>      
 </div>

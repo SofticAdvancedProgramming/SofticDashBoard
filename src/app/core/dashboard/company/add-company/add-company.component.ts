@@ -95,9 +95,14 @@ export class AddCompanyComponent implements OnInit {
       const control = formGroup.get(field);
       if (control instanceof FormGroup) {
         this.validateAllFormFields(control);
-      } else if (control?.hasValidator(Validators.required)) {
-        control.markAsTouched({ onlySelf: true });
+      } else {
+        control?.markAsTouched({ onlySelf: true });
       }
     });
+  }
+
+  isFieldInvalid(field: string): boolean {
+    const control = this.addCompanyForm.get(field);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 }
