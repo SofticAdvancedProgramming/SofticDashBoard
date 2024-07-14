@@ -6,6 +6,7 @@ import { ApiCall } from '../apiCall/apicall.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Injectable({
   providedIn: 'root',
@@ -17,14 +18,19 @@ export class AuthenticationService {
   constructor(
     private apiCall: ApiCall,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private permissionsService: NgxPermissionsService,
   ) {
-
+    const token = isPlatformBrowser(this.platformId) ? localStorage.getItem('token') : null;
+    if (token) {
+      this.loggedIn.next(true);
+      this.setPermissionsFromToken(token);
+    }
   }
 
   public isAuthenticated(): boolean {
-    let token: string | null = null;
     const helper = new JwtHelperService();
+    let token: string | null = null;
     if (isPlatformBrowser(this.platformId)) {
       token = localStorage.getItem('token');
     }
@@ -41,6 +47,7 @@ export class AuthenticationService {
   }
 
   login(email: string, password: string): Observable<any> {
+    console.log('Attempting login with email:', email);
     return this.apiCall
       .request<any>(`${environment.apiBaseUrl}Auth/Login`, 'post', {
         email,
@@ -48,39 +55,63 @@ export class AuthenticationService {
       })
       .pipe(
         map((response) => {
-          if (response && response.token) {
-            if (isPlatformBrowser(this.platformId)) {
-              localStorage.setItem('token', response.token);
-            }
+          if (response?.data?.isAuth) {
             this.loggedIn.next(true);
+            localStorage.setItem('token', response.data.token);
+            this.setPermissionsFromToken(response.data.token);
             return response;
           }
           return response;
         }),
-        catchError((error) => throwError(() => error))
+        catchError(this.handleError)
       );
+  }
+
+  private handleError(error: any): Observable<never> {
+    const errorMessage = error.error?.message || 'An unknown error occurred';
+    return throwError(() => new Error(errorMessage));
   }
 
   logout() {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
+      localStorage.removeItem('companyId');
+      localStorage.removeItem('roles');
     }
-    localStorage.removeItem('token');
+    this.permissionsService.flushPermissions();
     window.location.href = '/';
   }
-  decodeToken(token: string): any {
+
+  public decodeToken(token: string): any { // Changed to public
     try {
       return JSON.parse(atob(token.split('.')[1]));
     } catch (e) {
+      console.error('Invalid token:', e);
       return null;
     }
   }
 
+  private setPermissionsFromToken(token: string): void {
+    const decodedToken = this.decodeToken(token);
+    let roles = [];
+    if (typeof decodedToken?.roles === 'string') {
+      roles = decodedToken.roles.split(',');
+    } else if (Array.isArray(decodedToken?.roles)) {
+      roles = decodedToken.roles;
+    }
+    console.log('Decoded Roles:', roles);
+    localStorage.setItem('roles', JSON.stringify(roles));
+    this.permissionsService.loadPermissions(roles);
+  }
+
+  setPermissionsFromUserType(userType: string): void {
+    const roles = [userType];
+    this.permissionsService.loadPermissions(roles);
+  }
+
   forgetPassword(email: string): Observable<any> {
     return this.apiCall
-      .request<any>(`${environment.apiBaseUrl}Auth/ForgetPassword`, 'post', {
-        email,
-      })
+      .request<any>(`${environment.apiBaseUrl}Auth/ForgetPassword`, 'post', { email })
       .pipe(
         map((response) => response),
         catchError((error) => throwError(() => error))
@@ -89,11 +120,7 @@ export class AuthenticationService {
 
   resetPassword(email: string, password: string, otp: string): Observable<any> {
     return this.apiCall
-      .request<any>(`${environment.apiBaseUrl}Auth/ResetPassword`, 'post', {
-        email,
-        password,
-        otp,
-      })
+      .request<any>(`${environment.apiBaseUrl}Auth/ResetPassword`, 'post', { email, password, otp })
       .pipe(
         map((response) => response),
         catchError((error) => throwError(() => error))
