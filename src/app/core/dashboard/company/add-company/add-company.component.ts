@@ -50,7 +50,7 @@ export class AddCompanyComponent implements OnInit {
       twitter: [''],
       instagram: [''],
       linkedin: [''],
-      companyPlan: ['', Validators.required] // Ensure companyPlan is required
+      companyPlan: ['', Validators.required] 
     });
   }
 
@@ -58,9 +58,9 @@ export class AddCompanyComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       this.imageUploadService.convertFileToBase64(file).then(base64 => {
-        this.uploadedImageBase64 = base64; // Keep full base64 for image display
-        this.base64ImageForServer = base64.replace(/^data:image\/[a-z]+;base64,/, ''); // Remove metadata for server
-        this.cdr.detectChanges(); // Ensure the view updates with the new image
+        this.uploadedImageBase64 = base64; 
+        this.base64ImageForServer = base64.replace(/^data:image\/[a-z]+;base64,/, ''); 
+        this.cdr.detectChanges(); 
       }).catch(error => {
         console.error('Error converting file to base64', error);
       });
@@ -68,13 +68,9 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log("Form Submitted");
-    console.log(this.addCompanyForm);
     if (this.addCompanyForm.valid) {
-      console.log("Form is valid");
       this.executeAddFunction();
     } else {
-      console.log("Form is invalid");
       this.validateAllFormFields(this.addCompanyForm);
     }
   }
@@ -84,7 +80,6 @@ export class AddCompanyComponent implements OnInit {
       ...this.addCompanyForm.value,
       logo: this.base64ImageForServer
     };
-    console.log('Submitting company data:', companyData);
     this.companyService.AddCompany(companyData).subscribe(
       response => {
         console.log('Company added successfully', response);
@@ -100,8 +95,8 @@ export class AddCompanyComponent implements OnInit {
       const control = formGroup.get(field);
       if (control instanceof FormGroup) {
         this.validateAllFormFields(control);
-      } else {
-        control?.markAsTouched({ onlySelf: true });
+      } else if (control?.hasValidator(Validators.required)) {
+        control.markAsTouched({ onlySelf: true });
       }
     });
   }
