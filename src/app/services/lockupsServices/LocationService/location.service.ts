@@ -31,15 +31,14 @@ export class LocationService {
     return this.apiCall.request<any>(`${this.countryUrl}/Edit`, 'post', country, headers);
   }
 
-  deleteCountry(id: number): Observable<any> {
+  deleteCountry(id: number,companyId: number): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.countryUrl}/Delete/${id}`, 'post', {}, headers);
+    return this.apiCall.request<any>(`${this.countryUrl}/Delete/${id}/${companyId}`, 'post', {}, headers);
   }
 
   // City methods
   getCities(request: any = {}): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    debugger
     return this.apiCall.request<any>(`${this.cityUrl}/Get`, 'post', request, headers);
   }
 
@@ -55,7 +54,7 @@ export class LocationService {
 
   deleteCity(id: number, companyId: number): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.cityUrl}/Delete/${id}`, 'post', {}, headers);
+    return this.apiCall.request<any>(`${this.cityUrl}/Delete/${id}/${companyId}`, 'post', {}, headers);
   }
   getZones(request: any = {}): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

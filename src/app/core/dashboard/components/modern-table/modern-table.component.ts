@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import * as XLSX from 'xlsx';
+import { DeletePopUpComponent } from '../delete-pop-up/delete-pop-up.component';
 
 @Component({
   selector: 'app-modern-table',
@@ -12,7 +13,8 @@ import * as XLSX from 'xlsx';
   imports: [
     FormsModule,
     CommonModule,
-    PaginationModule
+    PaginationModule,
+    DeletePopUpComponent
   ]
 })
 export class ModernTableComponent {
@@ -20,16 +22,18 @@ export class ModernTableComponent {
   @Input() modalId: string = '';
   @Input() columns: string[] = [];
   @Input() searchPlaceholder: string = 'Search...';
+  @Input() deleteId: string = '';
   @Input() tableTitle: string = 'Table Title';
   @Output() editItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
-
+  @ViewChild('deletePopUp') deletePopUp!: DeletePopUpComponent;
+  deleteMethod!: (index: number) => void;
   searchText: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 10;
   fromDate: string = '';
   toDate: string = '';
-
+  selectedItemToDelete: any = null;
   constructor() {}
 
   get filteredData() {
@@ -73,5 +77,18 @@ export class ModernTableComponent {
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
     this.filteredData; // Ensure the filtered data is updated on page change
+  }
+  openDeleteModal(item: any): void {
+    console.log(item);
+    this.selectedItemToDelete = item;
+  }
+
+  confirmDelete(): void {
+    console.log("hi");
+    if (this.selectedItemToDelete) {
+      console.log(this.selectedItemToDelete);
+      this.deleteItem.emit(this.selectedItemToDelete);
+      this.selectedItemToDelete = null;
+    }
   }
 }

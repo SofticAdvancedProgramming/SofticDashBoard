@@ -29,7 +29,8 @@
           <td class="tabelText" *ngFor="let column of columns">{{ item[column] }}</td>
           <td class="tableText">
             <button class="btn btn-sm mx-2" data-bs-toggle="modal" [attr.data-bs-target]="'#' + modalId" (click)="editItem.emit(item)"><i class="fa-solid fa-lg fa-pen"></i></button>
-            <button class="btn btn-sm" (click)="deleteItem.emit(item)"> <i class="fas fa-lg fa-trash-alt"></i>
+            <button class="btn" type="button" (click)="openDeleteModal(item)" data-bs-toggle="modal"[attr.data-bs-target]="'#' + deleteId">
+              <img class="CustomIcon" src="../../../../assets/images/delete.png">
             </button>
           </td>
         </tr>
@@ -46,4 +47,5 @@
       nextText="&raquo;">
     </pagination>
   </div>
+  <app-delete-pop-up #deletePopUp (confirmDelete)="confirmDelete()" deleteId="{{deleteId}}"></app-delete-pop-up>
 </div>

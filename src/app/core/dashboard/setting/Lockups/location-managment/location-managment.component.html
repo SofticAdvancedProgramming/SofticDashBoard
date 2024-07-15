@@ -1,55 +1,49 @@
 <div class="container">
-<!-- country-->
+  <!-- Country Section -->
   <div class="mt-4">
-      <button type="button" class="btn custom-button btn-primary" data-bs-toggle="modal"
-          [attr.data-bs-target]="'#' + modalId" (click)="openCountryAddModal()">
-          Add Country
-      </button>
+    <button type="button" class="btn custom-button btn-primary" data-bs-toggle="modal"
+      [attr.data-bs-target]="'#' + modalId" (click)="openCountryAddModal()">
+      Add Country
+    </button>
   </div>
 
   <app-dynamic-modal [structure]="countryStructure" [isEdit]="isEdit" [formData]="formData" [modalId]="modalId"
-      (submitForm)="handleCountrySubmission($event)">
+    (submitForm)="handleCountrySubmission($event)">
   </app-dynamic-modal>
 
-  <app-modern-table [tableTitle]="'Subscription Plan'" [tableData]="countries" [columns]="columns" [modalId]="modalId"
-      searchPlaceholder="Search data..." (editItem)="openCountryEditModal($event)"
-      (deleteItem)="deleteEntity('SubscriptionPlan', $event.id)">
+  <app-modern-table [tableTitle]="'Countries'" [tableData]="countries" [columns]="columns" [modalId]="modalId"
+    searchPlaceholder="Search data..." (editItem)="openCountryEditModal($event)"
+    (deleteItem)="deleteEntity('country', $event.id, companyId)" deleteId="{{countryDeleteId}}">
   </app-modern-table>
-  <!-- end country  -->
+  <!-- End Country Section -->
   <hr>
-<!-- city-->
- @if(countries.length>0){
 
-  @if(selectedCountryId>0){
-    <div class="mt-4">
-      <button type="button" class="btn custom-button btn-primary" data-bs-toggle="modal"
-          [attr.data-bs-target]="'#' + modalId" (click)="openCityAddModal()">
-          Add City
-      </button>
-    </div>
-  }
+  <!-- City Section -->
+  <div *ngIf="selectedCountryId > 0" class="mt-4">
+    <button type="button" class="btn custom-button btn-primary" data-bs-toggle="modal"
+      [attr.data-bs-target]="'#' + citymodalId" (click)="openCityAddModal()">
+      Add City
+    </button>
+  </div>
 
-  <select [(ngModel)]="selectedCountryId"(change)="onCountryChange()">
-    @for (item of countries; track item.name) {
-      <option value="{{item.id}}">
-        {{ item.nameEn }} - {{ item.nameAr }}
-      </option>
-      } @empty {
-      <option>There are no items.</option>
-      }
+  <select [(ngModel)]="selectedCountryId" (change)="onCountryChange()">
+    <option value="" *ngIf="countries">Select Country</option>
+    <option *ngFor="let item of countries; trackBy: trackById" [value]="item.id">
+      {{ item.nameEn }} - {{ item.nameAr }}
+    </option>
+    <option *ngIf="!countries.length">There are no items.</option>
   </select>
 
-<app-dynamic-modal [structure]="countryStructure" [isEdit]="isEditCity" [formData]="CityformData" [modalId]="modalId"
-    (submitForm)="handleCitySubmission($event)">
-</app-dynamic-modal>
+  <div *ngIf="cities.length > 0">
+    <app-dynamic-modal [structure]="cityStructure" [isEdit]="isEditCity" [formData]="CityformData" [modalId]="citymodalId"
+      (submitForm)="handleCitySubmission($event)">
+    </app-dynamic-modal>
 
-<app-modern-table [tableTitle]="'Subscription Plan'" [tableData]="cities" [columns]="columns" [modalId]="modalId"
-    searchPlaceholder="Search data..." (editItem)="openCityEditModal($event)"
-    (deleteItem)="deleteEntity('SubscriptionPlan', $event.id)">
-</app-modern-table>
-<hr>
- }
-
-  <!-- end city  -->
-
+    <app-modern-table [tableTitle]="'City'" [tableData]="cities" [columns]="columns" [modalId]="citymodalId"
+      searchPlaceholder="Search data..." (editItem)="openCityEditModal($event)"
+      (deleteItem)="deleteEntity('city', $event.id, companyId)" deleteId="{{cityDeleteId}}">
+    </app-modern-table>
+    <hr>
+  </div>
+  <!-- End City Section -->
 </div>

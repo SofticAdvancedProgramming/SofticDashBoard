@@ -3,13 +3,14 @@ import { LocationService } from '../../../../../services/lockupsServices/Locatio
 import { DynamicModalComponent } from '../../../components/dynamic-modal/dynamic-modal.component';
 import { ModernTableComponent } from '../../../components/modern-table/modern-table.component';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-location-managment',
   standalone: true,
-  imports: [DynamicModalComponent, ModernTableComponent,FormsModule],
+  imports: [DynamicModalComponent, ModernTableComponent, FormsModule,CommonModule],
   templateUrl: './location-managment.component.html',
-  styleUrl: './location-managment.component.css'
+  styleUrls: ['./location-managment.component.css']
 })
 export class LocationManagmentComponent {
 
@@ -21,6 +22,9 @@ export class LocationManagmentComponent {
   isEdit = false;
   isEditCity = false;
   modalId = 'AddCountry';
+  citymodalId = 'Addcity';
+  countryDeleteId = 'countryDelete';
+  cityDeleteId = 'cityDeleteId';
   companyId: number = 0;
   selectedCountryId: number = 0;
   columns: string[] = ['id', 'name', 'nameAr'];
@@ -47,28 +51,42 @@ export class LocationManagmentComponent {
       data: 'zones'
     }
   };
+
   countryStructure = [
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
   ];
+
+  cityStructure = [
+    { name: 'name', label: 'Name', type: 'text', required: true },
+    { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
+    { name: 'countryId', label: 'Country ID', type: 'number', required: true },
+  ];
+
   constructor(private locationService: LocationService) {
     this.companyId = Number(localStorage.getItem('companyId')) || 0;
   }
 
   ngOnInit(): void {
     this.loadEntities('country');
-    this.loadEntities('city');
   }
-  onCountryChange() {
-  this.loadEntities('city',this.selectedCountryId);
+
+  trackById(index: number, item: any): number {
+    return item.id;
   }
-  loadEntities(entity: string,objectId?:number): void {
+
+  onCountryChange(): void {
+    this.loadEntities('city', this.selectedCountryId);
+  }
+
+  loadEntities(entity: string, objectId?: number): void {
     const methodName = this.entityTypes[entity].load as keyof LocationService;
-    (this.locationService[methodName] as Function)({countryId:objectId}).subscribe(
+    const params = entity === 'city' ? { countryId: objectId } : {};
+    (this.locationService[methodName] as Function)(params).subscribe(
       (response: any) => {
         if (response.status === 200) {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
-          console.log(response.data.list)
+          console.log(response.data.list);
         }
       },
       (error: any) => {
@@ -82,7 +100,11 @@ export class LocationManagmentComponent {
     (this.locationService[methodName] as Function)(newEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity); // Reload the list
+          if (entity === 'city') {
+            this.loadEntities(entity, this.selectedCountryId);
+          } else {
+            this.loadEntities(entity);
+          }
         }
       },
       (error: any) => {
@@ -95,8 +117,10 @@ export class LocationManagmentComponent {
     const methodName = this.entityTypes[entity].edit as keyof LocationService;
     (this.locationService[methodName] as Function)(updatedEntity).subscribe(
       (response: any) => {
-        if (response.status === 200) {
-          this.loadEntities(entity); // Reload the list
+        if (entity === 'city') {
+          this.loadEntities(entity, this.selectedCountryId);
+        } else {
+          this.loadEntities(entity);
         }
       },
       (error: any) => {
@@ -107,31 +131,23 @@ export class LocationManagmentComponent {
 
   deleteEntity(entity: string, id: number, companyId?: number): void {
     const methodName = this.entityTypes[entity].delete as keyof LocationService;
-    if (entity === 'zone' || entity === 'city') {
-      (this.locationService[methodName] as Function)(id, companyId).subscribe(
-        (response: any) => {
-          if (response.status === 200) {
-            this.loadEntities(entity); // Reload the list
+    (this.locationService[methodName] as Function)(id, companyId).subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          if (entity === 'city') {
+            this.loadEntities(entity, this.selectedCountryId);
+          } else {
+            this.loadEntities(entity);
           }
-        },
-        (error: any) => {
-          console.error(`Error deleting ${entity}`, error);
         }
-      );
-    } else {
-      (this.locationService[methodName] as Function)(id).subscribe(
-        (response: any) => {
-          if (response.status === 200) {
-            this.loadEntities(entity); // Reload the list
-          }
-        },
-        (error: any) => {
-          console.error(`Error deleting ${entity}`, error);
-        }
-      );
-    }
+      },
+      (error: any) => {
+        console.error(`Error deleting ${entity}`, error);
+      }
+    );
   }
-  //county
+
+  //country
   openCountryAddModal(): void {
     this.isEdit = false;
     this.formData = {};
@@ -141,25 +157,23 @@ export class LocationManagmentComponent {
     this.isEdit = true;
     this.formData = { ...item, companyId: this.companyId };
   }
+
   handleCountrySubmission(data: any): void {
     if (this.isEdit) {
       data.companyId = this.companyId;
       data.id = this.formData.id;
-      data.flags ="https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AFlag_of_Egypt.svg&psig=AOvVaw0joFpsHQovoiDw5Bxk54ZY&ust=1721152931043000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLCH8LrQqYcDFQAAAAAdAAAAABAE" // for test //todo
-      console.log(data)
       this.editEntity('country', data);
     } else {
       data.id = 0;
       data.companyId = this.companyId;
-      data.flags ="https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AFlag_of_Egypt.svg&psig=AOvVaw0joFpsHQovoiDw5Bxk54ZY&ust=1721152931043000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLCH8LrQqYcDFQAAAAAdAAAAABAE" // for test //todo
-      console.log(data);
       this.addEntity('country', data);
     }
   }
   //end country
+
   //city
   openCityAddModal(): void {
-    this.isEdit = false;
+    this.isEditCity = false;
     this.CityformData = {};
   }
 
@@ -167,18 +181,17 @@ export class LocationManagmentComponent {
     this.isEditCity = true;
     this.CityformData = { ...item, companyId: this.companyId };
   }
+
   handleCitySubmission(data: any): void {
     if (this.isEditCity) {
       data.companyId = this.companyId;
       data.id = this.CityformData.id;
       data.countryId = this.selectedCountryId;
-      console.log(data)
       this.editEntity('city', data);
     } else {
       data.id = 0;
       data.companyId = this.companyId;
       data.countryId = this.selectedCountryId;
-      console.log(data);
       this.addEntity('city', data);
     }
   }
