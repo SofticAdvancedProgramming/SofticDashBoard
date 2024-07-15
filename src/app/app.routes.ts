@@ -10,6 +10,8 @@ import { AuthGuard } from './guard/auth.guard';
 import { IndexComponent } from './core/dashboard/company/index/index.component';
 import { AddCompanyComponent } from './core/dashboard/company/add-company/add-company.component';
 import { AddAdminComponent } from './core/dashboard/company/add-admin/add-admin.component';
+import { GeneralLookupsComponent } from './core/dashboard/setting/general-lookups/general-lookups.component';
+import { SubscriptionPlanManagmentComponent } from './core/dashboard/setting/Lockups/subscription-plan-managment/subscription-plan-managment.component';
 
 export const routes: Routes = [
   {
@@ -30,6 +32,8 @@ export const routes: Routes = [
       { path: 'indexCompany', component: IndexComponent },
       { path: 'addCompany', component: AddCompanyComponent },
       { path: 'addAdmin', component: AddAdminComponent },
+      { path: 'generalLookups', component: GeneralLookupsComponent },
+      { path: 'SubscriptionPlan', component: SubscriptionPlanManagmentComponent },
     ],
   },
 ];

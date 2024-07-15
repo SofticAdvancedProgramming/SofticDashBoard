@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="mt-4">
+        <button type="button" class="btn custom-button btn-primary" data-bs-toggle="modal"
+            [attr.data-bs-target]="'#' + modalId" (click)="openAddModal()">
+            Add Item
+        </button>
+    </div>
+
+    <app-dynamic-modal [structure]="structure" [isEdit]="isEdit" [formData]="formData" [modalId]="modalId"
+        (submitForm)="handleFormSubmission($event)">
+    </app-dynamic-modal>
+
+    <app-modern-table [tableTitle]="'Skill Types'" [tableData]="skillsTypes" [columns]="columns" [modalId]="modalId"
+        searchPlaceholder="Search data..." (editItem)="openEditModal($event)"
+        (deleteItem)="deleteEntity('skillsType', $event.id, companyId)">
+    </app-modern-table>
+</div>

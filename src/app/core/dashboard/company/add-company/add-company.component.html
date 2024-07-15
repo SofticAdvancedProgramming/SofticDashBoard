@@ -19,22 +19,22 @@
       </div>
     </div>
 
-    <form>
+    <form (ngSubmit)="onSubmit()">
       <div class="row was-validated">
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyNameEn')}">
-            <label for="companyNameEn">Company Name (English)</label>
-            <input required type="text" id="companyNameEn" formControlName="companyNameEn" class="form-control" placeholder="Enter company name (English)">
-            <div *ngIf="isFieldInvalid('companyNameEn')" class="invalid-feedback">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('name')}">
+            <label for="name">Company Name (English)</label>
+            <input required type="text" id="name" formControlName="name" class="form-control" placeholder="Enter company name (English)">
+            <div *ngIf="isFieldInvalid('name')" class="invalid-feedback">
               Company Name (English) is required.
             </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyNameAr')}">
-            <label for="companyNameAr">Company Name (Arabic)</label>
-            <input required type="text" id="companyNameAr" formControlName="companyNameAr" class="form-control" placeholder="Enter company name (Arabic)">
-            <div *ngIf="isFieldInvalid('companyNameAr')" class="invalid-feedback">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('nameAr')}">
+            <label for="nameAr">Company Name (Arabic)</label>
+            <input required type="text" id="nameAr" formControlName="nameAr" class="form-control" placeholder="Enter company name (Arabic)">
+            <div *ngIf="isFieldInvalid('nameAr')" class="invalid-feedback">
               Company Name (Arabic) is required.
             </div>
           </div>
@@ -49,11 +49,11 @@
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyCode')}">
-            <label for="companyCode">Company Code</label>
-            <input required type="text" id="companyCode" formControlName="companyCode" class="form-control" placeholder="1212156646489">
-            <div *ngIf="isFieldInvalid('companyCode')" class="invalid-feedback">
-              Company Code is required.
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyExtention')}">
+            <label for="companyExtention">Company Extention</label>
+            <input required type="text" id="companyExtention" formControlName="companyExtention" class="form-control" placeholder="1212156646489">
+            <div *ngIf="isFieldInvalid('companyExtention')" class="invalid-feedback">
+              Company Extention is required.
             </div>
           </div>
         </div>
@@ -61,19 +61,19 @@
       <hr>
       <div class="row was-validated">
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('city')}">
-            <label for="city">City</label>
-            <input required type="text" id="city" formControlName="city" class="form-control" placeholder="City">
-            <div *ngIf="isFieldInvalid('city')" class="invalid-feedback">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('cityId')}">
+            <label for="cityId">City</label>
+            <input required type="text" id="cityId" formControlName="cityId" class="form-control" placeholder="City">
+            <div *ngIf="isFieldInvalid('cityId')" class="invalid-feedback">
               City is required.
             </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('country')}">
-            <label for="country">Country</label>
-            <input required type="text" id="country" formControlName="country" class="form-control" placeholder="Country">
-            <div *ngIf="isFieldInvalid('country')" class="invalid-feedback">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('countryId')}">
+            <label for="countryId">Country</label>
+            <input required type="text" id="countryId" formControlName="countryId" class="form-control" placeholder="Country">
+            <div *ngIf="isFieldInvalid('countryId')" class="invalid-feedback">
               Country is required.
             </div>
           </div>
@@ -97,10 +97,10 @@
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('mobile')}">
-            <label for="mobile">Mobile</label>
-            <input required type="text" id="mobile" formControlName="mobile" class="form-control" placeholder="Mobile">
-            <div *ngIf="isFieldInvalid('mobile')" class="invalid-feedback">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
+            <label for="phoneNumber">Mobile</label>
+            <input required type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" placeholder="Mobile">
+            <div *ngIf="isFieldInvalid('phoneNumber')" class="invalid-feedback">
               Mobile is required.
             </div>
           </div>
@@ -119,8 +119,8 @@
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">
-            <label for="website">Website</label>
-            <input type="text" id="website" formControlName="website" class="form-control" placeholder="Website">
+            <label for="webSite">Website</label>
+            <input type="text" id="webSite" formControlName="webSite" class="form-control" placeholder="Website">
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -137,28 +137,27 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">
-            <label for="instagram">Instagram</label>
-            <input type="text" id="instagram" formControlName="instagram" class="form-control" placeholder="Instagram">
+            <label for="instgram">Instagram</label>
+            <input type="text" id="instgram" formControlName="instgram" class="form-control" placeholder="Instagram">
           </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
+        <!-- <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">
             <label for="linkedin">LinkedIn</label>
             <input type="text" id="linkedin" formControlName="linkedin" class="form-control" placeholder="LinkedIn">
           </div>
-        </div>
+        </div> -->
       </div>
       <hr>
       <div class="row was-validated">
         <div class="col-lg-6 col-md-6 col-sm-12 w-100 mb-2">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyPlan')}">
-            <label for="companyPlan">Company Plan</label>
-            <select required id="companyPlan" formControlName="companyPlan" class="form-control">
-              <option value="1">Plan 1</option>
-              <option value="2">Plan 2</option>
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('subscriptionPlanId')}">
+            <label for="subscriptionPlanId">Subscription Plan</label>
+            <select required id="subscriptionPlanId" formControlName="subscriptionPlanId" class="form-control">
+              <option *ngFor="let plan of subscriptionPlans" [value]="plan.id">{{ plan.name }}</option>
             </select>
-            <div *ngIf="isFieldInvalid('companyPlan')" class="invalid-feedback">
-              Company Plan is required.
+            <div *ngIf="isFieldInvalid('subscriptionPlanId')" class="invalid-feedback">
+              Subscription Plan is required.
             </div>
           </div>
         </div>

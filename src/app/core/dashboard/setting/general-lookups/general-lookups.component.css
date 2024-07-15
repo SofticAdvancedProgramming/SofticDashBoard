@@ -1,0 +1,36 @@
+.card {
+    gap: 0;
+    border-radius: 30px;
+    border: 2px;
+    opacity: 0px;
+    padding: 1em;
+    border: 2px solid var(--Primary-1, #b97bfa);
+    width: 90%;
+    height: 100%;
+    margin-top: .9m;
+    justify-content: space-between
+}
+
+.header {
+    color: #b97bfa;
+    font-family: Almarai;
+    font-size: 22px;
+    font-weight: 700
+}
+
+.description {
+    font-family: Almarai;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 29.93px;
+    text-align: center;
+    color: #2b2C6CB2
+}
+
+.custom-btn {
+    border: 2px solid var(--Primary-1, #b97bfa);
+    color: var(--Primary-1, #b97bfa);
+    border-radius: 30px;
+    width: 15%;
+    padding: .6em
+}
