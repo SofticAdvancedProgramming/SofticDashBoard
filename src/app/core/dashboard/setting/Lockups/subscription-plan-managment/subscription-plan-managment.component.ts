@@ -1,30 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SubscriptionPlanService } from '../../../../../services/lockupsServices/SubscriptionPlanService/subscription-plan.service';
 import { DynamicModalComponent } from '../../../components/dynamic-modal/dynamic-modal.component';
 import { ModernTableComponent } from '../../../components/modern-table/modern-table.component';
+
 @Component({
   selector: 'app-subscription-plan-managment',
   standalone: true,
   imports: [DynamicModalComponent, ModernTableComponent],
   templateUrl: './subscription-plan-managment.component.html',
-  styleUrl: './subscription-plan-managment.component.css'
+  styleUrls: ['./subscription-plan-managment.component.css']
 })
-export class SubscriptionPlanManagmentComponent {
+export class SubscriptionPlanManagmentComponent implements OnInit {
   SubscriptionPlan: any[] = [];
   columns: string[] = ['id', 'name', 'nameAr', 'description', 'descriptionAr'];
-
-  // for popup
+  deleteId: string = 'deletePlan';
+  formData: any;
+  isEdit = false;
+  modalId = 'AddSubscriptionPlan';
+  companyId: number = 0;
   structure = [
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
     { name: 'description', label: 'Description', type: 'text', required: true },
     { name: 'descriptionAr', label: 'DescriptionAr', type: 'text', required: true },
   ];
-
-  formData: any;
-  isEdit = false;
-  modalId = 'AddSubscriptionPlan';
-  companyId: number = 0;
 
   entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: string } } = {
     SubscriptionPlan: {

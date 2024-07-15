@@ -54,6 +54,7 @@ export class AddCompanyComponent implements OnInit {
       phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.required],
+      companyField: ['', Validators.required],
       logo: [''],
       fileExtension: [''],
       primaryColor: [''],

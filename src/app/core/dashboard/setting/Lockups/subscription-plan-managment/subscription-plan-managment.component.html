@@ -12,6 +12,6 @@
 
     <app-modern-table [tableTitle]="'Subscription Plan'" [tableData]="SubscriptionPlan" [columns]="columns" [modalId]="modalId"
         searchPlaceholder="Search data..." (editItem)="openEditModal($event)"
-        (deleteItem)="deleteEntity('SubscriptionPlan', $event.id)">
+        (deleteItem)="deleteEntity('SubscriptionPlan', $event.id)" deleteId="{{deleteId}}">
     </app-modern-table>
 </div>

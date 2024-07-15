@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { ApiCall } from '../../apiCall/apicall.service';
 import { environment } from '../../../environment/environment';
 
@@ -24,6 +24,15 @@ export class SubscriptionPlanService {
   }
 
   deleteSubscriptionPlan(id: number): Observable<any> {
-    return this.apiCall.request<any>(`${this.SubscriptionPlanUrl}/Delete/${id}`, 'post', {});
+    console.log(`Deleting Subscription Plan with ID: ${id}`);
+    return this.apiCall.request<any>(`${this.SubscriptionPlanUrl}/Delete/${id}`, 'post', {})
+      .pipe(
+        tap(response => console.log('API Response:', response)),
+        catchError(error => {
+          console.error('Error occurred while deleting subscription plan:', error);
+          return throwError(error);
+        })
+      );
   }
+
 }
