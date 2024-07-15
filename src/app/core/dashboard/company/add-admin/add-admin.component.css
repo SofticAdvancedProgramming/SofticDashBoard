@@ -40,6 +40,7 @@
 .form-actions {
     display: flex;
     justify-content: space-between;
+    margin-top: 1.3em;
 }
 
 .btn {
@@ -70,4 +71,8 @@
 }
 .form-group{
     margin-top: 1.6em;
+}
+.upload-icon{
+    max-width: 340px;
+    max-height: 340px;
 }

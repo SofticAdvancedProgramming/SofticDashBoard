@@ -1,47 +1,64 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CompanyService } from '../../../../services/comapnyService/company.service';
+import { AdminService } from '../../../../services/adminService/admin.service';
 import { ImageUploadService } from '../../../../services/ImageUploadService/image-upload.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { PasswordValidator } from '../../../../../Modules/passwordValidator';
 
 @Component({
   selector: 'app-add-admin',
   standalone: true,
-  imports: [CommonModule , ReactiveFormsModule ],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './add-admin.component.html',
-  styleUrl: './add-admin.component.css'
+  styleUrls: ['./add-admin.component.css']
 })
-export class AddAdminComponent {
+export class AddAdminComponent implements OnInit {
+  passwordFieldType: string = 'password';
+  confirmPasswordFieldType: string = 'password';
   addCompanyForm: FormGroup;
   uploadedImageBase64: string | null = null;
   base64ImageForServer: string | null = null;
+
   constructor(
     private fb: FormBuilder,
-    private companyService: CompanyService,
+    private adminService: AdminService,
     private imageUploadService: ImageUploadService,
     private cdr: ChangeDetectorRef
   ) {
     this.addCompanyForm = this.fb.group({});
   }
+
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
   private initializeForm(): void {
     this.addCompanyForm = this.fb.group({
-      companyNameEn: ['', Validators.required],
-      companyNameAr: ['', Validators.required],
-      companyField: ['', Validators.required],
-      companyCode: ['', Validators.required],
-      city: ['', Validators.required],
-      country: ['', Validators.required],
-      address: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      mobile: ['', Validators.required],
-      phone: ['', Validators.required],
-      website: [''],
-      facebook: [''],
-      twitter: [''],
-      instagram: [''],
-      linkedin: [''],
-      companyPlan: ['', Validators.required]
+      phoneNumber: ['', Validators.required],
+      password: ['', [Validators.required, PasswordValidator.passwordComplexity()]],
+      confirmPassword: ['', Validators.required],
+      companyId: [0]
+    }, {
+      validators: PasswordValidator.passwordMatch('password', 'confirmPassword')
     });
+  }
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.imageUploadService.convertFileToBase64(file).then(base64 => {
+        this.uploadedImageBase64 = base64;
+        this.base64ImageForServer = base64.replace(/^data:image\/[a-z]+;base64,/, '');
+        this.cdr.detectChanges();
+      }).catch(error => {
+        console.error('Error converting file to base64', error);
+      });
+    }
   }
 
   onSubmit(): void {
@@ -52,18 +69,17 @@ export class AddAdminComponent {
     }
   }
 
-
   private executeAddFunction(): void {
-    const companyData = {
+    const adminData = {
       ...this.addCompanyForm.value,
       logo: this.base64ImageForServer
     };
-    this.companyService.AddCompany(companyData).subscribe(
+    this.adminService.AddAdmin(adminData).subscribe(
       response => {
-        console.log('Company added successfully', response);
+        console.log('Admin added successfully', response);
       },
       error => {
-        console.error('Error adding company', error);
+        console.error('Error adding admin', error);
       }
     );
   }
@@ -84,17 +100,11 @@ export class AddAdminComponent {
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
-  onFileChange(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.imageUploadService.convertFileToBase64(file).then(base64 => {
-        this.uploadedImageBase64 = base64; 
-        this.base64ImageForServer = base64.replace(/^data:image\/[a-z]+;base64,/, ''); 
-        this.cdr.detectChanges(); 
-      }).catch(error => {
-        console.error('Error converting file to base64', error);
-      });
-    }
+  togglePasswordVisibility(): void {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
+  toggleConfirmPasswordVisibility(): void {
+    this.confirmPasswordFieldType = this.confirmPasswordFieldType === 'password' ? 'text' : 'password';
+  }
 }

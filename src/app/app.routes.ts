@@ -13,6 +13,8 @@ import { AddAdminComponent } from './core/dashboard/company/add-admin/add-admin.
 import { GeneralLookupsComponent } from './core/dashboard/setting/general-lookups/general-lookups.component';
 import { SubscriptionPlanManagmentComponent } from './core/dashboard/setting/Lockups/subscription-plan-managment/subscription-plan-managment.component';
 import { LocationManagmentComponent } from './core/dashboard/setting/Lockups/location-managment/location-managment.component';
+import { ProfileComponent } from './core/dashboard/profile/index/profile.component';
+import { EditProfileComponent } from './core/dashboard/profile/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +38,8 @@ export const routes: Routes = [
       { path: 'generalLookups', component: GeneralLookupsComponent },
       { path: 'SubscriptionPlan', component: SubscriptionPlanManagmentComponent },
       { path: 'addressManagement', component: LocationManagmentComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'EditProfile', component: EditProfileComponent },
     ],
   },
 ];
