@@ -16,11 +16,12 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrls: ['./login.component.css'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, ToastModule , RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, ToastModule, RouterLink],
   providers: [
     JwtHelperService,
     MessageService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    AuthenticationService
   ],
 })
 export class LoginComponent implements OnInit, OnDestroy {
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   isSubmitting = false;
   passwordFieldType: string = 'password';
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -49,10 +51,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.showError('Invalid Form', 'Login failed, please try again');
       return;
     }
-
     const formValue = this.loginForm.value;
     this.isSubmitting = true;
-
     this.authService.login(formValue.email, formValue.password).pipe(
       takeUntil(this.destroy$)
     ).subscribe({
@@ -60,10 +60,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.isSubmitting = false;
         if (response && response.data.token) {
           if (isPlatformBrowser(this.platformId)) {
-            localStorage.setItem('token', response.data.token);
-            var decodedObject=this.authService.decodeToken(response.data.token);
-            console.log(decodedObject)
-            localStorage.setItem('companyId',decodedObject.CompanyId);
+            const decodedObject = this.authService.decodeToken(response.data.token);
+            console.log(decodedObject);
+            localStorage.setItem('companyId', decodedObject.CompanyId)
           }
           console.log('Token saved. Attempting to navigate to dashboard...');
           this.router.navigate(['/dashboard']).then(success => {
@@ -87,6 +86,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   togglePasswordVisibility(): void {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
