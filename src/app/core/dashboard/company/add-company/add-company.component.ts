@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyService } from '../../../../services/comapnyService/company.service';
 import { RouterLink } from '@angular/router';
 import { SubscriptionPlanService } from '../../../../services/lockupsServices/SubscriptionPlanService/subscription-plan.service';
+import { LocationService } from '../../../../services/lockupsServices/LocationService/location.service'; // Make sure to import LocationService
 
 @Component({
   selector: 'app-add-company',
@@ -23,12 +24,15 @@ export class AddCompanyComponent implements OnInit {
   uploadedImageBase64: string | null = null;
   base64ImageForServer: string | null = null;
   subscriptionPlans: any[] = [];
+  countries: any[] = [];
+  cities: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private companyService: CompanyService,
     private imageUploadService: ImageUploadService,
     private subscriptionPlanService: SubscriptionPlanService,
+    private locationService: LocationService, // Make sure to add LocationService to the constructor
     private cdr: ChangeDetectorRef
   ) {
     this.addCompanyForm = this.fb.group({});
@@ -37,6 +41,7 @@ export class AddCompanyComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.loadSubscriptionPlans();
+    this.loadCountries();
   }
 
   private initializeForm(): void {
@@ -77,6 +82,41 @@ export class AddCompanyComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error fetching subscription plans', error);
+      }
+    );
+  }
+
+  private loadCountries(): void {
+    this.locationService.getCountries().subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          this.countries = response.data.list;
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching countries', error);
+      }
+    );
+  }
+
+  onCountryChange(): void {
+    const countryId = this.addCompanyForm.get('countryId')?.value;
+    if (countryId) {
+      this.loadCities(countryId);
+    } else {
+      this.cities = [];
+    }
+  }
+
+  private loadCities(countryId: number): void {
+    this.locationService.getCities({ countryId }).subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          this.cities = response.data.list;
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching cities', error);
       }
     );
   }

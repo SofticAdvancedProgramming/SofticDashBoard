@@ -61,23 +61,30 @@
       <hr>
       <div class="row was-validated">
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('cityId')}">
-            <label for="cityId">City</label>
-            <input required type="text" id="cityId" formControlName="cityId" class="form-control" placeholder="City">
-            <div *ngIf="isFieldInvalid('cityId')" class="invalid-feedback">
-              City is required.
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('countryId')}">
             <label for="countryId">Country</label>
-            <input required type="text" id="countryId" formControlName="countryId" class="form-control" placeholder="Country">
+            <select id="countryId" formControlName="countryId" class="form-control" (change)="onCountryChange()">
+              <option value="" *ngIf="countries" disabled>Select Country</option>
+              <option *ngFor="let country of countries" [value]="country.id">{{ country.nameEn }} - {{ country.nameAr }}</option>
+            </select>
             <div *ngIf="isFieldInvalid('countryId')" class="invalid-feedback">
               Country is required.
             </div>
           </div>
         </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('cityId')}">
+            <label for="cityId">City</label>
+            <select id="cityId" formControlName="cityId" class="form-control">
+              <option value=""  disabled>Select City</option>
+              <option *ngFor="let city of cities" [value]="city.id">{{ city.nameEn }} - {{ city.nameAr }}</option>
+            </select>
+            <div *ngIf="isFieldInvalid('cityId')" class="invalid-feedback">
+              City is required.
+            </div>
+          </div>
+        </div>
+
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('address')}">
             <label for="address">Address</label>
@@ -171,5 +178,5 @@
         </div>
       </div>
     </form>
-  </div>      
+  </div>
 </div>
