@@ -1,1 +1,55 @@
-<p>location-managment works!</p>
+<div class="container">
+<!-- country-->
+  <div class="mt-4">
+      <button type="button" class="btn custom-button btn-primary" data-bs-toggle="modal"
+          [attr.data-bs-target]="'#' + modalId" (click)="openCountryAddModal()">
+          Add Country
+      </button>
+  </div>
+
+  <app-dynamic-modal [structure]="countryStructure" [isEdit]="isEdit" [formData]="formData" [modalId]="modalId"
+      (submitForm)="handleCountrySubmission($event)">
+  </app-dynamic-modal>
+
+  <app-modern-table [tableTitle]="'Subscription Plan'" [tableData]="countries" [columns]="columns" [modalId]="modalId"
+      searchPlaceholder="Search data..." (editItem)="openCountryEditModal($event)"
+      (deleteItem)="deleteEntity('SubscriptionPlan', $event.id)">
+  </app-modern-table>
+  <!-- end country  -->
+  <hr>
+<!-- city-->
+ @if(countries.length>0){
+
+  @if(selectedCountryId>0){
+    <div class="mt-4">
+      <button type="button" class="btn custom-button btn-primary" data-bs-toggle="modal"
+          [attr.data-bs-target]="'#' + modalId" (click)="openCityAddModal()">
+          Add City
+      </button>
+    </div>
+  }
+
+  <select [(ngModel)]="selectedCountryId"(change)="onCountryChange()">
+    @for (item of countries; track item.name) {
+      <option value="{{item.id}}">
+        {{ item.nameEn }} - {{ item.nameAr }}
+      </option>
+      } @empty {
+      <option>There are no items.</option>
+      }
+  </select>
+
+<app-dynamic-modal [structure]="countryStructure" [isEdit]="isEditCity" [formData]="CityformData" [modalId]="modalId"
+    (submitForm)="handleCitySubmission($event)">
+</app-dynamic-modal>
+
+<app-modern-table [tableTitle]="'Subscription Plan'" [tableData]="cities" [columns]="columns" [modalId]="modalId"
+    searchPlaceholder="Search data..." (editItem)="openCityEditModal($event)"
+    (deleteItem)="deleteEntity('SubscriptionPlan', $event.id)">
+</app-modern-table>
+<hr>
+ }
+
+  <!-- end city  -->
+
+</div>

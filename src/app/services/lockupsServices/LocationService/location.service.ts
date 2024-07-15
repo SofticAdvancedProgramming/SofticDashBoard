@@ -26,7 +26,7 @@ export class LocationService {
     return this.apiCall.request<any>(`${this.countryUrl}/Add`, 'post', country, headers);
   }
 
-  EditCountry(id: number, country: any): Observable<any> {
+  editCountry(country: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.apiCall.request<any>(`${this.countryUrl}/Edit`, 'post', country, headers);
   }
@@ -39,6 +39,7 @@ export class LocationService {
   // City methods
   getCities(request: any = {}): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    debugger
     return this.apiCall.request<any>(`${this.cityUrl}/Get`, 'post', request, headers);
   }
 

@@ -12,6 +12,7 @@ import { AddCompanyComponent } from './core/dashboard/company/add-company/add-co
 import { AddAdminComponent } from './core/dashboard/company/add-admin/add-admin.component';
 import { GeneralLookupsComponent } from './core/dashboard/setting/general-lookups/general-lookups.component';
 import { SubscriptionPlanManagmentComponent } from './core/dashboard/setting/Lockups/subscription-plan-managment/subscription-plan-managment.component';
+import { LocationManagmentComponent } from './core/dashboard/setting/Lockups/location-managment/location-managment.component';
 
 export const routes: Routes = [
   {
@@ -34,6 +35,7 @@ export const routes: Routes = [
       { path: 'addAdmin', component: AddAdminComponent },
       { path: 'generalLookups', component: GeneralLookupsComponent },
       { path: 'SubscriptionPlan', component: SubscriptionPlanManagmentComponent },
+      { path: 'addressManagement', component: LocationManagmentComponent },
     ],
   },
 ];

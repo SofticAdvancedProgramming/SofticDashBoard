@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { LocationService } from '../../../../../services/lockupsServices/LocationService/location.service';
+import { DynamicModalComponent } from '../../../components/dynamic-modal/dynamic-modal.component';
+import { ModernTableComponent } from '../../../components/modern-table/modern-table.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-location-managment',
   standalone: true,
-  imports: [],
+  imports: [DynamicModalComponent, ModernTableComponent,FormsModule],
   templateUrl: './location-managment.component.html',
   styleUrl: './location-managment.component.css'
 })
@@ -13,7 +16,14 @@ export class LocationManagmentComponent {
   countries: any[] = [];
   cities: any[] = [];
   zones: any[] = [];
-
+  formData: any;
+  CityformData: any;
+  isEdit = false;
+  isEditCity = false;
+  modalId = 'AddCountry';
+  companyId: number = 0;
+  selectedCountryId: number = 0;
+  columns: string[] = ['id', 'name', 'nameAr'];
   entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: string } } = {
     country: {
       load: 'getCountries',
@@ -37,21 +47,28 @@ export class LocationManagmentComponent {
       data: 'zones'
     }
   };
-
-  constructor(private locationService: LocationService) {}
+  countryStructure = [
+    { name: 'name', label: 'Name', type: 'text', required: true },
+    { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
+  ];
+  constructor(private locationService: LocationService) {
+    this.companyId = Number(localStorage.getItem('companyId')) || 0;
+  }
 
   ngOnInit(): void {
     this.loadEntities('country');
     this.loadEntities('city');
-    this.loadEntities('zone');
   }
-
-  loadEntities(entity: string): void {
+  onCountryChange() {
+  this.loadEntities('city',this.selectedCountryId);
+  }
+  loadEntities(entity: string,objectId?:number): void {
     const methodName = this.entityTypes[entity].load as keyof LocationService;
-    (this.locationService[methodName] as Function)().subscribe(
+    (this.locationService[methodName] as Function)({countryId:objectId}).subscribe(
       (response: any) => {
         if (response.status === 200) {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
+          console.log(response.data.list)
         }
       },
       (error: any) => {
@@ -114,4 +131,56 @@ export class LocationManagmentComponent {
       );
     }
   }
+  //county
+  openCountryAddModal(): void {
+    this.isEdit = false;
+    this.formData = {};
+  }
+
+  openCountryEditModal(item: any): void {
+    this.isEdit = true;
+    this.formData = { ...item, companyId: this.companyId };
+  }
+  handleCountrySubmission(data: any): void {
+    if (this.isEdit) {
+      data.companyId = this.companyId;
+      data.id = this.formData.id;
+      data.flags ="https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AFlag_of_Egypt.svg&psig=AOvVaw0joFpsHQovoiDw5Bxk54ZY&ust=1721152931043000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLCH8LrQqYcDFQAAAAAdAAAAABAE" // for test //todo
+      console.log(data)
+      this.editEntity('country', data);
+    } else {
+      data.id = 0;
+      data.companyId = this.companyId;
+      data.flags ="https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AFlag_of_Egypt.svg&psig=AOvVaw0joFpsHQovoiDw5Bxk54ZY&ust=1721152931043000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLCH8LrQqYcDFQAAAAAdAAAAABAE" // for test //todo
+      console.log(data);
+      this.addEntity('country', data);
+    }
+  }
+  //end country
+  //city
+  openCityAddModal(): void {
+    this.isEdit = false;
+    this.CityformData = {};
+  }
+
+  openCityEditModal(item: any): void {
+    this.isEditCity = true;
+    this.CityformData = { ...item, companyId: this.companyId };
+  }
+  handleCitySubmission(data: any): void {
+    if (this.isEditCity) {
+      data.companyId = this.companyId;
+      data.id = this.CityformData.id;
+      data.countryId = this.selectedCountryId;
+      console.log(data)
+      this.editEntity('city', data);
+    } else {
+      data.id = 0;
+      data.companyId = this.companyId;
+      data.countryId = this.selectedCountryId;
+      console.log(data);
+      this.addEntity('city', data);
+    }
+  }
+  //end city
 }
