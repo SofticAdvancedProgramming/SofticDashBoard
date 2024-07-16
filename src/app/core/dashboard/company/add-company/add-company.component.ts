@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyService } from '../../../../services/comapnyService/company.service';
 import { RouterLink } from '@angular/router';
 import { SubscriptionPlanService } from '../../../../services/lockupsServices/SubscriptionPlanService/subscription-plan.service';
-import { LocationService } from '../../../../services/lockupsServices/LocationService/location.service'; // Make sure to import LocationService
+import { LocationService } from '../../../../services/lockupsServices/LocationService/location.service';
 
 @Component({
   selector: 'app-add-company',
@@ -32,19 +32,21 @@ export class AddCompanyComponent implements OnInit {
     private companyService: CompanyService,
     private imageUploadService: ImageUploadService,
     private subscriptionPlanService: SubscriptionPlanService,
-    private locationService: LocationService, // Make sure to add LocationService to the constructor
+    private locationService: LocationService,
     private cdr: ChangeDetectorRef
   ) {
     this.addCompanyForm = this.fb.group({});
   }
 
   ngOnInit(): void {
+    console.log('ngOnInit called');
     this.initializeForm();
     this.loadSubscriptionPlans();
     this.loadCountries();
   }
 
   private initializeForm(): void {
+    console.log('initializeForm called');
     this.addCompanyForm = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
@@ -57,9 +59,9 @@ export class AddCompanyComponent implements OnInit {
       companyField: ['', Validators.required],
       logo: [''],
       fileExtension: [''],
-      primaryColor: [''],
-      secondaryColor: [''],
-      fontName: [''],
+      primaryColor: ['', Validators.required],
+      secondaryColor: ['', Validators.required],
+      fontName: ['', Validators.required],
       webSite: [''],
       facebook: [''],
       twitter: [''],
@@ -75,6 +77,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   private loadSubscriptionPlans(): void {
+    console.log('loadSubscriptionPlans called');
     this.subscriptionPlanService.getSubscriptionPlan().subscribe(
       (response: any) => {
         if (response.status === 200) {
@@ -88,6 +91,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   private loadCountries(): void {
+    console.log('loadCountries called');
     this.locationService.getCountries().subscribe(
       (response: any) => {
         if (response.status === 200) {
@@ -101,6 +105,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onCountryChange(): void {
+    console.log('onCountryChange called');
     const countryId = this.addCompanyForm.get('countryId')?.value;
     if (countryId) {
       this.loadCities(countryId);
@@ -110,6 +115,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   private loadCities(countryId: number): void {
+    console.log('loadCities called');
     this.locationService.getCities({ countryId }).subscribe(
       (response: any) => {
         if (response.status === 200) {
@@ -123,8 +129,12 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onFileChange(event: any): void {
+    console.log('onFileChange called');
     const file = event.target.files[0];
     if (file) {
+      const fileExtension = file.name.split('.').pop();
+      this.addCompanyForm.patchValue({ fileExtension });
+
       this.imageUploadService.convertFileToBase64(file).then(base64 => {
         this.uploadedImageBase64 = base64;
         this.base64ImageForServer = base64.replace(/^data:image\/[a-z]+;base64,/, '');
@@ -137,15 +147,20 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('Submit button clicked');
     if (this.addCompanyForm.valid) {
+      console.log('Form is valid');
       this.executeAddFunction();
     } else {
+      console.log('Form is invalid');
       this.validateAllFormFields(this.addCompanyForm);
+      this.logInvalidControls();
     }
   }
 
   private executeAddFunction(): void {
     const companyData = this.addCompanyForm.value;
+    console.log('Submitting company data:', companyData);
     this.companyService.AddCompany(companyData).subscribe(
       response => {
         console.log('Company added successfully', response);
@@ -165,6 +180,18 @@ export class AddCompanyComponent implements OnInit {
         control?.markAsTouched({ onlySelf: true });
       }
     });
+  }
+
+  private logInvalidControls(): void {
+    const invalidControls = [];
+    const controls = this.addCompanyForm.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        invalidControls.push(name);
+        console.log(`${name} is invalid:`, controls[name].errors);
+      }
+    }
+    console.log('Invalid controls:', invalidControls);
   }
 
   isFieldInvalid(field: string): boolean {

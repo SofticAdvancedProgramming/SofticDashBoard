@@ -1,5 +1,5 @@
 <div class="row py-3 my-3">
-  <div class="form-container" [formGroup]="addCompanyForm">
+  <div class="form-container">
     <div class="upload-section">
       <div class="row">
         <div class="col-lg-6 justify-content-center d-flex col-md-12 col-sm-12">
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <form (ngSubmit)="onSubmit()">
+    <form [formGroup]="addCompanyForm" (ngSubmit)="onSubmit()">
       <div class="row was-validated">
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('name')}">
@@ -50,10 +50,40 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyExtention')}">
-            <label for="companyExtention">Company Extention</label>
+            <label for="companyExtention">Company Extension</label>
             <input required type="text" id="companyExtention" formControlName="companyExtention" class="form-control" placeholder="1212156646489">
             <div *ngIf="isFieldInvalid('companyExtention')" class="invalid-feedback">
-              Company Extention is required.
+              Company Extension is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row was-validated">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('primaryColor')}">
+            <label for="primaryColor">Primary Color</label>
+            <input required type="text" id="primaryColor" formControlName="primaryColor" class="form-control" placeholder="Enter company primary color">
+            <div *ngIf="isFieldInvalid('primaryColor')" class="invalid-feedback">
+              Primary color is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('secondaryColor')}">
+            <label for="secondaryColor">Secondary Color</label>
+            <input required type="text" id="secondaryColor" formControlName="secondaryColor" class="form-control" placeholder="Enter company secondary color">
+            <div *ngIf="isFieldInvalid('secondaryColor')" class="invalid-feedback">
+              Secondary color is required.
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('fontName')}">
+            <label for="fontName">Font Name</label>
+            <input required type="text" id="fontName" formControlName="fontName" class="form-control" placeholder="Font Name">
+            <div *ngIf="isFieldInvalid('fontName')" class="invalid-feedback">
+              Font Name is required.
             </div>
           </div>
         </div>
@@ -64,7 +94,7 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('countryId')}">
             <label for="countryId">Country</label>
             <select id="countryId" formControlName="countryId" class="form-control" (change)="onCountryChange()">
-              <option value="" *ngIf="countries" disabled>Select Country</option>
+              <option value="" disabled>Select Country</option>
               <option *ngFor="let country of countries" [value]="country.id">{{ country.nameEn }} - {{ country.nameAr }}</option>
             </select>
             <div *ngIf="isFieldInvalid('countryId')" class="invalid-feedback">
@@ -76,7 +106,7 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('cityId')}">
             <label for="cityId">City</label>
             <select id="cityId" formControlName="cityId" class="form-control">
-              <option value=""  disabled>Select City</option>
+              <option value="" disabled>Select City</option>
               <option *ngFor="let city of cities" [value]="city.id">{{ city.nameEn }} - {{ city.nameAr }}</option>
             </select>
             <div *ngIf="isFieldInvalid('cityId')" class="invalid-feedback">
@@ -84,7 +114,6 @@
             </div>
           </div>
         </div>
-
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('address')}">
             <label for="address">Address</label>
@@ -105,10 +134,10 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
-            <label for="phoneNumber">Mobile</label>
+            <label for="phoneNumber">Mobile Number</label>
             <input required type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" placeholder="Mobile">
             <div *ngIf="isFieldInvalid('phoneNumber')" class="invalid-feedback">
-              Mobile is required.
+              Mobile number is required.
             </div>
           </div>
         </div>
@@ -148,14 +177,41 @@
             <input type="text" id="instgram" formControlName="instgram" class="form-control" placeholder="Instagram">
           </div>
         </div>
-        <!-- <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">
-            <label for="linkedin">LinkedIn</label>
-            <input type="text" id="linkedin" formControlName="linkedin" class="form-control" placeholder="LinkedIn">
+            <label for="tiktok">Tiktok</label>
+            <input type="text" id="tiktok" formControlName="tiktok" class="form-control" placeholder="Tiktok">
           </div>
-        </div> -->
+        </div>
       </div>
       <hr>
+
+
+
+
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="description">description</label>
+            <textarea type="text" id="description" formControlName="description" class="form-control" placeholder="description"></textarea>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label for="descriptionAr">descriptionAr</label>
+            <textarea type="text" id="descriptionAr" formControlName="descriptionAr" class="form-control" placeholder="descriptionAr"></textarea>
+          </div>
+        </div>
+      </div>
+      <hr>
+
+
+
+
+
+
+
+
       <div class="row was-validated">
         <div class="col-lg-6 col-md-6 col-sm-12 w-100 mb-2">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('subscriptionPlanId')}">
@@ -174,7 +230,7 @@
           <button type="button" routerLink="../addAdmin" class="btn btn-cancel">Cancel</button>
         </div>
         <div class="col-lg-6">
-          <button type="button" class="btn btn-next" (click)="onSubmit()">Next</button>
+          <button type="submit" class="btn btn-next">Next</button>
         </div>
       </div>
     </form>
