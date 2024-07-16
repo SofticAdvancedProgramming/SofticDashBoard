@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AdminService } from '../../../../services/adminService/admin.service';
 import { ImageUploadService } from '../../../../services/ImageUploadService/image-upload.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PasswordValidator } from '../../../../../Modules/passwordValidator';
 
 @Component({
@@ -19,18 +19,25 @@ export class AddAdminComponent implements OnInit {
   addCompanyForm: FormGroup;
   uploadedImageBase64: string | null = null;
   base64ImageForServer: string | null = null;
-
+  companyId:number=0
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
     private imageUploadService: ImageUploadService,
+    private router:Router,
+    private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
+
   ) {
     this.addCompanyForm = this.fb.group({});
   }
 
   ngOnInit(): void {
     this.initializeForm();
+    this.route.queryParams.subscribe(params => {
+      this.companyId = params['companyId'];
+      console.log('Company ID:', this.companyId);
+    });
   }
 
   private initializeForm(): void {
@@ -74,6 +81,7 @@ export class AddAdminComponent implements OnInit {
       ...this.addCompanyForm.value,
       logo: this.base64ImageForServer
     };
+    adminData.companyId=this.companyId
     this.adminService.AddAdmin(adminData).subscribe(
       response => {
         console.log('Admin added successfully', response);

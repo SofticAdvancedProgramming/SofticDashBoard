@@ -34,7 +34,7 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'indexCompany', component: IndexComponent },
       { path: 'addCompany', component: AddCompanyComponent },
-      { path: 'addAdmin', component: AddAdminComponent },
+      { path: 'AddAdmin', component: AddAdminComponent },
       { path: 'generalLookups', component: GeneralLookupsComponent },
       { path: 'SubscriptionPlan', component: SubscriptionPlanManagmentComponent },
       { path: 'addressManagement', component: LocationManagmentComponent },

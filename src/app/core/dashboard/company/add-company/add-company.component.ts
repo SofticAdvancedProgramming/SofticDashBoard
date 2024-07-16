@@ -4,7 +4,7 @@ import { ImageUploadService } from '../../../../services/ImageUploadService/imag
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyService } from '../../../../services/comapnyService/company.service';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SubscriptionPlanService } from '../../../../services/lockupsServices/SubscriptionPlanService/subscription-plan.service';
 import { LocationService } from '../../../../services/lockupsServices/LocationService/location.service';
 
@@ -33,6 +33,8 @@ export class AddCompanyComponent implements OnInit {
     private imageUploadService: ImageUploadService,
     private subscriptionPlanService: SubscriptionPlanService,
     private locationService: LocationService,
+    private router:Router,
+    private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {
     this.addCompanyForm = this.fb.group({});
@@ -62,12 +64,12 @@ export class AddCompanyComponent implements OnInit {
       primaryColor: ['', Validators.required],
       secondaryColor: ['', Validators.required],
       fontName: ['', Validators.required],
-      webSite: [''],
-      facebook: [''],
-      twitter: [''],
-      instgram: [''],
-      x: [''],
-      tiktok: [''],
+      webSite: [null],
+      facebook: [null],
+      twitter: [null],
+      instgram: [null],
+      x: [null],
+      tiktok: [null],
       cityId: ['', Validators.required],
       countryId: ['', Validators.required],
       address: ['', Validators.required],
@@ -164,6 +166,7 @@ export class AddCompanyComponent implements OnInit {
     this.companyService.AddCompany(companyData).subscribe(
       response => {
         console.log('Company added successfully', response);
+        this.router.navigate(['../AddAdmin'], { relativeTo: this.route, queryParams: { companyId: response.data.id } });
       },
       error => {
         console.error('Error adding company', error);
