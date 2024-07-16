@@ -1,28 +1,6 @@
 <div class="row py-3 my-3">
     <div class="row py-3 my-3">
         <div class="form-container" [formGroup]="addCompanyForm">
-            <div class="upload-section">
-                <div class="row">
-                    <div class="col-lg-6 justify-content-center d-flex col-md-12 col-sm-12">
-                        <label for="fileInput">
-                            <img [src]="uploadedImageBase64 || '../../../../../assets/images/softic/default.png'"
-                                alt="Upload Icon" class="upload-icon" style="cursor: pointer;">
-                        </label>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div>
-                            <p class="upload-text">Upload company logo</p>
-                            <p class="upload-instructions">
-                                GPAG/PNG/PDF files should be uploaded. The file must be high in resolution and original
-                                in design.
-                            </p>
-                            <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*"
-                                style="display: none;">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <form>
                 <div class="row was-validated">
                     <div class="col-lg-6 col-md-6 col-sm-12">
@@ -36,6 +14,16 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
+                      <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('lastName')}">
+                          <label for="lastName">Last Name</label>
+                          <input required type="text" id="lastName" formControlName="lastName" class="form-control"
+                              placeholder="Enter last name">
+                          <div *ngIf="isFieldInvalid('lastName')" class="invalid-feedback">
+                              Last Name is required.
+                          </div>
+                      </div>
+                  </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('fullName')}">
                             <label for="fullName">Full Name</label>
                             <input required type="text" id="fullName" formControlName="fullName" class="form-control"
@@ -45,16 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('lastName')}">
-                            <label for="lastName">Last Name</label>
-                            <input required type="text" id="lastName" formControlName="lastName" class="form-control"
-                                placeholder="Enter last name">
-                            <div *ngIf="isFieldInvalid('lastName')" class="invalid-feedback">
-                                Last Name is required.
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
                             <label for="phoneNumber">Mobile Number</label>

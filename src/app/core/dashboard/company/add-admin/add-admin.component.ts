@@ -55,18 +55,6 @@ export class AddAdminComponent implements OnInit {
     });
   }
 
-  onFileChange(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.imageUploadService.convertFileToBase64(file).then(base64 => {
-        this.uploadedImageBase64 = base64;
-        this.base64ImageForServer = base64.replace(/^data:image\/[a-z]+;base64,/, '');
-        this.cdr.detectChanges();
-      }).catch(error => {
-        console.error('Error converting file to base64', error);
-      });
-    }
-  }
 
   onSubmit(): void {
     if (this.addCompanyForm.valid) {
@@ -81,17 +69,19 @@ export class AddAdminComponent implements OnInit {
       ...this.addCompanyForm.value,
       logo: this.base64ImageForServer
     };
-    adminData.companyId=this.companyId
+    adminData.companyId = this.companyId;
     this.adminService.AddAdmin(adminData).subscribe(
       response => {
         console.log('Admin added successfully', response);
+        this.addCompanyForm.reset({
+          companyId: this.companyId
+        });
       },
       error => {
         console.error('Error adding admin', error);
       }
     );
   }
-
   private validateAllFormFields(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
