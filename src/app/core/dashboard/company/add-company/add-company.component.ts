@@ -33,7 +33,7 @@ export class AddCompanyComponent implements OnInit {
     private imageUploadService: ImageUploadService,
     private subscriptionPlanService: SubscriptionPlanService,
     private locationService: LocationService,
-    private router:Router,
+    private router: Router,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {
@@ -41,45 +41,40 @@ export class AddCompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('ngOnInit called');
     this.initializeForm();
     this.loadSubscriptionPlans();
     this.loadCountries();
   }
 
   private initializeForm(): void {
-    console.log('initializeForm called');
     this.addCompanyForm = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
       companyExtention: ['', Validators.required],
       description: ['', Validators.required],
       descriptionAr: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       companyField: ['', Validators.required],
       logo: [''],
       fileExtension: [''],
       primaryColor: ['', Validators.required],
       secondaryColor: ['', Validators.required],
       fontName: ['', Validators.required],
-      webSite: [null],
-      facebook: [null],
-      twitter: [null],
-      instgram: [null],
-      x: [null],
-      tiktok: [null],
+      webSite: [''],
+      facebook: [''],
+      twitter: [''],
+      instgram: [''],
+      tiktok: [''],
       cityId: ['', Validators.required],
       countryId: ['', Validators.required],
       address: ['', Validators.required],
-      fax: [''],
       subscriptionPlanId: ['', Validators.required]
     });
   }
 
   private loadSubscriptionPlans(): void {
-    console.log('loadSubscriptionPlans called');
     this.subscriptionPlanService.getSubscriptionPlan().subscribe(
       (response: any) => {
         if (response.status === 200) {
@@ -93,7 +88,6 @@ export class AddCompanyComponent implements OnInit {
   }
 
   private loadCountries(): void {
-    console.log('loadCountries called');
     this.locationService.getCountries().subscribe(
       (response: any) => {
         if (response.status === 200) {
@@ -107,7 +101,6 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onCountryChange(): void {
-    console.log('onCountryChange called');
     const countryId = this.addCompanyForm.get('countryId')?.value;
     if (countryId) {
       this.loadCities(countryId);
@@ -117,7 +110,6 @@ export class AddCompanyComponent implements OnInit {
   }
 
   private loadCities(countryId: number): void {
-    console.log('loadCities called');
     this.locationService.getCities({ countryId }).subscribe(
       (response: any) => {
         if (response.status === 200) {
@@ -131,7 +123,6 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onFileChange(event: any): void {
-    console.log('onFileChange called');
     const file = event.target.files[0];
     if (file) {
       const fileExtension = file.name.split('.').pop();
@@ -149,12 +140,9 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Submit button clicked');
     if (this.addCompanyForm.valid) {
-      console.log('Form is valid');
       this.executeAddFunction();
     } else {
-      console.log('Form is invalid');
       this.validateAllFormFields(this.addCompanyForm);
       this.logInvalidControls();
     }
@@ -162,10 +150,8 @@ export class AddCompanyComponent implements OnInit {
 
   private executeAddFunction(): void {
     const companyData = this.addCompanyForm.value;
-    console.log('Submitting company data:', companyData);
     this.companyService.AddCompany(companyData).subscribe(
       response => {
-        console.log('Company added successfully', response);
         this.router.navigate(['../AddAdmin'], { relativeTo: this.route, queryParams: { companyId: response.data.id } });
       },
       error => {

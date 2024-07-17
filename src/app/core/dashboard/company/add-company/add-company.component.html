@@ -20,7 +20,7 @@
     </div>
 
     <form [formGroup]="addCompanyForm" (ngSubmit)="onSubmit()">
-      <div class="row was-validated">
+      <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('name')}">
             <label for="name">Company Name (English)</label>
@@ -59,7 +59,7 @@
         </div>
       </div>
       <hr>
-      <div class="row was-validated">
+      <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('primaryColor')}">
             <label for="primaryColor">Primary Color</label>
@@ -89,7 +89,7 @@
         </div>
       </div>
       <hr>
-      <div class="row was-validated">
+      <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('countryId')}">
             <label for="countryId">Country</label>
@@ -185,10 +185,6 @@
         </div>
       </div>
       <hr>
-
-
-
-
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">
@@ -204,15 +200,7 @@
         </div>
       </div>
       <hr>
-
-
-
-
-
-
-
-
-      <div class="row was-validated">
+      <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 w-100 mb-2">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('subscriptionPlanId')}">
             <label for="subscriptionPlanId">Subscription Plan</label>
