@@ -1,40 +1,45 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AdminService } from '../../../../services/adminService/admin.service';
-import { ImageUploadService } from '../../../../services/ImageUploadService/image-upload.service';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { AdminService } from '../../../../services/adminService/admin.service';
 import { PasswordValidator } from '../../../../../Modules/passwordValidator';
 
 @Component({
   selector: 'app-add-admin',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './add-admin.component.html',
-  styleUrls: ['./add-admin.component.css']
+  styleUrls: ['./add-admin.component.css'],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, ReactiveFormsModule, ToastModule, RouterLink],
+  providers: [MessageService, AdminService],
 })
-export class AddAdminComponent implements OnInit {
+export class AddAdminComponent implements OnInit, OnDestroy {
+  addCompanyForm: FormGroup;
+  private destroy$ = new Subject<void>();
+  isSubmitting = false;
   passwordFieldType: string = 'password';
   confirmPasswordFieldType: string = 'password';
-  addCompanyForm: FormGroup;
-  uploadedImageBase64: string | null = null;
-  base64ImageForServer: string | null = null;
-  companyId:number=0
+  companyId: number = 0;
+
   constructor(
     private fb: FormBuilder,
-    private adminService: AdminService,
-    private imageUploadService: ImageUploadService,
-    private router:Router,
+    private router: Router,
     private route: ActivatedRoute,
+    private messageService: MessageService,
+    private adminService: AdminService,
     private cdr: ChangeDetectorRef
-
   ) {
     this.addCompanyForm = this.fb.group({});
   }
 
   ngOnInit(): void {
     this.initializeForm();
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params: any) => {
       this.companyId = params['companyId'];
       console.log('Company ID:', this.companyId);
     });
@@ -55,33 +60,66 @@ export class AddAdminComponent implements OnInit {
     });
   }
 
-
   onSubmit(): void {
-    if (this.addCompanyForm.valid) {
-      this.executeAddFunction();
-    } else {
+    if (this.addCompanyForm.invalid) {
+      this.showError('Invalid Form', 'Please fill in all required fields');
       this.validateAllFormFields(this.addCompanyForm);
+      return;
     }
-  }
 
-  private executeAddFunction(): void {
-    const adminData = {
-      ...this.addCompanyForm.value,
-      logo: this.base64ImageForServer
-    };
-    adminData.companyId = this.companyId;
-    this.adminService.AddAdmin(adminData).subscribe(
-      response => {
-        console.log('Admin added successfully', response);
-        this.addCompanyForm.reset({
-          companyId: this.companyId
+    const formValue = this.addCompanyForm.value;
+    this.isSubmitting = true;
+    this.adminService.AddAdmin(formValue).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: (response: any) => {
+        this.isSubmitting = false;
+        this.showSuccess('Admin Added', 'Admin has been added successfully');
+        this.router.navigate(['/admin-list']).then(success => {
+          if (success) {
+            console.log('Navigation to admin list successful');
+          } else {
+            console.error('Navigation to admin list failed');
+          }
+        }).catch(error => {
+          console.error('Navigation error:', error);
         });
       },
-      error => {
-        console.error('Error adding admin', error);
+      error: (err: any) => {
+        console.error('Adding admin failed:', err);
+        this.isSubmitting = false;
+        this.addCompanyForm.reset();
+        this.showError('Adding Failed', 'Admin could not be added, please try again');
       }
-    );
+    });
   }
+
+  togglePasswordVisibility(): void {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.confirmPasswordFieldType = this.confirmPasswordFieldType === 'password' ? 'text' : 'password';
+  }
+
+  private showError(message: string, details: string): void {
+    this.messageService.add({
+      severity: 'error',
+      summary: message,
+      detail: details,
+    });
+    this.cdr.markForCheck();
+  }
+
+  private showSuccess(message: string, details: string): void {
+    this.messageService.add({
+      severity: 'success',
+      summary: message,
+      detail: details,
+    });
+    this.cdr.markForCheck();
+  }
+
   private validateAllFormFields(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
@@ -98,11 +136,8 @@ export class AddAdminComponent implements OnInit {
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
-  togglePasswordVisibility(): void {
-    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
-  }
-
-  toggleConfirmPasswordVisibility(): void {
-    this.confirmPasswordFieldType = this.confirmPasswordFieldType === 'password' ? 'text' : 'password';
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

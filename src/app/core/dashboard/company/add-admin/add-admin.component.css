@@ -76,3 +76,20 @@
     max-width: 340px;
     max-height: 340px;
 }
+.has-error input {
+    border-color: #dc3545;
+  }
+  
+  .invalid-feedback {
+    display: block;
+    color: #dc3545;
+  }
+  
+  .authIcon {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
