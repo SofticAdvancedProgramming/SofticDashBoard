@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ImageUploadService } from '../../../../services/ImageUploadService/image-upload.service';
 import { CommonModule } from '@angular/common';
@@ -7,17 +7,22 @@ import { CompanyService } from '../../../../services/comapnyService/company.serv
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SubscriptionPlanService } from '../../../../services/lockupsServices/SubscriptionPlanService/subscription-plan.service';
 import { LocationService } from '../../../../services/lockupsServices/LocationService/location.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-add-company',
   templateUrl: './add-company.component.html',
   styleUrls: ['./add-company.component.css'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink
-  ]
+    RouterLink,
+    ToastModule
+  ],
+  providers: [MessageService]
 })
 export class AddCompanyComponent implements OnInit {
   addCompanyForm: FormGroup;
@@ -35,7 +40,8 @@ export class AddCompanyComponent implements OnInit {
     private locationService: LocationService,
     private router: Router,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private messageService: MessageService
   ) {
     this.addCompanyForm = this.fb.group({});
   }
@@ -57,7 +63,7 @@ export class AddCompanyComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       companyField: ['', Validators.required],
-      logo: [''],
+      logo: ['', Validators.required],
       fileExtension: [''],
       primaryColor: ['', Validators.required],
       secondaryColor: ['', Validators.required],
@@ -140,12 +146,12 @@ export class AddCompanyComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.addCompanyForm.valid) {
-      this.executeAddFunction();
-    } else {
+    if (this.addCompanyForm.invalid) {
+      this.showError('Invalid Form', 'Please fill all the required fields correctly.');
       this.validateAllFormFields(this.addCompanyForm);
-      this.logInvalidControls();
+      return;
     }
+    this.executeAddFunction();
   }
 
   private executeAddFunction(): void {
@@ -171,16 +177,13 @@ export class AddCompanyComponent implements OnInit {
     });
   }
 
-  private logInvalidControls(): void {
-    const invalidControls = [];
-    const controls = this.addCompanyForm.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        invalidControls.push(name);
-        console.log(`${name} is invalid:`, controls[name].errors);
-      }
-    }
-    console.log('Invalid controls:', invalidControls);
+  private showError(message: string, details: string): void {
+    this.messageService.add({
+      severity: 'error',
+      summary: message,
+      detail: details,
+    });
+    this.cdr.markForCheck();
   }
 
   isFieldInvalid(field: string): boolean {

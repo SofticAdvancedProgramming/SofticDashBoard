@@ -14,6 +14,9 @@
               GPAG/PNG/PDF files should be uploaded. The file must be high in resolution and original in design.
             </p>
             <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*" style="display: none;">
+            <div *ngIf="isFieldInvalid('logo')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('logo')?.errors?.['required']">Company logo is required.</small>
+            </div>
           </div>
         </div>
       </div>
@@ -25,8 +28,8 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('name')}">
             <label for="name">Company Name (English)</label>
             <input required type="text" id="name" formControlName="name" class="form-control" placeholder="Enter company name (English)">
-            <div *ngIf="isFieldInvalid('name')" class="invalid-feedback">
-              Company Name (English) is required.
+            <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('name')?.errors?.['required']">Company Name (English) is required.</small>
             </div>
           </div>
         </div>
@@ -34,8 +37,8 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('nameAr')}">
             <label for="nameAr">Company Name (Arabic)</label>
             <input required type="text" id="nameAr" formControlName="nameAr" class="form-control" placeholder="Enter company name (Arabic)">
-            <div *ngIf="isFieldInvalid('nameAr')" class="invalid-feedback">
-              Company Name (Arabic) is required.
+            <div *ngIf="isFieldInvalid('nameAr')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('nameAr')?.errors?.['required']">Company Name (Arabic) is required.</small>
             </div>
           </div>
         </div>
@@ -43,8 +46,8 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyField')}">
             <label for="companyField">Company Field</label>
             <input required type="text" id="companyField" formControlName="companyField" class="form-control" placeholder="Software">
-            <div *ngIf="isFieldInvalid('companyField')" class="invalid-feedback">
-              Company Field is required.
+            <div *ngIf="isFieldInvalid('companyField')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('companyField')?.errors?.['required']">Company Field is required.</small>
             </div>
           </div>
         </div>
@@ -52,8 +55,8 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyExtention')}">
             <label for="companyExtention">Company Extension</label>
             <input required type="text" id="companyExtention" formControlName="companyExtention" class="form-control" placeholder="1212156646489">
-            <div *ngIf="isFieldInvalid('companyExtention')" class="invalid-feedback">
-              Company Extension is required.
+            <div *ngIf="isFieldInvalid('companyExtention')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('companyExtention')?.errors?.['required']">Company Extension is required.</small>
             </div>
           </div>
         </div>
@@ -64,8 +67,8 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('primaryColor')}">
             <label for="primaryColor">Primary Color</label>
             <input required type="text" id="primaryColor" formControlName="primaryColor" class="form-control" placeholder="Enter company primary color">
-            <div *ngIf="isFieldInvalid('primaryColor')" class="invalid-feedback">
-              Primary color is required.
+            <div *ngIf="isFieldInvalid('primaryColor')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('primaryColor')?.errors?.['required']">Primary color is required.</small>
             </div>
           </div>
         </div>
@@ -73,8 +76,8 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('secondaryColor')}">
             <label for="secondaryColor">Secondary Color</label>
             <input required type="text" id="secondaryColor" formControlName="secondaryColor" class="form-control" placeholder="Enter company secondary color">
-            <div *ngIf="isFieldInvalid('secondaryColor')" class="invalid-feedback">
-              Secondary color is required.
+            <div *ngIf="isFieldInvalid('secondaryColor')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('secondaryColor')?.errors?.['required']">Secondary color is required.</small>
             </div>
           </div>
         </div>
@@ -82,8 +85,8 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('fontName')}">
             <label for="fontName">Font Name</label>
             <input required type="text" id="fontName" formControlName="fontName" class="form-control" placeholder="Font Name">
-            <div *ngIf="isFieldInvalid('fontName')" class="invalid-feedback">
-              Font Name is required.
+            <div *ngIf="isFieldInvalid('fontName')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('fontName')?.errors?.['required']">Font Name is required.</small>
             </div>
           </div>
         </div>
@@ -97,8 +100,8 @@
               <option value="" disabled>Select Country</option>
               <option *ngFor="let country of countries" [value]="country.id">{{ country.nameEn }} - {{ country.nameAr }}</option>
             </select>
-            <div *ngIf="isFieldInvalid('countryId')" class="invalid-feedback">
-              Country is required.
+            <div *ngIf="isFieldInvalid('countryId')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('countryId')?.errors?.['required']">Country is required.</small>
             </div>
           </div>
         </div>
@@ -109,8 +112,8 @@
               <option value="" disabled>Select City</option>
               <option *ngFor="let city of cities" [value]="city.id">{{ city.nameEn }} - {{ city.nameAr }}</option>
             </select>
-            <div *ngIf="isFieldInvalid('cityId')" class="invalid-feedback">
-              City is required.
+            <div *ngIf="isFieldInvalid('cityId')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('cityId')?.errors?.['required']">City is required.</small>
             </div>
           </div>
         </div>
@@ -118,8 +121,8 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('address')}">
             <label for="address">Address</label>
             <input required type="text" id="address" formControlName="address" class="form-control" placeholder="Address">
-            <div *ngIf="isFieldInvalid('address')" class="invalid-feedback">
-              Address is required.
+            <div *ngIf="isFieldInvalid('address')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('address')?.errors?.['required']">Address is required.</small>
             </div>
           </div>
         </div>
@@ -127,8 +130,9 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('email')}">
             <label for="email">Email</label>
             <input required type="email" id="email" formControlName="email" class="form-control" placeholder="Email">
-            <div *ngIf="isFieldInvalid('email')" class="invalid-feedback">
-              A valid Email is required.
+            <div *ngIf="isFieldInvalid('email')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('email')?.errors?.['required']">A valid Email is required.</small>
+              <small *ngIf="addCompanyForm.get('email')?.errors?.['email']">Email must be a valid email address.</small>
             </div>
           </div>
         </div>
@@ -136,8 +140,9 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
             <label for="phoneNumber">Mobile Number</label>
             <input required type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" placeholder="Mobile">
-            <div *ngIf="isFieldInvalid('phoneNumber')" class="invalid-feedback">
-              Mobile number is required.
+            <div *ngIf="isFieldInvalid('phoneNumber')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('phoneNumber')?.errors?.['required']">Mobile number is required.</small>
+              <small *ngIf="addCompanyForm.get('phoneNumber')?.errors?.['pattern']">Mobile number must be a valid number.</small>
             </div>
           </div>
         </div>
@@ -145,8 +150,9 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phone')}">
             <label for="phone">Phone</label>
             <input required type="text" id="phone" formControlName="phone" class="form-control" placeholder="Phone">
-            <div *ngIf="isFieldInvalid('phone')" class="invalid-feedback">
-              Phone is required.
+            <div *ngIf="isFieldInvalid('phone')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('phone')?.errors?.['required']">Phone is required.</small>
+              <small *ngIf="addCompanyForm.get('phone')?.errors?.['pattern']">Phone must be a valid number.</small>
             </div>
           </div>
         </div>
@@ -187,15 +193,21 @@
       <hr>
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
-            <label for="description">description</label>
-            <textarea type="text" id="description" formControlName="description" class="form-control" placeholder="description"></textarea>
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('description')}">
+            <label for="description">Description</label>
+            <textarea id="description" formControlName="description" class="form-control" placeholder="Description"></textarea>
+            <div *ngIf="isFieldInvalid('description')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('description')?.errors?.['required']">Description is required.</small>
+            </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group">
-            <label for="descriptionAr">descriptionAr</label>
-            <textarea type="text" id="descriptionAr" formControlName="descriptionAr" class="form-control" placeholder="descriptionAr"></textarea>
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('descriptionAr')}">
+            <label for="descriptionAr">Description (Arabic)</label>
+            <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control" placeholder="Description (Arabic)"></textarea>
+            <div *ngIf="isFieldInvalid('descriptionAr')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('descriptionAr')?.errors?.['required']">Description in Arabic is required.</small>
+            </div>
           </div>
         </div>
       </div>
@@ -207,8 +219,8 @@
             <select required id="subscriptionPlanId" formControlName="subscriptionPlanId" class="form-control">
               <option *ngFor="let plan of subscriptionPlans" [value]="plan.id">{{ plan.name }}</option>
             </select>
-            <div *ngIf="isFieldInvalid('subscriptionPlanId')" class="invalid-feedback">
-              Subscription Plan is required.
+            <div *ngIf="isFieldInvalid('subscriptionPlanId')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('subscriptionPlanId')?.errors?.['required']">Subscription Plan is required.</small>
             </div>
           </div>
         </div>
@@ -224,3 +236,4 @@
     </form>
   </div>
 </div>
+<p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
