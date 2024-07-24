@@ -1,0 +1,39 @@
+<div class="container mt-4">
+    <div class="form-container">
+        <form>
+            <div class="form-group">
+                <label for="position">Position</label>
+                <select id="position" name="position">
+                    <option value="graphic-designer">Graphic designer</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <select id="department" name="department">
+                    <option value="designing-department">Designing Department</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+            <div class="form-group toggle-group">
+                <label class="switch">
+                    <input type="checkbox" id="direct-manager">
+                    <span class="slider"></span>
+                </label>
+                <label for="direct-manager" class="toggle-label">Direct Manager</label>
+            </div>
+            <div class="form-group disabled-input">
+                <label for="manager">Who is the manager?</label>
+                <input type="text" id="manager" name="manager" placeholder="Head of Department">
+            </div>
+            <div class="form-buttons row">
+                <div class="col-lg-6 justify-content-center d-flex">
+                    <button type="button" class="btn btn-secondary">Back</button>
+                </div>
+                <div class="col-lg-6 justify-content-center d-flex">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
