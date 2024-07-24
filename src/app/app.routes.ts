@@ -15,6 +15,7 @@ import { SubscriptionPlanManagmentComponent } from './core/dashboard/setting/Loc
 import { LocationManagmentComponent } from './core/dashboard/setting/Lockups/location-managment/location-managment.component';
 import { ProfileComponent } from './core/dashboard/profile/index/profile.component';
 import { EditProfileComponent } from './core/dashboard/profile/edit-profile/edit-profile.component';
+import { CompanyDetailsComponent } from './core/dashboard/company/company-details/company-details.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,7 @@ export const routes: Routes = [
       { path: 'addressManagement', component: LocationManagmentComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'EditProfile', component: EditProfileComponent },
+      { path: 'CompanyDetails', component: CompanyDetailsComponent },
     ],
   },
 ];

@@ -1,0 +1,102 @@
+.breadcrumb {
+    padding: 10px 20px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.profile-header {
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.profile-banner img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 10em;
+}
+.profile-logo{
+    position: relative;
+}
+.profile-logo img {
+    max-width: 160px;
+    border-radius: 50%;
+    margin-right: 20px;
+    position: absolute;
+    top: -9em;
+}
+
+.profile-details {
+    flex-grow: 1;
+}
+
+.profile-details h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.profile-details p {
+    margin: 5px 0;
+    color: #6c757d;
+}
+
+.profile-action {
+    display: flex;
+    align-items: center;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #6f42c1;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
