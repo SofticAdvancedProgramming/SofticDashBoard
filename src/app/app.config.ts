@@ -5,6 +5,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -12,6 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withFetch()),
     provideAnimations(),
-    importProvidersFrom(NgxPermissionsModule.forRoot()),
+    importProvidersFrom(NgxPermissionsModule.forRoot()), provideAnimationsAsync(),
   ]
 };
