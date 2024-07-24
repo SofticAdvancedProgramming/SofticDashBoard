@@ -6,3 +6,35 @@
 .ngx-intl-tel-input {
   width: 100%;
 }
+.mat-mdc-tab .mdc-tab__text-label , .mdc-tab__text-label {
+  color: var(--G-gray-2, #AAAAAB) !important;
+}
+.mat-mdc-tab-header{
+border-top: #0D0714;
+border-bottom: #0D0714;
+}
+.mat-mdc-tab-group, .mat-mdc-tab-nav-bar{
+  --mdc-tab-indicator-active-indicator-color: black;
+  --mat-tab-header-active-label-text-color: black;
+  --mat-tab-header-active-ripple-color: black;
+  --mat-tab-header-inactive-ripple-color: black;
+  --mat-tab-header-active-focus-label-text-color: black;
+  --mat-tab-header-active-hover-label-text-color: black;
+  --mat-tab-header-active-focus-indicator-color: black;
+  --mat-tab-header-active-hover-indicator-color: black;
+  border-top: 1px solid #e0e2ec;
+}
+.page-link , .page-link.active, .active > .page-link , .active > .page-link:focus{
+  --bs-pagination-hover-bg: #2D81AC !important;
+  --bs-pagination-active-bg: #2D81AC;
+  color: #0D0714;
+  
+}
+.mdc-tab__content span {
+  font-family: Lama Sans;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0.03em;
+  text-align: center;
+}

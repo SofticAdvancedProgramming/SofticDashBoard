@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TabViewModule } from 'primeng/tabview';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import {MatTabsModule} from '@angular/material/tabs';
+import { RouterLink } from '@angular/router';
+import { ProfileDetailsComponent } from "../components/profile-details/profile-details.component";
+import { BrunchesComponent } from "../components/brunches/brunches.component";
+import { TopManagmentComponent } from "../components/top-managment/top-managment.component";
 
 @Component({
-  selector: 'app-company-details',
-  standalone: true,
-  imports: [
-
-  ],
-  templateUrl: './company-details.component.html',
-  styleUrls: ['./company-details.component.css']
+    selector: 'app-company-details',
+    standalone: true,
+    templateUrl: './company-details.component.html',
+    styleUrls: ['./company-details.component.css'],
+    imports: [MatTabsModule, RouterLink, ProfileDetailsComponent, BrunchesComponent, TopManagmentComponent]
 })
 export class CompanyDetailsComponent {
   active: boolean = true;

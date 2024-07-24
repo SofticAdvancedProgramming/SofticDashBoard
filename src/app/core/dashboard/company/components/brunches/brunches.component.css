@@ -1,0 +1,62 @@
+.card-deck {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1em;
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+.cardContainer {
+    flex: 1;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-body {
+    padding: 1.5em;
+}
+
+.card-title {
+    color: var(--Schemes-On-Surface, #1D1B20);
+    font-family: Lama Sans;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 28.33px;
+    letter-spacing: 0.03em;
+}
+
+.card-text {
+    margin-bottom: 0.5em;
+    display: flex;
+    align-items: center;
+    color: #736F77;
+    font-family: Lama Sans;
+    font-size: 15.11px;
+    font-weight: 500;
+    line-height: 28.33px;
+}
+
+.card-text i {
+    margin-right: 0.5em;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: end;
+    padding: 1em;
+    background: white;
+    border-top: none;
+}
+
+.card-footer button {
+    color: var(--Schemes-Primary, #65558F);
+    border: 1px solid var(--Schemes-Primary, #65558F);
+border-radius: 20px;
+}
+
