@@ -100,3 +100,9 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(14px);
 }
+.toggle-button-container button {
+    border: 1px solid #8413F8;
+    color:#8413F8;
+    display: flex;
+    gap: 1em;
+}

@@ -29,7 +29,7 @@
     font-weight: 300;
     line-height: 30px;
     letter-spacing: 0.03em;
-    
+
 }
 
 .contact-details {
@@ -37,7 +37,7 @@
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    
+
 }
 
 .contact-details ul {
@@ -73,9 +73,27 @@
 .social-icons img {
     width: 30px;
     height: 30px;
-}@media (max-width: 768px) {
-    .about-content, .contact-details {
-      flex: 1 1 100%;
-      margin-right: 0;
+}
+
+@media (max-width: 768px) {
+
+    .about-content,
+    .contact-details {
+        flex: 1 1 100%;
+        margin-right: 0;
     }
-  }
+}
+.editbtn {
+display: flex;
+justify-content: end;
+margin-top: 2em;
+}
+.editbtn button {
+    padding: 14px 0px 14px 0px;
+    gap: 0px;
+    border-radius: 10px;
+    background: #9ACA3C;
+    width: 200px;
+    color: white;
+    border-color: transparent;
+}

@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-brunches',
   standalone: true,
   imports: [],
-  templateUrl: './brunches.component.html',
-  styleUrl: './brunches.component.css'
+  templateUrl: './branches.component.html',
+  styleUrl: './branches.component.css'
 })
-export class BrunchesComponent {
+export class BranchesComponent {
 
 }
