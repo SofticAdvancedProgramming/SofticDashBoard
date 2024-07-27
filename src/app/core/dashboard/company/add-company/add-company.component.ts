@@ -69,13 +69,13 @@ export class AddCompanyComponent implements OnInit {
       secondaryColor: ['', Validators.required],
       fontName: ['', Validators.required],
       webSite: [''],
-      facebook: [''],
-      twitter: [''],
-      instgram: [''],
-      tiktok: [''],
-      cityId: ['', Validators.required],
-      countryId: ['', Validators.required],
-      address: ['', Validators.required],
+      facebook: [null],
+      twitter: [null],
+      instgram: [null],
+      tiktok: [null],
+      cityId: [null],
+      countryId: [null],
+      address: [null],
       subscriptionPlanId: ['', Validators.required]
     });
   }
@@ -156,6 +156,8 @@ export class AddCompanyComponent implements OnInit {
 
   private executeAddFunction(): void {
     const companyData = this.addCompanyForm.value;
+
+    console.log(companyData)
     this.companyService.AddCompany(companyData).subscribe(
       response => {
         this.router.navigate(['../AddAdmin'], { relativeTo: this.route, queryParams: { companyId: response.data.id } });

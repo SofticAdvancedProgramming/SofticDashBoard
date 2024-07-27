@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AdminService } from '../../../../services/adminService/admin.service';
 import { PasswordValidator } from '../../../../../Modules/passwordValidator';
+import { Company } from '../../../../../models/company';
 
 @Component({
   selector: 'app-add-admin',
@@ -25,7 +26,7 @@ export class AddAdminComponent implements OnInit, OnDestroy {
   passwordFieldType: string = 'password';
   confirmPasswordFieldType: string = 'password';
   companyId: number = 0;
-
+  formValue:Company={}as Company;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -54,7 +55,6 @@ export class AddAdminComponent implements OnInit, OnDestroy {
       phoneNumber: ['', Validators.required],
       password: ['', [Validators.required, PasswordValidator.passwordComplexity()]],
       confirmPassword: ['', Validators.required],
-      companyId: [0]
     }, {
       validators: PasswordValidator.passwordMatch('password', 'confirmPassword')
     });
@@ -67,15 +67,17 @@ export class AddAdminComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const formValue = this.addCompanyForm.value;
+    this.formValue = this.addCompanyForm.value;
     this.isSubmitting = true;
-    this.adminService.AddAdmin(formValue).pipe(
+    this.formValue.companyId=Number(this.companyId)
+    console.log(this.formValue)
+    this.adminService.AddAdmin(this.formValue).pipe(
       takeUntil(this.destroy$)
     ).subscribe({
       next: (response: any) => {
         this.isSubmitting = false;
         this.showSuccess('Admin Added', 'Admin has been added successfully');
-        this.router.navigate(['/admin-list']).then(success => {
+        this.router.navigate(['/dashboard/indexCompany']).then(success => {
           if (success) {
             console.log('Navigation to admin list successful');
           } else {

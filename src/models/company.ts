@@ -24,4 +24,5 @@ export interface Company {
   fax: string;
   subscriptionPlanId: number;
   id?: number;
+  companyId?: number;
 }
