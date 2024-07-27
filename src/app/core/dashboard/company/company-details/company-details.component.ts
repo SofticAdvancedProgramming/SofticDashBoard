@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 import { ProfileDetailsComponent } from "../components/profile-details/profile-details.component";
 import { BranchesComponent } from "../components/branches/branches.component";
 import { TopManagmentComponent } from "../components/top-managment/top-managment.component";
-import { PositionComponent } from "../components/positions/position.component";
 import { IndexComponent } from "../components/position/index/index.component";
 
 @Component({
@@ -12,7 +11,7 @@ import { IndexComponent } from "../components/position/index/index.component";
     standalone: true,
     templateUrl: './company-details.component.html',
     styleUrls: ['./company-details.component.css'],
-    imports: [MatTabsModule, RouterLink, ProfileDetailsComponent, BranchesComponent, TopManagmentComponent, PositionComponent, IndexComponent]
+    imports: [MatTabsModule, RouterLink, ProfileDetailsComponent, BranchesComponent, TopManagmentComponent, IndexComponent]
 })
 export class CompanyDetailsComponent {
   role: any = JSON.parse(localStorage.getItem('roles')!);
@@ -20,4 +19,4 @@ export class CompanyDetailsComponent {
   constructor(){
     console.log(this.role[0]);
   }
-}   
+}

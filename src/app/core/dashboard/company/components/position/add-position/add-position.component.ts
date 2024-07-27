@@ -1,12 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-position',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './add-position.component.html',
-  styleUrl: './add-position.component.css'
+  styleUrls: ['./add-position.component.css']
 })
 export class AddPositionComponent {
+  @Output() action = new EventEmitter<boolean>();
 
+  onSave(): void {
+    this.action.emit(false);
+  }
+
+  onBack(): void {
+    this.action.emit(false);
+  }
 }
