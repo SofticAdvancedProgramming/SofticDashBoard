@@ -17,6 +17,7 @@ import { ProfileComponent } from './core/dashboard/profile/index/profile.compone
 import { EditProfileComponent } from './core/dashboard/profile/edit-profile/edit-profile.component';
 import { CompanyDetailsComponent } from './core/dashboard/company/company-details/company-details.component';
 import { ProfileDetailsComponent } from './core/dashboard/company/components/profile-details/profile-details.component';
+import { AddPositionComponent } from './core/dashboard/company/components/position/add-position/add-position.component';
 
 export const routes: Routes = [
   {
@@ -44,6 +45,7 @@ export const routes: Routes = [
       { path: 'EditProfile', component: EditProfileComponent },
       { path: 'CompanyDetails', component: CompanyDetailsComponent },
       { path: 'ProfileDetails', component: ProfileDetailsComponent },
+      { path: 'AddPosition', component: AddPositionComponent },
     ],
   },
 ];
