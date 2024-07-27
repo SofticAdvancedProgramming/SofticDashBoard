@@ -4,16 +4,16 @@
   </div>
   <div class="profile-info">
     <div class="profile-logo">
-      <img src="assets/images/iobit_software_icon.jpeg.png" alt="Company Logo">
+      <img [src]="company.logo" alt="Company Logo">
     </div>
     <div class="profile-details">
-      <h1>IbOIT Company</h1>
+      <h1>{{company.name}}</h1>
       <p>Software Company</p>
-      <p>123.1236.25</p>
+      <p>{{company.phoneNumber}}</p>
     </div>
     <div class="profile-action">
       <div class="toggle-button-container">
-        <button class="btn">  
+        <button class="btn">
         <span class="label">Activate</span>
         <label class="switch">
           <input type="checkbox" id="toggleSwitch">
@@ -21,12 +21,12 @@
         </label>
       </button>
       </div>
-      
+
     </div>
   </div>
 </div>
   <mat-tab-group>
-    <mat-tab label="Profile">  <app-profile-details> </app-profile-details> </mat-tab>
+    <mat-tab label="Profile">  <app-profile-details [company]="company" [cityName]="cityName" [countryName]="countryName"> </app-profile-details> </mat-tab>
     <mat-tab label="Branches"><app-brunches> </app-brunches>  </mat-tab>
     <mat-tab label="Postion"><app-index> </app-index>  </mat-tab>
     @if(this.role[0] === "Admin"){

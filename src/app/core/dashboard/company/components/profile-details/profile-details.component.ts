@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Company } from '../../../../../../models/company';
+
 
 @Component({
   selector: 'app-profile-details',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './profile-details.component.html',
-  styleUrl: './profile-details.component.css'
+  styleUrls: ['./profile-details.component.css']
 })
 export class ProfileDetailsComponent {
+  @Input() company!: Company;
+  @Input() cityName: string = '';
+  @Input()countryName: string = '';
+
+  constructor() {
+  }
 
 }
