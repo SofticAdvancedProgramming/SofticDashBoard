@@ -43,7 +43,7 @@ export const routes: Routes = [
       { path: 'addressManagement', component: LocationManagmentComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'EditProfile', component: EditProfileComponent },
-      { path: 'CompanyDetails', component: CompanyDetailsComponent },
+      { path: 'company/:companyId', component: CompanyDetailsComponent },
       { path: 'ProfileDetails', component: ProfileDetailsComponent },
       { path: 'AddPosition', component: AddPositionComponent },
     ],

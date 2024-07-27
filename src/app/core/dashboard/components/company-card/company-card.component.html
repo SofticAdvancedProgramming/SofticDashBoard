@@ -2,7 +2,7 @@
   <div class="card-content">
     <div class="">
       <img *ngIf="iconSrc" [src]="iconSrc" alt="{{ title }}" class="card-icon">
-      <a [href]="link" target="_blank" class="card-title">{{ title }}</a>
+      <h3  class="card-title">{{ title }}</h3>
     </div>
     <div class="card-details">
       <p>{{ branches }} Branch{{ branches > 1 ? 'es' : '' }}</p>
