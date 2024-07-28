@@ -1,7 +1,7 @@
 <div class="container my-5">
     <div class="row">
         <div class="justify-content-end d-flex">
-            <button routerLink="../AddPosition" class="btn addPositionBtn w-25">
+            <button routerLink="../AddDepartment" class="btn addPositionBtn w-25">
                 <i class="fas fa-plus"></i> Add Department
             </button>
         </div>
@@ -23,11 +23,26 @@
                     </label>
                     <i class="fas fa-trash-alt icon-trash"></i>
                     <i class="fas fa-edit icon-edit"></i>
-                    <button class="btn"> <span class="details">show details <i
+                    <button routerLink="../DepartmentDetails" class="btn"> <span class="details">show details <i
                                 class="fa-solid fa-arrow-right"></i></span> </button>
                 </div>
             </div>
         </div>
         <!-- Repeat other cards here -->
     </div>
+</div>
+
+
+<!-- ------------------------------------------------------------ -->
+
+<div class="container my-5">
+    <div class="row justify-content-center d-flex my-3">
+        <form class="d-flex w-75" role="search">
+            <input class="customSearch" type="search" placeholder="Search" aria-label="Search">
+            <button class="search-btn" type="submit">
+              <img src="../../../../assets/images/search-normal.png" alt="Search" width="16" height="16">
+            </button>
+          </form>
+    </div>
+    <app-basic-table [tableHeaders]="headers" [tableData]="data" [tableTitle]="title"></app-basic-table>
 </div>

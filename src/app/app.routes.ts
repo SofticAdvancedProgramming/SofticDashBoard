@@ -18,6 +18,8 @@ import { EditProfileComponent } from './core/dashboard/profile/edit-profile/edit
 import { CompanyDetailsComponent } from './core/dashboard/company/company-details/company-details.component';
 import { ProfileDetailsComponent } from './core/dashboard/company/components/profile-details/profile-details.component';
 import { AddPositionComponent } from './core/dashboard/company/components/position/add-position/add-position.component';
+import { DepartmentDetailsComponent } from './core/dashboard/company/components/department/department-details/department-details.component';
+import { AddDepartmentComponent } from './core/dashboard/company/components/department/add-department/add-department.component';
 
 export const routes: Routes = [
   {
@@ -46,6 +48,8 @@ export const routes: Routes = [
       { path: 'company/:companyId', component: CompanyDetailsComponent },
       { path: 'ProfileDetails', component: ProfileDetailsComponent },
       { path: 'AddPosition', component: AddPositionComponent },
+      { path: 'DepartmentDetails', component: DepartmentDetailsComponent },
+      { path: 'AddDepartment', component: AddDepartmentComponent },
     ],
   },
 ];

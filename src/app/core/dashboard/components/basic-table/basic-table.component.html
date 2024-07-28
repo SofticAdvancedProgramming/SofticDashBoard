@@ -1,0 +1,16 @@
+<div class="table-responsive">
+  <h2 class="tableTitle">{{ tableTitle }}</h2>
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th *ngFor="let header of tableHeaders">{{ header }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of tableData">
+          <td *ngFor="let key of tableHeaders">{{ row[key.toLowerCase()] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

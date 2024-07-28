@@ -1,1 +1,11 @@
-<p>department-details works!</p>
+<div class="container my-5">
+    <div class="row justify-content-center d-flex my-3">
+        <form class="d-flex w-75" role="search">
+            <input class="customSearch" type="search" placeholder="Search" aria-label="Search">
+            <button class="search-btn" type="submit">
+              <img src="../../../../assets/images/search-normal.png" alt="Search" width="16" height="16">
+            </button>
+          </form>
+    </div>
+    <app-basic-table [tableHeaders]="headers" [tableData]="data" [tableTitle]="title"></app-basic-table>
+</div>

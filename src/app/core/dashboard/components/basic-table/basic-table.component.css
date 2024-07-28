@@ -1,0 +1,47 @@
+.table-responsive {
+    border-radius: 5px;
+    background: #fff;
+    padding: 1rem;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.table th {
+    border-bottom: 2px solid #dee2e6;
+    color: #A2A1A8;
+    font-family: Nunito;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 26px;
+    letter-spacing: 0.03em;
+    text-align: left;
+
+}
+
+.table td {
+    color: #2D3A49;
+    font-family: Lexend;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+     border-bottom: 1px solid #A2A1A81A
+}
+
+.table tbody tr {
+    transition: background-color 0.3s;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+.tableTitle{
+    color: #2D3A49;
+    font-family: Lexend;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+}
