@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { BasicTableComponent } from "../../../../components/basic-table/basic-table.component";
 
 @Component({
@@ -12,7 +12,7 @@ import { BasicTableComponent } from "../../../../components/basic-table/basic-ta
     styleUrl: './departments.component.css',
     imports: [CommonModule,
         FormsModule,
-        RouterModule, BasicTableComponent]
+        RouterModule, BasicTableComponent, RouterOutlet]
 })
 export class DepartmentsComponent {
   cards = Array.from({ length: 3 }, (_, i) => ({
