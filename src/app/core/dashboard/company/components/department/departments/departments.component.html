@@ -1,7 +1,10 @@
-<div class="container my-5">
+@if(isAdd){
+  <app-add-department (action)="handleAction($event)"></app-add-department>
+}@else {
+  <div class="container my-5" *ngIf="showCards">
     <div class="row">
         <div class="justify-content-end d-flex">
-            <button routerLink="../AddDepartment" class="btn addPositionBtn w-25">
+            <button  class="btn addPositionBtn w-25" (click)="addPosition()">
                 <i class="fas fa-plus"></i> Add Department
             </button>
         </div>
@@ -10,39 +13,47 @@
         <div *ngFor="let card of cards" class="col-lg-4 col-md-6 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>UI UX Designer</h3>
-                    <p>Designing Department</p>
+                    <h3>{{ card.title }}</h3>
+                    <p>{{ card.department }}</p>
                 </div>
                 <div class="card-footer">
                     <label class="toggle-label">
                         <span>Activate</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" [checked]="active">
                             <span class="slider"></span>
                         </label>
                     </label>
                     <i class="fas fa-trash-alt icon-trash"></i>
                     <i class="fas fa-edit icon-edit"></i>
-                    <button routerLink="../DepartmentDetails" class="btn"> <span class="details">show details <i
-                                class="fa-solid fa-arrow-right"></i></span> </button>
+                    <button class="btn" (click)="showDetails(card.id)">
+                        <span class="details">show details <i class="fa-solid fa-arrow-right"></i></span>
+                    </button>
                 </div>
             </div>
         </div>
-        <!-- Repeat other cards here -->
     </div>
-</div>
+  </div>
 
 
-<!-- ------------------------------------------------------------ -->
 
-<div class="container my-5">
-    <div class="row justify-content-center d-flex my-3">
-        <form class="d-flex w-75" role="search">
-            <input class="customSearch" type="search" placeholder="Search" aria-label="Search">
-            <button class="search-btn" type="submit">
-              <img src="../../../../assets/images/search-normal.png" alt="Search" width="16" height="16">
-            </button>
+  @if(!showCards){
+    <div class="container my-5">
+      <div class="row justify-content-center d-flex my-3">
+          <form class="d-flex w-75" role="search">
+              <input class="customSearch" type="search" placeholder="Search" aria-label="Search">
+              <button class="search-btn" type="submit">
+                  <img src="../../../../assets/images/search-normal.png" alt="Search" width="16" height="16">
+              </button>
           </form>
+      </div>
+      <app-basic-table [tableHeaders]="headers" [tableData]="data" [tableTitle]="title"></app-basic-table>
+      <button class="btn addPositionBtn w-25" (click)="showCardsDetails()">
+          <i class="fas fa-arrow-circle-left"></i> Back
+      </button>
     </div>
-    <app-basic-table [tableHeaders]="headers" [tableData]="data" [tableTitle]="title"></app-basic-table>
-</div>
+  }
+}
+
+
+

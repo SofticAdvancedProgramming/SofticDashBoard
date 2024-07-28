@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-add-department',
@@ -8,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrl: './add-department.component.css'
 })
 export class AddDepartmentComponent {
+  @Output() action = new EventEmitter<boolean>();
 
+  onSave(): void {
+    this.action.emit(false);
+  }
+
+  onBack(): void {
+    this.action.emit(false);
+  }
 }
