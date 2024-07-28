@@ -9,13 +9,14 @@ import { IndexComponent } from '../components/position/index/index.component';
 import { Company } from '../../../../../models/company';
 import { CompanyService } from '../../../../services/comapnyService/company.service';
 import { LocationService } from '../../../../services/lockupsServices/LocationService/location.service';
+import { DepartmentsComponent } from "../components/department/departments/departments.component";
 
 @Component({
-  selector: 'app-company-details',
-  standalone: true,
-  templateUrl: './company-details.component.html',
-  styleUrls: ['./company-details.component.css'],
-  imports: [MatTabsModule, RouterLink, ProfileDetailsComponent, BranchesComponent, TopManagmentComponent, IndexComponent]
+    selector: 'app-company-details',
+    standalone: true,
+    templateUrl: './company-details.component.html',
+    styleUrls: ['./company-details.component.css'],
+    imports: [MatTabsModule, RouterLink, ProfileDetailsComponent, BranchesComponent, TopManagmentComponent, IndexComponent, DepartmentsComponent]
 })
 export class CompanyDetailsComponent implements OnInit {
   role: any = JSON.parse(localStorage.getItem('roles')!);

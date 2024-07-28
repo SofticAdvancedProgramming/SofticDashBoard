@@ -1,0 +1,149 @@
+
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+    margin-top: 1em;
+}
+
+.card-header {
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.card-header p {
+    margin: 0;
+    color: #999;
+    font-size: 14px;
+}
+
+.card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.btn-add {
+    background: #663895;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-add i {
+    margin-right: 5px;
+    color: white;
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 20px;
+    border-top: 1px solid #f0f0f0;
+    background-color: white;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background: #663895;
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+.icon-trash,
+.icon-edit {
+    color: #663895;
+    cursor: pointer;
+}
+
+.addPositionBtn {
+    background: #9ACA3C;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 1em;
+}
+
+@media (max-width: 992px) {
+    .card-container {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+.details {
+    color: #9ACA3C;
+    font-family: Lama Sans;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0.03em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+}
