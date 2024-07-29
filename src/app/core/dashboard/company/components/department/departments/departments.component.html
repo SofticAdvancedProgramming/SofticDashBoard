@@ -1,10 +1,10 @@
 @if(isAdd){
-  <app-add-department (action)="handleAction($event)"></app-add-department>
+<app-add-department (action)="handleAction($event)"></app-add-department>
 }@else {
-  <div class="container my-5" *ngIf="showCards">
+<div class="container my-5" *ngIf="showCards">
     <div class="row">
         <div class="justify-content-end d-flex">
-            <button  class="btn addPositionBtn w-25" (click)="addPosition()">
+            <button class="btn addPositionBtn w-25" (click)="addPosition()">
                 <i class="fas fa-plus"></i> Add Department
             </button>
         </div>
@@ -33,27 +33,26 @@
             </div>
         </div>
     </div>
-  </div>
+</div>
 
 
 
-  @if(!showCards){
-    <div class="container my-5">
-      <div class="row justify-content-center d-flex my-3">
-          <form class="d-flex w-75" role="search">
-              <input class="customSearch" type="search" placeholder="Search" aria-label="Search">
-              <button class="search-btn" type="submit">
-                  <img src="../../../../assets/images/search-normal.png" alt="Search" width="16" height="16">
-              </button>
-          </form>
-      </div>
-      <app-basic-table [tableHeaders]="headers" [tableData]="data" [tableTitle]="title"></app-basic-table>
-      <button class="btn addPositionBtn w-25" (click)="showCardsDetails()">
-          <i class="fas fa-arrow-circle-left"></i> Back
-      </button>
+@if(!showCards){
+<div class="container my-5">
+    <div class="row justify-content-center d-flex my-3">
+        <form class="d-flex w-75" role="search">
+            <input class="customSearch" type="search" placeholder="Search" aria-label="Search">
+            <button class="search-btn" type="submit">
+                <img src="../../../../assets/images/search-normal.png" alt="Search" width="16" height="16">
+            </button>
+        </form>
     </div>
-  }
+    <app-basic-table [tableHeaders]="headers" [tableData]="data" [tableTitle]="title"></app-basic-table>
+    <div class="d-flex justify-content-center">
+        <button class="btn mt-3 addPositionBtn w-25" (click)="showCardsDetails()">
+            <i class="fas fa-arrow-circle-left"></i> Back
+        </button>
+    </div>
+</div>
 }
-
-
-
+}

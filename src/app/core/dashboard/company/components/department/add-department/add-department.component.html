@@ -1,9 +1,48 @@
-<p>add-department works!</p>
-<div class="form-buttons row">
-  <div class="col-lg-6 justify-content-center d-flex">
-    <button type="button" class="btn btn-secondary" (click)="onBack()">Back</button>
-  </div>
-  <div class="col-lg-6 justify-content-center d-flex">
-    <button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
+<div class="container mt-4">
+  <div class="form-container">
+    <form>
+      <div class="form-group">
+        <label for="position">Department Name</label>
+        <input placeholder="Enter Department Name">
+      </div>
+      <div class="form-group">
+        <label for="position">Department Name(Arabic)</label>
+        <input placeholder="Enter Department Name(Arabic)">
+      </div>
+      <div class="form-group">
+        <label for="department">Department Short Name</label>
+        <input placeholder="Enter Department Short Name">
+      </div>
+      <div class="form-group">
+        <label for="department">Long</label>
+        <input placeholder="Enter Long">
+      </div>
+      <div class="form-group">
+        <label for="department">Department Lat</label>
+        <input placeholder="Enter Lat">
+      </div>
+      <div class="form-group">
+        <label for="department">Department Manager</label>
+        <select id="department" name="department">
+          <option value="designing-department">Designing Department</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="department">Description(english) </label>
+        <textarea placeholder="Enter Description(english)"> </textarea>
+      </div>
+      <div class="form-group">
+        <label for="department">Description(Arabic)</label>
+        <textarea placeholder="Enter Description(Arabic)"> </textarea>
+      </div>
+      <div class="form-buttons row">
+        <div class="col-lg-6 justify-content-center d-flex">
+          <button type="button" class="btn btn-secondary" (click)="onBack()">Back</button>
+        </div>
+        <div class="col-lg-6 justify-content-center d-flex">
+          <button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
