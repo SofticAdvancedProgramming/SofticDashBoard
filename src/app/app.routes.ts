@@ -20,6 +20,7 @@ import { ProfileDetailsComponent } from './core/dashboard/company/components/pro
 import { AddPositionComponent } from './core/dashboard/company/components/position/add-position/add-position.component';
 import { DepartmentDetailsComponent } from './core/dashboard/company/components/department/department-details/department-details.component';
 import { AddDepartmentComponent } from './core/dashboard/company/components/department/add-department/add-department.component';
+import { DepartmentOverviewComponent } from './core/dashboard/company/components/department/department-overview/department-overview.component';
 
 export const routes: Routes = [
   {
@@ -50,6 +51,7 @@ export const routes: Routes = [
       { path: 'AddPosition', component: AddPositionComponent },
       { path: 'DepartmentDetails', component: DepartmentDetailsComponent },
       { path: 'AddDepartment', component: AddDepartmentComponent },
+      { path: 'DepartmentOverview', component: DepartmentOverviewComponent  },
     ],
   },
 ];

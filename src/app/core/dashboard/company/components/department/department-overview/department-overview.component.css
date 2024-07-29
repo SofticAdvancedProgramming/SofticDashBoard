@@ -1,0 +1,125 @@
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+
+}
+
+.profile-banner img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+     width: 90%;
+ }
+
+.profile-logo img {
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-details {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-details h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.profile-details p {
+    margin: 5px 0;
+    color: #666;
+}
+.btn-edit{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+.btn-edit button {
+    color: #ABD35D;
+    border: #ABD35D 1px solid;
+    padding: 10px 20px;
+    border-radius: 94px;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background-color: white;
+    margin: 20px auto;
+    width: 90%;
+     border-radius: 8px;
+     align-items: center;
+ }
+
+.profile-section {
+    margin-bottom: 20px;
+    line-height: 40px;
+}
+
+.profile-section h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.info-group {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #666;
+}
+
+.profile-actions {
+    text-align: center;
+}
+
+.btn-view-employees {
+    background-color: #663895;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.row{
+    border-bottom: 1px solid #8080801f;
+}
+.viewBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #6f42c1;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    text-align: center;
+    font-family: Lama Sans;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30px;
+     letter-spacing: 0.03em;
+    padding-right: 5em;
+    padding-left: 5em;
+}
+ 
