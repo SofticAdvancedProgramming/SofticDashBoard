@@ -17,8 +17,8 @@
     align-items: center;
     padding: 20px;
     border-radius: 8px;
-     width: 90%;
- }
+    width: 90%;
+}
 
 .profile-logo img {
     border-radius: 50%;
@@ -40,11 +40,13 @@
     margin: 5px 0;
     color: #666;
 }
-.btn-edit{
+
+.btn-edit {
     display: flex;
     justify-items: center;
     align-items: center;
 }
+
 .btn-edit button {
     color: #ABD35D;
     border: #ABD35D 1px solid;
@@ -62,9 +64,9 @@
     background-color: white;
     margin: 20px auto;
     width: 90%;
-     border-radius: 8px;
-     align-items: center;
- }
+    border-radius: 8px;
+    align-items: center;
+}
 
 .profile-section {
     margin-bottom: 20px;
@@ -99,10 +101,12 @@
     border-radius: 5px;
     cursor: pointer;
 }
-.row{
+
+.row {
     border-bottom: 1px solid #8080801f;
 }
-.viewBtn{
+
+.viewBtn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,8 +122,28 @@
     font-size: 18px;
     font-weight: 500;
     line-height: 30px;
-     letter-spacing: 0.03em;
+    letter-spacing: 0.03em;
     padding-right: 5em;
     padding-left: 5em;
 }
- 
+.AddBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #9ACA3C;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    text-align: center;
+    font-family: Lama Sans;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0.03em;
+    padding-right:3em;
+    padding-left: 3em;
+    gap: 0.5em;
+}
