@@ -13,7 +13,7 @@ export class PositionTypeService {
 
   getPositionTypes(request: any = {}): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.positionTypeUrl}/Get`, 'get', request, headers);
+    return this.apiCall.request<any>(`${this.positionTypeUrl}/Get`, 'post', request, headers);
   }
 
   addPositionType(PositionType: any): Observable<any> {
@@ -23,11 +23,11 @@ export class PositionTypeService {
 
   editPositionType(PositionType: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.positionTypeUrl}/Edit`, 'put', PositionType, headers);
+    return this.apiCall.request<any>(`${this.positionTypeUrl}/Edit`, 'post', PositionType, headers);
   }
 
   deletePositionType(id: number, companyId: number): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.positionTypeUrl}/Delete/${id}/${companyId}`, 'delete', {}, headers);
+    return this.apiCall.request<any>(`${this.positionTypeUrl}/Delete/${id}/${companyId}`, 'post', {}, headers);
   }
 }
