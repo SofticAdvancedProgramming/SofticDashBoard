@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environment/environment';
 import { ApiCall } from '../../apiCall/apicall.service';
+import { Department } from '../../../../models/department';
 
 @Injectable({
   providedIn: 'root'
@@ -18,14 +19,14 @@ export class DepartmentService {
     return this.apiCall.request<any>(`${this.departmentUrl}/Get`, 'post', request, headers);
   }
 
-  addDepartment(Department: any): Observable<any> {
+  addDepartment(department: Department): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.departmentUrl}/Add`, 'post', Department, headers);
+    return this.apiCall.request<any>(`${this.departmentUrl}/Add`, 'post', department, headers);
   }
 
-  editDepartment(Department: any): Observable<any> {
+  editDepartment(department: Department): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.departmentUrl}/Edit`, 'post', Department, headers);
+    return this.apiCall.request<any>(`${this.departmentUrl}/Edit`, 'post', department, headers);
   }
 
   deleteDepartment(id: number, companyId: number): Observable<any> {
