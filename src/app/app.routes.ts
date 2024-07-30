@@ -21,6 +21,7 @@ import { AddPositionComponent } from './core/dashboard/company/components/positi
 import { DepartmentDetailsComponent } from './core/dashboard/company/components/department/department-details/department-details.component';
 import { AddDepartmentComponent } from './core/dashboard/company/components/department/add-department/add-department.component';
 import { DepartmentOverviewComponent } from './core/dashboard/company/components/department/department-overview/department-overview.component';
+import { PositionTypeManagmentComponent } from './core/dashboard/setting/Lockups/position-type-managment/position-type-managment.component';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,7 @@ export const routes: Routes = [
       { path: 'DepartmentDetails', component: DepartmentDetailsComponent },
       { path: 'AddDepartment', component: AddDepartmentComponent },
       { path: 'DepartmentOverview', component: DepartmentOverviewComponent  },
+      { path: 'PositionTypeManagment', component: PositionTypeManagmentComponent  },
     ],
   },
 ];
