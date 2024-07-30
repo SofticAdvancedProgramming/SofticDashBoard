@@ -3,17 +3,25 @@
     <form>
       <div class="form-group">
         <label for="position">Position</label>
-        <select id="position" name="position">
-          <option value="graphic-designer">Graphic designer</option>
-          <!-- Add more options as needed -->
+        <select id="position" name="position" [(ngModel)]="selectedPositionId">
+           <option value="" disabled>Select Position</option>
+           @for (item of types; track item.id) {
+           <option [value]="item.id">{{item.name}}</option>
+           }@empty {
+              No data found
+           }
         </select>
       </div>
       <div class="form-group">
         <label for="department">Department</label>
-        <select id="department" name="department">
-          <option value="designing-department">Designing Department</option>
-          <!-- Add more options as needed -->
-        </select>
+        <select id="position" name="position" [(ngModel)]="selectedDepId">
+          <option value="" disabled>Select department</option>
+          @for (item of departments; track item.id) {
+          <option [value]="item.id">{{item.name}}</option>
+          }@empty {
+             No data found
+          }
+       </select>
       </div>
       <div class="form-group toggle-group">
         <label class="switch">
