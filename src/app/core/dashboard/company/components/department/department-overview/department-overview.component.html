@@ -1,82 +1,78 @@
 <div class="profile-header">
-    <div class="w-100 d-flex justify-content-end ">
-        <button class="btn AddBtn"><i class="fa fa-plus"></i> Add Sub-Department </button>
-    </div>
-    <div class="profile-info">
-        <div class="profile-logo">
-            <img src="../../../../../../../assets/images/softic/softicLogo.png" alt="Company Logo">
-        </div>
-        <div class="profile-details">
-            <div> 
-            <h1>IbOIT Company</h1>
-            <p>Software Company</p>
-        </div>
-        <div class="btn-edit">  
-            <button>Edit Department</button>
-        </div>
-        </div>
-    </div>
-    <div class="profile-content mt-4">
-        <div class="profile-section w-75 mb-4">
-            <div class="row">
-                <div class="col-md-4"><strong>Branch Name:</strong></div>
-                <div class="col-md-8">Shiraton Branch</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"><strong>Branch Manager:</strong></div>
-                <div class="col-md-8">Maged Kareem</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"><strong>Country:</strong></div>
-                <div class="col-md-8">Egypt</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"><strong>Address:</strong></div>
-                <div class="col-md-8">15 drs street banafsig 12</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"><strong>Email:</strong></div>
-                <div class="col-md-8">Yomna.aeamail.com</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"><strong>Mobile:</strong></div>
-                <div class="col-md-8">01064514442</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"><strong>Fax:</strong></div>
-                <div class="col-md-8">021546523</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"><strong>Phone:</strong></div>
-                <div class="col-md-8">0215645988476</div>
-            </div>
-        </div>
 
-        <div class="profile-section w-75 mt-4 mb-4">
-             <div class="row">
-                <div class="col-md-4"><strong>Department Name:</strong></div>
-                <div class="col-md-8">Shiraton Branch</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"><strong>Department Specialty:</strong></div>
-                <div class="col-md-8">Maged Kareem</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"><strong>Department Manager:</strong></div>
-                <div class="col-md-8">Egypt</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"><strong>Job Type/Job Title:</strong></div>
-                <div class="col-md-8">15 drs street banafsig 12</div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"><strong>Number of Employees:</strong></div>
-                <div class="col-md-8">Yomna.aeagmail.com</div>
-            </div>
-        </div>
 
-        <div class=" d-flex justify-content-center profile-actions text-center">
-            <button class="btn  viewBtn"> View Employees Department</button>
-        </div>
+  @if(!showAddSubDepartmentForm){
+  <div class="w-100 d-flex justify-content-end ">
+    <button class="btn AddBtn" (click)="toggleAddSubDepartment()"><i class="fa fa-plus"></i> Add Sub-Department
+    </button>
+  </div>
+  <div class="profile-info">
+    <div class="profile-logo">
+      <img [src]="company.logo" alt="Company Logo">
     </div>
+    <div class="profile-details">
+      <div>
+        <h1>{{company.name}}</h1>
+        <p>Software Company</p>
+      </div>
+      <div class="btn-edit">
+        <button>Edit Department</button>
+      </div>
+    </div>
+  </div>
+  <div class="profile-content mt-4">
+    <div class="profile-section w-75 mb-4">
+      <div class="row">
+        <div class="col-md-4"><strong>Branch Name:</strong></div>
+        <div class="col-md-8">Shiraton Branch</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Branch Manager:</strong></div>
+        <div class="col-md-8">Maged Kareem</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Country:</strong></div>
+        <div class="col-md-8">Egypt</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Address:</strong></div>
+        <div class="col-md-8">{{company.address}}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Email:</strong></div>
+        <div class="col-md-8">{{company.email}}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Mobile:</strong></div>
+        <div class="col-md-8">{{company.phoneNumber}}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Fax:</strong></div>
+        <div class="col-md-8">{{company.fax}}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Phone:</strong></div>
+        <div class="col-md-8">{{company.phone}}</div>
+      </div>
+    </div>
+
+    <div class="profile-section w-75 mt-4 mb-4">
+      <div class="row">
+        <div class="col-md-4"><strong>Department Name:</strong></div>
+        <div class="col-md-8">{{Department.name}}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-4"><strong>Department Manager:</strong></div>
+        <div class="col-md-8">{{Department.manager}}</div>
+      </div>
+    </div>
+
+    <div class=" d-flex justify-content-center profile-actions text-center">
+      <button class="btn  viewBtn"> View Employees Department</button>
+    </div>
+  </div>
+  }@else{
+<div> </div>
+  }
+
 </div>

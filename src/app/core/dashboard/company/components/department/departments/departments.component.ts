@@ -8,20 +8,21 @@ import { Department } from '../../../../../../../models/department';
 import { AddDepartmentComponent } from '../add-department/add-department.component';
 import { ApiCall } from '../../../../../../services/apiCall/apicall.service';
 import { environment } from '../../../../../../environment/environment';
+import { DepartmentOverviewComponent } from '../department-overview/department-overview.component';
 
 @Component({
   selector: 'app-departments',
   standalone: true,
   templateUrl: './departments.component.html',
   styleUrls: ['./departments.component.css'],
-  imports: [CommonModule, FormsModule, RouterModule, BasicTableComponent, RouterOutlet, AddDepartmentComponent]
+  imports: [CommonModule, FormsModule, RouterModule, BasicTableComponent, RouterOutlet, AddDepartmentComponent,DepartmentOverviewComponent]
 })
 export class DepartmentsComponent {
-  showCards: boolean = true;
+  showOverView: boolean = false;
   selectedCard: any = null;
   isAdd: boolean = false;
   private apiUrl = `${environment.apiBaseUrl}Company`;
-
+department:Department={}
   constructor(private apiCall: ApiCall, private router: Router) { }
 
   cards = Array.from({ length: 3 }, (_, i) => ({
@@ -29,37 +30,21 @@ export class DepartmentsComponent {
     title: `UI UX Designer ${i + 1}`,
     department: 'Designing Department'
   }));
-
   active: boolean = true;
   headers: string[] = ['id', 'name', 'shortName', 'manager'];
   data: Department[] = [];
   title = 'Departments Overview';
-  cardData: { [key: number]: Department[] } = {
-    1: [
-      { id: 1, name: 'Design Department', shortName: 'Design', nameAr: 'تصميم', description: 'Designing', descriptionAr: 'تصميم', manager: 'Yomna Ashraf' },
-      { id: 2, name: 'HR Department', shortName: 'HR', nameAr: 'الموارد البشرية', description: 'People Department managing', descriptionAr: 'إدارة قسم الناس', manager: 'Nabil Warda' }
-    ],
-    2: [
-      { id: 3, name: 'Development Department', shortName: 'Dev', nameAr: 'تطوير', description: 'Web developments', descriptionAr: 'تطويرات الويب', manager: 'George Mikhail' },
-      { id: 4, name: 'Marketing Department', shortName: 'Marketing', nameAr: 'تسويق', description: 'Marketing', descriptionAr: 'تسويق', manager: 'Mayar' }
-    ],
-    3: [
-      { id: 5, name: 'Business Development', shortName: 'Biz Dev', nameAr: 'تطوير الأعمال', description: 'Data Analyst', descriptionAr: 'محلل بيانات', manager: 'Aya Salah' },
-      { id: 6, name: 'Traveler Department', shortName: 'Travel', nameAr: 'سفر', description: 'Ticket Maker', descriptionAr: 'صانع التذاكر', manager: 'Maged Ali' }
-    ]
-  };
 
   showDetails(cardId: number) {
     this.selectedCard = this.cards.find(card => card.id === cardId);
     this.fetchData(cardId);
-    this.showCards = false;
+    this.showOverView = true;
   }
 
   fetchData(cardId: number) {
     const useDemoData = true;
 
     if (useDemoData) {
-      this.data = this.cardData[cardId] || [];
       console.log(`Fetched mock data for card ${cardId}:`, this.data);
     } else {
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -67,12 +52,13 @@ export class DepartmentsComponent {
     }
   }
 
-  showCardsDetails() {
-    this.selectedCard = null;
-    this.data = [];
-    this.showCards = true;
-  }
 
+  goBack() {
+    if (this.showOverView) {
+      this.showOverView = false;
+    } else if (this.isAdd) {
+      this.isAdd = false;
+    }}
   addPosition(): void {
     this.isAdd = true;
   }
@@ -82,7 +68,4 @@ export class DepartmentsComponent {
     console.log('Action emitted:', isAdd);
   }
 
-  navigateToOverview(): void {
-    this.router.navigate(['../DepartmentOverview']);
-  }
 }
