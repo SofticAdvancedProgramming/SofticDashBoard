@@ -56,11 +56,9 @@ export class DepartmentsComponent {
   }
 
   fetchData(cardId: number) {
-    // Switch between demo data and API
-    const useDemoData = true; // Set to false to use API
+    const useDemoData = true;
 
     if (useDemoData) {
-      // Use mock data
       this.data = this.cardData[cardId] || [];
       console.log(`Fetched mock data for card ${cardId}:`, this.data);
     } else {

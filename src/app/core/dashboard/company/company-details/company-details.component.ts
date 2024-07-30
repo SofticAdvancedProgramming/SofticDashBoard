@@ -21,7 +21,7 @@ import { DepartmentsComponent } from "../components/department/departments/depar
 export class CompanyDetailsComponent implements OnInit {
   role: any = JSON.parse(localStorage.getItem('roles')!);
   active: boolean = true;
-  companyId: string | null = null;
+  companyId: string = '';
   company: Company = {} as Company;
   cityName: string = '';
   countryName: string = '';
@@ -33,7 +33,7 @@ export class CompanyDetailsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.companyId = this.route.snapshot.paramMap.get('companyId');
+    this.companyId = this.route.snapshot.paramMap.get('companyId')||'';
     if (this.companyId) {
       await this.getCompanyDetails(this.companyId);
     }

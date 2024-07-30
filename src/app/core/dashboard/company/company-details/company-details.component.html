@@ -29,7 +29,7 @@
     <mat-tab label="Profile">  <app-profile-details [company]="company" [cityName]="cityName" [countryName]="countryName"> </app-profile-details> </mat-tab>
     <mat-tab label="Branches"><app-brunches> </app-brunches>  </mat-tab>
     <mat-tab label="Department"><app-departments> </app-departments>  </mat-tab>
-    <mat-tab label="Postion"><app-index> </app-index>  </mat-tab>
+    <mat-tab label="Postion"><app-index [companyId]='companyId'> </app-index>  </mat-tab>
     @if(this.role[0] === "Admin"){
       <mat-tab label="Branches"><app-brunches> </app-brunches>  </mat-tab>
     }

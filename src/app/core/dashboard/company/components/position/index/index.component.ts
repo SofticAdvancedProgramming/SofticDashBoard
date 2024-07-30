@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AddPositionComponent } from '../add-position/add-position.component';
 
@@ -11,7 +11,7 @@ import { AddPositionComponent } from '../add-position/add-position.component';
 })
 export class IndexComponent {
   isAdd: boolean = false;
-
+  @Input()companyId?:string=''
   addPosition(): void {
     this.isAdd = true;
   }

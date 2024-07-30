@@ -1,6 +1,6 @@
 <div class=" container my-5">
   @if(isAdd){
-  <app-add-position (action)="handleAction($event)"></app-add-position>
+  <app-add-position [companyId]="companyId"  (action)="handleAction($event)"></app-add-position>
   } @else{
   <div class="row">
     <div class=" justify-content-end d-flex">

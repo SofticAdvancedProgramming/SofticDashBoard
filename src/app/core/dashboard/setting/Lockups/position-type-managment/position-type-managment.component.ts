@@ -43,7 +43,7 @@ export class PositionTypeManagmentComponent implements OnInit {
 
   loadEntities(entity: string): void {
     const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
-    (this.positionTypeService[methodName] as Function)({companyId:this.companyId}, this.companyId).subscribe(
+    (this.positionTypeService[methodName] as Function)({companyId:this.companyId}).subscribe(
       (response: any) => {
         if (response.status === 200) {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
@@ -57,7 +57,7 @@ export class PositionTypeManagmentComponent implements OnInit {
 
   addEntity(entity: string, newEntity: any): void {
     const methodName = this.entityTypes[entity].add as keyof PositionTypeService;
-    (this.positionTypeService[methodName] as Function)(newEntity, this.companyId).subscribe(
+    (this.positionTypeService[methodName] as Function)(newEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.loadEntities(entity);
@@ -71,7 +71,7 @@ export class PositionTypeManagmentComponent implements OnInit {
 
   editEntity(entity: string, updatedEntity: any): void {
     const methodName = this.entityTypes[entity].edit as keyof PositionTypeService;
-    (this.positionTypeService[methodName] as Function)(updatedEntity, this.companyId).subscribe(
+    (this.positionTypeService[methodName] as Function)(updatedEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.loadEntities(entity); // Reload the list
