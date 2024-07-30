@@ -22,11 +22,10 @@ export class DepartmentManagmentComponent implements OnInit {
   companyId: number = 0;
   structure = [
     { name: 'name', label: 'Name', type: 'text', required: true },
-    { name: 'shortName', label: 'Short Name', type: 'text', required: true },
     { name: 'nameAr', label: 'Name (Arabic)', type: 'text', required: true },
+    { name: 'shortName', label: 'Short Name', type: 'text', required: true },
     { name: 'description', label: 'Description', type: 'text', required: true },
     { name: 'descriptionAr', label: 'Description (Arabic)', type: 'text', required: true },
-    { name: 'manager', label: 'Manager', type: 'text', required: true },
     { name: 'lat', label: 'Latitude', type: 'number', required: true },
     { name: 'long', label: 'Longitude', type: 'number', required: true },
   ];
@@ -51,7 +50,7 @@ export class DepartmentManagmentComponent implements OnInit {
 
   loadEntities(entity: string): void {
     const methodName = this.entityTypes[entity].load as keyof DepartmentService;
-    (this.departmentService[methodName] as Function)({ companyId: this.companyId }).subscribe(
+    (this.departmentService[methodName] as Function)({companyId: this.companyId}).subscribe(
       (response: any) => {
         if (response.status === 200) {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
