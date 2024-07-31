@@ -4,28 +4,20 @@
       <div class="form-group">
         <label for="position">Position</label>
         <select id="position" name="position" [(ngModel)]="selectedPositionId">
-           <option value="" disabled>Select Position</option>
-           @for (item of types; track item.id) {
-           <option [value]="item.id">{{item.name}}</option>
-           }@empty {
-              No data found
-           }
+          <option value="" disabled>Select Position</option>
+          <option *ngFor="let item of types; trackBy: trackByPositionId" [value]="item.id">{{ item.name }}</option>
         </select>
       </div>
       <div class="form-group">
         <label for="department">Department</label>
         <select id="department" name="department" [(ngModel)]="selectedDepId">
           <option value="" disabled>Select department</option>
-          @for (item of departments; track item.id) {
-          <option [value]="item.id">{{item.name}}</option>
-          }@empty {
-             No data found
-          }
-       </select>
+          <option *ngFor="let item of departments; trackBy: trackByDepartmentId" [value]="item.id">{{ item.name }}</option>
+        </select>
       </div>
       <div class="form-group toggle-group">
         <label class="switch">
-          <input type="checkbox" id="direct-manager">
+          <input type="checkbox" id="direct-manager" [(ngModel)]="isDirectManager" name="directManager">
           <span class="slider"></span>
         </label>
         <label for="direct-manager" class="toggle-label">Direct Manager</label>
@@ -41,3 +33,4 @@
     </form>
   </div>
 </div>
+<p-toast></p-toast>
