@@ -5,11 +5,10 @@ import { PositionTypeService } from '../../../../../../services/lockupsServices/
 import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
 import { Department } from '../../../../../../../models/department';
 
-
-interface Position{
-  id:number,
-  name:string,
-  nameAr:string
+interface Position {
+  id: number,
+  name: string,
+  nameAr: string
 }
 
 @Component({
@@ -31,10 +30,11 @@ export class AddPositionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPositionTypes();
+    this.loadDepartments();
   }
 
   loadPositionTypes(): void {
-    this.positionTypeService.getPositionTypes({companyId:this.companyId}).subscribe({
+    this.positionTypeService.getPositionTypes({ companyId: this.companyId }).subscribe({
       next: (response) => {
         this.types = response.data.list;
       },
@@ -43,13 +43,14 @@ export class AddPositionComponent implements OnInit {
       }
     });
   }
+
   loadDepartments(): void {
-    this.departmentsService.getDepartment({companyId:this.companyId}).subscribe({
+    this.departmentsService.getDepartment({ companyId: this.companyId }).subscribe({
       next: (response) => {
         this.departments = response.data.list;
       },
       error: (err) => {
-        console.error('Error loading position types', err);
+        console.error('Error loading departments', err);
       }
     });
   }
