@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PositionTypeService } from '../../../../../../services/lockupsServices/positionTypeService/position-type.service';
 import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
 import { PositionService } from '../../../../../../services/positionService/position.service';
@@ -17,7 +17,7 @@ interface Position {
 @Component({
   selector: 'app-add-position',
   standalone: true,
-  imports: [CommonModule, FormsModule , ToastModule],
+  imports: [CommonModule, FormsModule , ToastModule , ReactiveFormsModule],
   templateUrl: './add-position.component.html',
   styleUrls: ['./add-position.component.css'],
   providers: [MessageService],
@@ -27,13 +27,20 @@ export class AddPositionComponent implements OnInit {
   @Input() companyId?: string = '';
   types: Position[] = [];
   departments: Department[] = [];
-  selectedPositionId: number = 0;
-  selectedDepId: number = 0;
-  isDirectManager: boolean = false;
+  form: FormGroup;
+
   positionTypeService = inject(PositionTypeService);
   departmentsService = inject(DepartmentService);
   positionService = inject(PositionService);
   messageService = inject(MessageService);
+
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      position: ['', Validators.required],
+      department: ['', Validators.required],
+      isDirectManager: [false]
+    });
+  }
 
   ngOnInit(): void {
     this.loadPositionTypes();
@@ -63,12 +70,17 @@ export class AddPositionComponent implements OnInit {
   }
 
   onSave(): void {
+    if (this.form.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
+      return;
+    }
+
     const positionData = {
       id: 0,
       companyId: Number(this.companyId),
-      positionTypeId: this.selectedPositionId,
-      departmentId: this.selectedDepId,
-      positionManagerId: this.isDirectManager ? this.selectedPositionId : 0
+      positionTypeId: this.form.value.position,
+      departmentId: this.form.value.department,
+      positionManagerId: this.form.value.isDirectManager ? this.form.value.position : 0
     };
 
     this.positionService.addDepartment(positionData).subscribe({
