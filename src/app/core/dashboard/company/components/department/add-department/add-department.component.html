@@ -6,8 +6,8 @@
         <input placeholder="Enter Department Name">
       </div>
       <div class="form-group">
-        <label for="position">Department Name(Arabic)</label>
-        <input placeholder="Enter Department Name(Arabic)">
+        <label for="position">Department Name (Arabic)</label>
+        <input placeholder="Enter Department Name (Arabic)">
       </div>
       <div class="form-group">
         <label for="department">Department Short Name</label>
@@ -15,11 +15,11 @@
       </div>
       <div class="form-group">
         <label for="department">Department Long</label>
-        <input placeholder="Enter Long">
+        <input placeholder="Enter Long" [(ngModel)]="departmentLong" name="departmentLong">
       </div>
       <div class="form-group">
         <label for="department">Department Lat</label>
-        <input placeholder="Enter Lat">
+        <input placeholder="Enter Lat" [(ngModel)]="departmentLat" name="departmentLat">
       </div>
       <div class="form-group">
         <label for="department">Department Manager</label>
@@ -28,12 +28,16 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="department">Description(english) </label>
-        <textarea placeholder="Enter Description(english)"> </textarea>
+        <label for="department">Description (English)</label>
+        <textarea placeholder="Enter Description (English)"></textarea>
       </div>
       <div class="form-group">
-        <label for="department">Description(Arabic)</label>
-        <textarea placeholder="Enter Description(Arabic)"> </textarea>
+        <label for="department">Description (Arabic)</label>
+        <textarea placeholder="Enter Description (Arabic)"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="map">Department Location</label>
+        <app-map (locationSelected)="onLocationSelected($event)"></app-map>
       </div>
       <div class="form-buttons row">
         <div class="col-lg-6 justify-content-center d-flex">
