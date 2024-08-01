@@ -1,44 +1,57 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
-import { LeafletService } from '../../../../services/leafletService/leaflet.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
+  styleUrls: ['./map.component.css'],
   standalone: true,
-  styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit {
-  @ViewChild('mapContainer', { static: false }) mapContainer!: ElementRef;
+export class MapComponent implements OnInit {
   @Output() locationSelected = new EventEmitter<{ lat: number, lng: number }>();
 
-  map: any;
-  marker: any;
+  options: any;
+  private map: any;
+  private marker: any;
 
-  constructor(private leafletService: LeafletService) {}
-
-  async ngAfterViewInit(): Promise<void> {
-    const L = await this.leafletService.loadLeaflet();
-    this.initMap(L);
+  ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      // Load Leaflet only in the browser
+      import('leaflet').then(L => {
+        this.initializeMap(L);
+      });
+    }
   }
 
-  initMap(L: any): void {
-    this.map = L.map(this.mapContainer.nativeElement).setView([24, 12], 4);
+  initializeMap(L: any): void {
+    this.options = {
+      layers: [
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        })
+      ],
+      zoom: 4,
+      center: L.latLng(24, 12)
+    };
+
+    const mapContainer = document.getElementById('map');
+    this.map = L.map(mapContainer).setView([24, 12], 4);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
-    this.map.on('click', (e: any) => {
-      this.placeMarker(L, e.latlng);
-      this.locationSelected.emit({ lat: e.latlng.lat, lng: e.latlng.lng });
+    this.map.on('click', (event: any) => {
+      this.onMapClick(event, L);
     });
   }
 
-  placeMarker(L: any, latlng: any): void {
+  onMapClick(event: any, L: any): void {
+    const latlng = event.latlng;
     if (this.marker) {
       this.marker.setLatLng(latlng);
     } else {
       this.marker = L.marker(latlng).addTo(this.map);
     }
+    this.locationSelected.emit({ lat: latlng.lat, lng: latlng.lng });
   }
 }

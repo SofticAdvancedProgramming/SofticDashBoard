@@ -24,6 +24,7 @@
     "@angular/platform-server": "^18.0.0",
     "@angular/router": "^18.0.0",
     "@angular/ssr": "^18.0.2",
+    "@asymmetrik/ngx-leaflet": "^18.0.1",
     "@auth0/angular-jwt": "^5.2.0",
     "@microsoft/signalr": "^8.0.0",
     "@syncfusion/ej2-angular-calendars": "^25.1.42",
