@@ -1,28 +1,80 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
+import { Department } from '../../../../../../../models/department';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { MapComponent } from '../../../../components/map/map.component';
 
 @Component({
   selector: 'app-add-department',
   standalone: true,
-  imports: [CommonModule, FormsModule, MapComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent],
   templateUrl: './add-department.component.html',
-  styleUrls: ['./add-department.component.css']
+  styleUrls: ['./add-department.component.css'],
+  providers: [MessageService],
 })
-export class AddDepartmentComponent {
-  @Output() action = new EventEmitter<any>();
+export class AddDepartmentComponent implements OnInit {
+  @Output() action = new EventEmitter<boolean>();
+  form: FormGroup;
+  companyId: number | null = null;
 
-  departmentLong: number = 0;
-  departmentLat: number = 0;
+  constructor(
+    private fb: FormBuilder,
+    private departmentService: DepartmentService,
+    private messageService: MessageService
+  ) {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      nameAr: ['', Validators.required],
+      shortName: ['', Validators.required],
+      long: [0, Validators.required],
+      lat: [0, Validators.required],
+      manager: ['', Validators.required],
+      description: ['', Validators.required],
+      descriptionAr: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    const storedCompanyId = localStorage.getItem('companyId');
+    if (storedCompanyId) {
+      this.companyId = Number(storedCompanyId);
+    }
+  }
 
   onSave(): void {
-    const departmentData = {
-      long: this.departmentLong,
-      lat: this.departmentLat,
-      // other department details
+    if (this.form.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
+      return;
+    }
+
+    const departmentData: Department = {
+      id: 0,
+      companyId: this.companyId || 0,
+      name: this.form.value.name,
+      shortName: this.form.value.shortName,
+      nameAr: this.form.value.nameAr,
+      description: this.form.value.description,
+      descriptionAr: this.form.value.descriptionAr,
+      manager: this.form.value.manager,
+      branchId: 0,
+      long: this.form.value.long,
+      lat: this.form.value.lat
     };
-    this.action.emit(departmentData);
+
+    this.departmentService.addDepartment(departmentData).subscribe({
+      next: (response) => {
+        console.log('Department added successfully', response);
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Department added successfully' });
+        this.action.emit(false);
+      },
+      error: (err) => {
+        console.error('Error adding department', err);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error adding department' });
+      }
+    });
   }
 
   onBack(): void {
@@ -30,7 +82,6 @@ export class AddDepartmentComponent {
   }
 
   onLocationSelected(location: { lat: number, lng: number }): void {
-    this.departmentLat = location.lat;
-    this.departmentLong = location.lng;
+    this.form.patchValue({ lat: location.lat, long: location.lng });
   }
 }
