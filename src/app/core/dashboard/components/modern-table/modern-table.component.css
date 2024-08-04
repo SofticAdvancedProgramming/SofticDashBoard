@@ -137,18 +137,19 @@
 
 .customColumn{
   color: #A2A1A8;
-  font-family: Nunito;
+   font-family: Nunito;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 300;
   line-height: 26px;
   letter-spacing: 0.03em;
   text-align: left;
+  
 }
 .tabelText{
-  color: #2D3A49;
+  color: #000000;
   font-family: Nunito;
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 600;
   line-height: 25px;
   letter-spacing: 0.03em;
   text-align: left;

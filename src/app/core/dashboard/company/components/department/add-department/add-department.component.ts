@@ -6,6 +6,8 @@ import { Department } from '../../../../../../../models/department';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MapComponent } from '../../../../components/map/map.component';
+import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
+import { branch } from '../../../../../../../models/branch';
 
 @Component({
   selector: 'app-add-department',
@@ -19,10 +21,11 @@ export class AddDepartmentComponent implements OnInit {
   @Output() action = new EventEmitter<boolean>();
   form: FormGroup;
   companyId: number | null = null;
-
+  branches: branch[] = [];
   constructor(
     private fb: FormBuilder,
     private departmentService: DepartmentService,
+    private branchService: BranchService,
     private messageService: MessageService
   ) {
     this.form = this.fb.group({
@@ -32,6 +35,7 @@ export class AddDepartmentComponent implements OnInit {
       long: [0, Validators.required],
       lat: [0, Validators.required],
       manager: ['', Validators.required],
+      branchId: [null, Validators.required],   
       description: ['', Validators.required],
       descriptionAr: ['', Validators.required]
     });
@@ -42,7 +46,20 @@ export class AddDepartmentComponent implements OnInit {
     if (storedCompanyId) {
       this.companyId = Number(storedCompanyId);
     }
+    this.loadBranches();
   }
+
+  loadBranches(): void {
+    this.branchService.getBranch({ companyId: this.companyId }).subscribe({
+      next: (response) => {
+        this.branches = response.data.list;
+      },
+      error: (err) => {
+        console.error('Error loading branches', err);
+      }
+    });
+  }
+
 
   onSave(): void {
     if (this.form.invalid) {
@@ -59,7 +76,7 @@ export class AddDepartmentComponent implements OnInit {
       description: this.form.value.description,
       descriptionAr: this.form.value.descriptionAr,
       manager: this.form.value.manager,
-      branchId: 0,
+      branchId: this.form.value.branchId,
       long: this.form.value.long,
       lat: this.form.value.lat
     };

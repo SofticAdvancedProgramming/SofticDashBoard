@@ -2,7 +2,7 @@
   <div class="form-container">
     <form [formGroup]="form" (ngSubmit)="onSave()">
       <div class="form-group">
-        <label for="name">Department Name</label>
+        <label for="name">Department Name(English)</label>
         <input id="name" formControlName="name" placeholder="Enter Department Name" class="form-control" />
         <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-danger">Name is required</div>
       </div>
@@ -28,11 +28,20 @@
       </div>
       <div class="form-group">
         <label for="manager">Department Manager</label>
-        <select id="manager" formControlName="manager" class="form-control">
-          <option value="designing-department">Designing Department</option>
-          <!-- Add other options as necessary -->
-        </select>
+        <input id="manager" formControlName="manager" placeholder="Enter Manager Name" class="form-control" />
         <div *ngIf="form.get('manager')?.invalid && form.get('manager')?.touched" class="text-danger">Manager is required</div>
+      </div>
+
+
+
+
+
+      <div class="form-group">
+        <label for="branchId">Branch</label>
+        <select id="branchId" formControlName="branchId" class="form-control">
+          <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
+        </select>
+        <div *ngIf="form.get('branchId')?.invalid && form.get('branchId')?.touched" class="text-danger">Branch is required</div>
       </div>
       <div class="form-group">
         <label for="description">Description (English)</label>
