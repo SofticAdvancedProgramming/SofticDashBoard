@@ -23,6 +23,7 @@ import { AddDepartmentComponent } from './core/dashboard/company/components/depa
 import { DepartmentOverviewComponent } from './core/dashboard/company/components/department/department-overview/department-overview.component';
 import { PositionTypeManagmentComponent } from './core/dashboard/setting/Lockups/position-type-managment/position-type-managment.component';
 import { DepartmentManagmentComponent } from './core/dashboard/setting/Lockups/department-managment/department-managment.component';
+import { BranchManagmentComponent } from './core/dashboard/setting/Lockups/branch-managment/branch-managment.component';
 
 export const routes: Routes = [
   {
@@ -56,6 +57,7 @@ export const routes: Routes = [
       { path: 'DepartmentOverview', component: DepartmentOverviewComponent  },
       { path: 'PositionTypeManagment', component: PositionTypeManagmentComponent  },
       { path: 'departmentManagment', component: DepartmentManagmentComponent  },
+      { path: 'branchManagment', component: BranchManagmentComponent  },
     ],
   },
 ];
