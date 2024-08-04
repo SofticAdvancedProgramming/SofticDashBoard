@@ -9,7 +9,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 
 interface Position {
-  id: number;
+  id: 0;
   name: string;
   nameAr: string;
 }
@@ -17,7 +17,7 @@ interface Position {
 @Component({
   selector: 'app-add-position',
   standalone: true,
-  imports: [CommonModule, FormsModule , ToastModule , ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ToastModule, ReactiveFormsModule],
   templateUrl: './add-position.component.html',
   styleUrls: ['./add-position.component.css'],
   providers: [MessageService],
@@ -77,14 +77,14 @@ export class AddPositionComponent implements OnInit {
 
     const positionData = {
       id: 0,
-      companyId: Number(this.companyId),
+      companyId: Number(this.companyId) || 0,
       positionTypeId: Number(this.form.value.position),
       departmentId: Number(this.form.value.department),
       positionManagerId: this.form.value.isDirectManager ? Number(this.form.value.position) : 0
     };
-
-    console.log('Sending position data:', positionData);
-
+    
+    console.log('Position data being sent:', positionData);
+    
     this.positionService.addPosition(positionData).subscribe({
       next: (response) => {
         console.log('Position added successfully', response);
@@ -96,7 +96,20 @@ export class AddPositionComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error adding position' });
       }
     });
+    
   }
+
+
+
+
+
+
+
+
+
+
+
+
 
   onBack(): void {
     this.action.emit(false);

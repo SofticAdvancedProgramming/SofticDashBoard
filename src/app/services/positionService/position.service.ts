@@ -21,6 +21,7 @@ export class PositionService {
 
   addPosition(position: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    console.log('Position data being sent:', position);  // Add this log
     return this.apiCall.request<any>(`${this.PositionUrl}/Add`, 'post', position, headers)
       .pipe(
         catchError(this.handleError)
@@ -36,6 +37,7 @@ export class PositionService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.apiCall.request<any>(`${this.PositionUrl}/Delete/${id}/${companyId}`, 'post', {}, headers);
   }
+
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);
     return throwError(error);
