@@ -28,7 +28,9 @@ export class AddPositionComponent implements OnInit {
   types: Position[] = [];
   departments: Department[] = [];
   form: FormGroup;
-
+  selectedPositionId: number = 0;
+  selectedDepId: number = 0;
+  isDirectManager: boolean = false;
   positionTypeService = inject(PositionTypeService);
   departmentsService = inject(DepartmentService);
   positionService = inject(PositionService);
@@ -70,21 +72,15 @@ export class AddPositionComponent implements OnInit {
   }
 
   onSave(): void {
-    if (this.form.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
-      return;
-    }
-
+    this.action.emit(false);
     const positionData = {
       id: 0,
-      companyId: Number(this.companyId) || 0,
-      positionTypeId: Number(this.form.value.position),
-      departmentId: Number(this.form.value.department),
-      positionManagerId: this.form.value.isDirectManager ? Number(this.form.value.position) : 0
+      companyId: Number(this.companyId),
+      positionTypeId: this.selectedPositionId,
+      departmentId: this.selectedDepId,
+      positionManagerId: this.isDirectManager ? this.selectedPositionId : 0
     };
-    
-    console.log('Position data being sent:', positionData);
-    
+
     this.positionService.addPosition(positionData).subscribe({
       next: (response) => {
         console.log('Position added successfully', response);
@@ -96,20 +92,7 @@ export class AddPositionComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error adding position' });
       }
     });
-    
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
   onBack(): void {
     this.action.emit(false);
