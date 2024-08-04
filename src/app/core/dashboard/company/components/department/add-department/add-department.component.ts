@@ -22,6 +22,7 @@ export class AddDepartmentComponent implements OnInit {
   form: FormGroup;
   companyId: number | null = null;
   branches: branch[] = [];
+  
   constructor(
     private fb: FormBuilder,
     private departmentService: DepartmentService,
@@ -35,7 +36,7 @@ export class AddDepartmentComponent implements OnInit {
       long: [0, Validators.required],
       lat: [0, Validators.required],
       manager: ['', Validators.required],
-      branchId: [null, Validators.required],   
+      branchId: [null, Validators.required],
       description: ['', Validators.required],
       descriptionAr: ['', Validators.required]
     });
@@ -56,10 +57,10 @@ export class AddDepartmentComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error loading branches', err);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load branches' });
       }
     });
   }
-
 
   onSave(): void {
     if (this.form.invalid) {
