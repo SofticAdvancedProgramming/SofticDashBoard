@@ -78,12 +78,14 @@ export class AddPositionComponent implements OnInit {
     const positionData = {
       id: 0,
       companyId: Number(this.companyId),
-      positionTypeId: this.form.value.position,
-      departmentId: this.form.value.department,
-      positionManagerId: this.form.value.isDirectManager ? this.form.value.position : 0
+      positionTypeId: Number(this.form.value.position),
+      departmentId: Number(this.form.value.department),
+      positionManagerId: this.form.value.isDirectManager ? Number(this.form.value.position) : 0
     };
 
-    this.positionService.addDepartment(positionData).subscribe({
+    console.log('Sending position data:', positionData);
+
+    this.positionService.addPosition(positionData).subscribe({
       next: (response) => {
         console.log('Position added successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Position added successfully' });

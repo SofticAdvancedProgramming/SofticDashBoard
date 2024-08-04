@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, tap, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
 import { ApiCall } from '../apiCall/apicall.service';
 import { HttpHeaders } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,23 +14,30 @@ export class PositionService {
 
   constructor(private apiCall: ApiCall) {}
 
-  getDepartment(request: any = {}): Observable<any> {
+  getPosition(request: any = {}): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.apiCall.request<any>(`${this.PositionUrl}/Get`, 'post', request, headers);
   }
 
-  addDepartment(position: any): Observable<any> {
+  addPosition(position: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.PositionUrl}/Add`, 'post', position, headers);
+    return this.apiCall.request<any>(`${this.PositionUrl}/Add`, 'post', position, headers)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  editDepartment(position: any): Observable<any> {
+  editPosition(position: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.apiCall.request<any>(`${this.PositionUrl}/Edit`, 'post', position, headers);
   }
 
-  deleteDepartment(id: number, companyId: number): Observable<any> {
+  deletePosition(id: number, companyId: number): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.apiCall.request<any>(`${this.PositionUrl}/Delete/${id}/${companyId}`, 'post', {}, headers);
+  }
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError(error);
   }
 }
