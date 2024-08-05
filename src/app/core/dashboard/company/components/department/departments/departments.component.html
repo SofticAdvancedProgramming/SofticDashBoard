@@ -1,6 +1,6 @@
-@if(isAdd){
+@if(isAdd) {
 <app-add-department (action)="handleAction($event)"></app-add-department>
-}@else {
+} @else {
 <div class="container my-5" *ngIf="!showOverView">
     <div class="row">
         <div class="justify-content-end d-flex">
@@ -20,7 +20,7 @@
                     <label class="toggle-label">
                         <span>Activate</span>
                         <label class="switch">
-                            <input type="checkbox" [checked]="active">
+                            <input type="checkbox" [checked]="card.active">
                             <span class="slider"></span>
                         </label>
                     </label>
@@ -34,26 +34,8 @@
         </div>
     </div>
 </div>
-
-
-
-@if(showOverView){
-  <button class="btn btn-secondary" (click)="goBack()">Back</button>
-  <app-department-overview [Department]="department"></app-department-overview>
-
+@if(showOverView) {
+<button class="btn btn-secondary" (click)="goBack()">Back</button>
+<app-department-overview [Department]="department"></app-department-overview>
 }
 }
-<!-- <div class="container my-5">
-    <div class="row justify-content-center d-flex my-3">
-        <form class="d-flex w-75" role="search">
-            <input class="customSearch" type="search" placeholder="Search" aria-label="Search">
-            <button class="search-btn" type="submit">
-                <img src="../../../../assets/images/search-normal.png" alt="Search" width="16" height="16">
-            </button>
-        </form>
-    </div>
-    <div *ngIf="!showCards">
-        <app-basic-table [tableHeaders]="headers" [tableData]="data" [tableTitle]="title"></app-basic-table>
-         <button (click)="navigateToOverview()" class="btn">Next</button>
-      </div>
-</div> -->

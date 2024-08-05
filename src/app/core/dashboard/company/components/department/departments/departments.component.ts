@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,31 +9,61 @@ import { AddDepartmentComponent } from '../add-department/add-department.compone
 import { ApiCall } from '../../../../../../services/apiCall/apicall.service';
 import { environment } from '../../../../../../environment/environment';
 import { DepartmentOverviewComponent } from '../department-overview/department-overview.component';
+import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
 
 @Component({
   selector: 'app-departments',
   standalone: true,
   templateUrl: './departments.component.html',
   styleUrls: ['./departments.component.css'],
-  imports: [CommonModule, FormsModule, RouterModule, BasicTableComponent, RouterOutlet, AddDepartmentComponent,DepartmentOverviewComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    BasicTableComponent,
+    RouterOutlet,
+    AddDepartmentComponent,
+    DepartmentOverviewComponent
+  ],
+  providers: [DepartmentService] // Make sure the service is provided here
 })
-export class DepartmentsComponent {
+export class DepartmentsComponent implements OnInit {
   showOverView: boolean = false;
   selectedCard: any = null;
   isAdd: boolean = false;
   private apiUrl = `${environment.apiBaseUrl}Company`;
-department:Department={}
-  constructor(private apiCall: ApiCall, private router: Router) { }
-
-  cards = Array.from({ length: 3 }, (_, i) => ({
-    id: i + 1,
-    title: `UI UX Designer ${i + 1}`,
-    department: 'Designing Department'
-  }));
+  department: Department = {} as Department;
+  cards: any[] = []; // Change cards to an empty array
   active: boolean = true;
   headers: string[] = ['id', 'name', 'shortName', 'manager'];
   data: Department[] = [];
   title = 'Departments Overview';
+
+  constructor(
+    private apiCall: ApiCall,
+    private router: Router,
+    private departmentService: DepartmentService
+  ) { }
+
+  ngOnInit(): void {
+    this.loadDepartments(); // Load departments on init
+  }
+
+  loadDepartments(): void {
+    this.departmentService.getDepartment({ companyId: 1 }).subscribe({
+      next: (response) => {
+        this.cards = response.data.list.map((department: any, index: number) => ({
+          id: department.id,
+          title: department.name,
+          department: department.shortName,
+          active: department.active
+        }));
+      },
+      error: (err) => {
+        console.error('Error loading departments', err);
+      }
+    });
+  }
 
   showDetails(cardId: number) {
     this.selectedCard = this.cards.find(card => card.id === cardId);
@@ -48,17 +78,20 @@ department:Department={}
       console.log(`Fetched mock data for card ${cardId}:`, this.data);
     } else {
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      this.apiCall.request<any>(this.apiUrl + '/Get', 'post', {}, headers);
+      this.apiCall.request<any>(this.apiUrl + '/Get', 'post', {}, headers).subscribe(data => {
+        console.log(data);
+      });
     }
   }
-
 
   goBack() {
     if (this.showOverView) {
       this.showOverView = false;
     } else if (this.isAdd) {
       this.isAdd = false;
-    }}
+    }
+  }
+
   addPosition(): void {
     this.isAdd = true;
   }
@@ -67,5 +100,4 @@ department:Department={}
     this.isAdd = isAdd;
     console.log('Action emitted:', isAdd);
   }
-
 }

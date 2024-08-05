@@ -5,15 +5,15 @@
   <ng-template #positionList>
     <div class="row">
       <div class="justify-content-end d-flex">
-        <button class="btn addPositionBtn w-25" (click)="addPosition()"><i class="fas fa-plus"></i> Add Position</button>
+        <button class="btn addPositionBtn w-25" (click)="addPosition()"><i class="fas fa-plus"></i> Add
+          Position</button>
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let position of positions">
+      <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let position of positions">
         <div class="card">
           <div class="card-header">
             <h3>{{ position.name }}</h3>
-            <p>{{ position.departmentId }}</p>
           </div>
           <div class="card-body">
             <button class="btn btn-add"><i class="fas fa-plus"></i> Add Employee</button>

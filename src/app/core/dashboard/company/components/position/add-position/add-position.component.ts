@@ -32,7 +32,7 @@ export class AddPositionComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      positionType: ['', Validators.required],  // Define the form control for positionType
+      positionType: ['', Validators.required],
       department: ['', Validators.required],
       position: ['', Validators.required],
       isDirectManager: [false]
@@ -43,7 +43,7 @@ export class AddPositionComponent implements OnInit {
     this.loadPositionTypes();
     this.loadDepartments();
     this.loadPositions();
-   }
+  }
 
   loadPositionTypes(): void {
     this.positionTypeService.getPositionTypes({ companyId: this.companyId }).subscribe({
@@ -66,7 +66,7 @@ export class AddPositionComponent implements OnInit {
       }
     });
   }
-  
+
   loadPositions(): void {
     this.positionService.getPosition({ companyId: this.companyId }).subscribe({
       next: (response) => {
@@ -88,7 +88,7 @@ export class AddPositionComponent implements OnInit {
     const positionData: Position = {
       id: 0,
       companyId: Number(this.companyId),
-      positionTypeId: parseInt(this.form.value.positionType, 10), // Correctly access the form value for positionType
+      positionTypeId: parseInt(this.form.value.positionType, 10),
       departmentId: parseInt(this.form.value.department, 10),
       positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : null
     };
