@@ -28,6 +28,16 @@
         </label>
         <label for="direct-manager" class="toggle-label">Direct Manager</label>
       </div>
+      <div class="form-group">
+        <label for="position">Position</label>
+        <select id="position" formControlName="position" class="form-control">
+          <option value="" disabled>Select Position</option>
+          <option *ngFor="let item of positions; trackBy: trackByPositionId" [value]="item.id">{{ item.name }}</option>
+        </select>
+        <div *ngIf="form.get('position')?.invalid && form.get('position')?.touched" class="text-danger">
+          Position is required
+        </div>
+      </div>
       <div class="form-buttons row">
         <div class="col-lg-6 justify-content-center d-flex">
           <button type="button" class="btn btn-secondary" (click)="onBack()">Back</button>
@@ -35,7 +45,7 @@
         <div class="col-lg-6 justify-content-center d-flex">
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
-      </div>
+      </div>  
     </form>
   </div>
 </div>

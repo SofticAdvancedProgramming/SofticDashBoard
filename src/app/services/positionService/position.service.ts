@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environment/environment';
 import { ApiCall } from '../apiCall/apicall.service';
 import { HttpHeaders } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Position } from '../../../models/positionModel'; // Ensure this is correctly imported
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +20,9 @@ export class PositionService {
     return this.apiCall.request<any>(`${this.PositionUrl}/Get`, 'post', request, headers);
   }
 
-  addPosition(position: any): Observable<any> {
+  addPosition(position: Position): Observable<any> { // Use Position model here
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    console.log('Position data being sent:', position);  // Add this log
+    console.log('Position data being sent:', position);
     return this.apiCall.request<any>(`${this.PositionUrl}/Add`, 'post', position, headers)
       .pipe(
         catchError(this.handleError)

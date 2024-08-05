@@ -5,14 +5,9 @@ import { PositionTypeService } from '../../../../../../services/lockupsServices/
 import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
 import { PositionService } from '../../../../../../services/positionService/position.service';
 import { Department } from '../../../../../../../models/department';
+import { Position } from '../../../../../../../models/positionModel';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-
-interface Position {
-  id: 0;
-  name: string;
-  nameAr: string;
-}
 
 @Component({
   selector: 'app-add-position',
@@ -25,12 +20,11 @@ interface Position {
 export class AddPositionComponent implements OnInit {
   @Output() action = new EventEmitter<boolean>();
   @Input() companyId?: string = '';
-  types: Position[] = [];
+  types: any[] = [];
   departments: Department[] = [];
+  positions: any[] = [];
   form: FormGroup;
-  selectedPositionId: number = 0;
-  selectedDepId: number = 0;
-  isDirectManager: boolean = false;
+
   positionTypeService = inject(PositionTypeService);
   departmentsService = inject(DepartmentService);
   positionService = inject(PositionService);
@@ -47,6 +41,8 @@ export class AddPositionComponent implements OnInit {
   ngOnInit(): void {
     this.loadPositionTypes();
     this.loadDepartments();
+    this.loadPositions();
+    this.onDirectManagerChange();
   }
 
   loadPositionTypes(): void {
@@ -70,16 +66,45 @@ export class AddPositionComponent implements OnInit {
       }
     });
   }
+  
+  loadPositions(): void {
+    this.positionService.getPosition({ companyId: this.companyId }).subscribe({
+      next: (response) => {
+        this.positions = response.data.list;
+        console.log("Positions loaded", response);
+      },
+      error: (err) => {
+        console.error('Error loading positions', err);
+      }
+    });
+  }
+
+  onDirectManagerChange(): void {
+    this.form.get('isDirectManager')?.valueChanges.subscribe((isDirectManager) => {
+      if (isDirectManager) {
+        const selectedPosition = this.form.get('position')?.value;
+        this.form.patchValue({ positionManagerId: selectedPosition });
+      } else {
+        this.form.patchValue({ positionManagerId: null });
+      }
+    });
+  }
 
   onSave(): void {
-    this.action.emit(false);
-    const positionData = {
+    if (this.form.invalid) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
+      return;
+    }
+
+    const positionData: Position = {
       id: 0,
       companyId: Number(this.companyId),
-      positionTypeId: this.selectedPositionId,
-      departmentId: this.selectedDepId,
-      positionManagerId: this.isDirectManager ? this.selectedPositionId : 0
+      positionTypeId: parseInt(this.form.value.position, 10),
+      departmentId: parseInt(this.form.value.department, 10),
+      positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : null
     };
+
+    console.log('Position data being sent:', JSON.stringify(positionData));
 
     this.positionService.addPosition(positionData).subscribe({
       next: (response) => {
@@ -88,7 +113,7 @@ export class AddPositionComponent implements OnInit {
         this.action.emit(false);
       },
       error: (err) => {
-        console.error('Error adding position', err);
+        console.log('Error adding position', err);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error adding position' });
       }
     });
@@ -98,7 +123,7 @@ export class AddPositionComponent implements OnInit {
     this.action.emit(false);
   }
 
-  trackByPositionId(index: number, item: Position): number {
+  trackByPositionId(index: number, item: any): number {
     return item.id;
   }
 
