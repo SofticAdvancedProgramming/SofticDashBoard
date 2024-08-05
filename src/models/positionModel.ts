@@ -3,5 +3,5 @@ export interface Position {
     companyId: number;
     positionTypeId: number;
     departmentId: number;
-    positionManagerId: number | null;  }
-  
+    positionManagerId: number | null; 
+   }

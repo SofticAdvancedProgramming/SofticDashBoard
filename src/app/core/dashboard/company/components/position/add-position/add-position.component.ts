@@ -20,7 +20,7 @@ import { ToastModule } from 'primeng/toast';
 export class AddPositionComponent implements OnInit {
   @Output() action = new EventEmitter<boolean>();
   @Input() companyId?: string = '';
-  types: any[] = [];
+  positionType: any[] = [];
   departments: Department[] = [];
   positions: any[] = [];
   form: FormGroup;
@@ -32,8 +32,9 @@ export class AddPositionComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      position: ['', Validators.required],
+      positionType: ['', Validators.required],  // Define the form control for positionType
       department: ['', Validators.required],
+      position: ['', Validators.required],
       isDirectManager: [false]
     });
   }
@@ -42,13 +43,12 @@ export class AddPositionComponent implements OnInit {
     this.loadPositionTypes();
     this.loadDepartments();
     this.loadPositions();
-    this.onDirectManagerChange();
-  }
+   }
 
   loadPositionTypes(): void {
     this.positionTypeService.getPositionTypes({ companyId: this.companyId }).subscribe({
       next: (response) => {
-        this.types = response.data.list;
+        this.positionType = response.data.list;
       },
       error: (err) => {
         console.error('Error loading position types', err);
@@ -79,17 +79,6 @@ export class AddPositionComponent implements OnInit {
     });
   }
 
-  onDirectManagerChange(): void {
-    this.form.get('isDirectManager')?.valueChanges.subscribe((isDirectManager) => {
-      if (isDirectManager) {
-        const selectedPosition = this.form.get('position')?.value;
-        this.form.patchValue({ positionManagerId: selectedPosition });
-      } else {
-        this.form.patchValue({ positionManagerId: null });
-      }
-    });
-  }
-
   onSave(): void {
     if (this.form.invalid) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
@@ -99,7 +88,7 @@ export class AddPositionComponent implements OnInit {
     const positionData: Position = {
       id: 0,
       companyId: Number(this.companyId),
-      positionTypeId: parseInt(this.form.value.position, 10),
+      positionTypeId: parseInt(this.form.value.positionType, 10), // Correctly access the form value for positionType
       departmentId: parseInt(this.form.value.department, 10),
       positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : null
     };
