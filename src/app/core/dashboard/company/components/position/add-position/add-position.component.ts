@@ -92,6 +92,7 @@ export class AddPositionComponent implements OnInit {
 
   onSave(): void {
     if (this.form.invalid) {
+      this.form.markAllAsTouched(); // Mark all fields as touched to show validation errors
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
       return;
     }
