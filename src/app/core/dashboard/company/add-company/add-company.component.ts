@@ -73,12 +73,13 @@ export class AddCompanyComponent implements OnInit {
       twitter: [null],
       instgram: [null],
       tiktok: [null],
-      cityId: [null],
-      countryId: [null],
+      cityId: [null],  // Initialize with null
+      countryId: [null],  // Initialize with null
       address: [null],
       subscriptionPlanId: ['', Validators.required]
     });
   }
+  
 
   private loadSubscriptionPlans(): void {
     this.subscriptionPlanService.getSubscriptionPlan().subscribe(

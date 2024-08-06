@@ -34,7 +34,7 @@ export class AddPositionComponent implements OnInit {
     this.form = this.fb.group({
       positionType: ['', Validators.required],
       department: ['', Validators.required],
-      position: ['', Validators.required],
+      position: [{ value: '', disabled: true }, Validators.required],
       isDirectManager: [false]
     });
   }
@@ -43,6 +43,7 @@ export class AddPositionComponent implements OnInit {
     this.loadPositionTypes();
     this.loadDepartments();
     this.loadPositions();
+    this.togglePositionField();
   }
 
   loadPositionTypes(): void {
@@ -79,6 +80,16 @@ export class AddPositionComponent implements OnInit {
     });
   }
 
+  togglePositionField(): void {
+    this.form.get('isDirectManager')?.valueChanges.subscribe(isDirectManager => {
+      if (isDirectManager) {
+        this.form.get('position')?.enable();
+      } else {
+        this.form.get('position')?.disable();
+      }
+    });
+  }
+
   onSave(): void {
     if (this.form.invalid) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
@@ -90,7 +101,7 @@ export class AddPositionComponent implements OnInit {
       companyId: Number(this.companyId),
       positionTypeId: parseInt(this.form.value.positionType, 10),
       departmentId: parseInt(this.form.value.department, 10),
-      positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : null
+      positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : 0
     };
 
     console.log('Position data being sent:', JSON.stringify(positionData));
