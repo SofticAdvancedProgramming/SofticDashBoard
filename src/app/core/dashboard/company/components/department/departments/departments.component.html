@@ -1,10 +1,10 @@
 @if(isAdd) {
-<app-add-department (action)="handleAction($event)"></app-add-department>
+<app-add-department (action)="handleAction($event)" (departmentAdded)="handleDepartmentAdded()"></app-add-department>
 } @else {
 <div class="container my-5" *ngIf="!showOverView">
     <div class="row">
         <div class="justify-content-end d-flex">
-            <button class="btn addPositionBtn w-25" (click)="addPosition()">
+            <button class="btn addPositionBtn w-25" (click)="addDepartment()">
                 <i class="fas fa-plus"></i> Add Department
             </button>
         </div>
@@ -18,7 +18,7 @@
                 </div>
                 <div class="card-body">
                     <button class="btn btn-add"><i class="fas fa-plus"></i> Add Employee</button>
-                  </div>
+                </div>
                 <div class="card-footer">
                     <label class="toggle-label">
                         <span>Activate</span>
@@ -27,7 +27,7 @@
                             <span class="slider"></span>
                         </label>
                     </label>
-                    <i class="fas fa-trash-alt icon-trash"></i>
+                    <i class="fas fa-trash-alt icon-trash"(click)="deleteDepartment(card.id)"></i>
                     <i class="fas fa-edit icon-edit"></i>
                     <button class="btn" (click)="showDetails(card.id)">
                         <span class="details">show details <i class="fa-solid fa-arrow-right"></i></span>
@@ -39,6 +39,7 @@
 </div>
 @if(showOverView) {
 <button class="btn btn-secondary" (click)="goBack()">Back</button>
-<app-department-overview [Department]="department"></app-department-overview>
+<app-department-overview (departmentAdded)="handleDepartmentAdded()"
+    [Department]="department"></app-department-overview>
 }
 }

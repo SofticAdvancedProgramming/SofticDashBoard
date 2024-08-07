@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +10,8 @@ import { ApiCall } from '../../../../../../services/apiCall/apicall.service';
 import { environment } from '../../../../../../environment/environment';
 import { DepartmentOverviewComponent } from '../department-overview/department-overview.component';
 import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-departments',
@@ -23,11 +25,13 @@ import { DepartmentService } from '../../../../../../services/lockupsServices/De
     BasicTableComponent,
     RouterOutlet,
     AddDepartmentComponent,
-    DepartmentOverviewComponent
+    DepartmentOverviewComponent,
+    ToastModule
   ],
-  providers: [DepartmentService] // Make sure the service is provided here
+  providers: [DepartmentService, MessageService] // Make sure the service is provided here
 })
 export class DepartmentsComponent implements OnInit {
+  @Output() departmentAdded = new EventEmitter<void>();
   showOverView: boolean = false;
   selectedCard: any = null;
   isAdd: boolean = false;
@@ -42,7 +46,8 @@ export class DepartmentsComponent implements OnInit {
   constructor(
     private apiCall: ApiCall,
     private router: Router,
-    private departmentService: DepartmentService
+    private departmentService: DepartmentService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -50,19 +55,23 @@ export class DepartmentsComponent implements OnInit {
   }
 
   loadDepartments(): void {
-    this.departmentService.getDepartment({ companyId: 1 }).subscribe({
-      next: (response) => {
-        this.cards = response.data.list.map((department: any, index: number) => ({
-          id: department.id,
-          title: department.name,
-          department: department.shortName,
-          active: department.active
-        }));
-      },
-      error: (err) => {
-        console.error('Error loading departments', err);
-      }
-    });
+    const companyId = this.getCompanyId();
+    if (companyId) {
+      this.departmentService.getDepartment({ companyId }).subscribe({
+        next: (response) => {
+          this.cards = response.data.list.map((department: any) => ({
+            id: department.id,
+            title: department.name,
+            department: department.shortName,
+            active: department.active
+          }));
+        },
+        error: (err) => {
+          console.error('Error loading departments', err);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading departments' });
+        }
+      });
+    }
   }
 
   showDetails(cardId: number) {
@@ -92,12 +101,40 @@ export class DepartmentsComponent implements OnInit {
     }
   }
 
-  addPosition(): void {
+  addDepartment(): void {
     this.isAdd = true;
   }
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
     console.log('Action emitted:', isAdd);
+  }
+
+  handleDepartmentAdded(): void {
+    this.loadDepartments(); 
+    this.isAdd = false;   
+  }
+
+  deleteDepartment(departmentId: number): void {
+    const companyId = this.getCompanyId();
+    if (companyId) {
+      this.departmentService.deleteDepartment(departmentId, companyId).subscribe({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Department deleted successfully' });
+          this.loadDepartments(); // Reload departments after deletion
+        },
+        error: (err) => {
+          console.error('Error deleting department', err);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting department' });
+        }
+      });
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Company ID is missing' });
+    }
+  }
+
+  private getCompanyId(): number | null {
+    const storedCompanyId = localStorage.getItem('companyId');
+    return storedCompanyId ? Number(storedCompanyId) : null;
   }
 }
