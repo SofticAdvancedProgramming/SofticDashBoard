@@ -13,13 +13,9 @@ export class EmployeeService {
 
   constructor(private apiCall: ApiCall) {}
 
-  loadEmployees(request:any): Observable<employee[]> {
+  loadEmployees(request: any): Observable<{ status: number, message: string, data: { list: employee[] } }> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(this.apiUrl+'/Get', 'post', request, headers);
-  }
-  getEmployee(request:any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(this.apiUrl+'/Get', 'post',request, headers);
+    return this.apiCall.request<{ status: number, message: string, data: { list: employee[] } }>(this.apiUrl + '/Get', 'post', request, headers);
   }
   addEmployee(request:any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -29,4 +25,5 @@ export class EmployeeService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.apiCall.request<any>(this.apiUrl+'/AssginPosition', 'post',request, headers);
   }
+  
 }

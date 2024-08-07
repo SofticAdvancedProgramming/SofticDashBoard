@@ -5,8 +5,7 @@
   <ng-template #positionList>
     <div class="row">
       <div class="justify-content-end d-flex">
-        <button class="btn addPositionBtn w-25" (click)="addPosition()"><i class="fas fa-plus"></i> Add
-          Position</button>
+        <button class="btn addPositionBtn w-25" (click)="addPosition()"><i class="fas fa-plus"></i> Add Position</button>
       </div>
     </div>
     <div class="row">
@@ -34,8 +33,26 @@
     </div>
   </ng-template>
 
-  <!-- Add the popup component -->
   <ng-container *ngIf="isAddEmployee">
-    <app-assign-employees [positionId]="selectedPositionId" (close)="closePopup()"></app-assign-employees>
+    <app-assign-employees 
+      [positionId]="selectedPositionId" 
+      [Position]="'Position'" 
+      [PositionDescription]="selectedPositionData?.name || ''" 
+      [Department]="'Department'" 
+      [DepartmentDescription]="selectedPositionData?.department || ''" 
+      [DirectManager]="'Direct Manager'" 
+      [DirectManagerDescription]="selectedPositionData?.manager || ''"
+      [employees]="employees" 
+      (close)="closePopup()">
+      <ng-template #popupContent>
+        <form>
+          <div>
+            <label for="employeeName">Name:</label>
+            <input type="text" id="employeeName" name="employeeName">
+          </div>
+          <button type="submit">Assign</button>
+        </form>
+      </ng-template>
+    </app-assign-employees>
   </ng-container>
 </div>
