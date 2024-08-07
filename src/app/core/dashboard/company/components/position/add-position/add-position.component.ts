@@ -8,11 +8,12 @@ import { Department } from '../../../../../../../models/department';
 import { Position } from '../../../../../../../models/positionModel';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-add-position',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToastModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ToastModule, ReactiveFormsModule, RouterLink],
   templateUrl: './add-position.component.html',
   styleUrls: ['./add-position.component.css'],
   providers: [MessageService],
@@ -24,11 +25,12 @@ export class AddPositionComponent implements OnInit {
   departments: Department[] = [];
   positions: any[] = [];
   form: FormGroup;
-
+  loading: boolean = true;
   positionTypeService = inject(PositionTypeService);
   departmentsService = inject(DepartmentService);
   positionService = inject(PositionService);
   messageService = inject(MessageService);
+  router = inject(Router);
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -50,9 +52,11 @@ export class AddPositionComponent implements OnInit {
     this.positionTypeService.getPositionTypes({ companyId: this.companyId }).subscribe({
       next: (response) => {
         this.positionType = response.data.list;
+        this.checkLoadingState();
       },
       error: (err) => {
         console.error('Error loading position types', err);
+        this.checkLoadingState();
       }
     });
   }
@@ -61,9 +65,11 @@ export class AddPositionComponent implements OnInit {
     this.departmentsService.getDepartment({ companyId: this.companyId }).subscribe({
       next: (response) => {
         this.departments = response.data.list;
+        this.checkLoadingState();
       },
       error: (err) => {
         console.error('Error loading departments', err);
+        this.checkLoadingState();
       }
     });
   }
@@ -72,12 +78,19 @@ export class AddPositionComponent implements OnInit {
     this.positionService.getPosition({ companyId: this.companyId }).subscribe({
       next: (response) => {
         this.positions = response.data.list;
-        console.log("Positions loaded", response);
+        this.checkLoadingState();
       },
       error: (err) => {
         console.error('Error loading positions', err);
+        this.checkLoadingState();
       }
     });
+  }
+
+  checkLoadingState(): void {
+    if (this.positionType.length && this.departments.length && this.positions.length) {
+      this.loading = false;
+    }
   }
 
   togglePositionField(): void {
@@ -92,7 +105,7 @@ export class AddPositionComponent implements OnInit {
 
   onSave(): void {
     if (this.form.invalid) {
-      this.form.markAllAsTouched(); // Mark all fields as touched to show validation errors
+      this.form.markAllAsTouched();
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
       return;
     }
@@ -102,15 +115,15 @@ export class AddPositionComponent implements OnInit {
       companyId: Number(this.companyId),
       positionTypeId: parseInt(this.form.value.positionType, 10),
       departmentId: parseInt(this.form.value.department, 10),
-      positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : 0
+      positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : null
     };
-
-    console.log('Position data being sent:', JSON.stringify(positionData));
 
     this.positionService.addPosition(positionData).subscribe({
       next: (response) => {
         console.log('Position added successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Position added successfully' });
+        this.router.navigate(['dashboard/positionIndex']);
+        window.location.reload();
         this.action.emit(false);
       },
       error: (err) => {

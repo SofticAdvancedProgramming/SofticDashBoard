@@ -23,9 +23,12 @@ export class ErrorHandlerService {
     { key: "15", value: "Invalid company." },
     { key: "16", value: "Invalid NFC." },
     { key: "17", value: "Company extension is already in use." },
-    { key: "18", value: "OTP code is incorrect or expired." },
-    { key: "19", value: "Password reset failed. Please try again." }
-    
+    { key: "18", value: "Object with this ID not found." },
+    { key: "19", value: "Reference photo is invalid Base64." },
+    { key: "20", value: "Reference photo is required." },
+    { key: "21", value: "Make Check-In first." },
+    { key: "22", value: "Employee or branch not found." },
+    { key: "23", value: "Employee or position not found." },
   ];
 
   getErrorMessage(key: string): string {

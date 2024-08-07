@@ -30,8 +30,5 @@
     <mat-tab label="Branches"><app-brunches> </app-brunches>  </mat-tab>
     <mat-tab label="Department"><app-departments> </app-departments>  </mat-tab>
     <mat-tab label="Postion"><app-index [companyId]='companyId'> </app-index>  </mat-tab>
-    @if(this.role[0] === "Admin"){
-      <mat-tab label="Branches"><app-brunches> </app-brunches>  </mat-tab>
-    }
     <mat-tab label="Top Managements"> <app-top-managment> </app-top-managment>  </mat-tab>
   </mat-tab-group>

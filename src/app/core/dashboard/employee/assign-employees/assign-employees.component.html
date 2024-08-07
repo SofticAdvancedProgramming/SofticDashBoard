@@ -1,0 +1,14 @@
+<div class="popup-overlay" (click)="close.emit()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="close.emit()">&times;</button>
+         <h3>Add Employee</h3>
+        <form>
+            <div>
+                <label for="employeeName">Name:</label>
+                <input type="text" id="employeeName" name="employeeName">
+            </div>
+            <button type="submit">Assign</button>
+        </form>
+    </div>
+</div>
+ 

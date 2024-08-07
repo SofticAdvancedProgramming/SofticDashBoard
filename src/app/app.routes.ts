@@ -24,6 +24,8 @@ import { DepartmentOverviewComponent } from './core/dashboard/company/components
 import { PositionTypeManagmentComponent } from './core/dashboard/setting/Lockups/position-type-managment/position-type-managment.component';
 import { DepartmentManagmentComponent } from './core/dashboard/setting/Lockups/department-managment/department-managment.component';
 import { BranchManagmentComponent } from './core/dashboard/setting/Lockups/branch-managment/branch-managment.component';
+import { ViewEmployeesComponent } from './core/dashboard/employee/view-employees/view-employees.component';
+import { AddEmployeeComponent } from './core/dashboard/employee/add-employee/add-employee.component';
 
 export const routes: Routes = [
   {
@@ -58,6 +60,8 @@ export const routes: Routes = [
       { path: 'PositionTypeManagment', component: PositionTypeManagmentComponent  },
       { path: 'departmentManagment', component: DepartmentManagmentComponent  },
       { path: 'branchManagment', component: BranchManagmentComponent  },
+      { path: 'ViewEmployees', component: ViewEmployeesComponent  },
+      { path: 'AddEmployee', component: AddEmployeeComponent  },
     ],
   },
 ];
