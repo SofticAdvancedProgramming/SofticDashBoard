@@ -1,1 +1,44 @@
-<p>add-branch works!</p>
+<div class="container mt-4">
+    <div class="form-container">
+        <form [formGroup]="form" (ngSubmit)="onSave()">
+            <div class="form-group">
+                <label for="name">Branch Name (English)</label>
+                <input id="name" formControlName="name" placeholder="Enter Branch Name" class="form-control" />
+                <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-danger">Name is required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nameAr">Branch Name (Arabic)</label>
+                <input id="nameAr" formControlName="nameAr" placeholder="Enter Branch Name (Arabic)"
+                    class="form-control" />
+                <div *ngIf="form.get('nameAr')?.invalid && form.get('nameAr')?.touched" class="text-danger">Arabic name
+                    is required</div>
+            </div>
+            <div class="form-group">
+                <label for="long">Branch Longitude</label>
+                <input id="long" formControlName="long" placeholder="Enter Longitude" class="form-control" />
+                <div *ngIf="form.get('long')?.invalid && form.get('long')?.touched" class="text-danger">Longitude is
+                    required</div>
+            </div>
+            <div class="form-group">
+                <label for="lat">Branch Latitude</label>
+                <input id="lat" formControlName="lat" placeholder="Enter Latitude" class="form-control" />
+                <div *ngIf="form.get('lat')?.invalid && form.get('lat')?.touched" class="text-danger">Latitude is
+                    required</div>
+            </div>
+            <div class="form-group">
+                <label for="map">Branch Location</label>
+                <app-map (locationSelected)="onLocationSelected($event)"></app-map>
+            </div>
+            <div class="form-buttons row mt-3">
+                <div class="col-lg-6 justify-content-center d-flex">
+                    <button type="button" class="btn btn-secondary" (click)="onBack()">Back</button>
+                </div>
+                <div class="col-lg-6 justify-content-center d-flex">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<p-toast position="top-center"></p-toast>

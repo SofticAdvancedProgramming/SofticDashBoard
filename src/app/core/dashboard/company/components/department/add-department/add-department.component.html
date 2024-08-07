@@ -31,11 +31,6 @@
         <input id="manager" formControlName="manager" placeholder="Enter Manager Name" class="form-control" />
         <div *ngIf="form.get('manager')?.invalid && form.get('manager')?.touched" class="text-danger">Manager is required</div>
       </div>
-
-
-
-
-
       <div class="form-group">
         <label for="branchId">Branch</label>
         <select id="branchId" formControlName="branchId" class="form-control">

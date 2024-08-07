@@ -8,67 +8,31 @@
                 <div class="row">
                     <div class="justify-content-end d-flex">
                         <button class="btn addBranchBtn w-25" (click)="addBranch()">
-                            <i class="fas fa-plus"></i> Add Department
+                            <i class="fas fa-plus"></i> Add Branch
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">  
-        <div class="col-lg-4 ">
-            <div class="cardContainer">
-                <img src="../../../../../../assets/images/Media.png" class="card-img-top" alt="Building Image">
-                <div class="card-body">
-                    <h5 class="card-title">Sheraton</h5>
-                    <p class="card-text">
-                        <i class="fa fa-map-marker-alt"></i> 12 Ali Street, buildingB1 sheraton
-                    </p>
-                    <p class="card-text">
-                        <i class="fa fa-user"></i> Maged kareem
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <button class="btn ">VIEW</button>
-                </div>
-            </div>
-        </div>
-        <div class=" col-lg-4 ">
-            <div class="cardContainer">
-                <img src="../../../../../../assets/images/Media (1).png" class="card-img-top" alt="Building Image">
-                <div class="card-body">
-                    <h5 class="card-title">Nasr City</h5>
-                    <p class="card-text">
-                        <i class="fa fa-map-marker-alt"></i> Abas el akad . 15 bilding 12
-                    </p>
-                    <p class="card-text">
-                        <i class="fa fa-user"></i> Abdullah moharmam
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <button class="btn ">VIEW</button>
+             <div class="row mt-3">
+                <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let branch of branches">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>{{ branch.name }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-add"><i class="fas fa-plus"></i> Add Employee</button>
+                        </div>
+                        <div class="card-footer">
+                            <i class="fas fa-trash-alt icon-trash"></i>
+                            <i class="fas fa-edit icon-edit"></i>
+                            <button class="btn">
+                                <span class="details">show details <i class="fa-solid fa-arrow-right"></i></span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-4 ">
-            <div class="cardContainer">
-                <img src="../../../../../../assets/images/company bulding.png" class="card-img-top"
-                    alt="Building Image">
-                <div class="card-body">
-                    <h5 class="card-title">Down Town</h5>
-                    <p class="card-text">
-                        <i class="fa fa-map-marker-alt"></i> down town street building 2
-                    </p>
-                    <p class="card-text">
-                        <i class="fa fa-user"></i> Sofian Morad
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <button class="btn ">VIEW</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-</div>
+ </div>
 }
