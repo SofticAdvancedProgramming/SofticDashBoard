@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BrunchesComponent } from './branches.component';
+import { ViewBranchesComponent } from './view-branches.component';
 
-describe('BrunchesComponent', () => {
-  let component: BrunchesComponent;
-  let fixture: ComponentFixture<BrunchesComponent>;
+describe('ViewBranchesComponent', () => {
+  let component: ViewBranchesComponent;
+  let fixture: ComponentFixture<ViewBranchesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BrunchesComponent]
+      imports: [ViewBranchesComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BrunchesComponent);
+    fixture = TestBed.createComponent(ViewBranchesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

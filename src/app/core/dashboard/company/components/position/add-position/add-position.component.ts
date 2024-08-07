@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, inject, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PositionTypeService } from '../../../../../../services/lockupsServices/positionTypeService/position-type.service';
@@ -26,13 +26,15 @@ export class AddPositionComponent implements OnInit {
   positions: any[] = [];
   form: FormGroup;
   loading: boolean = true;
-  positionTypeService = inject(PositionTypeService);
-  departmentsService = inject(DepartmentService);
-  positionService = inject(PositionService);
-  messageService = inject(MessageService);
-  router = inject(Router);
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private positionTypeService: PositionTypeService,
+    private departmentsService: DepartmentService,
+    private positionService: PositionService,
+    private messageService: MessageService,
+    private router: Router
+  ) {
     this.form = this.fb.group({
       positionType: ['', Validators.required],
       department: ['', Validators.required],
@@ -57,6 +59,7 @@ export class AddPositionComponent implements OnInit {
       error: (err) => {
         console.error('Error loading position types', err);
         this.checkLoadingState();
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading position types' });
       }
     });
   }
@@ -70,6 +73,7 @@ export class AddPositionComponent implements OnInit {
       error: (err) => {
         console.error('Error loading departments', err);
         this.checkLoadingState();
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading departments' });
       }
     });
   }
@@ -83,6 +87,7 @@ export class AddPositionComponent implements OnInit {
       error: (err) => {
         console.error('Error loading positions', err);
         this.checkLoadingState();
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' });
       }
     });
   }
@@ -123,7 +128,6 @@ export class AddPositionComponent implements OnInit {
         console.log('Position added successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Position added successfully' });
         this.router.navigate(['dashboard/positionIndex']);
-        window.location.reload();
         this.action.emit(false);
       },
       error: (err) => {

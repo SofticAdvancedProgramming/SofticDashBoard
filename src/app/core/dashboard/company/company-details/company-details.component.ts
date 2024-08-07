@@ -3,20 +3,20 @@ import { ActivatedRoute } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterLink } from '@angular/router';
 import { ProfileDetailsComponent } from '../components/profile-details/profile-details.component';
-import { BranchesComponent } from '../components/branches/branches.component';
-import { TopManagmentComponent } from '../components/top-managment/top-managment.component';
+ import { TopManagmentComponent } from '../components/top-managment/top-managment.component';
 import { IndexComponent } from '../components/position/index/index.component';
 import { Company } from '../../../../../models/company';
 import { CompanyService } from '../../../../services/comapnyService/company.service';
 import { LocationService } from '../../../../services/lockupsServices/LocationService/location.service';
 import { DepartmentsComponent } from "../components/department/departments/departments.component";
+import { ViewBranchesComponent } from "../components/branches/view-branches/view-branches.component";
 
 @Component({
     selector: 'app-company-details',
     standalone: true,
     templateUrl: './company-details.component.html',
     styleUrls: ['./company-details.component.css'],
-    imports: [MatTabsModule, RouterLink, ProfileDetailsComponent, BranchesComponent, TopManagmentComponent, IndexComponent, DepartmentsComponent]
+    imports: [MatTabsModule, RouterLink, ProfileDetailsComponent, TopManagmentComponent, IndexComponent, DepartmentsComponent, ViewBranchesComponent]
 })
 export class CompanyDetailsComponent implements OnInit {
   role: any = JSON.parse(localStorage.getItem('roles')!);

@@ -6,14 +6,16 @@ import { EmployeeService } from '../../../../../../services/employeeService/empl
 import { AssignEmployeesComponent } from '../../../../employee/assign-employees/assign-employees.component';
 import { AddPositionComponent } from '../add-position/add-position.component';
 import { employee } from '../../../../../../../models/employee';
- 
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+
 @Component({
   selector: 'app-index',
   standalone: true,
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
-  providers: [PositionService, EmployeeService],
-  imports: [RouterLink, CommonModule, AssignEmployeesComponent, AddPositionComponent]
+  providers: [PositionService, EmployeeService, MessageService],
+  imports: [RouterLink, CommonModule, AssignEmployeesComponent, AddPositionComponent , ToastModule]
 })
 export class IndexComponent implements OnInit {
   isAdd: boolean = false;
@@ -24,7 +26,11 @@ export class IndexComponent implements OnInit {
   @Input() companyId?: string = '';
   positions: any[] = [];
 
-  constructor(private positionService: PositionService, private employeeService: EmployeeService) {}
+  constructor(
+    private positionService: PositionService,
+    private employeeService: EmployeeService,
+    private messageService: MessageService // Inject MessageService
+  ) {}
 
   ngOnInit(): void {
     this.loadPositions();
@@ -39,6 +45,7 @@ export class IndexComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error loading positions', err);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' }); // Show error toast
       }
     });
   }
@@ -53,6 +60,7 @@ export class IndexComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error loading employees', err);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees' }); // Show error toast
       }
     });
   }
@@ -83,10 +91,12 @@ export class IndexComponent implements OnInit {
     }).subscribe({
       next: (response) => {
         console.log('Employee assigned successfully:', response);
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Employee assigned successfully' }); // Show success toast
         this.closePopup(); 
       },
       error: (err) => {
         console.error('Error assigning employee:', err);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error assigning employee' }); // Show error toast
       }
     });
   }

@@ -49,6 +49,7 @@
     "ngx-intl-tel-input": "^3.2.0",
     "ngx-permissions": "^17.1.0",
     "ngx-phone-number-input": "^1.0.0",
+    "ngx-toastr": "^19.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.1",
     "rxjs": "~7.8.0",

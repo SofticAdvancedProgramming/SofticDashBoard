@@ -46,7 +46,7 @@ export class DepartmentsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadDepartments(); // Load departments on init
+    this.loadDepartments(); 
   }
 
   loadDepartments(): void {
