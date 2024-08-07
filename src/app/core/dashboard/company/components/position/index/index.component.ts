@@ -29,7 +29,7 @@ export class IndexComponent implements OnInit {
   constructor(
     private positionService: PositionService,
     private employeeService: EmployeeService,
-    private messageService: MessageService // Inject MessageService
+    private messageService: MessageService  
   ) {}
 
   ngOnInit(): void {
@@ -41,11 +41,9 @@ export class IndexComponent implements OnInit {
     this.positionService.getPosition({ companyId: this.companyId }).subscribe({
       next: (response) => {
         this.positions = response.data.list;
-        console.log("Positions loaded:", response);
-      },
+       },
       error: (err) => {
-        console.error('Error loading positions', err);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' }); // Show error toast
+         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' });  
       }
     });
   }
@@ -54,13 +52,10 @@ export class IndexComponent implements OnInit {
     const companyId = localStorage.getItem('companyId');  
     this.employeeService.loadEmployees({ companyId }).subscribe({
       next: (response) => {
-        console.log("Raw employees response:", response);  
-        this.employees = response.data.list;  
-        console.log("Employees loaded:", this.employees);
-      },
+         this.employees = response.data.list;  
+       },
       error: (err) => {
-        console.error('Error loading employees', err);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees' }); // Show error toast
+         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees' }); // Show error toast
       }
     });
   }
@@ -77,8 +72,7 @@ export class IndexComponent implements OnInit {
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
-    console.log('Action emitted:', isAdd);
-  }
+   }
 
   closePopup(): void {
     this.isAddEmployee = false;
@@ -90,13 +84,11 @@ export class IndexComponent implements OnInit {
       positionId: formData.positionId
     }).subscribe({
       next: (response) => {
-        console.log('Employee assigned successfully:', response);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Employee assigned successfully' }); // Show success toast
+         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Employee assigned successfully' }); 
         this.closePopup(); 
       },
       error: (err) => {
-        console.error('Error assigning employee:', err);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error assigning employee' }); // Show error toast
+         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error assigning employee' }); 
       }
     });
   }

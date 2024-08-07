@@ -18,6 +18,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class AddBranchComponent implements OnInit {
   @Output() action = new EventEmitter<boolean>();
+  @Output() branchAdded = new EventEmitter<void>();
   companyId: number | null = null;
   form: FormGroup;
 
@@ -60,6 +61,7 @@ export class AddBranchComponent implements OnInit {
       next: (response) => {
         console.log('Branch added successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Branch added successfully' });
+        this.branchAdded.emit(); // Notify parent component to reload branches
         this.action.emit(false);
       },
       error: (err) => {

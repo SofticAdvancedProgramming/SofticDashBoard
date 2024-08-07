@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
- import { AddBranchComponent } from '../add-branch/add-branch.component';
-import { branch } from '../../../../../../../models/branch';
 import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
+import { branch } from '../../../../../../../models/branch';
+import { MapComponent } from '../../../../components/map/map.component';
+import { ToastModule } from 'primeng/toast';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { AddBranchComponent } from "../add-branch/add-branch.component";
 
 @Component({
-  selector: 'app-view-branches',
-  standalone: true,
-  templateUrl: './view-branches.component.html',
-  styleUrls: ['./view-branches.component.css'],
-  imports: [CommonModule, AddBranchComponent]
+    selector: 'app-view-branches',
+    standalone: true,
+    templateUrl: './view-branches.component.html',
+    styleUrls: ['./view-branches.component.css'],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, AddBranchComponent]
 })
 export class ViewBranchesComponent implements OnInit {
   isAdd: boolean = false;
   showOverView: boolean = false;
-  branches: branch[] = []; // Store branches data
+  branches: branch[] = [];
 
   constructor(private branchService: BranchService) {}
 
@@ -23,10 +26,11 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   loadBranches(): void {
-    this.branchService.getBranch().subscribe({
+    const companyId = localStorage.getItem('companyId');
+    this.branchService.getBranch({ companyId }).subscribe({
       next: (response) => {
         this.branches = response.data.list;
-        console.log('Branches loaded:', this.branches);
+        console.log("Branches loaded:", this.branches);
       },
       error: (err) => {
         console.error('Error loading branches', err);
@@ -41,6 +45,11 @@ export class ViewBranchesComponent implements OnInit {
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
     console.log('Action emitted:', isAdd);
+  }
+
+  handleBranchAdded(): void {
+    this.loadBranches(); // Reload branches after a branch is added
+    this.isAdd = false;  // Ensure the add form is hidden
   }
 
   showDetails(cardId: number) {
