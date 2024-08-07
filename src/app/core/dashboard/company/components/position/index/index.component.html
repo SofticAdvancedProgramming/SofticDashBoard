@@ -43,7 +43,8 @@
       [DirectManager]="'Direct Manager'" 
       [DirectManagerDescription]="selectedPositionData?.manager || ''"
       [employees]="employees" 
-      (close)="closePopup()">
+      (close)="closePopup()"
+      (submitForm)="handleFormSubmit($event)">
       <ng-template #popupContent>
         <form>
           <div>

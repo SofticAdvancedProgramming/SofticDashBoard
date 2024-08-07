@@ -19,8 +19,8 @@ export class IndexComponent implements OnInit {
   isAdd: boolean = false;
   isAddEmployee: boolean = false;  
   selectedPositionId?: string; 
-  selectedPositionData: any = {}; // Store selected position data
-  employees: employee[] = []; // Store employees data
+  selectedPositionData: any = {};  
+  employees: employee[] = [];  
   @Input() companyId?: string = '';
   positions: any[] = [];
 
@@ -44,11 +44,11 @@ export class IndexComponent implements OnInit {
   }
 
   loadEmployees(): void {
-    const companyId = localStorage.getItem('companyId'); // Get company ID from local storage
+    const companyId = localStorage.getItem('companyId');  
     this.employeeService.loadEmployees({ companyId }).subscribe({
       next: (response) => {
-        console.log("Raw employees response:", response); // Log raw response
-        this.employees = response.data.list; // Extract the list of employees
+        console.log("Raw employees response:", response);  
+        this.employees = response.data.list;  
         console.log("Employees loaded:", this.employees);
       },
       error: (err) => {
@@ -74,5 +74,20 @@ export class IndexComponent implements OnInit {
 
   closePopup(): void {
     this.isAddEmployee = false;
+  }
+
+  handleFormSubmit(formData: { employeeId: number, positionId: number }): void {
+    this.employeeService.assginEmployeeToPosition({
+      employeeId: formData.employeeId,
+      positionId: formData.positionId
+    }).subscribe({
+      next: (response) => {
+        console.log('Employee assigned successfully:', response);
+        this.closePopup(); 
+      },
+      error: (err) => {
+        console.error('Error assigning employee:', err);
+      }
+    });
   }
 }
