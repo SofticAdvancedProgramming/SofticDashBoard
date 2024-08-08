@@ -50,7 +50,7 @@ export class DepartmentsComponent implements OnInit {
   title = 'Departments Overview';
   selectedEntityId: string | undefined = undefined;
   entityType: string = 'Employee';
-  selectedDepartment: Department | null = null; // Property to hold selected department data
+  selectedDepartment: Department | null = null;
 
   constructor(
     private apiCall: ApiCall,
@@ -79,7 +79,7 @@ export class DepartmentsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error loading departments', err);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading departments' });
+          this.showError('Error loading departments');
         }
       });
     }
@@ -94,7 +94,7 @@ export class DepartmentsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error loading employees', err);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees' });
+          this.showError('Error loading employees');
         }
       });
     }
@@ -148,16 +148,16 @@ export class DepartmentsComponent implements OnInit {
     if (companyId) {
       this.departmentService.deleteDepartment(departmentId, companyId).subscribe({
         next: () => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Department deleted successfully' });
+          this.showSuccess('Department deleted successfully');
           this.loadDepartments();
         },
         error: (err) => {
           console.error('Error deleting department', err);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting department' });
+          this.showError('Error deleting department');
         }
       });
     } else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Company ID is missing' });
+      this.showError('Company ID is missing');
     }
   }
 
@@ -165,7 +165,7 @@ export class DepartmentsComponent implements OnInit {
     this.selectedEntityId = departmentId;
     this.entityType = 'Employee';
     this.isAssignEntity = true;
-    this.selectedDepartment = this.cards.find(card => card.id === departmentId); // Set selected department data
+    this.selectedDepartment = this.cards.find(card => card.id === departmentId);
   }
 
   handleEntityAssigned(event: { entityId: number, relatedEntityId: number }): void {
@@ -175,13 +175,13 @@ export class DepartmentsComponent implements OnInit {
     };
     this.employeeService.assginEmployeeToDepartment(requestPayload).subscribe({
       next: (response) => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Employee assigned to department successfully' });
+        this.showSuccess('Employee assigned to department successfully');
         this.isAssignEntity = false;
         this.loadDepartments();
       },
       error: (err) => {
         console.error('Error assigning employee to department', err);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error assigning employee to department' });
+        this.showError('Error assigning employee to department');
       }
     });
   }
@@ -189,5 +189,13 @@ export class DepartmentsComponent implements OnInit {
   private getCompanyId(): number | null {
     const storedCompanyId = localStorage.getItem('companyId');
     return storedCompanyId ? Number(storedCompanyId) : null;
+  }
+
+  private showSuccess(detail: string): void {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail });
+  }
+
+  private showError(detail: string): void {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail });
   }
 }

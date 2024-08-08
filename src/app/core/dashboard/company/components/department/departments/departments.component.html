@@ -1,49 +1,59 @@
 <div class="container my-5" *ngIf="!isAdd && !showOverView && !isAssignEntity">
     <div class="row">
-        <div class="justify-content-end d-flex">
-            <button class="btn addPositionBtn w-25" (click)="addDepartment()">
-                <i class="fas fa-plus"></i> Add Department
-            </button>
-        </div>
+      <div class="justify-content-end d-flex">
+        <button class="btn addPositionBtn w-25" (click)="addDepartment()">
+          <i class="fas fa-plus"></i> Add Department
+        </button>
+      </div>
     </div>
     <div class="row">
-        <div *ngFor="let card of cards" class="col-lg-4 col-md-6 col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3>{{ card.title }}</h3>
-                    <p>{{ card.department }}</p>
-                </div>
-                <div class="card-body">
-                    <button class="btn btn-add" (click)="assignEntity(card.id)"><i class="fas fa-plus"></i> Add
-                        Employee</button>
-                </div>
-                <div class="card-footer">
-                    <label class="toggle-label">
-                        <span>Activate</span>
-                        <label class="switch">
-                            <input type="checkbox" [checked]="card.active">
-                            <span class="slider"></span>
-                        </label>
-                    </label>
-                    <i class="fas fa-trash-alt icon-trash" (click)="deleteDepartment(card.id)"></i>
-                    <i class="fas fa-edit icon-edit"></i>
-                    <button class="btn" (click)="showDetails(card.id)">
-                        <span class="details">show details <i class="fa-solid fa-arrow-right"></i></span>
-                    </button>
-                </div>
-            </div>
+      <div *ngFor="let card of cards" class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.department }}</p>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-add" (click)="assignEntity(card.id)"><i class="fas fa-plus"></i> Add Employee</button>
+          </div>
+          <div class="card-footer">
+            <label class="toggle-label">
+              <span>Activate</span>
+              <label class="switch">
+                <input type="checkbox" [checked]="card.active">
+                <span class="slider"></span>
+              </label>
+            </label>
+            <i class="fas fa-trash-alt icon-trash" (click)="deleteDepartment(card.id)"></i>
+            <i class="fas fa-edit icon-edit"></i>
+            <button class="btn" (click)="showDetails(card.id)">
+              <span class="details">show details <i class="fa-solid fa-arrow-right"></i></span>
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-<!-- Entity Assignment Popup -->
-<app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedEntityId" [entityType]="entityType" [entities]="employees"
-    [department]="selectedDepartment" (close)="goBack()" (submitForm)="handleEntityAssigned($event)">
-</app-assign-entity>
-
-<!-- Department Overview -->
-<div *ngIf="showOverView">
+  </div>
+  
+  <!-- Entity Assignment Popup -->
+  <app-assign-entity
+    *ngIf="isAssignEntity"
+    [entityId]="selectedEntityId"
+    [entityType]="entityType"
+    [entities]="employees"
+    [department]="selectedDepartment"
+    (close)="goBack()"
+    (submitForm)="handleEntityAssigned($event)">
+  </app-assign-entity>
+  
+  <!-- Department Overview -->
+  <div *ngIf="showOverView">
     <button class="btn btn-secondary" (click)="goBack()">Back</button>
-    <app-department-overview (departmentAdded)="handleDepartmentAdded()" [Department]="department">
+    <app-department-overview
+      (departmentAdded)="handleDepartmentAdded()"
+      [Department]="department">
     </app-department-overview>
-</div>
+  </div>
+  
+  <p-toast position="top-center"></p-toast>
+  
