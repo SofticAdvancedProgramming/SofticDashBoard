@@ -31,4 +31,9 @@ export class EmployeeService {
     return this.apiCall.request<any>(this.apiUrl+'/AssginDepartment', 'post',request, headers);
   }
   
+  assginEmployeeToBranch(request:any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.apiCall.request<any>(this.apiUrl+'/AssginBranch', 'post',request, headers);
+  }
+  
 }

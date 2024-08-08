@@ -1,38 +1,40 @@
-@if(isAdd) {
-<app-add-branch (branchAdded)="handleBranchAdded()" (action)="handleAction($event)"></app-add-branch>
-} @else {
-<div class="container my-5" *ngIf="!showOverView">
-    <div class="container">
-        <div class="card-deck ">
-            <div class="row">
-                <div class="row">
-                    <div class="justify-content-end d-flex">
-                        <button class="btn addBranchBtn w-25" (click)="addBranch()">
-                            <i class="fas fa-plus"></i> Add Branch
-                        </button>
-                    </div>
-                </div>
-            </div>
+<div class="container my-5" *ngIf="!isAdd && !showOverView && !isAssignEntity">
+    <div class="row">
+        <div class="justify-content-end d-flex">
+            <button class="btn addBranchBtn w-25" (click)="addBranch()">
+                <i class="fas fa-plus"></i> Add Branch
+            </button>
         </div>
-        <div class="row mt-3">
-            <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let branch of branches">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>{{ branch.name }}</h3>
-                    </div>
-                    <div class="card-body">
-                        <button class="btn btn-add"><i class="fas fa-plus"></i> Add Employee</button>
-                    </div>
-                    <div class="card-footer">
-                        <i class="fas fa-trash-alt icon-trash"></i>
-                        <i class="fas fa-edit icon-edit"></i>
-                        <button class="btn">
-                            <span class="details">show details <i class="fa-solid fa-arrow-right"></i></span>
-                        </button>
-                    </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let branch of branches">
+            <div class="card">
+                <div class="card-header">
+                    <h3>{{ branch.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-add" (click)="assignEntity(branch.id)"><i class="fas fa-plus"></i> Add Employee</button>
+                </div>
+                <div class="card-footer">
+                    <i class="fas fa-trash-alt icon-trash"></i>
+                    <i class="fas fa-edit icon-edit"></i>
+                    <button class="btn">
+                        <span class="details">show details <i class="fa-solid fa-arrow-right"></i></span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-}
+
+<!-- Entity Assignment Popup -->
+<app-assign-entity
+  *ngIf="isAssignEntity"
+  [entityId]="selectedBranch?.id?.toString()"
+  [entityType]="'Employee'"
+  [entities]="employees"
+  [branch]="selectedBranch || null"
+  (close)="goBack()"
+  (submitForm)="handleEntityAssigned($event)">
+</app-assign-entity>
+<p-toast position="top-center"></p-toast>
