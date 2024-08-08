@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-organization-charts',
-  standalone: true,
-  imports: [],
+  selector: 'app-organization-chart',
   templateUrl: './organization-charts.component.html',
-  styleUrl: './organization-charts.component.css'
+  styleUrls: ['./organization-charts.component.css']
 })
-export class OrganizationChartsComponent {
-
+export class OrganizationChartsComponent   {
+ 
+ 
 }
