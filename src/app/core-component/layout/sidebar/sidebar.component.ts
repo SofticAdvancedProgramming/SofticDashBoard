@@ -11,10 +11,12 @@ import { AuthenticationService } from '../../../services/authenticationService/a
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
+  role: any = JSON.parse(localStorage.getItem('roles')!);
+  companyId: string = localStorage.getItem('companyId')!
   isExpanded = false;
   isVisible = true;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService) { }
 
   toggleSidebar() {
     this.isExpanded = !this.isExpanded;
