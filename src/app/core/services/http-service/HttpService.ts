@@ -42,7 +42,6 @@ export class ApiCall {
 
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    console.log()
     let errorMessage = this.extractErrorMessage(error);
     switch (error.status) {
       case 401:
@@ -81,7 +80,7 @@ export class ApiCall {
 
   private handleBadRequest(error: HttpErrorResponse): void {
     if (error.error?.errors && error.error.errors.length > 0) {
-      this.toast.typeError(this.translate.translate(error.error.errors[0]));
+      this.toast.typeError(this.translate.translate(`errorModels.${error.error.errors[0]}`));
     } else if (error.error?.message) {
       this.toast.typeError(error.error.message);
     } else {

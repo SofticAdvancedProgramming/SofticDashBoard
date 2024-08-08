@@ -6,9 +6,9 @@ import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
 import { AuthenticationService } from '../../../services/authenticationService/authentication.service';
 import { isPlatformBrowser } from '@angular/common';
+import { ToastersService } from '../../../core/services/toast-service/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrls: ['./login.component.css'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, ToastModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   providers: [
     JwtHelperService,
     MessageService,
@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private messageService: MessageService,
     private authService: AuthenticationService,
     private cdr: ChangeDetectorRef,
+    private toast: ToastersService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
@@ -44,11 +44,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      this.showError('Invalid Form', 'Login failed, please try again');
+      this.toast.typeError('Login failed, please try again', 'Invalid Form');
       return;
     }
     const formValue = this.loginForm.value;
@@ -75,14 +75,13 @@ export class LoginComponent implements OnInit, OnDestroy {
             console.error('Navigation error:', error);
           });
         } else {
-          this.showError('Invalid Form', 'Login failed, please try again');
+          this.toast.typeError('Login failed, please try again', 'Invalid Form');
         }
       },
       error: (err: any) => {
-        console.error('Login failed:', err);
         this.isSubmitting = false;
         this.loginForm.reset();
-        this.showError('Invalid Form', 'Login failed, please try again');
+        this.cdr.markForCheck();
       }
     });
   }
@@ -91,14 +90,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
-  private showError(message: string, details: string): void {
-    this.messageService.add({
-      severity: 'error',
-      summary: message,
-      detail: details,
-    });
-    // this.cdr.markForCheck();
-  }
 
   ngOnDestroy(): void {
     this.destroy$.next();

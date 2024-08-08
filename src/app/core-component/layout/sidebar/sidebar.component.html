@@ -25,10 +25,19 @@
       </a>
     </li>
     <li class="sidebar-item" routerLinkActive="active">
+      @if(role[0] === 'Admin'){
+      <a [routerLink]="'../dashboard/company/'+ companyId " class="sidebar-link">
+        <img src="../../../../assets/images/softic/companyIcon.png">
+        <span>Company</span>
+      </a>
+      }
+      @if(role[0] === 'SuperAdmin'){
       <a routerLink="../dashboard/indexCompany" class="sidebar-link">
         <img src="../../../../assets/images/softic/companyIcon.png">
         <span>Companies</span>
       </a>
+      }
+
     </li>
     <li class="sidebar-item" routerLinkActive="active">
       <a routerLink="/dashboard/OrganizationCharts" class="sidebar-link">
