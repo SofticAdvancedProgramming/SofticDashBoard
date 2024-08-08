@@ -47,6 +47,7 @@
     "ng-otp-input": "^1.9.3",
     "ngx-bootstrap": "^12.0.0",
     "ngx-intl-tel-input": "^3.2.0",
+    "ngx-org-chart": "^1.1.1",
     "ngx-permissions": "^17.1.0",
     "ngx-phone-number-input": "^1.0.0",
     "ngx-toastr": "^19.0.0",

@@ -26,6 +26,7 @@ import { DepartmentManagmentComponent } from './core/dashboard/setting/Lockups/d
 import { BranchManagmentComponent } from './core/dashboard/setting/Lockups/branch-managment/branch-managment.component';
 import { ViewEmployeesComponent } from './core/dashboard/employee/view-employees/view-employees.component';
 import { AddEmployeeComponent } from './core/dashboard/employee/add-employee/add-employee.component';
+import { OrganizationChartsComponent } from './core/dashboard/organization-charts/organization-charts.component';
 
 export const routes: Routes = [
   {
@@ -62,6 +63,7 @@ export const routes: Routes = [
       { path: 'branchManagment', component: BranchManagmentComponent  },
       { path: 'ViewEmployees', component: ViewEmployeesComponent  },
       { path: 'AddEmployee', component: AddEmployeeComponent  },
+      { path: 'OrganizationCharts', component: OrganizationChartsComponent  },
     ],
   },
 ];
