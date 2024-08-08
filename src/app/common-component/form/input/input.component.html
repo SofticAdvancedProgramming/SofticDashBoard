@@ -1,0 +1,103 @@
+@switch (config.type) {
+@case ("text") {
+<div [formGroup]="form">
+  <label class="form-label" [for]="config.name">{{ config.label | translate}}</label>
+  <input class="form-control" [placeholder]="config.placeholder || ''| translate"
+    [title]="config.title || ''| translate" [type]="config.type" [id]="config.name" [name]="config.name"
+    [formControlName]="config.name" [required]="config.required" />
+  <div *ngIf="isInvalid && config.required" class="text-danger">{{ getErrorMessage() }}</div>
+</div>
+}
+@case ('number') {
+<div [formGroup]="form">
+  <label class="form-label" [for]="config.name">{{ config.label | translate }}</label>
+  <input class="form-control" [placeholder]="config.placeholder || ''| translate " [title]="config.title || ''"
+    [type]="config.type" [id]="config.name" [name]="config.name" [formControlName]="config.name"
+    [required]="config.required" [max]="config.max" />
+  <div *ngIf="isInvalid && config.required" class="text-danger">{{ getErrorMessage() }}</div>
+</div>
+}
+@case ("select") {
+<div [formGroup]="form">
+  <label class="form-label" [for]="config.name">{{ config.label| translate }}</label>
+  <select class="form-select" [title]="config.title || ''| translate" [id]="config.name" [name]="config.name"
+    [required]="config.required" [formControlName]="config.name" (change)="$event">
+    <option selected disabled> {{'Select' | translate}}</option>
+    @for (op of config.options; track op ; let index = $index) {
+    <option [value]="config.optionsValues![index]">{{ op | translate }}</option>
+    } @empty {
+    <option>There are no items.</option>
+    }
+  </select>
+  <div *ngIf="isInvalid && config.required" class="text-danger">{{ getErrorMessage() }}</div>
+</div>
+}
+@case ("date") {
+<div [formGroup]="form">
+  <label class="form-label" [for]="config.name">{{ config.label | translate }}</label>
+  <input class="form-control" [placeholder]="(config.placeholder || '') | translate" [title]="config.title || ''"
+    [type]="config.type" [id]="config.name" [name]="config.name" [formControlName]="config.name"
+    [required]="config.required" [min]="config.min" [max]="config.max" />
+  <div
+    *ngIf="form.controls[config.name].invalid && (form.controls[config.name].dirty || form.controls[config.name].touched)"
+    class="text-danger">
+    {{ getErrorMessage() }}
+  </div>
+</div>
+}
+
+
+@case ("textarea") {
+<div [formGroup]="form">
+  <label class="form-label" [for]="config.name">{{ config.label}}</label>
+  <textarea class="form-control" [placeholder]="config.placeholder || ''" [id]="config.name" [name]="config.name"
+    [formControlName]="config.name" [required]="config.required" [rows]="config.rows" [maxlength]="config.maxlength!"
+    [minlength]="config.minlength!" (input)="updateLength(config.name)"></textarea>
+
+  <div *ngIf="isInvalid && config.required" class="text-danger">{{ getErrorMessage() }}</div>
+  <div class="p-1">
+    @if(config.maxlength!){
+    <small [ngClass]="{'text-success': isTargetReached(config.name, config.maxlength)}">
+      <span>max</span>: {{getLength(config.name , config.maxlength!)}}/{{ config.maxlength! }}
+    </small>
+    }
+
+    @if(config.minlength!){
+    <small style="margin-left: 2px;" [ngClass]="{'text-success': isTargetReached(config.name, config.minlength)}">
+      <span>min</span>: {{getLength(config.name , config.minlength!)}}/{{ config.minlength! }}</small>
+    }
+
+
+  </div>
+</div>
+}
+@case ("file") {
+<div>
+  <label class="form-label" [for]="config.name">{{ config.label | translate }}</label>
+  <input class="form-control" [placeholder]="config.placeholder || '' | translate"
+    [title]="config.title || '' | translate" [type]="config.type" [id]="config.name" [name]="config.name"
+    [required]="config.required" accept=".jpeg, .jpg, .png" (change)="handleFileChange($event , config.name)" />
+  <div *ngIf="!imageUrl" class="text-danger">{{ getErrorMessage() }}</div>
+
+  @if (imageUrl) {
+  <div class="modal-body">
+    <span> {{ 'UploadPhoto' | translate }}</span>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 d-flex mt-2 customFile">
+          <img [src]="imageUrl" alt="Image" class="img-fluid">
+        </div>
+        @if(imageUrl){
+        <span style="cursor:pointer; color:red;" (click)="removeFile(config.name)">x</span>
+        }
+      </div>
+    </div>
+  </div>
+  }
+  <div id="refPhoto" class="mt-2"></div>
+</div>
+}
+@default {
+<div>{{'Select the input type !!' | translate}}</div>
+}
+}

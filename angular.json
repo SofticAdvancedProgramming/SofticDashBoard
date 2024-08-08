@@ -22,22 +22,24 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/assets"
-          ],
-           "styles": [
-            "@angular/material/prebuilt-themes/azure-blue.css",
-            "node_modules/bootstrap/dist/css/bootstrap.min.css",
-            "src/styles.css",
-            "src/assets/style/auth.css",
-            "node_modules/primeng/resources/themes/saga-blue/theme.css",
-            "node_modules/primeng/resources/primeng.min.css",
-            "node_modules/primeicons/primeicons.css",
-            "node_modules/intl-tel-input/build/css/intlTelInput.css",
-  "node_modules/leaflet/dist/leaflet.css"
-          ],
+            ],
+            "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css",
+              "src/assets/style/auth.css",
+              "node_modules/primeng/resources/themes/saga-blue/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/leaflet-search/dist/leaflet-search.src.css"
+            ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-           "node_modules/intl-tel-input/build/js/intlTelInput.min.js",
-        "node_modules/intl-tel-input/build/js/utils.js"
+              "node_modules/intl-tel-input/build/js/intlTelInput.min.js",
+              "node_modules/intl-tel-input/build/js/utils.js"
             ],
             "server": "src/main.server.ts",
             "prerender": true,

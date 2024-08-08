@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { company } from '../../../../models/company';
+import { Company } from '../../../../models/company';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -18,7 +18,7 @@ import { ErrorHandlerService } from '../../../services/ErrorHandlerService/error
 })
 export class CompanyExtensionComponent implements OnDestroy {
   getCompanySubscription?: Subscription;
-  company?: company;
+  company?: Company;
   companyForm: FormGroup;
 
   constructor(
@@ -45,7 +45,7 @@ export class CompanyExtensionComponent implements OnDestroy {
         } else {
           console.log(response);
           this.messageService.add({
-            severity: 'warn', 
+            severity: 'warn',
             summary: 'No Company Found',
             detail: `We couldn't find any company with the name "${companyExtention}". Please check the name and try again.`,
           });

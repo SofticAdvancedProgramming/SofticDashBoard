@@ -3,11 +3,9 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BasicTableComponent } from '../../../../components/basic-table/basic-table.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Department } from '../../../../../../../models/department';
 import { employee } from '../../../../../../../models/employee';
 import { AddDepartmentComponent } from '../add-department/add-department.component';
-import { ApiCall } from '../../../../../../services/apiCall/apicall.service';
 import { environment } from '../../../../../../environment/environment';
 import { DepartmentOverviewComponent } from '../department-overview/department-overview.component';
 import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
@@ -15,6 +13,7 @@ import { EmployeeService } from '../../../../../../services/employeeService/empl
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
+import { ApiCall } from '../../../../../../core/services/http-service/HttpService';
 
 @Component({
   selector: 'app-departments',
@@ -30,7 +29,7 @@ import { AssignEntityComponent } from '../assign-entity/assign-entity.component'
     AddDepartmentComponent,
     DepartmentOverviewComponent,
     ToastModule,
-    AssignEntityComponent  
+    AssignEntityComponent
   ],
   providers: [DepartmentService, EmployeeService, MessageService]
 })
@@ -112,8 +111,7 @@ export class DepartmentsComponent implements OnInit {
     if (useDemoData) {
       console.log(`Fetched mock data for card ${cardId}:`, this.data);
     } else {
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      this.apiCall.request<any>(this.apiUrl + '/Get', 'post', {}, headers).subscribe(data => {
+      this.apiCall.request('POST', this.apiUrl + '/Get', {}).subscribe(data => {
         console.log(data);
       });
     }
@@ -139,8 +137,8 @@ export class DepartmentsComponent implements OnInit {
   }
 
   handleDepartmentAdded(): void {
-    this.loadDepartments(); 
-    this.isAdd = false;   
+    this.loadDepartments();
+    this.isAdd = false;
   }
 
   deleteDepartment(departmentId: number): void {

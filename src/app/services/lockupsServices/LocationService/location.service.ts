@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiCall } from '../../apiCall/apicall.service';
 import { environment } from '../../../environment/environment';
+import { ApiCall } from '../../../core/services/http-service/HttpService';
 
 
 @Injectable({
@@ -13,66 +12,54 @@ export class LocationService {
   private cityUrl = `${environment.apiBaseUrl}City`;
   private zoneUrl = `${environment.apiBaseUrl}Zone`;
 
-  constructor(private apiCall: ApiCall) {}
+  constructor(private apiCall: ApiCall) { }
 
   // Country methods
   getCountries(request: any = {}): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.countryUrl}/Get`, 'post', request, headers);
+    return this.apiCall.request('POST', `${this.countryUrl}/Get`, request);
   }
 
   addCountry(country: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.countryUrl}/Add`, 'post', country, headers);
+    return this.apiCall.request('POST', `${this.countryUrl}/Add`, country);
   }
 
   editCountry(country: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.countryUrl}/Edit`, 'post', country, headers);
+    return this.apiCall.request('POST', `${this.countryUrl}/Edit`, country);
   }
 
-  deleteCountry(id: number,companyId: number): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.countryUrl}/Delete/${id}/${companyId}`, 'post', {}, headers);
+  deleteCountry(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${this.countryUrl}/Delete/${id}/${companyId}`, {});
   }
 
   // City methods
   getCities(request: any = {}): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.cityUrl}/Get`, 'post', request, headers);
+    return this.apiCall.request('POST', `${this.cityUrl}/Get`, request);
   }
 
   addCity(city: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.cityUrl}/Add`, 'post', city, headers);
+    return this.apiCall.request('POST', `${this.cityUrl}/Add`, city);
   }
 
   editCity(city: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.cityUrl}/Edit`, 'post', city, headers);
+    return this.apiCall.request('POST', `${this.cityUrl}/Edit`, city);
   }
 
   deleteCity(id: number, companyId: number): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.cityUrl}/Delete/${id}/${companyId}`, 'post', {}, headers);
+    return this.apiCall.request('POST', `${this.cityUrl}/Delete/${id}/${companyId}`, {});
   }
   getZones(request: any = {}): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.zoneUrl}/Get`, 'post', request, headers);
+    return this.apiCall.request('POST', `${this.zoneUrl}/Get`, request);
   }
 
   addZone(zone: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.zoneUrl}/Add`, 'post', zone, headers);
+    return this.apiCall.request('POST', `${this.zoneUrl}/Add`, zone);
   }
 
   editZone(zone: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.zoneUrl}/Edit`, 'post', zone, headers);
+    return this.apiCall.request('POST', `${this.zoneUrl}/Edit`, zone);
   }
 
   deleteZone(id: number, companyId: number): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.zoneUrl}/Delete/${id}}`, 'post', {}, headers);
+    return this.apiCall.request('POST', `${this.zoneUrl}/Delete/${id}}`, {});
   }
 }

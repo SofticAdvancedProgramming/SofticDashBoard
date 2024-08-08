@@ -1,9 +1,8 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environment/environment';
-import { ApiCall } from '../../apiCall/apicall.service';
 import { Department } from '../../../../models/department';
+import { ApiCall } from '../../../core/services/http-service/HttpService';
 
 @Injectable({
   providedIn: 'root'
@@ -12,25 +11,21 @@ export class DepartmentService {
 
   private departmentUrl = `${environment.apiBaseUrl}Department`;
 
-  constructor(private apiCall: ApiCall) {}
+  constructor(private apiCall: ApiCall) { }
 
   getDepartment(request: any = {}): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.departmentUrl}/Get`, 'post', request, headers);
+    return this.apiCall.request('POST', `${this.departmentUrl}/Get`, request);
   }
 
   addDepartment(department: Department): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.departmentUrl}/Add`, 'post', department, headers);
+    return this.apiCall.request('POST', `${this.departmentUrl}/Add`, department);
   }
 
   editDepartment(department: Department): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.departmentUrl}/Edit`, 'post', department, headers);
+    return this.apiCall.request('POST', `${this.departmentUrl}/Edit`, department);
   }
 
   deleteDepartment(id: number, companyId: number): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.departmentUrl}/Delete/${id}/${companyId}`, 'post', {}, headers);
+    return this.apiCall.request('POST', `${this.departmentUrl}/Delete/${id}/${companyId}`, {});
   }
 }

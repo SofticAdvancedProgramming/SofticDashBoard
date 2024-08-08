@@ -1,33 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiCall } from '../../apiCall/apicall.service';
 import { environment } from '../../../environment/environment';
+import { ApiCall } from '../../../core/services/http-service/HttpService';
 @Injectable({
   providedIn: 'root'
 })
 export class PositionTypeService {
   private positionTypeUrl = `${environment.apiBaseUrl}PositionType`;
 
-  constructor(private apiCall: ApiCall) {}
+  constructor(private apiCall: ApiCall) { }
 
   getPositionTypes(request: any = {}): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.positionTypeUrl}/Get`, 'post', request, headers);
+    return this.apiCall.request('POST', `${this.positionTypeUrl}/Get`, request);
   }
 
   addPositionType(PositionType: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.positionTypeUrl}/Add`, 'post', PositionType, headers);
+    return this.apiCall.request('POST', `${this.positionTypeUrl}/Add`, PositionType);
   }
 
   editPositionType(PositionType: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.positionTypeUrl}/Edit`, 'post', PositionType, headers);
+    return this.apiCall.request('POST', `${this.positionTypeUrl}/Edit`, PositionType);
   }
 
   deletePositionType(id: number, companyId: number): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.apiCall.request<any>(`${this.positionTypeUrl}/Delete/${id}/${companyId}`, 'post', {}, headers);
+    return this.apiCall.request('POST', `${this.positionTypeUrl}/Delete/${id}/${companyId}`, {});
   }
 }

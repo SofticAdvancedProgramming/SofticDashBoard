@@ -4,14 +4,13 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { catchError } from 'rxjs/operators';
 import { ToastersService } from '../toast-service/toast.service';
 import { Router } from '@angular/router';
-import { environment } from '../../../environment/environment';
 import { TranslationService } from '../translationService/translation.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class HttpService {
+export class ApiCall {
 
   constructor(
     private http: HttpClient,
@@ -29,8 +28,8 @@ export class HttpService {
     return httpHeaders;
   }
 
-  SendRequest(method: string, url: string, data?: any, params?: HttpParams, _responseType?: string): Observable<any> {
-    const attachmentCategoryUrl = `${environment.apiBaseUrl}${url}`;
+  request(method: string, url: string, data?: any, params?: HttpParams, _responseType?: string): Observable<any> {
+    const attachmentCategoryUrl = `${url}`;
     return this.http.request(method, attachmentCategoryUrl, {
       headers: this.jwt(),
       body: data,
@@ -43,6 +42,7 @@ export class HttpService {
 
 
   private handleError(error: HttpErrorResponse): Observable<never> {
+    console.log()
     let errorMessage = this.extractErrorMessage(error);
     switch (error.status) {
       case 401:

@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       summary: message,
       detail: details,
     });
-    this.cdr.markForCheck();
+    // this.cdr.markForCheck();
   }
 
   ngOnDestroy(): void {

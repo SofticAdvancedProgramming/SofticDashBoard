@@ -1,12 +1,12 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../environment/environment';
-import { ApiCall } from '../apiCall/apicall.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { ApiCall } from '../../core/services/http-service/HttpService';
 
 @Injectable({
   providedIn: 'root',
@@ -49,12 +49,12 @@ export class AuthenticationService {
   login(email: string, password: string): Observable<any> {
     console.log('Attempting login with email:', email);
     return this.apiCall
-      .request<any>(`${environment.apiBaseUrl}Auth/Login`, 'post', {
+      .request('POST', `${environment.apiBaseUrl}Auth/Login`, {
         email,
         password,
       })
       .pipe(
-        map((response) => {
+        map((response: any) => {
           if (response?.data?.isAuth) {
             this.loggedIn.next(true);
             localStorage.setItem('token', response.data.token);
@@ -62,15 +62,9 @@ export class AuthenticationService {
             return response;
           }
           return response;
-        }),
-        catchError(this.handleError)
-      );
+        }));
   }
 
-  private handleError(error: any): Observable<never> {
-    const errorMessage = error.error?.message || 'An unknown error occurred';
-    return throwError(() => new Error(errorMessage));
-  }
 
   logout() {
     if (isPlatformBrowser(this.platformId)) {
@@ -111,19 +105,17 @@ export class AuthenticationService {
 
   forgetPassword(email: string): Observable<any> {
     return this.apiCall
-      .request<any>(`${environment.apiBaseUrl}Auth/ForgetPassword`, 'post', { email })
+      .request('POST', `${environment.apiBaseUrl}Auth/ForgetPassword`, { email })
       .pipe(
         map((response) => response),
-        catchError((error) => throwError(() => error))
       );
   }
 
   resetPassword(email: string, password: string, otp: string): Observable<any> {
     return this.apiCall
-      .request<any>(`${environment.apiBaseUrl}Auth/ResetPassword`, 'post', { email, password, otp })
+      .request('POST', `${environment.apiBaseUrl}Auth/ResetPassword`, { email, password, otp })
       .pipe(
         map((response) => response),
-        catchError((error) => throwError(() => error))
       );
   }
 }

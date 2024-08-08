@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CustomInputComponent } from '../../../dashboard/components/custom-input/custom-input.component';
+import { CustomInputComponent } from '../../../../dashboard/components/custom-input/custom-input.component';
 @Component({
   selector: 'app-custom-form',
   standalone: true,

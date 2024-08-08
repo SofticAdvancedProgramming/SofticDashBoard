@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap, throwError } from 'rxjs';
-import { ApiCall } from '../../apiCall/apicall.service';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environment/environment';
+import { ApiCall } from '../../../core/services/http-service/HttpService';
 
 @Injectable({
   providedIn: 'root'
@@ -9,30 +9,22 @@ import { environment } from '../../../environment/environment';
 export class SubscriptionPlanService {
   private SubscriptionPlanUrl = `${environment.apiBaseUrl}SubscriptionPlan`;
 
-  constructor(private apiCall: ApiCall) {}
+  constructor(private apiCall: ApiCall) { }
 
   getSubscriptionPlan(request: any = {}): Observable<any> {
-    return this.apiCall.request<any>(`${this.SubscriptionPlanUrl}/Get`, 'post', request);
+    return this.apiCall.request('POST', `${this.SubscriptionPlanUrl}/Get`, request);
   }
 
   addSubscriptionPlan(subscriptionPlan: any): Observable<any> {
-    return this.apiCall.request<any>(`${this.SubscriptionPlanUrl}/Add`, 'post', subscriptionPlan);
+    return this.apiCall.request('POST', `${this.SubscriptionPlanUrl}/Add`, subscriptionPlan);
   }
 
   editSubscriptionPlan(subscriptionPlan: any): Observable<any> {
-    return this.apiCall.request<any>(`${this.SubscriptionPlanUrl}/Edit`, 'post', subscriptionPlan);
+    return this.apiCall.request('POST', `${this.SubscriptionPlanUrl}/Edit`, subscriptionPlan);
   }
 
   deleteSubscriptionPlan(id: number): Observable<any> {
-    console.log(`Deleting Subscription Plan with ID: ${id}`);
-    return this.apiCall.request<any>(`${this.SubscriptionPlanUrl}/Delete/${id}`, 'post', {})
-      .pipe(
-        tap(response => console.log('API Response:', response)),
-        catchError(error => {
-          console.error('Error occurred while deleting subscription plan:', error);
-          return throwError(error);
-        })
-      );
+    return this.apiCall.request('POST', `${this.SubscriptionPlanUrl}/Delete/${id}`, {})
   }
 
 }

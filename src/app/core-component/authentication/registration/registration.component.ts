@@ -4,12 +4,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { ApiCall } from '../../../services/apiCall/apicall.service';
 import { environment } from '../../../environment/environment';
 import { user } from '../../../../models/user';
 import { PasswordValidator } from '../../../../Modules/passwordValidator';
 import { SearchCountryField, CountryISO, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { CommonModule } from '@angular/common';
+import { ApiCall } from '../../../core/services/http-service/HttpService';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   preferredCountries = [CountryISO.Egypt, CountryISO.SaudiArabia];
   searchCountryFields = [SearchCountryField.Name, SearchCountryField.DialCode, SearchCountryField.Iso2];
   selectedCountryISO = CountryISO.Egypt;
-  extension:string='';
+  extension: string = '';
   constructor(
     private fb: FormBuilder,
     private apiCall: ApiCall,
@@ -75,21 +75,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
     const user: user = { ...formValue, fullName, phoneNumber, email };
     user.companyExtention = this.extension;
-    console.log('user', user);
 
-    this.apiCall.request<any>(`${environment.apiBaseUrl}Auth/Register`, 'post', user).subscribe({
+    this.apiCall.request('POST', `${environment.apiBaseUrl}Auth/Register`, user).subscribe({
       next: (response) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registration Successful' });
-console.log(response)
         // Open WhatsApp link to verify user number
         const whatsappLink = response.data.token;
         window.open(whatsappLink, '_blank');
         this.router.navigate(['/otp', { email: email }]);
       },
-      error: (err) => {
-        const errorMessage = err.error?.errors?.length ? `Error: ${err.error.errors[0]}` : 'Registration failed.';
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-      }
     });
   }
 

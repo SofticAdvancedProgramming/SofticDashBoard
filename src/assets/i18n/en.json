@@ -1,0 +1,24 @@
+{
+  "errorModels": {
+    "1": "Email is already in use.",
+    "2": "Email does not exist.",
+    "3": "Email is not confirmed.",
+    "4": "Invalid email address.",
+    "5": "Invalid email or password.",
+    "6": "Invalid password.",
+    "7": "Invalid OTP.",
+    "8": "Department does not exist.",
+    "9": "Phone number is already in use.",
+    "10": "Phone number does not exist.",
+    "11": "Phone number is not confirmed.",
+    "12": "Invalid input.",
+    "13": "Account is not active.",
+    "14": "Face does not match.",
+    "15": "Invalid company.",
+    "16": "Invalid NFC.",
+    "17": "Company extension is already in use.",
+    "18": "OTP code is incorrect or expired.",
+    "19": "Password reset failed. Please try again.",
+    "20": "Referance_Photo_Is_Required"
+  }
+}

@@ -1,0 +1,22 @@
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <div class="row">
+      @for (field of config; track field) {
+      <div [class]="field.colCss">
+        <app-input [config]="field" [form]="form" [onRefPhotoChange]="field?.funUpload"
+          [onSelectChangeInput]="field?.onSelectChange"></app-input>
+      </div>
+      } @empty {
+      <li> There are no items.</li>
+      }
+    </div>
+    <button type="submit" class="btn btn-primary" [style]="config[0].button.buttonStyle">{{ config[0].button.buttonLabel
+      | translate }}</button>
+    @if(config[0].buttonStepper){
+    <button type="button" class="btn Submit-btn btn-secondary w-25" [style]="config[0].button.buttonStyle" mat-button
+      matStepperNext (click)="goBack(stepper)">
+      {{'backBtn' | translate }}
+    </button>
+    }
+  </form>
+</div>
