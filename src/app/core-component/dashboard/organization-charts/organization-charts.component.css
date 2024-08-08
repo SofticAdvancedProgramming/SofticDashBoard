@@ -1,101 +1,38 @@
-.org-chart {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.org-chart-node {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.org-chart-node-content {
-    background-color: #e0f7fa;
+/* Custom styles for the GoJS nodes */
+.gojs-node {
     border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #000000;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-}
-
-.org-chart-children {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    position: relative;
-}
-
-.org-chart-connector {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 2px;
-    height: 20px;
-    background-color: #ddd;
-}
-
-.org-chart-node-content h3 {
-    margin: 0;
+    padding: 10px;
+  }
+  
+  .gojs-node img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .gojs-node .name {
     font-size: 16px;
-}
-
-.org-chart-node-content p {
-    margin: 5px 0;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .gojs-node .title {
     font-size: 14px;
-}
-
-.org-chart-node.head .org-chart-node-content {
-    background-color: #e0f7fa;
-}
-
-.org-chart-children::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    width: calc(100% - 20px);
-    height: 2px;
-    background-color: #ddd;
-    transform: translateX(-50%);
-}
-
-.org-chart-children>.org-chart-node::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    width: 2px;
-    height: 10px;
-    background-color: #ddd;
-    transform: translateX(-50%);
-}
-
-ngx-org-chart {
-    --ngx-org-chart-background: #ffffff;
-    --ngx-org-chart-border-color: #dddddd;
-    --ngx-org-chart-node-color: #189de5;
-    --ngx-org-chart-node-border-color: #046d8a;
-    --ngx-org-chart-connector-color: #046d8a;
-    --ngx-org-chart-hover-color: #033e6f;
-    --ngx-org-chart-width: 100%;
-    --ngx-org-chart-height: auto;
-}
-
-ngx-org-chart .ngx-org-chart-node {
-    text-align: center;
-    padding: 10px;
-}
-
-ngx-org-chart .ngx-org-chart-node h3 {
-    font-size: 18px;
-    margin: 0;
-}
-
-ngx-org-chart .ngx-org-chart-node p {
-    font-size: 14px;
-    margin: 5px 0 0;
-}
+    color: #666;
+  }
+  
+  .gojs-node .id {
+    font-size: 12px;
+    color: #fff;
+    background-color: #7B3FF6;
+    padding: 5px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
