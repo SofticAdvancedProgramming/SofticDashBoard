@@ -10,12 +10,12 @@ import { PositionService } from '../../../services/positionService/position.serv
 export class OrganizationChartsComponent implements AfterViewInit {
   @ViewChild('diagramDiv') diagramDiv!: ElementRef;
 
-  constructor(private positionService: PositionService) {}
+  constructor(private positionService: PositionService) { }
 
   ngAfterViewInit(): void {
-    this.positionService.getPosition().subscribe(response => {
+    this.positionService.getPosition({ positionManagerId: 0 }).subscribe(response => {
       if (response.status === 200) {
-        const { nodeDataArray, linkDataArray } = this.transformData(response.data.list);
+        const { nodeDataArray, linkDataArray } = this.transformData([response.data.list[0]]);
         this.initDiagram(nodeDataArray, linkDataArray);
       }
     });
@@ -25,22 +25,22 @@ export class OrganizationChartsComponent implements AfterViewInit {
     const nodeMap = new Map<number, any>();
     const linkDataArray: any[] = [];
 
-    const processNode = (node: any, parentId?: number) => {
-      const nodeId = node.id;
+    const processNode = (data: any, parentId?: number) => {
+      const nodeId = data.id;
       nodeMap.set(nodeId, {
         key: nodeId,
-        name: node.name,
-        title: node.positionTypeId.toString(), // Assuming title is positionTypeId
-        department: node.nameAr,
-        id: node.id.toString()
+        name: data.name,
+        title: data.positionTypeId.toString(), // Assuming title is positionTypeId
+        department: data.nameAr,
+        id: data.id.toString()
       });
 
       if (parentId) {
         linkDataArray.push({ from: parentId, to: nodeId });
       }
 
-      if (node.subPositions && node.subPositions.length > 0) {
-        node.subPositions.forEach((child: any) => processNode(child, nodeId));
+      if (data.subPositions && data.subPositions.length > 0) {
+        data.subPositions.forEach((child: any) => processNode(child, nodeId));
       }
     };
 
