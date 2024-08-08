@@ -26,4 +26,9 @@ export class EmployeeService {
     return this.apiCall.request<any>(this.apiUrl+'/AssginPosition', 'post',request, headers);
   }
   
+  assginEmployeeToDepartment(request:any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.apiCall.request<any>(this.apiUrl+'/AssginDepartment', 'post',request, headers);
+  }
+  
 }

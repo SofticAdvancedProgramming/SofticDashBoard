@@ -1,0 +1,32 @@
+<div class="popup-overlay" (click)="close.emit()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="close.emit()">&times;</button>
+      <div class="header">
+        <div *ngIf="department" class="d-flex">
+          <p>Department:</p>
+          <label>{{ department.name }}</label>
+        </div>
+        <div *ngIf="department" class="d-flex">
+          <p>Short Name:</p>
+          <label>{{ department.shortName }}</label>
+        </div>
+        <div *ngIf="department" class="d-flex">
+          <p>Manager:</p>
+          <label>{{ department.manager }}</label>
+        </div>
+      </div>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group mt-3">
+          <label for="entityName">Name</label>
+          <select id="entityName" class="form-control" [(ngModel)]="selectedRelatedEntityId" name="entityName">
+            <option value="" disabled>Select {{ entityType }}</option>
+            <option *ngFor="let entity of entities" [value]="entity.id">{{ entity.fullName }}</option>
+          </select>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <button class="assignBtn" type="submit">Assign</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

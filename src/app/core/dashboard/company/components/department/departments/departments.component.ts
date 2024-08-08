@@ -14,8 +14,8 @@ import { DepartmentService } from '../../../../../../services/lockupsServices/De
 import { EmployeeService } from '../../../../../../services/employeeService/employee.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { AssignEmployeesComponent } from '../../../../employee/assign-employees/assign-employees.component';
- 
+import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
+
 @Component({
   selector: 'app-departments',
   standalone: true,
@@ -30,7 +30,7 @@ import { AssignEmployeesComponent } from '../../../../employee/assign-employees/
     AddDepartmentComponent,
     DepartmentOverviewComponent,
     ToastModule,
-    AssignEmployeesComponent 
+    AssignEntityComponent  
   ],
   providers: [DepartmentService, EmployeeService, MessageService]
 })
@@ -39,16 +39,18 @@ export class DepartmentsComponent implements OnInit {
   showOverView: boolean = false;
   selectedCard: any = null;
   isAdd: boolean = false;
-  isAssignEmployee: boolean = false; // State to control the employee popup
+  isAssignEntity: boolean = false;
   private apiUrl = `${environment.apiBaseUrl}Company`;
   department: Department = {} as Department;
   cards: any[] = [];
   active: boolean = true;
   headers: string[] = ['id', 'name', 'shortName', 'manager'];
   data: Department[] = [];
-  employees: employee[] = []; // Separate state for employees
+  employees: employee[] = [];
   title = 'Departments Overview';
-  selectedPositionId: string | undefined = undefined; // State to hold selected position ID
+  selectedEntityId: string | undefined = undefined;
+  entityType: string = 'Employee';
+  selectedDepartment: Department | null = null; // Property to hold selected department data
 
   constructor(
     private apiCall: ApiCall,
@@ -60,7 +62,7 @@ export class DepartmentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDepartments();
-    this.loadEmployees(); // Load employees data
+    this.loadEmployees();
   }
 
   loadDepartments(): void {
@@ -122,8 +124,8 @@ export class DepartmentsComponent implements OnInit {
       this.showOverView = false;
     } else if (this.isAdd) {
       this.isAdd = false;
-    } else if (this.isAssignEmployee) { // Handle the case for hiding employee popup
-      this.isAssignEmployee = false;
+    } else if (this.isAssignEntity) {
+      this.isAssignEntity = false;
     }
   }
 
@@ -147,7 +149,7 @@ export class DepartmentsComponent implements OnInit {
       this.departmentService.deleteDepartment(departmentId, companyId).subscribe({
         next: () => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Department deleted successfully' });
-          this.loadDepartments(); // Reload departments after deletion
+          this.loadDepartments();
         },
         error: (err) => {
           console.error('Error deleting department', err);
@@ -159,15 +161,29 @@ export class DepartmentsComponent implements OnInit {
     }
   }
 
-  addEmployee(positionId: string): void {
-    this.selectedPositionId = positionId;
-    this.isAssignEmployee = true;
+  assignEntity(departmentId: string): void {
+    this.selectedEntityId = departmentId;
+    this.entityType = 'Employee';
+    this.isAssignEntity = true;
+    this.selectedDepartment = this.cards.find(card => card.id === departmentId); // Set selected department data
   }
 
-  handleEmployeeAssigned(event: { employeeId: number, positionId: number }): void {
-    console.log('Employee assigned:', event);
-    // Handle employee assignment logic here
-    this.isAssignEmployee = false;
+  handleEntityAssigned(event: { entityId: number, relatedEntityId: number }): void {
+    const requestPayload = {
+      employeeId: event.entityId,
+      departmentId: event.relatedEntityId
+    };
+    this.employeeService.assginEmployeeToDepartment(requestPayload).subscribe({
+      next: (response) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Employee assigned to department successfully' });
+        this.isAssignEntity = false;
+        this.loadDepartments();
+      },
+      error: (err) => {
+        console.error('Error assigning employee to department', err);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error assigning employee to department' });
+      }
+    });
   }
 
   private getCompanyId(): number | null {

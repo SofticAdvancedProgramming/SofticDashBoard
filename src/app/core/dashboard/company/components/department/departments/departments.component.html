@@ -1,5 +1,4 @@
-<!-- departments.component.html -->
-<div class="container my-5" *ngIf="!isAdd && !showOverView && !isAssignEmployee">
+<div class="container my-5" *ngIf="!isAdd && !showOverView && !isAssignEntity">
     <div class="row">
         <div class="justify-content-end d-flex">
             <button class="btn addPositionBtn w-25" (click)="addDepartment()">
@@ -15,7 +14,8 @@
                     <p>{{ card.department }}</p>
                 </div>
                 <div class="card-body">
-                    <button class="btn btn-add" (click)="addEmployee(card.id)"><i class="fas fa-plus"></i> Add Employee</button>
+                    <button class="btn btn-add" (click)="assignEntity(card.id)"><i class="fas fa-plus"></i> Add
+                        Employee</button>
                 </div>
                 <div class="card-footer">
                     <label class="toggle-label">
@@ -36,20 +36,14 @@
     </div>
 </div>
 
-<!-- Employee Assignment Popup -->
-<app-assign-employees
-  *ngIf="isAssignEmployee"
-  [positionId]="selectedPositionId"
-  [employees]="employees"
-  (close)="goBack()"
-  (submitForm)="handleEmployeeAssigned($event)">
-</app-assign-employees>
+<!-- Entity Assignment Popup -->
+<app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedEntityId" [entityType]="entityType" [entities]="employees"
+    [department]="selectedDepartment" (close)="goBack()" (submitForm)="handleEntityAssigned($event)">
+</app-assign-entity>
 
 <!-- Department Overview -->
 <div *ngIf="showOverView">
-  <button class="btn btn-secondary" (click)="goBack()">Back</button>
-  <app-department-overview
-    (departmentAdded)="handleDepartmentAdded()"
-    [Department]="department">
-  </app-department-overview>
+    <button class="btn btn-secondary" (click)="goBack()">Back</button>
+    <app-department-overview (departmentAdded)="handleDepartmentAdded()" [Department]="department">
+    </app-department-overview>
 </div>
