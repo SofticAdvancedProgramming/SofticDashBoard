@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import * as go from 'gojs';
-
+import { PositionService } from '../../../services/positionService/position.service';
+ 
 @Component({
   selector: 'app-organization-chart',
   templateUrl: './organization-charts.component.html',
@@ -9,53 +10,45 @@ import * as go from 'gojs';
 export class OrganizationChartsComponent implements AfterViewInit {
   @ViewChild('diagramDiv') diagramDiv!: ElementRef;
 
-  nodes = [
-    {
-      key: 1,
-      name: 'Yomna Ashraf',
-      title: 'Head Of Department',
-      department: 'Design Department',
-      id: '01',
-      children: [
-        {
-          key: 2,
-          name: 'Mr. George Mikhaiel',
-          title: 'Joiner UI/UX Designer',
-          department: 'Design Department',
-          id: '01',
-        },
-        {
-          key: 3,
-          name: 'Mr. George Mikhaiel',
-          title: 'Senior UI/UX Designer',
-          department: 'Design Department',
-          id: '01',
-          children: [
-            {
-              key: 4,
-              name: 'Mr. George Mikhaiel',
-              title: 'UI/UX Designer',
-              department: 'Design Department',
-              id: '01',
-            },
-            {
-              key: 5,
-              name: 'Mr. George Mikhaiel',
-              title: 'UI/UX Designer',
-              department: 'Design Department',
-              id: '01',
-            }
-          ]
-        }
-      ]
-    }
-  ];
+  constructor(private positionService: PositionService) {}
 
   ngAfterViewInit(): void {
-    this.initDiagram();
+    this.positionService.getPosition().subscribe(response => {
+      if (response.status === 200) {
+        const { nodeDataArray, linkDataArray } = this.transformData(response.data.list);
+        this.initDiagram(nodeDataArray, linkDataArray);
+      }
+    });
   }
 
-  initDiagram() {
+  transformData(data: any[]): { nodeDataArray: any[], linkDataArray: any[] } {
+    const nodeMap = new Map<number, any>();
+    const linkDataArray: any[] = [];
+
+    const processNode = (node: any, parentId?: number) => {
+      const nodeId = node.id;
+      nodeMap.set(nodeId, {
+        key: nodeId,
+        name: node.name,
+        title: node.positionTypeId.toString(), // Assuming title is positionTypeId
+        department: node.nameAr,
+        id: node.id.toString()
+      });
+
+      if (parentId) {
+        linkDataArray.push({ from: parentId, to: nodeId });
+      }
+
+      if (node.subPositions) {
+        node.subPositions.forEach((child: any) => processNode(child, nodeId));
+      }
+    };
+
+    data.forEach(node => processNode(node));
+    return { nodeDataArray: Array.from(nodeMap.values()), linkDataArray };
+  }
+
+  initDiagram(nodeDataArray: any[], linkDataArray: any[]) {
     const $ = go.GraphObject.make;
 
     const diagram = $(go.Diagram, this.diagramDiv.nativeElement, {
@@ -73,29 +66,29 @@ export class OrganizationChartsComponent implements AfterViewInit {
             strokeWidth: 1,
             width: 366,
             height: 153.05,
-            cursor: 'pointer',
-           }),
+            cursor: 'pointer'
+          }),
         $(go.Panel, 'Vertical',
           { margin: 6 },
           $(go.TextBlock,
             {
               font: 'bold 18px sans-serif',
               stroke: '#333333',
-              margin: new go.Margin(10, 0, 0, 0),
+              margin: new go.Margin(10, 0, 0, 0)
             },
             new go.Binding('text', 'name')),
           $(go.TextBlock,
             {
               font: '16px sans-serif',
               stroke: '#666666',
-              margin: new go.Margin(10, 0, 0, 0),
+              margin: new go.Margin(10, 0, 0, 0)
             },
             new go.Binding('text', 'department')),
           $(go.TextBlock,
             {
               font: '14px sans-serif',
               stroke: '#999999',
-              margin: new go.Margin(10, 0, 0, 0),
+              margin: new go.Margin(10, 0, 0, 0)
             },
             new go.Binding('text', 'title')),
           $(go.Panel, 'Auto',
@@ -126,34 +119,6 @@ export class OrganizationChartsComponent implements AfterViewInit {
         $(go.Shape, { toArrow: 'OpenTriangle' })
       );
 
-    const transformData = (data: any[]) => {
-      const nodeMap = new Map<string, any>();
-      const linkDataArray: any[] = [];
-
-      const processNode = (node: any, parentId?: string) => {
-        const nodeId = node.key;
-        nodeMap.set(nodeId, {
-          key: nodeId,
-          name: node.name,
-          title: node.title,
-          department: node.department,
-          id: node.id,
-        });
-
-        if (parentId) {
-          linkDataArray.push({ from: parentId, to: nodeId });
-        }
-
-        if (node.children) {
-          node.children.forEach((child: any) => processNode(child, nodeId));
-        }
-      };
-
-      data.forEach(node => processNode(node));
-      return { nodeDataArray: Array.from(nodeMap.values()), linkDataArray };
-    };
-
-    const { nodeDataArray, linkDataArray } = transformData(this.nodes);
     diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
   }
 }

@@ -12,7 +12,7 @@ export class ToastersService {
       timeOut:3000,
       progressBar:true,
       progressAnimation:'increasing',
-      positionClass:'toast-top-right'
+      positionClass:'toast-top-center'
     });
   }
   // Show an info toast
@@ -21,7 +21,7 @@ export class ToastersService {
       timeOut:3000,
       progressBar:true,
       progressAnimation:'increasing',
-      positionClass:'toast-top-right'
+      positionClass:'toast-top-center'
     })
   }
   // Show a warning toast
@@ -30,7 +30,7 @@ export class ToastersService {
       timeOut:3000,
       progressBar:true,
       progressAnimation:'increasing',
-      positionClass:'toast-top-right'
+      positionClass:'toast-top-center'
     })
   }
 
@@ -40,7 +40,7 @@ export class ToastersService {
       timeOut:3000,
       progressBar:true,
       progressAnimation:'increasing',
-      positionClass:'toast-top-right'
+      positionClass:'toast-top-center'
     })
   }
 }
