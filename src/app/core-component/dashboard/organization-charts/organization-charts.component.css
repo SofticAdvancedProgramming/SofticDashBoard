@@ -1,29 +1,30 @@
 /* Custom styles for the GoJS nodes */
 .gojs-node {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #000000;
+    background-color: #FAF9FE;
+    width: 366px;
+    height: 153.05px;
+    border-radius: 14px 0px 0px 0px;
     text-align: center;
     padding: 10px;
-  }
-  
-  .gojs-node img {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   .gojs-node .name {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .gojs-node .department {
+    font-size: 16px;
+    color: #666;
     margin-top: 10px;
   }
   
   .gojs-node .title {
     font-size: 14px;
-    color: #666;
+    color: #999;
+    margin-top: 10px;
   }
   
   .gojs-node .id {

@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import * as go from 'gojs';
 import { PositionService } from '../../../services/positionService/position.service';
- 
+
 @Component({
   selector: 'app-organization-chart',
   templateUrl: './organization-charts.component.html',
@@ -39,7 +39,7 @@ export class OrganizationChartsComponent implements AfterViewInit {
         linkDataArray.push({ from: parentId, to: nodeId });
       }
 
-      if (node.subPositions) {
+      if (node.subPositions && node.subPositions.length > 0) {
         node.subPositions.forEach((child: any) => processNode(child, nodeId));
       }
     };
@@ -53,7 +53,11 @@ export class OrganizationChartsComponent implements AfterViewInit {
 
     const diagram = $(go.Diagram, this.diagramDiv.nativeElement, {
       'undoManager.isEnabled': true,
-      'layout': $(go.TreeLayout, { angle: 90, layerSpacing: 35 })
+      'layout': $(go.TreeLayout, { angle: 90, layerSpacing: 35 }),
+      initialContentAlignment: go.Spot.Center,
+      allowMove: false,
+      allowResize: false,
+      allowRotate: false,
     });
 
     diagram.nodeTemplate =
