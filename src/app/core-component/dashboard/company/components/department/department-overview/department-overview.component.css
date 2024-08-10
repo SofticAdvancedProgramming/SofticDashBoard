@@ -123,8 +123,26 @@
     font-weight: 500;
     line-height: 30px;
     letter-spacing: 0.03em;
-    padding-right: 5em;
-    padding-left: 5em;
+    width: 70%;
+}
+.viewBtnBack {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: gray;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    text-align: center;
+    font-family: Lama Sans;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0.03em;
+    width: 70%;
 }
 .AddBtn {
     display: flex;

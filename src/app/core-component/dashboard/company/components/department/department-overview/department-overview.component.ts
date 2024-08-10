@@ -18,7 +18,15 @@ export class DepartmentOverviewComponent implements OnInit {
   companyId: string = '';
   company: Company = {} as Company;
   showAddSubDepartmentForm: boolean = false;
+  isAssignEntity: boolean = false;
 
+ 
+  showOverView: boolean = false;
+  selectedCard: any = null;
+  isAdd: boolean = false;
+  
+  
+ 
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
@@ -52,5 +60,14 @@ export class DepartmentOverviewComponent implements OnInit {
 
   handleAddSubDepartmentAction(event: boolean) {
     this.showAddSubDepartmentForm = !event;
+  }
+  goBack() {
+    if (this.showOverView) {
+      this.showOverView = false;
+    } else if (this.isAdd) {
+      this.isAdd = false;
+    } else if (this.isAssignEntity) {
+      this.isAssignEntity = false;
+    }
   }
 }

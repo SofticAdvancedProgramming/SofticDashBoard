@@ -14,24 +14,26 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
 import { ApiCall } from '../../../../../../core/services/http-service/HttpService';
+import { ViewEmployeesComponent } from "../../../../employee/view-employees/view-employees.component";
 
 @Component({
-  selector: 'app-departments',
-  standalone: true,
-  templateUrl: './departments.component.html',
-  styleUrls: ['./departments.component.css'],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    BasicTableComponent,
-    RouterOutlet,
-    AddDepartmentComponent,
-    DepartmentOverviewComponent,
-    ToastModule,
-    AssignEntityComponent
-  ],
-  providers: [DepartmentService, EmployeeService, MessageService]
+    selector: 'app-departments',
+    standalone: true,
+    templateUrl: './departments.component.html',
+    styleUrls: ['./departments.component.css'],
+    providers: [DepartmentService, EmployeeService, MessageService],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        BasicTableComponent,
+        RouterOutlet,
+        AddDepartmentComponent,
+        DepartmentOverviewComponent,
+        ToastModule,
+        AssignEntityComponent,
+        ViewEmployeesComponent
+    ]
 })
 export class DepartmentsComponent implements OnInit {
   @Input() companyId?: number;
@@ -39,6 +41,7 @@ export class DepartmentsComponent implements OnInit {
   showOverView: boolean = false;
   selectedCard: any = null;
   isAdd: boolean = false;
+  isViewEmployees: boolean = false;
   isAssignEntity: boolean = false;
   private apiUrl = `${environment.apiBaseUrl}Company`;
   department: Department = {} as Department;
@@ -133,11 +136,17 @@ export class DepartmentsComponent implements OnInit {
   addDepartment(): void {
     this.isAdd = true;
   }
+  viewEmployees(): void {
+    this.isViewEmployees = true;
+  }
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
     console.log('Action emitted:', isAdd);
   }
+  handleViewEmployee(isAdd: boolean): void {
+    this.isViewEmployees = this.isViewEmployees;
+   }
 
   handleDepartmentAdded(): void {
     this.loadDepartments();

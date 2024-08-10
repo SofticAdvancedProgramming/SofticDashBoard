@@ -15,12 +15,24 @@ export class OrganizationChartsComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.positionService.getPosition({ positionManagerId: 0 }).subscribe(response => {
       if (response.status === 200) {
-        const { nodeDataArray, linkDataArray } = this.transformData([response.data.list[0]]);
+        const nodeDataArray: any[] = [];
+        const linkDataArray: any[] = [];
+  
+        // Iterate through each item in the response list
+        response.data.list.forEach((item: any) => {
+          const { nodeDataArray: nodes, linkDataArray: links } = this.transformData([item]);
+          
+          // Push nodes and links to the accumulated arrays
+          nodeDataArray.push(...nodes);
+          linkDataArray.push(...links);
+        });
+  
+        // Initialize the diagram with all accumulated nodes and links
         this.initDiagram(nodeDataArray, linkDataArray);
       }
     });
   }
-
+  
   transformData(data: any[]): { nodeDataArray: any[], linkDataArray: any[] } {
     const nodeMap = new Map<number, any>();
     const linkDataArray: any[] = [];

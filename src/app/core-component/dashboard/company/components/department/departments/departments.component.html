@@ -48,14 +48,16 @@
   <ng-container *ngIf="isAdd;">
     <app-add-department [companyId]="companyId" (action)="handleAction($event)"></app-add-department>
   </ng-container>
+  <ng-container *ngIf="isViewEmployees;">
+    <app-view-employees [companyId]="companyId"  ></app-view-employees>
+  </ng-container>
   <!-- Department Overview -->
   <div *ngIf="showOverView">
-    <button class="btn btn-secondary" (click)="goBack()">Back</button>
     <app-department-overview
       (departmentAdded)="handleDepartmentAdded()"
       [Department]="department">
     </app-department-overview>
   </div>
-  
+
   <p-toast position="top-center"></p-toast>
   
