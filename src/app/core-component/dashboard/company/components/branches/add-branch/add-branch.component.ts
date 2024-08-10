@@ -7,14 +7,15 @@ import { BranchService } from '../../../../../../services/lockupsServices/branch
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
+import { LeafletMapComponent } from "../../../../../../common-component/leaflet-map/leaflet-map.component";
 
 @Component({
-  selector: 'app-add-branch',
-  standalone: true,
-  templateUrl: './add-branch.component.html',
-  styleUrls: ['./add-branch.component.css'],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent],
-  providers: [MessageService]
+    selector: 'app-add-branch',
+    standalone: true,
+    templateUrl: './add-branch.component.html',
+    styleUrls: ['./add-branch.component.css'],
+    providers: [MessageService],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, LeafletMapComponent]
 })
 export class AddBranchComponent implements OnInit {
   @Input() companyId?: number ;

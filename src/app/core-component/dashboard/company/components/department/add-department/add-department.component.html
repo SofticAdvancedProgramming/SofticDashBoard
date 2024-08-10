@@ -17,16 +17,6 @@
         <div *ngIf="form.get('shortName')?.invalid && form.get('shortName')?.touched" class="text-danger">Short name is required</div>
       </div>
       <div class="form-group">
-        <label for="long">Department Long</label>
-        <input id="long" formControlName="long" placeholder="Enter Long" class="form-control" />
-        <div *ngIf="form.get('long')?.invalid && form.get('long')?.touched" class="text-danger">Longitude is required</div>
-      </div>
-      <div class="form-group">
-        <label for="lat">Department Lat</label>
-        <input id="lat" formControlName="lat" placeholder="Enter Lat" class="form-control" />
-        <div *ngIf="form.get('lat')?.invalid && form.get('lat')?.touched" class="text-danger">Latitude is required</div>
-      </div>
-      <div class="form-group">
         <label for="manager">Department Manager</label>
         <input id="manager" formControlName="manager" placeholder="Enter Manager Name" class="form-control" />
         <div *ngIf="form.get('manager')?.invalid && form.get('manager')?.touched" class="text-danger">Manager is required</div>
@@ -49,8 +39,18 @@
         <div *ngIf="form.get('descriptionAr')?.invalid && form.get('descriptionAr')?.touched" class="text-danger">Arabic description is required</div>
       </div>
       <div class="form-group">
+        <label for="long">Department Long</label>
+        <input id="long" formControlName="long" placeholder="Enter Long" class="form-control" />
+        <div *ngIf="form.get('long')?.invalid && form.get('long')?.touched" class="text-danger">Longitude is required</div>
+      </div>
+      <div class="form-group">
+        <label for="lat">Department Lat</label>
+        <input id="lat" formControlName="lat" placeholder="Enter Lat" class="form-control" />
+        <div *ngIf="form.get('lat')?.invalid && form.get('lat')?.touched" class="text-danger">Latitude is required</div>
+      </div>
+      <div class="form-group">
         <label for="map">Department Location</label>
-        <app-map (locationSelected)="onLocationSelected($event)"></app-map>
+        <app-leaflet-map (locationSelected)="onLocationSelected($event)"></app-leaflet-map>
       </div>
       <div class="form-buttons row mt-3">
         <div class="col-lg-6 justify-content-center d-flex">

@@ -8,14 +8,15 @@ import { ToastModule } from 'primeng/toast';
 import { MapComponent } from '../../../../components/map/map.component';
 import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
 import { branch } from '../../../../../../../models/branch';
+import { LeafletMapComponent } from "../../../../../../common-component/leaflet-map/leaflet-map.component";
 
 @Component({
-  selector: 'app-add-department',
-  standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent],
-  templateUrl: './add-department.component.html',
-  styleUrls: ['./add-department.component.css'],
-  providers: [MessageService],
+    selector: 'app-add-department',
+    standalone: true,
+    templateUrl: './add-department.component.html',
+    styleUrls: ['./add-department.component.css'],
+    providers: [MessageService],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, LeafletMapComponent]
 })
 export class AddDepartmentComponent implements OnInit {
   @Output() action = new EventEmitter<boolean>();
