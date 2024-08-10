@@ -45,7 +45,9 @@
     (close)="goBack()"
     (submitForm)="handleEntityAssigned($event)">
   </app-assign-entity>
-  
+  <ng-container *ngIf="isAdd;">
+    <app-add-department [companyId]="companyId" (action)="handleAction($event)"></app-add-department>
+  </ng-container>
   <!-- Department Overview -->
   <div *ngIf="showOverView">
     <button class="btn btn-secondary" (click)="goBack()">Back</button>

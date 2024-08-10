@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -34,6 +34,7 @@ import { ApiCall } from '../../../../../../core/services/http-service/HttpServic
   providers: [DepartmentService, EmployeeService, MessageService]
 })
 export class DepartmentsComponent implements OnInit {
+  @Input() companyId?: number ;
   @Output() departmentAdded = new EventEmitter<void>();
   showOverView: boolean = false;
   selectedCard: any = null;

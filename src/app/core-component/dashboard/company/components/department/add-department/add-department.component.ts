@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
@@ -20,9 +20,9 @@ import { branch } from '../../../../../../../models/branch';
 export class AddDepartmentComponent implements OnInit {
   @Output() action = new EventEmitter<boolean>();
   form: FormGroup;
-  companyId: number | null = null;
-  branches: branch[] = [];
-  
+   branches: branch[] = [];
+  @Input() companyId?: number ;
+
   constructor(
     private fb: FormBuilder,
     private departmentService: DepartmentService,
