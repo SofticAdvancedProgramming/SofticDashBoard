@@ -61,8 +61,10 @@ export class ViewBranchesComponent implements OnInit {
     const companyId = localStorage.getItem('companyId');
     this.employeeService.loadEmployees({ companyId }).subscribe({
       next: (response) => {
-        this.employees = response.data.list;
-        console.log("Employees loaded:", this.employees);
+         this.employees = response.data.list.filter(
+          (employee: any) => !employee.branchId
+        );
+        console.log("Filtered Employees:", this.employees);
       },
       error: (err) => {
         console.error('Error loading employees', err);

@@ -45,7 +45,7 @@ export class DepartmentsComponent implements OnInit {
   cards: any[] = [];
   headers: string[] = ['id', 'name', 'shortName', 'manager'];
   data: Department[] = [];
-  employees: any[] = [];
+  employees: employee[] = [];
   title = 'Departments Overview';
   selectedEntityId: string | undefined = undefined;
   entityType: string = 'Employee';
@@ -74,8 +74,6 @@ export class DepartmentsComponent implements OnInit {
             title: department.name,
             department: department.shortName
           }));
-
-          // Load employees and apply filtering
           this.loadEmployees();
         },
         error: (err) => {
