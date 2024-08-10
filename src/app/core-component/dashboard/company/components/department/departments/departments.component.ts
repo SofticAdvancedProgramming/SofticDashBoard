@@ -34,7 +34,7 @@ import { ApiCall } from '../../../../../../core/services/http-service/HttpServic
   providers: [DepartmentService, EmployeeService, MessageService]
 })
 export class DepartmentsComponent implements OnInit {
-  @Input() companyId?: number ;
+  @Input() companyId?: number;
   @Output() departmentAdded = new EventEmitter<void>();
   showOverView: boolean = false;
   selectedCard: any = null;
@@ -43,10 +43,9 @@ export class DepartmentsComponent implements OnInit {
   private apiUrl = `${environment.apiBaseUrl}Company`;
   department: Department = {} as Department;
   cards: any[] = [];
-  active: boolean = true;
   headers: string[] = ['id', 'name', 'shortName', 'manager'];
   data: Department[] = [];
-  employees: employee[] = [];
+  employees: any[] = [];
   title = 'Departments Overview';
   selectedEntityId: string | undefined = undefined;
   entityType: string = 'Employee';
@@ -62,7 +61,6 @@ export class DepartmentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDepartments();
-    this.loadEmployees();
   }
 
   loadDepartments(): void {
@@ -70,12 +68,15 @@ export class DepartmentsComponent implements OnInit {
     if (companyId) {
       this.departmentService.getDepartment({ companyId }).subscribe({
         next: (response) => {
-          this.cards = response.data.list.map((department: any) => ({
+          const departments: Department[] = response.data.list;
+          this.cards = departments.map((department: Department) => ({
             id: department.id,
             title: department.name,
-            department: department.shortName,
-            active: department.active
+            department: department.shortName
           }));
+
+          // Load employees and apply filtering
+          this.loadEmployees();
         },
         error: (err) => {
           console.error('Error loading departments', err);
@@ -90,7 +91,10 @@ export class DepartmentsComponent implements OnInit {
     if (companyId) {
       this.employeeService.loadEmployees({ companyId }).subscribe({
         next: (response) => {
-          this.employees = response.data.list;
+          this.employees = response.data.list.filter(
+            (employee: any) => !employee.departmentId
+          );
+          console.log('Filtered Employees:', this.employees);
         },
         error: (err) => {
           console.error('Error loading employees', err);
@@ -167,7 +171,7 @@ export class DepartmentsComponent implements OnInit {
     this.selectedDepartment = this.cards.find(card => card.id === departmentId);
   }
 
-  handleEntityAssigned(event: { entityId: number, relatedEntityId: number }): void {
+  handleEntityAssigned(event: { entityId: number; relatedEntityId: number }): void {
     const requestPayload = {
       employeeId: event.entityId,
       departmentId: event.relatedEntityId
