@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { branch } from '../../../../../../../models/branch';
 import { MapComponent } from "../../../../components/map/map.component";
@@ -17,9 +17,10 @@ import { ToastModule } from 'primeng/toast';
   providers: [MessageService]
 })
 export class AddBranchComponent implements OnInit {
+  @Input() companyId?: number ;
   @Output() action = new EventEmitter<boolean>();
   @Output() branchAdded = new EventEmitter<void>();
-  companyId: number | null = null;
+ 
   form: FormGroup;
 
   constructor(

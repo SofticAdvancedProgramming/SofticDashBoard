@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
 import { branch } from '../../../../../../../models/branch';
 import { MapComponent } from '../../../../components/map/map.component';
@@ -28,6 +28,7 @@ import { MessageService } from 'primeng/api';
   providers: [BranchService, EmployeeService, MessageService]
 })
 export class ViewBranchesComponent implements OnInit {
+  @Input() companyId?: number ;
   isAdd: boolean = false;
   showOverView: boolean = false;
   branches: branch[] = [];
@@ -80,8 +81,8 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   handleBranchAdded(): void {
-    this.loadBranches(); // Reload branches after a branch is added
-    this.isAdd = false;  // Ensure the add form is hidden
+    this.loadBranches();  
+    this.isAdd = false;   
   }
 
   showDetails(cardId: number) {

@@ -1,4 +1,5 @@
 <div class="container my-5" *ngIf="!isAdd && !showOverView && !isAssignEntity">
+
     <div class="row">
         <div class="justify-content-end d-flex">
             <button class="btn addBranchBtn w-25" (click)="addBranch()">
@@ -26,7 +27,9 @@
         </div>
     </div>
 </div>
-
+<ng-container *ngIf="isAdd;">
+    <app-add-branch [companyId]="companyId" (action)="handleAction($event)"></app-add-branch>
+  </ng-container>
 <!-- Entity Assignment Popup -->
 <app-assign-entity
   *ngIf="isAssignEntity"
