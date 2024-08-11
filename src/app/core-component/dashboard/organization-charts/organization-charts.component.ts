@@ -3,7 +3,8 @@ import * as go from 'gojs';
 import { PositionService } from '../../../services/positionService/position.service';
 import { PositionTypeService } from '../../../services/lockupsServices/positionTypeService/position-type.service';
 import { DepartmentService } from '../../../services/lockupsServices/DepartmentService/department.service';
- 
+import { EmployeeService } from '../../../services/employeeService/employee.service'; // Import EmployeeService
+
 @Component({
   selector: 'app-organization-chart',
   templateUrl: './organization-charts.component.html',
@@ -11,19 +12,22 @@ import { DepartmentService } from '../../../services/lockupsServices/DepartmentS
 })
 export class OrganizationChartsComponent implements AfterViewInit {
   @ViewChild('diagramDiv') diagramDiv!: ElementRef;
-  
+
   private positionTypesMap = new Map<number, string>();
   private departmentsMap = new Map<number, string>();
-
+  private employeeMap = new Map<number, string>();
+companyId?:number=0
   constructor(
     private positionService: PositionService,
     private positionTypeService: PositionTypeService,
-     private departmentService: DepartmentService
+    private departmentService: DepartmentService,
+    private employeeService: EmployeeService
   ) { }
 
   ngAfterViewInit(): void {
     this.loadPositionTypes();
     this.loadDepartments();
+  this.companyId=Number(localStorage.getItem("companyId"))
   }
 
   loadPositionTypes(): void {
@@ -32,7 +36,7 @@ export class OrganizationChartsComponent implements AfterViewInit {
         response.data.list.forEach((type: any) => {
           this.positionTypesMap.set(type.id, type.name);
         });
-        this.loadPositions();
+        this.loadEmployees();
       }
     });
   }
@@ -43,6 +47,17 @@ export class OrganizationChartsComponent implements AfterViewInit {
         response.data.list.forEach((dept: any) => {
           this.departmentsMap.set(dept.id, dept.name);
         });
+      }
+    });
+  }
+
+  loadEmployees(): void {
+    this.employeeService.loadEmployees({companyId:this.companyId}).subscribe(response => {
+      if (response.status === 200) {
+        response.data.list.forEach((employee: any) => {
+          this.employeeMap.set(employee.positionId, employee.fullName);
+        });
+        this.loadPositions();
       }
     });
   }
@@ -73,13 +88,14 @@ export class OrganizationChartsComponent implements AfterViewInit {
       const nodeId = data.id;
       const positionTypeName = this.positionTypesMap.get(data.positionTypeId) || 'Unknown Position';
       const departmentName = this.departmentsMap.get(data.departmentId) || 'Unknown Department';
+      const employeeName = this.employeeMap.get(nodeId) || 'Unassigned'; // Get the employee name
 
       nodeMap.set(nodeId, {
         key: nodeId,
-        name: data.name, // Use the English name
-        title: positionTypeName, // Use the position type name
-        department: departmentName, // Use the department name
-        id: data.id.toString() // ID is still present but not displayed
+        name: employeeName,
+        title: positionTypeName,
+        department: departmentName,
+        id: data.id.toString()
       });
 
       if (parentId) {
@@ -127,7 +143,7 @@ export class OrganizationChartsComponent implements AfterViewInit {
               stroke: '#333333',
               margin: new go.Margin(10, 0, 0, 0)
             },
-            new go.Binding('text', 'name')), // English name binding
+            new go.Binding('text', 'name')), // Employee name binding
           $(go.TextBlock,
             {
               font: '16px sans-serif',
