@@ -78,7 +78,7 @@ export class ViewBranchesComponent implements OnInit {
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
-    console.log('Action emitted:', isAdd);
+    this.loadBranches();
   }
 
   handleBranchAdded(): void {

@@ -21,7 +21,7 @@ export class AddBranchComponent implements OnInit {
   @Input() companyId?: number ;
   @Output() action = new EventEmitter<boolean>();
   @Output() branchAdded = new EventEmitter<void>();
- 
+
   form: FormGroup;
 
   constructor(
@@ -63,8 +63,11 @@ export class AddBranchComponent implements OnInit {
       next: (response) => {
         console.log('Branch added successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Branch added successfully' });
-        this.branchAdded.emit(); // Notify parent component to reload branches
-        this.action.emit(false);
+        setTimeout(() => {
+          this.branchAdded.emit();
+          this.action.emit(false);
+        }, 1000);
+
       },
       error: (err) => {
         console.error('Error adding branch', err);
