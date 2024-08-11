@@ -57,17 +57,17 @@
   background-color: white;
 }
 
-.toggle-label {
+.profile-action {
   display: flex;
   align-items: center;
-  gap: 5px;
 }
 
 .switch {
   position: relative;
   display: inline-block;
-  width: 40px;
+  width: 34px;
   height: 20px;
+  margin-right: 10px;
 }
 
 .switch input {
@@ -83,8 +83,9 @@
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: #ccc;
   transition: 0.4s;
-  border-radius: 20px;
+  border-radius: 34px;
 }
 
 .slider:before {
@@ -100,18 +101,18 @@
 }
 
 input:checked + .slider {
-  background: #663895;
+  background-color: #6f42c1;
 }
 
 input:checked + .slider:before {
-  transform: translateX(20px);
+  transform: translateX(14px);
 }
-
-.icon-trash, .icon-edit {
-  color: #663895; /* Set icon color to white */
-  cursor: pointer;
+.toggle-button-container button {
+  border: 1px solid #8413F8;
+  color:#8413F8;
+  display: flex;
+  gap: 1em;
 }
-
 .addPositionBtn {
   background: #9ACA3C;
   color: white;
