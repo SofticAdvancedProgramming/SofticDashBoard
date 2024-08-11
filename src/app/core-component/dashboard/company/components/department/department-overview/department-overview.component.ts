@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Company } from '../../../../../../../models/company';
 import { Department } from '../../../../../../../models/department';
 import { ActivatedRoute } from '@angular/router';
@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 })
 export class DepartmentOverviewComponent implements OnInit {
   @Input() Department: Department = {} as Department;
+  @Output() departmentAdded = new EventEmitter<void>();
   companyId: string = '';
   company: Company = {} as Company;
   showAddSubDepartmentForm: boolean = false;
@@ -80,9 +81,8 @@ export class DepartmentOverviewComponent implements OnInit {
     this.showAddSubDepartmentForm = !event;
   }
 
+
   goBack() {
-    this.showOverView = false;
-    this.isAdd = false;
-    this.isAssignEntity = false;
+    this.departmentAdded.emit();  
   }
 }
