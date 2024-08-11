@@ -58,18 +58,22 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   loadEmployees(): void {
-    this.employeeService.loadEmployees({ companyId:this.companyId }).subscribe({
-      next: (response) => {
-         this.employees = response.data.list.filter(
-          (employee: any) => !employee.branchId
-        );
-        console.log("Filtered Employees:", this.employees);
-      },
-      error: (err) => {
-        console.error('Error loading employees', err);
-        this.showError('Error loading employees');
-      }
-    });
+    if (this.companyId) {
+      this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
+        next: (response) => {
+          this.employees = response.data.list.filter(
+            (employee: any) => !employee.branchId
+          );
+          console.log("Filtered Employees:", this.employees);
+        },
+        error: (err) => {
+          console.error('Error loading employees', err);
+          this.showError('Error loading employees');
+        }
+      });
+    } else {
+      this.showError('Company ID is missing');
+    }
   }
 
   addBranch(): void {
@@ -79,13 +83,8 @@ export class ViewBranchesComponent implements OnInit {
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
     this.loadBranches();
+    this.loadEmployees();
   }
-
-  handleBranchAdded(): void {
-    this.loadBranches();
-    this.isAdd = false;
-  }
-
   showDetails(cardId: number) {
     this.showOverView = true;
   }
@@ -115,6 +114,7 @@ export class ViewBranchesComponent implements OnInit {
         this.showSuccess('Employee assigned to branch successfully');
         this.isAssignEntity = false;
         this.loadBranches();
+        this.loadEmployees();
       },
       error: (err) => {
         console.error('Error assigning employee to branch', err);

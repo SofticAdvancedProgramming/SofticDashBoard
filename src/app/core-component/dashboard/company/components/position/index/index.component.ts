@@ -56,15 +56,19 @@ export class IndexComponent implements OnInit {
   }
 
   loadEmployees(): void {
-    this.employeeService.loadEmployees({companyId: this.companyId }).subscribe({
+    this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
       next: (response) => {
-        this.employees = response.data.list;
+        this.employees = response.data.list.filter(
+          (employee: any) => !employee.positionId
+        );
+        console.log("Unassigned Employees:", this.employees);
       },
       error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees' }); // Show error toast
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees' });
       }
     });
   }
+
   loadDepartments(): void {
     if (this.companyId) {
       this.departmentService.getDepartment({ companyId:this.companyId }).subscribe({
@@ -98,6 +102,7 @@ export class IndexComponent implements OnInit {
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
     this.loadPositions();
+    this.loadEmployees();
   }
 
   closePopup(): void {
@@ -113,6 +118,7 @@ export class IndexComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Employee assigned successfully' });
         this.closePopup();
         this.loadPositions();
+        this.loadEmployees();
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error assigning employee' });

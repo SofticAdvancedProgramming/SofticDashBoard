@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { employee } from '../../../../../../../models/employee';
 import { Department } from '../../../../../../../models/department';
-
 @Component({
   selector: 'app-assign-entity',
   standalone: true,
@@ -15,9 +14,9 @@ export class AssignEntityComponent implements OnInit {
   @Input() entityId?: string;
   @Input() entityType?: string;
   @Input() entities: employee[] = [];
-  @Input() department: Department | null = null;
+  @Input() department: any | null = null;
   @Output() close = new EventEmitter<void>();
-  @Output() submitForm = new EventEmitter<{ entityId: number, relatedEntityId: number }>();
+  @Output() submitForm = new EventEmitter<{ entityId: number; relatedEntityId: number }>();
 
   assignForm: FormGroup;
 

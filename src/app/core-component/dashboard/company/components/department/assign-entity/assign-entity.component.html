@@ -4,13 +4,13 @@
     <div class="header">
       <div *ngIf="department" class="d-flex">
         <p>Department:</p>
-        <label>{{ department.name }}</label>
+        <label>{{ department.title }}</label>
       </div>
       <div *ngIf="department" class="d-flex">
         <p>Short Name:</p>
-        <label>{{ department.shortName }}</label>
+        <label>{{ department.department }}</label>
       </div>
-      <div *ngIf="department" class="d-flex">
+      <div *ngIf="department && department.manager" class="d-flex">
         <p>Manager:</p>
         <label>{{ department.manager }}</label>
       </div>

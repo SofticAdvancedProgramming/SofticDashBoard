@@ -142,8 +142,10 @@ export class DepartmentsComponent implements OnInit {
   }
 
   handleAction(isAdd: boolean): void {
-    this.isAdd = isAdd;
+
     this.loadDepartments();
+    this.loadEmployees();
+    this.isAdd = isAdd;
   }
   handleViewEmployee(isAdd: boolean): void {
     this.isViewEmployees = this.isViewEmployees;
