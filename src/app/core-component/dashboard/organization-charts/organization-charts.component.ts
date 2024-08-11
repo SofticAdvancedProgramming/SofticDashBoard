@@ -1,7 +1,9 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import * as go from 'gojs';
 import { PositionService } from '../../../services/positionService/position.service';
-
+import { PositionTypeService } from '../../../services/lockupsServices/positionTypeService/position-type.service';
+import { DepartmentService } from '../../../services/lockupsServices/DepartmentService/department.service';
+ 
 @Component({
   selector: 'app-organization-chart',
   templateUrl: './organization-charts.component.html',
@@ -9,42 +11,75 @@ import { PositionService } from '../../../services/positionService/position.serv
 })
 export class OrganizationChartsComponent implements AfterViewInit {
   @ViewChild('diagramDiv') diagramDiv!: ElementRef;
+  
+  private positionTypesMap = new Map<number, string>();
+  private departmentsMap = new Map<number, string>();
 
-  constructor(private positionService: PositionService) { }
+  constructor(
+    private positionService: PositionService,
+    private positionTypeService: PositionTypeService,
+     private departmentService: DepartmentService
+  ) { }
 
   ngAfterViewInit(): void {
+    this.loadPositionTypes();
+    this.loadDepartments();
+  }
+
+  loadPositionTypes(): void {
+    this.positionTypeService.getPositionTypes().subscribe(response => {
+      if (response.status === 200) {
+        response.data.list.forEach((type: any) => {
+          this.positionTypesMap.set(type.id, type.name);
+        });
+        this.loadPositions();
+      }
+    });
+  }
+
+  loadDepartments(): void {
+    this.departmentService.getDepartment().subscribe(response => {
+      if (response.status === 200) {
+        response.data.list.forEach((dept: any) => {
+          this.departmentsMap.set(dept.id, dept.name);
+        });
+      }
+    });
+  }
+
+  loadPositions(): void {
     this.positionService.getPosition({ positionManagerId: 0 }).subscribe(response => {
       if (response.status === 200) {
         const nodeDataArray: any[] = [];
         const linkDataArray: any[] = [];
-  
-        // Iterate through each item in the response list
+
         response.data.list.forEach((item: any) => {
           const { nodeDataArray: nodes, linkDataArray: links } = this.transformData([item]);
-          
-          // Push nodes and links to the accumulated arrays
+
           nodeDataArray.push(...nodes);
           linkDataArray.push(...links);
         });
-  
-        // Initialize the diagram with all accumulated nodes and links
+
         this.initDiagram(nodeDataArray, linkDataArray);
       }
     });
   }
-  
+
   transformData(data: any[]): { nodeDataArray: any[], linkDataArray: any[] } {
     const nodeMap = new Map<number, any>();
     const linkDataArray: any[] = [];
 
     const processNode = (data: any, parentId?: number) => {
       const nodeId = data.id;
+      const positionTypeName = this.positionTypesMap.get(data.positionTypeId) || 'Unknown Position';
+      const departmentName = this.departmentsMap.get(data.departmentId) || 'Unknown Department';
+
       nodeMap.set(nodeId, {
         key: nodeId,
-        name: data.name,
-        title: data.positionTypeId.toString(), // Assuming title is positionTypeId
-        department: data.nameAr,
-        id: data.id.toString()
+        name: data.name, // Use the English name
+        title: positionTypeName, // Use the position type name
+        department: departmentName, // Use the department name
+        id: data.id.toString() // ID is still present but not displayed
       });
 
       if (parentId) {
@@ -92,39 +127,21 @@ export class OrganizationChartsComponent implements AfterViewInit {
               stroke: '#333333',
               margin: new go.Margin(10, 0, 0, 0)
             },
-            new go.Binding('text', 'name')),
+            new go.Binding('text', 'name')), // English name binding
           $(go.TextBlock,
             {
               font: '16px sans-serif',
               stroke: '#666666',
               margin: new go.Margin(10, 0, 0, 0)
             },
-            new go.Binding('text', 'department')),
+            new go.Binding('text', 'department')), // Department name binding
           $(go.TextBlock,
             {
               font: '14px sans-serif',
               stroke: '#999999',
               margin: new go.Margin(10, 0, 0, 0)
             },
-            new go.Binding('text', 'title')),
-          $(go.Panel, 'Auto',
-            { margin: 10 },
-            $(go.Shape, 'RoundedRectangle',
-              {
-                fill: '#7B3FF6',
-                stroke: null,
-                width: 40,
-                height: 20,
-                margin: 2
-              }),
-            $(go.TextBlock,
-              {
-                font: 'bold 14px sans-serif',
-                stroke: '#FFFFFF',
-                textAlign: 'center'
-              },
-              new go.Binding('text', 'id'))
-          )
+            new go.Binding('text', 'title')) // Position type name binding
         )
       );
 
