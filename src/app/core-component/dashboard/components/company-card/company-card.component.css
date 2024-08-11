@@ -1,9 +1,14 @@
 .card {
+     height: 200px; /* Set a fixed height */
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space content evenly */
+    overflow: hidden; /* Hide overflow content */
 }
 
 .card:hover {
@@ -12,6 +17,10 @@
 
 .card-content {
     text-align: left;
+    flex: 1; /* Allow content to grow and shrink */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-icon {
@@ -33,4 +42,7 @@
 .card-details p {
     margin: 0;
     color: #555;
+    overflow: hidden; /* Ensure text does not overflow */
+    text-overflow: ellipsis; /* Add ellipsis to overflowing text */
+    white-space: nowrap; /* Prevent text wrapping */
 }
