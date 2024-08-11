@@ -128,7 +128,9 @@ export class AddPositionComponent implements OnInit {
         console.log('Position added successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Position added successfully' });
         this.router.navigate(['dashboard/positionIndex']);
-        this.action.emit(false);
+        setTimeout(() => {
+          this.action.emit(false);
+        }, 1000);
       },
       error: (err) => {
         console.log('Error adding position', err);

@@ -135,6 +135,7 @@ export class DepartmentsComponent implements OnInit {
 
   addDepartment(): void {
     this.isAdd = true;
+
   }
   viewEmployees(): void {
     this.isViewEmployees = true;
@@ -142,15 +143,16 @@ export class DepartmentsComponent implements OnInit {
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
-    console.log('Action emitted:', isAdd);
+    this.loadDepartments();
   }
   handleViewEmployee(isAdd: boolean): void {
     this.isViewEmployees = this.isViewEmployees;
    }
 
   handleDepartmentAdded(): void {
-    this.loadDepartments();
     this.isAdd = false;
+    this.loadDepartments();
+
   }
 
   deleteDepartment(departmentId: number): void {

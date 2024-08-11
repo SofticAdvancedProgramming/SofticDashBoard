@@ -87,7 +87,9 @@ export class AddDepartmentComponent implements OnInit {
       next: (response) => {
         console.log('Department added successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Department added successfully' });
-        this.action.emit(false);
+        setTimeout(() => {
+          this.action.emit(false);
+        }, 1000);
       },
       error: (err) => {
         console.error('Error adding department', err);

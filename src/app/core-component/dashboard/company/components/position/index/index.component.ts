@@ -72,6 +72,7 @@ export class IndexComponent implements OnInit {
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
+    this.loadPositions();
   }
 
   closePopup(): void {
