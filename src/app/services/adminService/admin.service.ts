@@ -12,6 +12,6 @@ export class AdminService {
   private apiUrl = `${environment.apiBaseUrl}Admin`;
 
   AddAdmin(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/Add', 'post', request);
+    return this.apiCall.request('POST', this.apiUrl + '/Add', request);
   }
 }

@@ -90,7 +90,7 @@ export class AddAdminComponent implements OnInit, OnDestroy {
       error: (err: any) => {
         console.error('Adding admin failed:', err);
         this.isSubmitting = false;
-        this.addCompanyForm.reset();
+        // this.addCompanyForm.reset();
         this.showError('Adding Failed', 'Admin could not be added, please try again');
       }
     });
