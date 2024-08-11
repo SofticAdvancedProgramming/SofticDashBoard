@@ -80,7 +80,6 @@ export class ApiCall {
 
   private handleBadRequest(error: HttpErrorResponse): void {
     if (error.error?.errors && error.error.errors.length > 0) {
-      debugger
       this.toast.typeError(this.translate.translate(`errorModels.${error.error.errors[0]}`));
     } else if (error.error?.message) {
       this.toast.typeError(error.error.message);

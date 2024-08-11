@@ -28,24 +28,24 @@ import { MessageService } from 'primeng/api';
   providers: [BranchService, EmployeeService, MessageService]
 })
 export class ViewBranchesComponent implements OnInit {
-  @Input() companyId?: number ;
+  @Input() companyId?: number = 0 ;
   isAdd: boolean = false;
   showOverView: boolean = false;
   branches: branch[] = [];
   employees: employee[] = [];
   isAssignEntity: boolean = false;
-  selectedBranch: branch | undefined = undefined; // Updated to use undefined
+  selectedBranch: branch | undefined = undefined;
 
   constructor(private branchService: BranchService, private employeeService: EmployeeService, private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.loadBranches();
     this.loadEmployees();
+    this.companyId = Number(localStorage.getItem('companyId'));
   }
 
   loadBranches(): void {
-    const companyId = localStorage.getItem('companyId');
-    this.branchService.getBranch({ companyId }).subscribe({
+    this.branchService.getBranch({ comapnyId:this.companyId }).subscribe({
       next: (response) => {
         this.branches = response.data.list;
         console.log("Branches loaded:", this.branches);
@@ -58,8 +58,7 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   loadEmployees(): void {
-    const companyId = localStorage.getItem('companyId');
-    this.employeeService.loadEmployees({ companyId }).subscribe({
+    this.employeeService.loadEmployees({ companyId:this.companyId }).subscribe({
       next: (response) => {
          this.employees = response.data.list.filter(
           (employee: any) => !employee.branchId
@@ -83,8 +82,8 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   handleBranchAdded(): void {
-    this.loadBranches();  
-    this.isAdd = false;   
+    this.loadBranches();
+    this.isAdd = false;
   }
 
   showDetails(cardId: number) {
@@ -131,20 +130,19 @@ export class ViewBranchesComponent implements OnInit {
   private showError(detail: string): void {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
   }
-  
+
 
   deleteBranch(branchId: number): void {
-    const companyId = 1;  
-    this.branchService.deleteBranch(branchId, companyId)
+    this.branchService.deleteBranch(branchId, this.companyId||0)
       .subscribe({
         next: () => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Branch deleted successfully' });
-          this.loadBranches(); 
+          this.loadBranches();
         },
         error: (err) => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting branch' });
         }
       });
   }
-  
+
 }
