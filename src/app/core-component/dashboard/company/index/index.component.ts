@@ -22,7 +22,7 @@ export class IndexComponent implements OnInit {
   }
 
   loadCompanies(): void {
-    this.companyService.loadCompanies({sortIsAsc:true}).subscribe(
+    this.companyService.loadCompanies({sortIsAsc:true,pageSize:20}).subscribe(
       (response: any) => {
     console.log(response)
        this.companies=response.data.list

@@ -45,8 +45,7 @@ export class AddPositionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPositionTypes();
-    this.loadDepartments();
-    this.loadPositions();
+    this.loadDepartmentsAndPositions();
     this.togglePositionField();
   }
 
@@ -64,11 +63,11 @@ export class AddPositionComponent implements OnInit {
     });
   }
 
-  loadDepartments(): void {
+  loadDepartmentsAndPositions(): void {
     this.departmentsService.getDepartment({ companyId: this.companyId }).subscribe({
       next: (response) => {
         this.departments = response.data.list;
-        this.checkLoadingState();
+        this.loadPositions(); // Ensure positions are loaded after departments
       },
       error: (err) => {
         console.error('Error loading departments', err);
@@ -81,7 +80,10 @@ export class AddPositionComponent implements OnInit {
   loadPositions(): void {
     this.positionService.getPosition({ companyId: this.companyId }).subscribe({
       next: (response) => {
-        this.positions = response.data.list;
+        this.positions = response.data.list.map((position: any) => ({
+          ...position,
+          departmentName: this.getDepartmentName(position.departmentId)
+        }));
         this.checkLoadingState();
       },
       error: (err) => {
@@ -90,6 +92,11 @@ export class AddPositionComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' });
       }
     });
+  }
+
+  getDepartmentName(departmentId: number): string {
+    const department = this.departments.find(dep => dep.id === departmentId);
+    return department?.name ?? 'Unknown';
   }
 
   checkLoadingState(): void {
@@ -109,7 +116,6 @@ export class AddPositionComponent implements OnInit {
   }
 
   onSave(): void {
-    debugger
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });

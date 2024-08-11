@@ -23,14 +23,13 @@ export class IndexComponent implements OnInit {
   isAdd: boolean = false;
   isAddEmployee: boolean = false;
   selectedPositionId?: string;
-  directManger?:employee={} as employee
+  directManger?: employee = {} as employee;
   selectedPositionData: any = {};
-  slectedDepartment?: Department = {};
   employees: employee[] = [];
   @Input() companyId?: string = '';
   positions: any[] = [];
   departments: Department[] = [];
-  department?: Department = {};
+
   constructor(
     private positionService: PositionService,
     private employeeService: EmployeeService,
@@ -45,7 +44,7 @@ export class IndexComponent implements OnInit {
   }
 
   loadPositions(): void {
-    this.positionService.getPosition({ companyId: this.companyId }).subscribe({
+    this.positionService.getPosition({ companyId: this.companyId,pageSize:20 }).subscribe({
       next: (response) => {
         this.positions = response.data.list;
       },
@@ -71,9 +70,9 @@ export class IndexComponent implements OnInit {
 
   loadDepartments(): void {
     if (this.companyId) {
-      this.departmentService.getDepartment({ companyId:this.companyId }).subscribe({
+      this.departmentService.getDepartment({ companyId: this.companyId }).subscribe({
         next: (response) => {
-           this.departments = response.data.list;
+          this.departments = response.data.list;
         },
         error: (err) => {
           console.error('Error loading departments', err);
@@ -81,6 +80,13 @@ export class IndexComponent implements OnInit {
       });
     }
   }
+
+
+  getDepartmentName(departmentId: number): string {
+    const department = this.departments.find(dep => dep.id === departmentId);
+    return department?.name ?? 'Unknown';
+  }
+
   addPosition(): void {
     this.isAdd = true;
   }
@@ -88,16 +94,8 @@ export class IndexComponent implements OnInit {
   addEmployee(positionId: string): void {
     this.selectedPositionId = positionId;
     this.selectedPositionData = this.positions.find(position => position.id === positionId);
-    this.department = this.departments.find(x => x.id === this.selectedPositionData?.departmentId);
-    this.directManger = undefined;
-
-    if (this.selectedPositionData?.positionManagerId) {
-      this.directManger = this.employees.find(x => x.positionId === this.selectedPositionData.positionManagerId);
-    }
     this.isAddEmployee = true;
-}
-
-
+  }
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;

@@ -1,11 +1,19 @@
 <div class="container my-5">
+  <!-- Add Position Form -->
   <ng-container *ngIf="isAdd; else positionList">
-    <app-add-position [companyId]="companyId" (action)="handleAction($event)"></app-add-position>
+    <app-add-position
+      [companyId]="companyId"
+      (action)="handleAction($event)">
+    </app-add-position>
   </ng-container>
+
+  <!-- Position List -->
   <ng-template #positionList>
     <div class="row">
       <div class="justify-content-end d-flex">
-        <button class="btn addPositionBtn w-25" (click)="addPosition()"><i class="fas fa-plus"></i> Add Position</button>
+        <button class="btn addPositionBtn w-25" (click)="addPosition()">
+          <i class="fas fa-plus"></i> Add Position
+        </button>
       </div>
     </div>
     <div class="row">
@@ -13,9 +21,12 @@
         <div class="card">
           <div class="card-header">
             <h3>{{ position.name }}</h3>
+            <p>Department: {{ getDepartmentName(position.departmentId) }}</p>
           </div>
           <div class="card-body">
-            <button class="btn btn-add" (click)="addEmployee(position.id)"><i class="fas fa-plus"></i> Add Employee</button>
+            <button class="btn btn-add" (click)="addEmployee(position.id)">
+              <i class="fas fa-plus"></i> Add Employee
+            </button>
           </div>
           <div class="card-footer">
             <label class="toggle-label">
@@ -33,32 +44,19 @@
     </div>
   </ng-template>
 
+  <!-- Assign Employees Popup -->
   <ng-container *ngIf="isAddEmployee">
     <app-assign-employees
       [positionId]="selectedPositionId"
       [Position]="'Position'"
       [PositionDescription]="selectedPositionData?.name || ''"
       [Department]="'Department'"
-      [DepartmentDescription]="department?.name || ' '"
+      [DepartmentDescription]="getDepartmentName(selectedPositionData?.departmentId) || ' '"
       [DirectManager]="'Direct Manager'"
       [DirectManagerDescription]="directManger?.fullName || ''"
       [employees]="employees"
       (close)="closePopup()"
       (submitForm)="handleFormSubmit($event)">
-
-      <!-- Only show this block if directManger exists -->
-      <ng-container *ngIf="directManger">
-        <ng-template #popupContent>
-          <form>
-            <div>
-              <label for="employeeName">Name:</label>
-              <input type="text" id="employeeName" name="employeeName">
-            </div>
-            <button type="submit">Assign</button>
-          </form>
-        </ng-template>
-      </ng-container>
-
     </app-assign-employees>
   </ng-container>
 
