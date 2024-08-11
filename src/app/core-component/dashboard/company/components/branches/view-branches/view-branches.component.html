@@ -17,7 +17,7 @@
                     <button class="btn btn-add" (click)="assignEntity(branch.id)"><i class="fas fa-plus"></i> Add Employee</button>
                 </div>
                 <div class="card-footer">
-                    <i class="fas fa-trash-alt icon-trash"></i>
+                    <i class="fas fa-trash-alt icon-trash" (click)="deleteBranch(branch.id)"></i>
                     <i class="fas fa-edit icon-edit"></i>
                     <button class="btn">
                         <span class="details">show details <i class="fa-solid fa-arrow-right"></i></span>

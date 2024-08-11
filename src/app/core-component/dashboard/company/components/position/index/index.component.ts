@@ -15,22 +15,22 @@ import { ToastModule } from 'primeng/toast';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
   providers: [PositionService, EmployeeService, MessageService],
-  imports: [RouterLink, CommonModule, AssignEmployeesComponent, AddPositionComponent , ToastModule]
+  imports: [RouterLink, CommonModule, AssignEmployeesComponent, AddPositionComponent, ToastModule]
 })
 export class IndexComponent implements OnInit {
   isAdd: boolean = false;
-  isAddEmployee: boolean = false;  
-  selectedPositionId?: string; 
-  selectedPositionData: any = {};  
-  employees: employee[] = [];  
+  isAddEmployee: boolean = false;
+  selectedPositionId?: string;
+  selectedPositionData: any = {};
+  employees: employee[] = [];
   @Input() companyId?: string = '';
   positions: any[] = [];
 
   constructor(
     private positionService: PositionService,
     private employeeService: EmployeeService,
-    private messageService: MessageService  
-  ) {}
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
     this.loadPositions();
@@ -41,21 +41,21 @@ export class IndexComponent implements OnInit {
     this.positionService.getPosition({ companyId: this.companyId }).subscribe({
       next: (response) => {
         this.positions = response.data.list;
-       },
+      },
       error: (err) => {
-         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' });  
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' });
       }
     });
   }
 
   loadEmployees(): void {
-    const companyId = localStorage.getItem('companyId');  
+    const companyId = localStorage.getItem('companyId');
     this.employeeService.loadEmployees({ companyId }).subscribe({
       next: (response) => {
-         this.employees = response.data.list;  
-       },
+        this.employees = response.data.list;
+      },
       error: (err) => {
-         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees' }); // Show error toast
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees' }); // Show error toast
       }
     });
   }
@@ -72,7 +72,7 @@ export class IndexComponent implements OnInit {
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
-   }
+  }
 
   closePopup(): void {
     this.isAddEmployee = false;
@@ -84,11 +84,26 @@ export class IndexComponent implements OnInit {
       positionId: formData.positionId
     }).subscribe({
       next: (response) => {
-         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Employee assigned successfully' }); 
-        this.closePopup(); 
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Employee assigned successfully' });
+        this.closePopup();
+        this.loadPositions();
       },
       error: (err) => {
-         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error assigning employee' }); 
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error assigning employee' });
+      }
+    });
+  }
+
+  deletePosition(positionId: number): void {
+    const companyId = this.companyId ? parseInt(this.companyId) : 0;
+    this.positionService.deletePosition(positionId, companyId).subscribe({
+      next: () => {
+        this.positions = this.positions.filter(position => position.id !== positionId);
+        this.loadPositions();
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Position deleted successfully' });
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting position' });
       }
     });
   }

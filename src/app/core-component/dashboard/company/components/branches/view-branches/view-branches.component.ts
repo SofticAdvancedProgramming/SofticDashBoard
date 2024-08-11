@@ -131,4 +131,20 @@ export class ViewBranchesComponent implements OnInit {
   private showError(detail: string): void {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
   }
+  
+
+  deleteBranch(branchId: number): void {
+    const companyId = 1;  
+    this.branchService.deleteBranch(branchId, companyId)
+      .subscribe({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Branch deleted successfully' });
+          this.loadBranches(); 
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting branch' });
+        }
+      });
+  }
+  
 }
