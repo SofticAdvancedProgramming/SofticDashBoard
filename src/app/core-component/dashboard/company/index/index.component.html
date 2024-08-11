@@ -25,7 +25,8 @@
     <div class="row">
       @if(companies){
       <div  *ngFor="let company of companies" class="col-lg-4 col-md-6 col-sm-12 mb-4">
-       <a routerLink="../company/{{company.id}}" class="text-decoration-none"> <app-company-card [title]="company.name" [branches]="10" [cities]="5" [description]="company.description"
+       <a routerLink="../company/{{company.id}}" class="text-decoration-none">
+         <app-company-card [title]="company.name" [branches]="10" [cities]="5" [description]="company.description"
           [iconSrc]="company.logo" [link]="company.webSite" >
         </app-company-card></a>
       </div>
