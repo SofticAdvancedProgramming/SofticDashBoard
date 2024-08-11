@@ -8,6 +8,8 @@ import { AddPositionComponent } from '../add-position/add-position.component';
 import { employee } from '../../../../../../../models/employee';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Department } from '../../../../../../../models/department';
+import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
 
 @Component({
   selector: 'app-index',
@@ -21,20 +23,25 @@ export class IndexComponent implements OnInit {
   isAdd: boolean = false;
   isAddEmployee: boolean = false;
   selectedPositionId?: string;
+  directManger?:employee={} as employee
   selectedPositionData: any = {};
+  slectedDepartment?: Department = {};
   employees: employee[] = [];
   @Input() companyId?: string = '';
   positions: any[] = [];
-
+  departments: Department[] = [];
+  department?: Department = {};
   constructor(
     private positionService: PositionService,
     private employeeService: EmployeeService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private departmentService: DepartmentService,
   ) { }
 
   ngOnInit(): void {
     this.loadPositions();
     this.loadEmployees();
+    this.loadDepartments();
   }
 
   loadPositions(): void {
@@ -49,8 +56,7 @@ export class IndexComponent implements OnInit {
   }
 
   loadEmployees(): void {
-    const companyId = localStorage.getItem('companyId');
-    this.employeeService.loadEmployees({ companyId }).subscribe({
+    this.employeeService.loadEmployees({companyId: this.companyId }).subscribe({
       next: (response) => {
         this.employees = response.data.list;
       },
@@ -59,7 +65,18 @@ export class IndexComponent implements OnInit {
       }
     });
   }
-
+  loadDepartments(): void {
+    if (this.companyId) {
+      this.departmentService.getDepartment({ companyId:this.companyId }).subscribe({
+        next: (response) => {
+           this.departments = response.data.list;
+        },
+        error: (err) => {
+          console.error('Error loading departments', err);
+        }
+      });
+    }
+  }
   addPosition(): void {
     this.isAdd = true;
   }
@@ -67,8 +84,16 @@ export class IndexComponent implements OnInit {
   addEmployee(positionId: string): void {
     this.selectedPositionId = positionId;
     this.selectedPositionData = this.positions.find(position => position.id === positionId);
+    this.department = this.departments.find(x => x.id === this.selectedPositionData?.departmentId);
+    this.directManger = undefined;
+
+    if (this.selectedPositionData?.positionManagerId) {
+      this.directManger = this.employees.find(x => x.positionId === this.selectedPositionData.positionManagerId);
+    }
     this.isAddEmployee = true;
-  }
+}
+
+
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;

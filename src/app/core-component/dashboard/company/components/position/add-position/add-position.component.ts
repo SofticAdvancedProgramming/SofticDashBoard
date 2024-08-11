@@ -109,6 +109,7 @@ export class AddPositionComponent implements OnInit {
   }
 
   onSave(): void {
+    debugger
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });

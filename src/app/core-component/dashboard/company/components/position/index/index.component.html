@@ -34,27 +34,33 @@
   </ng-template>
 
   <ng-container *ngIf="isAddEmployee">
-    <app-assign-employees 
-      [positionId]="selectedPositionId" 
-      [Position]="'Position'" 
-      [PositionDescription]="selectedPositionData?.name || ''" 
-      [Department]="'Department'" 
-      [DepartmentDescription]="selectedPositionData?.department || ''" 
-      [DirectManager]="'Direct Manager'" 
-      [DirectManagerDescription]="selectedPositionData?.manager || ''"
-      [employees]="employees" 
+    <app-assign-employees
+      [positionId]="selectedPositionId"
+      [Position]="'Position'"
+      [PositionDescription]="selectedPositionData?.name || ''"
+      [Department]="'Department'"
+      [DepartmentDescription]="department?.name || ' '"
+      [DirectManager]="'Direct Manager'"
+      [DirectManagerDescription]="directManger?.fullName || ''"
+      [employees]="employees"
       (close)="closePopup()"
       (submitForm)="handleFormSubmit($event)">
-      <ng-template #popupContent>
-        <form>
-          <div>
-            <label for="employeeName">Name:</label>
-            <input type="text" id="employeeName" name="employeeName">
-          </div>
-          <button type="submit">Assign</button>
-        </form>
-      </ng-template>
+
+      <!-- Only show this block if directManger exists -->
+      <ng-container *ngIf="directManger">
+        <ng-template #popupContent>
+          <form>
+            <div>
+              <label for="employeeName">Name:</label>
+              <input type="text" id="employeeName" name="employeeName">
+            </div>
+            <button type="submit">Assign</button>
+          </form>
+        </ng-template>
+      </ng-container>
+
     </app-assign-employees>
   </ng-container>
+
 </div>
 <p-toast position="top-center"></p-toast>
