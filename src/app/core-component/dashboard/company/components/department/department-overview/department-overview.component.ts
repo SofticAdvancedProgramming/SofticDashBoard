@@ -4,6 +4,7 @@ import { Department } from '../../../../../../../models/department';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from '../../../../../../services/comapnyService/company.service';
 import { LocationService } from '../../../../../../services/lockupsServices/LocationService/location.service';
+import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './department-overview.component.html',
   styleUrls: ['./department-overview.component.css'],
-  imports:[CommonModule]
+  imports: [CommonModule]
 })
 export class DepartmentOverviewComponent implements OnInit {
   @Input() Department: Department = {} as Department;
@@ -20,23 +21,24 @@ export class DepartmentOverviewComponent implements OnInit {
   showAddSubDepartmentForm: boolean = false;
   isAssignEntity: boolean = false;
 
- 
   showOverView: boolean = false;
-  selectedCard: any = null;
   isAdd: boolean = false;
-  
-  
- 
+
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private departmentService: DepartmentService
   ) {}
 
   async ngOnInit() {
     this.companyId = this.route.snapshot.paramMap.get('companyId') || '';
+    const departmentId = this.route.snapshot.paramMap.get('departmentId') || '';
     if (this.companyId) {
       await this.getCompanyDetails(this.companyId);
+    }
+    if (departmentId && !this.Department.id) {
+      await this.getDepartmentDetails(departmentId);
     }
   }
 
@@ -54,6 +56,22 @@ export class DepartmentOverviewComponent implements OnInit {
     }
   }
 
+  getDepartmentDetails(departmentId: string): void {
+    this.departmentService.getDepartment({ id: departmentId }).subscribe({
+      next: (response) => {
+        if (response && response.data && response.data.list && response.data.list.length > 0) {
+          this.Department = response.data.list[0]; 
+          console.log('Department Details:', this.Department);
+        } else {
+          console.error('Unexpected response structure:', response);
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching department details', err);
+      }
+    });
+  }
+
   toggleAddSubDepartment() {
     this.showAddSubDepartmentForm = !this.showAddSubDepartmentForm;
   }
@@ -61,13 +79,10 @@ export class DepartmentOverviewComponent implements OnInit {
   handleAddSubDepartmentAction(event: boolean) {
     this.showAddSubDepartmentForm = !event;
   }
+
   goBack() {
-    if (this.showOverView) {
-      this.showOverView = false;
-    } else if (this.isAdd) {
-      this.isAdd = false;
-    } else if (this.isAssignEntity) {
-      this.isAssignEntity = false;
-    }
+    this.showOverView = false;
+    this.isAdd = false;
+    this.isAssignEntity = false;
   }
 }
