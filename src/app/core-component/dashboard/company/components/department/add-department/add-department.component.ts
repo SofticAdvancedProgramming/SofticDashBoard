@@ -103,6 +103,7 @@ export class AddDepartmentComponent implements OnInit {
   }
 
   onLocationSelected(location: { lat: number, lng: number }): void {
+    console.log({ lat: location.lat, long: location.lng });
     this.form.patchValue({ lat: location.lat, long: location.lng });
   }
 }
