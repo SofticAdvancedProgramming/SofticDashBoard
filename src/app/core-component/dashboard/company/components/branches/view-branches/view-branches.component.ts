@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
 import { branch } from '../../../../../../../models/branch';
-import { MapComponent } from '../../../../components/map/map.component';
-import { ToastModule } from 'primeng/toast';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { AddBranchComponent } from '../add-branch/add-branch.component';
 import { EmployeeService } from '../../../../../../services/employeeService/employee.service';
 import { employee } from '../../../../../../../models/employee';
-import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
 import { MessageService } from 'primeng/api';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { ModernTableComponent } from '../../../../components/modern-table/modern-table.component';
+import { AddBranchComponent } from '../add-branch/add-branch.component';
+import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
 
 @Component({
   selector: 'app-view-branches',
@@ -21,16 +21,16 @@ import { MessageService } from 'primeng/api';
     FormsModule,
     ReactiveFormsModule,
     ToastModule,
-    MapComponent,
     AddBranchComponent,
-    AssignEntityComponent
+    AssignEntityComponent,
+    ModernTableComponent
   ],
   providers: [BranchService, EmployeeService, MessageService]
 })
 export class ViewBranchesComponent implements OnInit {
   @Input() companyId?: number = 0 ;
   isAdd: boolean = false;
-  showOverView: boolean = false;
+  showOverView: boolean = false; // Added flag to control view
   branches: branch[] = [];
   employees: employee[] = [];
   isAssignEntity: boolean = false;
@@ -85,18 +85,31 @@ export class ViewBranchesComponent implements OnInit {
     this.loadBranches();
     this.loadEmployees();
   }
-  showDetails(cardId: number) {
-    this.showOverView = true;
+
+  showDetails(branchId: number): void {
+    this.selectedBranch = this.branches.find(branch => branch.id === branchId);
+    if (this.selectedBranch) {
+      this.loadEmployeesForBranch(this.selectedBranch.id);
+      this.showOverView = true;
+    }
   }
 
-  goBack() {
-    if (this.showOverView) {
-      this.showOverView = false;
-    } else if (this.isAdd) {
-      this.isAdd = false;
-    } else if (this.isAssignEntity) {
-      this.isAssignEntity = false;
-    }
+  loadEmployeesForBranch(branchId: number): void {
+    this.employeeService.loadEmployees({ branchId: branchId, companyId: this.companyId  }).subscribe({
+      next: (response) => {
+        this.employees = response.data.list;
+        console.log("Employees loaded for branch:", this.employees);
+      },
+      error: (err) => {
+        console.error('Error loading employees', err);
+        this.showError('Error loading employees');
+      }
+    });
+  }
+
+
+  goBack(): void {
+    this.showOverView = false;
   }
 
   assignEntity(branchId: number): void {
@@ -131,7 +144,6 @@ export class ViewBranchesComponent implements OnInit {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
   }
 
-
   deleteBranch(branchId: number): void {
     this.branchService.deleteBranch(branchId, this.companyId||0)
       .subscribe({
@@ -144,5 +156,4 @@ export class ViewBranchesComponent implements OnInit {
         }
       });
   }
-
 }

@@ -27,6 +27,7 @@ export class ModernTableComponent {
   @Output() editItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
   @ViewChild('deletePopUp') deletePopUp!: DeletePopUpComponent;
+  @Input() showActions: boolean = true;
   deleteMethod!: (index: number) => void;
   searchText: string = '';
   currentPage: number = 1;
@@ -90,5 +91,16 @@ export class ModernTableComponent {
       this.deleteItem.emit(this.selectedItemToDelete);
       this.selectedItemToDelete = null;
     }
+  }
+  getProperty(item: any, path: string): any {
+    return path.split('.').reduce((acc, part) => acc && acc[part], item);
+  }
+
+  formatHeader(column: string): string {
+    return column.split('.').map(part => this.capitalize(part)).join(' ');
+  }
+
+  private capitalize(word: string): string {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
 }

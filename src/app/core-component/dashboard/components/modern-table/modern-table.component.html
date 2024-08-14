@@ -20,16 +20,21 @@
     <table class="table custom-table">
       <thead>
         <tr>
-          <th class="customColumn" *ngFor="let column of columns">{{ column }}</th>
-          <th class="customColumn"> </th>
+          <th class="customColumn" *ngFor="let column of columns">{{ formatHeader(column) }}</th>
+          <th class="customColumn" *ngIf="showActions">Actions</th> <!-- Only show if showActions is true -->
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of filteredData">
-          <td class="tabelText" *ngFor="let column of columns">{{ item[column] }}</td>
-          <td class="tableText">
-            <button class="btn btn-sm mx-2" data-bs-toggle="modal" [attr.data-bs-target]="'#' + modalId" (click)="editItem.emit(item)"><i class="fa-solid fa-lg fa-pen"></i></button>
-            <button class="btn" type="button" (click)="openDeleteModal(item)" data-bs-toggle="modal"[attr.data-bs-target]="'#' + deleteId">
+          <td class="tabelText" *ngFor="let column of columns">
+            <!-- Handle nested objects for properties like position and department -->
+            {{ getProperty(item, column) }}
+          </td>
+          <td class="tableText" *ngIf="showActions"> <!-- Only show if showActions is true -->
+            <button class="btn btn-sm mx-2" data-bs-toggle="modal" [attr.data-bs-target]="'#' + modalId" (click)="editItem.emit(item)">
+              <i class="fa-solid fa-lg fa-pen"></i>
+            </button>
+            <button class="btn" type="button" (click)="openDeleteModal(item)" data-bs-toggle="modal" [attr.data-bs-target]="'#' + deleteId">
               <img class="CustomIcon" src="../../../../assets/images/delete.png">
             </button>
           </td>
