@@ -105,6 +105,7 @@ export class DepartmentsComponent implements OnInit {
     }
   }
 
+
   showDetails(cardId: number) {
     this.selectedCard = this.cards.find(card => card.id === cardId);
     this.fetchData(cardId);

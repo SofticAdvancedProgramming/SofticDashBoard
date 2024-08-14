@@ -46,13 +46,29 @@
           <div class="col-md-8">{{ company.phone ? company.phone : 'not exist' }}</div>
         </div>
       </div>
-        <div class="row">
+
+      <!-- Button to Toggle Employee Table Visibility -->
+      <div class="row">
         <div class="col-lg-6 justify-content-center d-flex">
           <button class="btn viewBtnBack btn-secondary" (click)="goBack()">Back</button>
         </div>
         <div class="col-lg-6 justify-content-center d-flex">
-          <button class="btn viewBtn">View Employees Department</button>
+          <button class="btn viewBtn" (click)="toggleEmployeesVisibility()">
+            {{ showEmployees ? 'Hide Employees' : 'View Employees Department' }}
+          </button>
         </div>
+      </div>
+
+      <!-- Modern Table Integration -->
+      <div class="profile-section w-100 mt-4" *ngIf="showEmployees">
+        <app-modern-table
+          [tableTitle]="'Employees in ' + Department.name"
+          [tableData]="employees"
+          [columns]="['id', 'fullName', 'position.name']"
+          [modalId]="'employeeDetailsModal'"
+          [deleteId]="'employeeDeleteModal'"
+          [showActions]="false">
+        </app-modern-table>
       </div>
     </div>
   </ng-container>
