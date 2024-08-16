@@ -42,8 +42,8 @@ body {
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Full height */
-    overflow-y: auto; /* Enable vertical scrolling */
+    height: 100vh;
+    overflow-y: auto;
 }
 
 #sidebar.expand {
@@ -131,6 +131,7 @@ a.sidebar-link:hover {
     max-height: 15em;
     width: 100%;
     opacity: 1;
+    
 }
 
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
@@ -212,8 +213,7 @@ a.sidebar-link:hover {
 .sidebar-nav {
     padding: 2rem 0;
     flex: 1 1 auto;
-    overflow-y: auto;
-}
+ }
 
 .sidebar-footer {
     margin-top: auto;
