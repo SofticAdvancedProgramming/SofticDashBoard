@@ -1,26 +1,26 @@
-<div class="popup-overlay" (click)="close.emit()">
-    <div class="popup-content" (click)="$event.stopPropagation()">
-        <button class="close-btn" (click)="close.emit()">&times;</button>
-        <div class="header">
-            <div *ngIf="branch" class="d-flex">
-                <p>Branch:</p>
-                <label>{{ branch.name }}</label>
-            </div>
-        </div>
-        <form [formGroup]="assignForm" (ngSubmit)="onSubmit()">
-            <div class="form-group mt-3">
-                <label for="employeeName">Name</label>
-                <select id="employeeName" class="form-control" formControlName="selectedEmployeeId">
-                    <option value="" disabled>Select {{ entityType }}</option>
-                    <option *ngFor="let entity of entities" [value]="entity.id">{{ entity.fullName }}</option>
-                </select>
-                <div *ngIf="selectedEmployeeId?.invalid && selectedEmployeeId?.touched" class="text-danger">
-                    This field is required
-                </div>
-            </div>
-            <div class="row d-flex justify-content-center">
-                <button class="assignBtn" type="submit" [disabled]="assignForm.invalid">Assign</button>
-            </div>
-        </form>
+<div class="popup-overlay" (click)="closePopup()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="closePopup()">&times;</button>
+    <div class="header">
+      <div *ngIf="branch" class="d-flex">
+        <p>Branch:</p>
+        <label>{{ branch.name }}</label>
+      </div>
     </div>
+    <form [formGroup]="assignForm" (ngSubmit)="onSubmit()">
+      <div class="form-group mt-3">
+        <label for="employeeName">Name</label>
+        <select id="employeeName" class="form-control" formControlName="selectedEmployeeId">
+          <option value="" disabled>Select {{ entityType }}</option>
+          <option *ngFor="let entity of entities" [value]="entity.id">{{ entity.fullName }}</option>
+        </select>
+        <div *ngIf="selectedEmployeeId?.invalid && selectedEmployeeId?.touched" class="text-danger">
+          This field is required
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <button class="assignBtn" type="submit" [disabled]="assignForm.invalid">Assign</button>
+      </div>
+    </form>
+  </div>
 </div>

@@ -13,9 +13,10 @@ import { AssignEntityComponent } from '../assign-entity/assign-entity.component'
 
 @Component({
   selector: 'app-view-branches',
-  standalone: true,
   templateUrl: './view-branches.component.html',
   styleUrls: ['./view-branches.component.css'],
+  providers: [BranchService, EmployeeService, MessageService],
+  standalone:true,
   imports: [
     CommonModule,
     FormsModule,
@@ -25,12 +26,11 @@ import { AssignEntityComponent } from '../assign-entity/assign-entity.component'
     AssignEntityComponent,
     ModernTableComponent
   ],
-  providers: [BranchService, EmployeeService, MessageService]
 })
 export class ViewBranchesComponent implements OnInit {
   @Input() companyId?: number = 0 ;
   isAdd: boolean = false;
-  showOverView: boolean = false; // Added flag to control view
+  showOverView: boolean = false;
   branches: branch[] = [];
   employees: employee[] = [];
   isAssignEntity: boolean = false;
@@ -107,7 +107,6 @@ export class ViewBranchesComponent implements OnInit {
     });
   }
 
-
   goBack(): void {
     this.showOverView = false;
   }
@@ -115,6 +114,22 @@ export class ViewBranchesComponent implements OnInit {
   assignEntity(branchId: number): void {
     this.selectedBranch = this.branches.find(branch => branch.id === branchId);
     this.isAssignEntity = true;
+    this.loadUnassignedEmployees();
+  }
+
+  loadUnassignedEmployees(): void {
+    if (this.companyId) {
+      this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
+        next: (response) => {
+          this.employees = response.data.list.filter(
+            (employee: any) => !employee.branchId
+          );
+        },
+        error: (err) => {
+          this.showError('Error loading unassigned employees');
+        }
+      });
+    }
   }
 
   handleEntityAssigned(event: { employeeId: number, branchId: number }): void {
@@ -156,4 +171,8 @@ export class ViewBranchesComponent implements OnInit {
         }
       });
   }
+  handleClose() {
+    this.isAssignEntity = false;
+  }
+
 }

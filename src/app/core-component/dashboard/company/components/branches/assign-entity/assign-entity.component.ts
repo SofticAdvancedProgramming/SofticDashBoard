@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { employee } from '../../../../../../../models/employee';
 import { branch } from '../../../../../../../models/branch';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-assign-entity',
+  templateUrl: './assign-entity.component.html',
+  styleUrls: ['./assign-entity.component.css'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './assign-entity.component.html',
-  styleUrls: ['./assign-entity.component.css']
 })
-export class AssignEntityComponent implements OnInit {
+export class AssignEntityComponent {
   @Input() entityId?: string;
   @Input() entityType?: string;
   @Input() entities: employee[] = [];
@@ -27,8 +27,6 @@ export class AssignEntityComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
   onSubmit() {
     if (this.assignForm.valid && this.entityId) {
       this.submitForm.emit({
@@ -38,7 +36,12 @@ export class AssignEntityComponent implements OnInit {
     }
   }
 
+  closePopup() {
+    this.close.emit();
+  }
+
   get selectedEmployeeId() {
     return this.assignForm.get('selectedEmployeeId');
   }
+
 }

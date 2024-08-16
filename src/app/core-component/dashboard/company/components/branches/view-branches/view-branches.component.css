@@ -53,7 +53,7 @@
     background: white;
     border-top: none;
 }
- 
+
 
 .addBranchBtn {
     background: #9ACA3C;
@@ -72,36 +72,36 @@
     flex-wrap: wrap;
     gap: 20px;
   }
-  
+
   .card {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
     border: none;
   }
-  
+
   .card-header {
     text-align: center;
     padding: 20px;
     background-color: white;
   }
-  
+
   .card-header h3 {
     margin: 0;
     font-size: 18px;
   }
-  
+
   .card-header p {
     margin: 0;
     color: #999;
     font-size: 14px;
   }
-  
+
   .card-body {
     padding: 20px;
     text-align: center;
   }
-  
+
   .btn-add {
     background: #663895;
     color: white;
@@ -111,12 +111,12 @@
     font-size: 14px;
     cursor: pointer;
   }
-  
+
   .btn-add i {
     margin-right: 5px;
     color: white;
   }
-  
+
   .card-footer {
     display: flex;
     align-items: center;
@@ -125,26 +125,26 @@
     border-top: 1px solid #f0f0f0;
     background-color: white;
   }
-  
+
   .toggle-label {
     display: flex;
     align-items: center;
     gap: 5px;
   }
-  
+
   .switch {
     position: relative;
     display: inline-block;
     width: 40px;
     height: 20px;
   }
-  
+
   .switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
-  
+
   .slider {
     position: absolute;
     cursor: pointer;
@@ -155,7 +155,7 @@
     transition: 0.4s;
     border-radius: 20px;
   }
-  
+
   .slider:before {
     position: absolute;
     content: "";
@@ -167,20 +167,20 @@
     transition: 0.4s;
     border-radius: 50%;
   }
-  
+
   input:checked + .slider {
     background: #663895;
   }
-  
+
   input:checked + .slider:before {
     transform: translateX(20px);
   }
-  
+
   .icon-trash, .icon-edit {
     color: #663895; /* Set icon color to white */
     cursor: pointer;
   }
-  
+
   .addBranchBtn {
     background: #9ACA3C;
     color: white;
@@ -191,13 +191,13 @@
     cursor: pointer;
     margin-bottom: 1em;
   }
-  
+
   @media (max-width: 992px) {
     .card-container {
       justify-content: center;
     }
   }
-  
+
   @media (max-width: 576px) {
     .card-container {
       flex-direction: column;
@@ -216,4 +216,141 @@
     justify-content: center;
     align-items: center;
     gap: 0.5em;
+}.table-container {
+  max-width: 1300px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-container .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-container .btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.table-container .back-button {
+  display: inline-flex;
+  align-items: center;
+  background-color: #007bff;
+  border-color: #007bff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.table-container .back-button i {
+  margin-right: 8px;
+}
+
+.table-container .back-button:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.table-container .app-modern-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-container .app-modern-table th,
+.table-container .app-modern-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.table-container .app-modern-table th {
+  background-color: #f8f8f8;
+  color: #333;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.table-container .app-modern-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.table-container .app-modern-table .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.table-container .app-modern-table .pagination .page-item {
+  margin: 0 5px;
+}
+
+.table-container .app-modern-table .pagination .page-link {
+  color: #007bff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #007bff;
+  background-color: #ffffff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.table-container .app-modern-table .pagination .page-link:hover {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.table-container .search-bar,
+.table-container .export-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.table-container .search-bar input {
+  width: 100%;
+  max-width: 250px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 10px;
+}
+
+.table-container .date-picker {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.table-container .export-button button {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.table-container .export-button button:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
 }
