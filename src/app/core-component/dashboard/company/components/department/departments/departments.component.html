@@ -54,9 +54,10 @@
   <!-- Department Overview -->
   <div *ngIf="showOverView">
     <app-department-overview
-    (departmentAdded)="goBack()"
-    [Department]="department">
-  </app-department-overview>
+    [Department]="selectedDepartment!"
+      (departmentAdded)="goBack()">
+    </app-department-overview>
   </div>
+
 
   <p-toast position="top-center"></p-toast>

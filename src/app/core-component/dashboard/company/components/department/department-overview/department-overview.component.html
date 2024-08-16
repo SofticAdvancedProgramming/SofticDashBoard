@@ -62,7 +62,7 @@
       <!-- Modern Table Integration -->
       <div class="profile-section w-100 mt-4" *ngIf="showEmployees">
         <app-modern-table
-          [tableTitle]="'Employees in ' + Department.name"
+          [tableTitle]="'Employees'"
           [tableData]="employees"
           [columns]="['id', 'fullName', 'position.name']"
           [modalId]="'employeeDetailsModal'"

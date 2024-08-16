@@ -44,7 +44,6 @@ export class DepartmentsComponent implements OnInit {
   isViewEmployees: boolean = false;
   isAssignEntity: boolean = false;
   private apiUrl = `${environment.apiBaseUrl}Company`;
-  department: Department = {} as Department;
   cards: any[] = [];
   headers: string[] = ['id', 'name', 'shortName', 'manager'];
   data: Department[] = [];
@@ -108,8 +107,14 @@ export class DepartmentsComponent implements OnInit {
 
   showDetails(cardId: number) {
     this.selectedCard = this.cards.find(card => card.id === cardId);
-    this.fetchData(cardId);
-    this.showOverView = true;
+    if (this.selectedCard) {
+      this.selectedDepartment = this.selectedCard;
+      console.log('Selected Department:', this.selectedDepartment);
+      this.fetchData(cardId);
+      this.showOverView = true;
+    } else {
+      console.error('No department found with the provided cardId:', cardId);
+    }
   }
 
   fetchData(cardId: number) {
