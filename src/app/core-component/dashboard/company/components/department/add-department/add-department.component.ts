@@ -21,8 +21,12 @@ import { LeafletMapComponent } from "../../../../../../common-component/leaflet-
 export class AddDepartmentComponent implements OnInit {
   @Output() action = new EventEmitter<boolean>();
   form: FormGroup;
-   branches: branch[] = [];
-  @Input() companyId?: number ;
+  branches: branch[] = [];
+  @Input() companyId?: number;
+
+  // Character counts for descriptions
+  descriptionCharacterCount: number = 0;
+  descriptionArCharacterCount: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -38,8 +42,8 @@ export class AddDepartmentComponent implements OnInit {
       lat: [0, Validators.required],
       manager: ['', Validators.required],
       branchId: [null, Validators.required],
-      description: ['', Validators.required],
-      descriptionAr: ['', Validators.required]
+      description: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(250)]],
+      descriptionAr: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(250)]]
     });
   }
 
@@ -49,6 +53,8 @@ export class AddDepartmentComponent implements OnInit {
       this.companyId = Number(storedCompanyId);
     }
     this.loadBranches();
+    this.updateCharacterCount('description'); // Initialize counts
+    this.updateCharacterCount('descriptionAr');
   }
 
   loadBranches(): void {
@@ -104,5 +110,17 @@ export class AddDepartmentComponent implements OnInit {
 
   onLocationSelected(location: { lat: number, lng: number }): void {
     this.form.patchValue({ lat: location.lat, long: location.lng });
+  }
+
+  updateCharacterCount(controlName: string): void {
+    const control = this.form.get(controlName);
+    if (control) {
+      const valueLength = control.value ? control.value.length : 0;
+      if (controlName === 'description') {
+        this.descriptionCharacterCount = valueLength;
+      } else if (controlName === 'descriptionAr') {
+        this.descriptionArCharacterCount = valueLength;
+      }
+    }
   }
 }
