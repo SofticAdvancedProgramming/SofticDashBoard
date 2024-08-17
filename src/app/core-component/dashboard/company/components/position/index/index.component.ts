@@ -10,6 +10,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Department } from '../../../../../../../models/department';
 import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
+import { ModernTableComponent } from '../../../../components/modern-table/modern-table.component';
 
 @Component({
   selector: 'app-index',
@@ -17,14 +18,15 @@ import { DepartmentService } from '../../../../../../services/lockupsServices/De
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
   providers: [PositionService, EmployeeService, MessageService],
-  imports: [RouterLink, CommonModule, AssignEmployeesComponent, AddPositionComponent, ToastModule]
+  imports: [RouterLink, CommonModule, AssignEmployeesComponent, AddPositionComponent, ToastModule, ModernTableComponent]
 })
 export class IndexComponent implements OnInit {
   isAdd: boolean = false;
   isAddEmployee: boolean = false;
+  showDetails: boolean = false;
   selectedPositionId?: string;
-  directManger?: employee = {} as employee;
   selectedPositionData: any = {};
+  directManger?: employee = {} as employee;
   employees: employee[] = [];
   @Input() companyId?: string = '';
   positions: any[] = [];
@@ -39,12 +41,11 @@ export class IndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPositions();
-    this.loadEmployees();
     this.loadDepartments();
   }
 
   loadPositions(): void {
-    this.positionService.getPosition({ companyId: this.companyId,pageSize:20 }).subscribe({
+    this.positionService.getPosition({ companyId: this.companyId, pageSize: 20 }).subscribe({
       next: (response) => {
         this.positions = response.data.list;
       },
@@ -54,7 +55,7 @@ export class IndexComponent implements OnInit {
     });
   }
 
-  loadEmployees(): void {
+  loadUnassignedEmployees(): void {
     this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
       next: (response) => {
         this.employees = response.data.list.filter(
@@ -63,7 +64,21 @@ export class IndexComponent implements OnInit {
         console.log("Unassigned Employees:", this.employees);
       },
       error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading unassigned employees' });
+      }
+    });
+  }
+
+  loadEmployeesByPosition(positionId: string): void {
+    this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
+      next: (response) => {
+        this.employees = response.data.list.filter(
+          (employee: any) => employee.positionId === positionId
+        );
+        console.log("Employees for Position:", this.employees);
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees for position' });
       }
     });
   }
@@ -81,7 +96,6 @@ export class IndexComponent implements OnInit {
     }
   }
 
-
   getDepartmentName(departmentId: number): string {
     const department = this.departments.find(dep => dep.id === departmentId);
     return department?.name ?? 'Unknown';
@@ -94,13 +108,13 @@ export class IndexComponent implements OnInit {
   addEmployee(positionId: string): void {
     this.selectedPositionId = positionId;
     this.selectedPositionData = this.positions.find(position => position.id === positionId);
+    this.loadUnassignedEmployees();
     this.isAddEmployee = true;
   }
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
     this.loadPositions();
-    this.loadEmployees();
   }
 
   closePopup(): void {
@@ -116,7 +130,7 @@ export class IndexComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Employee assigned successfully' });
         this.closePopup();
         this.loadPositions();
-        this.loadEmployees();
+        this.loadUnassignedEmployees();
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error assigning employee' });
@@ -136,5 +150,16 @@ export class IndexComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting position' });
       }
     });
+  }
+
+  showDetailsPage(positionId: string): void {
+    this.selectedPositionId = positionId;
+    this.selectedPositionData = this.positions.find(position => position.id === positionId);
+    this.loadEmployeesByPosition(positionId);
+    this.showDetails = true;
+  }
+
+  goBack(): void {
+    this.showDetails = false;
   }
 }

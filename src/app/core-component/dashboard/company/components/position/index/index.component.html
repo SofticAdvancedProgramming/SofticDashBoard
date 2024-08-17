@@ -1,48 +1,68 @@
 <div class="container my-5">
   <!-- Add Position Form -->
-  <ng-container *ngIf="isAdd; else positionList">
-    <app-add-position
-      [companyId]="companyId"
-      (action)="handleAction($event)">
-    </app-add-position>
-  </ng-container>
+  <ng-container *ngIf="!showDetails"> <!-- Modify this line -->
+    <ng-container *ngIf="isAdd; else positionList">
+      <app-add-position
+        [companyId]="companyId"
+        (action)="handleAction($event)">
+      </app-add-position>
+    </ng-container>
 
-  <!-- Position List -->
-  <ng-template #positionList>
-    <div class="row">
-      <div class="justify-content-end d-flex">
-        <button class="btn addPositionBtn w-25" (click)="addPosition()">
-          <i class="fas fa-plus"></i> Add Position
-        </button>
+    <!-- Position List -->
+    <ng-template #positionList>
+      <div class="row">
+        <div class="justify-content-end d-flex">
+          <button class="btn addPositionBtn w-25" (click)="addPosition()">
+            <i class="fas fa-plus"></i> Add Position
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let position of positions">
-        <div class="card">
-          <div class="card-header">
-            <h3>{{ position.name }}</h3>
-            <p>Department: {{ getDepartmentName(position.departmentId) }}</p>
-          </div>
-          <div class="card-body">
-            <button class="btn btn-add" (click)="addEmployee(position.id)">
-              <i class="fas fa-plus"></i> Add Employee
-            </button>
-          </div>
-          <div class="card-footer">
-            <label class="toggle-label">
-              <span class="mx-2">Activate</span>
-              <label class="switch">
-                <input type="checkbox" [checked]="position.isActive">
-                <span class="slider"></span>
+      <div class="row">
+        <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let position of positions">
+          <div class="card">
+            <div class="card-header">
+              <h3>{{ position.name }}</h3>
+              <p>Department: {{ getDepartmentName(position.departmentId) }}</p>
+            </div>
+            <div class="card-body">
+              <button class="btn btn-add" (click)="addEmployee(position.id)">
+                <i class="fas fa-plus"></i> Add Employee
+              </button>
+            </div>
+            <div class="card-footer">
+              <label class="toggle-label">
+                <span class="mx-2">Activate</span>
+                <label class="switch">
+                  <input type="checkbox" [checked]="position.isActive">
+                  <span class="slider"></span>
+                </label>
               </label>
-            </label>
-            <i class="fas fa-trash-alt icon-trash" (click)="deletePosition(position.id)"></i>
-            <i class="fas fa-edit icon-edit"></i>
+              <i class="fas fa-trash-alt icon-trash" (click)="deletePosition(position.id)"></i>
+              <i class="fas fa-edit icon-edit"></i>
+              <button class="btn" (click)="showDetailsPage(position.id)"> <!-- Modify this line -->
+                <span class="details">Show Details <i class="fa-solid fa-arrow-right"></i></span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </ng-template>
+    </ng-template>
+  </ng-container>
+
+  <!-- Details Page -->
+  <div *ngIf="showDetails" class="table-container">
+    <button class="btn" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <app-modern-table
+      [tableTitle]="'Employees of ' + selectedPositionData?.name"
+      [tableData]="employees"
+      [columns]="['id', 'fullName', 'position.name', 'department.name']"
+      [modalId]="'employeeDetailsModal'"
+      [deleteId]="'employeeDeleteModal'"
+      [showActions]="false">
+    </app-modern-table>
+  </div>
 
   <!-- Assign Employees Popup -->
   <ng-container *ngIf="isAddEmployee">
