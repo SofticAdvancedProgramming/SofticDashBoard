@@ -1,7 +1,65 @@
 <div class="container">
-    <div class="row mt-4">
-        <div class="justify-content-end d-flex">
-          </div>
+  <div class="row mt-4">
+    <div class="justify-content-between d-flex align-items-center">
+      <h2 class="section-title">
+        <i class="fas fa-user"></i> Employee</h2>
+      <button class="btn btn-new-employee">
+        <i class="fas fa-bell"></i>
+        New employee request/consent
+      </button>
     </div>
-    <app-modern-table> </app-modern-table>
+    <div class="col-12 mt-4">
+      <input [(ngModel)]="searchText" placeholder="Search..." class="form-control custom-search" (input)="applyFilter()" />
+    </div>
+  </div>
+  <div class="table-responsive mt-4" *ngIf="filteredEmployees.length > 0; else noData">
+    <table class="table custom-table">
+      <thead>
+        <tr>
+          <th>Employee Name</th>
+          <th>Employee ID</th>
+          <th>Department</th>
+          <th>Position</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of filteredEmployees">
+          <td>
+            <img [src]="employee.referancePhoto || 'assets/images/default-user.png'" alt="Profile Image" class="profile-img"
+                 (error)="onImageError($event)" />
+            {{ employee.fullName }}
+          </td>
+          <td>{{ employee.id }}</td>
+          <td>{{ employee.department?.name }}</td>
+          <td>{{ employee.position?.name }}</td>
+          <td>
+            <button class="btn btn-sm" (click)="viewDetails(employee)">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="deleteEmployee(employee)">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noData>
+    <div class="no-employees-container text-center mt-5">
+      <p class="no-employees-message">No employees found</p>
+    </div>
+  </ng-template>
+
+  <div class="d-flex justify-content-center mt-4">
+    <pagination
+      [totalItems]="totalRows"
+      [(ngModel)]="currentPage"
+      [itemsPerPage]="itemsPerPage"
+      (pageChanged)="handlePageChange($event)"
+      previousText="&laquo;"
+      nextText="&raquo;">
+    </pagination>
+  </div>
+
 </div>

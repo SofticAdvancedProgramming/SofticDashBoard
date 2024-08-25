@@ -1,4 +1,5 @@
 import { Department } from "./department";
+import { Position } from './postion';
 
 export interface employee {
   id: number;
@@ -41,7 +42,7 @@ export interface employee {
   isEmployeeWorkHistoryAdded: boolean;
   isEmployeeRefernceAdded: boolean;
   positionId: number | null;
-  position: string | null;
+  position: Position | null;
   departmentId: number | null;
   department: Department | null;
   branchId: number | null;
