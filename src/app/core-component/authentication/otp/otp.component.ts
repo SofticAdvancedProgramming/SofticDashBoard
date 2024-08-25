@@ -1,10 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { ApiCall } from '../../../services/apiCall/apicall.service';
 import { environment } from '../../../environment/environment';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { ApiCall } from '../../../core/services/http-service/HttpService';
 
 @Component({
   selector: 'app-otp',
@@ -28,7 +28,7 @@ export class OtpComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.otp);
-    this.apiCall.request<any>(`${environment.apiBaseUrl}Auth/VerfiyEmail`, 'post', { email: this.email, otp: this.otp }).subscribe({
+    this.apiCall.request(`${environment.apiBaseUrl}Auth/VerfiyEmail`, 'post', { email: this.email, otp: this.otp }).subscribe({
       next: (response) => {
         console.log('Response:', response);
         if (response?.status === 200 && response?.data?.isAuth) {
