@@ -48,9 +48,6 @@
   <ng-container *ngIf="isAdd;">
     <app-add-department [companyId]="companyId" (action)="handleAction($event)"></app-add-department>
   </ng-container>
-  <ng-container *ngIf="isViewEmployees;">
-    <app-view-employees [companyId]="companyId"  ></app-view-employees>
-  </ng-container>
   <!-- Department Overview -->
   <div *ngIf="showOverView">
     <app-department-overview
