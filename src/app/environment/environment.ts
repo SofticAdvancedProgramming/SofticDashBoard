@@ -1,5 +1,5 @@
 export const environment = {
-  apiBaseUrl: '/api/',  // Use the proxy base path
+  apiBaseUrl: 'https://attendance.sap-pro.xyz:44333/api/',
   dashboardBaseUrl: 'http://attendance.sap-pro.xyz:44335/',
   ElmedaniHub: 'https://sap-pro.xyz:44333/ElmedaniHub',
 };
