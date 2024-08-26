@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ModernTableComponent } from "../../components/modern-table/modern-table.component";
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
 import { employee } from '../../../../../models/employee';
 import { CommonModule } from '@angular/common';
@@ -23,7 +23,7 @@ export class ViewEmployeesComponent implements OnInit {
   itemsPerPage: number = 10;
   totalRows: number = 0;
 
-  constructor(private employeeService: EmployeeService, private cdr: ChangeDetectorRef) {}
+  constructor(private employeeService: EmployeeService, private cdr: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit() {
     this.loadEmployeesByCompany();
@@ -75,15 +75,14 @@ export class ViewEmployeesComponent implements OnInit {
     console.log('Page changed to:', this.currentPage);
     this.loadEmployeesByCompany();
   }
-
-  viewDetails(employee: employee) {
-    console.log('Viewing details for', employee);
-  }
-
   deleteEmployee(employee: employee) {
     console.log('Deleting employee', employee);
   }
   onImageError(event: any) {
     event.target.src = '../../../../../assets/images/defaultImg.svg';
   }
+  viewDetails(employee: employee) {
+    this.router.navigate(['dashboard/employee-details', employee.id]);
+  }
+
 }

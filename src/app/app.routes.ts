@@ -27,6 +27,7 @@ import { ViewEmployeesComponent } from './core-component/dashboard/employee/view
 import { AddEmployeeComponent } from './core-component/dashboard/employee/add-employee/add-employee.component';
 import { OrganizationChartsComponent } from './core-component/dashboard/organization-charts/organization-charts.component';
 import { AuthGuard } from './core/guard/auth.guard';
+import { EmployeeDetailsComponent } from './core-component/dashboard/employee/employee-details/employee-details.component';
 
 export const routes: Routes = [
   {
@@ -64,6 +65,7 @@ export const routes: Routes = [
       { path: 'ViewEmployees', component: ViewEmployeesComponent  },
       { path: 'AddEmployee', component: AddEmployeeComponent  },
       { path: 'OrganizationCharts', component: OrganizationChartsComponent  },
-    ],
+      { path: 'employee-details/:id', component: EmployeeDetailsComponent },
+        ],
   },
 ];
