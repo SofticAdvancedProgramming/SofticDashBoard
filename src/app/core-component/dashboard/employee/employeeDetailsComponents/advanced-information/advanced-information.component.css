@@ -1,0 +1,30 @@
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.arrow {
+    background: none;
+    border: none;
+    font-size: 60px;
+    cursor: pointer;
+    font-weight: 100;
+}
+
+.dots {
+    display: flex;
+    gap: 20px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 50%;
+}
+
+.dot.active {
+    background-color: #8bc34a;
+ }

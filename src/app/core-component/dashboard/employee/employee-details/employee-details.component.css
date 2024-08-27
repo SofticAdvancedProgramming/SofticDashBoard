@@ -35,7 +35,7 @@ body {
 .profile-img {
     width: 150px;
     height: 150px;
-    border-radius:12px;
+    border-radius: 12px;
     border: 3px solid white;
     object-fit: cover;
 }
@@ -74,7 +74,8 @@ body {
 .edit-profile-btn:hover {
     background-color: #0056b3;
 }
-.custombtn{
+
+.custombtn {
     display: flex;
     bottom: -63px;
     position: relative;
@@ -92,7 +93,7 @@ body {
 .profile-card h3 {
     font-family: Nunito;
     font-size: 16px;
-    font-weight: 700;  
+    font-weight: 700;
 }
 
 .profile-card .description {
@@ -113,12 +114,13 @@ body {
 
 .profile-card .label {
     font-size: 16px;
-    font-weight: 500;   
+    font-weight: 500;
 }
 
 .profile-card .value {
     color: #A9AEB4;
 }
+
 .btn {
     padding: 10px 20px;
     font-size: 16px;
@@ -127,26 +129,62 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
     width: 100%;
-  }
-  
-  .rejected {
+}
+
+.rejected {
     background-color: #f8f8f8;
     color: #ff4444;
     border-color: #ff4444;
-  }
-  
-  .rejected:hover {
+}
+
+.rejected:hover {
     background-color: #ff4444;
     color: #ffffff;
-  }
-  
-  .accepted {
+}
+
+.accepted {
     background-color: #8bc34a;
     color: #ffffff;
     border-color: #8bc34a;
-  }
-  
-  .accepted:hover {
+}
+
+.accepted:hover {
     background-color: #7cb342;
-  }
-  
+}
+
+.tabs {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    gap: 3rem !important;
+
+}
+
+.tab {
+    font-size: 16px;
+    color: #aaa;
+    cursor: pointer;
+    position: relative;
+}
+
+.tab.active {
+    color: #6a0dad;
+    font-weight: bold;
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -5px;
+    width: 5px;
+    height: 5px;
+    background-color: #6a0dad;
+    border-radius: 50%;
+}
+
+.tab:hover {
+    color: #6a0dad;
+}

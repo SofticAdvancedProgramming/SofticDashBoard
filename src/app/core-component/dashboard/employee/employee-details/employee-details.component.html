@@ -12,23 +12,40 @@
 </div>
 
 <div class="row justify-content-end d-flex my-4  ">
+    <div class="col-lg-6">
+
+        <div class="tabs">
+            <div class="tab" [ngClass]="{'active': activeTab === 'personal'}" (click)="setActiveTab('personal')">
+                Personal Information
+            </div>
+            <div class="tab" [ngClass]="{'active': activeTab === 'professional'}"
+                (click)="setActiveTab('professional')">
+                Professional Information
+            </div>
+            <div class="tab" [ngClass]="{'active': activeTab === 'advanced'}" (click)="setActiveTab('advanced')">
+                Advanced Information
+            </div>
+        </div>
+
+    </div>
     <div class="col-lg-6 justify-content-end gap-3 d-flex">
         <button class="btn rejected">Rejected</button>
         <button class="btn accepted">Accepted</button>
     </div>
 </div>
 
-<!-- <div class="col-lg-6 d-flex justify-content-end">
-    <div class="custombtn">
-        <button class="btn rejected">Rejected</button>
-        <button class="btn accepted">Accepted</button>
+
+
+<div class="tab-content">
+    <div *ngIf="activeTab === 'personal'">
+        <app-personal-information> </app-personal-information>
+    </div>
+
+    <div *ngIf="activeTab === 'professional'">
+        
+    </div>
+
+    <div *ngIf="activeTab === 'advanced'">
+        <app-advanced-information></app-advanced-information>
     </div>
 </div>
-
-<div class="container tabsContainer">
-    <mat-tab-group>
-        <mat-tab label="My Request"> </mat-tab>
-        <mat-tab label="Received  Requests"> </mat-tab>
-        <mat-tab label="Received  Requests"> </mat-tab>
-    </mat-tab-group>
-</div> -->

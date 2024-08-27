@@ -1,0 +1,26 @@
+<div class="container py-4">
+    <div class="row" *ngIf="currentSlide === 0">
+        <app-address></app-address>
+    </div>
+    <div class="row" *ngIf="currentSlide === 1">
+        <app-social></app-social>
+    </div>
+    <div class="row" *ngIf="currentSlide === 2">
+        <app-medical-insurance></app-medical-insurance>
+    </div>
+    <div class="row" *ngIf="currentSlide === 3">
+        <app-education></app-education>
+    </div>
+</div>
+
+<div class="carousel">
+    <div class="d-flex justify-content-center align-items-center"> 
+    <button class="arrow left-arrow" (click)="prevSlide()">&#8249;</button>
+    <div class="dots">
+        <span *ngFor="let dot of slides; let i = index" class="dot" [class.active]="i === currentSlide">
+        </span>
+    </div>
+    <button class="arrow right-arrow" (click)="nextSlide()">&#8250;</button>
+</div>
+</div>
+ 

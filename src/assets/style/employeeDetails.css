@@ -1,0 +1,84 @@
+.container {
+    margin: 1em;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    padding: 2em;
+}
+
+.title {
+    color: #36313C;
+    font-family: Lama Sans;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.grid-item {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.grid-item label {
+    color: #0D0714;
+    font-family: Lama Sans;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0.03em;
+    text-align: left;
+}
+
+.grid-item .value {
+    color: #858D95;
+    font-family: Lama Sans;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 26px;
+    letter-spacing: 0.03em;
+    text-align: left;
+}
+
+.grid-item.full-width {
+    grid-column: span 2;
+}
+
+.text-muted {
+    border-bottom: 1px solid #eee;
+    color: #858D95;
+    font-family: Lama Sans;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 26px;
+    letter-spacing: 0.03em;
+    text-align: left;
+}
+
+.customHeader {
+    color: #36313C;
+    font-family: Lama Sans;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 0.03em;
+    text-align: center;
+
+}
+
+.text-dark {
+    color: #0D0714;
+    font-family: Lama Sans;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0.03em;
+    text-align: left;
+
+}
