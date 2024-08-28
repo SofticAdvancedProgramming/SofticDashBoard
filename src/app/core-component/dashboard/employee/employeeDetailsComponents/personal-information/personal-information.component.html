@@ -1,16 +1,31 @@
-<div class="cardContainer p-4 mb-4">
+<div class="cardContainer p-4 mb-4" *ngIf="personalInfo">
   <div class="card-body p-5">
     <h3 class="card-title mb-3">Profile Information</h3>
     <p class="text-muted mb-4">
-      Hi, I'm Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose
-      the one more painful in the short term (pain avoidance is creatin).
+      Hi, I'm {{ personalInfo.firstName }}, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating).
     </p>
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-3">
         <strong>Full Name:</strong>
       </div>
       <div class="col-lg-8">
-       <p>  Alec M. Thompson</p>
+        <p>{{ personalInfo.fullName }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Email:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.email }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Phone Number:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.phoneNumber }}</p>
       </div>
     </div>
     <div class="row">
@@ -18,15 +33,15 @@
         <strong>Gender:</strong>
       </div>
       <div class="col-lg-8">
-      <p> male </p>  
+        <p>{{ personalInfo.gender === 0 ? 'Male' : 'Female' }}</p>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-3">
-        <strong>Date of birth:</strong>
+        <strong>Date of Birth:</strong>
       </div>
       <div class="col-lg-8">
-        <p>1/8/2003 </p>
+        <p>{{ personalInfo.birthDate !== '0001-01-01T00:00:00' ? (personalInfo.birthDate | date: 'longDate') : 'N/A' }}</p>
       </div>
     </div>
     <div class="row">
@@ -34,7 +49,7 @@
         <strong>Marital Status:</strong>
       </div>
       <div class="col-lg-8">
-        <p>Single </p>
+        <p>{{ personalInfo.maritalStatus || 'N/A' }}</p>
       </div>
     </div>
     <div class="row">
@@ -42,15 +57,7 @@
         <strong>Nationality:</strong>
       </div>
       <div class="col-lg-8">
-       <p>Egyptian </p> 
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4 col-md-6 mb-3">
-        <strong>Family status:</strong>
-      </div>
-      <div class="col-lg-8">
-       <p>bachelor </p> 
+        <p>{{ personalInfo.nationality || 'N/A' }}</p>
       </div>
     </div>
     <div class="row">
@@ -58,7 +65,7 @@
         <strong>ID Number:</strong>
       </div>
       <div class="col-lg-8">
-        <p> 1236547896258</p>
+        <p>{{ personalInfo.nationalId || 'N/A' }}</p>
       </div>
     </div>
     <div class="row">
@@ -66,16 +73,38 @@
         <strong>Passport Number:</strong>
       </div>
       <div class="col-lg-8">
-      <p> 699857546856</p>  
+        <p>{{ personalInfo.passport || 'N/A' }}</p>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-3">
-        <strong>Drive license number:</strong>
+        <strong>Reference Photo:</strong>
       </div>
       <div class="col-lg-8">
-       <p> 3652 </p> 
+        <img [src]="personalInfo.referancePhoto || 'assets/images/default-photo.png'" alt="Reference Photo" class="img-fluid" />
       </div>
     </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Passport Photo:</strong>
+      </div>
+      <div class="col-lg-8">
+        <img [src]="personalInfo.passportPhoto || 'assets/images/default-photo.png'" alt="Passport Photo" class="img-fluid" />
+      </div>
+    </div>
+    <!-- Uncomment and update the following row when you have drive license number data -->
+    <!-- <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Drive License Number:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.driveLicenseNumber || 'N/A' }}</p>
+      </div>
+    </div> -->
   </div>
 </div>
+<ng-template #loading>
+  <div class="text-center">
+    <p>Loading...</p>
+  </div>
+</ng-template>
