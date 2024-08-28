@@ -8,7 +8,9 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { accountStatus } from '../../../../../models/enums/accountStatus';
 import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-view-employees',
@@ -26,6 +28,7 @@ export class ViewEmployeesComponent implements OnInit {
   itemsPerPage: number = 10;
   totalRows: number = 0;
   isShowingPending: boolean = false;
+  employeeToDelete: employee | null = null;
 
   constructor(private employeeService: EmployeeService, private cdr: ChangeDetectorRef, private router: Router) { }
 
@@ -67,8 +70,8 @@ export class ViewEmployeesComponent implements OnInit {
   toggleEmployeeStatus() {
     this.isShowingPending = !this.isShowingPending;
     this.currentPage = 1;
-    this.loadEmployees();
-  }
+    this.loadEmployees();}
+
 
   applyFilter() {
     if (this.searchText.trim()) {
@@ -88,8 +91,29 @@ export class ViewEmployeesComponent implements OnInit {
     this.loadEmployees();
   }
 
-  deleteEmployee(employee: employee) {
-    console.log('Deleting employee', employee);
+  openDeleteModal(employee: employee) {
+    this.employeeToDelete = employee;
+    const modalElement = document.getElementById('deleteConfirmationModal');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  }
+
+  confirmDelete() {
+    if (this.employeeToDelete && this.companyId) {
+      this.employeeService.deleteEmployee(this.companyId, this.employeeToDelete.id)
+        .pipe(
+          tap(() => {
+            console.log(`Employee ${this.employeeToDelete?.id} deleted successfully.`);
+            this.loadEmployees();
+            this.employeeToDelete = null;
+          }),
+          catchError((error) => {
+            console.error('Error deleting employee', error);
+            return of([]);
+          })
+        )
+        .subscribe();
+    }
   }
 
   onImageError(event: any) {
