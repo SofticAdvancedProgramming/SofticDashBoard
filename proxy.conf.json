@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://attendance.sap-pro.xyz:44333",
+    "target": "https://attendancebackend.smartnetworkai.com",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
