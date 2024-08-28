@@ -49,4 +49,8 @@ export class PersonalInformationComponent implements OnInit {
       }
     );
   }
+  onImageError(event: any) {
+    event.target.src = '../../../../../../assets/images/default.jpeg';
+  }
+
 }

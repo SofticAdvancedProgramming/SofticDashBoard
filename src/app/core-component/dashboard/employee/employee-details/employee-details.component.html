@@ -2,10 +2,10 @@
     <img src="../../../../assets/images/coverimg.png" alt="Background Image" class="background-img">
     <div class="profile-content">
         <div class="col-lg-6 d-flex align-items-center">
-            <img src="../../../../assets/images/default.jpeg" alt="Profile Image" class="profile-img">
+          <img [src]="employee.referancePhoto || '../../../../assets/images/default.jpeg'" alt="Profile Image" class="profile-img"
+          (error)="onImageError($event)" />
             <div class="profile-info">
-                <h1>George Mikhaiel</h1>
-                <p>YomnaGmail.Com</p>
+                <h1>{{employee.fullName}}</h1>
             </div>
         </div>
     </div>
@@ -29,9 +29,13 @@
 
     </div>
     <div class="col-lg-6 justify-content-end gap-3 d-flex">
+      @if(employee.accountStatus === accountStatus.Pending){
         <button class="btn rejected">Rejected</button>
         <button class="btn accepted">Accepted</button>
-    </div>
+      }
+
+  </div>
+
 </div>
 
 
@@ -42,7 +46,7 @@
     </div>
 
     <div *ngIf="activeTab === 'professional'">
-        
+
     </div>
 
     <div *ngIf="activeTab === 'advanced'">

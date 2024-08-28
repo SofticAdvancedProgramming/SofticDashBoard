@@ -81,16 +81,18 @@
         <strong>Reference Photo:</strong>
       </div>
       <div class="col-lg-8">
-        <img [src]="personalInfo.referancePhoto || 'assets/images/default-photo.png'" alt="Reference Photo" class="img-fluid" />
-      </div>
+        <img [src]="personalInfo.referancePhoto" style="width: 10vw;height: 10vh;"
+        alt="Reference Photo" class="img-fluid"
+        (error)="onImageError($event)" />      </div>
     </div>
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-3">
         <strong>Passport Photo:</strong>
       </div>
       <div class="col-lg-8">
-        <img [src]="personalInfo.passportPhoto || 'assets/images/default-photo.png'" alt="Passport Photo" class="img-fluid" />
-      </div>
+        <img [src]="personalInfo.passportPhoto"
+        alt="Passport Photo" class="img-fluid"style="width: 10vw;height: 10vh;"
+        (error)="onImageError($event)" />      </div>
     </div>
     <!-- Uncomment and update the following row when you have drive license number data -->
     <!-- <div class="row">
