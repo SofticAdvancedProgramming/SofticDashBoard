@@ -6,6 +6,9 @@ import { employee } from '../../../../../models/employee';
 import { CommonModule } from '@angular/common';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
+import { accountStatus } from '../../../../../models/enums/accountStatus';
+import { tap, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-view-employees',
@@ -22,38 +25,49 @@ export class ViewEmployeesComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalRows: number = 0;
+  isShowingPending: boolean = false;
 
   constructor(private employeeService: EmployeeService, private cdr: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit() {
-    this.loadEmployeesByCompany();
+    this.loadEmployees();
   }
 
-  loadEmployeesByCompany() {
+  loadEmployees() {
+    const status = this.isShowingPending ? accountStatus.Pending : accountStatus.Active;
+    this.loadEmployeesByCompany(status);
+  }
+
+  loadEmployeesByCompany(status: accountStatus) {
     this.companyId = Number(localStorage.getItem('companyId'));
     if (this.companyId) {
-      console.log('Loading employees for company:', this.companyId, 'Page:', this.currentPage);
-
       this.employeeService.loadEmployees({
         companyId: this.companyId,
         pageSize: this.itemsPerPage,
-        pageIndex: this.currentPage
-      }).subscribe(
-        (response: any) => {
+        pageIndex: this.currentPage,
+        accountStatus: status
+      }).pipe(
+        tap((response: any) => {
           this.employees = response.data.list;
           this.filteredEmployees = [...this.employees];
           this.totalRows = response.data.totalRows;
-          console.log('Employees loaded:', this.employees);
           this.applyFilter();
           this.cdr.detectChanges();
-        },
-        (error: any) => {
+        }),
+        catchError((error: any) => {
           console.error('Error loading employees', error);
-        }
-      );
+          return of([]);
+        })
+      ).subscribe();
     } else {
       console.warn('No company found in local storage');
     }
+  }
+
+  toggleEmployeeStatus() {
+    this.isShowingPending = !this.isShowingPending;
+    this.currentPage = 1;
+    this.loadEmployees();
   }
 
   applyFilter() {
@@ -67,22 +81,22 @@ export class ViewEmployeesComponent implements OnInit {
     } else {
       this.filteredEmployees = [...this.employees];
     }
-    console.log('Filtered Employees:', this.filteredEmployees);
   }
 
   handlePageChange(event: { page: number }) {
     this.currentPage = event.page;
-    console.log('Page changed to:', this.currentPage);
-    this.loadEmployeesByCompany();
+    this.loadEmployees();
   }
+
   deleteEmployee(employee: employee) {
     console.log('Deleting employee', employee);
   }
+
   onImageError(event: any) {
     event.target.src = '../../../../../assets/images/defaultImg.svg';
   }
+
   viewDetails(employee: employee) {
     this.router.navigate(['dashboard/employee-details', employee.id]);
   }
-
 }

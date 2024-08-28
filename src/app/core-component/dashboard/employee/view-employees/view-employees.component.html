@@ -3,9 +3,9 @@
     <div class="justify-content-between d-flex align-items-center">
       <h2 class="section-title">
         <i class="fas fa-user"></i> Employee</h2>
-      <button class="btn btn-new-employee">
+      <button class="btn btn-new-employee" (click)="toggleEmployeeStatus()">
         <i class="fas fa-bell"></i>
-        New employee request/consent
+        {{ isShowingPending ? ' Current Employees' : 'New Employee Request/Consent' }}
       </button>
     </div>
     <div class="col-12 mt-4">
@@ -37,7 +37,7 @@
             <button class="btn btn-sm" (click)="viewDetails(employee)">
               <i class="fas fa-eye"></i>
             </button>
-            
+
             <button class="btn btn-sm btn-danger" (click)="deleteEmployee(employee)">
               <i class="fas fa-trash-alt"></i>
             </button>
@@ -62,5 +62,4 @@
       nextText="&raquo;">
     </pagination>
   </div>
-
 </div>
