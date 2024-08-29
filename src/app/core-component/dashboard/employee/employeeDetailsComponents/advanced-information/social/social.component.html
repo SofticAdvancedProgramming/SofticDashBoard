@@ -1,47 +1,67 @@
-<div class="container py-4">
-    <h3 class="text-center fw-bold customHeader mb-4">Social media contact</h3>
+<div class="container py-4" *ngIf="socialInfo">
+    <h3 class="text-center fw-bold customHeader mb-4">Social Media Contact</h3>
     <div class="row gy-3">
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Privet Mobile number</label>
-            <div class="text-muted">22121-33356-54</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Business Mobile number</label>
-            <div class="text-muted">01064514442</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Email Address</label>
-            <div class="text-muted">yomna.aeagmail.com</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Facebook</label>
-            <a href="http://www.7636200--5612692-jklalhlaka.com"
-                class="text-muted">www.7636200--5612692-jklalhlaka.com</a>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Instagram</label>
-            <a href="http://www.7636200--5612692-jklalhlaka.com"
-                class="text-muted">www.7636200--5612692-jklalhlaka.com</a>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Linkedin</label>
-            <a href="http://www.7636200--5612692-jklalhlaka.com"
-                class="text-muted">www.7636200--5612692-jklalhlaka.com</a>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Snapchat</label>
-            <a href="http://www.7636200--5612692-jklalhlaka.com"
-                class="text-muted">www.7636200--5612692-jklalhlaka.com</a>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Twitter</label>
-            <a href="http://www.7636200--5612692-jklalhlaka.com"
-                class="text-muted">www.7636200--5612692-jklalhlaka.com</a>
-        </div>
-        <div class="col-12">
-            <label class="d-block fw-semibold text-dark">Website</label>
-            <a href="http://www.7636200--5612692-jklalhlaka.com"
-                class="text-muted">www.7636200--5612692-jklalhlaka.com</a>
-        </div>
+      <!-- Display User Emails -->
+      <div class="col-12 col-md-6 border-bottom-custom" *ngFor="let email of socialInfo.userEmails">
+        <label class="d-block fw-semibold text-dark">Email Address</label>
+        <div class="text-muted">{{ email.email || 'No Data' }}</div>
+      </div>
+  
+      <!-- Display User Telephones -->
+      <div class="col-12 col-md-6 border-bottom-custom" *ngFor="let phone of socialInfo.userTelephones">
+        <label class="d-block fw-semibold text-dark">{{ phone.isMobile ? 'Mobile Number' : 'Telephone' }}</label>
+        <div class="text-muted">{{ phone.telephone || 'No Data' }}</div>
+      </div>
+  
+      <!-- Display Social Media Links -->
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">Facebook</label>
+        <a *ngIf="socialInfo.facebook" [href]="socialInfo.facebook" class="text-muted">{{ socialInfo.facebook }}</a>
+        <div *ngIf="!socialInfo.facebook" class="text-muted">No Data</div>
+      </div>
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">Instagram</label>
+        <a *ngIf="socialInfo.instgram" [href]="socialInfo.instgram" class="text-muted">{{ socialInfo.instgram }}</a>
+        <div *ngIf="!socialInfo.instgram" class="text-muted">No Data</div>
+      </div>
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">LinkedIn</label>
+        <a *ngIf="socialInfo.linkedIn" [href]="socialInfo.linkedIn" class="text-muted">{{ socialInfo.linkedIn }}</a>
+        <div *ngIf="!socialInfo.linkedIn" class="text-muted">No Data</div>
+      </div>
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">Snapchat</label>
+        <a *ngIf="socialInfo.snapShot" [href]="socialInfo.snapShot" class="text-muted">{{ socialInfo.snapShot }}</a>
+        <div *ngIf="!socialInfo.snapShot" class="text-muted">No Data</div>
+      </div>
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">Twitter</label>
+        <a *ngIf="socialInfo.twitterX" [href]="socialInfo.twitterX" class="text-muted">{{ socialInfo.twitterX }}</a>
+        <div *ngIf="!socialInfo.twitterX" class="text-muted">No Data</div>
+      </div>
+  
+       <div class="col-12 col-md-6 border-bottom-custom" *ngFor="let reference of socialInfo.userRefernces">
+        <label class="d-block fw-semibold text-dark">Reference Name</label>
+        <div class="text-muted">{{ reference.name || 'No Data' }}</div>
+        <label class="d-block fw-semibold text-dark">Relationship ID</label>
+        <div class="text-muted">{{ reference.rRelationShipID || 'No Data' }}</div>
+        <label class="d-block fw-semibold text-dark">Telephone</label>
+        <div class="text-muted">{{ reference.telephone || 'No Data' }}</div>
+        <label class="d-block fw-semibold text-dark">Full Address</label>
+        <div class="text-muted">{{ reference.fullAddress || 'No Data' }}</div>
+        <label class="d-block fw-semibold text-dark">Nearby</label>
+        <div class="text-muted">{{ reference.nearBy || 'No Data' }}</div>
+        <label class="d-block fw-semibold text-dark">Street</label>
+        <div class="text-muted">{{ reference.street || 'No Data' }}</div>
+        <label class="d-block fw-semibold text-dark">Floor</label>
+        <div class="text-muted">{{ reference.floor || 'No Data' }}</div>
+        <label class="d-block fw-semibold text-dark">Unit</label>
+        <div class="text-muted">{{ reference.unit || 'No Data' }}</div>
+        <label class="d-block fw-semibold text-dark">Building No</label>
+        <div class="text-muted">{{ reference.buildingNo || 'No Data' }}</div>
+        <label class="d-block fw-semibold text-dark">Is Employee</label>
+        <div class="text-muted">{{ reference.isEmployee ? 'Yes' : 'No' }}</div>
+      </div>
     </div>
-</div>
+  </div>
+  

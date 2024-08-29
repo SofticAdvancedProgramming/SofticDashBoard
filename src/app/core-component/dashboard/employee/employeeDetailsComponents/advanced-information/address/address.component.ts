@@ -24,15 +24,14 @@ export class AddressComponent implements OnInit {
   }
 
   loadAddress(): void {
-    const requestPayload = {}; // Add necessary payload if required
+    const requestPayload = {};  
 
     this.userDataService.loadAddress(requestPayload).subscribe(
       response => {
         if (response.status === 200 && response.data.list.length > 0) {
           this.address = response.data.list[0];
 
-          // Ensure countryId, cityId, and zoneId are not undefined before calling loadNames
-          if (
+           if (
             this.address?.countryId !== undefined &&
             this.address.cityId !== undefined &&
             this.address.zoneId !== undefined
