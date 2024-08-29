@@ -18,10 +18,10 @@
             <div class="tab" [ngClass]="{'active': activeTab === 'personal'}" (click)="setActiveTab('personal')">
                 Personal Information
             </div>
-            <div class="tab" [ngClass]="{'active': activeTab === 'professional'}"
+            <!-- <div class="tab" [ngClass]="{'active': activeTab === 'professional'}"
                 (click)="setActiveTab('professional')">
                 Professional Information
-            </div>
+            </div> -->
             <div class="tab" [ngClass]="{'active': activeTab === 'advanced'}" (click)="setActiveTab('advanced')">
                 Advanced Information
             </div>
@@ -45,11 +45,12 @@
         <app-personal-information> </app-personal-information>
     </div>
 
-    <div *ngIf="activeTab === 'professional'">
+    <!-- <div *ngIf="activeTab === 'professional'">
 
-    </div>
+    </div> -->
 
     <div *ngIf="activeTab === 'advanced'">
-        <app-advanced-information></app-advanced-information>
+        <app-countdown></app-countdown>
+        <!-- <app-advanced-information></app-advanced-information> -->
     </div>
 </div>

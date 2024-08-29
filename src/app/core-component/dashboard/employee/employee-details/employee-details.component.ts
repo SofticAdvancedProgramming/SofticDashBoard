@@ -9,13 +9,14 @@ import { EmployeeService } from '../../../../services/employeeService/employee.s
 import { tap, catchError, of } from 'rxjs';
 import { employee } from '../../../../../models/employee';
 import { accountStatus } from '../../../../../models/enums/accountStatus';
+import { CountdownComponent } from "../../../../common-component/countdown/countdown.component";
 
 @Component({
-  selector: 'app-employee-details',
-  standalone: true,
-  templateUrl: './employee-details.component.html',
-  styleUrl: './employee-details.component.css',
-  imports: [RouterLink, MatTabsModule, CommonModule, PersonalInformationComponent, AdvancedInformationComponent]
+    selector: 'app-employee-details',
+    standalone: true,
+    templateUrl: './employee-details.component.html',
+    styleUrl: './employee-details.component.css',
+    imports: [RouterLink, MatTabsModule, CommonModule, PersonalInformationComponent, AdvancedInformationComponent, CountdownComponent]
 })
 export class EmployeeDetailsComponent implements OnInit {
   activeTab: string = 'personal';
