@@ -3,7 +3,6 @@ import { HomeComponent } from './core-component/dashboard/home/home.component';
 import { DashboardLayoutComponent } from './core-component/layouts/dashboard-layout/dashboard-layout.component';
 import { AuthLayoutComponent } from './core-component/layouts/auth-layout/auth-layout.component';
 import { LoginComponent } from './core-component/authentication/login/login.component';
-import { RegistrationComponent } from './core-component/authentication/registration/registration.component';
 import { ResetPasswordComponent } from './core-component/authentication/reset-password/reset-password.component';
 import { ForgetPasswordComponent } from './core-component/authentication/forget-password/forget-password.component';
 import { IndexComponent } from './core-component/dashboard/company/index/index.component';
@@ -28,6 +27,8 @@ import { AddEmployeeComponent } from './core-component/dashboard/employee/add-em
 import { OrganizationChartsComponent } from './core-component/dashboard/organization-charts/organization-charts.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { EmployeeDetailsComponent } from './core-component/dashboard/employee/employee-details/employee-details.component';
+import { NoPermissionComponent } from './common-component/no-permission/no-permission.component';
+import { ngxPermissionsGuard } from 'ngx-permissions';
 
 export const routes: Routes = [
   {
@@ -48,7 +49,7 @@ export const routes: Routes = [
       { path: 'indexCompany', component: IndexComponent },
       { path: 'addCompany', component: AddCompanyComponent },
       { path: 'AddAdmin', component: AddAdminComponent },
-      { path: 'generalLookups', component: GeneralLookupsComponent },
+      { path: 'generalLookups', component: GeneralLookupsComponent  ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},
       { path: 'SubscriptionPlan', component: SubscriptionPlanManagmentComponent },
       { path: 'addressManagement', component: LocationManagmentComponent },
       { path: 'profile', component: ProfileComponent },
@@ -62,10 +63,13 @@ export const routes: Routes = [
       { path: 'PositionTypeManagment', component: PositionTypeManagmentComponent  },
       { path: 'departmentManagment', component: DepartmentManagmentComponent  },
       { path: 'branchManagment', component: BranchManagmentComponent  },
-      { path: 'ViewEmployees', component: ViewEmployeesComponent  },
+      { path: 'ViewEmployees', component: ViewEmployeesComponent ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},
       { path: 'AddEmployee', component: AddEmployeeComponent  },
       { path: 'OrganizationCharts', component: OrganizationChartsComponent  },
       { path: 'employee-details/:id', component: EmployeeDetailsComponent },
         ],
+  },{
+    path: 'no-permission',
+    component: NoPermissionComponent, pathMatch: 'full',
   },
 ];
