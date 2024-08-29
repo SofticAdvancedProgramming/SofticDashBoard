@@ -1,0 +1,86 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CommonModule } from '@angular/common';
+import { PersonalInformationComponent } from "../employeeDetailsComponents/personal-information/personal-information.component";
+import { AdvancedInformationComponent } from "../employeeDetailsComponents/advanced-information/advanced-information.component";
+import { EmployeeService } from '../../../../services/employeeService/employee.service';
+import { tap, catchError, of, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { employee } from '../../../../../models/employee';
+import { accountStatus } from '../../../../../models/enums/accountStatus';
+import { CountdownComponent } from "../../../../common-component/countdown/countdown.component";
+import { AdminService } from '../../../../services/adminService/admin.service';
+import { ToastersService } from '../../../../core/services/toast-service/toast.service';
+
+
+@Component({
+  selector: 'app-employee-details',
+  standalone: true,
+  templateUrl: './employee-details.component.html',
+  styleUrls: ['./employee-details.component.css'],
+  imports: [RouterLink, MatTabsModule, CommonModule, PersonalInformationComponent, AdvancedInformationComponent, CountdownComponent]
+})
+export class EmployeeDetailsComponent implements OnInit, OnDestroy {
+  activeTab: string = 'personal';
+  id: number = 0;
+  employee: employee = {} as employee;
+  accountStatus = accountStatus;
+  private unsubscribe$ = new Subject<void>();
+
+  constructor(
+    private route: ActivatedRoute,
+    private employeeService: EmployeeService,
+    private adminService: AdminService,
+    private toast: ToastersService,
+  ) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.pipe(
+      takeUntil(this.unsubscribe$)
+    ).subscribe(params => {
+      this.id = Number(params.get('id'));
+      console.log('Employee ID from URL:', this.id);
+      this.getEmployee();
+    });
+  }
+
+  getEmployee() {
+    this.employeeService.loadEmployees({ id: this.id }).pipe(
+      tap((response: any) => {
+        this.employee = response.data.list[0];
+        console.log("Loaded employee", this.employee);
+      }),
+      takeUntil(this.unsubscribe$)
+    ).subscribe();
+  }
+
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
+  }
+
+  onImageError(event: any) {
+    event.target.src = '../../../../assets/images/default.jpeg';
+  }
+
+  updateStatus(status: accountStatus): void {
+    if (!this.id) return;
+    console.log('updateStatus called');
+
+    this.adminService.EditStatus({ id: this.id, accountStatus: status }).subscribe(
+      {
+        next:(response:any)=>{
+          this.toast.typeSuccess(`Employee ${status.toString()} successfully.`);
+          this.getEmployee();
+        }
+      }
+
+    )
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+}

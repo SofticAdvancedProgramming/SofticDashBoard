@@ -1,0 +1,85 @@
+.profile-info-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+}
+
+.card-title {
+  color: #36313C;
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0.03em;
+  text-align: left;
+
+}
+
+.profile-info-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.profile-intro {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-detail {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.profile-detail strong {
+  font-weight: 600;
+  color: #000;
+  margin-right: 5px;
+}
+
+.cardContainer {
+  background-color: white;
+}
+
+strong {
+  color: #36313C;
+  font-family: Lama Sans;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 66px;
+  letter-spacing: 0.03em;
+  text-align: left;
+
+}
+
+.col-lg-8 p {
+  font-family: Lama Sans;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: #9C999F;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.text-muted {
+  color: #A9AEB4;
+  font-family: Lama Sans;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 26px;
+  letter-spacing: 0.03em;
+}

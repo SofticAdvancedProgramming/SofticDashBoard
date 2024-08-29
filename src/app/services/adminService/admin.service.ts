@@ -14,4 +14,7 @@ export class AdminService {
   AddAdmin(request: any): Observable<any> {
     return this.apiCall.request('POST', this.apiUrl + '/Add', request);
   }
+  EditStatus(request: any): Observable<any> {
+    return this.apiCall.request('POST', this.apiUrl + '/EditAccountStatus', request);
+  }
 }

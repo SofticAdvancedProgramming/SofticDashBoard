@@ -1,10 +1,122 @@
-.addPositionBtn {
-    background: #9ACA3C;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-bottom: 1em;
+.container {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+   margin-top: 20px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.custom-search {
+  border-radius: 20px;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.custom-table th,
+.custom-table td {
+  text-align: left;
+  padding: 15px;
+  vertical-align: middle;
+}
+
+.custom-table th {
+   font-weight: bold;
+}
+
+.custom-table td {
+  border-bottom: 1px solid #ddd;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.btn-new-employee {
+  border: 2px solid #993BF9;
+  color: #993BF9;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-new-employee:hover {
+  background-color: #993BF9;
+  color: #fff;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.btn {
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.btn-danger {
+  background-color: #ff4d4f;
+  border: none;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #e63946;
+}
+
+.no-employees-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  text-align: center;
+}
+
+.no-employees-message {
+  font-size: 18px;
+  font-weight: bold;
+  color: #6c757d;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-section {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}

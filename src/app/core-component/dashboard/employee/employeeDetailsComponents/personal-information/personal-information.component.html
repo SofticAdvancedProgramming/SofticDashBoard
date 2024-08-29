@@ -1,0 +1,112 @@
+<div class="cardContainer p-4 mb-4" *ngIf="personalInfo">
+  <div class="card-body p-5">
+    <h3 class="card-title mb-3">Profile Information</h3>
+    <p class="text-muted mb-4">
+      Hi, I'm {{ personalInfo.firstName }}, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating).
+    </p>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Full Name:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.fullName }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Email:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.email }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Phone Number:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.phoneNumber }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Gender:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.gender === 0 ? 'Male' : 'Female' }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Date of Birth:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.birthDate !== '0001-01-01T00:00:00' ? (personalInfo.birthDate | date: 'longDate') : 'N/A' }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Marital Status:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.maritalStatus || 'N/A' }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Nationality:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.nationality || 'N/A' }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>ID Number:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.nationalId || 'N/A' }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Passport Number:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.passport || 'N/A' }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Reference Photo:</strong>
+      </div>
+      <div class="col-lg-8">
+        <img [src]="personalInfo.referancePhoto" style="width: 10vw;height: 10vh;"
+        alt="Reference Photo" class="img-fluid"
+        (error)="onImageError($event)" />      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Passport Photo:</strong>
+      </div>
+      <div class="col-lg-8">
+        <img [src]="personalInfo.passportPhoto"
+        alt="Passport Photo" class="img-fluid"style="width: 10vw;height: 10vh;"
+        (error)="onImageError($event)" />      </div>
+    </div>
+    <!-- Uncomment and update the following row when you have drive license number data -->
+    <!-- <div class="row">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>Drive License Number:</strong>
+      </div>
+      <div class="col-lg-8">
+        <p>{{ personalInfo.driveLicenseNumber || 'N/A' }}</p>
+      </div>
+    </div> -->
+  </div>
+</div>
+<ng-template #loading>
+  <div class="text-center">
+    <p>Loading...</p>
+  </div>
+</ng-template>

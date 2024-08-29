@@ -12,21 +12,24 @@ export class EmployeeService {
   constructor(private apiCall: ApiCall) { }
 
   loadEmployees(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/Get', request,);
+    return this.apiCall.request('POST', this.apiUrl + '/Get', request);
   }
   addEmployee(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/Add', request,);
+    return this.apiCall.request('POST', this.apiUrl + '/Add', request);
   }
   assginEmployeeToPosition(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/AssginPosition', request,);
+    return this.apiCall.request('POST', this.apiUrl + '/AssginPosition', request);
   }
 
   assginEmployeeToDepartment(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/AssginDepartment', request,);
+    return this.apiCall.request('POST', this.apiUrl + '/AssginDepartment', request);
   }
 
   assginEmployeeToBranch(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/AssginBranch', request,);
+    return this.apiCall.request('POST', this.apiUrl + '/AssginBranch', request);
+  }
+  deleteEmployee(companyId:number,id:number): Observable<any> {
+    return this.apiCall.request('POST', this.apiUrl + `/Delete/${id}/${companyId}`);
   }
 
 }
