@@ -1,4 +1,4 @@
-.container {
+.container-Details {
     margin: 1em;
     font-family: Arial, sans-serif;
     background-color: white;
@@ -62,17 +62,18 @@
 }
 
 .customHeader {
-    color: #36313C;
-    font-family: Lama Sans;
+    color: #36313C !important;
+     font-family: Lama Sans;
     font-size: 20px;
     font-weight: 700;
     line-height: 40px;
     letter-spacing: 0.03em;
     text-align: center;
+    
 
 }
 
-.text-dark {
+.textdark {
     color: #0D0714;
     font-family: Lama Sans;
     font-size: 16px;

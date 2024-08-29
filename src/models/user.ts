@@ -42,3 +42,17 @@ export interface PersonalInformation {
   profileImage: string;
   profileImageExtension: string | null;
 }
+export interface Address {
+  id: number;
+  fullAddress: string;
+  nearBy: string;
+  street: string;
+  floor: number;
+  unit: string;
+  buildingNo: string;
+  isOrginalAddress: boolean;
+  countryId: number;
+  cityId: number;
+  zoneId: number;
+  userId: number;
+}
