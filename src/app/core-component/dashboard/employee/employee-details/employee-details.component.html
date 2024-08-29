@@ -29,12 +29,12 @@
 
     </div>
     <div class="col-lg-6 justify-content-end gap-3 d-flex">
-      @if(employee.accountStatus === accountStatus.Pending){
-        <button class="btn rejected">Rejected</button>
-        <button class="btn accepted">Accepted</button>
+      @if(employee.accountStatus === accountStatus.Pending) {
+        <button class="btn rejected" (click)="updateStatus(accountStatus.Rejected)">Rejected</button>
+        <button class="btn accepted" (click)="updateStatus(accountStatus.Active)">Accepted</button>
       }
+    </div>
 
-  </div>
 
 </div>
 
