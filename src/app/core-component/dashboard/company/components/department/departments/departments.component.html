@@ -58,3 +58,14 @@
 
 
   <p-toast position="top-center"></p-toast>
+  <div class="d-flex justify-content-center mt-3">
+    <pagination 
+      [totalItems]="totalItems" 
+      [(ngModel)]="currentPage" 
+      [itemsPerPage]="itemsPerPage"
+      (pageChanged)="handlePageChange($event)" 
+      previousText="&laquo;" 
+      nextText="&raquo;">
+    </pagination>
+  </div>
+ 

@@ -10,7 +10,7 @@ import { ToastModule } from 'primeng/toast';
 import { ModernTableComponent } from '../../../../components/modern-table/modern-table.component';
 import { AddBranchComponent } from '../add-branch/add-branch.component';
 import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination'; 
 @Component({
   selector: 'app-view-branches',
   templateUrl: './view-branches.component.html',
@@ -24,7 +24,8 @@ import { AssignEntityComponent } from '../assign-entity/assign-entity.component'
     ToastModule,
     AddBranchComponent,
     AssignEntityComponent,
-    ModernTableComponent
+    ModernTableComponent,
+    PaginationModule
   ],
 })
 export class ViewBranchesComponent implements OnInit {
@@ -35,7 +36,9 @@ export class ViewBranchesComponent implements OnInit {
   employees: employee[] = [];
   isAssignEntity: boolean = false;
   selectedBranch: branch | undefined = undefined;
-
+  currentPage: number = 1;   
+  itemsPerPage: number = 10; 
+  totalItems: number = 0;
   constructor(private branchService: BranchService, private employeeService: EmployeeService, private messageService: MessageService) {}
 
   ngOnInit(): void {
@@ -44,10 +47,11 @@ export class ViewBranchesComponent implements OnInit {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
 
-  loadBranches(): void {
-    this.branchService.getBranch({ comapnyId:this.companyId }).subscribe({
+  loadBranches(page: number = this.currentPage): void {
+    this.branchService.getBranch({ companyId: this.companyId, pageIndex: page, pageSize: this.itemsPerPage }).subscribe({
       next: (response) => {
         this.branches = response.data.list;
+        this.totalItems = response.data.totalRows; 
         console.log("Branches loaded:", this.branches);
       },
       error: (err) => {
@@ -55,6 +59,11 @@ export class ViewBranchesComponent implements OnInit {
         this.showError('Error loading branches');
       }
     });
+  }
+
+  handlePageChange(event: { page: number }): void {
+    this.currentPage = event.page;
+    this.loadBranches(this.currentPage);
   }
 
   loadEmployees(): void {
