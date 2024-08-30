@@ -65,6 +65,8 @@ body {
 
 .sidebar-logo {
     margin: auto 0;
+    display: flex;
+    justify-content: center;
 }
 
 .sidebar-logo a {
