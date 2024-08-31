@@ -45,22 +45,24 @@
         <span>Organizational Chart </span>
       </a>
     </li>
+    @if(role[0] === 'Admin'||role[0] === 'SuperAdmin'){
     <li class="sidebar-item" routerLinkActive="active">
       <a routerLink="/dashboard/ViewEmployees" class="sidebar-link">
         <img src="../../../../assets/images/profile-circle.png">
         <span>Employee </span>
       </a>
-    </li>
+    </li>}
   </ul>
   <div class="sidebar-footer">
     <a routerLink="AddEmployee" class="sidebar-link">
       <img src="../../../../assets/images/softic/user-add.png">
       <span class="settingText">Add Admin</span>
     </a>
+    @if(role[0] === 'Admin'||role[0] === 'SuperAdmin'){
     <a routerLink="generalLookups" class="sidebar-link">
       <img src="../../../../assets/images/settings.png">
       <span class="settingText">Setting</span>
-    </a>
+    </a>}
     <a href="#" class="sidebar-link">
       <img src="../../../../assets/images/help.png">
       <span class="helpText">Help</span>

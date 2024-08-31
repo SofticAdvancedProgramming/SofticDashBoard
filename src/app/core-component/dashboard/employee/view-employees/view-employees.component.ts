@@ -30,7 +30,7 @@ export class ViewEmployeesComponent implements OnInit {
   isShowingPending: boolean = false;
   employeeToDelete: employee | null = null;
 
-  constructor(private employeeService: EmployeeService, private cdr: ChangeDetectorRef, private router: Router) { }
+  constructor(private employeeService: EmployeeService, private cdr: ChangeDetectorRef, private router: Router ) { }
 
   ngOnInit() {
     this.loadEmployees();
@@ -56,10 +56,6 @@ export class ViewEmployeesComponent implements OnInit {
           this.totalRows = response.data.totalRows;
           this.applyFilter();
           this.cdr.detectChanges();
-        }),
-        catchError((error: any) => {
-          console.error('Error loading employees', error);
-          return of([]);
         })
       ).subscribe();
     } else {
@@ -106,10 +102,6 @@ export class ViewEmployeesComponent implements OnInit {
             console.log(`Employee ${this.employeeToDelete?.id} deleted successfully.`);
             this.loadEmployees();
             this.employeeToDelete = null;
-          }),
-          catchError((error) => {
-            console.error('Error deleting employee', error);
-            return of([]);
           })
         )
         .subscribe();
