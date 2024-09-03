@@ -71,9 +71,9 @@ export class AddCompanyComponent implements OnInit {
       companyExtention: ['', Validators.required],
       description: ['', Validators.required],
       descriptionAr: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      phone: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       companyField: ['', Validators.required],
       logo: ['', Validators.required],
       fileExtension: [''],
@@ -161,6 +161,8 @@ export class AddCompanyComponent implements OnInit {
   onSubmit(): void {
     if (this.addCompanyForm.invalid) {
       console.log('Form is invalid:', this.addCompanyForm.errors);
+      console.log('Form values:', this.addCompanyForm.value);
+
       Object.keys(this.addCompanyForm.controls).forEach(key => {
         const controlErrors = this.addCompanyForm.get(key)?.errors;
         if (controlErrors) {
@@ -177,9 +179,13 @@ export class AddCompanyComponent implements OnInit {
 
 
   private executeAddFunction(): void {
-    const companyData = this.addCompanyForm.value;
+    const companyData = { ...this.addCompanyForm.value };
 
-    console.log(companyData)
+    companyData.phone = companyData.phone?.e164Number;
+    companyData.phoneNumber = companyData.phoneNumber?.e164Number;
+
+    console.log(companyData);
+
     this.companyService.AddCompany(companyData).subscribe(
       response => {
         this.router.navigate(['../AddAdmin'], { relativeTo: this.route, queryParams: { companyId: response.data.id } });
