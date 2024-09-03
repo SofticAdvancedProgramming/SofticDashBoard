@@ -2,3 +2,15 @@
     margin-top: .5rem !important;
     margin-bottom: .5rem !important;
 }
+input {
+    width: 100% !important;
+  }:host-context([dir="rtl"]) .authIcon {
+    left: 20px;  
+    right: auto;
+  }
+  
+  :host-context([dir="ltr"]) .authIcon {
+    right: 20px; 
+    left: auto;
+  }
+  

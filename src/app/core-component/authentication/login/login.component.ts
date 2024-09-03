@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/api';
 import { AuthenticationService } from '../../../services/authenticationService/authentication.service';
 import { isPlatformBrowser } from '@angular/common';
 import { ToastersService } from '../../../core/services/toast-service/toast.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ import { ToastersService } from '../../../core/services/toast-service/toast.serv
   styleUrls: ['./login.component.css'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink , TranslateModule],
   providers: [
     JwtHelperService,
     MessageService,
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private cdr: ChangeDetectorRef,
     private toast: ToastersService,
+    private translate: TranslateService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
@@ -94,5 +96,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+  get isRtl(): boolean {
+    return this.translate.currentLang === 'ar';
   }
 }
