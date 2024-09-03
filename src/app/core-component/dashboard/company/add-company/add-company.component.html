@@ -27,7 +27,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('name')}">
             <label for="name">Company Name (English)</label>
-            <input required type="text" id="name" formControlName="name" class="form-control" placeholder="Enter company name (English)">
+            <input required type="text" id="name" formControlName="name" class="form-control" placeholder="Enter company name (English)"      appAlphanumeric [appInputRestriction]="'arabic'">
             <div *ngIf="isFieldInvalid('name')" class="text-danger">
               <small *ngIf="addCompanyForm.get('name')?.errors?.['required']">Company Name (English) is required.</small>
             </div>
@@ -36,7 +36,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('nameAr')}">
             <label for="nameAr">Company Name (Arabic)</label>
-            <input required type="text" id="nameAr" formControlName="nameAr" class="form-control" placeholder="Enter company name (Arabic)">
+            <input required type="text" id="nameAr" formControlName="nameAr" class="form-control" placeholder="Enter company name (Arabic)"  appAlphanumeric [appInputRestriction]="'english'">
             <div *ngIf="isFieldInvalid('nameAr')" class="text-danger">
               <small *ngIf="addCompanyForm.get('nameAr')?.errors?.['required']">Company Name (Arabic) is required.</small>
             </div>
@@ -195,7 +195,10 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('description')}">
             <label for="description">Description</label>
-            <textarea id="description" formControlName="description" class="form-control" placeholder="Description"></textarea>
+            <textarea id="description" formControlName="description" class="form-control CustomModelInput"
+            appAlphanumeric [appInputRestriction]="'arabic'" placeholder="Description" minlength="100" maxlength="250"></textarea>
+            <p class="char-counter">{{ addCompanyForm.get('description')?.value?.length || 0 }} / 250</p>
+            <p *ngIf="reasonErrorMessageEn" class="text-danger">{{ reasonErrorMessageEn }}</p>
             <div *ngIf="isFieldInvalid('description')" class="text-danger">
               <small *ngIf="addCompanyForm.get('description')?.errors?.['required']">Description is required.</small>
             </div>
@@ -204,13 +207,17 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('descriptionAr')}">
             <label for="descriptionAr">Description (Arabic)</label>
-            <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control" placeholder="Description (Arabic)"></textarea>
+            <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control CustomModelInput"
+            appAlphanumeric [appInputRestriction]="'english'"> placeholder="Description (Arabic)" minlength="100" maxlength="300"></textarea>
+            <p class="char-counter">{{ addCompanyForm.get('descriptionAr')?.value?.length || 0 }} / 250</p>
+            <p *ngIf="reasonErrorMessageAr" class="text-danger">{{ reasonErrorMessageAr }}</p>
             <div *ngIf="isFieldInvalid('descriptionAr')" class="text-danger">
               <small *ngIf="addCompanyForm.get('descriptionAr')?.errors?.['required']">Description in Arabic is required.</small>
             </div>
           </div>
         </div>
       </div>
+
       <hr>
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 w-100 mb-2">

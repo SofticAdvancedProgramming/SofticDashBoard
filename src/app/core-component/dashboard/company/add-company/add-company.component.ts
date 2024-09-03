@@ -9,6 +9,9 @@ import { SubscriptionPlanService } from '../../../../services/lockupsServices/Su
 import { LocationService } from '../../../../services/lockupsServices/LocationService/location.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { AlphanumericDirective } from '../../../../common-component/directives/Alphanumeric-directive/alphanumeric-directive.directive';
+import { InputRestrictionDirective } from '../../../../common-component/directives/lang-directive/input-restriction.directive';
+import { SpecialCharacterDirective } from '../../../../common-component/directives/specialCharacter-directive/special-character.directive';
 
 @Component({
   selector: 'app-add-company',
@@ -20,7 +23,10 @@ import { ToastModule } from 'primeng/toast';
     CommonModule,
     ReactiveFormsModule,
     RouterLink,
-    ToastModule
+    ToastModule,
+    AlphanumericDirective,
+    InputRestrictionDirective,
+    SpecialCharacterDirective,
   ],
   providers: [MessageService]
 })
@@ -31,7 +37,8 @@ export class AddCompanyComponent implements OnInit {
   subscriptionPlans: any[] = [];
   countries: any[] = [];
   cities: any[] = [];
-
+  reasonErrorMessageEn: string | null = null;
+  reasonErrorMessageAr: string | null = null;
   constructor(
     private fb: FormBuilder,
     private companyService: CompanyService,
@@ -73,13 +80,13 @@ export class AddCompanyComponent implements OnInit {
       twitter: [null],
       instgram: [null],
       tiktok: [null],
-      cityId: [null],  // Initialize with null
-      countryId: [null],  // Initialize with null
+      cityId: [null],
+      countryId: [null],
       address: [null],
       subscriptionPlanId: ['', Validators.required]
     });
   }
-  
+
 
   private loadSubscriptionPlans(): void {
     this.subscriptionPlanService.getSubscriptionPlan().subscribe(
@@ -193,4 +200,26 @@ export class AddCompanyComponent implements OnInit {
     const control = this.addCompanyForm.get(field);
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
+  private setupFormListeners(): void {
+    this.addCompanyForm.get('description')?.valueChanges.subscribe(() => this.validateField('description'));
+    this.addCompanyForm.get('descriptionAr')?.valueChanges.subscribe(() => this.validateField('descriptionAr'));
+  }
+
+  private validateField(field: string): void {
+    const control = this.addCompanyForm.get(field);
+    if (!control) return;
+
+    const valueLength = control.value ? control.value.length : 0;
+
+    if (field === 'description') {
+      this.reasonErrorMessageEn = valueLength < 100 ? 'Your message must be at least 100 characters long.' :
+                                valueLength > 250 ? 'Your message cannot exceed 250 characters.' : null;
+    }
+
+    if (field === 'descriptionAr') {
+      this.reasonErrorMessageAr = valueLength < 100 ? 'Your message in Arabic must be at least 100 characters long.' :
+                                valueLength > 250 ? 'Your message in Arabic cannot exceed 300 characters.' : null;
+    }
+  }
+
 }
