@@ -18,7 +18,7 @@
       <div class="col-lg-1 justify-content-center d-flex">
         <img class="notfication" src="../../../../assets/images/notification.png">
       </div>
-      <div class="col-lg-4 d-flex gap-3 justify-content-end profile">
+      <!-- <div class="col-lg-4 d-flex gap-3 justify-content-end profile">
       <a routerLink="profile">  <img  class="img-fluid" src="../../../../assets/images/default.png">  </a>
         <div class="desc" >
           <p>george mikhaiel</p>
@@ -27,8 +27,17 @@
         <button  type="button" class="btn" (click)="toggleFullScreen()">
           <img  src="assets/images/fullscreen.png" alt="" style=" width: 20px; height: 20px;">
         </button>
+      </div> -->
+      <div class="col-lg-4 d-flex gap-3 justify-content-end profile" routerLink="profile">
+        <a> <img class="img-fluid" [src]="profileImage ? profileImage: 'assets/images/default.jpeg'"> </a>
+        <div class="desc">
+          <p>{{user.firstName || ''}}</p>
+          <p>{{roles[0]|| '' }}</p>
+        </div>
+        <button type="button" class="btn" (click)="toggleFullScreen()">
+          <img src="assets/images/fullscreen.png" alt="" style=" width: 20px; height: 20px;">
+        </button>
       </div>
-
     </div>
     </div>
 
