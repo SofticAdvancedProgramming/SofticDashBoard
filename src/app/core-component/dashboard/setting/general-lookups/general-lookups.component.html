@@ -1,14 +1,14 @@
 <div class="container my-4">
     <div class="row g-3">
-        <div class="col-lg-4">
-            <app-lockup-card 
+        <div class="col-lg-4" *ngIf="role[0] === 'SuperAdmin'">
+            <app-lockup-card  
                 iconSrc="../../../../../assets/images/lockup/PersonalReferanceManagement.png"
                 header="Subscription Plan Management"
                 description="Create and manage subscription plans to meet diverse user needs."
                 link="../SubscriptionPlan">
             </app-lockup-card>
         </div>
-        <div class="col-lg-4 mt-3">
+        <div class="col-lg-4 mt-3"  *ngIf="role[0] === 'Admin'" >
             <app-lockup-card 
                 iconSrc="../../../../../assets/images/lockup/security-user.png"
                 header="Position Management"
