@@ -9,7 +9,8 @@
       <i class="lni lni-grid-alt"></i> ☰
     </button>
     <div class="sidebar-logo">
-      <a href="#" >        <img style="    width: 170px;" src="../../../../assets/images/Chabaka Al- Dhakia- logo options-01 1.svg">
+      <a href="#">
+        <img style="width: 170px;" src="../../../../assets/images/Chabaka Al- Dhakia- logo options-01 1.svg">
       </a>
     </div>
   </div>
@@ -19,61 +20,73 @@
         <span class="lightDescription justify-content-between">Quick Access</span>
       </a>
     </li>
-    <li class="sidebar-item" routerLinkActive="active">
+    
+    <!-- Apply `routerLinkActive` directive here -->
+    <li class="sidebar-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
       <a routerLink="/dashboard/home" class="sidebar-link">
-        <img src="../../../../assets/images/softic/dashboardIcon.png">
+        <img src="../../../../assets/images/element-4.png">
         <span>Dashboard</span>
       </a>
     </li>
-    <li class="sidebar-item" routerLinkActive="active">
-      @if(role[0] === 'Admin'){
-      <a [routerLink]="'../dashboard/company/'+ companyId " class="sidebar-link">
+    
+    <!-- Admin Role Sidebar Link -->
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="active-link">
+      <a [routerLink]="'/dashboard/company/' + companyId" class="sidebar-link">
         <img src="../../../../assets/images/softic/companyIcon.png">
         <span>Company</span>
       </a>
-      }
-      @if(role[0] === 'SuperAdmin'){
-      <a routerLink="../dashboard/indexCompany" class="sidebar-link">
+    </li>
+    
+    <!-- SuperAdmin Role Sidebar Link -->
+    <li class="sidebar-item" *ngIf="role[0] === 'SuperAdmin'" routerLinkActive="active-link">
+      <a routerLink="/dashboard/indexCompany" class="sidebar-link">
         <img src="../../../../assets/images/softic/companyIcon.png">
         <span>Companies</span>
       </a>
-      }
-
     </li>
-    <li class="sidebar-item" routerLinkActive="active">
+    
+    <li class="sidebar-item" routerLinkActive="active-link">
       <a routerLink="/dashboard/OrganizationCharts" class="sidebar-link">
         <img src="../../../../assets/images/softic/orgIcon.png">
-        <span>Organizational Chart </span>
+        <span>Organizational Chart</span>
       </a>
     </li>
-    @if(role[0] === 'Admin'||role[0] === 'SuperAdmin'){
-    <li class="sidebar-item" routerLinkActive="active">
+    
+    <!-- Conditional Employee Link for Admin and SuperAdmin Roles -->
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin' || role[0] === 'SuperAdmin'" routerLinkActive="active-link">
       <a routerLink="/dashboard/ViewEmployees" class="sidebar-link">
         <img src="../../../../assets/images/profile-circle.png">
-        <span>Employee </span>
+        <span>Employee</span>
       </a>
-    </li>}
+    </li>
   </ul>
   <div class="sidebar-footer">
-    <a routerLink="AddEmployee" class="sidebar-link">
+    <!-- Common Link -->
+    <a routerLink="AddEmployee" class="sidebar-link" routerLinkActive="active-link">
       <img src="../../../../assets/images/softic/user-add.png">
       <span class="settingText">Add Admin</span>
     </a>
-    @if(role[0] === 'Admin'||role[0] === 'SuperAdmin'){
-    <a routerLink="generalLookups" class="sidebar-link">
-      <img src="../../../../assets/images/settings.png">
-      <span class="settingText">Setting</span>
-    </a>}
+    
+    <!-- Settings Link for Admin and SuperAdmin Roles -->
+    <ng-container *ngIf="role[0] === 'Admin' || role[0] === 'SuperAdmin'">
+      <a routerLink="generalLookups" class="sidebar-link" routerLinkActive="active-link">
+        <img src="../../../../assets/images/settings.png">
+        <span class="settingText">Setting</span>
+      </a>
+    </ng-container>
+    
+    <!-- Help Link -->
     <a href="#" class="sidebar-link">
       <img src="../../../../assets/images/help.png">
       <span class="helpText">Help</span>
     </a>
+    
+    <!-- Logout Button -->
     <div>
       <a class="sidebar-link" (click)="logout()">
         <img src="../../../../assets/images/logout.png">
-        <span class="logoutText"> Logout</span>
+        <span class="logoutText">Logout</span>
       </a>
     </div>
-
   </div>
 </aside>
