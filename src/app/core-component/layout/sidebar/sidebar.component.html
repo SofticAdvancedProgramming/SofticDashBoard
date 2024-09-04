@@ -45,7 +45,7 @@
       </a>
     </li>
     
-    <li class="sidebar-item" routerLinkActive="active-link">
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="active-link">
       <a routerLink="/dashboard/OrganizationCharts" class="sidebar-link">
         <img src="../../../../assets/images/softic/orgIcon.png">
         <span>Organizational Chart</span>
@@ -53,7 +53,7 @@
     </li>
     
     <!-- Conditional Employee Link for Admin and SuperAdmin Roles -->
-    <li class="sidebar-item" *ngIf="role[0] === 'Admin' || role[0] === 'SuperAdmin'" routerLinkActive="active-link">
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="active-link">
       <a routerLink="/dashboard/ViewEmployees" class="sidebar-link">
         <img src="../../../../assets/images/profile-circle.png">
         <span>Employee</span>
