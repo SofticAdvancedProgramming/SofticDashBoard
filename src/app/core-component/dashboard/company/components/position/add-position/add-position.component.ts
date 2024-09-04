@@ -37,7 +37,7 @@ export class AddPositionComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       positionType: ['', Validators.required],
-      department: ['', Validators.required],
+      department: [''],
       position: [{ value: '', disabled: true }, Validators.required],
       isDirectManager: [false]
     });

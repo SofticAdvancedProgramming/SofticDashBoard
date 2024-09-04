@@ -95,3 +95,9 @@
     top: 50%;
     transform: translateY(-50%);
 }
+.upload-text {
+    font-family: Lama Sans;
+    font-size: 19.07px;
+    font-weight: 700;
+    line-height: 38.13px;
+}

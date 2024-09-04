@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="align-items-center gap-3 p-2 d-flex">
+      <img class="customIcon" [src]="iconSrc" alt="Icon">
+      <p class="Customheader text-center">{{ header | translate }}</p>
+    </div>
+    <div class="text justify-content-center d-flex flex-column">
+      <p class="description">{{ description | translate }}</p>
+    </div>
+    <div class="btn justify-content-end d-flex">
+      <button 
+        class="btn justify-content-center d-flex align-items-center gap-2 lockupButton"
+        [routerLink]="link">
+        {{ 'Read More' | translate }}
+        <svg class="arrowColor"
+          width="20" 
+          height="20" 
+          viewBox="0 0 20 20" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+          [ngClass]="{ 'arrow-left': isArabic, 'arrow-right': !isArabic }">
+          <path d="M4.16675 10H15.8334M15.8334 10L10.8334 5M15.8334 10L10.8334 15" 
+            stroke="#8413F8" 
+            stroke-width="2" 
+            stroke-linecap="round" 
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  

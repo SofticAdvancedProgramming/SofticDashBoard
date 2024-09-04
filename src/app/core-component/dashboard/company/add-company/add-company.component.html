@@ -54,7 +54,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyExtention')}">
             <label for="companyExtention">Company Extension</label>
-            <input required type="text" id="companyExtention" formControlName="companyExtention" class="form-control" placeholder="1212156646489">
+            <input required type="text" id="companyExtention" formControlName="companyExtention" class="form-control" placeholder="@example.com">
             <div *ngIf="isFieldInvalid('companyExtention')" class="text-danger">
               <small *ngIf="addCompanyForm.get('companyExtention')?.errors?.['required']">Company Extension is required.</small>
             </div>
@@ -201,6 +201,9 @@
             <label for="webSite">Website</label>
             <input type="text" id="webSite" formControlName="webSite" class="form-control" placeholder="Website">
           </div>
+          <div *ngIf="isFieldInvalid('webSite')" class="text-danger">
+            <small *ngIf="addCompanyForm.get('webSite')?.errors?.['required']">A valid website is required.</small>
+           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">

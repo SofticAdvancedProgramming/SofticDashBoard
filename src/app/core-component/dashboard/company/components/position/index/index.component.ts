@@ -147,8 +147,7 @@ export class IndexComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Position deleted successfully' });
       },
       error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting position' });
-      }
+       }
     });
   }
 

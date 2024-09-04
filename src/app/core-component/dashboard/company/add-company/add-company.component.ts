@@ -80,7 +80,7 @@ export class AddCompanyComponent implements OnInit {
       primaryColor: ['', Validators.required],
       secondaryColor: ['', Validators.required],
       fontName: ['', Validators.required],
-      webSite: [''],
+      webSite:  ['', Validators.required],
       facebook: [null],
       twitter: [null],
       instgram: [null],

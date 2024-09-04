@@ -61,8 +61,10 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (response && response.data.token) {
           if (isPlatformBrowser(this.platformId)) {
             const decodedObject = this.authService.decodeToken(response.data.token);
-            console.log(decodedObject);
-            localStorage.setItem('companyId', decodedObject.CompanyId)
+             localStorage.setItem('companyId', decodedObject.CompanyId),
+             localStorage.setItem('userId', decodedObject.nameid);
+             localStorage.setItem('firstName', decodedObject.nameid);
+
           }
           console.log('Token saved. Attempting to navigate to dashboard...');
           this.router.navigate(['/dashboard']).then(success => {
