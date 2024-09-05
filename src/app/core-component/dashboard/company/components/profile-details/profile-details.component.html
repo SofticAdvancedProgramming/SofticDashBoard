@@ -1,25 +1,36 @@
-<div class="container">
+<div class="container mt-4">
   <div class="row">
-    <div class="editbtn">
-      <button><i style="color: white;" class="fa-solid fa-pen-to-square"></i> Edit </button>
+    <div class="col-12 editbtn">
+      <button>
+        <i style="color: white;" class="fa-solid fa-pen-to-square"></i>
+        {{ 'PROFILE_DETAILS.EDIT' | translate }}
+      </button>
     </div>
   </div>
-  <div class="about-container row">
-    <div class="about-content col-lg-6 col-md-12 col-sm-12">
-      <h2>About</h2>
-      <p>
-      {{company.description}}
+  <div class="row about-container">
+    <div class="about-content col-lg-6 col-md-6 col-sm-12">
+      <h2>{{ 'PROFILE_DETAILS.ABOUT' | translate }}</h2>
+      <p class="info-description">
+        {{ isArabic ? (company.descriptionAr || 'PROFILE_DETAILS.NO_DATA' | translate) : (company.description || 'PROFILE_DETAILS.NO_DATA' | translate) }}
       </p>
     </div>
-    <div class="contact-details col-lg-6 col-md-12 col-sm-12">
+    <div class="contact-details col-lg-6 col-md-6 col-sm-12">
       <ul>
-        <li><strong>City</strong>: {{cityName}}</li>
-        <li><strong>Country</strong>: {{countryName}}</li>
-        <li><strong>Address</strong>:{{company.address}}</li>
-        <li><strong>Email</strong>:{{company.email}}</li>
-        <li><strong>Mobile</strong>:{{company.phoneNumber}}</li>
-        <li><strong>Fax</strong>:{{company.fax}}</li>
-        <li><strong>Phone</strong>:{{company.phone}}</li>
+        <li><strong>{{ 'PROFILE_DETAILS.ADDRESS' | translate }}</strong>: 
+          {{ company.address || ('PROFILE_DETAILS.NO_DATA' | translate) }}
+        </li>
+        <li><strong>{{ 'PROFILE_DETAILS.EMAIL' | translate }}</strong>: 
+          {{ company.email || ('PROFILE_DETAILS.NO_DATA' | translate) }}
+        </li>
+        <li><strong>{{ 'PROFILE_DETAILS.MOBILE' | translate }}</strong>: 
+          {{ company.phoneNumber || ('PROFILE_DETAILS.NO_DATA' | translate) }}
+        </li>
+        <li><strong>{{ 'PROFILE_DETAILS.FAX' | translate }}</strong>: 
+          {{ company.fax || ('PROFILE_DETAILS.NO_DATA' | translate) }}
+        </li>
+        <li><strong>{{ 'PROFILE_DETAILS.PHONE' | translate }}</strong>: 
+          {{ company.phone || ('PROFILE_DETAILS.NO_DATA' | translate) }}
+        </li>
       </ul>
     </div>
   </div>

@@ -10,13 +10,15 @@ import { CompanyService } from '../../../../services/comapnyService/company.serv
 import { LocationService } from '../../../../services/lockupsServices/LocationService/location.service';
 import { DepartmentsComponent } from "../components/department/departments/departments.component";
 import { ViewBranchesComponent } from "../components/branches/view-branches/view-branches.component";
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-company-details',
     standalone: true,
     templateUrl: './company-details.component.html',
     styleUrls: ['./company-details.component.css'],
-    imports: [MatTabsModule, RouterLink, ProfileDetailsComponent, TopManagmentComponent, IndexComponent, DepartmentsComponent, ViewBranchesComponent]
+    imports: [MatTabsModule,TranslateModule, RouterLink, ProfileDetailsComponent, TopManagmentComponent, IndexComponent, DepartmentsComponent, ViewBranchesComponent , CommonModule]
 })
 export class CompanyDetailsComponent implements OnInit {
   role: any = JSON.parse(localStorage.getItem('roles')!);
@@ -25,11 +27,12 @@ export class CompanyDetailsComponent implements OnInit {
   company: Company = {} as Company;
   cityName: string = '';
   countryName: string = '';
-
+  isArabic: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private translate: TranslateService
   ) {}
 
   async ngOnInit() {
@@ -37,6 +40,9 @@ export class CompanyDetailsComponent implements OnInit {
     if (this.companyId) {
       await this.getCompanyDetails(this.companyId);
     }
+  }
+  checkLanguageDirection(): void {
+    this.isArabic = this.translate.currentLang === 'ar';  
   }
 
   async getCompanyDetails(companyId: string): Promise<void> {

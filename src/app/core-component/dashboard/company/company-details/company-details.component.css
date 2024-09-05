@@ -7,7 +7,6 @@
 
 .profile-header {
     background-color: #fff;
-    margin: 20px;
     border-radius: 8px;
     overflow: hidden;
 }
@@ -20,15 +19,22 @@
 
 .profile-info {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
-    gap: 10em;
 }
-.profile-logo{
+
+.profile-left {
+    display: flex;
+    align-items: center;
+}
+
+.profile-logo {
     position: relative;
 }
+
 .profile-logo img {
- 
     border-radius: 50%;
     margin-right: 20px;
     position: absolute;
@@ -36,10 +42,19 @@
     width: 160px;
     height: 160px;
 }
-.profile-details {
-    flex-grow: 1;
+
+ 
+
+ 
+:host-context([dir="ltr"]) .company-details {
+    margin-left: 180px;  
 }
 
+:host-context([dir="rtl"]) .company-details {
+    margin-right: 180px;  
+}
+
+ 
 .profile-details h1 {
     margin: 0;
     font-size: 24px;
@@ -101,9 +116,50 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(14px);
 }
+
 .toggle-button-container button {
     border: 1px solid #8413F8;
-    color:#8413F8;
+    color: #8413F8;
     display: flex;
     gap: 1em;
+}
+
+@media (max-width: 768px) {
+    .profile-info {
+        flex-direction: column;
+        align-items: center;
+        margin: 0px;
+    }
+
+    .profile-logo img {
+        position: relative;
+        top: 0;
+        margin-bottom: 10px;
+    }
+
+    .company-details {
+        margin-left: 0;  
+        margin-right: 0;  
+        text-align: center;
+    }
+
+    .profile-action {
+        margin-top: 10px;  
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-info {
+        padding: 10px;
+    }
+
+    .profile-left {
+        flex-direction: column;
+        align-items: center;
+    }
+    .company-details {
+        margin-left: 0 !important;  
+        margin-right: 0 !important;  
+        text-align: center;
+    }
 }

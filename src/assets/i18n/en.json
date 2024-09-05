@@ -48,5 +48,28 @@
   "ERROR": "Error",
   "CHECK_INPUTS": "Please check your inputs and ensure OTP is 7 digits.",
   "SUCCESS": "Success",
-  "PASSWORD_RESET_SUCCESS": "Password reset successful. You can now log in with your new password."
+  "PASSWORD_RESET_SUCCESS": "Password reset successful. You can now log in with your new password.",
+  "PROFILE_DETAILS": {
+    "EDIT": "Edit",
+    "ABOUT": "About",
+    "CITY": "City",
+    "COUNTRY": "Country",
+    "ADDRESS": "Address",
+    "EMAIL": "Email",
+    "MOBILE": "Mobile",
+    "FAX": "Fax",
+    "PHONE": "Phone",
+    "NO_DATA": "No data"
+  },
+  "COMPANY_DETAILS": {
+    "TITLE": "Company Details",
+    "ACTIVATE": "Activate",
+    "BRANCHES": "Branches",
+    "DEPARTMENTS": "Departments",
+    "POSITION": "Position",
+    "TOP_MANAGEMENT": "Top Management",
+    "NAME": "Company Name",
+    "PHONE_NUMBER": "Phone Number",
+    "TYPE": "Software Company"
+  }
 }
