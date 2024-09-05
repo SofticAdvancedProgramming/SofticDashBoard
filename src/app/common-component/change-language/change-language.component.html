@@ -1,0 +1,20 @@
+<li class="nav-item dropdown has-arrow flag-nav">
+  <a class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="javascript:void(0);"
+    role="button">
+    <img [src]="selectedFlag" [alt]="currentLang" style="margin-left: 3px;" height="16" class="me-2" />
+    <span>{{ selectedLanguage }}</span>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li>
+      <a class="dropdown-item" [class.active]="currentLang === 'en'" (click)="changeLanguage('en')"
+        href="javascript:void(0);">
+        <img src="assets/images/flags/us.png" alt="US Flag" height="16" /> English
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" [class.active]="currentLang === 'ar'" (click)="changeLanguage('ar')" href="javascript:void(0);">
+        <img  src="assets/images/flags/sa.png" alt="Saudi Arabia Flag" height="16" /> عربي
+      </a>
+    </li>
+  </ul>
+</li>

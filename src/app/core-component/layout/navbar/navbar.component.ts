@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user/user-service';
+import { ChangeLanguageComponent } from "../../../common-component/change-language/change-language.component";
 
 @Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+    selector: 'app-navbar',
+    standalone: true,
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.css',
+    imports: [RouterLink, ChangeLanguageComponent]
 })
 export class NavbarComponent {
   constructor(private userService: UserService) { }
