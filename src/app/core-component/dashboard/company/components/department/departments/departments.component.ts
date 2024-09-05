@@ -15,7 +15,7 @@ import { ToastModule } from 'primeng/toast';
 import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
 import { ApiCall } from '../../../../../../core/services/http-service/HttpService';
 import { ViewEmployeesComponent } from "../../../../employee/view-employees/view-employees.component";
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 @Component({
     selector: 'app-departments',
     standalone: true,
@@ -32,7 +32,8 @@ import { ViewEmployeesComponent } from "../../../../employee/view-employees/view
         DepartmentOverviewComponent,
         ToastModule,
         AssignEntityComponent,
-        ViewEmployeesComponent
+        ViewEmployeesComponent,
+        PaginationModule
     ]
 })
 export class DepartmentsComponent implements OnInit {
@@ -52,7 +53,9 @@ export class DepartmentsComponent implements OnInit {
   selectedEntityId: string | undefined = undefined;
   entityType: string = 'Employee';
   selectedDepartment: Department | null = null;
-
+  currentPage: number = 1;
+  itemsPerPage: number = 10; 
+  totalItems: number = 0;
   constructor(
     private apiCall: ApiCall,
     private router: Router,
@@ -65,12 +68,13 @@ export class DepartmentsComponent implements OnInit {
     this.loadDepartments();
   }
 
-  loadDepartments(): void {
+  loadDepartments(page: number = this.currentPage): void {
     const companyId = this.getCompanyId();
     if (companyId) {
-      this.departmentService.getDepartment({ companyId }).subscribe({
+      this.departmentService.getDepartment({ companyId, pageIndex: page, pageSize: this.itemsPerPage }).subscribe({
         next: (response) => {
           const departments: Department[] = response.data.list;
+          this.totalItems = response.data.totalRows; // Set total items for pagination
           this.cards = departments.map((department: Department) => ({
             id: department.id,
             title: department.name,
@@ -84,6 +88,11 @@ export class DepartmentsComponent implements OnInit {
         }
       });
     }
+  }
+
+  handlePageChange(event: { page: number }): void {
+    this.currentPage = event.page;
+    this.loadDepartments(this.currentPage);
   }
 
   loadEmployees(): void {
