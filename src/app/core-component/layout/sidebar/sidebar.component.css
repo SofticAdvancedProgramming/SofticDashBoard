@@ -246,3 +246,93 @@ a.sidebar-link:hover {
 .active-link .sidebar-link span {
     font-weight: bold;
 }
+/* General styles */
+.wrapper {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.25s ease-in-out;
+    background: #F8FBFE;
+    overflow-y: auto;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+footer {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Sidebar styles */
+#sidebar {
+    width: 70px;
+    min-width: 70px;
+    z-index: 1000;
+    transition: all 0.25s ease-in-out;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Sidebar expanded state for large screens */
+#sidebar.expand {
+    width: 260px;
+    min-width: 260px;
+}
+
+/* Sidebar behavior on small screens */
+@media (max-width: 768px) {
+    #sidebar {
+        position: fixed; /* Make sidebar fixed */
+        left: -260px; /* Move off-screen initially */
+        top: 0;
+        height: 100%;
+        width: 260px;
+        transition: left 0.3s ease;
+        z-index: 1050;
+    }
+
+    #sidebar.expand {
+        left: 0; /* Bring sidebar into view when expanded */
+    }
+
+    .main-content {
+        padding-top: 60px; /* Adjust based on your navbar height */
+    }
+
+    .sidebar-toggle-btn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1060;
+    }
+}
+
+/* Sidebar behavior on large screens */
+@media (min-width: 769px) {
+    #sidebar {
+        position: static; /* Normal flow for sidebar */
+        transform: none; /* Reset any transforms */
+    }
+
+    .main-content {
+        margin-left: 70px; /* Space for collapsed sidebar */
+    }
+
+    #sidebar.expand ~ .main-content {
+        margin-left: 260px; /* Space for expanded sidebar */
+    }
+}
