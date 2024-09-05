@@ -65,6 +65,8 @@ body {
 
 .sidebar-logo {
     margin: auto 0;
+    display: flex;
+    justify-content: center;
 }
 
 .sidebar-logo a {
@@ -107,7 +109,7 @@ a.sidebar-link {
 
 a.sidebar-link:hover {
     background-color: rgba(255, 255, 255, .075);
-    background-color: #F2F7FF;
+    background: #F3E7FE;
     font-weight: bold;
 
 }
@@ -131,7 +133,7 @@ a.sidebar-link:hover {
     max-height: 15em;
     width: 100%;
     opacity: 1;
-    
+
 }
 
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
@@ -162,10 +164,12 @@ a.sidebar-link:hover {
     color: #30CC3A !important;
     font-family: Nunito;
 }
+
 .settingText {
     color: #66696e !important;
     font-family: Nunito;
 }
+
 #sidebar::-webkit-scrollbar {
     width: 10px;
 }
@@ -187,7 +191,9 @@ a.sidebar-link:hover {
 
 #sidebar {
     scrollbar-width: thin;
-    scrollbar-color: #d3ddf1 #f1f1f1;}
+    scrollbar-color: #d3ddf1 #f1f1f1;
+}
+
 @media (max-width: 768px) {
     #sidebar {
         position: absolute;
@@ -213,9 +219,30 @@ a.sidebar-link:hover {
 .sidebar-nav {
     padding: 2rem 0;
     flex: 1 1 auto;
- }
+}
 
 .sidebar-footer {
     margin-top: auto;
 }
 
+.active-link {
+    background: #F3E7FE;
+    color: #8413F8;
+    border-right: #8413F8 5px solid;
+    border-radius: 6px;
+}
+
+
+.active-link .sidebar-link img {
+    filter: none;
+    color: initial;
+}
+
+.active-link a.sidebar-link {
+    color: #8413F8 !important;  
+    font-weight: bold;  
+}
+
+.active-link .sidebar-link span {
+    font-weight: bold;
+}

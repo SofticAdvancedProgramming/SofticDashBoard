@@ -1,5 +1,8 @@
 <div class="row py-3 my-3">
   <div class="form-container" [formGroup]="addCompanyForm">
+    <div class="row">
+      <p class="upload-text">Assign admin to company </p>
+    </div>
     <form>
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -94,7 +97,7 @@
       </div>
       <div class="row form-actions">
         <div class="col-lg-6">
-          <button type="button" routerLink="../addAdmin" class="btn btn-cancel">Cancel</button>
+          <button type="button" routerLink="../addCompany" class="btn btn-cancel">Cancel</button>
         </div>
         <div class="col-lg-6">
           <button type="button" class="btn btn-next" (click)="onSubmit()">Next</button>

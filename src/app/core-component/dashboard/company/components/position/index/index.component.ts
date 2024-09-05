@@ -1,3 +1,4 @@
+import { FontModel } from './../../../../../../../assets/ej2-treemap/src/treemap/model/base-model.d';
 import { Component, OnInit, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -11,14 +12,15 @@ import { ToastModule } from 'primeng/toast';
 import { Department } from '../../../../../../../models/department';
 import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
 import { ModernTableComponent } from '../../../../components/modern-table/modern-table.component';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-index',
   standalone: true,
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
   providers: [PositionService, EmployeeService, MessageService],
-  imports: [RouterLink, CommonModule, AssignEmployeesComponent, AddPositionComponent, ToastModule, ModernTableComponent]
+  imports: [RouterLink, CommonModule, AssignEmployeesComponent,PaginationModule, AddPositionComponent, ToastModule, ModernTableComponent,FormsModule]
 })
 export class IndexComponent implements OnInit {
   isAdd: boolean = false;
@@ -31,7 +33,9 @@ export class IndexComponent implements OnInit {
   @Input() companyId?: string = '';
   positions: any[] = [];
   departments: Department[] = [];
-
+  currentPage: number = 1;  
+  itemsPerPage: number = 10;  
+  totalItems: number = 0;
   constructor(
     private positionService: PositionService,
     private employeeService: EmployeeService,
@@ -43,11 +47,11 @@ export class IndexComponent implements OnInit {
     this.loadPositions();
     this.loadDepartments();
   }
-
-  loadPositions(): void {
-    this.positionService.getPosition({ companyId: this.companyId, pageSize: 20 }).subscribe({
+  loadPositions(page: number = this.currentPage): void {
+    this.positionService.getPosition({ companyId: this.companyId, pageSize: this.itemsPerPage, pageIndex: page }).subscribe({
       next: (response) => {
         this.positions = response.data.list;
+        this.totalItems = response.data.totalRows;  
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' });
@@ -68,7 +72,10 @@ export class IndexComponent implements OnInit {
       }
     });
   }
-
+  handlePageChange(event: { page: number }): void {
+    this.currentPage = event.page;
+    this.loadPositions(this.currentPage);
+  }
   loadEmployeesByPosition(positionId: string): void {
     this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
       next: (response) => {
@@ -147,8 +154,7 @@ export class IndexComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Position deleted successfully' });
       },
       error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting position' });
-      }
+       }
     });
   }
 
