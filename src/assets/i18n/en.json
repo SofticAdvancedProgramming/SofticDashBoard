@@ -189,5 +189,17 @@
     "BACK": "Back",
     "PREVIOUS": "&laquo;",
     "NEXT": "&raquo;"
+  },
+  "SIDEBAR": {
+    "QUICK_ACCESS": "Quick Access",
+    "DASHBOARD": "Dashboard",
+    "COMPANY": "Company",
+    "COMPANIES": "Companies",
+    "ORGANIZATIONAL_CHART": "Organizational Chart",
+    "EMPLOYEE": "Employee",
+    "ADD_ADMIN": "Add Admin",
+    "SETTING": "Setting",
+    "HELP": "Help",
+    "LOGOUT": "Logout"
   }
 }

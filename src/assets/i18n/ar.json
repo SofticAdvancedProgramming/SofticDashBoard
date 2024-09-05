@@ -189,5 +189,18 @@
     "BACK": "العودة",
     "PREVIOUS": "&laquo;",
     "NEXT": "&raquo;"
+  },
+  "SIDEBAR": {
+    "QUICK_ACCESS": "الوصول السريع",
+    "DASHBOARD": "لوحة القيادة",
+    "COMPANY": "شركة",
+    "COMPANIES": "الشركات",
+    "ORGANIZATIONAL_CHART": "المخطط التنظيمي",
+    "EMPLOYEE": "الموظف",
+    "ADD_ADMIN": "إضافة مسؤول",
+    "SETTING": "الإعدادات",
+    "HELP": "مساعدة",
+    "LOGOUT": "تسجيل الخروج"
   }
+
 }
