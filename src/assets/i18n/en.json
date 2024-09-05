@@ -71,5 +71,24 @@
     "NAME": "Company Name",
     "PHONE_NUMBER": "Phone Number",
     "TYPE": "Software Company"
-  }
+  },
+  "addBranch": {
+    "BRANCH_NAME_EN": "Branch Name (English)",
+    "BRANCH_NAME_AR": "Branch Name (Arabic)",
+    "ENTER_BRANCH_NAME": "Enter Branch Name",
+    "ENTER_BRANCH_NAME_AR": "Enter Branch Name (Arabic)",
+    "NAME_REQUIRED": "Name is required",
+    "AR_NAME_REQUIRED": "Arabic name is required",
+    "BRANCH_LOCATION": "Branch Location",
+    "LONGITUDE_REQUIRED": "Longitude is required",
+    "LATITUDE_REQUIRED": "Latitude is required",
+    "BACK": "Back",
+    "SAVE": "Save",
+    "ERROR": "Error",
+    "SUCCESS": "Success",
+    "FILL_ALL_REQUIRED_FIELDS": "Please fill all required fields",
+    "BRANCH_ADDED_SUCCESSFULLY": "Branch added successfully",
+    "ERROR_ADDING_BRANCH": "Error adding branch"
+  } 
+  
 }

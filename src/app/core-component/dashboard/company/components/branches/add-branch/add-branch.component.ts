@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { LeafletMapComponent } from "../../../../../../common-component/leaflet-map/leaflet-map.component";
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-add-branch',
@@ -15,7 +16,7 @@ import { LeafletMapComponent } from "../../../../../../common-component/leaflet-
     templateUrl: './add-branch.component.html',
     styleUrls: ['./add-branch.component.css'],
     providers: [MessageService],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, LeafletMapComponent]
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, LeafletMapComponent, TranslateModule]
 })
 export class AddBranchComponent implements OnInit {
   @Input() companyId?: number ;
@@ -27,7 +28,9 @@ export class AddBranchComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private branchService: BranchService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private translate: TranslateService
+
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],

@@ -71,5 +71,23 @@
     "NAME": "اسم الشركة",
     "PHONE_NUMBER": "رقم الهاتف",
     "TYPE": "شركة البرمجيات"
+  },
+  "addBranch": {
+    "BRANCH_NAME_EN": "اسم الفرع (بالإنجليزية)",
+    "BRANCH_NAME_AR": "اسم الفرع (بالعربية)",
+    "ENTER_BRANCH_NAME": "أدخل اسم الفرع",
+    "ENTER_BRANCH_NAME_AR": "أدخل اسم الفرع (بالعربية)",
+    "NAME_REQUIRED": "الاسم مطلوب",
+    "AR_NAME_REQUIRED": "الاسم بالعربية مطلوب",
+    "BRANCH_LOCATION": "موقع الفرع",
+    "LONGITUDE_REQUIRED": "خط الطول مطلوب",
+    "LATITUDE_REQUIRED": "خط العرض مطلوب",
+    "BACK": "رجوع",
+    "SAVE": "حفظ",
+    "ERROR": "خطأ",
+    "SUCCESS": "نجاح",
+    "FILL_ALL_REQUIRED_FIELDS": "يرجى ملء جميع الحقول المطلوبة",
+    "BRANCH_ADDED_SUCCESSFULLY": "تمت إضافة الفرع بنجاح",
+    "ERROR_ADDING_BRANCH": "خطأ في إضافة الفرع"
   }
 }
