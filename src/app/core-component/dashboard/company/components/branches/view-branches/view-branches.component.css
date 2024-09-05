@@ -190,6 +190,7 @@
     font-size: 14px;
     cursor: pointer;
     margin-bottom: 1em;
+    width: 25%;
   }
 
   @media (max-width: 992px) {
@@ -203,6 +204,8 @@
       flex-direction: column;
       gap: 10px;
     }
+    .addBranchBtn{
+      width: 75%;    }
   }
   .details {
     color: #9ACA3C;
@@ -354,3 +357,6 @@
   background-color: #5a6268;
   border-color: #545b62;
 }
+.rotate-arrow {
+  transform: rotate(180deg);
+ }

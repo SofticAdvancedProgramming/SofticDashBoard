@@ -2,90 +2,104 @@
   <div class="form-container">
     <form [formGroup]="form" (ngSubmit)="onSave()">
       <div class="form-group">
-        <label for="name">Department Name(English)</label>
-        <input id="name" formControlName="name" placeholder="Enter Department Name" class="form-control" />
-        <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-danger">Name is required</div>
+        <label for="name">{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_EN' | translate }}</label>
+        <input id="name" formControlName="name" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_EN' | translate }}" class="form-control" />
+        <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-danger">
+          {{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_EN' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
+        </div>
       </div>
       <div class="form-group">
-        <label for="nameAr">Department Name (Arabic)</label>
-        <input id="nameAr" formControlName="nameAr" placeholder="Enter Department Name (Arabic)" class="form-control" />
-        <div *ngIf="form.get('nameAr')?.invalid && form.get('nameAr')?.touched" class="text-danger">Arabic name is required</div>
+        <label for="nameAr">{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_AR' | translate }}</label>
+        <input id="nameAr" formControlName="nameAr" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_AR' | translate }}" class="form-control" />
+        <div *ngIf="form.get('nameAr')?.invalid && form.get('nameAr')?.touched" class="text-danger">
+          {{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_AR' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
+        </div>
       </div>
       <div class="form-group">
-        <label for="shortName">Department Short Name</label>
-        <input id="shortName" formControlName="shortName" placeholder="Enter Department Short Name" class="form-control" />
-        <div *ngIf="form.get('shortName')?.invalid && form.get('shortName')?.touched" class="text-danger">Short name is required</div>
+        <label for="shortName">{{ 'ADD_DEPARTMENT.DEPARTMENT_SHORT_NAME' | translate }}</label>
+        <input id="shortName" formControlName="shortName" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_SHORT_NAME' | translate }}" class="form-control" />
+        <div *ngIf="form.get('shortName')?.invalid && form.get('shortName')?.touched" class="text-danger">
+          {{ 'ADD_DEPARTMENT.DEPARTMENT_SHORT_NAME' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
+        </div>
       </div>
       <div class="form-group">
-        <label for="manager">Department Manager</label>
-        <input id="manager" formControlName="manager" placeholder="Enter Manager Name" class="form-control" />
-        <div *ngIf="form.get('manager')?.invalid && form.get('manager')?.touched" class="text-danger">Manager is required</div>
+        <label for="manager">{{ 'ADD_DEPARTMENT.DEPARTMENT_MANAGER' | translate }}</label>
+        <input id="manager" formControlName="manager" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_MANAGER' | translate }}" class="form-control" />
+        <div *ngIf="form.get('manager')?.invalid && form.get('manager')?.touched" class="text-danger">
+          {{ 'ADD_DEPARTMENT.DEPARTMENT_MANAGER' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
+        </div>
       </div>
       <div class="form-group">
-        <label for="branchId">Branch</label>
+        <label for="branchId">{{ 'ADD_DEPARTMENT.BRANCH' | translate }}</label>
         <select id="branchId" formControlName="branchId" class="form-control">
-          <option value="null" disabled>Select Option</option>
+          <option value="null" disabled>{{ 'ADD_DEPARTMENT.SELECT_OPTION' | translate }}</option>
           <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
         </select>
-        <div *ngIf="form.get('branchId')?.invalid && form.get('branchId')?.touched" class="text-danger">Branch is required</div>
+        <div *ngIf="form.get('branchId')?.invalid && form.get('branchId')?.touched" class="text-danger">
+          {{ 'ADD_DEPARTMENT.BRANCH' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
+        </div>
       </div>
       <div class="form-group">
-        <label for="description">Description (English)</label>
+        <label for="description">{{ 'ADD_DEPARTMENT.DESCRIPTION_EN' | translate }}</label>
         <textarea
           id="description"
           formControlName="description"
-          placeholder="Enter Description (English)"
+          placeholder="{{ 'ADD_DEPARTMENT.DESCRIPTION_EN' | translate }}"
           class="form-control"
           (input)="updateCharacterCount('description')"
           maxlength="250"
           minlength="100"
         ></textarea>
         <div *ngIf="form.get('description')?.invalid && form.get('description')?.touched" class="text-danger">
-          Description is required and must be between 100 and 250 characters.
+          {{ 'ADD_DEPARTMENT.DESCRIPTION_EN' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }} {{ 'ADD_DEPARTMENT.DESCRIPTION_CONSTRAINT' | translate }}
         </div>
         <div class="text-right text-muted">
-          {{ descriptionCharacterCount }} / 250 characters
+          {{ descriptionCharacterCount }} / 250 {{ 'ADD_DEPARTMENT.CHARACTERS_COUNT' | translate }}
         </div>
       </div>
 
       <div class="form-group">
-        <label for="descriptionAr">Description (Arabic)</label>
+        <label for="descriptionAr">{{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }}</label>
         <textarea
           id="descriptionAr"
           formControlName="descriptionAr"
-          placeholder="Enter Description (Arabic)"
+          placeholder="{{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }}"
           class="form-control"
           (input)="updateCharacterCount('descriptionAr')"
           maxlength="250"
           minlength="100"
         ></textarea>
         <div *ngIf="form.get('descriptionAr')?.invalid && form.get('descriptionAr')?.touched" class="text-danger">
-          Arabic description is required and must be between 100 and 250 characters.
+          {{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }} {{ 'ADD_DEPARTMENT.DESCRIPTION_CONSTRAINT' | translate }}
         </div>
         <div class="text-right text-muted">
-          {{ descriptionArCharacterCount }} / 250 characters
+          {{ descriptionArCharacterCount }} / 250 {{ 'ADD_DEPARTMENT.CHARACTERS_COUNT' | translate }}
         </div>
       </div>
       <div class="form-group d-none">
-        <label for="long">Department Long</label>
-        <input id="long" formControlName="long" placeholder="Enter Long" class="form-control" />
-        <div *ngIf="form.get('long')?.invalid && form.get('long')?.touched" class="text-danger">Longitude is required</div>
+        <label for="long">{{ 'ADD_DEPARTMENT.DEPARTMENT_LONG' | translate }}</label>
+        <input id="long" formControlName="long" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_LONG' | translate }}" class="form-control" />
+        <div *ngIf="form.get('long')?.invalid && form.get('long')?.touched" class="text-danger">
+          {{ 'ADD_DEPARTMENT.DEPARTMENT_LONG' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
+        </div>
       </div>
       <div class="form-group d-none">
-        <label for="lat">Department Lat</label>
-        <input id="lat" formControlName="lat" placeholder="Enter Lat" class="form-control" />
-        <div *ngIf="form.get('lat')?.invalid && form.get('lat')?.touched" class="text-danger">Latitude is required</div>
+        <label for="lat">{{ 'ADD_DEPARTMENT.DEPARTMENT_LAT' | translate }}</label>
+        <input id="lat" formControlName="lat" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_LAT' | translate }}" class="form-control" />
+        <div *ngIf="form.get('lat')?.invalid && form.get('lat')?.touched" class="text-danger">
+          {{ 'ADD_DEPARTMENT.DEPARTMENT_LAT' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
+        </div>
       </div>
       <div class="form-group">
-        <label for="map">Department Location</label>
+        <label for="map">{{ 'ADD_DEPARTMENT.DEPARTMENT_LOCATION' | translate }}</label>
         <app-leaflet-map (locationSelected)="onLocationSelected($event)"></app-leaflet-map>
       </div>
-      <div class="form-buttons row mt-3">
-        <div class="col-lg-6 justify-content-center d-flex">
-          <button type="button" class="btn btn-secondary" (click)="onBack()">Back</button>
+      <div class="form-buttons row">
+        <div class="col-lg-6  mt-3 justify-content-center d-flex">
+          <button type="submit" class="btn btn-primary">{{ 'ADD_DEPARTMENT.SAVE' | translate }}</button>
         </div>
-        <div class="col-lg-6 justify-content-center d-flex">
-          <button type="submit" class="btn btn-primary">Save</button>
+        <div class="col-lg-6  mt-3 justify-content-center d-flex">
+          <button type="button" class="btn btn-secondary" (click)="onBack()">{{ 'ADD_DEPARTMENT.BACK' | translate }}</button>
         </div>
       </div>
     </form>

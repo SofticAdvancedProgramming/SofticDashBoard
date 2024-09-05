@@ -132,6 +132,7 @@ input:checked + .slider:before {
     font-size: 14px;
     cursor: pointer;
     margin-bottom: 1em;
+    width: 25%;
 }
 
 @media (max-width: 992px) {
@@ -247,3 +248,16 @@ input:checked + .slider:before {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     padding: 1rem;
 }
+
+@media (max-width: 576px) {
+    .card-container {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .addPositionBtn{
+      width: 75%;   
+     }
+  }
+  .rotate-arrow {
+    transform: rotate(180deg);
+   }

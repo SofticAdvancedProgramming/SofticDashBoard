@@ -11,6 +11,8 @@ import { ModernTableComponent } from '../../../../components/modern-table/modern
 import { AddBranchComponent } from '../add-branch/add-branch.component';
 import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination'; 
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-view-branches',
   templateUrl: './view-branches.component.html',
@@ -25,7 +27,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     AddBranchComponent,
     AssignEntityComponent,
     ModernTableComponent,
-    PaginationModule
+    PaginationModule,
+    TranslateModule
   ],
 })
 export class ViewBranchesComponent implements OnInit {
@@ -39,12 +42,19 @@ export class ViewBranchesComponent implements OnInit {
   currentPage: number = 1;   
   itemsPerPage: number = 10; 
   totalItems: number = 0;
-  constructor(private branchService: BranchService, private employeeService: EmployeeService, private messageService: MessageService) {}
+  isArabic: boolean = false;
+  translatedColumns: string[] = [];
+  constructor(private branchService: BranchService,    private translate: TranslateService
+,    private employeeService: EmployeeService, private messageService: MessageService) {}
 
   ngOnInit(): void {
+    this.isArabic = this.translate.currentLang === 'ar';
     this.loadBranches();
     this.loadEmployees();
     this.companyId = Number(localStorage.getItem('companyId'));
+    this.translate.onLangChange.subscribe((event) => {
+      this.isArabic = event.lang === 'ar';  
+    });
   }
 
   loadBranches(page: number = this.currentPage): void {
@@ -183,5 +193,13 @@ export class ViewBranchesComponent implements OnInit {
   handleClose() {
     this.isAssignEntity = false;
   }
-
+  translateColumns(): void {
+    this.translatedColumns = [
+      this.translate.instant('viewBranches.COLUMN_ID'),
+      this.translate.instant('viewBranches.COLUMN_FULL_NAME'),
+      this.translate.instant('viewBranches.COLUMN_POSITION_NAME'),
+      this.translate.instant('viewBranches.COLUMN_DEPARTMENT_NAME')
+    ];
+  }
+ 
 }

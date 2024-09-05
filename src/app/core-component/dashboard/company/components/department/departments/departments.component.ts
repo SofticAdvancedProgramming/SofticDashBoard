@@ -16,6 +16,9 @@ import { AssignEntityComponent } from '../assign-entity/assign-entity.component'
 import { ApiCall } from '../../../../../../core/services/http-service/HttpService';
 import { ViewEmployeesComponent } from "../../../../employee/view-employees/view-employees.component";
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+
 @Component({
     selector: 'app-departments',
     standalone: true,
@@ -33,7 +36,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
         ToastModule,
         AssignEntityComponent,
         ViewEmployeesComponent,
-        PaginationModule
+        PaginationModule,
+        TranslateModule
     ]
 })
 export class DepartmentsComponent implements OnInit {
@@ -56,18 +60,27 @@ export class DepartmentsComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10; 
   totalItems: number = 0;
+  isArabic: boolean = false;
+
   constructor(
     private apiCall: ApiCall,
     private router: Router,
     private departmentService: DepartmentService,
     private employeeService: EmployeeService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private translate: TranslateService
   ) { }
+  private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.loadDepartments();
+    this.subscription.add(this.translate.onLangChange.subscribe(() => {
+      this.checkLanguage();
+    }));
   }
-
+  checkLanguage(): void {
+    this.isArabic = this.translate.currentLang === 'ar';
+  }
   loadDepartments(page: number = this.currentPage): void {
     const companyId = this.getCompanyId();
     if (companyId) {

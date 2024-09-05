@@ -2,49 +2,47 @@
   <div class="form-container">
     <form [formGroup]="form" (ngSubmit)="onSave()">
       <div class="form-group">
-        <label for="positionType">Position Type</label>
+        <label for="positionType">{{ 'ADD_POSITION.POSITION_TYPE' | translate }}</label>
         <select id="positionType" formControlName="positionType" class="form-control">
-          <option value="" disabled>Select Position Type</option>
+          <option value="" disabled>{{ 'ADD_POSITION.SELECT_POSITION_TYPE' | translate }}</option>
           <option *ngFor="let item of positionType; trackBy: trackByPositionId" [value]="item.id">{{ item.name }}</option>
         </select>
         <div *ngIf="form.get('positionType')?.invalid && form.get('positionType')?.touched" class="text-danger">
-          Position Type is required
+          {{ 'ADD_POSITION.REQUIRED_FIELD' | translate }}
         </div>
       </div>
       <div class="form-group">
-        <label for="department">Department</label>
+        <label for="department">{{ 'ADD_POSITION.DEPARTMENT' | translate }}</label>
         <select id="department" formControlName="department" class="form-control">
-          <option value="" disabled>Select department</option>
+          <option value="" disabled>{{ 'ADD_POSITION.SELECT_DEPARTMENT' | translate }}</option>
           <option *ngFor="let item of departments; trackBy: trackByDepartmentId" [value]="item.id">{{ item.name }}</option>
         </select>
-       </div>
-      
+      </div>
       <div class="form-group toggle-group">
         <label class="switch">
           <input type="checkbox" formControlName="isDirectManager">
           <span class="slider"></span>
         </label>
-        <label for="direct-manager" class="toggle-label">Direct Manager</label>
+        <label for="direct-manager" class="toggle-label">{{ 'ADD_POSITION.DIRECT_MANAGER' | translate }}</label>
       </div>
       <div class="form-group" *ngIf="form.get('isDirectManager')?.value">
-        <label for="position">Position</label>
+        <label for="position">{{ 'ADD_POSITION.POSITION' | translate }}</label>
         <select id="position" formControlName="position" class="form-control">
-          <option value="" disabled>Select Position</option>
+          <option value="" disabled>{{ 'ADD_POSITION.SELECT_POSITION' | translate }}</option>
           <option *ngFor="let item of positions; trackBy: trackByPositionId" [value]="item.id">
             {{ item.name }} - {{ item.departmentName }}
           </option>
         </select>
         <div *ngIf="form.get('position')?.invalid && form.get('position')?.touched" class="text-danger">
-          Position is required
+          {{ 'ADD_POSITION.REQUIRED_FIELD' | translate }}
         </div>
       </div>
-
       <div class="form-buttons row">
-        <div class="col-lg-6 justify-content-center d-flex">
-          <button type="button" class="btn btn-secondary" (click)="onBack()">Back</button>
+        <div class="col-lg-6 justify-content-center mt-4 d-flex">
+          <button type="submit" class="btn btn-primary">{{ 'ADD_POSITION.SAVE' | translate }}</button>
         </div>
-        <div class="col-lg-6 justify-content-center d-flex">
-          <button type="submit" class="btn btn-primary">Save</button>
+        <div class="col-lg-6 justify-content-center mt-4 d-flex">
+          <button type="button" class="btn btn-secondary" (click)="onBack()">{{ 'ADD_POSITION.BACK' | translate }}</button>
         </div>
       </div>
     </form>

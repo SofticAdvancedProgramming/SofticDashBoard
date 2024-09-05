@@ -9,11 +9,12 @@ import { Position } from '../../../../../../../models/positionModel';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Router, RouterLink } from '@angular/router';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-position',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToastModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, ToastModule, ReactiveFormsModule, RouterLink , TranslateModule],
   templateUrl: './add-position.component.html',
   styleUrls: ['./add-position.component.css'],
   providers: [MessageService],
@@ -33,6 +34,7 @@ export class AddPositionComponent implements OnInit {
     private departmentsService: DepartmentService,
     private positionService: PositionService,
     private messageService: MessageService,
+    private translate: TranslateService,
     private router: Router
   ) {
     this.form = this.fb.group({

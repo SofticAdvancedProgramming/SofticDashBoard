@@ -1,8 +1,8 @@
 <div class="container my-5" *ngIf="!showOverView && !isAdd && !isAssignEntity">
   <div class="row">
     <div class="justify-content-end d-flex">
-      <button class="btn addBranchBtn w-25" (click)="addBranch()">
-        <i class="fas fa-plus"></i> Add Branch
+      <button class="btn addBranchBtn" (click)="addBranch()">
+        <i class="fas fa-plus"></i> {{ 'viewBranches.ADD_BRANCH' | translate }}
       </button>
     </div>
   </div>
@@ -10,19 +10,23 @@
     <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let branch of branches">
       <div class="card">
         <div class="card-header">
-          <h3>{{ branch.name }}</h3>
+          <h3>{{ isArabic ? branch.nameAr : branch.name }}</h3>
         </div>
         <div class="card-body">
           <button class="btn btn-add" (click)="assignEntity(branch.id)">
-            <i class="fas fa-plus"></i> Add Employee
+            <i class="fas fa-plus"></i> {{ 'viewBranches.ADD_EMPLOYEE' | translate }}
           </button>
         </div>
         <div class="card-footer">
           <i class="fas fa-trash-alt icon-trash" (click)="deleteBranch(branch.id)"></i>
           <i class="fas fa-edit icon-edit"></i>
           <button class="btn" (click)="showDetails(branch.id)">
-            <span class="details">Show Details <i class="fa-solid fa-arrow-right"></i></span>
+            <span class="details">
+              {{ 'viewBranches.SHOW_DETAILS' | translate }} 
+              <i class="fa-solid fa-arrow-right" [ngClass]="{'rotate-arrow': isArabic}"></i>
+            </span>
           </button>
+          
         </div>
       </div>
     </div>
@@ -31,11 +35,11 @@
 
 <div *ngIf="showOverView" class="table-container">
   <button class="btn" (click)="goBack()">
-    <i class="fas fa-arrow-left"></i>
+    <i class="fas fa-arrow-left"></i> {{ 'viewBranches.GO_BACK' | translate }}
   </button>
 
   <app-modern-table
-    [tableTitle]="'Employees of ' + selectedBranch?.name"
+    [tableTitle]="'Employees of ' + (isArabic ? selectedBranch?.nameAr : selectedBranch?.name)"
     [tableData]="employees"
     [columns]="['id', 'fullName', 'position.name', 'department.name']"
     [modalId]="'employeeDetailsModal'"
@@ -44,7 +48,7 @@
   </app-modern-table>
 </div>
 
-<ng-container *ngIf="isAdd;">
+<ng-container *ngIf="isAdd">
   <app-add-branch [companyId]="companyId" (action)="handleAction($event)"></app-add-branch>
 </ng-container>
 
@@ -58,9 +62,9 @@
   (submitForm)="handleEntityAssigned($event)">
 </app-assign-entity>
 
-
 <p-toast position="top-center"></p-toast>
-<div class="d-flex justify-content-center mt-3">
+
+ <div class="d-flex justify-content-center mt-3" *ngIf="!showOverView && !isAdd && !isAssignEntity">
   <pagination 
     [totalItems]="totalItems" 
     [(ngModel)]="currentPage" 
