@@ -28,4 +28,10 @@ export class PositionService {
   deletePosition(id: number, companyId: number): Observable<any> {
     return this.apiCall.request('POST', `${this.PositionUrl}/Delete/${id}/${companyId}`, 'post');
   }
+  ActivatePosition(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${this.PositionUrl}/Activate/${id}/${companyId}`, {});
+  }
+  DeActivatePosition(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${this.PositionUrl}/DeActivate/${id}/${companyId}`, {});
+  }
 }

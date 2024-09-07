@@ -10,11 +10,11 @@
       <div *ngFor="let department of departments" class="col-lg-4 col-md-6 col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h3>{{ department.title }}</h3>
-            <p>{{ department.department }}</p>
+            <h3>{{ department.name }}</h3>
+            <p>{{ department.shortName }}</p>
           </div>
           <div class="card-body">
-            <button class="btn btn-add" (click)="assignEntity(department.id)"><i class="fas fa-plus"></i> Add Employee</button>
+            <button class="btn btn-add" (click)="assignEntity(department.id.toString())"><i class="fas fa-plus"></i> Add Employee</button>
           </div>
           <div class="card-footer">
             <label class="toggle-label">
