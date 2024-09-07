@@ -54,7 +54,7 @@ export const routes: Routes = [
       { path: 'addressManagement', component: LocationManagmentComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'EditProfile', component: EditProfileComponent },
-      { path: 'company/:companyId', component: CompanyDetailsComponent },
+      { path: 'company/:companyId', component: CompanyDetailsComponent,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin"], redirectTo: 'no-permission' }}} ,
       { path: 'ProfileDetails', component: ProfileDetailsComponent },
       { path: 'AddPosition', component: AddPositionComponent },
       { path: 'DepartmentDetails', component: DepartmentDetailsComponent },

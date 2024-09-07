@@ -20,4 +20,10 @@ export class CompanyService {
   AddCompany(request: any): Observable<any> {
     return this.apiCall.request('POST', this.apiUrl + '/Add', request,);
   }
+  ActivateCompany(request: any): Observable<any> {
+    return this.apiCall.request('POST', this.apiUrl + '/Add', request,);
+  }
+  DeActivateCompany(request: any): Observable<any> {
+    return this.apiCall.request('POST', this.apiUrl + '/Add', request,);
+  }
 }

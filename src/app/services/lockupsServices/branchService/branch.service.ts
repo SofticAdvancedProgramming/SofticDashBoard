@@ -32,4 +32,10 @@ export class BranchService {
   deleteBranch(id: number, companyId: number): Observable<any> {
     return this.apiCall.request('POST', `${this.branchUrl}/Delete/${id}/${companyId}`, {});
   }
+  ActivateBranch(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${this.branchUrl}/Activate/${id}/${companyId}`, {});
+  }
+  DeActivateBranch(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${this.branchUrl}/DeActivate/${id}/${companyId}`, {});
+  }
 }
