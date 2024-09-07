@@ -45,7 +45,7 @@ export class DepartmentsComponent implements OnInit {
   isViewEmployees: boolean = false;
   isAssignEntity: boolean = false;
   private apiUrl = `${environment.apiBaseUrl}Company`;
-  cards: any[] = [];
+  departments: any[] = [];
   headers: string[] = ['id', 'name', 'shortName', 'manager'];
   data: Department[] = [];
   employees: employee[] = [];
@@ -54,11 +54,10 @@ export class DepartmentsComponent implements OnInit {
   entityType: string = 'Employee';
   selectedDepartment: Department | null = null;
   currentPage: number = 1;
-  itemsPerPage: number = 10; 
+  itemsPerPage: number = 10;
   totalItems: number = 0;
   constructor(
     private apiCall: ApiCall,
-    private router: Router,
     private departmentService: DepartmentService,
     private employeeService: EmployeeService,
     private messageService: MessageService
@@ -74,17 +73,14 @@ export class DepartmentsComponent implements OnInit {
       this.departmentService.getDepartment({ companyId, pageIndex: page, pageSize: this.itemsPerPage }).subscribe({
         next: (response) => {
           const departments: Department[] = response.data.list;
-          this.totalItems = response.data.totalRows; // Set total items for pagination
-          this.cards = departments.map((department: Department) => ({
+          this.totalItems = response.data.totalRows;
+          this.departments = departments.map((department: Department) => ({
             id: department.id,
             title: department.name,
-            department: department.shortName
+            department: department.shortName,
+            isActive: department.isActive
           }));
           this.loadEmployees();
-        },
-        error: (err) => {
-          console.error('Error loading departments', err);
-          this.showError('Error loading departments');
         }
       });
     }
@@ -104,33 +100,29 @@ export class DepartmentsComponent implements OnInit {
             (employee: any) => !employee.departmentId
           );
           console.log('Filtered Employees:', this.employees);
-        },
-        error: (err) => {
-          console.error('Error loading employees', err);
-          this.showError('Error loading employees');
         }
       });
     }
   }
 
 
-  showDetails(cardId: number) {
-    this.selectedCard = this.cards.find(card => card.id === cardId);
+  showDetails(departmentId: number) {
+    this.selectedCard = this.departments.find(dep => dep.id === departmentId);
     if (this.selectedCard) {
       this.selectedDepartment = this.selectedCard;
       console.log('Selected Department:', this.selectedDepartment);
-      this.fetchData(cardId);
+      this.fetchData(departmentId);
       this.showOverView = true;
     } else {
-      console.error('No department found with the provided cardId:', cardId);
+      console.error('No department found with the provided cardId:', departmentId);
     }
   }
 
-  fetchData(cardId: number) {
+  fetchData(departmentId: number) {
     const useDemoData = true;
 
     if (useDemoData) {
-      console.log(`Fetched mock data for card ${cardId}:`, this.data);
+      console.log(`Fetched mock data for card ${departmentId}:`, this.data);
     } else {
       this.apiCall.request('POST', this.apiUrl + '/Get', {}).subscribe(data => {
         console.log(data);
@@ -179,10 +171,6 @@ export class DepartmentsComponent implements OnInit {
         next: () => {
           this.showSuccess('Department deleted successfully');
           this.loadDepartments();
-        },
-        error: (err) => {
-          console.error('Error deleting department', err);
-          this.showError('Error deleting department');
         }
       });
     } else {
@@ -194,7 +182,7 @@ export class DepartmentsComponent implements OnInit {
     this.selectedEntityId = departmentId;
     this.entityType = 'Employee';
     this.isAssignEntity = true;
-    this.selectedDepartment = this.cards.find(card => card.id === departmentId);
+    this.selectedDepartment = this.departments.find(dep => dep.id === departmentId);
   }
 
   handleEntityAssigned(event: { entityId: number; relatedEntityId: number }): void {
@@ -207,10 +195,6 @@ export class DepartmentsComponent implements OnInit {
         this.showSuccess('Employee assigned to department successfully');
         this.isAssignEntity = false;
         this.loadDepartments();
-      },
-      error: (err) => {
-        console.error('Error assigning employee to department', err);
-        this.showError('Error assigning employee to department');
       }
     });
   }
@@ -226,5 +210,33 @@ export class DepartmentsComponent implements OnInit {
 
   private showError(detail: string): void {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
+  }
+
+  toggleActivation(department: Department): void {
+    if (department.isActive) {
+      this.deactivatedepartment(department);
+    } else {
+      this.activatedepartment(department);
+    }
+  }
+
+  activatedepartment(department: Department): void {
+    const companyId = this.getCompanyId();
+    this.departmentService.Activatedepartment(department.id,companyId||0).subscribe({
+      next: () => {
+        department.isActive = true;
+        this.showSuccess('department activated successfully');
+      }
+    });
+  }
+
+  deactivatedepartment(department: Department): void {
+    const companyId = this.getCompanyId();
+    this.departmentService.DeActivatedepartment(department.id,companyId||0).subscribe({
+      next: () => {
+        department.isActive = false;
+        this.showSuccess('department deactivated successfully');
+      }
+    });
   }
 }
