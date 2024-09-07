@@ -25,7 +25,6 @@ export class AddDepartmentComponent implements OnInit {
   branches: branch[] = [];
   @Input() companyId?: number;
 
-  // Character counts for descriptions
   descriptionCharacterCount: number = 0;
   descriptionArCharacterCount: number = 0;
 
@@ -54,7 +53,7 @@ export class AddDepartmentComponent implements OnInit {
       this.companyId = Number(storedCompanyId);
     }
     this.loadBranches();
-    this.updateCharacterCount('description'); // Initialize counts
+    this.updateCharacterCount('description');
     this.updateCharacterCount('descriptionAr');
   }
 
