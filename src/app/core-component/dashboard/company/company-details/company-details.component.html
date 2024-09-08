@@ -12,15 +12,18 @@
       <p>{{company.phoneNumber}}</p>
     </div>
     <div class="profile-action">
-      <div class="toggle-button-container">
-        <button class="btn">
-        <span class="label">Activate</span>
-        <label class="switch">
-          <input type="checkbox" id="toggleSwitch">
-          <span class="slider"></span>
-        </label>
-      </button>
+      <div class="profile-action">
+        <div class="toggle-button-container">
+          <button class="btn" (click)="toggleActivation()">
+            <span class="label">{{ active ? 'Deactivate' : 'Activate' }}</span>
+            <label class="switch">
+              <input type="checkbox" id="toggleSwitch" [checked]="active" (change)="toggleActivation()">
+              <span class="slider"></span>
+            </label>
+          </button>
+        </div>
       </div>
+      
 
     </div>
   </div>

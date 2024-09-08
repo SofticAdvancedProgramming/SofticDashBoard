@@ -26,4 +26,10 @@ export class CompanyService {
   DeActivateCompany(request: any): Observable<any> {
     return this.apiCall.request('POST', this.apiUrl + '/Add', request,);
   }
+  ActivatePosition(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${this.apiUrl}/Activate/${id}/${companyId}`, {});
+  }
+  DeActivatePosition(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${this.apiUrl}/DeActivate/${id}/${companyId}`, {});
+  }
 }
