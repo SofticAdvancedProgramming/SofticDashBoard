@@ -1,0 +1,111 @@
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  padding: 28px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  min-width: 250px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.view-all {
+  text-align: right;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.company-list,
+.notification-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1; /* To make sure the list takes up the available space */
+}
+
+.company-item,
+.notification-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.company-icon,
+.profile-pic {
+  width: 14px;
+  height: 14px;
+  background-color: #8ed600;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.notification-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.message {
+  color: #888;
+  font-size: 14px;
+}
+
+.activate {
+  color: #8ed600;
+}
+
+.date {
+  font-size: 12px;
+  color: #888;
+}
+
+.progress-bar {
+  display: flex;
+  gap: 5px;
+}
+
+.progress-bar-segment {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.segment1 {
+  background-color: #ff9500;
+}
+
+.segment2 {
+  background-color: #ffc84d;
+}
+
+.segment3 {
+  background-color: #ffe8b3;
+}
+
+@media (max-width: 768px) {
+  .card {
+    min-width: 100%;
+    margin-bottom: 20px;
+  }
+}
