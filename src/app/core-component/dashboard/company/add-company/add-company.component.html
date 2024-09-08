@@ -153,20 +153,23 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
             <label for="phoneNumber">Mobile Number</label>
             <ngx-intl-tel-input
-              [cssClass]="'custom w-100'"
-              [preferredCountries]="preferredCountries"
-              [enableAutoCountrySelect]="true"
-              [enablePlaceholder]="true"
-              [searchCountryFlag]="true"
-              [searchCountryField]="searchCountryFields"
-              [selectFirstCountry]="false"
-              [selectedCountryISO]="selectedCountryISO"
-              [maxLength]="15"
-              formControlName="phoneNumber">
-            </ngx-intl-tel-input>
-            <div *ngIf="isFieldInvalid('phoneNumber')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('phoneNumber')?.errors?.['required']">Mobile number is required.</small>
-            </div>
+            [cssClass]="'custom w-100'"
+            [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="true"
+            [searchCountryFlag]="true"
+            [searchCountryField]="searchCountryFields"
+            [selectFirstCountry]="false"
+            [selectedCountryISO]="CountryISO.SaudiArabia"
+            [maxLength]="15"
+            [phoneValidation]="true"
+            formControlName="phone"
+          >
+          </ngx-intl-tel-input>
+          <div *ngIf="addCompanyForm.get('phone')?.touched && addCompanyForm.get('phone')?.errors" class="text-danger">
+            <small *ngIf="addCompanyForm.get('phone')?.errors?.['required']">Phone is required.</small>
+            <small *ngIf="addCompanyForm.get('phone')?.errors?.['validatePhoneNumber']">Invalid phone number.</small>
+          </div>
           </div>
         </div>
 
@@ -174,20 +177,23 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phone')}">
             <label for="phone">Phone</label>
             <ngx-intl-tel-input
-              [cssClass]="'custom w-100'"
-              [preferredCountries]="preferredCountries"
-              [enableAutoCountrySelect]="true"
-              [enablePlaceholder]="true"
-              [searchCountryFlag]="true"
-              [searchCountryField]="searchCountryFields"
-              [selectFirstCountry]="false"
-              [selectedCountryISO]="selectedCountryISO"
-              [maxLength]="15"
-              formControlName="phone">
-            </ngx-intl-tel-input>
-            <div *ngIf="isFieldInvalid('phone')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('phone')?.errors?.['required']">Phone is required.</small>
-            </div>
+            [cssClass]="'custom w-100'"
+            [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="true"
+            [searchCountryFlag]="true"
+            [searchCountryField]="searchCountryFields"
+            [selectFirstCountry]="false"
+            [selectedCountryISO]="CountryISO.SaudiArabia"
+            [maxLength]="15"
+            [phoneValidation]="true"
+            formControlName="phoneNumber"
+          >
+          </ngx-intl-tel-input>
+          <div *ngIf="addCompanyForm.get('phoneNumber')?.touched && addCompanyForm.get('phoneNumber')?.errors" class="text-danger">
+            <small *ngIf="addCompanyForm.get('phoneNumber')?.errors?.['required']">Phone number is required.</small>
+            <small *ngIf="addCompanyForm.get('phoneNumber')?.errors?.['validatePhoneNumber']">Invalid phone number.</small>
+          </div>
           </div>
         </div>
 

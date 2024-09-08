@@ -3,12 +3,12 @@
     <form [formGroup]="form" (ngSubmit)="onSave()">
       <div class="form-group">
         <label for="name">Department Name(English)</label>
-        <input id="name" formControlName="name" placeholder="Enter Department Name" class="form-control" />
+        <input id="name" formControlName="name" placeholder="Enter Department Name" class="form-control" [appInputRestriction]="'arabic'" />
         <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-danger">Name is required</div>
       </div>
       <div class="form-group">
         <label for="nameAr">Department Name (Arabic)</label>
-        <input id="nameAr" formControlName="nameAr" placeholder="Enter Department Name (Arabic)" class="form-control" />
+        <input id="nameAr" formControlName="nameAr" placeholder="Enter Department Name (Arabic)" class="form-control" [appInputRestriction]="'english'"/>
         <div *ngIf="form.get('nameAr')?.invalid && form.get('nameAr')?.touched" class="text-danger">Arabic name is required</div>
       </div>
       <div class="form-group">
@@ -38,7 +38,7 @@
           class="form-control"
           (input)="updateCharacterCount('description')"
           maxlength="250"
-          minlength="100"
+          minlength="100" [appInputRestriction]="'arabic'"
         ></textarea>
         <div *ngIf="form.get('description')?.invalid && form.get('description')?.touched" class="text-danger">
           Description is required and must be between 100 and 250 characters.
@@ -57,7 +57,7 @@
           class="form-control"
           (input)="updateCharacterCount('descriptionAr')"
           maxlength="250"
-          minlength="100"
+          minlength="100" [appInputRestriction]="'english'"
         ></textarea>
         <div *ngIf="form.get('descriptionAr')?.invalid && form.get('descriptionAr')?.touched" class="text-danger">
           Arabic description is required and must be between 100 and 250 characters.

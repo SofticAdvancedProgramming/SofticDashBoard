@@ -5,5 +5,5 @@ export interface branch {
     nameAr: string;
     long: number;
     lat: number;
+    isActive?:boolean;
   }
-  

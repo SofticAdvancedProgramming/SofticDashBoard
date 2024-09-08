@@ -10,7 +10,7 @@ import { ToastModule } from 'primeng/toast';
 import { ModernTableComponent } from '../../../../components/modern-table/modern-table.component';
 import { AddBranchComponent } from '../add-branch/add-branch.component';
 import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 @Component({
   selector: 'app-view-branches',
   templateUrl: './view-branches.component.html',
@@ -24,7 +24,8 @@ import { AssignEntityComponent } from '../assign-entity/assign-entity.component'
     ToastModule,
     AddBranchComponent,
     AssignEntityComponent,
-    ModernTableComponent
+    ModernTableComponent,
+    PaginationModule
   ],
 })
 export class ViewBranchesComponent implements OnInit {
@@ -35,7 +36,9 @@ export class ViewBranchesComponent implements OnInit {
   employees: employee[] = [];
   isAssignEntity: boolean = false;
   selectedBranch: branch | undefined = undefined;
-
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalItems: number = 0;
   constructor(private branchService: BranchService, private employeeService: EmployeeService, private messageService: MessageService) {}
 
   ngOnInit(): void {
@@ -44,17 +47,19 @@ export class ViewBranchesComponent implements OnInit {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
 
-  loadBranches(): void {
-    this.branchService.getBranch({ comapnyId:this.companyId }).subscribe({
+  loadBranches(page: number = this.currentPage): void {
+    this.branchService.getBranch({ companyId: this.companyId, pageIndex: page, pageSize: this.itemsPerPage }).subscribe({
       next: (response) => {
         this.branches = response.data.list;
+        this.totalItems = response.data.totalRows;
         console.log("Branches loaded:", this.branches);
-      },
-      error: (err) => {
-        console.error('Error loading branches', err);
-        this.showError('Error loading branches');
       }
     });
+  }
+
+  handlePageChange(event: { page: number }): void {
+    this.currentPage = event.page;
+    this.loadBranches(this.currentPage);
   }
 
   loadEmployees(): void {
@@ -65,10 +70,6 @@ export class ViewBranchesComponent implements OnInit {
             (employee: any) => !employee.branchId
           );
           console.log("Filtered Employees:", this.employees);
-        },
-        error: (err) => {
-          console.error('Error loading employees', err);
-          this.showError('Error loading employees');
         }
       });
     } else {
@@ -99,10 +100,6 @@ export class ViewBranchesComponent implements OnInit {
       next: (response) => {
         this.employees = response.data.list;
         console.log("Employees loaded for branch:", this.employees);
-      },
-      error: (err) => {
-        console.error('Error loading employees', err);
-        this.showError('Error loading employees');
       }
     });
   }
@@ -124,9 +121,6 @@ export class ViewBranchesComponent implements OnInit {
           this.employees = response.data.list.filter(
             (employee: any) => !employee.branchId
           );
-        },
-        error: (err) => {
-          this.showError('Error loading unassigned employees');
         }
       });
     }
@@ -143,10 +137,6 @@ export class ViewBranchesComponent implements OnInit {
         this.isAssignEntity = false;
         this.loadBranches();
         this.loadEmployees();
-      },
-      error: (err) => {
-        console.error('Error assigning employee to branch', err);
-        this.showError('Error assigning employee to branch');
       }
     });
   }
@@ -165,14 +155,36 @@ export class ViewBranchesComponent implements OnInit {
         next: () => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Branch deleted successfully' });
           this.loadBranches();
-        },
-        error: (err) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting branch' });
         }
       });
   }
   handleClose() {
     this.isAssignEntity = false;
+  }
+  toggleActivation(branch: branch): void {
+    if (branch.isActive) {
+      this.deactivateBranch(branch);
+    } else {
+      this.activateBranch(branch);
+    }
+  }
+
+  activateBranch(branch: branch): void {
+    this.branchService.ActivateBranch(branch.id,branch.companyId).subscribe({
+      next: () => {
+        branch.isActive = true;
+        this.showSuccess('Branch activated successfully');
+      }
+    });
+  }
+
+  deactivateBranch(branch: branch): void {
+    this.branchService.DeActivateBranch(branch.id,branch.companyId).subscribe({
+      next: () => {
+        branch.isActive = false;
+        this.showSuccess('Branch deactivated successfully');
+      }
+    });
   }
 
 }

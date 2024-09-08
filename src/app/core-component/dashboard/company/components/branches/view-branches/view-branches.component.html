@@ -18,6 +18,13 @@
           </button>
         </div>
         <div class="card-footer">
+          <label class="toggle-label">
+            <span>{{ branch.isActive ? 'Deactivate' : 'Activate' }}</span>
+            <label class="switch">
+              <input type="checkbox" [checked]="branch.isActive"  (change)="toggleActivation(branch)">
+              <span class="slider"></span>
+            </label>
+          </label>
           <i class="fas fa-trash-alt icon-trash" (click)="deleteBranch(branch.id)"></i>
           <i class="fas fa-edit icon-edit"></i>
           <button class="btn" (click)="showDetails(branch.id)">
@@ -60,3 +67,13 @@
 
 
 <p-toast position="top-center"></p-toast>
+<div class="d-flex justify-content-center mt-3">
+  <pagination
+    [totalItems]="totalItems"
+    [(ngModel)]="currentPage"
+    [itemsPerPage]="itemsPerPage"
+    (pageChanged)="handlePageChange($event)"
+    previousText="&laquo;"
+    nextText="&raquo;">
+  </pagination>
+</div>

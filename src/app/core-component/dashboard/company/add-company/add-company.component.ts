@@ -12,7 +12,7 @@ import { ToastModule } from 'primeng/toast';
 import { AlphanumericDirective } from '../../../../common-component/directives/Alphanumeric-directive/alphanumeric-directive.directive';
 import { InputRestrictionDirective } from '../../../../common-component/directives/lang-directive/input-restriction.directive';
 import { SpecialCharacterDirective } from '../../../../common-component/directives/specialCharacter-directive/special-character.directive';
-import { NgxIntlTelInputModule, CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
+import { NgxIntlTelInputModule, CountryISO, SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-add-company',
@@ -44,6 +44,9 @@ export class AddCompanyComponent implements OnInit {
   preferredCountries = [CountryISO.Egypt, CountryISO.SaudiArabia];
   searchCountryFields = [SearchCountryField.Name, SearchCountryField.DialCode, SearchCountryField.Iso2];
   selectedCountryISO = CountryISO.Egypt;
+  CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+
   constructor(
     private fb: FormBuilder,
     private companyService: CompanyService,

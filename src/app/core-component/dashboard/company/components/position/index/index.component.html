@@ -25,26 +25,38 @@
               <p>Department: {{ getDepartmentName(position.departmentId) }}</p>
             </div>
             <div class="card-body">
-              <button class="btn btn-add" (click)="addEmployee(position.id)">
+              <button class="btn btn-add" (click)="addEmployee(position.id?.toString()||'0')">
                 <i class="fas fa-plus"></i> Add Employee
               </button>
             </div>
             <div class="card-footer">
               <label class="toggle-label">
-                <span class="mx-2">Activate</span>
+                <span>{{ position.isActive ? 'Deactivate' : 'Activate' }}</span>
                 <label class="switch">
-                  <input type="checkbox" [checked]="position.isActive">
+                  <input type="checkbox" [checked]="position.isActive" (change)="toggleActivation(position)">
                   <span class="slider"></span>
                 </label>
               </label>
-              <i class="fas fa-trash-alt icon-trash" (click)="deletePosition(position.id)"></i>
+              <i class="fas fa-trash-alt icon-trash" (click)="deletePosition(position.id||0)"></i>
               <i class="fas fa-edit icon-edit"></i>
-              <button class="btn" (click)="showDetailsPage(position.id)"> <!-- Modify this line -->
+              <button class="btn" (click)="showDetailsPage(position.id?.toString()||'0')">
                 <span class="details">Show Details <i class="fa-solid fa-arrow-right"></i></span>
               </button>
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Pagination Controls -->
+      <div class="d-flex justify-content-center mt-3">
+        <pagination
+          [totalItems]="totalItems"
+          [(ngModel)]="currentPage"
+          [itemsPerPage]="itemsPerPage"
+          (pageChanged)="handlePageChange($event)"
+          previousText="&laquo;"
+          nextText="&raquo;">
+        </pagination>
       </div>
     </ng-template>
   </ng-container>
@@ -81,4 +93,5 @@
   </ng-container>
 
 </div>
+
 <p-toast position="top-center"></p-toast>

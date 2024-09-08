@@ -7,31 +7,41 @@
       </div>
     </div>
     <div class="row">
-      <div *ngFor="let card of cards" class="col-lg-4 col-md-6 col-sm-12">
+      <div *ngFor="let department of departments" class="col-lg-4 col-md-6 col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h3>{{ card.title }}</h3>
-            <p>{{ card.department }}</p>
+            <h3>{{ department.name }}</h3>
+            <p>{{ department.shortName }}</p>
           </div>
           <div class="card-body">
-            <button class="btn btn-add" (click)="assignEntity(card.id)"><i class="fas fa-plus"></i> Add Employee</button>
+            <button class="btn btn-add" (click)="assignEntity(department.id.toString())"><i class="fas fa-plus"></i> Add Employee</button>
           </div>
           <div class="card-footer">
             <label class="toggle-label">
-              <span>Activate</span>
+              <span>{{ department.isActive ? 'Deactivate' : 'Activate' }}</span>
               <label class="switch">
-                <input type="checkbox" [checked]="card.active">
+                <input type="checkbox" [checked]="department.isActive"  (change)="toggleActivation(department)">
                 <span class="slider"></span>
               </label>
             </label>
-            <i class="fas fa-trash-alt icon-trash" (click)="deleteDepartment(card.id)"></i>
+            <i class="fas fa-trash-alt icon-trash" (click)="deleteDepartment(department.id)"></i>
             <i class="fas fa-edit icon-edit"></i>
-            <button class="btn" (click)="showDetails(card.id)">
+            <button class="btn" (click)="showDetails(department.id)">
               <span class="details">show details <i class="fa-solid fa-arrow-right"></i></span>
             </button>
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+      <pagination
+        [totalItems]="totalItems"
+        [(ngModel)]="currentPage"
+        [itemsPerPage]="itemsPerPage"
+        (pageChanged)="handlePageChange($event)"
+        previousText="&laquo;"
+        nextText="&raquo;">
+      </pagination>
     </div>
   </div>
 
@@ -58,3 +68,4 @@
 
 
   <p-toast position="top-center"></p-toast>
+

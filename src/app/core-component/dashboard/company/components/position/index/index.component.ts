@@ -1,3 +1,4 @@
+import { FontModel } from './../../../../../../../assets/ej2-treemap/src/treemap/model/base-model.d';
 import { Component, OnInit, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -11,14 +12,16 @@ import { ToastModule } from 'primeng/toast';
 import { Department } from '../../../../../../../models/department';
 import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
 import { ModernTableComponent } from '../../../../components/modern-table/modern-table.component';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { FormsModule } from '@angular/forms';
+import { Position } from '../../../../../../../models/postion';
 @Component({
   selector: 'app-index',
   standalone: true,
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
   providers: [PositionService, EmployeeService, MessageService],
-  imports: [RouterLink, CommonModule, AssignEmployeesComponent, AddPositionComponent, ToastModule, ModernTableComponent]
+  imports: [RouterLink, CommonModule, AssignEmployeesComponent,PaginationModule, AddPositionComponent, ToastModule, ModernTableComponent,FormsModule]
 })
 export class IndexComponent implements OnInit {
   isAdd: boolean = false;
@@ -29,9 +32,11 @@ export class IndexComponent implements OnInit {
   directManger?: employee = {} as employee;
   employees: employee[] = [];
   @Input() companyId?: string = '';
-  positions: any[] = [];
+  positions: Position[] = [];
   departments: Department[] = [];
-
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalItems: number = 0;
   constructor(
     private positionService: PositionService,
     private employeeService: EmployeeService,
@@ -43,11 +48,11 @@ export class IndexComponent implements OnInit {
     this.loadPositions();
     this.loadDepartments();
   }
-
-  loadPositions(): void {
-    this.positionService.getPosition({ companyId: this.companyId, pageSize: 20 }).subscribe({
+  loadPositions(page: number = this.currentPage): void {
+    this.positionService.getPosition({ companyId: this.companyId, pageSize: this.itemsPerPage, pageIndex: page }).subscribe({
       next: (response) => {
         this.positions = response.data.list;
+        this.totalItems = response.data.totalRows;
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' });
@@ -68,7 +73,10 @@ export class IndexComponent implements OnInit {
       }
     });
   }
-
+  handlePageChange(event: { page: number }): void {
+    this.currentPage = event.page;
+    this.loadPositions(this.currentPage);
+  }
   loadEmployeesByPosition(positionId: string): void {
     this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
       next: (response) => {
@@ -107,7 +115,7 @@ export class IndexComponent implements OnInit {
 
   addEmployee(positionId: string): void {
     this.selectedPositionId = positionId;
-    this.selectedPositionData = this.positions.find(position => position.id === positionId);
+    this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
     this.loadUnassignedEmployees();
     this.isAddEmployee = true;
   }
@@ -153,12 +161,39 @@ export class IndexComponent implements OnInit {
 
   showDetailsPage(positionId: string): void {
     this.selectedPositionId = positionId;
-    this.selectedPositionData = this.positions.find(position => position.id === positionId);
+    this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
     this.loadEmployeesByPosition(positionId);
     this.showDetails = true;
   }
 
   goBack(): void {
     this.showDetails = false;
+  }
+  toggleActivation(Position: Position): void {
+    debugger
+    Position.isActive ? this.deactivatePosition(Position) : this.activatePosition(Position);
+  }
+
+  activatePosition(Position: Position): void {
+    debugger
+    this.positionService.ActivatePosition(Position.id||0, Position.companyId || 0).subscribe({
+      next: () => {
+        Position.isActive = true;
+        this.showSuccess('Position activated successfully');
+      }
+    });
+  }
+
+  deactivatePosition(Position: Position): void {
+    debugger
+    this.positionService.DeActivatePosition(Position.id||0, Position.companyId || 0).subscribe({
+      next: () => {
+        Position.isActive = false;
+        this.showSuccess('Position deactivated successfully');
+      }
+    });
+  }
+  private showSuccess(detail: string): void {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail });
   }
 }

@@ -9,6 +9,7 @@ import { MapComponent } from '../../../../components/map/map.component';
 import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
 import { branch } from '../../../../../../../models/branch';
 import { LeafletMapComponent } from "../../../../../../common-component/leaflet-map/leaflet-map.component";
+import { InputRestrictionDirective } from '../../../../../../common-component/directives/lang-directive/input-restriction.directive';
 
 @Component({
     selector: 'app-add-department',
@@ -16,7 +17,7 @@ import { LeafletMapComponent } from "../../../../../../common-component/leaflet-
     templateUrl: './add-department.component.html',
     styleUrls: ['./add-department.component.css'],
     providers: [MessageService],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, LeafletMapComponent]
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, LeafletMapComponent,InputRestrictionDirective]
 })
 export class AddDepartmentComponent implements OnInit {
   @Output() action = new EventEmitter<boolean>();
@@ -24,7 +25,6 @@ export class AddDepartmentComponent implements OnInit {
   branches: branch[] = [];
   @Input() companyId?: number;
 
-  // Character counts for descriptions
   descriptionCharacterCount: number = 0;
   descriptionArCharacterCount: number = 0;
 
@@ -53,7 +53,7 @@ export class AddDepartmentComponent implements OnInit {
       this.companyId = Number(storedCompanyId);
     }
     this.loadBranches();
-    this.updateCharacterCount('description'); // Initialize counts
+    this.updateCharacterCount('description');
     this.updateCharacterCount('descriptionAr');
   }
 
