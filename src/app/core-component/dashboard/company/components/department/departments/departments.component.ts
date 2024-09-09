@@ -13,6 +13,9 @@ import { ToastModule } from 'primeng/toast';
 import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
 import { environment } from '../../../../../../environment/environment';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-departments',
@@ -29,7 +32,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     DepartmentOverviewComponent,
     ToastModule,
     AssignEntityComponent,
-    PaginationModule
+    PaginationModule,
+    TranslateModule
   ]
 })
 export class DepartmentsComponent implements OnInit {
@@ -50,17 +54,26 @@ export class DepartmentsComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
+  isArabic: boolean = false;
+
 
   constructor(
     private departmentService: DepartmentService,
     private employeeService: EmployeeService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private translate: TranslateService
   ) {}
+  private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.loadDepartments();
+    this.subscription.add(this.translate.onLangChange.subscribe(() => {
+      this.checkLanguage();
+    }));
   }
-
+  checkLanguage(): void {
+    this.isArabic = this.translate.currentLang === 'ar';
+  }
   loadDepartments(page: number = this.currentPage): void {
     const companyId = this.getCompanyId();
     if (companyId) {

@@ -1,5 +1,6 @@
 .about-container {
     display: flex;
+    flex-wrap: wrap; /* Allow flex items to wrap */
     justify-content: space-between;
     margin-top: 1em;
     padding: 1em;
@@ -19,7 +20,6 @@
     font-weight: 500;
     line-height: 30px;
     letter-spacing: 0.03em;
-    text-align: left;
 }
 
 .about-content p {
@@ -29,7 +29,6 @@
     font-weight: 300;
     line-height: 30px;
     letter-spacing: 0.03em;
-
 }
 
 .contact-details {
@@ -37,20 +36,17 @@
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-
+    margin-top: 20px;
 }
 
 .contact-details ul {
     list-style: none;
     padding: 2em;
-
 }
 
 .contact-details li {
-    margin-bottom: 10px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
+    margin-bottom: 20px;    font-size: 16px;
+     align-items: center;
 }
 
 .contact-details li strong {
@@ -76,24 +72,122 @@
 }
 
 @media (max-width: 768px) {
+    .about-container {
+        flex-direction: column; /* Stack items vertically on small screens */
+    }
 
     .about-content,
     .contact-details {
-        flex: 1 1 100%;
         margin-right: 0;
+        margin-top: 20px;
+    }
+
+    .editbtn {
+        justify-content: center; /* Center align button on smaller screens */
     }
 }
+
 .editbtn {
-display: flex;
-justify-content: end;
-margin-top: 2em;
+    display: flex;
+    justify-content: end;
+    margin-top: 2em;
 }
+
 .editbtn button {
-    padding: 14px 0px 14px 0px;
+    padding: 14px 0px;
     gap: 0px;
     border-radius: 10px;
     background: #9ACA3C;
     width: 200px;
     color: white;
     border-color: transparent;
+}
+
+.info-description {
+    color: #736F77;
+    font-family: 'Lama Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 6em;
+    padding-right: 6em;
+    background-color: white;
+    border-radius: 10px;
+    margin: auto;
+    width: 75%;
+}
+
+.upload-section {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 3em;
+    align-items: center;
+}
+
+.upload-text {
+    font-family: Lama Sans;
+    font-size: 19.07px;
+    font-weight: 700;
+    line-height: 38.13px;
+}
+
+.upload-instructions {
+    color: #9C999F;
+    font-family: Lama Sans;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 26px;
+    width: 80%;
+}
+
+
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn-cancel {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.btn-next {
+    background-color: #6f42c1;
+    color: #fff;
+}
+
+@media (max-width: 991.98px) {
+    .form-container {
+        padding-left: 1em;
+        padding-right: 1em;
+        width: 100%;
+    }
+}
+.form-group{
+    margin-top: 1.6em;
+}
+.upload-icon{
+    max-width: 340px;
+    max-height: 340px;
 }

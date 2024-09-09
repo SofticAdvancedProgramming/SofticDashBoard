@@ -28,7 +28,9 @@
           <img  src="assets/images/fullscreen.png" alt="" style=" width: 20px; height: 20px;">
         </button>
       </div> -->
-      <div class="col-lg-4 d-flex gap-3 justify-content-end profile" routerLink="profile">
+      <!-- <app-change-language></app-change-language> -->
+      <!-- routerLink="profile" -->
+      <div class="col-lg-4 d-flex gap-3 justify-content-end profile flex-fill" >
         <a> <img class="img-fluid" [src]="profileImage ? profileImage: 'assets/images/default.jpeg'"> </a>
         <div class="desc">
           <p>{{user.firstName || ''}}</p>

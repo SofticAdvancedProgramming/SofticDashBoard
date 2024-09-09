@@ -9,6 +9,7 @@ import { MapComponent } from '../../../../components/map/map.component';
 import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
 import { branch } from '../../../../../../../models/branch';
 import { LeafletMapComponent } from "../../../../../../common-component/leaflet-map/leaflet-map.component";
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { InputRestrictionDirective } from '../../../../../../common-component/directives/lang-directive/input-restriction.directive';
 
 @Component({
@@ -17,7 +18,7 @@ import { InputRestrictionDirective } from '../../../../../../common-component/di
     templateUrl: './add-department.component.html',
     styleUrls: ['./add-department.component.css'],
     providers: [MessageService],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, LeafletMapComponent,InputRestrictionDirective]
+    imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, LeafletMapComponent,InputRestrictionDirective]
 })
 export class AddDepartmentComponent implements OnInit {
   @Output() action = new EventEmitter<boolean>();
@@ -32,7 +33,8 @@ export class AddDepartmentComponent implements OnInit {
     private fb: FormBuilder,
     private departmentService: DepartmentService,
     private branchService: BranchService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private translate: TranslateService
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],

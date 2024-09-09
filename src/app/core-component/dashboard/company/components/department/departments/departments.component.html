@@ -2,7 +2,7 @@
     <div class="row">
       <div class="justify-content-end d-flex">
         <button class="btn addPositionBtn w-25" (click)="addDepartment()">
-          <i class="fas fa-plus"></i> Add Department
+          <i class="fas fa-plus"></i> {{ 'DEPARTMENTS.ADD_DEPARTMENT' | translate }}
         </button>
       </div>
     </div>
@@ -14,11 +14,12 @@
             <p>{{ department.shortName }}</p>
           </div>
           <div class="card-body">
-            <button class="btn btn-add" (click)="assignEntity(department.id.toString())"><i class="fas fa-plus"></i> Add Employee</button>
+            <button class="btn btn-add" (click)="assignEntity(department.id.toString())">
+              <i class="fas fa-plus"></i> {{ 'DEPARTMENTS.ADD_EMPLOYEE' | translate }}</button>
           </div>
           <div class="card-footer">
             <label class="toggle-label">
-              <span>{{ department.isActive ? 'Deactivate' : 'Activate' }}</span>
+              <span>{{ department.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' | translate) }}</span>
               <label class="switch">
                 <input type="checkbox" [checked]="department.isActive"  (change)="toggleActivation(department)">
                 <span class="slider"></span>
@@ -27,7 +28,9 @@
             <i class="fas fa-trash-alt icon-trash" (click)="deleteDepartment(department.id)"></i>
             <i class="fas fa-edit icon-edit"></i>
             <button class="btn" (click)="showDetails(department.id)">
-              <span class="details">show details <i class="fa-solid fa-arrow-right"></i></span>
+              <span class="details">{{ 'DEPARTMENTS.SHOW_DETAILS' | translate }} <i [ngClass]="{'rotate-arrow': isArabic}"
+                class="fa-solid fa-arrow-right"></i>
+            </span>
             </button>
           </div>
         </div>
@@ -45,27 +48,20 @@
     </div>
   </div>
 
-  <!-- Entity Assignment Popup -->
-  <app-assign-entity
-    *ngIf="isAssignEntity"
-    [entityId]="selectedEntityId"
-    [entityType]="entityType"
-    [entities]="employees"
-    [department]="selectedDepartment"
-    (close)="goBack()"
-    (submitForm)="handleEntityAssigned($event)">
-  </app-assign-entity>
-  <ng-container *ngIf="isAdd;">
-    <app-add-department [companyId]="companyId" (action)="handleAction($event)"></app-add-department>
-  </ng-container>
-  <!-- Department Overview -->
-  <div *ngIf="showOverView">
-    <app-department-overview
-    [Department]="selectedDepartment!"
-      (departmentAdded)="goBack()">
-    </app-department-overview>
-  </div>
+<!-- Entity Assignment Popup -->
+<app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedEntityId" [entityType]="entityType" [entities]="employees"
+  [department]="selectedDepartment" (close)="goBack()" (submitForm)="handleEntityAssigned($event)">
+</app-assign-entity>
 
+<ng-container *ngIf="isAdd">
+  <app-add-department [companyId]="companyId" (action)="handleAction($event)"></app-add-department>
+</ng-container>
+
+<!-- Department Overview -->
+<div *ngIf="showOverView">
+  <app-department-overview [Department]="selectedDepartment!" (departmentAdded)="goBack()">
+  </app-department-overview>
+</div>
 
   <p-toast position="top-center"></p-toast>
 

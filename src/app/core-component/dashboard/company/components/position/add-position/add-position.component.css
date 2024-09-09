@@ -1,13 +1,7 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 20px;
-  }
-  
+ 
   .form-container {
     background-color: white;
-    padding: 5em;
+    padding: 1em;
     border-radius: 8px;
     margin: auto;
   }

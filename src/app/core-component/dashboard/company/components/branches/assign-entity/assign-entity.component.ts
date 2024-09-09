@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { employee } from '../../../../../../../models/employee';
 import { branch } from '../../../../../../../models/branch';
 import { CommonModule } from '@angular/common';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-assign-entity',
   templateUrl: './assign-entity.component.html',
   styleUrls: ['./assign-entity.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule , TranslateModule],
 })
 export class AssignEntityComponent {
   @Input() entityId?: string;
@@ -18,10 +19,10 @@ export class AssignEntityComponent {
   @Input() branch: branch | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() submitForm = new EventEmitter<{ employeeId: number, branchId: number }>();
-
+  isArabic: boolean = false;
   assignForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder ,  private translate: TranslateService) {
     this.assignForm = this.fb.group({
       selectedEmployeeId: ['', Validators.required]
     });
@@ -43,5 +44,10 @@ export class AssignEntityComponent {
   get selectedEmployeeId() {
     return this.assignForm.get('selectedEmployeeId');
   }
-
+  ngOnInit(): void {
+    this.isArabic = this.translate.currentLang === 'ar';  
+    this.translate.onLangChange.subscribe(event => {
+      this.isArabic = event.lang === 'ar';  
+    });
+  }
 }

@@ -6,11 +6,12 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthenticationService } from '../../../services/authenticationService/authentication.service';
 import { ErrorHandlerService } from '../../../services/ErrorHandlerService/error-handler.service';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-forget-password',
   standalone: true,
-  imports: [RouterLink, FormsModule, CommonModule, ToastModule],
+  imports: [RouterLink, FormsModule, CommonModule, ToastModule , TranslateModule],
   templateUrl: './forget-password.component.html',
   styleUrls: ['./forget-password.component.css'],
   providers: [MessageService]
@@ -22,7 +23,8 @@ export class ForgetPasswordComponent {
     private authService: AuthenticationService,
     private router: Router,
     private messageService: MessageService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private translate: TranslateService
   ) {}
 
   onSubmit() {

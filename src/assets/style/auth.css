@@ -154,6 +154,7 @@
     border-color: #E7E6E8;
     border-radius: 10px;
     padding: 0px;
+    margin-inline: 0.2em;
 }
 
 .customLabels .row select {

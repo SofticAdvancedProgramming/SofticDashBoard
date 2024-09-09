@@ -12,8 +12,8 @@
     <ng-template #positionList>
       <div class="row">
         <div class="justify-content-end d-flex">
-          <button class="btn addPositionBtn w-25" (click)="addPosition()">
-            <i class="fas fa-plus"></i> Add Position
+          <button class="btn addPositionBtn" (click)="addPosition()">
+            <i class="fas fa-plus"></i> {{ 'INDEX_POSITION.ADD_POSITION' | translate }}
           </button>
         </div>
       </div>
@@ -22,16 +22,16 @@
           <div class="card">
             <div class="card-header">
               <h3>{{ position.name }}</h3>
-              <p>Department: {{ getDepartmentName(position.departmentId) }}</p>
+              <p>{{ 'INDEX_POSITION.DEPARTMENT' | translate }}: {{ getDepartmentName(position.departmentId) }}</p>
             </div>
             <div class="card-body">
               <button class="btn btn-add" (click)="addEmployee(position.id?.toString()||'0')">
-                <i class="fas fa-plus"></i> Add Employee
+                <i class="fas fa-plus"></i> {{ 'INDEX_POSITION.ADD_EMPLOYEE' | translate }}
               </button>
             </div>
             <div class="card-footer">
               <label class="toggle-label">
-                <span>{{ position.isActive ? 'Deactivate' : 'Activate' }}</span>
+                <span>{{ position.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' | translate) }}</span>
                 <label class="switch">
                   <input type="checkbox" [checked]="position.isActive" (change)="toggleActivation(position)">
                   <span class="slider"></span>
@@ -40,7 +40,9 @@
               <i class="fas fa-trash-alt icon-trash" (click)="deletePosition(position.id||0)"></i>
               <i class="fas fa-edit icon-edit"></i>
               <button class="btn" (click)="showDetailsPage(position.id?.toString()||'0')">
-                <span class="details">Show Details <i class="fa-solid fa-arrow-right"></i></span>
+                <span class="details">{{ 'INDEX_POSITION.SHOW_DETAILS' | translate }}
+                  <i [ngClass]="{'rotate-arrow': isArabic}" class="fa-solid fa-arrow-right"></i>
+                </span>
               </button>
             </div>
           </div>
@@ -64,10 +66,10 @@
   <!-- Details Page -->
   <div *ngIf="showDetails" class="table-container">
     <button class="btn" (click)="goBack()">
-      <i class="fas fa-arrow-left"></i>
+      <i class="fas fa-arrow-left"></i> {{ 'INDEX_POSITION.BACK' | translate }}
     </button>
     <app-modern-table
-      [tableTitle]="'Employees of ' + selectedPositionData?.name"
+      [tableTitle]="'INDEX_POSITION.EMPLOYEES_OF' | translate : {positionName: selectedPositionData?.name}"
       [tableData]="employees"
       [columns]="['id', 'fullName', 'position.name', 'department.name']"
       [modalId]="'employeeDetailsModal'"
@@ -80,18 +82,17 @@
   <ng-container *ngIf="isAddEmployee">
     <app-assign-employees
       [positionId]="selectedPositionId"
-      [Position]="'Position'"
+      [Position]="'INDEX_POSITION.POSITION' | translate"
       [PositionDescription]="selectedPositionData?.name || ''"
-      [Department]="'Department'"
+      [Department]="'INDEX_POSITION.DEPARTMENT_DESCRIPTION' | translate"
       [DepartmentDescription]="getDepartmentName(selectedPositionData?.departmentId) || ' '"
-      [DirectManager]="'Direct Manager'"
+      [DirectManager]="'INDEX_POSITION.DIRECT_MANAGER' | translate"
       [DirectManagerDescription]="directManger?.fullName || ''"
       [employees]="employees"
       (close)="closePopup()"
       (submitForm)="handleFormSubmit($event)">
     </app-assign-employees>
   </ng-container>
-
 </div>
 
 <p-toast position="top-center"></p-toast>

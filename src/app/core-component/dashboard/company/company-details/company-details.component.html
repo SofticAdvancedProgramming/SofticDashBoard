@@ -2,36 +2,47 @@
   <div class="profile-banner">
     <img src="assets/images/cover.png" alt="Company Banner">
   </div>
-  <div class="profile-info">
-    <div class="profile-logo">
-      <img [src]="company.logo" alt="Company Logo">
-    </div>
-    <div class="profile-details">
-      <h1>{{company.name}}</h1>
-      <p>Software Company</p>
-      <p>{{company.phoneNumber}}</p>
+  <div class="profile-info justify-content-between" [ngClass]="{ 'rtl-layout': isArabic }">
+    <div class="profile-left">
+      <div class="profile-logo">
+        <img [src]="company.logo" alt="Company Logo">
+      </div>
+      <div class="company-details">
+        <h1>{{ company.name }}</h1>
+        <p>{{ 'COMPANY_DETAILS.PHONE_NUMBER' | translate }}: {{ company.phoneNumber }}</p>
+      </div>
     </div>
     <div class="profile-action">
-      <div class="profile-action">
-        <div class="toggle-button-container">
-          <button class="btn" (click)="toggleActivation()">
-            <span class="label">{{ active ? 'Deactivate' : 'Activate' }}</span>
-            <label class="switch">
-              <input type="checkbox" id="toggleSwitch" [checked]="active" (change)="toggleActivation()">
-              <span class="slider"></span>
-            </label>
-          </button>
-        </div>
+      <div class="toggle-button-container" *ngIf="role[0] === 'SuperAdmin'">
+        <button class="btn" (click)="toggleActivation()">
+          <span class="label">{{ active ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' | translate) }}</span>
+        <label class="switch">
+          <input type="checkbox" id="toggleSwitch" [checked]="active" (change)="toggleActivation()">
+          <span class="slider"></span>
+        </label>
+      </button>
       </div>
-      
 
     </div>
   </div>
 </div>
-  <mat-tab-group>
-    <mat-tab label="Profile">  <app-profile-details [company]="company" [cityName]="cityName" [countryName]="countryName"> </app-profile-details> </mat-tab>
-    <mat-tab label="Branches"><app-view-branches> </app-view-branches>  </mat-tab>
-    <mat-tab label="Department"><app-departments> </app-departments>  </mat-tab>
-    <mat-tab label="Postion"><app-index [companyId]='companyId'> </app-index>  </mat-tab>
-    <mat-tab label="Top Managements"> <app-top-managment> </app-top-managment>  </mat-tab>
-  </mat-tab-group>
+
+
+
+<mat-tab-group>
+  <mat-tab label="{{ 'COMPANY_DETAILS.TITLE' | translate }}">
+    <app-profile-details [company]="company" [cityName]="cityName" [countryName]="countryName"></app-profile-details>
+  </mat-tab>
+  <mat-tab label="{{ 'COMPANY_DETAILS.BRANCHES' | translate }}">
+    <app-view-branches></app-view-branches>
+  </mat-tab>
+  <mat-tab label="{{ 'COMPANY_DETAILS.DEPARTMENTS' | translate }}">
+    <app-departments></app-departments>
+  </mat-tab>
+  <mat-tab label="{{ 'COMPANY_DETAILS.POSITION' | translate }}">
+    <app-index [companyId]="companyId"></app-index>
+  </mat-tab>
+  <mat-tab label="{{ 'COMPANY_DETAILS.TOP_MANAGEMENT' | translate }}">
+    <app-top-managment></app-top-managment>
+  </mat-tab>
+</mat-tab-group>

@@ -1,26 +1,204 @@
-<div class="container">
+<div class="container mt-4">
   <div class="row">
-    <div class="editbtn">
-      <button><i style="color: white;" class="fa-solid fa-pen-to-square"></i> Edit </button>
+    <div class="editbtn col-12" *ngIf="role[0] === 'Admin'">
+      <button (click)="toggleEdit()">
+        <i style="color: white;" class="fa-solid fa-pen-to-square"></i>
+        {{ editMode ? 'Cancel' : 'Edit' }}
+        <!-- {{ 'PROFILE_DETAILS.EDIT' | translate }} -->
+      </button>
     </div>
   </div>
-  <div class="about-container row">
+
+  <form *ngIf="editMode" [formGroup]="companyForm" (ngSubmit)="submitForm()">
+    <div class="row">
+      <!-- File upload for company logo -->
+      <div class="col-lg-6 justify-content-center d-flex col-md-12 col-sm-12">
+        <label for="fileInput">
+          <img [src]="uploadedImageBase64 || companyForm.get('logo')?.value || '../../../../../assets/images/softic/default.png'"
+          alt="Upload Icon" class="upload-icon" style="cursor: pointer; width: 150px; height: 150px;">
+          <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*" style="display: none;">
+
+        </label>
+      </div>
+      <div class="col-lg-6 col-md-12 col-sm-12">
+        <div>
+          <p class="upload-text">edit company logo</p>
+          <p class="upload-instructions">
+            JPG/PNG files should be uploaded. The file must be high in resolution and original in design.
+          </p>
+          <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*" style="display: none;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Company Details Form -->
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <label for="name">Company Name</label>
+        <input id="name" formControlName="name" type="text" class="form-control" />
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="nameAr">Company Name (Arabic)</label>
+        <input id="nameAr" formControlName="nameAr" type="text" class="form-control" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="primaryColor">Primary Color</label>
+          <input type="color" id="primaryColor" formControlName="primaryColor" class="form-control" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="secondaryColor">Secondary Color</label>
+          <input type="color" id="secondaryColor" formControlName="secondaryColor" class="form-control" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <label for="phone">Phone</label>
+        <ngx-intl-tel-input
+          [cssClass]="'custom w-100'"
+          [preferredCountries]="preferredCountries"
+          [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [searchCountryField]="searchCountryFields"
+          [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.SaudiArabia"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          formControlName="phone"
+          [separateDialCode]="true">
+        </ngx-intl-tel-input>
+        <div *ngIf="companyForm.get('phone')?.invalid && companyForm.get('phone')?.touched">
+          <small class="text-danger">Invalid phone number</small>
+        </div>
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="phoneNumber">Mobile Number</label>
+        <ngx-intl-tel-input
+          [cssClass]="'custom w-100'"
+          [preferredCountries]="preferredCountries"
+          [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [searchCountryField]="searchCountryFields"
+          [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.Egypt"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          formControlName="phoneNumber"
+          [separateDialCode]="true">
+        </ngx-intl-tel-input>
+        <div *ngIf="companyForm.get('phoneNumber')?.invalid && companyForm.get('phoneNumber')?.touched">
+          <small class="text-danger">Invalid mobile number</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input required type="text" id="address" formControlName="address" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" class="form-control" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="webSite">Website</label>
+          <input type="text" id="webSite" formControlName="webSite" class="form-control" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="facebook">Facebook</label>
+          <input type="text" id="facebook" formControlName="facebook" class="form-control" />
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <!-- Description -->
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('description')}">
+          <label for="description">Description</label>
+          <textarea id="description" formControlName="description" class="form-control CustomModelInput"
+            placeholder="Description" minlength="100" maxlength="250"></textarea>
+          <p class="char-counter">{{ companyForm.get('description')?.value?.length || 0 }} / 250</p>
+          <div *ngIf="isFieldInvalid('description')" class="text-danger">
+            <small *ngIf="companyForm.get('description')?.errors?.['required']">Description is required.</small>
+            <small *ngIf="companyForm.get('description')?.errors?.['minlength']">Description must be at least 100
+              characters.</small>
+            <small *ngIf="companyForm.get('description')?.errors?.['maxlength']">Description cannot exceed 250
+              characters.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description (Arabic) -->
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('descriptionAr')}">
+          <label for="descriptionAr">Description (Arabic)</label>
+          <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control CustomModelInput"
+            placeholder="Description (Arabic)" minlength="100" maxlength="250"></textarea>
+          <p class="char-counter">{{ companyForm.get('descriptionAr')?.value?.length || 0 }} / 250</p>
+          <div *ngIf="isFieldInvalid('descriptionAr')" class="text-danger">
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['required']">Arabic description is
+              required.</small>
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['minlength']">Arabic description must be at least
+              100 characters.</small>
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['maxlength']">Arabic description cannot exceed 250
+              characters.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Save Button -->
+    <Div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-next w-25">Save</button>
+    </Div>
+  </form>
+
+  <!-- Display company details when not in edit mode -->
+  <div *ngIf="!editMode" class="about-container row">
     <div class="about-content col-lg-6 col-md-12 col-sm-12">
-      <h2>About</h2>
-      <p>
-      {{company.description}}
+      <h2>{{ 'PROFILE_DETAILS.ABOUT' | translate }}</h2>
+      <p class="info-description">
+        {{ isArabic ? (company.descriptionAr || 'PROFILE_DETAILS.NO_DATA' | translate) : (company.description ||
+        'PROFILE_DETAILS.NO_DATA' | translate) }}
       </p>
     </div>
-    <div class="contact-details col-lg-6 col-md-12 col-sm-12">
+    <div class="contact-details col-lg-6 col-md-6 col-sm-12">
       <ul>
-        <li><strong>City</strong>: {{cityName}}</li>
-        <li><strong>Country</strong>: {{countryName}}</li>
-        <li><strong>Address</strong>:{{company.address}}</li>
-        <li><strong>Email</strong>:{{company.email}}</li>
-        <li><strong>Mobile</strong>:{{company.phoneNumber}}</li>
-        <li><strong>Fax</strong>:{{company.fax}}</li>
-        <li><strong>Phone</strong>:{{company.phone}}</li>
+        <li><strong>{{ 'PROFILE_DETAILS.ADDRESS' | translate }}</strong>:
+          {{ company.address || ('PROFILE_DETAILS.NO_DATA' | translate) }}
+        </li>
+        <li><strong>{{ 'PROFILE_DETAILS.EMAIL' | translate }}</strong>:
+          {{ company.email || ('PROFILE_DETAILS.NO_DATA' | translate) }}
+        </li>
+        <li><strong>{{ 'PROFILE_DETAILS.MOBILE' | translate }}</strong>:
+          {{ company.phoneNumber || ('PROFILE_DETAILS.NO_DATA' | translate) }}
+        </li>
+        <li><strong>{{ 'PROFILE_DETAILS.FAX' | translate }}</strong>:
+          {{ company.fax || ('PROFILE_DETAILS.NO_DATA' | translate) }}
+        </li>
+        <li><strong>{{ 'PROFILE_DETAILS.PHONE' | translate }}</strong>:
+          {{ company.phone || ('PROFILE_DETAILS.NO_DATA' | translate) }}
+        </li>
       </ul>
     </div>
   </div>
 </div>
+<p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>

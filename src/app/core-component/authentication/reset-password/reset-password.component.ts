@@ -8,11 +8,12 @@ import { ToastModule } from 'primeng/toast';
 import { PasswordValidator } from '../../../../Modules/passwordValidator'; // Adjust the path as necessary
 import { AuthenticationService } from '../../../services/authenticationService/authentication.service';
 import { ErrorHandlerService } from '../../../services/ErrorHandlerService/error-handler.service';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgOtpInputModule, RouterLink, ToastModule],
+  imports: [CommonModule, ReactiveFormsModule, NgOtpInputModule, RouterLink, ToastModule, TranslateModule],
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css'],
   providers: [MessageService]
@@ -30,7 +31,8 @@ export class ResetPasswordComponent implements OnInit {
     private messageService: MessageService,
     private router: Router,
     private route: ActivatedRoute,
-    private errorHandlerService: ErrorHandlerService
+    private errorHandlerService: ErrorHandlerService,
+    private translate: TranslateService  // Add TranslateService here
   ) {
     this.resetPasswordForm = this.fb.group({
       password: ['', [Validators.required, PasswordValidator.passwordComplexity()]],
@@ -56,7 +58,11 @@ export class ResetPasswordComponent implements OnInit {
 
   onSubmit(): void {
     if (this.resetPasswordForm.invalid || this.otp.length !== 7) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please check your inputs and ensure OTP is 7 digits.' });
+      this.messageService.add({
+        severity: 'error',
+        summary: this.translate.instant('ERROR'),
+        detail: this.translate.instant('CHECK_INPUTS')
+      });
       return;
     }
 
@@ -64,13 +70,17 @@ export class ResetPasswordComponent implements OnInit {
 
     this.authService.resetPassword(this.email, password, this.otp).subscribe({
       next: (response: any) => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Password reset successful. You can now log in with your new password.' });
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translate.instant('SUCCESS'),
+          detail: this.translate.instant('PASSWORD_RESET_SUCCESS')
+        });
         this.router.navigate(['/']);
       },
       error: (err: any) => {
-        const errorCode = err.error?.code; // Assuming the API returns an error code
-        const errorMessage = this.errorHandlerService.getErrorMessage(errorCode);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
+        const errorCode = err.error?.code;
+        const errorMessage = this.translate.instant(`errorModels.${errorCode}`); // Use localization for error messages
+        this.messageService.add({ severity: 'error', summary: this.translate.instant('ERROR'), detail: errorMessage });
       }
     });
   }

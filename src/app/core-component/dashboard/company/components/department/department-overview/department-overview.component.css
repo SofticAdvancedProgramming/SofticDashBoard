@@ -165,3 +165,7 @@
     padding-left: 3em;
     gap: 0.5em;
 }
+.rotate-arrow {
+    transform: rotate(180deg);
+   }
+  
