@@ -7,11 +7,13 @@ import { SubscriptionPlanService } from '../../../../../services/lockupsServices
 import { CountryISO, NgxIntlTelInputModule, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
 import { Company } from '../../../../../../models/company';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-profile-details',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgxIntlTelInputModule, FormsModule, TranslateModule],
+  imports: [CommonModule, ReactiveFormsModule, NgxIntlTelInputModule, FormsModule, TranslateModule,ToastModule],
   templateUrl: './profile-details.component.html',
   styleUrls: ['./profile-details.component.css']
 })
@@ -38,6 +40,9 @@ export class ProfileDetailsComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private imageUploadService: ImageUploadService, 
     private translate: TranslateService,
+     private messageService: MessageService,
+
+
     private subscriptionPlanService: SubscriptionPlanService
   ) {}
 
@@ -151,11 +156,11 @@ export class ProfileDetailsComponent implements OnInit {
       twitter: company.twitter || '',
       instgram: company.instgram || '',
       tiktok: company.tiktok || '',
-      logo: company.logo || '', // This could be a URL or base64, handled in other logic
+      logo: company.logo || '', 
       description: company.description || '',
       descriptionAr: company.descriptionAr || '',
-      subscriptionPlanId: company.subscriptionPlanId || this.subscriptionPlanId, // Patch subscriptionPlanId if available
-      companyExtention: company.companyExtention || this.companyExtention // Patch companyExtention if available
+      subscriptionPlanId: company.subscriptionPlanId || this.subscriptionPlanId,  
+      companyExtention: company.companyExtention || this.companyExtention  
     });
   }
 
@@ -180,14 +185,13 @@ export class ProfileDetailsComponent implements OnInit {
       logo: this.base64ImageForServer || this.companyForm.get('logo')?.value,
       subscriptionPlanId: this.subscriptionPlanId,
       companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value,
-      phone: this.companyForm.get('phone')?.value?.e164Number || this.companyForm.get('phone')?.value,  // Format phone
-      phoneNumber: this.companyForm.get('phoneNumber')?.value?.e164Number || this.companyForm.get('phoneNumber')?.value,  // Format mobile number
+      phone: this.companyForm.get('phone')?.value?.e164Number || this.companyForm.get('phone')?.value,   
+      phoneNumber: this.companyForm.get('phoneNumber')?.value?.e164Number || this.companyForm.get('phoneNumber')?.value,  
     };
   
     this.companyService.EditCompany(updatedCompany).subscribe(
       response => {
-        console.log("Company updated successfully:", response);
-        alert('Company details updated successfully');
+         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Company updated successfully' });
         this.editMode = false;
       },
       error => {
