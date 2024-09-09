@@ -21,7 +21,7 @@
       </div>
       <div class="col-lg-6 col-md-12 col-sm-12">
         <div>
-          <p class="upload-text">Upload company logo</p>
+          <p class="upload-text">edit company logo</p>
           <p class="upload-instructions">
             JPG/PNG files should be uploaded. The file must be high in resolution and original in design.
           </p>
@@ -101,7 +101,7 @@
         </div>
       </div>
     </div>
-
+<div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12">
       <div class="form-group">
         <label for="address">Address</label>
@@ -112,7 +112,7 @@
       <label for="email">Email</label>
       <input id="email" formControlName="email" type="email" class="form-control" />
     </div>
-
+  </div>
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="form-group">
@@ -127,11 +127,43 @@
         </div>
       </div>
     </div>
-
     <hr>
-
+    <div class="row">
+      <!-- Description -->
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('description')}">
+          <label for="description">Description</label>
+          <textarea id="description" formControlName="description" class="form-control CustomModelInput"
+                    placeholder="Description" minlength="100" maxlength="250"></textarea>
+          <p class="char-counter">{{ companyForm.get('description')?.value?.length || 0 }} / 250</p>
+          <div *ngIf="isFieldInvalid('description')" class="text-danger">
+            <small *ngIf="companyForm.get('description')?.errors?.['required']">Description is required.</small>
+            <small *ngIf="companyForm.get('description')?.errors?.['minlength']">Description must be at least 100 characters.</small>
+            <small *ngIf="companyForm.get('description')?.errors?.['maxlength']">Description cannot exceed 250 characters.</small>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Description (Arabic) -->
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('descriptionAr')}">
+          <label for="descriptionAr">Description (Arabic)</label>
+          <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control CustomModelInput"
+                    placeholder="Description (Arabic)" minlength="100" maxlength="250"></textarea>
+          <p class="char-counter">{{ companyForm.get('descriptionAr')?.value?.length || 0 }} / 250</p>
+          <div *ngIf="isFieldInvalid('descriptionAr')" class="text-danger">
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['required']">Arabic description is required.</small>
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['minlength']">Arabic description must be at least 100 characters.</small>
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['maxlength']">Arabic description cannot exceed 250 characters.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <!-- Save Button -->
-    <button type="submit" class="btn btn-primary">Save</button>
+     <Div class="d-flex justify-content-center"> 
+    <button type="submit" class="btn btn-next w-25">Save</button>
+  </Div>
   </form>
 
   <!-- Display company details when not in edit mode -->

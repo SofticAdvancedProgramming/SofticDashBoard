@@ -81,7 +81,9 @@ export class ProfileDetailsComponent implements OnInit {
       twitter: [''],
       instgram: [''],
       tiktok: [''],
-      logo:['']
+      logo:[''],
+      description: ['', [ Validators.minLength(100), Validators.maxLength(250)]],
+      descriptionAr: ['', [ Validators.minLength(100), Validators.maxLength(250)]]
     });
   }
 
@@ -119,6 +121,8 @@ export class ProfileDetailsComponent implements OnInit {
       instgram: company.instgram,
       tiktok: company.tiktok,
       logo: company.logo,
+      description: company.description,
+      descriptionAr: company.descriptionAr,
     });
   }
 
@@ -158,4 +162,9 @@ export class ProfileDetailsComponent implements OnInit {
       }
     );
   }
+  isFieldInvalid(field: string): boolean {
+    const control = this.companyForm.get(field);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
+  
 }
