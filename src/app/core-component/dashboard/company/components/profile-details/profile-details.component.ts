@@ -93,11 +93,11 @@ export class ProfileDetailsComponent implements OnInit {
       twitter: [''],
       instgram: [''],
       tiktok: [''],
-      logo: [''], // Field to hold the Base64 image
+      logo: [''],  
       description: ['', [Validators.minLength(100), Validators.maxLength(250)]],
       descriptionAr: ['', [Validators.minLength(100), Validators.maxLength(250)]],
-      subscriptionPlanId: [''],  // Add subscriptionPlanId
-      companyExtention: ['']      // Add companyExtention
+      subscriptionPlanId: [''],   
+      companyExtention: ['']       
     });
   }
 
@@ -105,8 +105,8 @@ export class ProfileDetailsComponent implements OnInit {
     this.subscriptionPlanService.getSubscriptionPlan().subscribe(
       (response: any) => {
         if (response.status === 200 && response.data.list.length > 0) {
-          this.subscriptionPlanId = response.data.list[0].id; // Assuming you get the first plan
-          this.companyForm.patchValue({ subscriptionPlanId: this.subscriptionPlanId }); // Patch the form with the plan
+          this.subscriptionPlanId = response.data.list[0].id;  
+          this.companyForm.patchValue({ subscriptionPlanId: this.subscriptionPlanId });  
         }
       },
       (error: any) => {
@@ -135,8 +135,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   
 
-  // Method to populate the form with the company data
-  populateForm(company: any): void {
+   populateForm(company: any): void {
     this.companyForm.patchValue({
       name: company.name || '',
       nameAr: company.nameAr || '',
@@ -162,7 +161,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   submitForm(): void {
     console.log("Form Submitted:", this.companyForm.value);
-
+  
     if (this.companyForm.invalid) {
       console.warn("Form is invalid. Errors:", this.companyForm.errors);
       Object.keys(this.companyForm.controls).forEach(field => {
@@ -173,17 +172,18 @@ export class ProfileDetailsComponent implements OnInit {
       });
       return;
     }
-
+  
+    // Convert phone and phoneNumber to e164 format
     const updatedCompany = {
       ...this.companyForm.value,
-      id: this.companyId,  
+      id: this.companyId,
       logo: this.base64ImageForServer || this.companyForm.get('logo')?.value,
       subscriptionPlanId: this.subscriptionPlanId,
       companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value,
-      phone: this.companyForm.get('phone')?.value?.toString(),  
-      phoneNumber: this.companyForm.get('phoneNumber')?.value?.toString(),
+      phone: this.companyForm.get('phone')?.value?.e164Number || this.companyForm.get('phone')?.value,  // Format phone
+      phoneNumber: this.companyForm.get('phoneNumber')?.value?.e164Number || this.companyForm.get('phoneNumber')?.value,  // Format mobile number
     };
-
+  
     this.companyService.EditCompany(updatedCompany).subscribe(
       response => {
         console.log("Company updated successfully:", response);
@@ -195,6 +195,7 @@ export class ProfileDetailsComponent implements OnInit {
       }
     );
   }
+  
 
   isFieldInvalid(field: string): boolean {
     const control = this.companyForm.get(field);
