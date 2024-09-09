@@ -18,6 +18,7 @@ import { ToastModule } from 'primeng/toast';
   styleUrls: ['./profile-details.component.css']
 })
 export class ProfileDetailsComponent implements OnInit {
+  role: any = JSON.parse(localStorage.getItem('roles')!);
   @Input() company!: Company;
   @Input() cityName: string = '';
   @Input() countryName: string = '';
@@ -31,14 +32,14 @@ export class ProfileDetailsComponent implements OnInit {
   selectedCountryISO = CountryISO.Egypt;
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-  subscriptionPlanId: number | null = null;  
-  companyExtention: string | null = null;  
+  subscriptionPlanId: number | null = null;
+  companyExtention: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private companyService: CompanyService,
     private cdr: ChangeDetectorRef,
-    private imageUploadService: ImageUploadService, 
+    private imageUploadService: ImageUploadService,
     private translate: TranslateService,
      private messageService: MessageService,
 
@@ -98,11 +99,11 @@ export class ProfileDetailsComponent implements OnInit {
       twitter: [''],
       instgram: [''],
       tiktok: [''],
-      logo: [''],  
+      logo: [''],
       description: ['', [Validators.minLength(100), Validators.maxLength(250)]],
       descriptionAr: ['', [Validators.minLength(100), Validators.maxLength(250)]],
-      subscriptionPlanId: [''],   
-      companyExtention: ['']       
+      subscriptionPlanId: [''],
+      companyExtention: ['']
     });
   }
 
@@ -110,8 +111,8 @@ export class ProfileDetailsComponent implements OnInit {
     this.subscriptionPlanService.getSubscriptionPlan().subscribe(
       (response: any) => {
         if (response.status === 200 && response.data.list.length > 0) {
-          this.subscriptionPlanId = response.data.list[0].id;  
-          this.companyForm.patchValue({ subscriptionPlanId: this.subscriptionPlanId });  
+          this.subscriptionPlanId = response.data.list[0].id;
+          this.companyForm.patchValue({ subscriptionPlanId: this.subscriptionPlanId });
         }
       },
       (error: any) => {
@@ -129,7 +130,7 @@ export class ProfileDetailsComponent implements OnInit {
           const company = response.data.list[0];
           this.populateForm(company);
 
-            
+
         }
       },
       error => {
@@ -138,7 +139,7 @@ export class ProfileDetailsComponent implements OnInit {
     );
   }
 
-  
+
 
    populateForm(company: any): void {
     this.companyForm.patchValue({
@@ -156,17 +157,17 @@ export class ProfileDetailsComponent implements OnInit {
       twitter: company.twitter || '',
       instgram: company.instgram || '',
       tiktok: company.tiktok || '',
-      logo: company.logo || '', 
+      logo: company.logo || '',
       description: company.description || '',
       descriptionAr: company.descriptionAr || '',
-      subscriptionPlanId: company.subscriptionPlanId || this.subscriptionPlanId,  
-      companyExtention: company.companyExtention || this.companyExtention  
+      subscriptionPlanId: company.subscriptionPlanId || this.subscriptionPlanId,
+      companyExtention: company.companyExtention || this.companyExtention
     });
   }
 
   submitForm(): void {
     console.log("Form Submitted:", this.companyForm.value);
-  
+
     if (this.companyForm.invalid) {
       console.warn("Form is invalid. Errors:", this.companyForm.errors);
       Object.keys(this.companyForm.controls).forEach(field => {
@@ -177,7 +178,7 @@ export class ProfileDetailsComponent implements OnInit {
       });
       return;
     }
-  
+
     // Convert phone and phoneNumber to e164 format
     const updatedCompany = {
       ...this.companyForm.value,
@@ -185,10 +186,10 @@ export class ProfileDetailsComponent implements OnInit {
       logo: this.base64ImageForServer || this.companyForm.get('logo')?.value,
       subscriptionPlanId: this.subscriptionPlanId,
       companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value,
-      phone: this.companyForm.get('phone')?.value?.e164Number || this.companyForm.get('phone')?.value,   
-      phoneNumber: this.companyForm.get('phoneNumber')?.value?.e164Number || this.companyForm.get('phoneNumber')?.value,  
+      phone: this.companyForm.get('phone')?.value?.e164Number || this.companyForm.get('phone')?.value,
+      phoneNumber: this.companyForm.get('phoneNumber')?.value?.e164Number || this.companyForm.get('phoneNumber')?.value,
     };
-  
+
     this.companyService.EditCompany(updatedCompany).subscribe(
       response => {
          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Company updated successfully' });
@@ -199,7 +200,7 @@ export class ProfileDetailsComponent implements OnInit {
       }
     );
   }
-  
+
 
   isFieldInvalid(field: string): boolean {
     const control = this.companyForm.get(field);
