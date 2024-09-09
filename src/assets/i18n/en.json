@@ -181,6 +181,7 @@
     "DEPARTMENT": "Department",
     "ADD_EMPLOYEE": "Add Employee",
     "ACTIVATE": "Activate",
+    "DEACTIVATE": "DeActivate",
     "SHOW_DETAILS": "Show Details",
     "EMPLOYEES_OF": "Employees of",
     "POSITION": "Position",

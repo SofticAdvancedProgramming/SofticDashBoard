@@ -31,8 +31,7 @@
             </div>
             <div class="card-footer">
               <label class="toggle-label">
-                <span>{{ position.isActive ? 'Deactivate' : 'Activate' }}</span>
-                <span class="mx-2">{{ 'INDEX_POSITION.ACTIVATE' | translate }}</span>
+                <span>{{ position.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' | translate) }}</span>
                 <label class="switch">
                   <input type="checkbox" [checked]="position.isActive" (change)="toggleActivation(position)">
                   <span class="slider"></span>

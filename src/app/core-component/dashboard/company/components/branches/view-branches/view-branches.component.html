@@ -19,7 +19,7 @@
         </div>
         <div class="card-footer">
           <label class="toggle-label">
-            <span>{{ branch.isActive ? 'Deactivate' : 'Activate' }}</span>
+            <span>{{ branch.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' | translate) }}</span>
             <label class="switch">
               <input type="checkbox" [checked]="branch.isActive"  (change)="toggleActivation(branch)">
               <span class="slider"></span>

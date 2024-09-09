@@ -63,6 +63,7 @@ export class IndexComponent implements OnInit {
       next: (response) => {
         this.positions = response.data.list;
         this.totalItems = response.data.totalRows;
+        console.table( response.data)
       },
       error: (err) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' });

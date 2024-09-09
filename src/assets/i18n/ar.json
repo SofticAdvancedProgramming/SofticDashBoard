@@ -181,6 +181,7 @@
     "DEPARTMENT": "القسم",
     "ADD_EMPLOYEE": "إضافة موظف",
     "ACTIVATE": "تفعيل",
+    "DEACTIVATE": "إيقاف",
     "SHOW_DETAILS": "عرض التفاصيل",
     "EMPLOYEES_OF": "الموظفين في",
     "POSITION": "الوظيفة",
