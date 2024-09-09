@@ -15,8 +15,7 @@
     <div class="profile-action">
       <div class="toggle-button-container">
         <button class="btn" (click)="toggleActivation()">
-          <span class="label">{{ active ? 'Deactivate' : 'Activate' }}</span>
-          <!-- <span class="label">{{ 'COMPANY_DETAILS.ACTIVATE' | translate }}</span> -->
+          <span class="label">{{ active ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' | translate) }}</span>
         <label class="switch">
           <input type="checkbox" id="toggleSwitch" [checked]="active" (change)="toggleActivation()">
           <span class="slider"></span>
