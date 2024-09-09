@@ -16,7 +16,6 @@
         <label for="fileInput">
           <img [src]="uploadedImageBase64 || companyForm.get('logo')?.value || '../../../../../assets/images/softic/default.png'"
           alt="Upload Icon" class="upload-icon" style="cursor: pointer; width: 150px; height: 150px;">
-     
           <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*" style="display: none;">
 
         </label>

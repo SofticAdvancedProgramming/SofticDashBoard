@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CompanyService } from '../../../../../services/comapnyService/company.service';
 import { ImageUploadService } from '../../../../../services/ImageUploadService/image-upload.service';
+import { SubscriptionPlanService } from '../../../../../services/lockupsServices/SubscriptionPlanService/subscription-plan.service';
 import { CountryISO, NgxIntlTelInputModule, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
 import { Company } from '../../../../../../models/company';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SubscriptionPlanService } from '../../../../../services/lockupsServices/SubscriptionPlanService/subscription-plan.service';
 
 @Component({
   selector: 'app-profile-details',
@@ -31,14 +31,14 @@ export class ProfileDetailsComponent implements OnInit {
   PhoneNumberFormat = PhoneNumberFormat;
   subscriptionPlanId: number | null = null;  
   companyExtention: string | null = null;  
+
   constructor(
     private fb: FormBuilder,
     private companyService: CompanyService,
     private cdr: ChangeDetectorRef,
     private imageUploadService: ImageUploadService, 
     private translate: TranslateService,
-    private subscriptionPlanService: SubscriptionPlanService,  
-
+    private subscriptionPlanService: SubscriptionPlanService
   ) {}
 
   get isArabic(): boolean {
@@ -93,13 +93,14 @@ export class ProfileDetailsComponent implements OnInit {
       twitter: [''],
       instgram: [''],
       tiktok: [''],
-      logo: [''],
+      logo: [''], // Field to hold the Base64 image
       description: ['', [Validators.minLength(100), Validators.maxLength(250)]],
       descriptionAr: ['', [Validators.minLength(100), Validators.maxLength(250)]],
-      subscriptionPlanId: [''],  
-      companyExtention: [''] 
+      subscriptionPlanId: [''],  // Add subscriptionPlanId
+      companyExtention: ['']      // Add companyExtention
     });
   }
+
   loadSubscriptionPlan(): void {
     this.subscriptionPlanService.getSubscriptionPlan().subscribe(
       (response: any) => {
@@ -113,6 +114,7 @@ export class ProfileDetailsComponent implements OnInit {
       }
     );
   }
+
   getCompanyData(id: number): void {
     const request = { id: id };
     this.companyService.getCompany(request).subscribe(
@@ -122,17 +124,7 @@ export class ProfileDetailsComponent implements OnInit {
           const company = response.data.list[0];
           this.populateForm(company);
 
-          // Convert existing logo URL to base64
-          if (company.logo && company.logo.startsWith('http')) {
-            this.convertImageUrlToBase64(company.logo).then(base64 => {
-              this.uploadedImageBase64 = base64;
-              this.base64ImageForServer = base64.replace(/^data:image\/[a-z]+;base64,/, ''); // Strip the base64 prefix
-              this.companyForm.patchValue({ logo: this.base64ImageForServer });
-              this.cdr.detectChanges();
-            }).catch(error => {
-              console.error('Error converting logo URL to base64:', error);
-            });
-          }
+            
         }
       },
       error => {
@@ -141,19 +133,7 @@ export class ProfileDetailsComponent implements OnInit {
     );
   }
 
-  // Convert image URL to Base64
-  convertImageUrlToBase64(url: string): Promise<string> {
-    return fetch(url)
-      .then(response => response.blob())
-      .then(blob => {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result as string);
-          reader.onerror = reject;
-          reader.readAsDataURL(blob);
-        });
-      });
-  }
+  
 
   // Method to populate the form with the company data
   populateForm(company: any): void {
@@ -172,7 +152,7 @@ export class ProfileDetailsComponent implements OnInit {
       twitter: company.twitter || '',
       instgram: company.instgram || '',
       tiktok: company.tiktok || '',
-      logo: company.logo || '',
+      logo: company.logo || '', // This could be a URL or base64, handled in other logic
       description: company.description || '',
       descriptionAr: company.descriptionAr || '',
       subscriptionPlanId: company.subscriptionPlanId || this.subscriptionPlanId, // Patch subscriptionPlanId if available
@@ -197,9 +177,9 @@ export class ProfileDetailsComponent implements OnInit {
     const updatedCompany = {
       ...this.companyForm.value,
       id: this.companyId,
-      logo: this.base64ImageForServer || this.companyForm.get('logo')?.value ,
-      subscriptionPlanId: this.subscriptionPlanId, 
-      companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value  
+      logo: this.base64ImageForServer || this.companyForm.get('logo')?.value, // Ensure logo is Base64
+      subscriptionPlanId: this.subscriptionPlanId, // Ensure the subscription plan is sent
+      companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value // Ensure company extension is sent
     };
 
     this.companyService.EditCompany(updatedCompany).subscribe(
