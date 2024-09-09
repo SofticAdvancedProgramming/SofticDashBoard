@@ -1,25 +1,171 @@
 <div class="container">
   <div class="row">
     <div class="editbtn">
-      <button><i style="color: white;" class="fa-solid fa-pen-to-square"></i> Edit </button>
+      <!-- Toggle edit mode -->
+      <button (click)="toggleEdit()">
+        <i style="color: white;" class="fa-solid fa-pen-to-square"></i>
+        {{ editMode ? 'Cancel' : 'Edit' }}
+      </button>
     </div>
   </div>
-  <div class="about-container row">
+
+  <!-- Display form when in edit mode -->
+  <form *ngIf="editMode" [formGroup]="companyForm" (ngSubmit)="submitForm()">
+    <div class="row">
+      <!-- File upload for company logo -->
+      <div class="col-lg-6 justify-content-center d-flex col-md-12 col-sm-12">
+        <label for="fileInput">
+          <img [src]="uploadedImageBase64 || company.logo || '../../../../../assets/images/softic/default.png'" alt="Upload Icon" class="upload-icon"
+            style="cursor: pointer; width: 150px; height: 150px;">
+        </label>
+      </div>
+      <div class="col-lg-6 col-md-12 col-sm-12">
+        <div>
+          <p class="upload-text">Upload company logo</p>
+          <p class="upload-instructions">
+            JPG/PNG/PDF files should be uploaded. The file must be high in resolution and original in design.
+          </p>
+          <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*" style="display: none;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Company Details Form -->
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <label for="name">Company Name</label>
+        <input id="name" formControlName="name" type="text" class="form-control" />
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="nameAr">Company Name (Arabic)</label>
+        <input id="nameAr" formControlName="nameAr" type="text" class="form-control" />
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="primaryColor">Primary Color</label>
+          <input type="color" id="primaryColor" formControlName="primaryColor" class="form-control" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="secondaryColor">Secondary Color</label>
+          <input type="color" id="secondaryColor" formControlName="secondaryColor" class="form-control" />
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="fontName">Font Name</label>
+          <input required type="text" id="fontName" formControlName="fontName" class="form-control" />
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="form-group col-lg-6">
+        <label for="phone">Phone</label>
+        <ngx-intl-tel-input
+          [cssClass]="'custom w-100'"
+          [preferredCountries]="preferredCountries"
+          [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [searchCountryField]="searchCountryFields"
+          [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.SaudiArabia"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          formControlName="phone"
+        ></ngx-intl-tel-input>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="phoneNumber">Mobile Number</label>
+          <ngx-intl-tel-input
+            [cssClass]="'custom w-100'"
+            [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="true"
+            [searchCountryFlag]="true"
+            [searchCountryField]="searchCountryFields"
+            [selectFirstCountry]="false"
+            [selectedCountryISO]="CountryISO.Egypt"
+            [maxLength]="15"
+            [phoneValidation]="true"
+            formControlName="phoneNumber"
+          ></ngx-intl-tel-input>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input required type="text" id="address" formControlName="address" class="form-control" />
+      </div>
+    </div>
+    <div class="form-group col-lg-6">
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" type="email" class="form-control" />
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="webSite">Website</label>
+          <input type="text" id="webSite" formControlName="webSite" class="form-control" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="facebook">Facebook</label>
+          <input type="text" id="facebook" formControlName="facebook" class="form-control" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="twitter">Twitter</label>
+          <input type="text" id="twitter" formControlName="twitter" class="form-control" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="instgram">Instagram</label>
+          <input type="text" id="instgram" formControlName="instgram" class="form-control" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="tiktok">Tiktok</label>
+          <input type="text" id="tiktok" formControlName="tiktok" class="form-control" />
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- Save Button -->
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+
+  <!-- Display company details when not in edit mode -->
+  <div *ngIf="!editMode" class="about-container row">
     <div class="about-content col-lg-6 col-md-12 col-sm-12">
       <h2>About</h2>
-      <p>
-      {{company.description}}
-      </p>
+      <p>{{ company.description }}</p>
     </div>
     <div class="contact-details col-lg-6 col-md-12 col-sm-12">
       <ul>
-        <li><strong>City</strong>: {{cityName}}</li>
-        <li><strong>Country</strong>: {{countryName}}</li>
-        <li><strong>Address</strong>:{{company.address}}</li>
-        <li><strong>Email</strong>:{{company.email}}</li>
-        <li><strong>Mobile</strong>:{{company.phoneNumber}}</li>
-        <li><strong>Fax</strong>:{{company.fax}}</li>
-        <li><strong>Phone</strong>:{{company.phone}}</li>
+        <li><strong>City</strong>: {{ cityName }}</li>
+        <li><strong>Country</strong>: {{ countryName }}</li>
+        <li><strong>Address</strong>: {{ company.address }}</li>
+        <li><strong>Email</strong>: {{ company.email }}</li>
+        <li><strong>Mobile</strong>: {{ company.phoneNumber }}</li>
+        <li><strong>Phone</strong>: {{ company.phone }}</li>
       </ul>
     </div>
   </div>
