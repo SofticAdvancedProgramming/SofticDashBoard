@@ -1,5 +1,5 @@
 <div class="card">
-    <h2 class="card-title">Notification</h2>
+  <h2 class="card-title">{{'Home.Notifications' | translate}}</h2>
     <ul class="notification-list">
       <li class="notification-item" *ngFor="let notification of notifications">
         <img [src]="notification.pic" alt="Profile Picture" class="profile-pic">
@@ -10,6 +10,5 @@
         <span class="date">{{ notification.date }}</span>
       </li>
     </ul>
-    <div class="view-all">View All</div>
+    <div class="view-all">{{'Home.ShowAll' | translate}}</div>
   </div>
-  

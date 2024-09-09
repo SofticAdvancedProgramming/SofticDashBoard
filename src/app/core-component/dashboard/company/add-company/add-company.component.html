@@ -13,7 +13,8 @@
             <p class="upload-instructions">
               GPAG/PNG/PDF files should be uploaded. The file must be high in resolution and original in design.
             </p>
-c            <div *ngIf="isFieldInvalid('logo')" class="text-danger">
+            <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*" style="display: none;">
+             <div *ngIf="isFieldInvalid('logo')" class="text-danger">
               <small *ngIf="addCompanyForm.get('logo')?.errors?.['required']">Company logo is required.</small>
             </div>
           </div>
