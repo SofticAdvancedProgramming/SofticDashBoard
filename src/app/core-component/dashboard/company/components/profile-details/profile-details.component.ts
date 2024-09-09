@@ -50,7 +50,7 @@ export class ProfileDetailsComponent implements OnInit {
     if (companyIdString) {
       this.companyId = parseInt(companyIdString, 10);
       this.getCompanyData(this.companyId);
-      console.log(this.companyId);
+      console.log('Retrieved companyId from localStorage:', this.companyId);
     }
     this.initializeForm();
     this.loadSubscriptionPlan();
@@ -176,10 +176,12 @@ export class ProfileDetailsComponent implements OnInit {
 
     const updatedCompany = {
       ...this.companyForm.value,
-      id: this.companyId,
-      logo: this.base64ImageForServer || this.companyForm.get('logo')?.value, // Ensure logo is Base64
-      subscriptionPlanId: this.subscriptionPlanId, // Ensure the subscription plan is sent
-      companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value // Ensure company extension is sent
+      id: this.companyId,  
+      logo: this.base64ImageForServer || this.companyForm.get('logo')?.value,
+      subscriptionPlanId: this.subscriptionPlanId,
+      companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value,
+      phone: this.companyForm.get('phone')?.value?.toString(),  
+      phoneNumber: this.companyForm.get('phoneNumber')?.value?.toString(),
     };
 
     this.companyService.EditCompany(updatedCompany).subscribe(
