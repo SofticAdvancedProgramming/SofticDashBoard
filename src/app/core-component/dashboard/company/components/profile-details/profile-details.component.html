@@ -8,14 +8,17 @@
       </button>
     </div>
   </div>
-   <!-- Display form when in edit mode -->
-   <form *ngIf="editMode" [formGroup]="companyForm" (ngSubmit)="submitForm()">
+  <!-- Display form when in edit mode -->
+  <form *ngIf="editMode" [formGroup]="companyForm" (ngSubmit)="submitForm()">
     <div class="row">
       <!-- File upload for company logo -->
       <div class="col-lg-6 justify-content-center d-flex col-md-12 col-sm-12">
         <label for="fileInput">
           <img [src]="uploadedImageBase64 || companyForm.get('logo')?.value || '../../../../../assets/images/softic/default.png'"
-            alt="Upload Icon" class="upload-icon" style="cursor: pointer; width: 150px; height: 150px;">
+          alt="Upload Icon" class="upload-icon" style="cursor: pointer; width: 150px; height: 150px;">
+     
+          <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*" style="display: none;">
+
         </label>
       </div>
       <div class="col-lg-6 col-md-12 col-sm-12">
@@ -59,20 +62,11 @@
     <div class="row">
       <div class="form-group col-lg-6">
         <label for="phone">Phone</label>
-        <ngx-intl-tel-input
-          [cssClass]="'custom w-100'"
-          [preferredCountries]="preferredCountries"
-          [enableAutoCountrySelect]="true"
-          [enablePlaceholder]="true"
-          [searchCountryFlag]="true"
-          [searchCountryField]="searchCountryFields"
-          [selectFirstCountry]="false"
-          [selectedCountryISO]="CountryISO.SaudiArabia"
-          [maxLength]="15"
-          [phoneValidation]="true"
-          formControlName="phone"
-          [separateDialCode]="true"
-        ></ngx-intl-tel-input>
+        <ngx-intl-tel-input [cssClass]="'custom w-100'" [preferredCountries]="preferredCountries"
+          [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+          [searchCountryField]="searchCountryFields" [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.SaudiArabia" [maxLength]="15" [phoneValidation]="true"
+          formControlName="phone" [separateDialCode]="true"></ngx-intl-tel-input>
         <div *ngIf="companyForm.get('phone')?.invalid && companyForm.get('phone')?.touched">
           <small class="text-danger">Invalid phone number</small>
         </div>
@@ -80,38 +74,29 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="form-group">
           <label for="phoneNumber">Mobile Number</label>
-          <ngx-intl-tel-input
-            [cssClass]="'custom w-100'"
-            [preferredCountries]="preferredCountries"
-            [enableAutoCountrySelect]="true"
-            [enablePlaceholder]="true"
-            [searchCountryFlag]="true"
-            [searchCountryField]="searchCountryFields"
-            [selectFirstCountry]="false"
-            [selectedCountryISO]="CountryISO.Egypt"
-            [maxLength]="15"
-            [phoneValidation]="true"
-            formControlName="phoneNumber"
-            [separateDialCode]="true"
-          ></ngx-intl-tel-input>
+          <ngx-intl-tel-input [cssClass]="'custom w-100'" [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+            [searchCountryField]="searchCountryFields" [selectFirstCountry]="false"
+            [selectedCountryISO]="CountryISO.Egypt" [maxLength]="15" [phoneValidation]="true"
+            formControlName="phoneNumber" [separateDialCode]="true"></ngx-intl-tel-input>
           <div *ngIf="companyForm.get('phoneNumber')?.invalid && companyForm.get('phoneNumber')?.touched">
             <small class="text-danger">Invalid mobile number</small>
           </div>
         </div>
       </div>
     </div>
-<div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-12">
-      <div class="form-group">
-        <label for="address">Address</label>
-        <input required type="text" id="address" formControlName="address" class="form-control" />
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input required type="text" id="address" formControlName="address" class="form-control" />
+        </div>
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" class="form-control" />
       </div>
     </div>
-    <div class="form-group col-lg-6">
-      <label for="email">Email</label>
-      <input id="email" formControlName="email" type="email" class="form-control" />
-    </div>
-  </div>
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="form-group">
@@ -133,12 +118,14 @@
         <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('description')}">
           <label for="description">Description</label>
           <textarea id="description" formControlName="description" class="form-control CustomModelInput"
-                    placeholder="Description" minlength="100" maxlength="250"></textarea>
+            placeholder="Description" minlength="100" maxlength="250"></textarea>
           <p class="char-counter">{{ companyForm.get('description')?.value?.length || 0 }} / 250</p>
           <div *ngIf="isFieldInvalid('description')" class="text-danger">
             <small *ngIf="companyForm.get('description')?.errors?.['required']">Description is required.</small>
-            <small *ngIf="companyForm.get('description')?.errors?.['minlength']">Description must be at least 100 characters.</small>
-            <small *ngIf="companyForm.get('description')?.errors?.['maxlength']">Description cannot exceed 250 characters.</small>
+            <small *ngIf="companyForm.get('description')?.errors?.['minlength']">Description must be at least 100
+              characters.</small>
+            <small *ngIf="companyForm.get('description')?.errors?.['maxlength']">Description cannot exceed 250
+              characters.</small>
           </div>
         </div>
       </div>
@@ -148,21 +135,24 @@
         <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('descriptionAr')}">
           <label for="descriptionAr">Description (Arabic)</label>
           <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control CustomModelInput"
-                    placeholder="Description (Arabic)" minlength="100" maxlength="250"></textarea>
+            placeholder="Description (Arabic)" minlength="100" maxlength="250"></textarea>
           <p class="char-counter">{{ companyForm.get('descriptionAr')?.value?.length || 0 }} / 250</p>
           <div *ngIf="isFieldInvalid('descriptionAr')" class="text-danger">
-            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['required']">Arabic description is required.</small>
-            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['minlength']">Arabic description must be at least 100 characters.</small>
-            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['maxlength']">Arabic description cannot exceed 250 characters.</small>
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['required']">Arabic description is
+              required.</small>
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['minlength']">Arabic description must be at least
+              100 characters.</small>
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['maxlength']">Arabic description cannot exceed 250
+              characters.</small>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Save Button -->
-     <Div class="d-flex justify-content-center">
-    <button type="submit" class="btn btn-next w-25">Save</button>
-  </Div>
+    <Div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-next w-25">Save</button>
+    </Div>
   </form>
 
   <!-- Display company details when not in edit mode -->
@@ -170,7 +160,8 @@
     <div class="about-content col-lg-6 col-md-12 col-sm-12">
       <h2>{{ 'PROFILE_DETAILS.ABOUT' | translate }}</h2>
       <p class="info-description">
-        {{ isArabic ? (company.descriptionAr || 'PROFILE_DETAILS.NO_DATA' | translate) : (company.description || 'PROFILE_DETAILS.NO_DATA' | translate) }}
+        {{ isArabic ? (company.descriptionAr || 'PROFILE_DETAILS.NO_DATA' | translate) : (company.description ||
+        'PROFILE_DETAILS.NO_DATA' | translate) }}
       </p>
     </div>
     <div class="contact-details col-lg-6 col-md-6 col-sm-12">

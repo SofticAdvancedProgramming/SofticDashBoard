@@ -6,6 +6,7 @@ import { ImageUploadService } from '../../../../../services/ImageUploadService/i
 import { CountryISO, NgxIntlTelInputModule, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
 import { Company } from '../../../../../../models/company';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SubscriptionPlanService } from '../../../../../services/lockupsServices/SubscriptionPlanService/subscription-plan.service';
 
 @Component({
   selector: 'app-profile-details',
@@ -28,24 +29,31 @@ export class ProfileDetailsComponent implements OnInit {
   selectedCountryISO = CountryISO.Egypt;
   CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-
+  subscriptionPlanId: number | null = null;  
+  companyExtention: string | null = null;  
   constructor(
     private fb: FormBuilder,
     private companyService: CompanyService,
     private cdr: ChangeDetectorRef,
-    private imageUploadService: ImageUploadService,private translate: TranslateService
+    private imageUploadService: ImageUploadService, 
+    private translate: TranslateService,
+    private subscriptionPlanService: SubscriptionPlanService,  
+
   ) {}
+
   get isArabic(): boolean {
-    return this.translate.currentLang === 'ar';}
+    return this.translate.currentLang === 'ar';
+  }
+
   ngOnInit(): void {
     const companyIdString = localStorage.getItem('companyId');
     if (companyIdString) {
       this.companyId = parseInt(companyIdString, 10);
       this.getCompanyData(this.companyId);
-      console.log(this.companyId)
+      console.log(this.companyId);
     }
-
     this.initializeForm();
+    this.loadSubscriptionPlan();
   }
 
   toggleEdit(): void {
@@ -56,10 +64,12 @@ export class ProfileDetailsComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       const fileExtension = file.name.split('.').pop();
+      this.companyForm.patchValue({ fileExtension });
 
       this.imageUploadService.convertFileToBase64(file).then(base64 => {
         this.uploadedImageBase64 = base64;
         this.base64ImageForServer = base64.replace(/^data:image\/[a-z]+;base64,/, '');
+        this.companyForm.patchValue({ logo: this.base64ImageForServer });
         this.cdr.detectChanges();
       }).catch(error => {
         console.error('Error converting file to base64', error);
@@ -71,7 +81,7 @@ export class ProfileDetailsComponent implements OnInit {
     this.companyForm = this.fb.group({
       name: [''],
       nameAr: [''],
-      email: ['', [ Validators.email]],
+      email: ['', [Validators.email]],
       phone: [''],
       phoneNumber: [''],
       address: [''],
@@ -83,12 +93,26 @@ export class ProfileDetailsComponent implements OnInit {
       twitter: [''],
       instgram: [''],
       tiktok: [''],
-      logo:[''],
-      description: ['', [ Validators.minLength(100), Validators.maxLength(250)]],
-      descriptionAr: ['', [ Validators.minLength(100), Validators.maxLength(250)]]
+      logo: [''],
+      description: ['', [Validators.minLength(100), Validators.maxLength(250)]],
+      descriptionAr: ['', [Validators.minLength(100), Validators.maxLength(250)]],
+      subscriptionPlanId: [''],  
+      companyExtention: [''] 
     });
   }
-
+  loadSubscriptionPlan(): void {
+    this.subscriptionPlanService.getSubscriptionPlan().subscribe(
+      (response: any) => {
+        if (response.status === 200 && response.data.list.length > 0) {
+          this.subscriptionPlanId = response.data.list[0].id; // Assuming you get the first plan
+          this.companyForm.patchValue({ subscriptionPlanId: this.subscriptionPlanId }); // Patch the form with the plan
+        }
+      },
+      (error: any) => {
+        console.error('Error fetching subscription plans', error);
+      }
+    );
+  }
   getCompanyData(id: number): void {
     const request = { id: id };
     this.companyService.getCompany(request).subscribe(
@@ -97,6 +121,18 @@ export class ProfileDetailsComponent implements OnInit {
         if (response.data && response.data.list && response.data.list.length > 0) {
           const company = response.data.list[0];
           this.populateForm(company);
+
+          // Convert existing logo URL to base64
+          if (company.logo && company.logo.startsWith('http')) {
+            this.convertImageUrlToBase64(company.logo).then(base64 => {
+              this.uploadedImageBase64 = base64;
+              this.base64ImageForServer = base64.replace(/^data:image\/[a-z]+;base64,/, ''); // Strip the base64 prefix
+              this.companyForm.patchValue({ logo: this.base64ImageForServer });
+              this.cdr.detectChanges();
+            }).catch(error => {
+              console.error('Error converting logo URL to base64:', error);
+            });
+          }
         }
       },
       error => {
@@ -105,26 +141,42 @@ export class ProfileDetailsComponent implements OnInit {
     );
   }
 
+  // Convert image URL to Base64
+  convertImageUrlToBase64(url: string): Promise<string> {
+    return fetch(url)
+      .then(response => response.blob())
+      .then(blob => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      });
+  }
+
+  // Method to populate the form with the company data
   populateForm(company: any): void {
-    console.log("Populating form with data:", company);
     this.companyForm.patchValue({
-      name: company.name,
-      nameAr: company.nameAr,
-      email: company.email,
-      phone: company.phone,
-      phoneNumber: company.phoneNumber,
-      address: company.address,
-      primaryColor: company.primaryColor,
-      secondaryColor: company.secondaryColor,
-      fontName: company.fontName,
-      webSite: company.webSite,
-      facebook: company.facebook,
-      twitter: company.twitter,
-      instgram: company.instgram,
-      tiktok: company.tiktok,
-      logo: company.logo,
-      description: company.description,
-      descriptionAr: company.descriptionAr,
+      name: company.name || '',
+      nameAr: company.nameAr || '',
+      email: company.email || '',
+      phone: company.phone || '',
+      phoneNumber: company.phoneNumber || '',
+      address: company.address || '',
+      primaryColor: company.primaryColor || '',
+      secondaryColor: company.secondaryColor || '',
+      fontName: company.fontName || '',
+      webSite: company.webSite || '',
+      facebook: company.facebook || '',
+      twitter: company.twitter || '',
+      instgram: company.instgram || '',
+      tiktok: company.tiktok || '',
+      logo: company.logo || '',
+      description: company.description || '',
+      descriptionAr: company.descriptionAr || '',
+      subscriptionPlanId: company.subscriptionPlanId || this.subscriptionPlanId, // Patch subscriptionPlanId if available
+      companyExtention: company.companyExtention || this.companyExtention // Patch companyExtention if available
     });
   }
 
@@ -142,16 +194,13 @@ export class ProfileDetailsComponent implements OnInit {
       return;
     }
 
-    console.log("Form is valid. Proceeding with the submission.");
-
     const updatedCompany = {
       ...this.companyForm.value,
-      id: this.companyId
+      id: this.companyId,
+      logo: this.base64ImageForServer || this.companyForm.get('logo')?.value ,
+      subscriptionPlanId: this.subscriptionPlanId, 
+      companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value  
     };
-
-    if (this.base64ImageForServer) {
-      updatedCompany.logo = this.base64ImageForServer;
-    }
 
     this.companyService.EditCompany(updatedCompany).subscribe(
       response => {
@@ -164,11 +213,9 @@ export class ProfileDetailsComponent implements OnInit {
       }
     );
   }
+
   isFieldInvalid(field: string): boolean {
     const control = this.companyForm.get(field);
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
-
 }
-
-
