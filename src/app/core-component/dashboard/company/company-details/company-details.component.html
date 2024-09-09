@@ -14,14 +14,16 @@
     </div>
     <div class="profile-action">
       <div class="toggle-button-container">
-        <button class="btn">
-          <span class="label">{{ 'COMPANY_DETAILS.ACTIVATE' | translate }}</span>
-          <label class="switch">
-            <input type="checkbox" id="toggleSwitch">
-            <span class="slider"></span>
-          </label>
-        </button>
+        <button class="btn" (click)="toggleActivation()">
+          <span class="label">{{ active ? 'Deactivate' : 'Activate' }}</span>
+          <!-- <span class="label">{{ 'COMPANY_DETAILS.ACTIVATE' | translate }}</span> -->
+        <label class="switch">
+          <input type="checkbox" id="toggleSwitch" [checked]="active" (change)="toggleActivation()">
+          <span class="slider"></span>
+        </label>
+      </button>
       </div>
+
     </div>
   </div>
 </div>

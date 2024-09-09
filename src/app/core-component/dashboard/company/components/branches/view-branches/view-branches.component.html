@@ -18,15 +18,22 @@
           </button>
         </div>
         <div class="card-footer">
+          <label class="toggle-label">
+            <span>{{ branch.isActive ? 'Deactivate' : 'Activate' }}</span>
+            <label class="switch">
+              <input type="checkbox" [checked]="branch.isActive"  (change)="toggleActivation(branch)">
+              <span class="slider"></span>
+            </label>
+          </label>
           <i class="fas fa-trash-alt icon-trash" (click)="deleteBranch(branch.id)"></i>
           <i class="fas fa-edit icon-edit"></i>
           <button class="btn" (click)="showDetails(branch.id)">
             <span class="details">
-              {{ 'viewBranches.SHOW_DETAILS' | translate }} 
+              {{ 'viewBranches.SHOW_DETAILS' | translate }}
               <i class="fa-solid fa-arrow-right" [ngClass]="{'rotate-arrow': isArabic}"></i>
             </span>
           </button>
-          
+
         </div>
       </div>
     </div>
@@ -64,13 +71,13 @@
 
 <p-toast position="top-center"></p-toast>
 
- <div class="d-flex justify-content-center mt-3" *ngIf="!showOverView && !isAdd && !isAssignEntity">
-  <pagination 
-    [totalItems]="totalItems" 
-    [(ngModel)]="currentPage" 
+ <div class="d-flex justify-content-center mt-3">
+  <pagination
+    [totalItems]="totalItems"
+    [(ngModel)]="currentPage"
     [itemsPerPage]="itemsPerPage"
-    (pageChanged)="handlePageChange($event)" 
-    previousText="&laquo;" 
+    (pageChanged)="handlePageChange($event)"
+    previousText="&laquo;"
     nextText="&raquo;">
   </pagination>
 </div>

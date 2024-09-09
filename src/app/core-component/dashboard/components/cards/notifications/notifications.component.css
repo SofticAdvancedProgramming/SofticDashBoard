@@ -1,59 +1,59 @@
 .card {
-  padding: 28px;
+  padding: 22px;
   border-radius: 15px;
   opacity: 0px;
   border: none;
   }
-  
+
   .card-title {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 20px;
   }
-  
+
   .notification-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
   }
-  
+
   .notification-item {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
   }
-  
+
   .profile-pic {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
   }
-  
+
   .notification-text {
     flex: 1;
     display: flex;
     flex-direction: column;
   }
-  
+
   .name {
     font-weight: bold;
   }
-  
+
   .message {
     color: #888;
     font-size: 14px;
   }
-  
+
   .activate {
     color: #8ed600;
   }
-  
+
   .date {
     font-size: 12px;
     color: #888;
   }
-  
+
   .view-all {
     text-align: right;
     font-size: 14px;
@@ -61,4 +61,3 @@
     color: #000;
     cursor: pointer;
   }
-  

@@ -6,4 +6,5 @@ export interface Position {
   nameAr: string;
   positionManagerId: number | null;
   positionTypeId: number;
+  isActive?:boolean
 }

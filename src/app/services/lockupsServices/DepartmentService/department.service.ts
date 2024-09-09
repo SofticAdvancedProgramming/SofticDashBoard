@@ -28,4 +28,10 @@ export class DepartmentService {
   deleteDepartment(id: number, companyId: number): Observable<any> {
     return this.apiCall.request('POST', `${this.departmentUrl}/Delete/${id}/${companyId}`, {});
   }
+  Activatedepartment(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${this.departmentUrl}/Activate/${id}/${companyId}`, {});
+  }
+  DeActivatedepartment(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${this.departmentUrl}/DeActivate/${id}/${companyId}`, {});
+  }
 }

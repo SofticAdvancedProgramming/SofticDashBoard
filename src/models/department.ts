@@ -10,4 +10,5 @@ export class Department {
   branchId?: number;
   long?: number;
   lat?: number;
+  isActive?:boolean;
 }

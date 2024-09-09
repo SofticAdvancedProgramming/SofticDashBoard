@@ -1,43 +1,53 @@
 <div class="container my-5" *ngIf="!isAdd && !showOverView && !isAssignEntity">
-  <div class="row">
-    <div class="justify-content-end d-flex">
-      <button class="btn addPositionBtn " (click)="addDepartment()">
-        <i class="fas fa-plus"></i> {{ 'DEPARTMENTS.ADD_DEPARTMENT' | translate }}
-      </button>
+    <div class="row">
+      <div class="justify-content-end d-flex">
+        <button class="btn addPositionBtn w-25" (click)="addDepartment()">
+          <i class="fas fa-plus"></i> {{ 'DEPARTMENTS.ADD_DEPARTMENT' | translate }}
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div *ngFor="let card of cards" class="col-lg-4 col-md-6 col-sm-12">
-      <div class="card">
-        <div class="card-header">
-          <h3>{{ card.title }}</h3>
-          <p>{{ card.department }}</p>
-         </div>
-        <div class="card-body">
-          <button class="btn btn-add" (click)="assignEntity(card.id)">
-            <i class="fas fa-plus"></i> {{ 'DEPARTMENTS.ADD_EMPLOYEE' | translate }}
-          </button>
-        </div>
-        <div class="card-footer">
-          <label class="toggle-label">
-            <span>{{ 'DEPARTMENTS.ACTIVATE' | translate }}</span>
-            <label class="switch">
-              <input type="checkbox" [checked]="card.active">
-              <span class="slider"></span>
+    <div class="row">
+      <div *ngFor="let department of departments" class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <h3>{{ department.name }}</h3>
+            <p>{{ department.shortName }}</p>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-add" (click)="assignEntity(department.id.toString())">
+              <i class="fas fa-plus"></i> {{ 'DEPARTMENTS.ADD_EMPLOYEE' | translate }}</button>
+          </div>
+          <div class="card-footer">
+            <label class="toggle-label">
+              <span>{{ department.isActive ? 'Deactivate' : 'Activate' }}</span>
+              <!-- <span>{{ 'DEPARTMENTS.ACTIVATE' | translate }}</span> -->
+              <label class="switch">
+                <input type="checkbox" [checked]="department.isActive"  (change)="toggleActivation(department)">
+                <span class="slider"></span>
+              </label>
             </label>
-          </label>
-          <i class="fas fa-trash-alt icon-trash" (click)="deleteDepartment(card.id)"></i>
-          <i class="fas fa-edit icon-edit"></i>
-          <button class="btn" (click)="showDetails(card.id)">
-            <span class="details">{{ 'DEPARTMENTS.SHOW_DETAILS' | translate }} <i [ngClass]="{'rotate-arrow': isArabic}"
+            <i class="fas fa-trash-alt icon-trash" (click)="deleteDepartment(department.id)"></i>
+            <i class="fas fa-edit icon-edit"></i>
+            <button class="btn" (click)="showDetails(department.id)">
+              <span class="details">{{ 'DEPARTMENTS.SHOW_DETAILS' | translate }} <i [ngClass]="{'rotate-arrow': isArabic}"
                 class="fa-solid fa-arrow-right"></i>
             </span>
-          </button>
+            </button>
+          </div>
         </div>
       </div>
     </div>
+    <div class="d-flex justify-content-center mt-3">
+      <pagination
+        [totalItems]="totalItems"
+        [(ngModel)]="currentPage"
+        [itemsPerPage]="itemsPerPage"
+        (pageChanged)="handlePageChange($event)"
+        previousText="&laquo;"
+        nextText="&raquo;">
+      </pagination>
+    </div>
   </div>
-</div>
 
 <!-- Entity Assignment Popup -->
 <app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedEntityId" [entityType]="entityType" [entities]="employees"
@@ -54,10 +64,5 @@
   </app-department-overview>
 </div>
 
-<p-toast position="top-center"></p-toast>
+  <p-toast position="top-center"></p-toast>
 
- <div class="d-flex justify-content-center mt-3" *ngIf="!isAdd && !showOverView && !isAssignEntity">
-  <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
-    (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;">
-  </pagination>
-</div>

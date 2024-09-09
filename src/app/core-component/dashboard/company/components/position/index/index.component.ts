@@ -14,7 +14,7 @@ import { ModernTableComponent } from '../../../../components/modern-table/modern
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-
+import { Position } from '../../../../../../../models/postion';
 @Component({
   selector: 'app-index',
   standalone: true,
@@ -32,7 +32,7 @@ export class IndexComponent implements OnInit {
   directManger?: employee = {} as employee;
   employees: employee[] = [];
   @Input() companyId?: string = '';
-  positions: any[] = [];
+  positions: Position[] = [];
   departments: Department[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 10;
@@ -127,7 +127,7 @@ export class IndexComponent implements OnInit {
 
   addEmployee(positionId: string): void {
     this.selectedPositionId = positionId;
-    this.selectedPositionData = this.positions.find(position => position.id === positionId);
+    this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
     this.loadUnassignedEmployees();
     this.isAddEmployee = true;
   }
@@ -174,12 +174,39 @@ export class IndexComponent implements OnInit {
 
   showDetailsPage(positionId: string): void {
     this.selectedPositionId = positionId;
-    this.selectedPositionData = this.positions.find(position => position.id === positionId);
+    this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
     this.loadEmployeesByPosition(positionId);
     this.showDetails = true;
   }
 
   goBack(): void {
     this.showDetails = false;
+  }
+  toggleActivation(Position: Position): void {
+    debugger
+    Position.isActive ? this.deactivatePosition(Position) : this.activatePosition(Position);
+  }
+
+  activatePosition(Position: Position): void {
+    debugger
+    this.positionService.ActivatePosition(Position.id||0, Position.companyId || 0).subscribe({
+      next: () => {
+        Position.isActive = true;
+        this.showSuccess('Position activated successfully');
+      }
+    });
+  }
+
+  deactivatePosition(Position: Position): void {
+    debugger
+    this.positionService.DeActivatePosition(Position.id||0, Position.companyId || 0).subscribe({
+      next: () => {
+        Position.isActive = false;
+        this.showSuccess('Position deactivated successfully');
+      }
+    });
+  }
+  private showSuccess(detail: string): void {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail });
   }
 }

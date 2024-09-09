@@ -3,14 +3,14 @@
     <form [formGroup]="form" (ngSubmit)="onSave()">
       <div class="form-group">
         <label for="name">{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_EN' | translate }}</label>
-        <input id="name" formControlName="name" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_EN' | translate }}" class="form-control" />
+        <input id="name" formControlName="name" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_EN' | translate }}" class="form-control" [appInputRestriction]="'arabic'" />
         <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-danger">
           {{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_EN' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
         </div>
       </div>
       <div class="form-group">
         <label for="nameAr">{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_AR' | translate }}</label>
-        <input id="nameAr" formControlName="nameAr" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_AR' | translate }}" class="form-control" />
+        <input id="nameAr" formControlName="nameAr" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_AR' | translate }}" class="form-control" [appInputRestriction]="'english'"/>
         <div *ngIf="form.get('nameAr')?.invalid && form.get('nameAr')?.touched" class="text-danger">
           {{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_AR' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
         </div>
@@ -48,7 +48,7 @@
           class="form-control"
           (input)="updateCharacterCount('description')"
           maxlength="250"
-          minlength="100"
+          minlength="100" [appInputRestriction]="'arabic'"
         ></textarea>
         <div *ngIf="form.get('description')?.invalid && form.get('description')?.touched" class="text-danger">
           {{ 'ADD_DEPARTMENT.DESCRIPTION_EN' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }} {{ 'ADD_DEPARTMENT.DESCRIPTION_CONSTRAINT' | translate }}
@@ -67,7 +67,7 @@
           class="form-control"
           (input)="updateCharacterCount('descriptionAr')"
           maxlength="250"
-          minlength="100"
+          minlength="100" [appInputRestriction]="'english'"
         ></textarea>
         <div *ngIf="form.get('descriptionAr')?.invalid && form.get('descriptionAr')?.touched" class="text-danger">
           {{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }} {{ 'ADD_DEPARTMENT.DESCRIPTION_CONSTRAINT' | translate }}

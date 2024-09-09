@@ -12,6 +12,7 @@ import { DepartmentsComponent } from "../components/department/departments/depar
 import { ViewBranchesComponent } from "../components/branches/view-branches/view-branches.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-company-details',
@@ -32,6 +33,7 @@ export class CompanyDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private companyService: CompanyService,
     private locationService: LocationService,
+    private messageService: MessageService,
     private translate: TranslateService
   ) {}
 
@@ -42,7 +44,7 @@ export class CompanyDetailsComponent implements OnInit {
     }
   }
   checkLanguageDirection(): void {
-    this.isArabic = this.translate.currentLang === 'ar';  
+    this.isArabic = this.translate.currentLang === 'ar';
   }
 
   async getCompanyDetails(companyId: string): Promise<void> {
@@ -94,4 +96,50 @@ export class CompanyDetailsComponent implements OnInit {
       console.error('Error fetching country details:', error);
     }
   }
+  async toggleActivation(): Promise<void> {
+    try {
+      if (this.active) {
+        await this.deactivateCompany();
+      } else {
+        await this.activateCompany();
+      }
+      this.active = !this.active; // Toggle the state after success
+    } catch (error) {
+      console.error('Error toggling company activation:', error);
+    }
+  }
+
+  async activateCompany(): Promise<void> {
+    if (this.company.id && this.companyId) {
+      try {
+        const response = await this.companyService.ActivatePosition(this.company.id, +this.companyId).toPromise();
+        console.log('Company activated:', response);
+        this.showSuccess('Company activated successfully');
+      } catch (error) {
+        console.error('Error activating company:', error);
+      }
+    } else {
+      console.error('Invalid company ID or company not found');
+    }
+  }
+
+  async deactivateCompany(): Promise<void> {
+    if (this.company.id && this.companyId) {
+      try {
+        const response = await this.companyService.DeActivatePosition(this.company.id, +this.companyId).toPromise();
+        console.log('Company deactivated:', response);
+        this.showSuccess('Company deactivated successfully');
+      } catch (error) {
+        console.error('Error deactivating company:', error);
+      }
+    } else {
+      console.error('Invalid company ID or company not found');
+    }
+  }
+
+
+  private showSuccess(detail: string): void {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail });
+  }
+
 }

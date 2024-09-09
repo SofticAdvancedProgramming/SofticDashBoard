@@ -20,4 +20,20 @@ export class CompanyService {
   AddCompany(request: any): Observable<any> {
     return this.apiCall.request('POST', this.apiUrl + '/Add', request,);
   }
+  EditCompany(request: any): Observable<any> {
+     return this.apiCall.request('POST', this.apiUrl + '/Edit');
+  }
+  
+  ActivateCompany(request: any): Observable<any> {
+    return this.apiCall.request('POST', this.apiUrl + '/Add', request,);
+  }
+  DeActivateCompany(request: any): Observable<any> {
+    return this.apiCall.request('POST', this.apiUrl + '/Add', request,);
+  }
+  ActivatePosition(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${this.apiUrl}/Activate/${id}/${companyId}`, {});
+  }
+  DeActivatePosition(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${this.apiUrl}/DeActivate/${id}/${companyId}`, {});
+  }
 }
