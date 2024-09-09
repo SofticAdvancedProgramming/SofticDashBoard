@@ -15,15 +15,15 @@
       <!-- File upload for company logo -->
       <div class="col-lg-6 justify-content-center d-flex col-md-12 col-sm-12">
         <label for="fileInput">
-          <img [src]="uploadedImageBase64 || company.logo || '../../../../../assets/images/softic/default.png'" alt="Upload Icon" class="upload-icon"
-            style="cursor: pointer; width: 150px; height: 150px;">
+          <img [src]="uploadedImageBase64 || companyForm.get('logo')?.value || '../../../../../assets/images/softic/default.png'"
+            alt="Upload Icon" class="upload-icon" style="cursor: pointer; width: 150px; height: 150px;">
         </label>
       </div>
       <div class="col-lg-6 col-md-12 col-sm-12">
         <div>
           <p class="upload-text">Upload company logo</p>
           <p class="upload-instructions">
-            JPG/PNG/PDF files should be uploaded. The file must be high in resolution and original in design.
+            JPG/PNG files should be uploaded. The file must be high in resolution and original in design.
           </p>
           <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*" style="display: none;">
         </div>
@@ -42,8 +42,6 @@
       </div>
     </div>
 
-
-
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="form-group">
@@ -57,15 +55,7 @@
           <input type="color" id="secondaryColor" formControlName="secondaryColor" class="form-control" />
         </div>
       </div>
-
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-group">
-          <label for="fontName">Font Name</label>
-          <input required type="text" id="fontName" formControlName="fontName" class="form-control" />
-        </div>
-      </div>
     </div>
-
 
     <div class="row">
       <div class="form-group col-lg-6">
@@ -82,7 +72,11 @@
           [maxLength]="15"
           [phoneValidation]="true"
           formControlName="phone"
+          [separateDialCode]="true"   
         ></ngx-intl-tel-input>
+        <div *ngIf="companyForm.get('phone')?.invalid && companyForm.get('phone')?.touched">
+          <small class="text-danger">Invalid phone number</small>
+        </div>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="form-group">
@@ -99,10 +93,15 @@
             [maxLength]="15"
             [phoneValidation]="true"
             formControlName="phoneNumber"
+            [separateDialCode]="true"  
           ></ngx-intl-tel-input>
+          <div *ngIf="companyForm.get('phoneNumber')?.invalid && companyForm.get('phoneNumber')?.touched">
+            <small class="text-danger">Invalid mobile number</small>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="col-lg-6 col-md-6 col-sm-12">
       <div class="form-group">
         <label for="address">Address</label>
@@ -113,6 +112,7 @@
       <label for="email">Email</label>
       <input id="email" formControlName="email" type="email" class="form-control" />
     </div>
+
     <div class="row">
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="form-group">
@@ -124,24 +124,6 @@
         <div class="form-group">
           <label for="facebook">Facebook</label>
           <input type="text" id="facebook" formControlName="facebook" class="form-control" />
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-group">
-          <label for="twitter">Twitter</label>
-          <input type="text" id="twitter" formControlName="twitter" class="form-control" />
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-group">
-          <label for="instgram">Instagram</label>
-          <input type="text" id="instgram" formControlName="instgram" class="form-control" />
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-group">
-          <label for="tiktok">Tiktok</label>
-          <input type="text" id="tiktok" formControlName="tiktok" class="form-control" />
         </div>
       </div>
     </div>

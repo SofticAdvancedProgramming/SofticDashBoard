@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CompanyService } from '../../../../../services/comapnyService/company.service';
 import { ImageUploadService } from '../../../../../services/ImageUploadService/image-upload.service';
 import { CountryISO, NgxIntlTelInputModule, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
@@ -9,7 +9,7 @@ import { Company } from '../../../../../../models/company';
 @Component({
   selector: 'app-profile-details',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgxIntlTelInputModule],
+  imports: [CommonModule, ReactiveFormsModule, NgxIntlTelInputModule, FormsModule],
   templateUrl: './profile-details.component.html',
   styleUrls: ['./profile-details.component.css']
 })
@@ -21,7 +21,7 @@ export class ProfileDetailsComponent implements OnInit {
   base64ImageForServer: string | null = null;
   editMode: boolean = false;
   companyForm!: FormGroup;
-  companyId!: number; // Company ID retrieved from local storage
+  companyId!: number; 
   preferredCountries = [CountryISO.Egypt, CountryISO.SaudiArabia];
   searchCountryFields = [SearchCountryField.Name, SearchCountryField.DialCode, SearchCountryField.Iso2];
   selectedCountryISO = CountryISO.Egypt;
@@ -36,10 +36,11 @@ export class ProfileDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-     const companyIdString = localStorage.getItem('companyId');
+    const companyIdString = localStorage.getItem('companyId');
     if (companyIdString) {
       this.companyId = parseInt(companyIdString, 10);  
       this.getCompanyData(this.companyId);  
+      console.log(this.companyId)
     }
 
     this.initializeForm();
@@ -66,20 +67,21 @@ export class ProfileDetailsComponent implements OnInit {
 
   initializeForm(): void {
     this.companyForm = this.fb.group({
-      name: ['', Validators.required],
-      nameAr: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      address: ['', Validators.required],
+      name: [''],
+      nameAr: [''],
+      email: ['', [ Validators.email]],
+      phone: [''],
+      phoneNumber: [''],
+      address: [''],
       primaryColor: [''],
       secondaryColor: [''],
-      fontName: ['', Validators.required],
+      fontName: [''],
       webSite: [''],
       facebook: [''],
       twitter: [''],
       instgram: [''],
       tiktok: [''],
+      logo:['']
     });
   }
 
@@ -98,10 +100,9 @@ export class ProfileDetailsComponent implements OnInit {
       }
     );
   }
-  
 
-
-   populateForm(company: any): void {
+  populateForm(company: any): void {
+    console.log("Populating form with data:", company);
     this.companyForm.patchValue({
       name: company.name,
       nameAr: company.nameAr,
@@ -117,22 +118,44 @@ export class ProfileDetailsComponent implements OnInit {
       twitter: company.twitter,
       instgram: company.instgram,
       tiktok: company.tiktok,
+      logo: company.logo,
     });
   }
 
   submitForm(): void {
-    if (this.companyForm.valid) {
-      const updatedCompany = { ...this.companyForm.value, id: this.companyId };
+    console.log("Form Submitted:", this.companyForm.value);
 
-      this.companyService.EditCompany(updatedCompany).subscribe(
-        response => {
-          alert('Company details updated successfully');
-          this.editMode = false;
-        },
-        error => {
-          console.error('Error updating company details:', error);
+    if (this.companyForm.invalid) {
+      console.warn("Form is invalid. Errors:", this.companyForm.errors);
+      Object.keys(this.companyForm.controls).forEach(field => {
+        const control = this.companyForm.get(field);
+        if (control?.invalid) {
+          console.log(`Validation error in ${field}:`, control.errors);
         }
-      );
+      });
+      return;
     }
+
+    console.log("Form is valid. Proceeding with the submission.");
+
+    const updatedCompany = { 
+      ...this.companyForm.value, 
+      id: this.companyId 
+    };
+
+    if (this.base64ImageForServer) {
+      updatedCompany.logo = this.base64ImageForServer;
+    }
+
+    this.companyService.EditCompany(updatedCompany).subscribe(
+      response => {
+        console.log("Company updated successfully:", response);
+        alert('Company details updated successfully');
+        this.editMode = false;
+      },
+      error => {
+        console.error('Error updating company details:', error);
+      }
+    );
   }
 }
