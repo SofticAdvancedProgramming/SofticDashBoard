@@ -29,7 +29,8 @@
         </button>
       </div> -->
       <app-change-language></app-change-language>
-      <div class="col-lg-4 d-flex gap-3 justify-content-end profile" routerLink="profile">
+      <!-- routerLink="profile" -->
+      <div class="col-lg-4 d-flex gap-3 justify-content-end profile flex-fill" >
         <a> <img class="img-fluid" [src]="profileImage ? profileImage: 'assets/images/default.jpeg'"> </a>
         <div class="desc">
           <p>{{user.firstName || ''}}</p>
