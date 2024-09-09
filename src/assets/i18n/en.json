@@ -202,5 +202,15 @@
     "SETTING": "Setting",
     "HELP": "Help",
     "LOGOUT": "Logout"
-  }
+  },
+  "Home": {
+    "ActiveCompanies": "Active Companies",
+    "UncompletedCompanyINFO": "Uncompleted Company INFO",
+    "Notifications":"Notifications",
+    "ShowAll":"Show All"
+  },
+  "CHART": {
+    "ThisYear": "This Year",
+    "LastYear": "Last Year"
+  },"MONTHS": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]
 }
