@@ -1,14 +1,13 @@
 import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { branch } from '../../../../../../../models/branch';
-import { MapComponent } from "../../../../components/map/map.component";
 import { MessageService } from 'primeng/api';
 import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
-import { LeafletMapComponent } from "../../../../../../common-component/leaflet-map/leaflet-map.component";
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { MapComponent } from '../../../../../../common-component/map/map.component';
 
 @Component({
     selector: 'app-add-branch',
@@ -16,7 +15,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
     templateUrl: './add-branch.component.html',
     styleUrls: ['./add-branch.component.css'],
     providers: [MessageService],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, LeafletMapComponent, TranslateModule]
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, TranslateModule]
 })
 export class AddBranchComponent implements OnInit {
   @Input() companyId?: number ;
