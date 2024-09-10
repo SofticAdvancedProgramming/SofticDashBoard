@@ -9,7 +9,7 @@ import { Company } from '../../../../../../models/company';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
- 
+
 @Component({
   selector: 'app-profile-details',
   standalone: true,
@@ -179,20 +179,23 @@ export class ProfileDetailsComponent implements OnInit {
       return;
     }
 
-    // Convert phone and phoneNumber to e164 format
-    const updatedCompany = {
+    const updatedCompany: any = {
       ...this.companyForm.value,
       id: this.companyId,
-      logo: this.base64ImageForServer || this.companyForm.get('logo')?.value,
       subscriptionPlanId: this.subscriptionPlanId,
       companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value,
       phone: this.companyForm.get('phone')?.value?.e164Number || this.companyForm.get('phone')?.value,
       phoneNumber: this.companyForm.get('phoneNumber')?.value?.e164Number || this.companyForm.get('phoneNumber')?.value,
     };
+    if (!this.base64ImageForServer) {
+      delete updatedCompany.logo;
+    } else {
+      updatedCompany.logo = this.base64ImageForServer;
+    }
 
     this.companyService.EditCompany(updatedCompany).subscribe(
       response => {
-         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Company updated successfully' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Company updated successfully' });
         this.editMode = false;
       },
       error => {
