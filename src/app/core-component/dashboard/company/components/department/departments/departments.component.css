@@ -1,5 +1,3 @@
-
-
 .card {
     background-color: white;
     border-radius: 10px;
@@ -110,19 +108,21 @@
     border-radius: 50%;
 }
 
-input:checked + .slider {
+input:checked+.slider {
     background-color: #6f42c1;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
     transform: translateX(14px);
 }
+
 .toggle-button-container button {
     border: 1px solid #8413F8;
-    color:#8413F8;
+    color: #8413F8;
     display: flex;
     gap: 1em;
 }
+
 .addPositionBtn {
     background: #9ACA3C;
     color: white;
@@ -251,13 +251,15 @@ input:checked + .slider:before {
 
 @media (max-width: 576px) {
     .card-container {
-      flex-direction: column;
-      gap: 10px;
+        flex-direction: column;
+        gap: 10px;
     }
-    .addPositionBtn{
-      width: 75%;   
-     }
-  }
-  .rotate-arrow {
+
+    .addPositionBtn {
+        width: 75%;
+    }
+}
+
+.rotate-arrow {
     transform: rotate(180deg);
-   }
+}
