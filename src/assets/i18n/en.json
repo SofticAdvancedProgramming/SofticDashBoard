@@ -252,5 +252,11 @@
     "REFERENCE_PHOTO": "Reference Photo",
     "PASSPORT_PHOTO": "Passport Photo",
     "LOADING": "Loading..."
+  },
+  "employeeDetails": {
+    "PERSONAL_INFORMATION": "Personal Information",
+    "ADVANCED_INFORMATION": "Advanced Information",
+    "REJECTED": "Rejected",
+    "ACCEPTED": "Accepted"
   }
 }

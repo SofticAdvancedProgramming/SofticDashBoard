@@ -252,6 +252,12 @@
     "REFERENCE_PHOTO": "صورة مرجعية",
     "PASSPORT_PHOTO": "صورة جواز السفر",
     "LOADING": "جارٍ التحميل..."
+  },
+  "employeeDetails": {
+    "PERSONAL_INFORMATION": "معلومات شخصية",
+    "ADVANCED_INFORMATION": "معلومات متقدمة",
+    "REJECTED": "مرفوض",
+    "ACCEPTED": "مقبول"
   }
 
 }
