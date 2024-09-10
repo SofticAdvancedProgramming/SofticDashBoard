@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { accountStatus } from '../../../../../models/enums/accountStatus';
 import { tap, catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 declare var bootstrap: any;
 
@@ -17,7 +18,7 @@ declare var bootstrap: any;
   standalone: true,
   templateUrl: './view-employees.component.html',
   styleUrls: ['./view-employees.component.css'],
-  imports: [ModernTableComponent, RouterLink, FormsModule, CommonModule, PaginationModule]
+  imports: [ModernTableComponent, RouterLink, FormsModule, CommonModule, PaginationModule, TranslateModule]
 })
 export class ViewEmployeesComponent implements OnInit {
   companyId: number = 0;
@@ -30,7 +31,9 @@ export class ViewEmployeesComponent implements OnInit {
   isShowingPending: boolean = false;
   employeeToDelete: employee | null = null;
 
-  constructor(private employeeService: EmployeeService, private cdr: ChangeDetectorRef, private router: Router ) { }
+  constructor(private employeeService: EmployeeService,
+    private translate: TranslateService
+    , private cdr: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit() {
     this.loadEmployees();
@@ -66,7 +69,8 @@ export class ViewEmployeesComponent implements OnInit {
   toggleEmployeeStatus() {
     this.isShowingPending = !this.isShowingPending;
     this.currentPage = 1;
-    this.loadEmployees();}
+    this.loadEmployees();
+  }
 
 
   applyFilter() {
@@ -114,5 +118,11 @@ export class ViewEmployeesComponent implements OnInit {
 
   viewDetails(employee: employee) {
     this.router.navigate(['dashboard/employee-details', employee.id]);
+  }
+
+  getEmployeeStatusLabel() {
+    return this.isShowingPending
+      ? 'viewEmployees.NEW_EMPLOYEE_REQUESTS'
+      : 'viewEmployees.CURRENT_EMPLOYEES';
   }
 }

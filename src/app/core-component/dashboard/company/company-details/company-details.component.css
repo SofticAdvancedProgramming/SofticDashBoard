@@ -129,6 +129,8 @@ input:checked + .slider:before {
         flex-direction: column;
         align-items: center;
         margin: 0px;
+        top: -90px;
+        position: relative;
     }
 
     .profile-logo img {

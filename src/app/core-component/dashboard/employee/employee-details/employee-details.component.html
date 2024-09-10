@@ -1,9 +1,9 @@
-<div class="profile-header">
+<div [dir]=" currentLang === 'ar' ? 'rtl' : 'ltr'" class="profile-header">
     <img src="../../../../assets/images/coverimg.png" alt="Background Image" class="background-img">
     <div class="profile-content">
         <div class="col-lg-6 d-flex align-items-center">
-          <img [src]="employee.referancePhoto || '../../../../assets/images/default.jpeg'" alt="Profile Image" class="profile-img"
-          (error)="onImageError($event)" />
+            <img [src]="employee.referancePhoto || '../../../../assets/images/default.jpeg'" alt="Profile Image"
+                class="profile-img" (error)="onImageError($event)" />
             <div class="profile-info">
                 <h1>{{employee.fullName}}</h1>
             </div>
@@ -13,44 +13,39 @@
 
 <div class="row justify-content-end d-flex my-4  ">
     <div class="col-lg-6">
-
         <div class="tabs">
             <div class="tab" [ngClass]="{'active': activeTab === 'personal'}" (click)="setActiveTab('personal')">
-                Personal Information
+                {{ 'employeeDetails.PERSONAL_INFORMATION' | translate }}
             </div>
-            <!-- <div class="tab" [ngClass]="{'active': activeTab === 'professional'}"
-                (click)="setActiveTab('professional')">
-                Professional Information
-            </div> -->
             <div class="tab" [ngClass]="{'active': activeTab === 'advanced'}" (click)="setActiveTab('advanced')">
-                Advanced Information
+                {{ 'employeeDetails.ADVANCED_INFORMATION' | translate }}
             </div>
         </div>
-
     </div>
     <div class="col-lg-6 justify-content-end gap-3 d-flex">
-      @if(employee.accountStatus === accountStatus.Pending) {
-        <button class="btn rejected" (click)="updateStatus(accountStatus.Rejected)">Rejected</button>
-        <button class="btn accepted" (click)="updateStatus(accountStatus.Active)">Accepted</button>
-      }
+        @if(employee.accountStatus === accountStatus.Pending) {
+        <button class="btn rejected" (click)="updateStatus(accountStatus.Rejected)">
+            {{ 'employeeDetails.REJECTED' | translate }}
+        </button>
+        <button class="btn accepted" (click)="updateStatus(accountStatus.Active)">
+            {{ 'employeeDetails.ACCEPTED' | translate }}
+        </button>
+        }
     </div>
-
-
 </div>
-
-
 
 <div class="tab-content">
     <div *ngIf="activeTab === 'personal'">
         <app-personal-information> </app-personal-information>
     </div>
 
-    <!-- <div *ngIf="activeTab === 'professional'">
-
-    </div> -->
-
     <div *ngIf="activeTab === 'advanced'">
         <app-countdown></app-countdown>
-        <!-- <app-advanced-information></app-advanced-information> -->
     </div>
 </div>
+
+<ng-template #loading>
+    <div class="text-center">
+        <p>{{ 'employeeDetails.LOADING' | translate }}</p>
+    </div>
+</ng-template>

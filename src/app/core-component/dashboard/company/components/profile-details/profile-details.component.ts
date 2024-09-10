@@ -9,7 +9,7 @@ import { Company } from '../../../../../../models/company';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-
+ 
 @Component({
   selector: 'app-profile-details',
   standalone: true,

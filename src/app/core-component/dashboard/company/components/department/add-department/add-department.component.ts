@@ -5,20 +5,19 @@ import { DepartmentService } from '../../../../../../services/lockupsServices/De
 import { Department } from '../../../../../../../models/department';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { MapComponent } from '../../../../components/map/map.component';
 import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
 import { branch } from '../../../../../../../models/branch';
-import { LeafletMapComponent } from "../../../../../../common-component/leaflet-map/leaflet-map.component";
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { InputRestrictionDirective } from '../../../../../../common-component/directives/lang-directive/input-restriction.directive';
+import { MapComponent } from '../../../../../../common-component/map/map.component';
 
 @Component({
-    selector: 'app-add-department',
-    standalone: true,
-    templateUrl: './add-department.component.html',
-    styleUrls: ['./add-department.component.css'],
-    providers: [MessageService],
-    imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, LeafletMapComponent,InputRestrictionDirective]
+  selector: 'app-add-department',
+  standalone: true,
+  templateUrl: './add-department.component.html',
+  styleUrls: ['./add-department.component.css'],
+  providers: [MessageService],
+  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, InputRestrictionDirective]
 })
 export class AddDepartmentComponent implements OnInit {
   @Output() action = new EventEmitter<boolean>();

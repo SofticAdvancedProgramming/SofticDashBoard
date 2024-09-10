@@ -187,4 +187,30 @@ body {
 
 .tab:hover {
     color: #6a0dad;
+}body[dir="rtl"] {
+    direction: rtl;
+}
+
+ 
+.profile-info[dir="rtl"] {
+    margin-left: 0;
+    margin-right: 20px; 
+}
+
+.tabs[dir="rtl"] {
+    flex-direction: row-reverse;  
+}
+
+.tab[dir="rtl"] {
+    text-align: right;  
+}
+
+.profile-img {
+    float: left;
+    margin-left: 10px;
+}
+
+body[dir="rtl"] .profile-img {
+    float: right;
+    margin-right: 10px;
 }

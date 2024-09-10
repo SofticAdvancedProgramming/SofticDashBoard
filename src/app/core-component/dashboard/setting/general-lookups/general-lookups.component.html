@@ -3,16 +3,16 @@
         <div class="col-lg-4" *ngIf="role[0] === 'SuperAdmin'">
             <app-lockup-card  
                 iconSrc="../../../../../assets/images/lockup/PersonalReferanceManagement.png"
-                header="Subscription Plan Management"
-                description="Create and manage subscription plans to meet diverse user needs."
+                header="{{ 'generalLookups.SUBSCRIPTION_PLAN_MANAGEMENT' | translate }}"
+                description="{{ 'generalLookups.SUBSCRIPTION_PLAN_DESCRIPTION' | translate }}"
                 link="../SubscriptionPlan">
             </app-lockup-card>
         </div>
         <div class="col-lg-4 mt-3"  *ngIf="role[0] === 'Admin'" >
             <app-lockup-card 
                 iconSrc="../../../../../assets/images/lockup/security-user.png"
-                header="Position Management"
-                description="Define and update organizational roles and positions efficiently."
+                header="{{ 'generalLookups.POSITION_MANAGEMENT' | translate }}"
+                description="{{ 'generalLookups.POSITION_MANAGEMENT_DESCRIPTION' | translate }}"
                 link="../PositionTypeManagment">
             </app-lockup-card>
         </div>

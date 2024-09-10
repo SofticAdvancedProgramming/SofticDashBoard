@@ -13,6 +13,7 @@ import { accountStatus } from '../../../../../models/enums/accountStatus';
 import { CountdownComponent } from "../../../../common-component/countdown/countdown.component";
 import { AdminService } from '../../../../services/adminService/admin.service';
 import { ToastersService } from '../../../../core/services/toast-service/toast.service';
+import { TranslateService , TranslateModule} from '@ngx-translate/core';
 
 
 @Component({
@@ -20,13 +21,15 @@ import { ToastersService } from '../../../../core/services/toast-service/toast.s
   standalone: true,
   templateUrl: './employee-details.component.html',
   styleUrls: ['./employee-details.component.css'],
-  imports: [RouterLink, MatTabsModule, CommonModule, PersonalInformationComponent, AdvancedInformationComponent, CountdownComponent]
+  imports: [RouterLink,TranslateModule, MatTabsModule, CommonModule, PersonalInformationComponent, AdvancedInformationComponent, CountdownComponent]
 })
 export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   activeTab: string = 'personal';
   id: number = 0;
   employee: employee = {} as employee;
   accountStatus = accountStatus;
+  currentLang: string = 'en';
+
   private unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -34,6 +37,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
     private employeeService: EmployeeService,
     private adminService: AdminService,
     private toast: ToastersService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -44,8 +48,14 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
       console.log('Employee ID from URL:', this.id);
       this.getEmployee();
     });
+    this.currentLang = this.translate.currentLang;
+    this.translate.onLangChange.subscribe((event) => {
+      this.currentLang = event.lang;
+    });
   }
-
+  switchLang(lang: string) {
+    this.translate.use(lang);
+  }
   getEmployee() {
     this.employeeService.loadEmployees({ id: this.id }).pipe(
       tap((response: any) => {

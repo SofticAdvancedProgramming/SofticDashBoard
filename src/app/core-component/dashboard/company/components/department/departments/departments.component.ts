@@ -66,6 +66,7 @@ export class DepartmentsComponent implements OnInit {
   private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
+    this.isArabic = this.translate.currentLang === 'ar';
     this.loadDepartments();
     this.subscription.add(this.translate.onLangChange.subscribe(() => {
       this.checkLanguage();
