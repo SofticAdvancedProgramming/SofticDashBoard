@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { UserDataService } from '../../../../../services/userDataService/user-data.service';
 import { PersonalInformation } from '../../../../../../models/user';
 import { CommonModule } from '@angular/common';
+import { TranslateService ,TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-personal-information',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule , TranslateModule],
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.css']
 })
@@ -17,7 +18,8 @@ export class PersonalInformationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private userDataService: UserDataService
+    private userDataService: UserDataService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -49,8 +51,13 @@ export class PersonalInformationComponent implements OnInit {
       }
     );
   }
+
   onImageError(event: any) {
     event.target.src = '../../../../../../assets/images/default.jpeg';
   }
-
+  getGenderTranslation(): string {
+    return this.personalInfo?.gender === 0 ? 'personalInfo.MALE' : 'personalInfo.FEMALE';
+  }
+  
+  
 }
