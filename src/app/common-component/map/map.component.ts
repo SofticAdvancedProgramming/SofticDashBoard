@@ -45,7 +45,12 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    this.map.resize();
+    const modalElement = document.getElementById('staticBackdrop');
+    if (modalElement) {
+      modalElement.addEventListener('shown.bs.modal', () => {
+        this.map.resize();
+      });
+    }
   }
 
   initializeMap(): void {
