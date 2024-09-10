@@ -52,15 +52,38 @@
   "PASSWORD_RESET_SUCCESS": "Password reset successful. You can now log in with your new password.",
   "PROFILE_DETAILS": {
     "EDIT": "Edit",
-    "ABOUT": "About",
-    "CITY": "City",
-    "COUNTRY": "Country",
+    "CANCEL": "Cancel",
+    "UPLOAD_ICON": "Upload Icon",
+    "EDIT_COMPANY_LOGO": "Edit Company Logo",
+    "UPLOAD_INSTRUCTIONS": "JPG/PNG files should be uploaded. The file must be high in resolution and original in design.",
+    "COMPANY_NAME": "Company Name",
+    "COMPANY_NAME_AR": "Company Name (Arabic)",
+    "PRIMARY_COLOR": "Primary Color",
+    "SECONDARY_COLOR": "Secondary Color",
     "ADDRESS": "Address",
     "EMAIL": "Email",
-    "MOBILE": "Mobile",
-    "FAX": "Fax",
     "PHONE": "Phone",
-    "NO_DATA": "No data"
+    "MOBILE_NUMBER": "Mobile Number",
+    "WEBSITE": "Website",
+    "FACEBOOK": "Facebook",
+    "DESCRIPTION": "Description",
+    "DESCRIPTION_AR": "Description (Arabic)",
+    "SAVE": "Save",
+    "ABOUT": "About",
+    "NO_DATA": "No data available",
+    "UPDATE_SUCCESS": "Company updated successfully",
+    "INVALID_PHONE": "Invalid phone number",
+    "INVALID_MOBILE": "Invalid mobile number",
+    "DESCRIPTION_REQUIRED": "Description is required.",
+    "DESCRIPTION_MIN": "Description must be at least 100 characters.",
+    "DESCRIPTION_MAX": "Description cannot exceed 250 characters.",
+    "DESCRIPTION_REQUIRED_AR": "Arabic description is required.",
+    "DESCRIPTION_MIN_AR": "Arabic description must be at least 100 characters.",
+    "DESCRIPTION_MAX_AR": "Arabic description cannot exceed 250 characters.",
+    "FAX": "Fax",
+    "PROFILE_DETAILS.MOBILE_NUMBER": "Mobile Number",
+    "PROFILE_DETAILS.INVALID_PHONE": "Invalid Phone Number",
+    "PROFILE_DETAILS.INVALID_MOBILE": "Invalid Mobile Number"
   },
   "COMPANY_DETAILS": {
     "TITLE": "Company Details",
@@ -259,4 +282,5 @@
     "REJECTED": "Rejected",
     "ACCEPTED": "Accepted"
   }
+  
 }
