@@ -125,4 +125,8 @@ export class ViewEmployeesComponent implements OnInit {
       ? 'viewEmployees.NEW_EMPLOYEE_REQUESTS'
       : 'viewEmployees.CURRENT_EMPLOYEES';
   }
+  getEmployeeStatusLabelButton(){
+    return this.isShowingPending
+      ? 'viewEmployees.CURRENT_EMPLOYEES':'viewEmployees.NEW_EMPLOYEE_REQUESTS';
+}
 }
