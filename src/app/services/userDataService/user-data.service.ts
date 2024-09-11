@@ -13,4 +13,7 @@ export class UserDataService {
   loadPersonalInformation(request: any): Observable<any> {
     return this.apiCall.request('POST', this.PersonalInformationUrl + '/GetPersonalInformation', request,);
   }
+  editPersonalInformation(request: any): Observable<any> {
+    return this.apiCall.request('POST', this.PersonalInformationUrl + '/EditPersonalInformation', request,);
+  }
 }
