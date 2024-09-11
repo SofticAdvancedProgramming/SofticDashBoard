@@ -35,18 +35,12 @@ export class PersonalInformationComponent implements OnInit {
   }
 
   loadPersonalInformation(): void {
-    const requestPayload = {
-      id: this.employeeId
-    };
+    const requestPayload = { id: this.employeeId };
 
     this.userDataService.loadPersonalInformation(requestPayload).subscribe(
       (response) => {
-        if (response && response.list && response.list.length > 0) {
+        if (response?.list?.length > 0) {
           this.personalInfo = response.list[0] as PersonalInformation;
-
-          if (this.personalInfo.birthDate === '0001-01-01T00:00:00') {
-            // Handle invalid date
-          }
         }
       },
       (error) => {
@@ -77,10 +71,14 @@ export class PersonalInformationComponent implements OnInit {
 
     const imgUrl = this.personalInfo.referancePhoto;
 
-
-    fetch(imgUrl)
-      .then(response => response.blob())
-      .then(blob => {
+    fetch(imgUrl, { mode: 'cors' })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch the image due to CORS policy');
+        }
+        return response.blob();
+      })
+      .then((blob) => {
         const img = new Image();
         const objectURL = URL.createObjectURL(blob);
         img.src = objectURL;
@@ -102,44 +100,44 @@ export class PersonalInformationComponent implements OnInit {
           ctx?.rotate((degrees * Math.PI) / 180);
           ctx?.drawImage(img, -img.width / 2, -img.height / 2);
 
+          const base64Image = canvas.toDataURL('image/png').split(',')[1];
 
-          let base64Image = canvas.toDataURL('image/png');
-
-
-          base64Image = base64Image.split(',')[1];
-
-          if (this.personalInfo?.referancePhoto) {
+          if (this.personalInfo) {
             this.personalInfo.referancePhoto = base64Image;
+            this.updatePersonalInformation();
+            document.getElementById('rotatedImage')?.setAttribute('src', `data:image/png;base64,${base64Image}`);
           }
+
+          URL.revokeObjectURL(objectURL);
           this.isRotated = false;
           this.rotationDegrees = 0;
-       if(this.personalInfo?.referancePhoto){
-        this.personalInfo.referancePhoto = base64Image;
-        this.updatePersonalInformation();
-       }
-
-          console.log('Base64 image without prefix:', this.personalInfo?.referancePhoto);
         };
 
         img.onerror = () => {
-          console.error('Failed to load image');
+          console.error('Failed to load the image');
         };
       })
-      .catch(error => {
-        console.error('Error fetching the image as Blob:', error);
+      .catch((error) => {
+        console.error('Error fetching the image:', error);
       });
   }
+
   updatePersonalInformation() {
+    if (this.personalInfo) {
+      const updatedPersonalInfo: Partial<PersonalInformation> = { ...this.personalInfo };
 
-
-    const updatedPersonalInfo: Partial<PersonalInformation> = { ...this.personalInfo };
       delete updatedPersonalInfo.nationalIdPhoto;
       delete updatedPersonalInfo.passportPhoto;
       delete updatedPersonalInfo.profileImage;
-    this.userDataService.editPersonalInformation(updatedPersonalInfo).subscribe(
-      (response) => {
-        console.log('Personal information updated successfully', response);
-      }
-    );
+
+      this.userDataService.editPersonalInformation(updatedPersonalInfo).subscribe(
+        (response) => {
+          console.log('Personal information updated successfully', response);
+        },
+        (error) => {
+          console.error('Error updating personal information:', error);
+        }
+      );
+    }
   }
 }
