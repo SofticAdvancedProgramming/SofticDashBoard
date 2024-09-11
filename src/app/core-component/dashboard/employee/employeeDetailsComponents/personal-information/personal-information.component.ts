@@ -4,6 +4,7 @@ import { UserDataService } from '../../../../../services/userDataService/user-da
 import { PersonalInformation } from '../../../../../../models/user';
 import { CommonModule } from '@angular/common';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-personal-information',
@@ -15,14 +16,16 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 export class PersonalInformationComponent implements OnInit {
   personalInfo: PersonalInformation | null = null;
   employeeId: number | null = null;
-
   rotationDegrees: number = 0;
   isRotated: boolean = false;
+  safeImageUrl: SafeUrl | null = null;
+  defaultImageUrl: string = '../../../../../../assets/images/default.jpeg';
 
   constructor(
     private route: ActivatedRoute,
     private userDataService: UserDataService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +44,7 @@ export class PersonalInformationComponent implements OnInit {
       (response) => {
         if (response?.list?.length > 0) {
           this.personalInfo = response.list[0] as PersonalInformation;
+          this.setImageUrl(this.personalInfo.referancePhoto);
         }
       },
       (error) => {
@@ -49,8 +53,22 @@ export class PersonalInformationComponent implements OnInit {
     );
   }
 
+  setImageUrl(url: string): void {
+    // Create a blob URL from the image data
+    fetch(url)
+      .then(response => response.blob())
+      .then(blob => {
+        const objectUrl = URL.createObjectURL(blob);
+        this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+      })
+      .catch(error => {
+        console.error('Error fetching image:', error);
+        this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(this.defaultImageUrl);
+      });
+  }
+
   onImageError(event: any) {
-    event.target.src = '../../../../../../assets/images/default.jpeg';
+    event.target.src = this.defaultImageUrl;
   }
 
   getGenderTranslation(): string {
@@ -64,62 +82,48 @@ export class PersonalInformationComponent implements OnInit {
   }
 
   saveRotatedImage() {
-    if (!this.personalInfo?.referancePhoto) {
-      console.error('No reference photo available to rotate');
+    if (!this.safeImageUrl) {
+      console.error('No image available to rotate');
       return;
     }
 
-    const imgUrl = this.personalInfo.referancePhoto;
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.src = this.safeImageUrl.toString();
 
-    fetch(imgUrl, { mode: 'cors' })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch the image due to CORS policy');
-        }
-        return response.blob();
-      })
-      .then((blob) => {
-        const img = new Image();
-        const objectURL = URL.createObjectURL(blob);
-        img.src = objectURL;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const degrees = this.rotationDegrees;
 
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          const degrees = this.rotationDegrees;
+      if (degrees === 90 || degrees === 270) {
+        canvas.width = img.height;
+        canvas.height = img.width;
+      } else {
+        canvas.width = img.width;
+        canvas.height = img.height;
+      }
 
-          if (degrees === 90 || degrees === 270) {
-            canvas.width = img.height;
-            canvas.height = img.width;
-          } else {
-            canvas.width = img.width;
-            canvas.height = img.height;
-          }
+      ctx?.translate(canvas.width / 2, canvas.height / 2);
+      ctx?.rotate((degrees * Math.PI) / 180);
+      ctx?.drawImage(img, -img.width / 2, -img.height / 2);
 
-          ctx?.translate(canvas.width / 2, canvas.height / 2);
-          ctx?.rotate((degrees * Math.PI) / 180);
-          ctx?.drawImage(img, -img.width / 2, -img.height / 2);
+      const rotatedImageDataUrl = canvas.toDataURL('image/png');
+      this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(rotatedImageDataUrl);
 
-          const base64Image = canvas.toDataURL('image/png').split(',')[1];
+      if (this.personalInfo) {
+        this.personalInfo.referancePhoto = rotatedImageDataUrl;
+        this.updatePersonalInformation();
+      }
 
-          if (this.personalInfo) {
-            this.personalInfo.referancePhoto = base64Image;
-            this.updatePersonalInformation();
-            document.getElementById('rotatedImage')?.setAttribute('src', `data:image/png;base64,${base64Image}`);
-          }
+      this.isRotated = false;
+      this.rotationDegrees = 0;
+    };
 
-          URL.revokeObjectURL(objectURL);
-          this.isRotated = false;
-          this.rotationDegrees = 0;
-        };
-
-        img.onerror = () => {
-          console.error('Failed to load the image');
-        };
-      })
-      .catch((error) => {
-        console.error('Error fetching the image:', error);
-      });
+    img.onerror = (error) => {
+      console.error('Failed to load the image for rotation:', error);
+      this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(this.defaultImageUrl);
+    };
   }
 
   updatePersonalInformation() {
