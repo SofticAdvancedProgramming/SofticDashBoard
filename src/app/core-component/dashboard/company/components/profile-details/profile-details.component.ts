@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { CompanyService } from '../../../../../services/comapnyService/company.service';
 import { ImageUploadService } from '../../../../../services/ImageUploadService/image-upload.service';
 import { SubscriptionPlanService } from '../../../../../services/lockupsServices/SubscriptionPlanService/subscription-plan.service';
@@ -13,7 +13,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-profile-details',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgxIntlTelInputModule, FormsModule, TranslateModule,ToastModule],
+  imports: [CommonModule, ReactiveFormsModule, NgxIntlTelInputModule, FormsModule, TranslateModule, ToastModule],
   templateUrl: './profile-details.component.html',
   styleUrls: ['./profile-details.component.css']
 })
@@ -27,11 +27,9 @@ export class ProfileDetailsComponent implements OnInit {
   editMode: boolean = false;
   companyForm!: FormGroup;
   companyId!: number;
-  preferredCountries = [CountryISO.Egypt, CountryISO.SaudiArabia];
-  searchCountryFields = [SearchCountryField.Name, SearchCountryField.DialCode, SearchCountryField.Iso2];
-  selectedCountryISO = CountryISO.Egypt;
-  CountryISO = CountryISO;
-  PhoneNumberFormat = PhoneNumberFormat;
+  preferredCountries = [CountryISO.SaudiArabia];
+  searchCountryFields = [SearchCountryField.All];
+  selectedCountryISO = CountryISO.SaudiArabia;
   subscriptionPlanId: number | null = null;
   companyExtention: string | null = null;
 
@@ -41,11 +39,9 @@ export class ProfileDetailsComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private imageUploadService: ImageUploadService,
     private translate: TranslateService,
-     private messageService: MessageService,
-
-
+    private messageService: MessageService,
     private subscriptionPlanService: SubscriptionPlanService
-  ) {}
+  ) { }
 
   get isArabic(): boolean {
     return this.translate.currentLang === 'ar';
@@ -84,6 +80,7 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   initializeForm(): void {
+    const urlRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9.-]+\.com$/;
     this.companyForm = this.fb.group({
       name: [''],
       nameAr: [''],
@@ -94,11 +91,11 @@ export class ProfileDetailsComponent implements OnInit {
       primaryColor: [''],
       secondaryColor: [''],
       fontName: [''],
-      webSite: [''],
-      facebook: [''],
-      twitter: [''],
-      instgram: [''],
-      tiktok: [''],
+      webSite: ['', [Validators.pattern(urlRegex)]],
+      facebook: ['', [Validators.pattern(urlRegex)]],
+      twitter: ['', [Validators.pattern(urlRegex)]],
+      instgram: ['', [Validators.pattern(urlRegex)]],
+      tiktok: ['', [Validators.pattern(urlRegex)]],
       logo: [''],
       description: ['', [Validators.minLength(100), Validators.maxLength(250)]],
       descriptionAr: ['', [Validators.minLength(100), Validators.maxLength(250)]],
@@ -114,9 +111,6 @@ export class ProfileDetailsComponent implements OnInit {
           this.subscriptionPlanId = response.data.list[0].id;
           this.companyForm.patchValue({ subscriptionPlanId: this.subscriptionPlanId });
         }
-      },
-      (error: any) => {
-        console.error('Error fetching subscription plans', error);
       }
     );
   }
@@ -129,19 +123,14 @@ export class ProfileDetailsComponent implements OnInit {
         if (response.data && response.data.list && response.data.list.length > 0) {
           const company = response.data.list[0];
           this.populateForm(company);
-
-
         }
-      },
-      error => {
-        console.error('Error fetching company data:', error);
       }
     );
   }
 
 
 
-   populateForm(company: any): void {
+  populateForm(company: any): void {
     this.companyForm.patchValue({
       name: company.name || '',
       nameAr: company.nameAr || '',
@@ -166,42 +155,31 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   submitForm(): void {
-    console.log("Form Submitted:", this.companyForm.value);
+    console.log(this.companyForm.get('phone')?.errors, this.companyForm.get('phoneNumber')?.errors, this.companyForm)
+    if (this.companyForm.valid) {
+      const updatedCompany: any = {
+        ...this.companyForm.value,
+        id: this.companyId,
+        subscriptionPlanId: this.subscriptionPlanId,
+        companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value,
+        phone: this.companyForm.get('phone')?.value?.e164Number || this.companyForm.get('phone')?.value,
+        phoneNumber: this.companyForm.get('phoneNumber')?.value?.e164Number || this.companyForm.get('phoneNumber')?.value,
+      };
+      if (!this.base64ImageForServer) {
+        delete updatedCompany.logo;
+      } else {
+        updatedCompany.logo = this.base64ImageForServer;
+      }
 
-    if (this.companyForm.invalid) {
-      console.warn("Form is invalid. Errors:", this.companyForm.errors);
-      Object.keys(this.companyForm.controls).forEach(field => {
-        const control = this.companyForm.get(field);
-        if (control?.invalid) {
-          console.log(`Validation error in ${field}:`, control.errors);
-        }
-      });
+      this.companyService.EditCompany(updatedCompany).subscribe(
+        response => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Company updated successfully' });
+          this.editMode = false;
+        },
+      );
       return;
     }
-
-    const updatedCompany: any = {
-      ...this.companyForm.value,
-      id: this.companyId,
-      subscriptionPlanId: this.subscriptionPlanId,
-      companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value,
-      phone: this.companyForm.get('phone')?.value?.e164Number || this.companyForm.get('phone')?.value,
-      phoneNumber: this.companyForm.get('phoneNumber')?.value?.e164Number || this.companyForm.get('phoneNumber')?.value,
-    };
-    if (!this.base64ImageForServer) {
-      delete updatedCompany.logo;
-    } else {
-      updatedCompany.logo = this.base64ImageForServer;
-    }
-
-    this.companyService.EditCompany(updatedCompany).subscribe(
-      response => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Company updated successfully' });
-        this.editMode = false;
-      },
-      error => {
-        console.error('Error updating company details:', error);
-      }
-    );
+    this.companyForm.markAllAsTouched();
   }
 
 
@@ -209,4 +187,5 @@ export class ProfileDetailsComponent implements OnInit {
     const control = this.companyForm.get(field);
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
+
 }

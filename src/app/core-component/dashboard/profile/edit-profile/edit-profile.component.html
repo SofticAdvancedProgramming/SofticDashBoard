@@ -1,45 +1,42 @@
 <div class="profile-header">
   <img src="../../../../assets/images/coverimg.png" alt="Background Image" class="background-img">
   <div class="profile-content">
-    <div class="col-lg-6 d-flex align-items-center position-relative">   
-      <img src="../../../../assets/images/default.jpeg" alt="Profile Image" class="profile-img">
-      <div class="edit-icon-img">  
-      <img src="../../../../assets/images/profile/editIcon.png" alt="Edit Icon">
-    </div>
-      <div class="edit-icon">
+    <div class="col-lg-6 d-flex align-items-center position-relative">
+      <img class="profile-img" [src]="selectedImageUrl || 'assets/images/default.jpeg'" alt="Profile Image">
+      <div class="edit-icon-img">
+        <img src="../../../../assets/images/profile/editIcon.png" alt="Edit Icon" (click)="onEditClick()">
+        <input type="file" #fileInput accept="image/*" (change)="onFileSelected($event)" style="display: none;">
       </div>
       <div class="profile-info">
-        <h1>George Mikhaiel</h1>
-        <p>YomnaGmail.Com</p>
+        <h1>{{ user?.firstName }}</h1>
+        <p>{{ roles[0] | translate }}</p>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container">    
-<div class="profile-form">
+<div class="container">
+  <div class="profile-form">
     <div class="row">
-        <div class="col-lg-6 col-md-12">
-            <app-custom-input label="Full Name" [(ngModel)]="fullName" placeholder="Full Name"></app-custom-input>
-        </div>
-        <div class="col-lg-6 col-md-12">
-            <app-custom-input label="Mobile" [(ngModel)]="mobile" placeholder="Mobile"></app-custom-input>
-        </div>
+      <div class="col-lg-6 col-md-12">
+        <app-custom-input label="Full Name" [(ngModel)]="userData.fullName" placeholder="Full Name"></app-custom-input>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <app-custom-input label="Mobile" [(ngModel)]="userData.phoneNumber" placeholder="Mobile" [disabled]='true'></app-custom-input>
+      </div>
     </div>
     <div class="row">
-        <div class="col-lg-6 col-md-12">
-            <app-custom-input label="Email" [(ngModel)]="email" placeholder="Email"></app-custom-input>
-        </div>
-        <div class="col-lg-6 col-md-12">
-            <app-custom-input label="Location" [(ngModel)]="location" placeholder="Location"></app-custom-input>
-        </div>
+      <div class="col-lg-6 col-md-12">
+        <app-custom-input label="Email" [(ngModel)]="userData.email" placeholder="Email"
+          [disabled]='true'></app-custom-input>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class=" p-0 w-100">  
-            <button (click)="save()" class="btn  save-btn">Save</button>
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8 col-sm-10 text-center">
+        <div class="p-0 w-100">
+          <button (click)="save()" class="btn save-btn">Save</button>
         </div>
-        </div>
+      </div>
     </div>
-</div>
+  </div>
 </div>

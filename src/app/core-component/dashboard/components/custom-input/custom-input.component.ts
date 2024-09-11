@@ -17,11 +17,12 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 export class CustomInputComponent implements ControlValueAccessor {
   @Input() label: string = '';
   @Input() placeholder: string = '';
+  @Input() disabled: boolean = false;
   @Input() type: string = 'text';
 
   value: string = '';
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  onChange: any = () => { };
+  onTouched: any = () => { };
 
   writeValue(value: any): void {
     this.value = value;
