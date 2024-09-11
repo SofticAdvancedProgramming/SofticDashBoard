@@ -16,6 +16,8 @@ export class PersonalInformationComponent implements OnInit {
   personalInfo: PersonalInformation | null = null;
   employeeId: number | null = null;
 
+  rotationDegrees: number = 0;
+  isRotated: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private userDataService: UserDataService,
@@ -58,6 +60,47 @@ export class PersonalInformationComponent implements OnInit {
   getGenderTranslation(): string {
     return this.personalInfo?.gender === 0 ? 'personalInfo.MALE' : 'personalInfo.FEMALE';
   }
-  
-  
+  rotateImage(direction: 'left' | 'right') {
+    const rotateBy = direction === 'left' ? -90 : 90;
+    this.rotationDegrees = (this.rotationDegrees + rotateBy) % 360;
+    this.isRotated = true;
+  }
+
+  saveRotatedImage() {
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.src = this.personalInfo?.referancePhoto||'';
+
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const degrees = this.rotationDegrees;
+
+      if (degrees === 90 || degrees === 270) {
+        canvas.width = img.height;
+        canvas.height = img.width;
+      } else {
+        canvas.width = img.width;
+        canvas.height = img.height;
+      }
+
+      ctx?.translate(canvas.width / 2, canvas.height / 2);
+      ctx?.rotate((degrees * Math.PI) / 180);
+      ctx?.drawImage(img, -img.width / 2, -img.height / 2);
+
+
+      const base64Image = canvas.toDataURL('image/png');
+
+      if (this.personalInfo?.referancePhoto) {
+        this.personalInfo.referancePhoto = base64Image;
+      }
+
+
+      this.isRotated = false;
+      this.rotationDegrees = 0;
+      console.log("new photo" ,this.personalInfo?.referancePhoto)
+    };
+  }
+
+
 }
