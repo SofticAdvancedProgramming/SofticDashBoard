@@ -30,7 +30,7 @@
       </div> -->
       <!-- <app-change-language></app-change-language> -->
       <!-- routerLink="profile" -->
-      <div class="col-lg-4 d-flex gap-3 justify-content-end profile flex-fill" >
+      <div class="col-lg-4 d-flex gap-3 justify-content-end profile flex-fill" routerLink="profile">
         <a> <img class="img-fluid" [src]="profileImage ? profileImage: 'assets/images/default.jpeg'"> </a>
         <div class="desc">
           <p>{{user.firstName || ''}}</p>

@@ -1,46 +1,45 @@
 <div class="profile-header">
-    <img src="../../../../assets/images/coverimg.png" alt="Background Image" class="background-img">
-    <div class="profile-content">
-        <div class="col-lg-6 d-flex align-items-center">
-            <img src="../../../../assets/images/default.jpeg" alt="Profile Image" class="profile-img">
-            <div class="profile-info">
-                <h1>George Mikhaiel</h1>
-                <p>YomnaGmail.Com</p>
-            </div>
-        </div>
-        <div class="col-lg-6 d-flex justify-content-end">
-            <div class="custombtn ">
-                <button routerLink="../EditProfile" class="edit-profile-btn">Edit Profile</button>
-            </div>
-        </div>
+  <img src="../../../../assets/images/coverimg.png" alt="Background Image" class="background-img">
+  <div class="profile-content">
+    <div class="col-lg-6 d-flex align-items-center">
+      <img [src]="user?.profileImage ?user?.profileImage: 'assets/images/default.jpeg'" alt="Profile Image"
+        class="profile-img">
+      <div class="profile-info">
+        <h1>{{user?.firstName|| ''}}</h1>
+        <p>{{roles[0] || '' | translate }}</p>
+      </div>
     </div>
+    <div class="col-lg-6 d-flex justify-content-end">
+      <div class="custombtn ">
+        <button routerLink="../EditProfile" class="edit-profile-btn">{{'Edit Profile' | translate}}</button>
+      </div>
+    </div>
+  </div>
 </div>
+
 <div class="container-fluid p-5">
-    <div class="row">
-        <div class="profile-card">
-            <h3>Profile Information</h3>
-            <p class="description">
-                Hi, I'm Alec Thompson, Decisions: If you can't decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating)
-            </p>
-            <div class="profile-details">
-                <div class="detail">
-                    <span class="label">Full Name:</span>
-                    <span class="value">Alec M. Thompson</span>
-                </div>
-                <div class="detail">
-                    <span class="label">Mobile:</span>
-                    <span class="value">(44) 123 1234 123</span>
-                </div>
-                <div class="detail">
-                    <span class="label">Email:</span>
-                    <span class="value">alecthompsonmail.com</span>
-                </div>
-                <div class="detail">
-                    <span class="label">Location:</span>
-                    <span class="value">United States</span>
-                </div>
-            </div>
+  <div class="row">
+    <div class="profile-card">
+      <h3>Profile Information</h3>
+      <div class="profile-details">
+        <div class="detail">
+          <span class="label">Full Name:</span>
+          <span class="value">{{user.firstName}}</span>
         </div>
-        
+        <div class="detail">
+          <span class="label">Mobile:</span>
+          <span class="value">{{user.phoneNumber}}</span>
+        </div>
+        <div class="detail">
+          <span class="label">Email:</span>
+          <span class="value">{{user.email}}</span>
+        </div>
+        <div class="detail">
+          <span class="label">BirthDate:</span>
+          <span class="value">{{user.birthDate | date:'longDate'}}</span>
+        </div>
+      </div>
     </div>
+
+  </div>
 </div>

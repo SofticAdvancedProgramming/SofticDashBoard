@@ -65,6 +65,13 @@ export class AuthenticationService {
         }));
   }
 
+  getPersonalInformation(req: any = {}): Observable<any> {
+    return this.apiCall.request('POST', `${environment.apiBaseUrl}Users/GetPersonalInformation`, req);
+  }
+
+  editUser(payload: any): Observable<any> {
+    return this.apiCall.request('POST', `${environment.apiBaseUrl}Users/EditPersonalInformation`, payload);
+  }
 
   logout() {
     if (isPlatformBrowser(this.platformId)) {
