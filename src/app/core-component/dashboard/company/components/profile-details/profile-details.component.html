@@ -13,8 +13,10 @@
       <!-- File upload for company logo -->
       <div class="col-lg-6 justify-content-center d-flex col-md-12 col-sm-12">
         <label for="fileInput">
-          <img [src]="uploadedImageBase64 || companyForm.get('logo')?.value || '../../../../../assets/images/softic/default.png'"
-          alt="{{ 'PROFILE_DETAILS.UPLOAD_ICON' | translate }}" class="upload-icon" style="cursor: pointer; width: 150px; height: 150px;">
+          <img
+            [src]="uploadedImageBase64 || companyForm.get('logo')?.value || '../../../../../assets/images/softic/default.png'"
+            alt="{{ 'PROFILE_DETAILS.UPLOAD_ICON' | translate }}" class="upload-icon"
+            style="cursor: pointer; width: 150px; height: 150px;">
           <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*" style="display: none;">
         </label>
       </div>
@@ -58,42 +60,35 @@
     <div class="row">
       <div class="form-group col-lg-6">
         <label for="phone">{{ 'PROFILE_DETAILS.PHONE' | translate }}</label>
-        <ngx-intl-tel-input
-          [cssClass]="'custom w-100'"
-          [preferredCountries]="preferredCountries"
-          [enableAutoCountrySelect]="true"
-          [enablePlaceholder]="true"
-          [searchCountryFlag]="true"
-          [searchCountryField]="searchCountryFields"
-          [selectFirstCountry]="false"
-          [selectedCountryISO]="CountryISO.SaudiArabia"
-          [maxLength]="15"
-          [phoneValidation]="true"
-          formControlName="phone"
-          [separateDialCode]="true">
+        <ngx-intl-tel-input class="w-100" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="searchCountryFields"
+          [selectedCountryISO]="selectedCountryISO" [phoneValidation]="true" [maxLength]="15" formControlName="phone">
         </ngx-intl-tel-input>
-        <div *ngIf="companyForm.get('phone')?.invalid && companyForm.get('phone')?.touched">
-          <small class="text-danger">{{ 'PROFILE_DETAILS.INVALID_PHONE' | translate }}</small>
+        <div
+          *ngIf="companyForm.get('phone')?.errors && (companyForm.get('phone')?.touched || companyForm.get('phone')?.dirty)">
+          <div class="text-danger" *ngIf="companyForm.get('phone')?.errors?.['required']">
+            {{ 'Fieldisrequired' | translate }}
+          </div>
+          <div class="text-danger" *ngIf="companyForm.get('phone')?.errors?.['validatePhoneNumber']">
+            {{ 'PROFILE_DETAILS.INVALID_PHONE' | translate }}
+          </div>
         </div>
       </div>
       <div class="form-group col-lg-6">
         <label for="phoneNumber">{{ 'PROFILE_DETAILS.MOBILE_NUMBER' | translate }}</label>
-        <ngx-intl-tel-input
-          [cssClass]="'custom w-100'"
-          [preferredCountries]="preferredCountries"
-          [enableAutoCountrySelect]="true"
-          [enablePlaceholder]="true"
-          [searchCountryFlag]="true"
-          [searchCountryField]="searchCountryFields"
-          [selectFirstCountry]="false"
-          [selectedCountryISO]="CountryISO.Egypt"
-          [maxLength]="15"
-          [phoneValidation]="true"
-          formControlName="phoneNumber"
-          [separateDialCode]="true">
+        <ngx-intl-tel-input class="w-100" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="searchCountryFields"
+          [phoneValidation]="true" [selectFirstCountry]="false" [selectedCountryISO]="selectedCountryISO"
+          [maxLength]="15" formControlName="phoneNumber">
         </ngx-intl-tel-input>
-        <div *ngIf="companyForm.get('phoneNumber')?.invalid && companyForm.get('phoneNumber')?.touched">
-          <small class="text-danger">{{ 'PROFILE_DETAILS.INVALID_MOBILE' | translate }}</small>
+        <div
+          *ngIf="companyForm.get('phoneNumber')?.errors && (companyForm.get('phoneNumber')?.touched || companyForm.get('phoneNumber')?.dirty)">
+          <div class="text-danger" *ngIf="companyForm.get('phoneNumber')?.errors?.['required']">
+            {{ 'Fieldisrequired' | translate }}
+          </div>
+          <div class="text-danger" *ngIf="companyForm.get('phoneNumber')?.errors?.['validatePhoneNumber']">
+            {{ 'PROFILE_DETAILS.INVALID_PHONE' | translate }}
+          </div>
         </div>
       </div>
     </div>
@@ -108,6 +103,11 @@
       <div class="form-group col-lg-6">
         <label for="email">{{ 'PROFILE_DETAILS.EMAIL' | translate }}</label>
         <input id="email" formControlName="email" type="email" class="form-control" />
+        <div *ngIf="companyForm.get('email')?.invalid && (companyForm.get('email')?.touched || companyForm.get('email')?.dirty)">
+          <div class="text-danger" *ngIf="companyForm.get('email')?.errors?.['email']">
+            {{ 'PROFILE_DETAILS.INVALID_EMAIL' | translate }}
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -115,14 +115,53 @@
         <div class="form-group">
           <label for="webSite">{{ 'PROFILE_DETAILS.WEBSITE' | translate }}</label>
           <input type="text" id="webSite" formControlName="webSite" class="form-control" />
+          <div *ngIf="companyForm.get('webSite')?.invalid && companyForm.get('webSite')?.touched" class="text-danger">
+            {{ 'PROFILE_DETAILS.invalid_url' | translate }}
+          </div>
         </div>
       </div>
+
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="form-group">
           <label for="facebook">{{ 'PROFILE_DETAILS.FACEBOOK' | translate }}</label>
           <input type="text" id="facebook" formControlName="facebook" class="form-control" />
+          <div *ngIf="companyForm.get('facebook')?.invalid && companyForm.get('facebook')?.touched" class="text-danger">
+            {{ 'PROFILE_DETAILS.invalid_url' | translate }}
+          </div>
         </div>
       </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="instgram">{{ 'PROFILE_DETAILS.instagram' | translate }}</label>
+          <input type="text" id="instgram" formControlName="instgram" class="form-control" />
+          <div *ngIf="companyForm.get('instgram')?.invalid && companyForm.get('instgram')?.touched" class="text-danger">
+            {{ 'PROFILE_DETAILS.invalid_url' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="twitter">{{ 'PROFILE_DETAILS.X' | translate }}</label>
+          <input type="text" id="twitter" formControlName="twitter" class="form-control" />
+          <div *ngIf="companyForm.get('twitter')?.invalid && companyForm.get('twitter')?.touched" class="text-danger">
+            {{ 'PROFILE_DETAILS.invalid_url' | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label for="tiktok">{{ 'PROFILE_DETAILS.tiktok' | translate }}</label>
+          <input type="text" id="tiktok" formControlName="tiktok" class="form-control" />
+          <div *ngIf="companyForm.get('tiktok')?.invalid && companyForm.get('tiktok')?.touched" class="text-danger">
+            {{ 'PROFILE_DETAILS.invalid_url' | translate }}
+          </div>
+        </div>
+      </div>
+
+
     </div>
     <hr>
     <div class="row">
@@ -134,9 +173,12 @@
             placeholder="{{ 'PROFILE_DETAILS.DESCRIPTION' | translate }}" minlength="100" maxlength="250"></textarea>
           <p class="char-counter">{{ companyForm.get('description')?.value?.length || 0 }} / 250</p>
           <div *ngIf="isFieldInvalid('description')" class="text-danger">
-            <small *ngIf="companyForm.get('description')?.errors?.['required']">{{ 'PROFILE_DETAILS.DESCRIPTION_REQUIRED' | translate }}</small>
-            <small *ngIf="companyForm.get('description')?.errors?.['minlength']">{{ 'PROFILE_DETAILS.DESCRIPTION_MIN' | translate }}</small>
-            <small *ngIf="companyForm.get('description')?.errors?.['maxlength']">{{ 'PROFILE_DETAILS.DESCRIPTION_MAX' | translate }}</small>
+            <small *ngIf="companyForm.get('description')?.errors?.['required']">{{
+              'PROFILE_DETAILS.DESCRIPTION_REQUIRED' | translate }}</small>
+            <small *ngIf="companyForm.get('description')?.errors?.['minlength']">{{ 'PROFILE_DETAILS.DESCRIPTION_MIN' |
+              translate }}</small>
+            <small *ngIf="companyForm.get('description')?.errors?.['maxlength']">{{ 'PROFILE_DETAILS.DESCRIPTION_MAX' |
+              translate }}</small>
           </div>
         </div>
       </div>
@@ -149,9 +191,12 @@
             placeholder="{{ 'PROFILE_DETAILS.DESCRIPTION_AR' | translate }}" minlength="100" maxlength="250"></textarea>
           <p class="char-counter">{{ companyForm.get('descriptionAr')?.value?.length || 0 }} / 250</p>
           <div *ngIf="isFieldInvalid('descriptionAr')" class="text-danger">
-            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['required']">{{ 'PROFILE_DETAILS.DESCRIPTION_REQUIRED_AR' | translate }}</small>
-            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['minlength']">{{ 'PROFILE_DETAILS.DESCRIPTION_MIN_AR' | translate }}</small>
-            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['maxlength']">{{ 'PROFILE_DETAILS.DESCRIPTION_MAX_AR' | translate }}</small>
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['required']">{{
+              'PROFILE_DETAILS.DESCRIPTION_REQUIRED_AR' | translate }}</small>
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['minlength']">{{
+              'PROFILE_DETAILS.DESCRIPTION_MIN_AR' | translate }}</small>
+            <small *ngIf="companyForm.get('descriptionAr')?.errors?.['maxlength']">{{
+              'PROFILE_DETAILS.DESCRIPTION_MAX_AR' | translate }}</small>
           </div>
         </div>
       </div>
@@ -194,4 +239,5 @@
   </div>
 </div>
 
-<p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'1000ms'"></p-toast>
+<p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'"
+  [hideTransitionOptions]="'1000ms'"></p-toast>

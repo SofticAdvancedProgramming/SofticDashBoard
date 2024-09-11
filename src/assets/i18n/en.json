@@ -21,7 +21,7 @@
     "19": "Password reset failed. Please try again.",
     "20": "Referance_Photo_Is_Required"
   },
-  "Read More":"اقرا المزيد",
+  "Read More": "اقرا المزيد",
   "WELCOME_BACK": "Welcome Back 👋",
   "LIGHT_DESCRIPTION": "Today is a new day. It's your day. You shape it. Sign in to start managing your projects.",
   "EMAIL": "Email",
@@ -31,13 +31,13 @@
   "INVALID_FORM": "Login failed, please try again",
   "FORGOT_PASSWORD_TITLE": "Forget your password",
   "FORGOT_PASSWORD_DESCRIPTION": "Please enter your email and we will send an OTP code in the next step to reset your password.",
-   "EMAIL_PLACEHOLDER": "Your Email address",
+  "EMAIL_PLACEHOLDER": "Your Email address",
   "CONTINUE": "Continue",
   "BACK_TO_LOGIN": "Back to login",
   "PASSWORD_RESET_LINK_SENT": "Password reset link sent. Please check your email.",
   "CODE_VERIFICATION": "Code verification",
   "OTP_DESCRIPTION": "We have sent an OTP code to your email exa****gmail.com. Enter the code below.",
-   "PASSWORD_PLACEHOLDER": "Your password",
+  "PASSWORD_PLACEHOLDER": "Your password",
   "PASSWORD_REQUIRED": "Password is required.",
   "PASSWORD_COMPLEXITY": "Password must contain at least one uppercase letter, one number, and one special character.",
   "CONFIRM_PASSWORD": "Confirm Password",
@@ -83,7 +83,12 @@
     "FAX": "Fax",
     "PROFILE_DETAILS.MOBILE_NUMBER": "Mobile Number",
     "PROFILE_DETAILS.INVALID_PHONE": "Invalid Phone Number",
-    "PROFILE_DETAILS.INVALID_MOBILE": "Invalid Mobile Number"
+    "PROFILE_DETAILS.INVALID_MOBILE": "Invalid Mobile Number",
+    "instagram": "Instagram",
+    "X": "X",
+    "invalid_url": "Please enter a valid URL that starts with http:// or https://",
+    "tiktok":"TikTok",
+    "INVALID_EMAIL": "Invalid email address"
   },
   "COMPANY_DETAILS": {
     "TITLE": "Company Details",
@@ -113,7 +118,7 @@
     "FILL_ALL_REQUIRED_FIELDS": "Please fill all required fields",
     "BRANCH_ADDED_SUCCESSFULLY": "Branch added successfully",
     "ERROR_ADDING_BRANCH": "Error adding branch"
-  } ,
+  },
   "viewBranches": {
     "ADD_BRANCH": "Add Branch",
     "ADD_EMPLOYEE": "Add Employee",
@@ -230,13 +235,22 @@
   "Home": {
     "ActiveCompanies": "Active Companies",
     "UncompletedCompanyINFO": "Uncompleted Company INFO",
-    "Notifications":"Notifications",
-    "ShowAll":"Show All"
+    "Notifications": "Notifications",
+    "ShowAll": "Show All"
   },
   "CHART": {
     "ThisYear": "This Year",
     "LastYear": "Last Year"
-  },"MONTHS": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+  },
+  "MONTHS": [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul"
+  ],
   "generalLookups": {
     "SUBSCRIPTION_PLAN_MANAGEMENT": "Subscription Plan Management",
     "SUBSCRIPTION_PLAN_DESCRIPTION": "Create and manage subscription plans to meet diverse user needs.",
@@ -282,5 +296,4 @@
     "REJECTED": "Rejected",
     "ACCEPTED": "Accepted"
   }
-  
 }
