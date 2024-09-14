@@ -36,7 +36,7 @@
 
 <div class="tab-content">
     <div *ngIf="activeTab === 'personal'">
-        <app-personal-information> </app-personal-information>
+        <app-personal-information [accountStatus]="employee.accountStatus" (rotatedImageSaved)="handleRotatedImage($event)"> </app-personal-information>
     </div>
 
     <div *ngIf="activeTab === 'advanced'">
