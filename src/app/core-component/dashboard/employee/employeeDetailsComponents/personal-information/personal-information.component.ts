@@ -1,4 +1,4 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, Input, input, OnInit, SecurityContext } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserDataService } from '../../../../../services/userDataService/user-data.service';
 import { PersonalInformation } from '../../../../../../models/user';
@@ -8,6 +8,7 @@ import { DomSanitizer, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { accountStatus } from '../../../../../../models/enums/accountStatus';
 
 @Component({
   selector: 'app-personal-information',
@@ -25,7 +26,8 @@ export class PersonalInformationComponent implements OnInit {
   safeRotationStyle: SafeStyle | null = null;
   defaultImageUrl: string = 'assets/images/default.jpeg';
   rotatedImageDataUrl: string = '';
-
+  accountStatusenum=accountStatus;
+  @Input() accountStatus!:accountStatus;
   constructor(
     private route: ActivatedRoute,
     private userDataService: UserDataService,

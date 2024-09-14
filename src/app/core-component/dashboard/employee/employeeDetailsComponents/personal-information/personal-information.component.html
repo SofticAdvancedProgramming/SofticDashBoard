@@ -93,16 +93,13 @@
       <div class="col-lg-4 col-md-6 mb-3">
         <strong>{{ 'personalInfo.REFERENCE_PHOTO' | translate }}:</strong>
       </div>
+
       <div class="col-lg-8">
-        <img [src]="referancePhotoSrc"
-        [style.transform]="'rotate(' + rotationDegrees + 'deg)'"
-        style="width: 220px; height: 220px;"
-        alt="{{ 'personalInfo.REFERENCE_PHOTO' | translate }}"
-        class="img-fluid"
-        (error)="onImageError($event)"
-        id="rotatedImage" />
+        <img [src]="referancePhotoSrc" [style.transform]="'rotate(' + rotationDegrees + 'deg)'"
+          style="width: 220px; height: 220px;" alt="{{ 'personalInfo.REFERENCE_PHOTO' | translate }}" class="img-fluid"
+          (error)="onImageError($event)" id="rotatedImage" />
 
-
+        @if( accountStatus==accountStatusenum.Pending){
         <!-- Rotate Buttons -->
         <div class="btn-group mt-2">
           <button class="btn btn-sm btn-secondary" (click)="rotateImage('left')">
@@ -117,6 +114,8 @@
         <button *ngIf="isRotated" class="btn btn-sm btn-primary mt-2" (click)="saveRotatedImage()">
           <i class="fas fa-save"></i>
         </button>
+
+        }
       </div>
     </div>
 
