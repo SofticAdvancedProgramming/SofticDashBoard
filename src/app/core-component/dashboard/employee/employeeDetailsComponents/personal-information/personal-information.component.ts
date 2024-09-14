@@ -14,14 +14,14 @@ import { of } from 'rxjs';
   standalone: true,
   imports: [CommonModule, TranslateModule],
   templateUrl: './personal-information.component.html',
-  styleUrls: ['./personal-information.component.css']
+  styleUrls: ['./personal-information.component.css'],
 })
 export class PersonalInformationComponent implements OnInit {
   personalInfo: PersonalInformation | null = null;
   employeeId: number | null = null;
   rotationDegrees: number = 0;
   isRotated: boolean = false;
-  safeImageUrl: SafeUrl | null = null;
+  safeImageUrl: any | null = null;
   safeRotationStyle: SafeStyle | null = null;
   defaultImageUrl: string = 'assets/images/default.jpeg';
   rotatedImageDataUrl: string = '';
@@ -58,38 +58,22 @@ export class PersonalInformationComponent implements OnInit {
       }
     );
   }
-
   setImageUrl(url: string): void {
-
-      // It's a URL, fetch the image
-      this.http.get(new URL(url).pathname, { responseType: 'blob' })
-        .pipe(
-          map((blob: any) => {
-            const objectUrl = URL.createObjectURL(blob);
-            return this.sanitizer.bypassSecurityTrustUrl(objectUrl);
-          }),
-          catchError(error => {
-            console.error('Error fetching image:', error);
-            return of(this.sanitizer.bypassSecurityTrustUrl(this.defaultImageUrl));
-          })
-        )
-        .subscribe((safeUrl: SafeUrl) => {
-          this.safeImageUrl = safeUrl;
-          this.updateRotationStyle();
-        });
-
+    this.http.get(url, { responseType: 'blob' }).subscribe((blob) => {
+      const objectUrl = URL.createObjectURL(blob);
+      this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+      this.updateRotationStyle();
+    }, (error) => {
+      console.error('Error loading image as blob:', error);
+      this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(this.defaultImageUrl);
+    });
   }
+
 
   updateRotationStyle(): void {
-    this.safeRotationStyle = this.sanitizer.bypassSecurityTrustStyle(`rotate(${this.rotationDegrees}deg)`);
-  }
-
-  onImageError(event: any) {
-    event.target.src = this.defaultImageUrl;
-  }
-
-  getGenderTranslation(): string {
-    return this.personalInfo?.gender === 0 ? 'personalInfo.MALE' : 'personalInfo.FEMALE';
+    this.safeRotationStyle = this.sanitizer.bypassSecurityTrustStyle(
+      `rotate(${this.rotationDegrees}deg)`
+    );
   }
 
   rotateImage(direction: 'left' | 'right') {
@@ -97,55 +81,65 @@ export class PersonalInformationComponent implements OnInit {
     this.rotationDegrees = (this.rotationDegrees + rotateBy) % 360;
     this.updateRotationStyle();
     this.isRotated = true;
+    this.applyImageRotation();
   }
 
-  saveRotatedImage() {
+  applyImageRotation() {
     if (!this.safeImageUrl) {
       console.error('No image available to rotate');
       return;
     }
 
     const img = new Image();
-    img.crossOrigin = 'Anonymous';
+    img.crossOrigin = 'anonymous'; // Set crossOrigin for CORS-enabled images
+    img.src = this.safeImageUrl.changingThisBreaksApplicationSecurity;
+
     img.onload = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       canvas.width = img.width;
       canvas.height = img.height;
-      img.src = this.safeImageUrl?.toString()||'';
-      // Rotate and draw the image on the canvas
-      ctx?.translate(canvas.width / 2, canvas.height / 2);
+
+      ctx?.transform(1, 0, 0, 1, canvas.width / 2, canvas.height / 2);
       ctx?.rotate((this.rotationDegrees * Math.PI) / 180);
       ctx?.drawImage(img, -img.width / 2, -img.height / 2);
-console.log(img.src);
 
-      // Get the rotated image as base64
       this.rotatedImageDataUrl = canvas.toDataURL('image/png');
-
-      // Send base64 data without the prefix to API
-      const base64DataWithoutPrefix = this.rotatedImageDataUrl.replace(/^data:image\/(png|jpg);base64,/, '');
-      if (this.personalInfo) {
-        this.personalInfo.referancePhoto = base64DataWithoutPrefix;
-        this.updatePersonalInformation();
-      }
-
-      // Use the full base64 string for display
       this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(this.rotatedImageDataUrl);
-
-      this.isRotated = false;
+      this.isRotated = true;
       this.rotationDegrees = 0;
-      this.updateRotationStyle();
     };
 
     img.onerror = (error) => {
       console.error('Failed to load the image for rotation:', error);
       this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(this.defaultImageUrl);
     };
+  }
 
-    img.src = this.sanitizer.sanitize(SecurityContext.URL, this.safeImageUrl) || '';
+  saveRotatedImage() {
+    if (!this.rotatedImageDataUrl) {
+      console.error('No rotated image data available to save');
+      return;
+    }
+    this.isRotated = false;
+    // Send the rotated image data (Base64 or Blob) to the server
+    const base64DataWithoutPrefix = this.rotatedImageDataUrl.replace(
+      /^data:image\/(png|jpg);base64,/,
+      ''
+    );
+    if (this.personalInfo) {
+      this.personalInfo.referancePhoto = base64DataWithoutPrefix;
+      this.updatePersonalInformation(); // Save the rotated image
+    }
+  }
+
+  onImageError(event: any) {
+    event.target.src = this.defaultImageUrl;
   }
 
   updatePersonalInformation() {
+    console.log("hi")
+    console.log(this.personalInfo)
     if (this.personalInfo) {
       const updatedPersonalInfo: Partial<PersonalInformation> = { ...this.personalInfo };
       updatedPersonalInfo.nationality = '';
@@ -153,7 +147,6 @@ console.log(img.src);
       delete updatedPersonalInfo.nationalIdPhoto;
       delete updatedPersonalInfo.passportPhoto;
       delete updatedPersonalInfo.profileImage;
-
       this.userDataService.editPersonalInformation(updatedPersonalInfo).subscribe(
         (response) => {
           console.log('Personal information updated successfully', response);
@@ -164,16 +157,27 @@ console.log(img.src);
       );
     }
   }
-
   get referancePhotoSrc(): string {
-    if (this.rotatedImageDataUrl && this.rotatedImageDataUrl.startsWith('data:image')) {
+    if (
+      this.rotatedImageDataUrl &&
+      this.rotatedImageDataUrl.startsWith('data:image')
+    ) {
       return this.rotatedImageDataUrl;
-    } else if (this.personalInfo?.referancePhoto && this.personalInfo.referancePhoto.startsWith('data:image')) {
+    } else if (
+      this.personalInfo?.referancePhoto &&
+      this.personalInfo.referancePhoto.startsWith('data:image')
+    ) {
       return this.personalInfo.referancePhoto;
     } else if (this.personalInfo?.referancePhoto) {
       return this.personalInfo.referancePhoto;
     } else {
       return this.defaultImageUrl;
     }
+  }
+
+  getGenderTranslation(): string {
+    return this.personalInfo?.gender === 0
+      ? 'personalInfo.MALE'
+      : 'personalInfo.FEMALE';
   }
 }
