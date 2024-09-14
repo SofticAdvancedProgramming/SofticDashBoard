@@ -97,7 +97,7 @@ export class PersonalInformationComponent implements OnInit {
     }
 
     const img = new Image();
-    img.crossOrigin = 'anonymous'; // Set crossOrigin for CORS-enabled images
+    img.crossOrigin = 'anonymous';
     img.src = this.safeImageUrl.changingThisBreaksApplicationSecurity;
 
     img.onload = () => {
@@ -128,7 +128,6 @@ export class PersonalInformationComponent implements OnInit {
       return;
     }
     this.isRotated = false;
-    // Send the rotated image data (Base64 or Blob) to the server
     const base64DataWithoutPrefix = this.rotatedImageDataUrl.replace(
       /^data:image\/(png|jpg);base64,/,
       ''
