@@ -1,4 +1,4 @@
-import { Component, Input, input, OnInit, SecurityContext } from '@angular/core';
+import { Component, EventEmitter, Input, input, OnInit, Output, SecurityContext } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserDataService } from '../../../../../services/userDataService/user-data.service';
 import { PersonalInformation } from '../../../../../../models/user';
@@ -9,13 +9,15 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { accountStatus } from '../../../../../../models/enums/accountStatus';
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-personal-information',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule,ToastModule],
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.css'],
+  providers: [MessageService],
 })
 export class PersonalInformationComponent implements OnInit {
   personalInfo: PersonalInformation | null = null;
@@ -28,10 +30,12 @@ export class PersonalInformationComponent implements OnInit {
   rotatedImageDataUrl: string = '';
   accountStatusenum=accountStatus;
   @Input() accountStatus!:accountStatus;
+  @Output() rotatedImageSaved: EventEmitter<string> = new EventEmitter<string>();
   constructor(
     private route: ActivatedRoute,
     private userDataService: UserDataService,
     private translate: TranslateService,
+    private messageService: MessageService,
     private sanitizer: DomSanitizer,
     private http: HttpClient
   ) {}
@@ -131,7 +135,8 @@ export class PersonalInformationComponent implements OnInit {
     );
     if (this.personalInfo) {
       this.personalInfo.referancePhoto = base64DataWithoutPrefix;
-      this.updatePersonalInformation(); // Save the rotated image
+      this.updatePersonalInformation();
+      this.rotatedImageSaved.emit(this.rotatedImageDataUrl);
     }
   }
 
@@ -151,7 +156,7 @@ export class PersonalInformationComponent implements OnInit {
       delete updatedPersonalInfo.profileImage;
       this.userDataService.editPersonalInformation(updatedPersonalInfo).subscribe(
         (response) => {
-          console.log('Personal information updated successfully', response);
+          this.showSuccess("success","Personal information updated successfully")
         },
         (error) => {
           console.error('Error updating personal information:', error);
@@ -181,5 +186,13 @@ export class PersonalInformationComponent implements OnInit {
     return this.personalInfo?.gender === 0
       ? 'personalInfo.MALE'
       : 'personalInfo.FEMALE';
+  }
+
+  private showSuccess(message: string, details: string): void {
+    this.messageService.add({
+      severity: 'success',
+      summary: message,
+      detail: details,
+    });
   }
 }

@@ -93,4 +93,13 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+  handleRotatedImage(rotatedImageDataUrl: string) {
+    console.log(rotatedImageDataUrl)
+    if(rotatedImageDataUrl){
+      console.log(rotatedImageDataUrl)
+      this.employee.referancePhoto=rotatedImageDataUrl
+    }
+
+  }
+
 }
