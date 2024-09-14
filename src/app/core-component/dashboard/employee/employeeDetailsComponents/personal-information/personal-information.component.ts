@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserDataService } from '../../../../../services/userDataService/user-data.service';
 import { PersonalInformation } from '../../../../../../models/user';
 import { CommonModule } from '@angular/common';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl, SafeStyle } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-personal-information',
@@ -19,13 +22,16 @@ export class PersonalInformationComponent implements OnInit {
   rotationDegrees: number = 0;
   isRotated: boolean = false;
   safeImageUrl: SafeUrl | null = null;
-  defaultImageUrl: string = '../../../../../../assets/images/default.jpeg';
+  safeRotationStyle: SafeStyle | null = null;
+  defaultImageUrl: string = 'assets/images/default.jpeg';
+  rotatedImageDataUrl: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private userDataService: UserDataService,
     private translate: TranslateService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -54,17 +60,28 @@ export class PersonalInformationComponent implements OnInit {
   }
 
   setImageUrl(url: string): void {
-    // Create a blob URL from the image data
-    fetch(url)
-      .then(response => response.blob())
-      .then(blob => {
-        const objectUrl = URL.createObjectURL(blob);
-        this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
-      })
-      .catch(error => {
-        console.error('Error fetching image:', error);
-        this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(this.defaultImageUrl);
-      });
+
+      // It's a URL, fetch the image
+      this.http.get(new URL(url).pathname, { responseType: 'blob' })
+        .pipe(
+          map((blob: any) => {
+            const objectUrl = URL.createObjectURL(blob);
+            return this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+          }),
+          catchError(error => {
+            console.error('Error fetching image:', error);
+            return of(this.sanitizer.bypassSecurityTrustUrl(this.defaultImageUrl));
+          })
+        )
+        .subscribe((safeUrl: SafeUrl) => {
+          this.safeImageUrl = safeUrl;
+          this.updateRotationStyle();
+        });
+
+  }
+
+  updateRotationStyle(): void {
+    this.safeRotationStyle = this.sanitizer.bypassSecurityTrustStyle(`rotate(${this.rotationDegrees}deg)`);
   }
 
   onImageError(event: any) {
@@ -78,6 +95,7 @@ export class PersonalInformationComponent implements OnInit {
   rotateImage(direction: 'left' | 'right') {
     const rotateBy = direction === 'left' ? -90 : 90;
     this.rotationDegrees = (this.rotationDegrees + rotateBy) % 360;
+    this.updateRotationStyle();
     this.isRotated = true;
   }
 
@@ -89,47 +107,49 @@ export class PersonalInformationComponent implements OnInit {
 
     const img = new Image();
     img.crossOrigin = 'Anonymous';
-    img.src = this.safeImageUrl.toString();
-
     img.onload = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      const degrees = this.rotationDegrees;
-
-      if (degrees === 90 || degrees === 270) {
-        canvas.width = img.height;
-        canvas.height = img.width;
-      } else {
-        canvas.width = img.width;
-        canvas.height = img.height;
-      }
-
+      canvas.width = img.width;
+      canvas.height = img.height;
+      img.src = this.safeImageUrl?.toString()||'';
+      // Rotate and draw the image on the canvas
       ctx?.translate(canvas.width / 2, canvas.height / 2);
-      ctx?.rotate((degrees * Math.PI) / 180);
+      ctx?.rotate((this.rotationDegrees * Math.PI) / 180);
       ctx?.drawImage(img, -img.width / 2, -img.height / 2);
+console.log(img.src);
 
-      const rotatedImageDataUrl = canvas.toDataURL('image/png');
-      this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(rotatedImageDataUrl);
+      // Get the rotated image as base64
+      this.rotatedImageDataUrl = canvas.toDataURL('image/png');
 
+      // Send base64 data without the prefix to API
+      const base64DataWithoutPrefix = this.rotatedImageDataUrl.replace(/^data:image\/(png|jpg);base64,/, '');
       if (this.personalInfo) {
-        this.personalInfo.referancePhoto = rotatedImageDataUrl;
+        this.personalInfo.referancePhoto = base64DataWithoutPrefix;
         this.updatePersonalInformation();
       }
 
+      // Use the full base64 string for display
+      this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(this.rotatedImageDataUrl);
+
       this.isRotated = false;
       this.rotationDegrees = 0;
+      this.updateRotationStyle();
     };
 
     img.onerror = (error) => {
       console.error('Failed to load the image for rotation:', error);
       this.safeImageUrl = this.sanitizer.bypassSecurityTrustUrl(this.defaultImageUrl);
     };
+
+    img.src = this.sanitizer.sanitize(SecurityContext.URL, this.safeImageUrl) || '';
   }
 
   updatePersonalInformation() {
     if (this.personalInfo) {
       const updatedPersonalInfo: Partial<PersonalInformation> = { ...this.personalInfo };
-
+      updatedPersonalInfo.nationality = '';
+      updatedPersonalInfo.maritalStatus = '';
       delete updatedPersonalInfo.nationalIdPhoto;
       delete updatedPersonalInfo.passportPhoto;
       delete updatedPersonalInfo.profileImage;
@@ -142,6 +162,18 @@ export class PersonalInformationComponent implements OnInit {
           console.error('Error updating personal information:', error);
         }
       );
+    }
+  }
+
+  get referancePhotoSrc(): string {
+    if (this.rotatedImageDataUrl && this.rotatedImageDataUrl.startsWith('data:image')) {
+      return this.rotatedImageDataUrl;
+    } else if (this.personalInfo?.referancePhoto && this.personalInfo.referancePhoto.startsWith('data:image')) {
+      return this.personalInfo.referancePhoto;
+    } else if (this.personalInfo?.referancePhoto) {
+      return this.personalInfo.referancePhoto;
+    } else {
+      return this.defaultImageUrl;
     }
   }
 }

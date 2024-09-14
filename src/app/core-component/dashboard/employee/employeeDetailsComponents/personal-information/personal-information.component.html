@@ -94,9 +94,14 @@
         <strong>{{ 'personalInfo.REFERENCE_PHOTO' | translate }}:</strong>
       </div>
       <div class="col-lg-8">
-        <img [src]="personalInfo.referancePhoto || 'assets/images/default.jpeg'" [style.transform]="'rotate(' + rotationDegrees + 'deg)'"
-          style=" width: 220px; height: 220px;" alt="{{ 'personalInfo.REFERENCE_PHOTO' | translate }}"
-          class="img-fluid" (error)="onImageError($event)" id="rotatedImage" />
+        <img [src]="referancePhotoSrc"
+        [style.transform]="'rotate(' + rotationDegrees + 'deg)'"
+        style="width: 220px; height: 220px;"
+        alt="{{ 'personalInfo.REFERENCE_PHOTO' | translate }}"
+        class="img-fluid"
+        (error)="onImageError($event)"
+        id="rotatedImage" />
+
 
         <!-- Rotate Buttons -->
         <div class="btn-group mt-2">
