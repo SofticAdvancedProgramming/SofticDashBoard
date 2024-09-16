@@ -15,17 +15,14 @@ export class BranchService {
   constructor(private apiCall: ApiCall) { }
 
   getBranch(request: any = {}): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.apiCall.request('POST', `${this.branchUrl}/Get`, request);
   }
 
   addBranch(branch: branch): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.apiCall.request('POST', `${this.branchUrl}/Add`, branch);
   }
 
   editBranch(branch: branch): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.apiCall.request('POST', `${this.branchUrl}/Edit`, branch);
   }
 

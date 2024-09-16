@@ -18,7 +18,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './view-branches.component.html',
   styleUrls: ['./view-branches.component.css'],
   providers: [BranchService, EmployeeService, MessageService],
-  standalone:true,
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
@@ -32,10 +32,12 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   ],
 })
 export class ViewBranchesComponent implements OnInit {
-  @Input() companyId?: number = 0 ;
+  @Input() companyId?: number = 0;
   isAdd: boolean = false;
+  isEdit: boolean = false;
   showOverView: boolean = false;
   branches: branch[] = [];
+  branch!: branch;
   employees: employee[] = [];
   isAssignEntity: boolean = false;
   selectedBranch: branch | undefined = undefined;
@@ -44,8 +46,8 @@ export class ViewBranchesComponent implements OnInit {
   totalItems: number = 0;
   isArabic: boolean = false;
   translatedColumns: string[] = [];
-  constructor(private branchService: BranchService,    private translate: TranslateService
-,    private employeeService: EmployeeService, private messageService: MessageService) {}
+  constructor(private branchService: BranchService, private translate: TranslateService
+    , private employeeService: EmployeeService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.isArabic = this.translate.currentLang === 'ar';
@@ -62,7 +64,6 @@ export class ViewBranchesComponent implements OnInit {
       next: (response) => {
         this.branches = response.data.list;
         this.totalItems = response.data.totalRows;
-        console.log("Branches loaded:", this.branches);
       }
     });
   }
@@ -79,7 +80,6 @@ export class ViewBranchesComponent implements OnInit {
           this.employees = response.data.list.filter(
             (employee: any) => !employee.branchId
           );
-          console.log("Filtered Employees:", this.employees);
         }
       });
     } else {
@@ -90,9 +90,14 @@ export class ViewBranchesComponent implements OnInit {
   addBranch(): void {
     this.isAdd = true;
   }
+  editBranch(branch: branch): void {
+    this.isEdit = true;
+    this.branch = branch
+  }
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
+    this.isEdit = isAdd;
     this.loadBranches();
     this.loadEmployees();
   }
@@ -106,10 +111,9 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   loadEmployeesForBranch(branchId: number): void {
-    this.employeeService.loadEmployees({ branchId: branchId, companyId: this.companyId  }).subscribe({
+    this.employeeService.loadEmployees({ branchId: branchId, companyId: this.companyId }).subscribe({
       next: (response) => {
         this.employees = response.data.list;
-        console.log("Employees loaded for branch:", this.employees);
       }
     });
   }
@@ -160,7 +164,7 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   deleteBranch(branchId: number): void {
-    this.branchService.deleteBranch(branchId, this.companyId||0)
+    this.branchService.deleteBranch(branchId, this.companyId || 0)
       .subscribe({
         next: () => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Branch deleted successfully' });
@@ -180,7 +184,7 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   activateBranch(branch: branch): void {
-    this.branchService.ActivateBranch(branch.id,branch.companyId).subscribe({
+    this.branchService.ActivateBranch(branch.id, branch.companyId).subscribe({
       next: () => {
         branch.isActive = true;
         this.showSuccess('Branch activated successfully');
@@ -189,7 +193,7 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   deactivateBranch(branch: branch): void {
-    this.branchService.DeActivateBranch(branch.id,branch.companyId).subscribe({
+    this.branchService.DeActivateBranch(branch.id, branch.companyId).subscribe({
       next: () => {
         branch.isActive = false;
         this.showSuccess('Branch deactivated successfully');

@@ -42,9 +42,11 @@ export class DepartmentsComponent implements OnInit {
 
   showOverView: boolean = false;
   isAdd: boolean = false;
+  isEdit: boolean = false;
   isAssignEntity: boolean = false;
 
   departments: Department[] = [];
+  department!: Department;
   employees: employee[] = [];
 
   selectedDepartment: Department | null = null;
@@ -62,7 +64,7 @@ export class DepartmentsComponent implements OnInit {
     private employeeService: EmployeeService,
     private messageService: MessageService,
     private translate: TranslateService
-  ) {}
+  ) { }
   private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
@@ -98,7 +100,7 @@ export class DepartmentsComponent implements OnInit {
     if (companyId) {
       this.employeeService.loadEmployees({ companyId }).subscribe({
         next: (response) => {
-          this.employees = response.data.list.filter((employee:employee) => !employee.departmentId);
+          this.employees = response.data.list.filter((employee: employee) => !employee.departmentId);
         }
       });
     }
@@ -139,6 +141,7 @@ export class DepartmentsComponent implements OnInit {
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
+    this.isEdit = isAdd;
     this.loadDepartments();
   }
 
@@ -181,6 +184,12 @@ export class DepartmentsComponent implements OnInit {
   private getCompanyId(): number | null {
     const storedCompanyId = localStorage.getItem('companyId');
     return storedCompanyId ? Number(storedCompanyId) : null;
+  }
+
+  editDepartment(department: Department) {
+    this.isEdit = true;
+    this.department = department;
+    console.log(department);
   }
 
   private showSuccess(detail: string): void {

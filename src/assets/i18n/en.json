@@ -87,7 +87,7 @@
     "instagram": "Instagram",
     "X": "X",
     "invalid_url": "Please enter a valid URL that starts with http:// or https://",
-    "tiktok":"TikTok",
+    "tiktok": "TikTok",
     "INVALID_EMAIL": "Invalid email address"
   },
   "COMPANY_DETAILS": {
@@ -113,6 +113,7 @@
     "LATITUDE_REQUIRED": "Latitude is required",
     "BACK": "Back",
     "SAVE": "Save",
+    "EDIT": "Edit",
     "ERROR": "Error",
     "SUCCESS": "Success",
     "FILL_ALL_REQUIRED_FIELDS": "Please fill all required fields",
@@ -158,6 +159,7 @@
     "DEPARTMENT_LOCATION": "Department Location",
     "BACK": "Back",
     "SAVE": "Save",
+    "EDIT": "Edit",
     "SELECT_OPTION": "Select Option",
     "REQUIRED_FIELD": "is required",
     "DESCRIPTION_CONSTRAINT": "must be between 100 and 250 characters.",

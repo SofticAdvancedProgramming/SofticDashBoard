@@ -10,15 +10,17 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { MapComponent } from '../../../../../../common-component/map/map.component';
 
 @Component({
-    selector: 'app-add-branch',
-    standalone: true,
-    templateUrl: './add-branch.component.html',
-    styleUrls: ['./add-branch.component.css'],
-    providers: [MessageService],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, TranslateModule]
+  selector: 'app-add-branch',
+  standalone: true,
+  templateUrl: './add-branch.component.html',
+  styleUrls: ['./add-branch.component.css'],
+  providers: [MessageService],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, TranslateModule]
 })
 export class AddBranchComponent implements OnInit {
-  @Input() companyId?: number ;
+  @Input() isEdit: boolean = false;
+  @Input() branch!: branch;
+  @Input() companyId?: number;
   @Output() action = new EventEmitter<boolean>();
   @Output() branchAdded = new EventEmitter<void>();
 
@@ -44,6 +46,18 @@ export class AddBranchComponent implements OnInit {
     if (storedCompanyId) {
       this.companyId = Number(storedCompanyId);
     }
+    if (this.isEdit) {
+      this.initoForm();
+    }
+  }
+
+  initoForm() {
+    this.form.patchValue({
+      name: this.branch?.name,
+      nameAr: this.branch?.nameAr,
+      long: this.branch?.long,
+      lat: this.branch?.lat
+    })
   }
 
   onSave(): void {
@@ -53,7 +67,7 @@ export class AddBranchComponent implements OnInit {
     }
 
     const branchData: branch = {
-      id: 0,
+      id: this.branch?.id || 0,
       companyId: this.companyId || 0,
       name: this.form.value.name,
       nameAr: this.form.value.nameAr,
@@ -61,19 +75,14 @@ export class AddBranchComponent implements OnInit {
       lat: this.form.value.lat,
     };
 
-    this.branchService.addBranch(branchData).subscribe({
+    this.branchService[this.isEdit ? 'editBranch' : 'addBranch'](branchData).subscribe({
       next: (response) => {
         console.log('Branch added successfully', response);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Branch added successfully' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: this.isEdit ? 'Branch Edit successfully' : 'Branch added successfully' });
         setTimeout(() => {
           this.branchAdded.emit();
           this.action.emit(false);
         }, 1000);
-
-      },
-      error: (err) => {
-        console.error('Error adding branch', err);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error adding branch' });
       }
     });
   }

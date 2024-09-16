@@ -84,7 +84,7 @@
     "instagram": "انستجرام",
     "X": "اكس",
     "invalid_url": "الرجاء إدخال عنوان URL صحيح يبدأ بـ http:// أو https://",
-    "tiktok":"تيك توك",
+    "tiktok": "تيك توك",
     "INVALID_EMAIL": "البريد الإلكتروني غير صالح"
   },
   "COMPANY_DETAILS": {
@@ -109,6 +109,7 @@
     "LONGITUDE_REQUIRED": "خط الطول مطلوب",
     "LATITUDE_REQUIRED": "خط العرض مطلوب",
     "BACK": "رجوع",
+    "EDIT": "تعديل",
     "SAVE": "حفظ",
     "ERROR": "خطأ",
     "SUCCESS": "نجاح",
@@ -154,6 +155,7 @@
     "DEPARTMENT_LAT": "خط عرض القسم",
     "DEPARTMENT_LOCATION": "موقع القسم",
     "BACK": "رجوع",
+    "EDIT": "تعديل",
     "SAVE": "حفظ",
     "SELECT_OPTION": "اختر خيار",
     "REQUIRED_FIELD": "مطلوب",
