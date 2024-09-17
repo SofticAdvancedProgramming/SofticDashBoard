@@ -12,12 +12,14 @@ import { AddBranchComponent } from '../add-branch/add-branch.component';
 import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-view-branches',
   templateUrl: './view-branches.component.html',
   styleUrls: ['./view-branches.component.css'],
-  providers: [BranchService, EmployeeService, MessageService],
+  providers: [BranchService, EmployeeService, MessageService,ConfirmationService],
   standalone: true,
   imports: [
     CommonModule,
@@ -28,7 +30,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     AssignEntityComponent,
     ModernTableComponent,
     PaginationModule,
-    TranslateModule
+    TranslateModule,ConfirmDialogModule
   ],
 })
 export class ViewBranchesComponent implements OnInit {
@@ -46,8 +48,10 @@ export class ViewBranchesComponent implements OnInit {
   totalItems: number = 0;
   isArabic: boolean = false;
   translatedColumns: string[] = [];
-  constructor(private branchService: BranchService, private translate: TranslateService
-    , private employeeService: EmployeeService, private messageService: MessageService) { }
+  constructor(private branchService: BranchService, private translate: TranslateService,
+    private employeeService: EmployeeService, private messageService: MessageService,
+    private confirmationService: ConfirmationService) { }
+
 
   ngOnInit(): void {
     this.isArabic = this.translate.currentLang === 'ar';
@@ -163,15 +167,7 @@ export class ViewBranchesComponent implements OnInit {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
   }
 
-  deleteBranch(branchId: number): void {
-    this.branchService.deleteBranch(branchId, this.companyId || 0)
-      .subscribe({
-        next: () => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Branch deleted successfully' });
-          this.loadBranches();
-        }
-      });
-  }
+
   handleClose() {
     this.isAssignEntity = false;
   }
@@ -207,6 +203,26 @@ export class ViewBranchesComponent implements OnInit {
       this.translate.instant('viewBranches.COLUMN_POSITION_NAME'),
       this.translate.instant('viewBranches.COLUMN_DEPARTMENT_NAME')
     ];
+  }
+  deleteBranch(branchId: number): void {
+    this.confirmationService.confirm({
+      message: this.translate.instant('viewBranches.CONFIRM_DELETE_BRANCH'),
+      header: this.translate.instant('viewBranches.DELETE_CONFIRMATION'),
+      icon: 'pi pi-exclamation-triangle',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-primary',
+      acceptLabel: this.translate.instant('viewBranches.YES'),
+      rejectLabel: this.translate.instant('viewBranches.NO'),
+      accept: () => {
+        this.branchService.deleteBranch(branchId, this.companyId || 0)
+          .subscribe({
+            next: () => {
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: this.translate.instant('viewBranches.BRANCH_DELETED') });
+              this.loadBranches();
+            }
+          });
+      }
+    });
   }
 
 }

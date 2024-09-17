@@ -132,6 +132,11 @@
     "ERROR_LOADING_EMPLOYEES": "Error loading employees",
     "ERROR_ASSIGNING_EMPLOYEE": "Error assigning employee to branch",
     "ERROR_DELETING_BRANCH": "Error deleting branch",
+    "CONFIRM_DELETE_BRANCH": "Are you sure you want to delete this branch?",
+    "DELETE_CONFIRMATION": "Delete Confirmation",
+    "BRANCH_DELETED": "Branch deleted successfully",
+    "Yes":"Yes",
+    "No":"No",
     "GO_BACK": "Go Back",
     "EMPLOYEES_OF": "موظفو {{ branchName }}",
     "COLUMN_ID": "الرقم",
@@ -178,7 +183,13 @@
     "EMPLOYEE_ASSIGNED_SUCCESS": "Employee assigned to department successfully",
     "ERROR_ASSIGNING_EMPLOYEE": "Error assigning employee to department",
     "PREVIOUS": "&laquo; Previous",
-    "NEXT": "Next &raquo;"
+    "NEXT": "Next &raquo;",
+    "CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete this department?",
+    "DELETE_CONFIRMATION_TITLE": "Delete Confirmation",
+    "DELETE_SUCCESS": "Department deleted successfully",
+    "ACTION_CANCELLED": "Action cancelled",
+    "YES": "Yes",
+    "NO": "No"
   },
   "ASSIGN_ENTITY": {
     "DEPARTMENT": "Department:",
@@ -221,7 +232,13 @@
     "DIRECT_MANAGER": "Direct Manager",
     "BACK": "Back",
     "PREVIOUS": "&laquo;",
-    "NEXT": "&raquo;"
+    "NEXT": "&raquo;",
+    "CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete this position?",
+    "DELETE_CONFIRMATION_TITLE": "Delete Confirmation",
+    "DELETE_SUCCESS": "Position deleted successfully",
+    "ACTION_CANCELLED": "Action cancelled",
+    "YES": "Yes",
+    "NO": "No"
   },
   "SIDEBAR": {
     "QUICK_ACCESS": "Quick Access",

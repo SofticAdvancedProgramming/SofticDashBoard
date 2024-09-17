@@ -129,6 +129,11 @@
     "ERROR_LOADING_EMPLOYEES": "خطأ في تحميل الموظفين",
     "ERROR_ASSIGNING_EMPLOYEE": "خطأ في تعيين الموظف للفرع",
     "ERROR_DELETING_BRANCH": "خطأ في حذف الفرع",
+    "CONFIRM_DELETE_BRANCH": "هل أنت متأكد أنك تريد حذف هذا الفرع؟",
+    "DELETE_CONFIRMATION": "تأكيد الحذف",
+    "BRANCH_DELETED": "تم حذف الفرع بنجاح",
+    "Yes":"نعم",
+    "No":"لا",
     "GO_BACK": "عودة",
     "EMPLOYEES_OF": "Employees of {{ branchName }}",
     "COLUMN_ID": "ID",
@@ -175,7 +180,13 @@
     "EMPLOYEE_ASSIGNED_SUCCESS": "تم تعيين الموظف للقسم بنجاح",
     "ERROR_ASSIGNING_EMPLOYEE": "خطأ في تعيين الموظف للقسم",
     "PREVIOUS": "&laquo; السابق",
-    "NEXT": "التالي &raquo;"
+    "NEXT": "التالي &raquo;",
+    "CONFIRM_DELETE_MESSAGE": "هل أنت متأكد أنك تريد حذف هذا القسم؟",
+    "DELETE_CONFIRMATION_TITLE": "تأكيد الحذف",
+    "DELETE_SUCCESS": "تم حذف القسم بنجاح",
+    "ACTION_CANCELLED": "تم إلغاء العملية",
+    "YES": "نعم",
+    "NO": "لا"
   },
   "ASSIGN_ENTITY": {
     "DEPARTMENT": "القسم:",
@@ -218,7 +229,13 @@
     "DIRECT_MANAGER": "المدير المباشر",
     "BACK": "العودة",
     "PREVIOUS": "&laquo;",
-    "NEXT": "&raquo;"
+    "NEXT": "&raquo;",
+    "CONFIRM_DELETE_MESSAGE": "هل أنت متأكد أنك تريد حذف هذا المنصب؟",
+    "DELETE_CONFIRMATION_TITLE": "تأكيد الحذف",
+    "DELETE_SUCCESS": "تم حذف المنصب بنجاح",
+    "ACTION_CANCELLED": "تم إلغاء العملية",
+    "YES": "نعم",
+    "NO": "لا"
   },
   "SIDEBAR": {
     "QUICK_ACCESS": "الوصول السريع",

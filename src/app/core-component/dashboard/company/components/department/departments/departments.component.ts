@@ -15,6 +15,8 @@ import { environment } from '../../../../../../environment/environment';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 
 @Component({
@@ -22,7 +24,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   templateUrl: './departments.component.html',
   styleUrls: ['./departments.component.css'],
-  providers: [DepartmentService, EmployeeService, MessageService],
+  providers: [DepartmentService, EmployeeService, MessageService,ConfirmationService],
   imports: [
     CommonModule,
     FormsModule,
@@ -33,7 +35,8 @@ import { Subscription } from 'rxjs';
     ToastModule,
     AssignEntityComponent,
     PaginationModule,
-    TranslateModule
+    TranslateModule,ConfirmDialogModule
+
   ]
 })
 export class DepartmentsComponent implements OnInit {
@@ -63,7 +66,8 @@ export class DepartmentsComponent implements OnInit {
     private departmentService: DepartmentService,
     private employeeService: EmployeeService,
     private messageService: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private confirmationService: ConfirmationService
   ) { }
   private subscription: Subscription = new Subscription();
 
@@ -145,17 +149,7 @@ export class DepartmentsComponent implements OnInit {
     this.loadDepartments();
   }
 
-  deleteDepartment(departmentId: number): void {
-    const companyId = this.getCompanyId();
-    if (companyId) {
-      this.departmentService.deleteDepartment(departmentId, companyId).subscribe({
-        next: () => {
-          this.showSuccess('Department deleted successfully');
-          this.loadDepartments();
-        }
-      });
-    }
-  }
+
 
   toggleActivation(department: Department): void {
     department.isActive ? this.deactivateDepartment(department) : this.activateDepartment(department);
@@ -195,4 +189,29 @@ export class DepartmentsComponent implements OnInit {
   private showSuccess(detail: string): void {
     this.messageService.add({ severity: 'success', summary: 'Success', detail });
   }
+  deleteDepartment(departmentId: number): void {
+    this.confirmationService.confirm({
+      message: this.translate.instant('DEPARTMENTS.CONFIRM_DELETE_MESSAGE'),
+      header: this.translate.instant('DEPARTMENTS.DELETE_CONFIRMATION_TITLE'),
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: this.translate.instant('DEPARTMENTS.YES'),
+      rejectLabel: this.translate.instant('DEPARTMENTS.NO'),
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-secondary',
+      accept: () => {
+        const companyId = this.getCompanyId();
+        if (companyId) {
+          this.departmentService.deleteDepartment(departmentId, companyId).subscribe({
+            next: () => {
+              this.showSuccess(this.translate.instant('DEPARTMENTS.DELETE_SUCCESS'));
+              this.loadDepartments();
+            }
+          });
+        }
+      },
+      reject: () => {
+      }
+    });
+  }
+
 }

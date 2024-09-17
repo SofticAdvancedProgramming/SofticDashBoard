@@ -15,13 +15,15 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Position } from '../../../../../../../models/postion';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-index',
   standalone: true,
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
-  providers: [PositionService, EmployeeService, MessageService],
-  imports: [RouterLink, CommonModule, AssignEmployeesComponent, PaginationModule, AddPositionComponent, ToastModule, ModernTableComponent, FormsModule, TranslateModule]
+  providers: [PositionService, EmployeeService, MessageService,ConfirmationService],
+  imports: [RouterLink, CommonModule, AssignEmployeesComponent, PaginationModule, AddPositionComponent, ToastModule, ModernTableComponent, FormsModule, TranslateModule,ConfirmDialogModule]
 })
 export class IndexComponent implements OnInit {
   isAdd: boolean = false;
@@ -45,7 +47,8 @@ export class IndexComponent implements OnInit {
     private employeeService: EmployeeService,
     private messageService: MessageService,
     private departmentService: DepartmentService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -158,16 +161,35 @@ export class IndexComponent implements OnInit {
     });
   }
 
+
   deletePosition(positionId: number): void {
-    const companyId = this.companyId ? parseInt(this.companyId) : 0;
-    this.positionService.deletePosition(positionId, companyId).subscribe({
-      next: () => {
-        this.positions = this.positions.filter(position => position.id !== positionId);
-        this.loadPositions();
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Position deleted successfully' });
+    this.confirmationService.confirm({
+      message: this.translate.instant('INDEX_POSITION.CONFIRM_DELETE_MESSAGE'),
+      header: this.translate.instant('INDEX_POSITION.DELETE_CONFIRMATION_TITLE'),
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: this.translate.instant('INDEX_POSITION.YES'),
+      rejectLabel: this.translate.instant('INDEX_POSITION.NO'),
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-secondary',
+      accept: () => {
+        const companyId = this.companyId ? parseInt(this.companyId) : 0;
+        this.positionService.deletePosition(positionId, companyId).subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: this.translate.instant('INDEX_POSITION.DELETE_SUCCESS')
+            });
+            this.loadPositions();
+          },
+          error: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: this.translate.instant('position.ACTION_CANCELLED')
+            });
+          }
+        });
       },
-      error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting position' });
+      reject: () => {
       }
     });
   }
