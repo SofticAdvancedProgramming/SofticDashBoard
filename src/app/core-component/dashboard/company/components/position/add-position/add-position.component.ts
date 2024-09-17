@@ -5,21 +5,23 @@ import { PositionTypeService } from '../../../../../../services/lockupsServices/
 import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
 import { PositionService } from '../../../../../../services/positionService/position.service';
 import { Department } from '../../../../../../../models/department';
-import { Position } from '../../../../../../../models/positionModel';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { Position } from '../../../../../../../models/positionModel';
 
 @Component({
   selector: 'app-add-position',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToastModule, ReactiveFormsModule, RouterLink , TranslateModule],
+  imports: [CommonModule, FormsModule, ToastModule, ReactiveFormsModule, RouterLink, TranslateModule],
   templateUrl: './add-position.component.html',
   styleUrls: ['./add-position.component.css'],
   providers: [MessageService],
 })
 export class AddPositionComponent implements OnInit {
+  @Input() isEdit: boolean = false;
+  @Input() positionData: Position | any;
   @Output() action = new EventEmitter<boolean>();
   @Input() companyId?: string = '';
   positionType: any[] = [];
@@ -35,7 +37,6 @@ export class AddPositionComponent implements OnInit {
     private positionService: PositionService,
     private messageService: MessageService,
     private translate: TranslateService,
-    private router: Router
   ) {
     this.form = this.fb.group({
       positionType: ['', Validators.required],
@@ -49,6 +50,18 @@ export class AddPositionComponent implements OnInit {
     this.loadPositionTypes();
     this.loadDepartmentsAndPositions();
     this.togglePositionField();
+    if (this.isEdit) {
+      this.initForm();
+    }
+  }
+
+  initForm() {
+    this.form.patchValue({
+      positionType: this.positionData.positionTypeId,
+      department: this.positionData.departmentId,
+      position: this.positionData.positionManagerId,
+      isDirectManager: this.positionData.positionManagerId !== null
+    })
   }
 
   loadPositionTypes(): void {
@@ -56,11 +69,6 @@ export class AddPositionComponent implements OnInit {
       next: (response) => {
         this.positionType = response.data.list;
         this.checkLoadingState();
-      },
-      error: (err) => {
-        console.error('Error loading position types', err);
-        this.checkLoadingState();
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading position types' });
       }
     });
   }
@@ -70,11 +78,6 @@ export class AddPositionComponent implements OnInit {
       next: (response) => {
         this.departments = response.data.list;
         this.loadPositions(); // Ensure positions are loaded after departments
-      },
-      error: (err) => {
-        console.error('Error loading departments', err);
-        this.checkLoadingState();
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading departments' });
       }
     });
   }
@@ -87,11 +90,6 @@ export class AddPositionComponent implements OnInit {
           departmentName: this.getDepartmentName(position.departmentId)
         }));
         this.checkLoadingState();
-      },
-      error: (err) => {
-        console.error('Error loading positions', err);
-        this.checkLoadingState();
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' });
       }
     });
   }
@@ -123,27 +121,28 @@ export class AddPositionComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
       return;
     }
-
     const positionData: Position = {
-      id: 0,
+      id: this.isEdit ? this.positionData.id : 0,
       companyId: Number(this.companyId),
       positionTypeId: parseInt(this.form.value.positionType, 10),
       departmentId: parseInt(this.form.value.department, 10),
       positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : null
     };
+    this.createOrEdit(positionData)
+  }
 
-    this.positionService.addPosition(positionData).subscribe({
+  createOrEdit(positionData: Position) {
+    this.positionService[this.isEdit ? 'editPosition' : 'addPosition'](positionData).subscribe({
       next: (response) => {
         console.log('Position added successfully', response);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Position added successfully' });
-        this.router.navigate(['dashboard/positionIndex']);
-        setTimeout(() => {
-          this.action.emit(false);
-        }, 1000);
-      },
-      error: (err) => {
-        console.log('Error adding position', err);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error adding position' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: this.isEdit ? 'Position Edit successfully' : 'Position added successfully' });
+        if (!this.isEdit) {
+          this.form.reset();
+        } else {
+          setTimeout(() => {
+            this.action.emit(false);
+          }, 1000);
+        }
       }
     });
   }

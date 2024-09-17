@@ -1,10 +1,8 @@
 <div class="container my-5">
   <!-- Add Position Form -->
   <ng-container *ngIf="!showDetails"> <!-- Modify this line -->
-    <ng-container *ngIf="isAdd; else positionList">
-      <app-add-position
-        [companyId]="companyId"
-        (action)="handleAction($event)">
+    <ng-container *ngIf="isAdd || isEdit; else positionList">
+      <app-add-position [companyId]="companyId" (action)="handleAction($event)" [positionData]="positionData" [isEdit]="isEdit">
       </app-add-position>
     </ng-container>
 
@@ -31,14 +29,15 @@
             </div>
             <div class="card-footer">
               <label class="toggle-label">
-                <span>{{ position.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' | translate) }}</span>
+                <span>{{ position.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' |
+                  translate) }}</span>
                 <label class="switch">
                   <input type="checkbox" [checked]="position.isActive" (change)="toggleActivation(position)">
                   <span class="slider"></span>
                 </label>
               </label>
               <i class="fas fa-trash-alt icon-trash" (click)="deletePosition(position.id||0)"></i>
-              <!-- <i class="fas fa-edit icon-edit"></i> -->
+              <i class="fas fa-edit icon-edit" (click)="editPosition(position)"></i>
               <button class="btn" (click)="showDetailsPage(position.id?.toString()||'0')">
                 <span class="details">{{ 'INDEX_POSITION.SHOW_DETAILS' | translate }}
                   <i [ngClass]="{'rotate-arrow': isArabic}" class="fa-solid fa-arrow-right"></i>
@@ -51,13 +50,8 @@
 
       <!-- Pagination Controls -->
       <div class="d-flex justify-content-center mt-3">
-        <pagination
-          [totalItems]="totalItems"
-          [(ngModel)]="currentPage"
-          [itemsPerPage]="itemsPerPage"
-          (pageChanged)="handlePageChange($event)"
-          previousText="&laquo;"
-          nextText="&raquo;">
+        <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
+          (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;">
         </pagination>
       </div>
     </ng-template>
@@ -70,29 +64,23 @@
     </button>
     <app-modern-table
       [tableTitle]="'INDEX_POSITION.EMPLOYEES_OF' | translate : {positionName: selectedPositionData?.name}"
-      [tableData]="employees"
-      [columns]="['id', 'fullName', 'position.name', 'department.name']"
-      [modalId]="'employeeDetailsModal'"
-      [deleteId]="'employeeDeleteModal'"
-      [showActions]="false">
+      [tableData]="employees" [columns]="['id', 'fullName', 'position.name', 'department.name']"
+      [modalId]="'employeeDetailsModal'" [deleteId]="'employeeDeleteModal'" [showActions]="false">
     </app-modern-table>
   </div>
 
   <!-- Assign Employees Popup -->
   <ng-container *ngIf="isAddEmployee">
-    <app-assign-employees
-      [positionId]="selectedPositionId"
-      [Position]="'INDEX_POSITION.POSITION' | translate"
+    <app-assign-employees [positionId]="selectedPositionId" [Position]="'INDEX_POSITION.POSITION' | translate"
       [PositionDescription]="selectedPositionData?.name || ''"
       [Department]="'INDEX_POSITION.DEPARTMENT_DESCRIPTION' | translate"
       [DepartmentDescription]="getDepartmentName(selectedPositionData?.departmentId) || ' '"
       [DirectManager]="'INDEX_POSITION.DIRECT_MANAGER' | translate"
-      [DirectManagerDescription]="directManger?.fullName || ''"
-      [employees]="employees"
-      (close)="closePopup()"
+      [DirectManagerDescription]="directManger?.fullName || ''" [employees]="employees" (close)="closePopup()"
       (submitForm)="handleFormSubmit($event)">
     </app-assign-employees>
   </ng-container>
 </div>
 
 <p-toast position="top-center"></p-toast>
+<p-confirmDialog></p-confirmDialog>

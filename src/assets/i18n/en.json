@@ -87,7 +87,7 @@
     "instagram": "Instagram",
     "X": "X",
     "invalid_url": "Please enter a valid URL that starts with http:// or https://",
-    "tiktok":"TikTok",
+    "tiktok": "TikTok",
     "INVALID_EMAIL": "Invalid email address"
   },
   "COMPANY_DETAILS": {
@@ -113,6 +113,7 @@
     "LATITUDE_REQUIRED": "Latitude is required",
     "BACK": "Back",
     "SAVE": "Save",
+    "EDIT": "Edit",
     "ERROR": "Error",
     "SUCCESS": "Success",
     "FILL_ALL_REQUIRED_FIELDS": "Please fill all required fields",
@@ -131,6 +132,11 @@
     "ERROR_LOADING_EMPLOYEES": "Error loading employees",
     "ERROR_ASSIGNING_EMPLOYEE": "Error assigning employee to branch",
     "ERROR_DELETING_BRANCH": "Error deleting branch",
+    "CONFIRM_DELETE_BRANCH": "Are you sure you want to delete this branch?",
+    "DELETE_CONFIRMATION": "Delete Confirmation",
+    "BRANCH_DELETED": "Branch deleted successfully",
+    "Yes":"Yes",
+    "No":"No",
     "GO_BACK": "Go Back",
     "EMPLOYEES_OF": "موظفو {{ branchName }}",
     "COLUMN_ID": "الرقم",
@@ -158,6 +164,7 @@
     "DEPARTMENT_LOCATION": "Department Location",
     "BACK": "Back",
     "SAVE": "Save",
+    "EDIT": "Edit",
     "SELECT_OPTION": "Select Option",
     "REQUIRED_FIELD": "is required",
     "DESCRIPTION_CONSTRAINT": "must be between 100 and 250 characters.",
@@ -176,7 +183,13 @@
     "EMPLOYEE_ASSIGNED_SUCCESS": "Employee assigned to department successfully",
     "ERROR_ASSIGNING_EMPLOYEE": "Error assigning employee to department",
     "PREVIOUS": "&laquo; Previous",
-    "NEXT": "Next &raquo;"
+    "NEXT": "Next &raquo;",
+    "CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete this department?",
+    "DELETE_CONFIRMATION_TITLE": "Delete Confirmation",
+    "DELETE_SUCCESS": "Department deleted successfully",
+    "ACTION_CANCELLED": "Action cancelled",
+    "YES": "Yes",
+    "NO": "No"
   },
   "ASSIGN_ENTITY": {
     "DEPARTMENT": "Department:",
@@ -203,7 +216,8 @@
     "ERROR_LOADING_POSITIONS": "Error loading positions",
     "FILL_REQUIRED_FIELDS": "Please fill all required fields",
     "POSITION_ADDED_SUCCESSFULLY": "Position added successfully",
-    "ERROR_ADDING_POSITION": "Error adding position"
+    "ERROR_ADDING_POSITION": "Error adding position",
+    "EDIT": "Edit"
   },
   "INDEX_POSITION": {
     "ADD_POSITION": "Add Position",
@@ -218,7 +232,13 @@
     "DIRECT_MANAGER": "Direct Manager",
     "BACK": "Back",
     "PREVIOUS": "&laquo;",
-    "NEXT": "&raquo;"
+    "NEXT": "&raquo;",
+    "CONFIRM_DELETE_MESSAGE": "Are you sure you want to delete this position?",
+    "DELETE_CONFIRMATION_TITLE": "Delete Confirmation",
+    "DELETE_SUCCESS": "Position deleted successfully",
+    "ACTION_CANCELLED": "Action cancelled",
+    "YES": "Yes",
+    "NO": "No"
   },
   "SIDEBAR": {
     "QUICK_ACCESS": "Quick Access",

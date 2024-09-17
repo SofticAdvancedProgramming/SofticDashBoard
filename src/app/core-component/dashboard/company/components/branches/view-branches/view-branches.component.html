@@ -1,4 +1,4 @@
-<div class="container my-5" *ngIf="!showOverView && !isAdd && !isAssignEntity">
+<div class="container my-5" *ngIf="!showOverView && !isAdd && !isEdit && !isAssignEntity">
   <div class="row">
     <div class="justify-content-end d-flex">
       <button class="btn addBranchBtn" (click)="addBranch()">
@@ -19,21 +19,21 @@
         </div>
         <div class="card-footer">
           <label class="toggle-label">
-            <span>{{ branch.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' | translate) }}</span>
+            <span>{{ branch.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' |
+              translate) }}</span>
             <label class="switch">
-              <input type="checkbox" [checked]="branch.isActive"  (change)="toggleActivation(branch)">
+              <input type="checkbox" [checked]="branch.isActive" (change)="toggleActivation(branch)">
               <span class="slider"></span>
             </label>
           </label>
           <i class="fas fa-trash-alt icon-trash" (click)="deleteBranch(branch.id)"></i>
-          <!-- <i class="fas fa-edit icon-edit"></i> -->
+          <i class="fas fa-edit icon-edit" (click)="editBranch(branch)"></i>
           <button class="btn" (click)="showDetails(branch.id)">
             <span class="details">
               {{ 'viewBranches.SHOW_DETAILS' | translate }}
               <i class="fa-solid fa-arrow-right" [ngClass]="{'rotate-arrow': isArabic}"></i>
             </span>
           </button>
-
         </div>
       </div>
     </div>
@@ -45,39 +45,26 @@
     <i class="fas fa-arrow-left"></i> {{ 'viewBranches.GO_BACK' | translate }}
   </button>
 
-  <app-modern-table
-    [tableTitle]="'Employees of ' + (isArabic ? selectedBranch?.nameAr : selectedBranch?.name)"
-    [tableData]="employees"
-    [columns]="['id', 'fullName', 'position.name', 'department.name']"
-    [modalId]="'employeeDetailsModal'"
-    [deleteId]="'employeeDeleteModal'"
-    [showActions]="false">
+  <app-modern-table [tableTitle]="'Employees of ' + (isArabic ? selectedBranch?.nameAr : selectedBranch?.name)"
+    [tableData]="employees" [columns]="['id', 'fullName', 'position.name', 'department.name']"
+    [modalId]="'employeeDetailsModal'" [deleteId]="'employeeDeleteModal'" [showActions]="false">
   </app-modern-table>
 </div>
 
-<ng-container *ngIf="isAdd">
-  <app-add-branch [companyId]="companyId" (action)="handleAction($event)"></app-add-branch>
+<ng-container *ngIf="isAdd || isEdit">
+  <app-add-branch [companyId]="companyId" (action)="handleAction($event)" [isEdit]="isEdit" [branch]="branch"></app-add-branch>
 </ng-container>
 
-<app-assign-entity
-  *ngIf="isAssignEntity"
-  [entityId]="selectedBranch?.id?.toString()"
-  [entityType]="'Employee'"
-  [entities]="employees"
-  [branch]="selectedBranch || null"
-  (close)="handleClose()"
+<app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedBranch?.id?.toString()" [entityType]="'Employee'"
+  [entities]="employees" [branch]="selectedBranch || null" (close)="handleClose()"
   (submitForm)="handleEntityAssigned($event)">
 </app-assign-entity>
 
 <p-toast position="top-center"></p-toast>
 
- <div class="d-flex justify-content-center mt-3">
-  <pagination
-    [totalItems]="totalItems"
-    [(ngModel)]="currentPage"
-    [itemsPerPage]="itemsPerPage"
-    (pageChanged)="handlePageChange($event)"
-    previousText="&laquo;"
-    nextText="&raquo;">
+<div class="d-flex justify-content-center mt-3" *ngIf="!isAssignEntity">
+  <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
+    (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;">
   </pagination>
 </div>
+<p-confirmDialog></p-confirmDialog>

@@ -84,7 +84,7 @@
     "instagram": "انستجرام",
     "X": "اكس",
     "invalid_url": "الرجاء إدخال عنوان URL صحيح يبدأ بـ http:// أو https://",
-    "tiktok":"تيك توك",
+    "tiktok": "تيك توك",
     "INVALID_EMAIL": "البريد الإلكتروني غير صالح"
   },
   "COMPANY_DETAILS": {
@@ -109,6 +109,7 @@
     "LONGITUDE_REQUIRED": "خط الطول مطلوب",
     "LATITUDE_REQUIRED": "خط العرض مطلوب",
     "BACK": "رجوع",
+    "EDIT": "تعديل",
     "SAVE": "حفظ",
     "ERROR": "خطأ",
     "SUCCESS": "نجاح",
@@ -128,6 +129,11 @@
     "ERROR_LOADING_EMPLOYEES": "خطأ في تحميل الموظفين",
     "ERROR_ASSIGNING_EMPLOYEE": "خطأ في تعيين الموظف للفرع",
     "ERROR_DELETING_BRANCH": "خطأ في حذف الفرع",
+    "CONFIRM_DELETE_BRANCH": "هل أنت متأكد أنك تريد حذف هذا الفرع؟",
+    "DELETE_CONFIRMATION": "تأكيد الحذف",
+    "BRANCH_DELETED": "تم حذف الفرع بنجاح",
+    "Yes":"نعم",
+    "No":"لا",
     "GO_BACK": "عودة",
     "EMPLOYEES_OF": "Employees of {{ branchName }}",
     "COLUMN_ID": "ID",
@@ -154,6 +160,7 @@
     "DEPARTMENT_LAT": "خط عرض القسم",
     "DEPARTMENT_LOCATION": "موقع القسم",
     "BACK": "رجوع",
+    "EDIT": "تعديل",
     "SAVE": "حفظ",
     "SELECT_OPTION": "اختر خيار",
     "REQUIRED_FIELD": "مطلوب",
@@ -173,7 +180,13 @@
     "EMPLOYEE_ASSIGNED_SUCCESS": "تم تعيين الموظف للقسم بنجاح",
     "ERROR_ASSIGNING_EMPLOYEE": "خطأ في تعيين الموظف للقسم",
     "PREVIOUS": "&laquo; السابق",
-    "NEXT": "التالي &raquo;"
+    "NEXT": "التالي &raquo;",
+    "CONFIRM_DELETE_MESSAGE": "هل أنت متأكد أنك تريد حذف هذا القسم؟",
+    "DELETE_CONFIRMATION_TITLE": "تأكيد الحذف",
+    "DELETE_SUCCESS": "تم حذف القسم بنجاح",
+    "ACTION_CANCELLED": "تم إلغاء العملية",
+    "YES": "نعم",
+    "NO": "لا"
   },
   "ASSIGN_ENTITY": {
     "DEPARTMENT": "القسم:",
@@ -200,7 +213,8 @@
     "ERROR_LOADING_POSITIONS": "خطأ في تحميل الوظائف",
     "FILL_REQUIRED_FIELDS": "يرجى ملء جميع الحقول المطلوبة",
     "POSITION_ADDED_SUCCESSFULLY": "تمت إضافة الوظيفة بنجاح",
-    "ERROR_ADDING_POSITION": "خطأ في إضافة الوظيفة"
+    "ERROR_ADDING_POSITION": "خطأ في إضافة الوظيفة",
+    "EDIT": "تعديل"
   },
   "INDEX_POSITION": {
     "ADD_POSITION": "إضافة وظيفة",
@@ -215,7 +229,13 @@
     "DIRECT_MANAGER": "المدير المباشر",
     "BACK": "العودة",
     "PREVIOUS": "&laquo;",
-    "NEXT": "&raquo;"
+    "NEXT": "&raquo;",
+    "CONFIRM_DELETE_MESSAGE": "هل أنت متأكد أنك تريد حذف هذا المنصب؟",
+    "DELETE_CONFIRMATION_TITLE": "تأكيد الحذف",
+    "DELETE_SUCCESS": "تم حذف المنصب بنجاح",
+    "ACTION_CANCELLED": "تم إلغاء العملية",
+    "YES": "نعم",
+    "NO": "لا"
   },
   "SIDEBAR": {
     "QUICK_ACCESS": "الوصول السريع",

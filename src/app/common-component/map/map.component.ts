@@ -19,10 +19,10 @@ export class MapComponent implements OnInit, OnChanges {
   // Access Token should be defined in a secure way (e.g., environment variables)
   private accessToken = 'pk.eyJ1IjoiYWRoYW1rYW1hbDIyMzQ1IiwiYSI6ImNtMHVvNjM1dDBpenUyaXFzb21tM2JiOWkifQ.wXQZpp_tsqdoiqZAl9PbpQ'
   public selectedAddress: string = '';
-  zoom = 4;
+  zoom = 8;
   @Input() employee: any = {};
-  @Input() lat: number = 0;
-  @Input() long: number = 0;
+  @Input() lat: number = 24.774265;
+  @Input() long: number = 46.738586;
   @Output() locationSelected = new EventEmitter<{ lat: number, lng: number }>();
   constructor(
     private http: HttpClient,

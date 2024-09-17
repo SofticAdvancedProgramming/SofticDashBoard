@@ -15,16 +15,19 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Position } from '../../../../../../../models/postion';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-index',
   standalone: true,
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
-  providers: [PositionService, EmployeeService, MessageService],
-  imports: [RouterLink, CommonModule, AssignEmployeesComponent, PaginationModule, AddPositionComponent, ToastModule, ModernTableComponent, FormsModule, TranslateModule]
+  providers: [PositionService, EmployeeService, MessageService,ConfirmationService],
+  imports: [RouterLink, CommonModule, AssignEmployeesComponent, PaginationModule, AddPositionComponent, ToastModule, ModernTableComponent, FormsModule, TranslateModule,ConfirmDialogModule]
 })
 export class IndexComponent implements OnInit {
   isAdd: boolean = false;
+  isEdit: boolean = false;
   isAddEmployee: boolean = false;
   showDetails: boolean = false;
   selectedPositionId?: string;
@@ -38,13 +41,14 @@ export class IndexComponent implements OnInit {
   itemsPerPage: number = 10;
   totalItems: number = 0;
   isArabic: boolean = false;
-
+  positionData!: Position;
   constructor(
     private positionService: PositionService,
     private employeeService: EmployeeService,
     private messageService: MessageService,
     private departmentService: DepartmentService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -63,10 +67,7 @@ export class IndexComponent implements OnInit {
       next: (response) => {
         this.positions = response.data.list;
         this.totalItems = response.data.totalRows;
-        console.table( response.data)
-      },
-      error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' });
+        console.table(response.data)
       }
     });
   }
@@ -78,9 +79,6 @@ export class IndexComponent implements OnInit {
           (employee: any) => !employee.positionId
         );
         console.log("Unassigned Employees:", this.employees);
-      },
-      error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading unassigned employees' });
       }
     });
   }
@@ -97,9 +95,6 @@ export class IndexComponent implements OnInit {
           (employee: any) => employee.positionId === positionId
         );
         console.log("Employees for Position:", this.employees);
-      },
-      error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees for position' });
       }
     });
   }
@@ -126,6 +121,12 @@ export class IndexComponent implements OnInit {
     this.isAdd = true;
   }
 
+  editPosition(position: Position): void {
+    this.isEdit = true;
+    this.positionData = position;
+  }
+
+
   addEmployee(positionId: string): void {
     this.selectedPositionId = positionId;
     this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
@@ -135,6 +136,7 @@ export class IndexComponent implements OnInit {
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
+    this.isEdit = isAdd;
     this.loadPositions();
   }
 
@@ -159,16 +161,35 @@ export class IndexComponent implements OnInit {
     });
   }
 
+
   deletePosition(positionId: number): void {
-    const companyId = this.companyId ? parseInt(this.companyId) : 0;
-    this.positionService.deletePosition(positionId, companyId).subscribe({
-      next: () => {
-        this.positions = this.positions.filter(position => position.id !== positionId);
-        this.loadPositions();
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Position deleted successfully' });
+    this.confirmationService.confirm({
+      message: this.translate.instant('INDEX_POSITION.CONFIRM_DELETE_MESSAGE'),
+      header: this.translate.instant('INDEX_POSITION.DELETE_CONFIRMATION_TITLE'),
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: this.translate.instant('INDEX_POSITION.YES'),
+      rejectLabel: this.translate.instant('INDEX_POSITION.NO'),
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-secondary',
+      accept: () => {
+        const companyId = this.companyId ? parseInt(this.companyId) : 0;
+        this.positionService.deletePosition(positionId, companyId).subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: this.translate.instant('INDEX_POSITION.DELETE_SUCCESS')
+            });
+            this.loadPositions();
+          },
+          error: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: this.translate.instant('position.ACTION_CANCELLED')
+            });
+          }
+        });
       },
-      error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error deleting position' });
+      reject: () => {
       }
     });
   }
@@ -190,7 +211,7 @@ export class IndexComponent implements OnInit {
 
   activatePosition(Position: Position): void {
     debugger
-    this.positionService.ActivatePosition(Position.id||0, Position.companyId || 0).subscribe({
+    this.positionService.ActivatePosition(Position.id || 0, Position.companyId || 0).subscribe({
       next: () => {
         Position.isActive = true;
         this.showSuccess('Position activated successfully');
@@ -200,7 +221,7 @@ export class IndexComponent implements OnInit {
 
   deactivatePosition(Position: Position): void {
     debugger
-    this.positionService.DeActivatePosition(Position.id||0, Position.companyId || 0).subscribe({
+    this.positionService.DeActivatePosition(Position.id || 0, Position.companyId || 0).subscribe({
       next: () => {
         Position.isActive = false;
         this.showSuccess('Position deactivated successfully');

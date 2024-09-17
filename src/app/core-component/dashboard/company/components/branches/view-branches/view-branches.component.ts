@@ -12,13 +12,15 @@ import { AddBranchComponent } from '../add-branch/add-branch.component';
 import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-view-branches',
   templateUrl: './view-branches.component.html',
   styleUrls: ['./view-branches.component.css'],
-  providers: [BranchService, EmployeeService, MessageService],
-  standalone:true,
+  providers: [BranchService, EmployeeService, MessageService,ConfirmationService],
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
@@ -28,14 +30,16 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     AssignEntityComponent,
     ModernTableComponent,
     PaginationModule,
-    TranslateModule
+    TranslateModule,ConfirmDialogModule
   ],
 })
 export class ViewBranchesComponent implements OnInit {
-  @Input() companyId?: number = 0 ;
+  @Input() companyId?: number = 0;
   isAdd: boolean = false;
+  isEdit: boolean = false;
   showOverView: boolean = false;
   branches: branch[] = [];
+  branch!: branch;
   employees: employee[] = [];
   isAssignEntity: boolean = false;
   selectedBranch: branch | undefined = undefined;
@@ -44,8 +48,10 @@ export class ViewBranchesComponent implements OnInit {
   totalItems: number = 0;
   isArabic: boolean = false;
   translatedColumns: string[] = [];
-  constructor(private branchService: BranchService,    private translate: TranslateService
-,    private employeeService: EmployeeService, private messageService: MessageService) {}
+  constructor(private branchService: BranchService, private translate: TranslateService,
+    private employeeService: EmployeeService, private messageService: MessageService,
+    private confirmationService: ConfirmationService) { }
+
 
   ngOnInit(): void {
     this.isArabic = this.translate.currentLang === 'ar';
@@ -62,7 +68,6 @@ export class ViewBranchesComponent implements OnInit {
       next: (response) => {
         this.branches = response.data.list;
         this.totalItems = response.data.totalRows;
-        console.log("Branches loaded:", this.branches);
       }
     });
   }
@@ -79,7 +84,6 @@ export class ViewBranchesComponent implements OnInit {
           this.employees = response.data.list.filter(
             (employee: any) => !employee.branchId
           );
-          console.log("Filtered Employees:", this.employees);
         }
       });
     } else {
@@ -90,9 +94,14 @@ export class ViewBranchesComponent implements OnInit {
   addBranch(): void {
     this.isAdd = true;
   }
+  editBranch(branch: branch): void {
+    this.isEdit = true;
+    this.branch = branch
+  }
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
+    this.isEdit = isAdd;
     this.loadBranches();
     this.loadEmployees();
   }
@@ -106,10 +115,9 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   loadEmployeesForBranch(branchId: number): void {
-    this.employeeService.loadEmployees({ branchId: branchId, companyId: this.companyId  }).subscribe({
+    this.employeeService.loadEmployees({ branchId: branchId, companyId: this.companyId }).subscribe({
       next: (response) => {
         this.employees = response.data.list;
-        console.log("Employees loaded for branch:", this.employees);
       }
     });
   }
@@ -159,15 +167,7 @@ export class ViewBranchesComponent implements OnInit {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
   }
 
-  deleteBranch(branchId: number): void {
-    this.branchService.deleteBranch(branchId, this.companyId||0)
-      .subscribe({
-        next: () => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Branch deleted successfully' });
-          this.loadBranches();
-        }
-      });
-  }
+
   handleClose() {
     this.isAssignEntity = false;
   }
@@ -180,7 +180,7 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   activateBranch(branch: branch): void {
-    this.branchService.ActivateBranch(branch.id,branch.companyId).subscribe({
+    this.branchService.ActivateBranch(branch.id, branch.companyId).subscribe({
       next: () => {
         branch.isActive = true;
         this.showSuccess('Branch activated successfully');
@@ -189,7 +189,7 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   deactivateBranch(branch: branch): void {
-    this.branchService.DeActivateBranch(branch.id,branch.companyId).subscribe({
+    this.branchService.DeActivateBranch(branch.id, branch.companyId).subscribe({
       next: () => {
         branch.isActive = false;
         this.showSuccess('Branch deactivated successfully');
@@ -203,6 +203,26 @@ export class ViewBranchesComponent implements OnInit {
       this.translate.instant('viewBranches.COLUMN_POSITION_NAME'),
       this.translate.instant('viewBranches.COLUMN_DEPARTMENT_NAME')
     ];
+  }
+  deleteBranch(branchId: number): void {
+    this.confirmationService.confirm({
+      message: this.translate.instant('viewBranches.CONFIRM_DELETE_BRANCH'),
+      header: this.translate.instant('viewBranches.DELETE_CONFIRMATION'),
+      icon: 'pi pi-exclamation-triangle',
+      acceptButtonStyleClass: 'p-button-danger',
+      rejectButtonStyleClass: 'p-button-primary',
+      acceptLabel: this.translate.instant('viewBranches.YES'),
+      rejectLabel: this.translate.instant('viewBranches.NO'),
+      accept: () => {
+        this.branchService.deleteBranch(branchId, this.companyId || 0)
+          .subscribe({
+            next: () => {
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: this.translate.instant('viewBranches.BRANCH_DELETED') });
+              this.loadBranches();
+            }
+          });
+      }
+    });
   }
 
 }
