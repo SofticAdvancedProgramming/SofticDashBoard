@@ -205,7 +205,8 @@
     "ERROR_LOADING_POSITIONS": "Error loading positions",
     "FILL_REQUIRED_FIELDS": "Please fill all required fields",
     "POSITION_ADDED_SUCCESSFULLY": "Position added successfully",
-    "ERROR_ADDING_POSITION": "Error adding position"
+    "ERROR_ADDING_POSITION": "Error adding position",
+    "EDIT": "Edit"
   },
   "INDEX_POSITION": {
     "ADD_POSITION": "Add Position",

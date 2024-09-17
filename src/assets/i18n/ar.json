@@ -202,7 +202,8 @@
     "ERROR_LOADING_POSITIONS": "خطأ في تحميل الوظائف",
     "FILL_REQUIRED_FIELDS": "يرجى ملء جميع الحقول المطلوبة",
     "POSITION_ADDED_SUCCESSFULLY": "تمت إضافة الوظيفة بنجاح",
-    "ERROR_ADDING_POSITION": "خطأ في إضافة الوظيفة"
+    "ERROR_ADDING_POSITION": "خطأ في إضافة الوظيفة",
+    "EDIT": "تعديل"
   },
   "INDEX_POSITION": {
     "ADD_POSITION": "إضافة وظيفة",

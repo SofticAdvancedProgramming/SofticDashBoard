@@ -29,7 +29,7 @@
       </div>
       <div class="form-group">
         <label for="map">{{ 'addBranch.BRANCH_LOCATION' | translate }}</label>
-        <app-map (locationSelected)="onLocationSelected($event)" [long]="branch.long || 0" [lat]="branch.lat || 0"></app-map>
+        <app-map (locationSelected)="onLocationSelected($event)" [long]="isEdit ? branch!.long : 46.738586" [lat]="isEdit ?  branch!.lat : 24.774265"></app-map>
       </div>
       <div class="form-buttons row ">
         <div class="col-lg-6 col-md-6 col-sm-6 mt-3 justify-content-center d-flex">

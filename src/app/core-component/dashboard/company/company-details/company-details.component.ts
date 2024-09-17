@@ -52,7 +52,6 @@ export class CompanyDetailsComponent implements OnInit {
       const response = await this.companyService.getCompany({ id: companyId }).toPromise();
       if (response && response.data && response.data.list && response.data.list.length > 0) {
         this.company = response.data.list[0];
-        console.log("this.company:", this.company);
         if(this.company.countryId!=null){
           await this.fetchCityName(this.company.cityId);
         }

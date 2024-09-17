@@ -25,6 +25,7 @@ import { Position } from '../../../../../../../models/postion';
 })
 export class IndexComponent implements OnInit {
   isAdd: boolean = false;
+  isEdit: boolean = false;
   isAddEmployee: boolean = false;
   showDetails: boolean = false;
   selectedPositionId?: string;
@@ -38,7 +39,7 @@ export class IndexComponent implements OnInit {
   itemsPerPage: number = 10;
   totalItems: number = 0;
   isArabic: boolean = false;
-
+  positionData!: Position;
   constructor(
     private positionService: PositionService,
     private employeeService: EmployeeService,
@@ -63,10 +64,7 @@ export class IndexComponent implements OnInit {
       next: (response) => {
         this.positions = response.data.list;
         this.totalItems = response.data.totalRows;
-        console.table( response.data)
-      },
-      error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading positions' });
+        console.table(response.data)
       }
     });
   }
@@ -78,9 +76,6 @@ export class IndexComponent implements OnInit {
           (employee: any) => !employee.positionId
         );
         console.log("Unassigned Employees:", this.employees);
-      },
-      error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading unassigned employees' });
       }
     });
   }
@@ -97,9 +92,6 @@ export class IndexComponent implements OnInit {
           (employee: any) => employee.positionId === positionId
         );
         console.log("Employees for Position:", this.employees);
-      },
-      error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error loading employees for position' });
       }
     });
   }
@@ -126,6 +118,12 @@ export class IndexComponent implements OnInit {
     this.isAdd = true;
   }
 
+  editPosition(position: Position): void {
+    this.isEdit = true;
+    this.positionData = position;
+  }
+
+
   addEmployee(positionId: string): void {
     this.selectedPositionId = positionId;
     this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
@@ -135,6 +133,7 @@ export class IndexComponent implements OnInit {
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
+    this.isEdit = isAdd;
     this.loadPositions();
   }
 
@@ -190,7 +189,7 @@ export class IndexComponent implements OnInit {
 
   activatePosition(Position: Position): void {
     debugger
-    this.positionService.ActivatePosition(Position.id||0, Position.companyId || 0).subscribe({
+    this.positionService.ActivatePosition(Position.id || 0, Position.companyId || 0).subscribe({
       next: () => {
         Position.isActive = true;
         this.showSuccess('Position activated successfully');
@@ -200,7 +199,7 @@ export class IndexComponent implements OnInit {
 
   deactivatePosition(Position: Position): void {
     debugger
-    this.positionService.DeActivatePosition(Position.id||0, Position.companyId || 0).subscribe({
+    this.positionService.DeActivatePosition(Position.id || 0, Position.companyId || 0).subscribe({
       next: () => {
         Position.isActive = false;
         this.showSuccess('Position deactivated successfully');

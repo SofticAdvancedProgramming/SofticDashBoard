@@ -79,10 +79,14 @@ export class AddBranchComponent implements OnInit {
       next: (response) => {
         console.log('Branch added successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: this.isEdit ? 'Branch Edit successfully' : 'Branch added successfully' });
-        setTimeout(() => {
-          this.branchAdded.emit();
-          this.action.emit(false);
-        }, 1000);
+        if (this.isEdit) {
+          setTimeout(() => {
+            this.branchAdded.emit();
+            this.action.emit(false);
+          }, 1000);
+        } else {
+          this.form.reset()
+        }
       }
     });
   }

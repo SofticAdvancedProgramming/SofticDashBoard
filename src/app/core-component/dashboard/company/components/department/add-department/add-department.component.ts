@@ -86,7 +86,6 @@ export class AddDepartmentComponent implements OnInit {
   }
 
   onSave(): void {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", this.form.value);
     if (this.form.invalid) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
       return;
@@ -109,9 +108,14 @@ export class AddDepartmentComponent implements OnInit {
       next: (response) => {
         console.log('Department added successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Department added successfully' });
-        setTimeout(() => {
-          this.action.emit(false);
-        }, 1000);
+        if (this.isEdit) {
+          setTimeout(() => {
+            this.action.emit(false);
+          }, 1000);
+        } else {
+          this.form.reset()
+        }
+
       }
     });
   }
