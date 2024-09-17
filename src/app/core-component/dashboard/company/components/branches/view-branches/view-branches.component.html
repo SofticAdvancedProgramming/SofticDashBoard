@@ -62,7 +62,7 @@
 
 <p-toast position="top-center"></p-toast>
 
-<div class="d-flex justify-content-center mt-3">
+<div class="d-flex justify-content-center mt-3" *ngIf="!isAssignEntity">
   <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
     (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;">
   </pagination>
