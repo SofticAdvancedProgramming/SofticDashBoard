@@ -1,5 +1,5 @@
 <div class="row py-3 my-3">
-  <div class="form-container" [formGroup]="addCompanyForm">
+  <div class="form-container" [formGroup]="addAdminForm">
     <div class="row">
       <p class="upload-text">Assign admin to company </p>
     </div>
@@ -69,7 +69,7 @@
             <div *ngIf="isFieldInvalid('password')" class="invalid-feedback">
               Password is required.
             </div>
-            <div *ngIf="addCompanyForm.get('password')?.errors?.['complexPassword']"
+            <div *ngIf="addAdminForm.get('password')?.errors?.['complexPassword']"
               class="invalid-feedback">
               Password must include at least one uppercase letter, one number, and one special
               character.
@@ -89,7 +89,7 @@
             <div *ngIf="isFieldInvalid('confirmPassword')" class="invalid-feedback">
               Confirm Password is required.
             </div>
-            <div *ngIf="addCompanyForm.errors?.['passwordMismatch']" class="invalid-feedback">
+            <div *ngIf="addAdminForm.errors?.['passwordMismatch']" class="invalid-feedback">
               Passwords do not match.
             </div>
           </div>
@@ -106,5 +106,4 @@
     </form>
   </div>
 </div>
-<p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'"
-  [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
+

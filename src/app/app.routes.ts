@@ -48,7 +48,7 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'indexCompany', component: IndexComponent },
       { path: 'addCompany', component: AddCompanyComponent },
-      { path: 'AddAdmin', component: AddAdminComponent },
+      { path: 'add-admin', component: AddAdminComponent },
       { path: 'generalLookups', component: GeneralLookupsComponent  ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},
       { path: 'SubscriptionPlan', component: SubscriptionPlanManagmentComponent },
       { path: 'addressManagement', component: LocationManagmentComponent },

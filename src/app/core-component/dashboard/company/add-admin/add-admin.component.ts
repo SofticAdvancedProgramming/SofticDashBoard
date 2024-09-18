@@ -1,8 +1,8 @@
+import { ToastersService } from './../../../../core/services/toast-service/toast.service';
 import { ChangeDetectorRef, Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -20,34 +20,27 @@ import { Company } from '../../../../../models/company';
   providers: [MessageService, AdminService],
 })
 export class AddAdminComponent implements OnInit, OnDestroy {
-  addCompanyForm: FormGroup;
+  addAdminForm: FormGroup;
   private destroy$ = new Subject<void>();
   isSubmitting = false;
   passwordFieldType: string = 'password';
   confirmPasswordFieldType: string = 'password';
-  companyId: number = 0;
-  formValue:Company={}as Company;
+  companyId: number = Number(localStorage.getItem('companyId'));
+  formValue: Company = {} as Company;
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
-    private messageService: MessageService,
+    private toastersService: ToastersService,
     private adminService: AdminService,
-    private cdr: ChangeDetectorRef
   ) {
-    this.addCompanyForm = this.fb.group({});
+    this.addAdminForm = this.fb.group({});
   }
 
   ngOnInit(): void {
     this.initializeForm();
-    this.route.queryParams.subscribe((params: any) => {
-      this.companyId = params['companyId'];
-      console.log('Company ID:', this.companyId);
-    });
   }
 
   private initializeForm(): void {
-    this.addCompanyForm = this.fb.group({
+    this.addAdminForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       fullName: ['', Validators.required],
@@ -55,43 +48,24 @@ export class AddAdminComponent implements OnInit, OnDestroy {
       phoneNumber: ['', Validators.required],
       password: ['', [Validators.required, PasswordValidator.passwordComplexity()]],
       confirmPassword: ['', Validators.required],
+      companyId: this.companyId
     }, {
       validators: PasswordValidator.passwordMatch('password', 'confirmPassword')
     });
   }
 
   onSubmit(): void {
-    if (this.addCompanyForm.invalid) {
-      this.showError('Invalid Form', 'Please fill in all required fields');
-      this.validateAllFormFields(this.addCompanyForm);
+    if (this.addAdminForm.invalid) {
+      this.toastersService.typeError('Please fill in all required fields');
+      this.validateAllFormFields(this.addAdminForm);
       return;
     }
-
-    this.formValue = this.addCompanyForm.value;
-    this.isSubmitting = true;
-    this.formValue.companyId=Number(this.companyId)
-    console.log(this.formValue)
-    this.adminService.AddAdmin(this.formValue).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe({
+    this.formValue = this.addAdminForm.value;
+    this.formValue.companyId = Number(this.companyId)
+    this.adminService.AddAdmin(this.formValue).subscribe({
       next: (response: any) => {
-        this.isSubmitting = false;
-        this.showSuccess('Admin Added', 'Admin has been added successfully');
-        this.router.navigate(['/dashboard/indexCompany']).then(success => {
-          if (success) {
-            console.log('Navigation to admin list successful');
-          } else {
-            console.error('Navigation to admin list failed');
-          }
-        }).catch(error => {
-          console.error('Navigation error:', error);
-        });
-      },
-      error: (err: any) => {
-        console.error('Adding admin failed:', err);
-        this.isSubmitting = false;
-        // this.addCompanyForm.reset();
-        this.showError('Adding Failed', 'Admin could not be added, please try again');
+        this.toastersService.typeSuccess('Admin has been added successfully', 'Admin Added');
+        this.addAdminForm.reset();
       }
     });
   }
@@ -102,24 +76,6 @@ export class AddAdminComponent implements OnInit, OnDestroy {
 
   toggleConfirmPasswordVisibility(): void {
     this.confirmPasswordFieldType = this.confirmPasswordFieldType === 'password' ? 'text' : 'password';
-  }
-
-  private showError(message: string, details: string): void {
-    this.messageService.add({
-      severity: 'error',
-      summary: message,
-      detail: details,
-    });
-    this.cdr.markForCheck();
-  }
-
-  private showSuccess(message: string, details: string): void {
-    this.messageService.add({
-      severity: 'success',
-      summary: message,
-      detail: details,
-    });
-    this.cdr.markForCheck();
   }
 
   private validateAllFormFields(formGroup: FormGroup): void {
@@ -134,7 +90,7 @@ export class AddAdminComponent implements OnInit, OnDestroy {
   }
 
   isFieldInvalid(field: string): boolean {
-    const control = this.addCompanyForm.get(field);
+    const control = this.addAdminForm.get(field);
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
