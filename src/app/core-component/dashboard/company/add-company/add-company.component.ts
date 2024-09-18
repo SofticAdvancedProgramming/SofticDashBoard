@@ -64,7 +64,6 @@ export class AddCompanyComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
     this.loadSubscriptionPlans();
-    this.loadCountries();
   }
 
   private initializeForm(): void {
@@ -115,9 +114,6 @@ export class AddCompanyComponent implements OnInit {
         if (response.status === 200) {
           this.countries = response.data.list;
         }
-      },
-      (error: any) => {
-        console.error('Error fetching countries', error);
       }
     );
   }
