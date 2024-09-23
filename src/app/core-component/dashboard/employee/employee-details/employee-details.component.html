@@ -20,6 +20,13 @@
             <div class="tab" [ngClass]="{'active': activeTab === 'advanced'}" (click)="setActiveTab('advanced')">
                 {{ 'employeeDetails.ADVANCED_INFORMATION' | translate }}
             </div>
+            <div class="tab" [ngClass]="{'active': activeTab === 'financial'}" (click)="setActiveTab('financial')">
+                {{ 'employeeDetails.FINANCIAL_INFORMATION' | translate }}
+            </div>
+            <div class="tab" [ngClass]="{'active': activeTab === 'shifts'}" (click)="setActiveTab('shifts')">
+                {{ 'employeeDetails.shifts' | translate }}
+            </div>
+
         </div>
     </div>
     <div class="col-lg-6 justify-content-end gap-3 d-flex">
@@ -36,11 +43,18 @@
 
 <div class="tab-content">
     <div *ngIf="activeTab === 'personal'">
-        <app-personal-information [accountStatus]="employee.accountStatus" (rotatedImageSaved)="handleRotatedImage($event)"> </app-personal-information>
+        <app-personal-information [accountStatus]="employee.accountStatus"
+            (rotatedImageSaved)="handleRotatedImage($event)"> </app-personal-information>
     </div>
 
     <div *ngIf="activeTab === 'advanced'">
         <app-countdown></app-countdown>
+    </div>
+    <div *ngIf="activeTab === 'financial'">
+        <app-financial></app-financial>
+    </div>
+    <div *ngIf="activeTab === 'shifts'">
+        <app-shifts></app-shifts>
     </div>
 </div>
 

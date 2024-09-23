@@ -1,0 +1,113 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tabs">
+                <div class="tab" [ngClass]="{'active': activeTab === 'Entitlements'}"
+                    (click)="setActiveTab('Entitlements')">
+                    {{ 'employeeDetails.Entitlements' | translate }}
+                </div>
+                <div class="tab" [ngClass]="{'active': activeTab === 'Deductions'}"
+                    (click)="setActiveTab('Deductions')">
+                    {{ 'employeeDetails.Deductions' | translate }}
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div *ngIf="activeTab === 'Entitlements'">
+                <div class="row mt-4">
+                    <div class="col-lg-4 mb-3">
+                        <label>{{ 'employeeDetails.Title' | translate }}</label>
+                        <select id="title" class="form-control">
+                            <option>Graphic Designer</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <label>{{ 'employeeDetails.Level' | translate }}</label>
+                        <select id="level" class="form-control">
+                            <option>Senior</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <label>{{ 'employeeDetails.Allowance' | translate }}</label>
+                        <input type="text" id="allowance" class="form-control" value="20,000" />
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <label>{{ 'employeeDetails.Basic_Salary' | translate }}</label>
+                        <input type="text" id="basic-salary" class="form-control" value="50,000" />
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <label>{{ 'employeeDetails.Gross_Salary' | translate }}</label>
+                        <input type="text" id="gross-salary" class="form-control" value="100,000" />
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <label>{{ 'employeeDetails.Deductions_Label' | translate }}</label>
+                        <input type="text" id="deductions" class="form-control" value="00,000" />
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <label>{{ 'employeeDetails.Net_Salary' | translate }}</label>
+                        <input type="text" id="net-salary" class="form-control" value="120,000" />
+                    </div>
+                    <hr>
+                    <div class=" col-lg-6 ">
+                        <label>{{ 'employeeDetails.Bonus' | translate }}</label>
+                        <input type="text" class="form-control" placeholder="10,000" />
+                    </div>
+                    <div class="col-lg-6">
+                        <label>{{ 'employeeDetails.Due_Date' | translate }}</label>
+                        <input type="date" class="form-control ml-3" />
+                    </div>
+                    <div class="col-lg-12 my-3">
+                        <button class="btn bonusBtn w-50">
+                            <img src="../../../../../assets/images/add-circle.png"> {{ 'employeeDetails.Add_Bonus' |
+                            translate }}
+                        </button>
+                    </div>
+                    <div class="col-lg-12">
+                        <button class="btn btn-primary btn-save w-50">{{ 'employeeDetails.Save' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="activeTab === 'Deductions'">
+                <div class="row my-5">
+                    <div class="col-lg-6">
+                        <label class="mx-3">Loan Deduction</label>
+                        <div class="d-flex align-items-center">
+                            <input type="text" class="form-control" placeholder="1000">
+                            <button class="btn btn-light ml-2">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Due (Date)</label>
+                        <input type="date" class="form-control" placeholder="00/00/0000" />
+                    </div>
+                </div>
+                <!-- Deduction Toggle -->
+                <div class="row my-3">
+                    <div class="col-lg-12 d-flex align-items-center">
+                        <label class="switch mr-2">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="mx-2">Deduction</span>
+                    </div>
+                </div>
+                <!-- Save Button -->
+                <div class="row my-3">
+                    <div class="col-lg-12">
+                        <button class="btn w-50 btn-save">Save</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -13,15 +13,17 @@ import { accountStatus } from '../../../../../models/enums/accountStatus';
 import { CountdownComponent } from "../../../../common-component/countdown/countdown.component";
 import { AdminService } from '../../../../services/adminService/admin.service';
 import { ToastersService } from '../../../../core/services/toast-service/toast.service';
-import { TranslateService , TranslateModule} from '@ngx-translate/core';
-
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { FinancialComponent } from "../financial/financial.component";
+import { ShiftsComponent } from "../shifts/shifts.component";
+ 
 
 @Component({
-  selector: 'app-employee-details',
-  standalone: true,
-  templateUrl: './employee-details.component.html',
-  styleUrls: ['./employee-details.component.css'],
-  imports: [RouterLink,TranslateModule, MatTabsModule, CommonModule, PersonalInformationComponent, AdvancedInformationComponent, CountdownComponent]
+    selector: 'app-employee-details',
+    standalone: true,
+    templateUrl: './employee-details.component.html',
+    styleUrls: ['./employee-details.component.css'],
+    imports: [RouterLink, TranslateModule, MatTabsModule, CommonModule, PersonalInformationComponent, AdvancedInformationComponent, CountdownComponent, FinancialComponent, ShiftsComponent]
 })
 export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   activeTab: string = 'personal';
@@ -38,14 +40,13 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
     private adminService: AdminService,
     private toast: ToastersService,
     private translate: TranslateService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
       takeUntil(this.unsubscribe$)
     ).subscribe(params => {
       this.id = Number(params.get('id'));
-      console.log('Employee ID from URL:', this.id);
       this.getEmployee();
     });
     this.currentLang = this.translate.currentLang;
@@ -60,7 +61,6 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
     this.employeeService.loadEmployees({ id: this.id }).pipe(
       tap((response: any) => {
         this.employee = response.data.list[0];
-        console.log("Loaded employee", this.employee);
       }),
       takeUntil(this.unsubscribe$)
     ).subscribe();
@@ -73,33 +73,24 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   onImageError(event: any) {
     event.target.src = '../../../../assets/images/default.jpeg';
   }
-
   updateStatus(status: accountStatus): void {
     if (!this.id) return;
-    console.log('updateStatus called');
-
     this.adminService.EditStatus({ id: this.id, accountStatus: status }).subscribe(
       {
-        next:(response:any)=>{
+        next: (response: any) => {
           this.toast.typeSuccess(`Employee ${status.toString()} successfully.`);
           this.getEmployee();
         }
       }
-
     )
   }
-
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
   handleRotatedImage(rotatedImageDataUrl: string) {
-    console.log(rotatedImageDataUrl)
-    if(rotatedImageDataUrl){
-      console.log(rotatedImageDataUrl)
-      this.employee.referancePhoto=rotatedImageDataUrl
+    if (rotatedImageDataUrl) {
+      this.employee.referancePhoto = rotatedImageDataUrl
     }
-
   }
-
 }

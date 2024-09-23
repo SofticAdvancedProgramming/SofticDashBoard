@@ -314,6 +314,20 @@
     "PERSONAL_INFORMATION": "Personal Information",
     "ADVANCED_INFORMATION": "Advanced Information",
     "REJECTED": "Rejected",
-    "ACCEPTED": "Accepted"
+    "ACCEPTED": "Accepted",
+    "FINANCIAL_INFORMATION":"Financial",
+    "Entitlements": "Entitlements",
+    "Deductions": "Deductions",
+    "Title": "Title",
+    "Level": "Level",
+    "Allowance": "Allowance",
+    "Basic_Salary": "Basic Salary",
+    "Gross_Salary": "Gross Salary",
+    "Deductions_Label": "Deductions",
+    "Net_Salary": "Net Salary",
+    "Bonus": "Bonus",
+    "Due_Date": "Due (Date)",
+    "Add_Bonus": "Add Bonus",
+    "Save": "Save"
   }
 }

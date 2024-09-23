@@ -311,6 +311,21 @@
     "PERSONAL_INFORMATION": "معلومات شخصية",
     "ADVANCED_INFORMATION": "معلومات متقدمة",
     "REJECTED": "مرفوض",
-    "ACCEPTED": "مقبول"
+    "ACCEPTED": "مقبول",
+    "FINANCIAL_INFORMATION":"مالي",
+    "Entitlements": "المستحقات",
+    "Deductions": "الخصومات",
+    "Title": "الوظيفة",
+    "Level": "المستوى",
+    "Allowance": "البدلات",
+    "Basic_Salary": "الراتب الأساسي",
+    "Gross_Salary": "إجمالي الراتب",
+    "Deductions_Label": "الخصومات",
+    "Net_Salary": "صافي الراتب",
+    "Bonus": "المكافأة",
+    "Due_Date": "تاريخ الاستحقاق",
+    "Add_Bonus": "أضف مكافأة",
+    "Save": "حفظ"
+
   }
 }
