@@ -46,12 +46,13 @@ export class AuthenticationService {
     }
   }
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string, deviceToken: string): Observable<any> {
     console.log('Attempting login with email:', email);
     return this.apiCall
       .request('POST', `${environment.apiBaseUrl}Auth/Login`, {
         email,
         password,
+        deviceToken
       })
       .pipe(
         map((response: any) => {

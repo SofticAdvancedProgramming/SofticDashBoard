@@ -5,10 +5,13 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { LoaderComponent } from "./common-component/loader/loader.component";
 import { TranslationService } from './core/services/translationService/translation.service';
+import { MessagingService } from './services/messaging-service/messaging.service';
+import { NotificationToastrComponent } from "./common-component/notification-toastr/notification-toastr.component";
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HomeComponent, ToastModule, LoaderComponent],
+  imports: [RouterOutlet, HomeComponent, ToastModule, LoaderComponent, NotificationToastrComponent],
   providers: [MessageService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -19,9 +22,11 @@ export class AppComponent {
 
   constructor(
     private translationService: TranslationService,
+    private messagingService: MessagingService,
   ) {
     if (typeof window !== 'undefined') {
       this.checkLang();
+      this.messagingService.receiveMessageing();
     }
   }
 
