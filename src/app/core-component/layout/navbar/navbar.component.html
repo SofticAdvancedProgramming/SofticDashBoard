@@ -7,7 +7,7 @@
   </div>
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="col-lg-7">
+      <div class="col-lg-6">
         <form class="d-flex" role="search">
           <input class="customSearch" type="search" placeholder="Search" aria-label="Search">
           <button class="search-btn" type="submit">
@@ -15,21 +15,28 @@
           </button>
         </form>
       </div>
-      <div class="col-lg-1 justify-content-center d-flex">
-        <img class="notfication" src="../../../../assets/images/notification.png">
-      </div>
-      <!-- <div class="col-lg-4 d-flex gap-3 justify-content-end profile">
-      <a routerLink="profile">  <img  class="img-fluid" src="../../../../assets/images/default.png">  </a>
-        <div class="desc" >
-          <p>george mikhaiel</p>
-          <p class="lightDescription">ID 7.852.000</p>
+      <div class="col-lg-1 justify-content-center d-flex position-relative">
+        <div class="notification-container">
+          <mat-icon matBadge="15" (click)="toggleNotifications()">notifications_none</mat-icon>
+          <span class="notification-badge" *ngIf="unreadNotifications > 0">{{ unreadNotifications }}</span>
         </div>
-        <button  type="button" class="btn" (click)="toggleFullScreen()">
-          <img  src="assets/images/fullscreen.png" alt="" style=" width: 20px; height: 20px;">
-        </button>
-      </div> -->
-      <!-- <app-change-language></app-change-language> -->
-      <!-- routerLink="profile" -->
+
+        <!-- Notification Dropdown -->
+        <div *ngIf="showNotifications" class="notification-dropdown">
+          <ul class="list-group w-100">
+            <li class="list-group-item" *ngFor="let notification of notifications" (click)="markAsRead(notification)">
+              <p>{{ notification.message | translate }}</p>
+              <small>{{ notification.timestamp | date:'short' }}</small>
+            </li>
+            <li *ngIf="notifications.length === 0" class="list-group-item">
+              <p>{{ 'No notifications' | translate }}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-1 justify-content-center d-flex">
+        <app-change-language></app-change-language>
+      </div> <!-- routerLink="profile" -->
       <div class="col-lg-4 d-flex gap-3 justify-content-end profile flex-fill" routerLink="profile">
         <a> <img class="img-fluid" [src]="profileImage ? profileImage: 'assets/images/default.jpeg'"> </a>
         <div class="desc">
@@ -41,6 +48,6 @@
         </button>
       </div>
     </div>
-    </div>
+  </div>
 
 </nav>
