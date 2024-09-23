@@ -10,7 +10,6 @@ import { AuthenticationService } from '../../../services/authenticationService/a
 import { isPlatformBrowser } from '@angular/common';
 import { ToastersService } from '../../../core/services/toast-service/toast.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { MessagingService } from '../../../services/messaging-service/messaging.service';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +30,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   isSubmitting = false;
   passwordFieldType: string = 'password';
-  private FCMToken = ''
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -39,7 +38,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private toast: ToastersService,
     private translate: TranslateService,
-    private messagingService: MessagingService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.loginForm = this.fb.group({
@@ -48,13 +46,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-    this.messagingService.getFCMToken().then(token => {
-      if (token) {
-        this.FCMToken = token;
-      }
-    });
-  }
+  ngOnInit(): void { }
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
@@ -63,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     const formValue = this.loginForm.value;
     this.isSubmitting = true;
-    this.authService.login(formValue.email, formValue.password, this.FCMToken).pipe(
+    this.authService.login(formValue.email, formValue.password).pipe(
       takeUntil(this.destroy$)
     ).subscribe({
       next: (response: any) => {

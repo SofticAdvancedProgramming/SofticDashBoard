@@ -10,12 +10,6 @@ import { provideToastr } from 'ngx-toastr';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SpinnerInterceptor } from './core/services/interceptor/spinner/spinner.interceptor';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { getMessaging, provideMessaging } from '@angular/fire/messaging';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { environment } from './environment/environment';
-import { MessagingService } from './services/messaging-service/messaging.service';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -42,12 +36,6 @@ export const appConfig: ApplicationConfig = {
       useClass: SpinnerInterceptor,
       multi: true
     },
-        // FCM FireBase
-        provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-        provideMessaging(() => getMessaging()),
-        provideFirestore(() => getFirestore()),
-        provideAuth(() => getAuth()),
-        MessagingService
   ]
 };
 
