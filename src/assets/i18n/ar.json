@@ -325,7 +325,18 @@
     "Bonus": "المكافأة",
     "Due_Date": "تاريخ الاستحقاق",
     "Add_Bonus": "أضف مكافأة",
+     "shifts":"الدوام",
+    "Team_Leader": "قائد الفريق",
+    "George_Mikhaiel": "جورج ميخائيل",
+    "Shift_Start_Time": "وقت بدء المناوبة",
+    "Shift_End_Time": "وقت نهاية المناوبة",
+    "Cancel": "إلغاء",
     "Save": "حفظ"
-
+  },
+  "deductions": {
+    "Loan_Deduction": "خصم القرض",
+    "Due_Date": "تاريخ الاستحقاق",
+    "Deduction": "الخصم",
+    "Save": "حفظ"
   }
 }

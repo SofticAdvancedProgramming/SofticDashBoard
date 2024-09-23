@@ -77,7 +77,7 @@
             <div *ngIf="activeTab === 'Deductions'">
                 <div class="row my-5">
                     <div class="col-lg-6">
-                        <label class="mx-3">Loan Deduction</label>
+                        <label class="mx-3">{{ 'deductions.Loan_Deduction' | translate }}</label>
                         <div class="d-flex align-items-center">
                             <input type="text" class="form-control" placeholder="1000">
                             <button class="btn btn-light ml-2">
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <label>Due (Date)</label>
+                        <label>{{ 'deductions.Due_Date' | translate }}</label>
                         <input type="date" class="form-control" placeholder="00/00/0000" />
                     </div>
                 </div>
@@ -97,16 +97,17 @@
                             <input type="checkbox">
                             <span class="slider"></span>
                         </label>
-                        <span class="mx-2">Deduction</span>
+                        <span class="mx-2">{{ 'deductions.Deduction' | translate }}</span>
                     </div>
                 </div>
                 <!-- Save Button -->
                 <div class="row my-3">
                     <div class="col-lg-12">
-                        <button class="btn w-50 btn-save">Save</button>
+                        <button class="btn w-50 btn-save">{{ 'deductions.Save' | translate }}</button>
                     </div>
                 </div>
             </div>
+            
 
         </div>
     </div>

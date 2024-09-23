@@ -328,6 +328,18 @@
     "Bonus": "Bonus",
     "Due_Date": "Due (Date)",
     "Add_Bonus": "Add Bonus",
+     "shifts":"shifts",
+    "Team_Leader": "Team leader",
+    "George_Mikhaiel": "George Mikhaiel",
+    "Shift_Start_Time": "Shift start time",
+    "Shift_End_Time": "Shift end time",
+    "Cancel": "Cancel",
+    "Save": "Save"
+  },
+  "deductions": {
+    "Loan_Deduction": "Loan Deduction",
+    "Due_Date": "Due (Date)",
+    "Deduction": "Deduction",
     "Save": "Save"
   }
 }
