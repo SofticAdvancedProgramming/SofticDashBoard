@@ -1,8 +1,12 @@
 .custom-button {
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 14px;
-    background-color: #235098;
-    border: none;
-    color: white;
-  }
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #235098;
+  border: none;
+  color: white;
+}
+
+.border-radius {
+  border-radius: 0;
+}

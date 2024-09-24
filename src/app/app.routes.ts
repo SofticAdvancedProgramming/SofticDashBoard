@@ -29,6 +29,7 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { EmployeeDetailsComponent } from './core-component/dashboard/employee/employee-details/employee-details.component';
 import { NoPermissionComponent } from './common-component/no-permission/no-permission.component';
 import { ngxPermissionsGuard } from 'ngx-permissions';
+import { SalaryTypeComponent } from './core-component/dashboard/setting/Lockups/salary-type/salary-type.component';
 
 export const routes: Routes = [
   {
@@ -61,6 +62,7 @@ export const routes: Routes = [
       { path: 'AddDepartment', component: AddDepartmentComponent },
       { path: 'DepartmentOverview', component: DepartmentOverviewComponent  },
       { path: 'PositionTypeManagment', component: PositionTypeManagmentComponent  },
+      { path: 'salary-type', component: SalaryTypeComponent  },
       { path: 'departmentManagment', component: DepartmentManagmentComponent  },
       { path: 'branchManagment', component: BranchManagmentComponent  },
       { path: 'ViewEmployees', component: ViewEmployeesComponent ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},

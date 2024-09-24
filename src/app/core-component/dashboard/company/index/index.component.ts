@@ -15,20 +15,17 @@ import { Company } from '../../../../../models/company';
 export class IndexComponent implements OnInit {
   companies: Company[] = [];
 
-  constructor(private companyService: CompanyService) {}
+  constructor(private companyService: CompanyService) { }
 
   ngOnInit(): void {
     this.loadCompanies();
   }
 
   loadCompanies(): void {
-    this.companyService.loadCompanies({sortIsAsc:true,pageSize:20}).subscribe(
+    this.companyService.loadCompanies({ sortIsAsc: true, pageSize: 40 }).subscribe(
       (response: any) => {
-    console.log(response)
-       this.companies=response.data.list
-      },
-      error => {
-        console.error('Error loading companies', error);
+        console.log(response)
+        this.companies = response.data.list
       }
     );
   }
