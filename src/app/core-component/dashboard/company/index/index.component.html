@@ -6,12 +6,8 @@
         <h2 class="title">Companies</h2>
       </div>
       <div class="col-lg-4 search-section">
-        <form class="d-flex w-100" role="search">
-          <input class="customSearch" type="search" placeholder="Search" aria-label="Search">
-          <button class="search-btn" type="submit">
-            <img src="../../../../../assets/images/softic/default.png" alt="Search" width="16" height="16">
-          </button>
-        </form>
+        <input class="customSearch" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="searchDataValue"
+          (ngModelChange)="searcWithDebounce(searchDataValue)">
       </div>
       <div class="col-lg-4 add-button-section">
         <button class="add-button" routerLink="../addCompany">
@@ -26,13 +22,8 @@
       <ng-container *ngIf="companies.length; else noData">
         <div *ngFor="let company of companies" class="col-lg-4 col-md-6 col-sm-12 mb-4">
           <a routerLink="../company/{{company.id}}" class="text-decoration-none">
-            <app-company-card
-              [title]="company.name"
-              [branches]="10"
-              [cities]="5"
-              [description]="company.description"
-              [iconSrc]="company.logo"
-              [link]="company.webSite">
+            <app-company-card [title]="company.name" [branches]="10" [cities]="5" [description]="company.description"
+              [iconSrc]="company.logo" [link]="company.webSite">
             </app-company-card>
           </a>
         </div>
@@ -44,7 +35,7 @@
   </div>
 
   <!-- Pagination Controls -->
-  <div class="d-flex justify-content-center mt-3">
+  <div class="d-flex justify-content-center mt-3" *ngIf="!searchDataValue">
     <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
       (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;">
     </pagination>

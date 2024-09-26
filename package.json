@@ -75,6 +75,7 @@
     "@types/express": "^4.17.17",
     "@types/firebase": "^3.2.1",
     "@types/jasmine": "~5.1.0",
+    "@types/lodash": "^4.17.9",
     "@types/mapbox__mapbox-gl-geocoder": "^5.0.0",
     "@types/node": "^18.18.0",
     "jasmine-core": "~5.1.0",
