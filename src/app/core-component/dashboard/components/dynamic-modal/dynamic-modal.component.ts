@@ -36,6 +36,7 @@ export class DynamicModalComponent implements OnInit, OnChanges {
       this.updateForm();
     }
   }
+
   closePopup() {
     this.form.reset();
     this.formData = {};
@@ -45,7 +46,7 @@ export class DynamicModalComponent implements OnInit, OnChanges {
     const formControls: { [key: string]: any } = {};
 
     this.structure.forEach((field: Field) => {
-      formControls[field.name] = [this.isEdit ? this.formData[field.name] : '', field.required ? Validators.required : null];
+      formControls[field.name] = [this.isEdit ? this.formData[field.name] : null, field.required ? Validators.required : null];
     });
 
     this.form = this.fb.group(formControls);
@@ -65,6 +66,8 @@ export class DynamicModalComponent implements OnInit, OnChanges {
     if (this.form.valid) {
       this.submitForm.emit(this.form.value);
       this.form.reset();
+    } else {
+      this.form.markAllAsTouched();
     }
   }
 }

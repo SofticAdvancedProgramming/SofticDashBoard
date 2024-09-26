@@ -10,8 +10,8 @@
     (submitForm)="handleFormSubmission($event)">
   </app-dynamic-modal>
 
-  <app-modern-table [tableTitle]="'Position Types'" [tableData]="SalaryTypes" [columns]="columns" [modalId]="modalId"
+  <app-modern-table [tableTitle]="'Salary Types'" [tableData]="SalaryTypes" [columns]="columns" [modalId]="modalId"
     searchPlaceholder="Search data..." (editItem)="openEditModal($event)"
-    (deleteItem)="deleteEntity('PositionType', $event.id)" deleteId="{{deleteId}}">
+    (deleteItem)="deleteEntity('SalaryType', $event.id)" deleteId="{{deleteId}}">
   </app-modern-table>
 </div>

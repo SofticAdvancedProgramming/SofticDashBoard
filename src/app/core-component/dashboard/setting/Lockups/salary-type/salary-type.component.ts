@@ -12,16 +12,17 @@ import { SalaryTypeService } from '../../../../../services/lockupsServices/Salar
 })
 export class SalaryTypeComponent {
   SalaryTypes: any[] = [];
-  columns: string[] = ['id', 'name', 'nameAr'];
+  columns: string[] = ['id', 'name', 'nameAr', 'isDeduction'];
   deleteId: string = 'deleteSalaryType';
-  formData: any;
+  formData: any = {};
   isEdit = false;
-  modalId = 'AddSalaryType';
+  modalId = 'addSalaryType';
   companyId: number = 0;
+  isDeduction = true;
   structure = [
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
-    { name: 'isDeduction', label: 'isDeduction', type: 'radio', required: true },
+    { name: 'isDeduction', label: 'is Deduction', type: 'checkbox', required: true },
   ];
 
   entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: string } } = {
@@ -69,7 +70,7 @@ export class SalaryTypeComponent {
     (this.salaryTypeService[methodName] as Function)(updatedEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity); // Reload the list
+          this.loadEntities(entity);
         }
       }
     );
@@ -80,13 +81,14 @@ export class SalaryTypeComponent {
     (this.salaryTypeService[methodName] as Function)(id, this.companyId).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity); // Reload the list
+          this.loadEntities(entity);
         }
       }
     );
   }
 
   handleFormSubmission(data: any): void {
+    console.log(data, "data")
     if (this.isEdit) {
       data.companyId = this.companyId;
       data.id = this.formData.id;

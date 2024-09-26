@@ -2,17 +2,17 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <!-- <h5 class="modal-title" id="dynamicModalLabel">{{ isEdit ? 'Edit' : 'Add' }} Item</h5> -->
+        <h5 class="modal-title" id="dynamicModalLabel">{{ isEdit ? 'Edit' : 'Add' }} Item</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
           (click)="closePopup()"></button>
       </div>
       <div class="modal-body d-flex justify-content-center">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="customLabels">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
           @for (field of structure; track field.name) {
           <label [for]="field.name">{{ field.label }}</label>
           @if(field.type === 'radio' || field.type === 'checkbox'){
           <div class="form-check">
-            <input [type]="field.type" [id]="field.name" [formControlName]="field.name" class="form-check-input" />
+            <input [type]="field.type" [id]="field.name" [formControlName]="field.name" class="form-check-input">
           </div>
           }@else{
           <input [type]="field.type" [id]="field.name" [formControlName]="field.name" class="form-control">
