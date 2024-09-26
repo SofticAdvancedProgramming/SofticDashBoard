@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ImageUploadService } from '../../../../services/ImageUploadService/image-upload.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -70,7 +70,7 @@ export class AddCompanyComponent implements OnInit {
     this.addCompanyForm = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
-      companyExtention: ['', Validators.required],
+      companyExtension: ['', [Validators.required, this.companyExtensionValidator()]],
       description: ['', Validators.required],
       descriptionAr: ['', Validators.required],
       phone: ['', [Validators.required]],
@@ -82,11 +82,11 @@ export class AddCompanyComponent implements OnInit {
       primaryColor: ['', Validators.required],
       secondaryColor: ['', Validators.required],
       fontName: ['', Validators.required],
-      webSite:  ['', Validators.required],
-      facebook: [null],
-      twitter: [null],
-      instgram: [null],
-      tiktok: [null],
+      webSite: ['', Validators.required],
+      // facebook: [null],
+      // twitter: [null],
+      // instgram: [null],
+      // tiktok: [null],
       cityId: [null],
       countryId: [null],
       address: [null],
@@ -159,16 +159,12 @@ export class AddCompanyComponent implements OnInit {
 
   onSubmit(): void {
     if (this.addCompanyForm.invalid) {
-      console.log('Form is invalid:', this.addCompanyForm.errors);
-      console.log('Form values:', this.addCompanyForm.value);
-
       Object.keys(this.addCompanyForm.controls).forEach(key => {
         const controlErrors = this.addCompanyForm.get(key)?.errors;
         if (controlErrors) {
           console.log('Key control: ' + key + ', errors: ', controlErrors);
         }
       });
-
       this.showError('Invalid Form', 'Please fill all the required fields correctly.');
       this.validateAllFormFields(this.addCompanyForm);
       return;
@@ -182,15 +178,9 @@ export class AddCompanyComponent implements OnInit {
 
     companyData.phone = companyData.phone?.e164Number;
     companyData.phoneNumber = companyData.phoneNumber?.e164Number;
-
-    console.log(companyData);
-
     this.companyService.AddCompany(companyData).subscribe(
       response => {
-        this.router.navigate(['../AddAdmin'], { relativeTo: this.route, queryParams: { companyId: response.data.id } });
-      },
-      error => {
-        console.error('Error adding company', error);
+        this.router.navigate(['../add-admin'], { relativeTo: this.route, queryParams: { companyId: response.data.id } });
       }
     );
   }
@@ -221,6 +211,19 @@ export class AddCompanyComponent implements OnInit {
     const control = this.addCompanyForm.get(field);
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
+
+  companyExtensionValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+
+      // Check if the value starts with "@" and ends with ".com"
+      const isValid = value && value.startsWith('@') && value.endsWith('.com');
+
+      // If valid, return null, else return the error object
+      return isValid ? null : { invalidCompanyExtension: true };
+    };
+  }
+
   private setupFormListeners(): void {
     this.addCompanyForm.get('description')?.valueChanges.subscribe(() => this.validateField('description'));
     this.addCompanyForm.get('descriptionAr')?.valueChanges.subscribe(() => this.validateField('descriptionAr'));
@@ -234,12 +237,12 @@ export class AddCompanyComponent implements OnInit {
 
     if (field === 'description') {
       this.reasonErrorMessageEn = valueLength < 100 ? 'Your message must be at least 100 characters long.' :
-                                valueLength > 250 ? 'Your message cannot exceed 250 characters.' : null;
+        valueLength > 250 ? 'Your message cannot exceed 250 characters.' : null;
     }
 
     if (field === 'descriptionAr') {
       this.reasonErrorMessageAr = valueLength < 100 ? 'Your message in Arabic must be at least 100 characters long.' :
-                                valueLength > 250 ? 'Your message in Arabic cannot exceed 300 characters.' : null;
+        valueLength > 250 ? 'Your message in Arabic cannot exceed 300 characters.' : null;
     }
   }
 

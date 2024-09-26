@@ -31,12 +31,18 @@ export class AddAdminComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private toastersService: ToastersService,
     private adminService: AdminService,
+    private route: ActivatedRoute,
   ) {
     this.addAdminForm = this.fb.group({});
   }
 
   ngOnInit(): void {
     this.initializeForm();
+    this.route.queryParams.subscribe((params: any) => {
+      if (params['companyId']) {
+        this.companyId = params['companyId'];
+      }
+    });
   }
 
   private initializeForm(): void {

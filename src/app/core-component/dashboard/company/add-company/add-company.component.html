@@ -4,7 +4,8 @@
       <div class="row">
         <div class="col-lg-6 justify-content-center d-flex col-md-12 col-sm-12">
           <label for="fileInput">
-            <img [src]="uploadedImageBase64 || '../../../../../assets/images/softic/default.png'" alt="Upload Icon" class="upload-icon" style="cursor: pointer;">
+            <img [src]="uploadedImageBase64 || '../../../../../assets/images/softic/default.png'" alt="Upload Icon"
+              class="upload-icon" style="cursor: pointer;">
           </label>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
@@ -14,7 +15,7 @@
               GPAG/PNG/PDF files should be uploaded. The file must be high in resolution and original in design.
             </p>
             <input type="file" id="fileInput" (change)="onFileChange($event)" accept="image/*" style="display: none;">
-             <div *ngIf="isFieldInvalid('logo')" class="text-danger">
+            <div *ngIf="isFieldInvalid('logo')" class="text-danger">
               <small *ngIf="addCompanyForm.get('logo')?.errors?.['required']">Company logo is required.</small>
             </div>
           </div>
@@ -27,36 +28,46 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('name')}">
             <label for="name">Company Name (English)</label>
-            <input required type="text" id="name" formControlName="name" class="form-control" placeholder="Enter company name (English)"      appAlphanumeric [appInputRestriction]="'arabic'">
+            <input required type="text" id="name" formControlName="name" class="form-control"
+              placeholder="Enter company name (English)" appAlphanumeric [appInputRestriction]="'arabic'">
             <div *ngIf="isFieldInvalid('name')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('name')?.errors?.['required']">Company Name (English) is required.</small>
+              <small *ngIf="addCompanyForm.get('name')?.errors?.['required']">Company Name (English) is
+                required.</small>
             </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('nameAr')}">
             <label for="nameAr">Company Name (Arabic)</label>
-            <input required type="text" id="nameAr" formControlName="nameAr" class="form-control" placeholder="Enter company name (Arabic)"  appAlphanumeric [appInputRestriction]="'english'">
+            <input required type="text" id="nameAr" formControlName="nameAr" class="form-control"
+              placeholder="Enter company name (Arabic)" appAlphanumeric [appInputRestriction]="'english'">
             <div *ngIf="isFieldInvalid('nameAr')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('nameAr')?.errors?.['required']">Company Name (Arabic) is required.</small>
+              <small *ngIf="addCompanyForm.get('nameAr')?.errors?.['required']">Company Name (Arabic) is
+                required.</small>
             </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyField')}">
             <label for="companyField">Company Field</label>
-            <input required type="text" id="companyField" formControlName="companyField" class="form-control" placeholder="Software">
+            <input required type="text" id="companyField" formControlName="companyField" class="form-control"
+              placeholder="Software">
             <div *ngIf="isFieldInvalid('companyField')" class="text-danger">
               <small *ngIf="addCompanyForm.get('companyField')?.errors?.['required']">Company Field is required.</small>
             </div>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyExtention')}">
-            <label for="companyExtention">Company Extension</label>
-            <input required type="text" id="companyExtention" formControlName="companyExtention" class="form-control" placeholder="@example.com">
-            <div *ngIf="isFieldInvalid('companyExtention')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('companyExtention')?.errors?.['required']">Company Extension is required.</small>
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyExtension')}">
+            <label for="companyExtension">Company Extension</label>
+            <input required type="text" id="companyExtension" formControlName="companyExtension" class="form-control"
+              placeholder="@example.com">
+            <div *ngIf="isFieldInvalid('companyExtension')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('companyExtension')?.errors?.['required']">Company Extension is
+                required.</small>
+              <small *ngIf="addCompanyForm.get('companyExtension')?.errors?.['invalidCompanyExtension']">
+                Company extension must start with {{'@'}} and end with '.com'.
+              </small>
             </div>
           </div>
         </div>
@@ -66,13 +77,8 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('primaryColor')}">
             <label for="primaryColor">Primary Color</label>
-            <input
-              type="color"
-              id="primaryColor"
-              formControlName="primaryColor"
-              class="form-control"
-              placeholder="Enter company primary color"
-            >
+            <input type="color" id="primaryColor" formControlName="primaryColor" class="form-control"
+              placeholder="Enter company primary color">
             <div *ngIf="isFieldInvalid('primaryColor')" class="text-danger">
               <small *ngIf="addCompanyForm.get('primaryColor')?.errors?.['required']">Primary color is required.</small>
             </div>
@@ -81,15 +87,11 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('secondaryColor')}">
             <label for="secondaryColor">Secondary Color</label>
-            <input
-              type="color"
-              id="secondaryColor"
-              formControlName="secondaryColor"
-              class="form-control"
-              placeholder="Enter company secondary color"
-            >
+            <input type="color" id="secondaryColor" formControlName="secondaryColor" class="form-control"
+              placeholder="Enter company secondary color">
             <div *ngIf="isFieldInvalid('secondaryColor')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('secondaryColor')?.errors?.['required']">Secondary color is required.</small>
+              <small *ngIf="addCompanyForm.get('secondaryColor')?.errors?.['required']">Secondary color is
+                required.</small>
             </div>
           </div>
         </div>
@@ -97,7 +99,8 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('fontName')}">
             <label for="fontName">Font Name</label>
-            <input required type="text" id="fontName" formControlName="fontName" class="form-control" placeholder="Font Name">
+            <input required type="text" id="fontName" formControlName="fontName" class="form-control"
+              placeholder="Font Name">
             <div *ngIf="isFieldInvalid('fontName')" class="text-danger">
               <small *ngIf="addCompanyForm.get('fontName')?.errors?.['required']">Font Name is required.</small>
             </div>
@@ -133,7 +136,8 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('address')}">
             <label for="address">Address</label>
-            <input required type="text" id="address" formControlName="address" class="form-control" placeholder="Address">
+            <input required type="text" id="address" formControlName="address" class="form-control"
+              placeholder="Address">
             <div *ngIf="isFieldInvalid('address')" class="text-danger">
               <small *ngIf="addCompanyForm.get('address')?.errors?.['required']">Address is required.</small>
             </div>
@@ -152,48 +156,35 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
             <label for="phoneNumber">Mobile Number</label>
-            <ngx-intl-tel-input
-            [cssClass]="'custom w-100'"
-            [preferredCountries]="preferredCountries"
-            [enableAutoCountrySelect]="true"
-            [enablePlaceholder]="true"
-            [searchCountryFlag]="true"
-            [searchCountryField]="searchCountryFields"
-            [selectFirstCountry]="false"
-            [selectedCountryISO]="CountryISO.SaudiArabia"
-            [maxLength]="15"
-            [phoneValidation]="true"
-            formControlName="phone"
-          >
-          </ngx-intl-tel-input>
-          <div *ngIf="addCompanyForm.get('phone')?.touched && addCompanyForm.get('phone')?.errors" class="text-danger">
-            <small *ngIf="addCompanyForm.get('phone')?.errors?.['required']">Phone is required.</small>
-            <small *ngIf="addCompanyForm.get('phone')?.errors?.['validatePhoneNumber']">Invalid phone number.</small>
-          </div>
+            <ngx-intl-tel-input [cssClass]="'custom w-100'" [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+              [searchCountryField]="searchCountryFields" [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.SaudiArabia" [maxLength]="15" [phoneValidation]="true"
+              formControlName="phone">
+            </ngx-intl-tel-input>
+            <div *ngIf="addCompanyForm.get('phone')?.touched && addCompanyForm.get('phone')?.errors"
+              class="text-danger">
+              <small *ngIf="addCompanyForm.get('phone')?.errors?.['required']">Phone is required.</small>
+              <small *ngIf="addCompanyForm.get('phone')?.errors?.['validatePhoneNumber']">Invalid phone number.</small>
+            </div>
           </div>
         </div>
 
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phone')}">
             <label for="phone">Phone</label>
-            <ngx-intl-tel-input
-            [cssClass]="'custom w-100'"
-            [preferredCountries]="preferredCountries"
-            [enableAutoCountrySelect]="true"
-            [enablePlaceholder]="true"
-            [searchCountryFlag]="true"
-            [searchCountryField]="searchCountryFields"
-            [selectFirstCountry]="false"
-            [selectedCountryISO]="CountryISO.SaudiArabia"
-            [maxLength]="15"
-            [phoneValidation]="true"
-            formControlName="phoneNumber"
-          >
-          </ngx-intl-tel-input>
-          <div *ngIf="addCompanyForm.get('phoneNumber')?.touched && addCompanyForm.get('phoneNumber')?.errors" class="text-danger">
-            <small *ngIf="addCompanyForm.get('phoneNumber')?.errors?.['required']">Phone number is required.</small>
-            <small *ngIf="addCompanyForm.get('phoneNumber')?.errors?.['validatePhoneNumber']">Invalid phone number.</small>
-          </div>
+            <ngx-intl-tel-input [cssClass]="'custom w-100'" [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+              [searchCountryField]="searchCountryFields" [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.SaudiArabia" [maxLength]="15" [phoneValidation]="true"
+              formControlName="phoneNumber">
+            </ngx-intl-tel-input>
+            <div *ngIf="addCompanyForm.get('phoneNumber')?.touched && addCompanyForm.get('phoneNumber')?.errors"
+              class="text-danger">
+              <small *ngIf="addCompanyForm.get('phoneNumber')?.errors?.['required']">Phone number is required.</small>
+              <small *ngIf="addCompanyForm.get('phoneNumber')?.errors?.['validatePhoneNumber']">Invalid phone
+                number.</small>
+            </div>
           </div>
         </div>
 
@@ -209,9 +200,9 @@
           </div>
           <div *ngIf="isFieldInvalid('webSite')" class="text-danger">
             <small *ngIf="addCompanyForm.get('webSite')?.errors?.['required']">A valid website is required.</small>
-           </div>
+          </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
+        <!-- <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group">
             <label for="facebook">Facebook</label>
             <input type="text" id="facebook" formControlName="facebook" class="form-control" placeholder="Facebook">
@@ -234,7 +225,7 @@
             <label for="tiktok">Tiktok</label>
             <input type="text" id="tiktok" formControlName="tiktok" class="form-control" placeholder="Tiktok">
           </div>
-        </div>
+        </div> -->
       </div>
       <hr>
       <div class="row">
@@ -242,7 +233,8 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('description')}">
             <label for="description">Description</label>
             <textarea id="description" formControlName="description" class="form-control CustomModelInput"
-            appAlphanumeric [appInputRestriction]="'arabic'" placeholder="Description" minlength="100" maxlength="250"></textarea>
+              appAlphanumeric [appInputRestriction]="'arabic'" placeholder="Description" minlength="100"
+              maxlength="250"></textarea>
             <p class="char-counter">{{ addCompanyForm.get('description')?.value?.length || 0 }} / 250</p>
             <p *ngIf="reasonErrorMessageEn" class="text-danger">{{ reasonErrorMessageEn }}</p>
             <div *ngIf="isFieldInvalid('description')" class="text-danger">
@@ -254,11 +246,13 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('descriptionAr')}">
             <label for="descriptionAr">Description (Arabic)</label>
             <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control CustomModelInput"
-            appAlphanumeric [appInputRestriction]="'english'" placeholder="Description (Arabic)" minlength="100" maxlength="250"></textarea>
+              appAlphanumeric [appInputRestriction]="'english'" placeholder="Description (Arabic)" minlength="100"
+              maxlength="250"></textarea>
             <p class="char-counter">{{ addCompanyForm.get('descriptionAr')?.value?.length || 0 }} / 250</p>
             <p *ngIf="reasonErrorMessageAr" class="text-danger">{{ reasonErrorMessageAr }}</p>
             <div *ngIf="isFieldInvalid('descriptionAr')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('descriptionAr')?.errors?.['required']">Description in Arabic is required.</small>
+              <small *ngIf="addCompanyForm.get('descriptionAr')?.errors?.['required']">Description in Arabic is
+                required.</small>
             </div>
           </div>
         </div>
@@ -273,7 +267,8 @@
               <option *ngFor="let plan of subscriptionPlans" [value]="plan.id">{{ plan.name }}</option>
             </select>
             <div *ngIf="isFieldInvalid('subscriptionPlanId')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('subscriptionPlanId')?.errors?.['required']">Subscription Plan is required.</small>
+              <small *ngIf="addCompanyForm.get('subscriptionPlanId')?.errors?.['required']">Subscription Plan is
+                required.</small>
             </div>
           </div>
         </div>
@@ -289,4 +284,5 @@
     </form>
   </div>
 </div>
-<p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
+<p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'"
+  [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
