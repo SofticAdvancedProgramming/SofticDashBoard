@@ -34,5 +34,8 @@ export class EmployeeService {
   deleteEmployee(companyId:number,id:number): Observable<any> {
     return this.apiCall.request('POST', this.apiUrl + `/Delete/${id}/${companyId}`);
   }
+ loadEmployeeById(request: { id: number }): Observable<any> {
+  return this.apiCall.request('POST', `${this.apiUrl}/Get`, request);
+}
 
 }
