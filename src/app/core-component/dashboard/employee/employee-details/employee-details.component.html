@@ -54,7 +54,7 @@
         <app-financial></app-financial>
     </div>
     <div *ngIf="activeTab === 'shifts'">
-        <app-shifts></app-shifts>
+        <app-shifts [employeeId]="employee.id"></app-shifts>
     </div>
 </div>
 
