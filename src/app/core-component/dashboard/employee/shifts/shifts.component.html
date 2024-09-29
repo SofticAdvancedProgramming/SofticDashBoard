@@ -3,15 +3,23 @@
       <div class="col-lg-6">
         <div class="form-group">
           <label for="shift-start">{{ 'employeeDetails.Shift_Start_Time' | translate }}</label>
-          <input type="time" id="shift-start" class="form-control" [(ngModel)]="shift.start"
-            [disabled]="shift.start === noShiftMessage" />
+          <input 
+            type="time" 
+            id="shift-start" 
+            class="form-control" 
+            [(ngModel)]="shift.start"
+          />
         </div>
       </div>
       <div class="col-lg-6">
         <div class="form-group">
           <label for="shift-end">{{ 'employeeDetails.Shift_End_Time' | translate }}</label>
-          <input type="time" id="shift-end" class="form-control" [(ngModel)]="shift.end"
-            [disabled]="shift.end === noShiftMessage" />
+          <input 
+            type="time" 
+            id="shift-end" 
+            class="form-control" 
+            [(ngModel)]="shift.end"
+          />
         </div>
       </div>
     </div>
@@ -21,8 +29,7 @@
         <button class="btn-cancel" (click)="cancel()">{{ 'employeeDetails.Cancel' | translate }}</button>
       </div>
       <div class="col-lg-6">
-        <button class="btn-save" (click)="saveShift()"
-          [disabled]="shift.start === noShiftMessage || shift.end === noShiftMessage">
+        <button class="btn-save" (click)="saveShift()">
           {{ 'employeeDetails.Save' | translate }}
         </button>
       </div>

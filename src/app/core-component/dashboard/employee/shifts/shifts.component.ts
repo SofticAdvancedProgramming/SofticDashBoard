@@ -5,7 +5,6 @@ import { EmployeeService } from '../../../../services/employeeService/employee.s
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { employee } from '../../../../../models/employee';
 
 @Component({
   selector: 'app-shifts',
@@ -19,16 +18,17 @@ export class ShiftsComponent implements OnInit {
   @Input() employeeId!: number;
   selectedEmployee: any = null;
   shift = {
-    start: '',  // Initialize without default values
-    end: ''     // Initialize without default values
+    start: ' ',  
+    end: ' '     
   };
-  noShiftMessage = 'No Shift';  // Message to display if no shift is set
+  noShiftMessage = 'No Shift';  
+  isDataLoaded = false;    
 
   constructor(
     private employeeService: EmployeeService,
     private translate: TranslateService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loadEmployeeDetails(this.employeeId);
@@ -43,53 +43,51 @@ export class ShiftsComponent implements OnInit {
           this.selectedEmployee = data.data.list[0];
           console.log('Selected Employee:', this.selectedEmployee);
 
-          // Handling startShift if it's an object with hour and minute or a string
           if (this.selectedEmployee?.startShift) {
             this.shift.start = typeof this.selectedEmployee.startShift === 'string' ?
               this.formatShiftTimeFromString(this.selectedEmployee.startShift) :
               this.formatShiftTimeFromObject(this.selectedEmployee.startShift);
           } else {
-            this.shift.start = this.noShiftMessage;
+            this.shift.start = ' ';  
           }
 
-          // Handling endShift if it's an object with hour and minute or a string
           if (this.selectedEmployee?.endShift) {
             this.shift.end = typeof this.selectedEmployee.endShift === 'string' ?
               this.formatShiftTimeFromString(this.selectedEmployee.endShift) :
               this.formatShiftTimeFromObject(this.selectedEmployee.endShift);
           } else {
-            this.shift.end = this.noShiftMessage;
+            this.shift.end = ' ';   
           }
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No employee data found.' });
         }
+        this.isDataLoaded = true;  
       },
       error: (error) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load employee details.' });
         console.error('Error loading employee details:', error);
+        this.isDataLoaded = true;  
       }
     });
   }
 
-  // Method to format shift time from a string in "HH:MM:SS" format
   formatShiftTimeFromString(shiftTime: string): string {
     const timeParts = shiftTime.split(':');
     if (timeParts.length >= 2) {
-      return `${timeParts[0]}:${timeParts[1]}`;  // Return only "HH:MM"
+      return `${timeParts[0]}:${timeParts[1]}`;   
     }
-    return this.noShiftMessage;
+    return '00:00';   
   }
 
-  // Method to format shift time from an object with hour and minute properties
   formatShiftTimeFromObject(shift: { hour: number; minute: number }): string {
-    const hour = shift.hour.toString().padStart(2, '0');  // Ensure two digits for hour
-    const minute = shift.minute.toString().padStart(2, '0');  // Ensure two digits for minute
+    const hour = shift.hour.toString().padStart(2, '0');   
+    const minute = shift.minute.toString().padStart(2, '0');  
     return `${hour}:${minute}`;
   }
 
   isValidShift(): boolean {
-    const [startHour, startMinute] = this.shift.start.split(':').map(Number);
-    const [endHour, endMinute] = this.shift.end.split(':').map(Number);
+    const [startHour, startMinute] = (this.shift.start || '').split(':').map(Number);
+    const [endHour, endMinute] = (this.shift.end || '').split(':').map(Number);
 
     const startTime = new Date();
     startTime.setHours(startHour, startMinute, 0);
@@ -108,10 +106,10 @@ export class ShiftsComponent implements OnInit {
 
     const request = {
       employeeId: this.selectedEmployee?.id || 0,
-      startShiftHour: +this.shift.start.split(':')[0],
-      startShiftMinute: +this.shift.start.split(':')[1],
-      endShiftHour: +this.shift.end.split(':')[0],
-      endShiftMinute: +this.shift.end.split(':')[1]
+      startShiftHour: +(this.shift.start?.split(':')[0] || 0),
+      startShiftMinute: +(this.shift.start?.split(':')[1] || 0),
+      endShiftHour: +(this.shift.end?.split(':')[0] || 0),
+      endShiftMinute: +(this.shift.end?.split(':')[1] || 0)
     };
 
     console.log('Request to be sent:', request);
