@@ -17,12 +17,9 @@ import { ToastModule } from 'primeng/toast';
 export class ShiftsComponent implements OnInit {
   @Input() employeeId!: number;
   selectedEmployee: any = null;
-  shift = {
-    start: ' ',  
-    end: ' '     
-  };
-  noShiftMessage = 'No Shift';  
-  isDataLoaded = false;    
+  shift = { start: '', end: '' };
+  noShiftMessage = 'No Shift';
+  isDataLoaded = false;
 
   constructor(
     private employeeService: EmployeeService,
@@ -30,100 +27,110 @@ export class ShiftsComponent implements OnInit {
     private messageService: MessageService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadEmployeeDetails(this.employeeId);
   }
 
-  loadEmployeeDetails(employeeId: number) {
+  private loadEmployeeDetails(employeeId: number): void {
     const request = { id: employeeId };
+
     this.employeeService.loadEmployeeById(request).subscribe({
-      next: (data) => {
-        console.log('API response:', data);
-        if (data && data.data && data.data.list && data.data.list.length > 0) {
-          this.selectedEmployee = data.data.list[0];
-          console.log('Selected Employee:', this.selectedEmployee);
-
-          if (this.selectedEmployee?.startShift) {
-            this.shift.start = typeof this.selectedEmployee.startShift === 'string' ?
-              this.formatShiftTimeFromString(this.selectedEmployee.startShift) :
-              this.formatShiftTimeFromObject(this.selectedEmployee.startShift);
-          } else {
-            this.shift.start = ' ';  
-          }
-
-          if (this.selectedEmployee?.endShift) {
-            this.shift.end = typeof this.selectedEmployee.endShift === 'string' ?
-              this.formatShiftTimeFromString(this.selectedEmployee.endShift) :
-              this.formatShiftTimeFromObject(this.selectedEmployee.endShift);
-          } else {
-            this.shift.end = ' ';   
-          }
-        } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No employee data found.' });
-        }
-        this.isDataLoaded = true;  
-      },
-      error: (error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load employee details.' });
-        console.error('Error loading employee details:', error);
-        this.isDataLoaded = true;  
-      }
+      next: (data) => this.handleEmployeeData(data),
+      error: (error) => this.handleLoadError(error)
     });
   }
 
-  formatShiftTimeFromString(shiftTime: string): string {
-    const timeParts = shiftTime.split(':');
-    if (timeParts.length >= 2) {
-      return `${timeParts[0]}:${timeParts[1]}`;   
+  private handleEmployeeData(data: any): void {
+    if (data?.data?.list?.length > 0) {
+      this.selectedEmployee = data.data.list[0];
+      this.processShiftData();
+    } else {
+      this.showMessage('error', 'Error', 'No employee data found.');
     }
-    return '00:00';   
+    this.isDataLoaded = true;
   }
 
-  formatShiftTimeFromObject(shift: { hour: number; minute: number }): string {
-    const hour = shift.hour.toString().padStart(2, '0');   
-    const minute = shift.minute.toString().padStart(2, '0');  
+  private processShiftData(): void {
+    this.shift.start = this.selectedEmployee?.startShift
+      ? this.parseShiftTime(this.selectedEmployee.startShift)
+      : ' ';
+
+    this.shift.end = this.selectedEmployee?.endShift
+      ? this.parseShiftTime(this.selectedEmployee.endShift)
+      : ' ';
+  }
+
+  private handleLoadError(error: any): void {
+    this.showMessage('error', 'Error', 'Failed to load employee details.');
+    console.error('Error loading employee details:', error);
+    this.isDataLoaded = true;
+  }
+
+  private parseShiftTime(shiftTime: string | { hour: number; minute: number }): string {
+    return typeof shiftTime === 'string'
+      ? this.formatShiftTimeFromString(shiftTime)
+      : this.formatShiftTimeFromObject(shiftTime);
+  }
+
+  private formatShiftTimeFromString(shiftTime: string): string {
+    const [hour, minute] = shiftTime.split(':');
     return `${hour}:${minute}`;
   }
 
-  isValidShift(): boolean {
-    const [startHour, startMinute] = (this.shift.start || '').split(':').map(Number);
-    const [endHour, endMinute] = (this.shift.end || '').split(':').map(Number);
+  private formatShiftTimeFromObject(shift: { hour: number; minute: number }): string {
+    const hour = shift.hour.toString().padStart(2, '0');
+    const minute = shift.minute.toString().padStart(2, '0');
+    return `${hour}:${minute}`;
+  }
 
-    const startTime = new Date();
-    startTime.setHours(startHour, startMinute, 0);
-
-    const endTime = new Date();
-    endTime.setHours(endHour, endMinute, 0);
-
+  private isValidShift(): boolean {
+    const startTime = this.createDateFromShift(this.shift.start);
+    const endTime = this.createDateFromShift(this.shift.end);
     return startTime <= endTime;
   }
 
-  saveShift() {
+  private createDateFromShift(shift: string): Date {
+    const [hour, minute] = shift.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hour, minute, 0);
+    return date;
+  }
+
+  saveShift(): void {
     if (!this.isValidShift()) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Start shift cannot be after end shift.' });
+      this.showMessage('error', 'Error', 'Start shift cannot be after end shift.');
       return;
     }
 
     const request = {
       employeeId: this.selectedEmployee?.id || 0,
-      startShiftHour: +(this.shift.start?.split(':')[0] || 0),
-      startShiftMinute: +(this.shift.start?.split(':')[1] || 0),
-      endShiftHour: +(this.shift.end?.split(':')[0] || 0),
-      endShiftMinute: +(this.shift.end?.split(':')[1] || 0)
+      startShiftHour: +(this.shift.start.split(':')[0] || 0),
+      startShiftMinute: +(this.shift.start.split(':')[1] || 0),
+      endShiftHour: +(this.shift.end.split(':')[0] || 0),
+      endShiftMinute: +(this.shift.end.split(':')[1] || 0)
     };
 
-    console.log('Request to be sent:', request);
-
-    this.employeeService.assginShift(request).subscribe(response => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Shift assigned successfully.' });
-      console.log('Shift assigned successfully:', response);
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to assign shift.' });
-      console.error('Error assigning shift:', error);
+    this.employeeService.assginShift(request).subscribe({
+      next: (response) => this.handleShiftSuccess(response),
+      error: (error) => this.handleShiftError(error)
     });
   }
 
-  cancel() {
-    // Handle cancel action
+  private handleShiftSuccess(response: any): void {
+    this.showMessage('success', 'Success', 'Shift assigned successfully.');
+    console.log('Shift assigned successfully:', response);
+  }
+
+  private handleShiftError(error: any): void {
+    this.showMessage('error', 'Error', 'Failed to assign shift.');
+    console.error('Error assigning shift:', error);
+  }
+
+  private showMessage(severity: string, summary: string, detail: string): void {
+    this.messageService.add({ severity, summary, detail });
+  }
+
+  cancel(): void {
+
   }
 }
