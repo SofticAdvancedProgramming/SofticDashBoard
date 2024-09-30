@@ -11,6 +11,10 @@
       </div>
     </div>
 
+    <app-dynamic-modal [structure]="structure" [isEdit]="isEdit" [formData]="formData" [modalId]="modalId"
+      (submitForm)="handleFormSubmission($event)">
+    </app-dynamic-modal>
+
     <div class="tab-content">
       <div *ngIf="activeTab === 'Entitlements'">
         <div class="row mt-4">
@@ -42,32 +46,34 @@
             </div>
           </div>
           <hr>
-          <app-modern-table [tableTitle]="activeTab" [tableData]="financial" [columns]="columns"
-            searchPlaceholder="Search data...">
+          <app-modern-table [isThereSearch]="false" (newReqByPage)="loadEntitie('employeeSalary',$event)"
+            (searchApi)="loadEntitie('employeeSalary', 1 ,$event )" [totalRows]="totalRows['employeeSalary']"
+            [tableTitle]="activeTab" [tableData]="financial" [columns]="columns" searchPlaceholder="Search data...">
           </app-modern-table>
-
         </div>
       </div>
       <div *ngIf="activeTab === 'Deductions'">
         <div class="row mt-4">
-          <div class="row">
-            <!-- Deduction Toggle -->
-            <div class="col-lg-4 ">
-              <label>{{ 'employeeDetails.Deduction' | translate }}</label>
-              <input type="text" class="form-control" placeholder="10,000" />
+          <form [formGroup]="form">
+            <div class="row">
+              <div class=" col-lg-4 ">
+                <label>{{ 'employeeDetails.Bonus' | translate }}</label>
+                <input type="number" class="form-control" formControlName="amount" />
+              </div>
+              <div class="col-lg-4">
+                <label>{{ 'employeeDetails.Due_Date' | translate }}</label>
+                <input type="date" class="form-control ml-3" formControlName="transactionDate" />
+              </div>
+              <div class="col-lg-4">
+                <app-drop-down (currentPage)="currentPageDropDown" (onChange)="dropDown($event)"
+                  (getNextPageApi)="loadEntitiesDropDown('SalaryType',$event)" (currentPage)="currentPageDropDown"
+                  (search)="searchInDropDown('SalaryType',$event)" [items]="dropDownData"
+                  [itemsLength]="dropDownData.length" [label]="''" [placeholder]="'select'"
+                  [placeholderSearch]="'Search By Name'">
+                </app-drop-down>
+              </div>
             </div>
-            <div class="col-lg-4">
-              <label>{{ 'employeeDetails.Due_Date' | translate }}</label>
-              <input type="date" class="form-control ml-3" />
-            </div>
-            <div class="col-lg-4">
-              <app-drop-down (currentPage)="currentPageDropDown"
-                (getNextPageApi)="loadEntitiesDropDown('SalaryType',$event)" (currentPage)="currentPageDropDown"
-                (search)="searchInDropDown('SalaryType',$event)" (onChange)="dropDown($event)" [items]="dropDownData"
-                [itemsLength]="dropDownData.length" [label]="''" [placeholder]="'select'"
-                [placeholderSearch]="'Search By Name'"></app-drop-down>
-            </div>
-          </div>
+          </form>
           <div class="row justify-content-center text-center">
             <div class="col-lg-12 my-3">
               <button class="btn bonusBtn w-40" (click)="submit()">
@@ -76,12 +82,11 @@
             </div>
           </div>
           <hr>
-          <!-- Save Button -->
-          <div class="row my-3">
-            <div class="col-lg-12">
-              <button class="btn w-50 btn-save">{{ 'deductions.Save' | translate }}</button>
-            </div>
-          </div>
+          <app-modern-table [isThereSearch]="false" (newReqByPage)="loadEntitie('employeeSalary',$event)"
+          (editItem)="openEditModal($event)"
+            (searchApi)="loadEntitie('employeeSalary', 1 ,$event )" [totalRows]="totalRows['employeeSalary']"
+            [tableTitle]="activeTab" [tableData]="financial" [columns]="columns" searchPlaceholder="Search data...">
+          </app-modern-table>
         </div>
       </div>
 

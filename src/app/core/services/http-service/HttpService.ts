@@ -21,7 +21,11 @@ export class ApiCall {
 
   private jwt(): HttpHeaders {
     let token = localStorage.getItem('token');
-    let httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let lang = localStorage.getItem('lang') || 'en';
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'lang': lang
+    });
     if (token) {
       httpHeaders = httpHeaders.set('Authorization', `Bearer ${token}`);
     }

@@ -343,5 +343,9 @@
     "Due_Date": "Due (Date)",
     "Deduction": "Deduction",
     "Save": "Save"
-  }
+  },
+  "transactionDate": "Transaction Date",
+  "amount": "Amount",
+  "Actions": "Actions",
+  "id": "id"
 }
