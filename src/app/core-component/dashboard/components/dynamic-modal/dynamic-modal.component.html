@@ -10,9 +10,9 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           @for (field of structure; track field.name) {
           <label [for]="field.name">{{ field.label }}</label>
-          @if(field.type === 'radio' || field.type === 'checkbox'){
+          @if(field.type === 'checkbox'){
           <div class="form-check">
-            <input [type]="field.type" [id]="field.name" [formControlName]="field.name" class="form-check-input">
+            <input type="checkbox" [attr.type]="field.type" [id]="field.name" [formControlName]="field.name" class="form-check-input">
           </div>
           }@else{
           <input [type]="field.type" [id]="field.name" [formControlName]="field.name" class="form-control">
@@ -24,8 +24,7 @@
           }
           }
           <div class="d-flex justify-content-center">
-            <button type="submit" class="btn custom-button mt-3" data-bs-dismiss="modal">{{ isEdit ? 'Update' : 'Submit'
-              }}</button>
+            <button type="submit" class="btn custom-button mt-3" data-bs-dismiss="modal">{{ isEdit ? 'Update' : 'Submit'}}</button>
           </div>
         </form>
       </div>

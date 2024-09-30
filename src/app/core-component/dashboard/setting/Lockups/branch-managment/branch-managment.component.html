@@ -12,6 +12,6 @@
 
     <app-modern-table [tableTitle]="'Branches'" [tableData]="Branches" [columns]="columns" [modalId]="modalId"
         searchPlaceholder="Search data..." (editItem)="openEditModal($event)"
-        (deleteItem)="deleteEntity('Branch', $event.id)" deleteId="{{deleteId}}">
+        (deleteItem)="deleteEntity('Branch', $event.id)" [deleteId]="deleteId">
     </app-modern-table>
 </div>

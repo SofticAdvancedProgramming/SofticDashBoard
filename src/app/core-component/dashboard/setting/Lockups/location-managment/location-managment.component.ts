@@ -86,11 +86,7 @@ export class LocationManagmentComponent {
       (response: any) => {
         if (response.status === 200) {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
-          console.log(response.data.list);
         }
-      },
-      (error: any) => {
-        console.error(`Error fetching ${entity}`, error);
       }
     );
   }

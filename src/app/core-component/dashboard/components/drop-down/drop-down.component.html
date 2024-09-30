@@ -1,7 +1,18 @@
 <div class="form-group">
-    <label [for]="id">{{ label }}</label>
-    <select [id]="id">
-        <option value="" disabled selected>{{ placeholder }}</option>
-        <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
-    </select>
+  <label>{{ label | translate }}</label>
+  <mat-select msInfiniteScroll class="custom-select" [placeholder]="placeholder | translate"
+    [complete]="limit === itemsLength - 1" (infiniteScroll)="getNextPage()" (selectionChange)="onSelectChange($event)">
+    <input matInput class="form-control search" [placeholder]="placeholderSearch | translate"
+      [(ngModel)]="searchDataValue" (ngModelChange)="searcWithDebounce(searchDataValue)">
+    <mat-option value="0" selected disabled>
+      {{'select' | translate}}
+    </mat-option>
+    @for ( i of items; track i.id) {
+    <mat-option [value]="i.id">
+      {{i.name}}
+    </mat-option>
+    } @empty {
+    <option>{{'There are no items.' | translate }}</option>
+    }
+  </mat-select>
 </div>

@@ -8,6 +8,7 @@ import { ApiCall } from '../../core/services/http-service/HttpService';
 export class EmployeeService {
 
   private apiUrl = `${environment.apiBaseUrl}Employee`;
+  private employeeSalary = `${environment.apiBaseUrl}EmployeeSalary`;
 
   constructor(private apiCall: ApiCall) { }
 
@@ -28,8 +29,19 @@ export class EmployeeService {
   assginEmployeeToBranch(request: any): Observable<any> {
     return this.apiCall.request('POST', this.apiUrl + '/AssginBranch', request);
   }
-  deleteEmployee(companyId:number,id:number): Observable<any> {
+  deleteEmployee(companyId: number, id: number): Observable<any> {
     return this.apiCall.request('POST', this.apiUrl + `/Delete/${id}/${companyId}`);
+  }
+
+
+  // Employee Salary
+
+  loadEmployeeSalary(request: any): Observable<any> {
+    return this.apiCall.request('POST', this.employeeSalary + '/Get', request);
+  }
+
+  addEmployeeSalary(request: any): Observable<any> {
+    return this.apiCall.request('POST', this.employeeSalary + '/Add', request);
   }
 
 }

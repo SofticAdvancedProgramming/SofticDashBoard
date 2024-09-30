@@ -5,14 +5,13 @@
         Add Item
       </button>
     </div>
-  
+
     <app-dynamic-modal [structure]="structure" [isEdit]="isEdit" [formData]="formData" [modalId]="modalId"
       (submitForm)="handleFormSubmission($event)">
     </app-dynamic-modal>
-  
+
     <app-modern-table [tableTitle]="'Departments'" [tableData]="Departments" [columns]="columns" [modalId]="modalId"
       searchPlaceholder="Search data..." (editItem)="openEditModal($event)"
-      (deleteItem)="deleteEntity('Department', $event.id)" deleteId="{{deleteId}}">
+      (deleteItem)="deleteEntity('Department', $event.id)" [deleteId]="deleteId">
     </app-modern-table>
   </div>
-  

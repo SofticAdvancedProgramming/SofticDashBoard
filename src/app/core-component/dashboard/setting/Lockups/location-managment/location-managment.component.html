@@ -13,7 +13,7 @@
 
   <app-modern-table [tableTitle]="'Countries'" [tableData]="countries" [columns]="columns" [modalId]="modalId"
     searchPlaceholder="Search data..." (editItem)="openCountryEditModal($event)"
-    (deleteItem)="deleteEntity('country', $event.id, companyId)" deleteId="{{countryDeleteId}}">
+    (deleteItem)="deleteEntity('country', $event.id, companyId)" [deleteId]="countryDeleteId">
   </app-modern-table>
   <!-- End Country Section -->
   <hr>
@@ -35,13 +35,13 @@
   </select>
 
   <div *ngIf="cities.length > 0">
-    <app-dynamic-modal [structure]="cityStructure" [isEdit]="isEditCity" [formData]="CityformData" [modalId]="citymodalId"
-      (submitForm)="handleCitySubmission($event)">
+    <app-dynamic-modal [structure]="cityStructure" [isEdit]="isEditCity" [formData]="CityformData"
+      [modalId]="citymodalId" (submitForm)="handleCitySubmission($event)">
     </app-dynamic-modal>
 
     <app-modern-table [tableTitle]="'City'" [tableData]="cities" [columns]="columns" [modalId]="citymodalId"
       searchPlaceholder="Search data..." (editItem)="openCityEditModal($event)"
-      (deleteItem)="deleteEntity('city', $event.id, companyId)" deleteId="{{cityDeleteId}}">
+      (deleteItem)="deleteEntity('city', $event.id, companyId)" [deleteId]="cityDeleteId">
     </app-modern-table>
     <hr>
   </div>

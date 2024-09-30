@@ -22,7 +22,12 @@ export class PositionTypeManagmentComponent implements OnInit {
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
   ];
-
+  pageIndex: any = {
+    "PositionType": 1
+  };
+  totalRows: any = {
+    "PositionType": 0
+  };
   entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: string } } = {
     PositionType: {
       load: 'getPositionTypes',
@@ -38,19 +43,25 @@ export class PositionTypeManagmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadEntities('PositionType');
+    this.loadEntities('PositionType', this.pageIndex['PositionType']);
   }
 
-  loadEntities(entity: string): void {
+  loadEntities(entity: string, pageIndex: number, name?: string): void {
+    let query: any = { companyId: this.companyId, pageIndex };
+    if (name) {
+      query = {
+        ...query,
+        name
+      };
+    }
     const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
-    (this.positionTypeService[methodName] as Function)({companyId:this.companyId}).subscribe(
+    (this.positionTypeService[methodName] as Function)(query).subscribe(
       (response: any) => {
         if (response.status === 200) {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
+          this.totalRows[entity] = response.data.totalRows;
+          this.pageIndex[entity] = response.data.pageIndex;
         }
-      },
-      (error: any) => {
-        console.error(`Error fetching ${entity}`, error);
       }
     );
   }
@@ -60,11 +71,8 @@ export class PositionTypeManagmentComponent implements OnInit {
     (this.positionTypeService[methodName] as Function)(newEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity);
+          this.loadEntities(entity, this.pageIndex[entity]);
         }
-      },
-      (error: any) => {
-        console.error(`Error adding ${entity}`, error);
       }
     );
   }
@@ -74,11 +82,8 @@ export class PositionTypeManagmentComponent implements OnInit {
     (this.positionTypeService[methodName] as Function)(updatedEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity); // Reload the list
+          this.loadEntities(entity, this.pageIndex[entity]); // Reload the list
         }
-      },
-      (error: any) => {
-        console.error(`Error updating ${entity}`, error);
       }
     );
   }
@@ -88,11 +93,8 @@ export class PositionTypeManagmentComponent implements OnInit {
     (this.positionTypeService[methodName] as Function)(id, this.companyId).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity); // Reload the list
+          this.loadEntities(entity, this.pageIndex[entity]); // Reload the list
         }
-      },
-      (error: any) => {
-        console.error(`Error deleting ${entity}`, error);
       }
     );
   }

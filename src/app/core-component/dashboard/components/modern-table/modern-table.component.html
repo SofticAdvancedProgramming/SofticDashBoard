@@ -1,55 +1,70 @@
 <div class="table-container">
   <div class="row mb-3 align-items-center tableContainer">
     <div class="col-lg-3 col-md-12 col-sm-12">
-      <h5 class="tableTitle">{{ tableTitle }}</h5>
+      <h5 class="tableTitle">{{ tableTitle | translate }}</h5>
     </div>
     <div class="col-lg-3">
-      <input [(ngModel)]="searchText" [placeholder]="searchPlaceholder" class="form-control custom-search" />
+      @if(isThereSearch){
+      <input [(ngModel)]="searchText" [placeholder]="searchPlaceholder | translate" class="form-control custom-search"
+        (ngModelChange)="searcWithDebounce(searchText)" />
+      }
     </div>
     <div class="col-lg-2 col-md-6 col-sm-6">
-      <input type="date" [(ngModel)]="fromDate" class="form-control custom-date-filter" placeholder="From Date" />
+      @if(isThereSearchByDate){
+      <input type="date" [(ngModel)]="fromDate" class="form-control custom-date-filter"
+        [placeholder]="'From Date'| translate" (change)="searchDate()" />
+      }
     </div>
     <div class="col-lg-2 col-md-6 col-sm-6">
-      <input type="date" [(ngModel)]="toDate" class="form-control custom-date-filter" placeholder="To Date" />
+      @if(isThereSearchByDate){
+      <input type="date" [(ngModel)]="toDate" class="form-control custom-date-filter"
+        [placeholder]="'To Date' | translate" (change)="searchDate()" />
+      }
     </div>
     <div class="col-lg-2 col-md-12 col-sm-12 text-end">
-      <button (click)="exportToExcel()" class="btn btn-primary custom-button">Export to Excel</button>
+      <button (click)="exportToExcel()" class="btn btn-primary custom-button">{{'Export to Excel' | translate
+        }}</button>
     </div>
   </div>
   <div class="table-responsive">
     <table class="table custom-table">
       <thead>
         <tr>
-          <th class="customColumn" *ngFor="let column of columns">{{ formatHeader(column) }}</th>
+          <th class="customColumn" *ngFor="let column of columns">{{ column | translate }}</th>
           <th class="customColumn" *ngIf="showActions">Actions</th> <!-- Only show if showActions is true -->
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of filteredData">
-          <td class="tabelText" *ngFor="let column of columns">
-            <!-- Handle nested objects for properties like position and department -->
-            {{ getProperty(item, column) }}
-          </td>
-          <td class="tableText" *ngIf="showActions"> <!-- Only show if showActions is true -->
-            <button class="btn btn-sm mx-2" data-bs-toggle="modal" [attr.data-bs-target]="'#' + modalId" (click)="editItem.emit(item)">
-              <i class="fa-solid fa-lg fa-pen"></i>
-            </button>
-            <button class="btn" type="button" (click)="openDeleteModal(item)" data-bs-toggle="modal" [attr.data-bs-target]="'#' + deleteId">
+        <tr *ngFor="let item of tableData">
+          <td class="tableText" *ngFor="let column of columns">{{ item[column] }}</td>
+          <td class="tableText" *ngIf="showActions">
+            @if(isThereEdit){
+            <button class="btn btn-sm mx-2" data-bs-toggle="modal" [attr.data-bs-target]="'#' + modalId"
+              (click)="editItem.emit(item)"><i class="fa-solid fa-lg fa-pen"></i></button>
+            }
+            @if(isThereDelete){
+            <button class="btn" type="button" (click)="openDeleteModal(item)" data-bs-toggle="modal"
+              [attr.data-bs-target]="'#' +deleteId">
               <img class="CustomIcon" src="../../../../assets/images/delete.png">
             </button>
+            }
+            @if(newAction.length >= 1){
+            @for (newA of newAction ; track newA.isExisting ; let idx = $index, e = $even) {
+            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+              (click)="onCLickNewAction(item)">
+              <img class="CustomIcon" [src]="'../../../../assets/images/'+ newA['src']">
+            </button>
+            }
+            }
           </td>
         </tr>
       </tbody>
     </table>
   </div>
   <div class="d-flex justify-content-center custom-pagination">
-    <pagination
-      [totalItems]="tableData.length"
-      [(ngModel)]="currentPage"
-      [itemsPerPage]="itemsPerPage"
-      (pageChanged)="handlePageChange($event)"
-      previousText="&laquo;"
-      nextText="&raquo;">
+    <pagination [totalItems]="totalRows" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage" [maxSize]="10"
+      [boundaryLinks]="true" [firstText]="'First'|translate" [lastText]="'Last' | translate" previousText="&laquo;"
+      nextText="&raquo;" (pageChanged)="handlePageChange($event)">
     </pagination>
   </div>
   <app-delete-pop-up #deletePopUp (confirmDelete)="confirmDelete()" deleteId="{{deleteId}}"></app-delete-pop-up>

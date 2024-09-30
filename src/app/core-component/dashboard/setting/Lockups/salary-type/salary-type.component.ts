@@ -12,17 +12,24 @@ import { SalaryTypeService } from '../../../../../services/lockupsServices/Salar
 })
 export class SalaryTypeComponent {
   SalaryTypes: any[] = [];
-  columns: string[] = ['id', 'name', 'nameAr', 'isDeduction'];
+  columns: string[] = ['id', 'name', 'nameAr'];
   deleteId: string = 'deleteSalaryType';
   formData: any = {};
   isEdit = false;
   modalId = 'addSalaryType';
   companyId: number = 0;
   isDeduction = true;
+  options = [{ name: 'Deduction', value: false }, { name: 'Addition', value: true }]
+  pageIndex: any = {
+    "SalaryType": 1
+  };
+  totalRows: any = {
+    "SalaryType": 0
+  };
   structure = [
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
-    { name: 'isDeduction', label: 'is Deduction', type: 'checkbox', required: true },
+    { name: 'isDeduction', label: 'Deduction', type: 'checkbox', required: true },
   ];
 
   entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: string } } = {
@@ -40,15 +47,24 @@ export class SalaryTypeComponent {
   }
 
   ngOnInit(): void {
-    this.loadEntities('SalaryType');
+    this.loadEntities('SalaryType', 1);
   }
 
-  loadEntities(entity: string): void {
+  loadEntities(entity: string, pageIndex: number, name?: string): void {
+    let query: any = { companyId: this.companyId, isDeduction: this.isDeduction, pageIndex };
+    if (name) {
+      query = {
+        ...query,
+        name
+      };
+    }
     const methodName = this.entityTypes[entity].load as keyof SalaryTypeService;
-    (this.salaryTypeService[methodName] as Function)({ companyId: this.companyId }).subscribe(
+    (this.salaryTypeService[methodName] as Function)(query).subscribe(
       (response: any) => {
         if (response.status === 200) {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
+          this.pageIndex[entity] = response.data.pageIndex;
+          this.totalRows[entity] = response.data.totalRows;
         }
       }
     );
@@ -59,7 +75,7 @@ export class SalaryTypeComponent {
     (this.salaryTypeService[methodName] as Function)(newEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity);
+          this.loadEntities(entity, this.pageIndex[entity]);
         }
       }
     );
@@ -70,7 +86,7 @@ export class SalaryTypeComponent {
     (this.salaryTypeService[methodName] as Function)(updatedEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity);
+          this.loadEntities(entity, this.pageIndex[entity]);
         }
       }
     );
@@ -81,7 +97,7 @@ export class SalaryTypeComponent {
     (this.salaryTypeService[methodName] as Function)(id, this.companyId).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity);
+          this.loadEntities(entity, this.pageIndex[entity]);
         }
       }
     );
@@ -108,5 +124,10 @@ export class SalaryTypeComponent {
   openEditModal(item: any): void {
     this.isEdit = true;
     this.formData = { ...item, companyId: this.companyId };
+  }
+
+  onTypeChange(event: any) {
+    this.isDeduction = event.target.value === "true";
+    this.loadEntities('SalaryType', 1);
   }
 }
