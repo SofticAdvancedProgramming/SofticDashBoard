@@ -29,10 +29,15 @@ export class EmployeeService {
   assginEmployeeToBranch(request: any): Observable<any> {
     return this.apiCall.request('POST', this.apiUrl + '/AssginBranch', request);
   }
+  assginShift(request: any): Observable<any> {
+    return this.apiCall.request('POST', this.apiUrl + '/AssginShift', request);
+  }
   deleteEmployee(companyId: number, id: number): Observable<any> {
     return this.apiCall.request('POST', this.apiUrl + `/Delete/${id}/${companyId}`);
   }
-
+ loadEmployeeById(request: { id: number }): Observable<any> {
+  return this.apiCall.request('POST', `${this.apiUrl}/Get`, request);
+}
 
   // Employee Salary
 
@@ -43,5 +48,8 @@ export class EmployeeService {
   addEmployeeSalary(request: any): Observable<any> {
     return this.apiCall.request('POST', this.employeeSalary + '/Add', request);
   }
+
+
+ 
 
 }
