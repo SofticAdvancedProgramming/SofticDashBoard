@@ -70,7 +70,7 @@ export class AddCompanyComponent implements OnInit {
     this.addCompanyForm = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
-      companyExtension: ['', [Validators.required, this.companyExtensionValidator()]],
+      companyExtention: ['', [Validators.required, this.companyExtensionValidator()]],
       description: ['', Validators.required],
       descriptionAr: ['', Validators.required],
       phone: ['', [Validators.required]],
@@ -217,10 +217,10 @@ export class AddCompanyComponent implements OnInit {
       const value = control.value;
 
       // Check if the value starts with "@" and ends with ".com"
-      const isValid = value && value.startsWith('@') && value.endsWith('.com');
+      const isValid = value && value.startsWith('@');
 
       // If valid, return null, else return the error object
-      return isValid ? null : { invalidCompanyExtension: true };
+      return isValid ? null : { invalidcompanyExtention: true };
     };
   }
 
