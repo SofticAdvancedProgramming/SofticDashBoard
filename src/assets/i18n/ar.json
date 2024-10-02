@@ -310,6 +310,10 @@
     "LOADING": "جارٍ التحميل..."
   },
   "employeeDetails": {
+    "SALARY_ASSIGN_SUCCESS": "تم تخصيص الراتب بنجاح",
+    "grossSalary": "الراتب الإجمالي",
+    "netSalary": "الراتب الصافي",
+    "SALARY": "مرتب",
     "PERSONAL_INFORMATION": "معلومات شخصية",
     "ADVANCED_INFORMATION": "معلومات متقدمة",
     "REJECTED": "مرفوض",
@@ -344,5 +348,6 @@
   "transactionDate": "تاريخ المعاملة",
   "amount": "المبلغ",
   "Actions": "الإجراءات",
-  "id": "المعرف"
+  "id": "المعرف",
+  "FIELD_REQUIRED":"هذه الخانة مطلوبه"
 }

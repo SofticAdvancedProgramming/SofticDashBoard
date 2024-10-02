@@ -1,0 +1,92 @@
+/* Container styling */
+.container {
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  border-radius: 20px;
+}
+
+/* Title styling */
+.title {
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* Team name styling */
+.team {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Label styling */
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+/* Input styling */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  outline: none;
+}
+
+/* Button container styling */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Cancel button styling */
+.btn-cancel {
+  background-color: transparent;
+  border: 1px solid #a3e635;
+  color: #65a30d;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;
+}
+
+/* Save button styling */
+.btn-save {
+  background-color: #8e2de2;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+/* Hover effects */
+.btn-cancel:hover {
+  background-color: #a3e635;
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #6e1db2;
+}

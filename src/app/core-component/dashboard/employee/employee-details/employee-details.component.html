@@ -1,65 +1,70 @@
 <div [dir]=" currentLang === 'ar' ? 'rtl' : 'ltr'" class="profile-header">
-    <img src="../../../../assets/images/coverimg.png" alt="Background Image" class="background-img">
-    <div class="profile-content">
-        <div class="col-lg-6 d-flex align-items-center">
-            <img [src]="employee.referancePhoto || '../../../../assets/images/default.jpeg'" alt="Profile Image"
-                class="profile-img" (error)="onImageError($event)" />
-            <div class="profile-info">
-                <h1>{{employee.fullName}}</h1>
-            </div>
-        </div>
+  <img src="../../../../assets/images/coverimg.png" alt="Background Image" class="background-img">
+  <div class="profile-content">
+    <div class="col-lg-6 d-flex align-items-center">
+      <img [src]="employee.referancePhoto || '../../../../assets/images/default.jpeg'" alt="Profile Image"
+        class="profile-img" (error)="onImageError($event)" />
+      <div class="profile-info">
+        <h1>{{employee.fullName}}</h1>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="row justify-content-end d-flex my-4  ">
-    <div class="col-lg-6">
-        <div class="tabs">
-            <div class="tab" [ngClass]="{'active': activeTab === 'personal'}" (click)="setActiveTab('personal')">
-                {{ 'employeeDetails.PERSONAL_INFORMATION' | translate }}
-            </div>
-            <div class="tab" [ngClass]="{'active': activeTab === 'advanced'}" (click)="setActiveTab('advanced')">
-                {{ 'employeeDetails.ADVANCED_INFORMATION' | translate }}
-            </div>
-            <div class="tab" [ngClass]="{'active': activeTab === 'financial'}" (click)="setActiveTab('financial')">
-                {{ 'employeeDetails.FINANCIAL_INFORMATION' | translate }}
-            </div>
-            <div class="tab" [ngClass]="{'active': activeTab === 'shifts'}" (click)="setActiveTab('shifts')">
-                {{ 'employeeDetails.shifts' | translate }}
-            </div>
+  <div class="col-lg-6">
+    <div class="tabs">
+      <div class="tab" [ngClass]="{'active': activeTab === 'personal'}" (click)="setActiveTab('personal')">
+        {{ 'employeeDetails.PERSONAL_INFORMATION' | translate }}
+      </div>
+      <div class="tab" [ngClass]="{'active': activeTab === 'advanced'}" (click)="setActiveTab('advanced')">
+        {{ 'employeeDetails.ADVANCED_INFORMATION' | translate }}
+      </div>
+      <div class="tab" [ngClass]="{'active': activeTab === 'salary'}" (click)="setActiveTab('salary')">
+        {{ 'employeeDetails.SALARY' | translate }}
+      </div>
+      <div class="tab" [ngClass]="{'active': activeTab === 'financial'}" (click)="setActiveTab('financial')">
+        {{ 'employeeDetails.FINANCIAL_INFORMATION' | translate }}
+      </div>
+      <div class="tab" [ngClass]="{'active': activeTab === 'shifts'}" (click)="setActiveTab('shifts')">
+        {{ 'employeeDetails.shifts' | translate }}
+      </div>
 
-        </div>
     </div>
-    <div class="col-lg-6 justify-content-end gap-3 d-flex">
-        @if(employee.accountStatus === accountStatus.Pending) {
-        <button class="btn rejected" (click)="updateStatus(accountStatus.Rejected)">
-            {{ 'employeeDetails.REJECTED' | translate }}
-        </button>
-        <button class="btn accepted" (click)="updateStatus(accountStatus.Active)">
-            {{ 'employeeDetails.ACCEPTED' | translate }}
-        </button>
-        }
-    </div>
+  </div>
+  <div class="col-lg-6 justify-content-end gap-3 d-flex">
+    @if(employee.accountStatus === accountStatus.Pending) {
+    <button class="btn rejected" (click)="updateStatus(accountStatus.Rejected)">
+      {{ 'employeeDetails.REJECTED' | translate }}
+    </button>
+    <button class="btn accepted" (click)="updateStatus(accountStatus.Active)">
+      {{ 'employeeDetails.ACCEPTED' | translate }}
+    </button>
+    }
+  </div>
 </div>
 
 <div class="tab-content">
-    <div *ngIf="activeTab === 'personal'">
-        <app-personal-information [accountStatus]="employee.accountStatus"
-            (rotatedImageSaved)="handleRotatedImage($event)"> </app-personal-information>
-    </div>
-
-    <div *ngIf="activeTab === 'advanced'">
-        <app-countdown></app-countdown>
-    </div>
-    <div *ngIf="activeTab === 'financial'">
-        <app-financial></app-financial>
-    </div>
-    <div *ngIf="activeTab === 'shifts'">
-        <app-shifts></app-shifts>
-    </div>
+  <div *ngIf="activeTab === 'personal'">
+    <app-personal-information [accountStatus]="employee.accountStatus" (rotatedImageSaved)="handleRotatedImage($event)">
+    </app-personal-information>
+  </div>
+  <div *ngIf="activeTab === 'advanced'">
+    <app-countdown></app-countdown>
+  </div>
+  <div *ngIf="activeTab === 'salary'">
+    <app-salary></app-salary>
+  </div>
+  <div *ngIf="activeTab === 'financial'">
+    <app-financial></app-financial>
+  </div>
+  <div *ngIf="activeTab === 'shifts'">
+    <app-shifts></app-shifts>
+  </div>
 </div>
 
 <ng-template #loading>
-    <div class="text-center">
-        <p>{{ 'employeeDetails.LOADING' | translate }}</p>
-    </div>
+  <div class="text-center">
+    <p>{{ 'employeeDetails.LOADING' | translate }}</p>
+  </div>
 </ng-template>

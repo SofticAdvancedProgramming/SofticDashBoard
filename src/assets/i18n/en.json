@@ -313,6 +313,10 @@
     "LOADING": "Loading..."
   },
   "employeeDetails": {
+    "SALARY_ASSIGN_SUCCESS": "Salary assigned successfully",
+    "grossSalary": "Gross Salary",
+    "netSalary": "Net Salary",
+    "SALARY": "Salary",
     "PERSONAL_INFORMATION": "Personal Information",
     "ADVANCED_INFORMATION": "Advanced Information",
     "REJECTED": "Rejected",
@@ -344,6 +348,7 @@
     "Deduction": "Deduction",
     "Save": "Save"
   },
+  "FIELD_REQUIRED":"This field is required",
   "transactionDate": "Transaction Date",
   "amount": "Amount",
   "Actions": "Actions",
