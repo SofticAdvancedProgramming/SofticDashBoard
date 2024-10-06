@@ -31,7 +31,7 @@ export class EmployeeService {
   }
   assginShift(request: any): Observable<any> {
     return this.apiCall.request('POST', this.apiUrl + '/AssginShift', request);
-  }
+  }    
   deleteEmployee(companyId: number, id: number): Observable<any> {
     return this.apiCall.request('POST', this.apiUrl + `/Delete/${id}/${companyId}`);
   }

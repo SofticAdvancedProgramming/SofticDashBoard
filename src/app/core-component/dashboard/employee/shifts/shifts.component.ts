@@ -12,7 +12,7 @@ import { ToastModule } from 'primeng/toast';
   imports: [CommonModule, TranslateModule, FormsModule, ToastModule],
   templateUrl: './shifts.component.html',
   styleUrls: ['./shifts.component.css'],
-  providers: [MessageService]
+  providers: [MessageService]    
 })
 export class ShiftsComponent implements OnInit {
   @Input() employeeId!: number;
