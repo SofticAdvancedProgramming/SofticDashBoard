@@ -16,14 +16,15 @@ import { ToastersService } from '../../../../core/services/toast-service/toast.s
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { FinancialComponent } from "../financial/financial.component";
 import { ShiftsComponent } from "../shifts/shifts.component";
- 
+import { SalaryComponent } from "../salary/salary.component";
+
 
 @Component({
     selector: 'app-employee-details',
     standalone: true,
     templateUrl: './employee-details.component.html',
     styleUrls: ['./employee-details.component.css'],
-    imports: [RouterLink, TranslateModule, MatTabsModule, CommonModule, PersonalInformationComponent, AdvancedInformationComponent, CountdownComponent, FinancialComponent, ShiftsComponent]
+    imports: [RouterLink, TranslateModule, MatTabsModule, CommonModule, PersonalInformationComponent, AdvancedInformationComponent, CountdownComponent, FinancialComponent, ShiftsComponent, SalaryComponent]
 })
 export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   activeTab: string = 'personal';

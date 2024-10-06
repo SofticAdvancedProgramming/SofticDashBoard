@@ -9,6 +9,7 @@ export class EmployeeService {
 
   private apiUrl = `${environment.apiBaseUrl}Employee`;
   private employeeSalary = `${environment.apiBaseUrl}EmployeeSalary`;
+  private assginSalary = `${environment.apiBaseUrl}Employee/AssginSalary`;
 
   constructor(private apiCall: ApiCall) { }
 
@@ -49,7 +50,7 @@ export class EmployeeService {
     return this.apiCall.request('POST', this.employeeSalary + '/Add', request);
   }
 
-
- 
-
+  assginEmployeeSalary(request: any): Observable<any> {
+    return this.apiCall.request('POST', this.assginSalary, request);
+  }
 }
