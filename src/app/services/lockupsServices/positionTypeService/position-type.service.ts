@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environment/environment';
 import { ApiCall } from '../../../core/services/http-service/HttpService';
+import { positionTypeController } from '../../../apis/positionTypeController';
+ 
 @Injectable({
   providedIn: 'root'
 })
 export class PositionTypeService {
-  private positionTypeUrl = `${environment.apiBaseUrl}PositionType`;
 
   constructor(private apiCall: ApiCall) { }
 
   getPositionTypes(request: any = {}): Observable<any> {
-    return this.apiCall.request('POST', `${this.positionTypeUrl}/Get`, request);
+    return this.apiCall.request('POST', positionTypeController.getPositionTypes, request);
   }
 
-  addPositionType(PositionType: any): Observable<any> {
-    return this.apiCall.request('POST', `${this.positionTypeUrl}/Add`, PositionType);
+  addPositionType(positionType: any): Observable<any> {
+    return this.apiCall.request('POST', positionTypeController.addPositionType, positionType);
   }
 
-  editPositionType(PositionType: any): Observable<any> {
-    return this.apiCall.request('POST', `${this.positionTypeUrl}/Edit`, PositionType);
+  editPositionType(positionType: any): Observable<any> {
+    return this.apiCall.request('POST', positionTypeController.editPositionType, positionType);
   }
 
   deletePositionType(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.positionTypeUrl}/Delete/${id}/${companyId}`, {});
+    return this.apiCall.request('POST', positionTypeController.deletePositionType(id, companyId), {});
   }
 }

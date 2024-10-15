@@ -178,7 +178,7 @@ export class AddCompanyComponent implements OnInit {
 
     companyData.phone = companyData.phone?.e164Number;
     companyData.phoneNumber = companyData.phoneNumber?.e164Number;
-    this.companyService.AddCompany(companyData).subscribe(
+    this.companyService.addCompany(companyData).subscribe(
       response => {
         this.router.navigate(['../add-admin'], { relativeTo: this.route, queryParams: { companyId: response.data.id } });
       }

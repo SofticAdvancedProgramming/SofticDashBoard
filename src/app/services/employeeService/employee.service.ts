@@ -1,41 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environment/environment';
 import { ApiCall } from '../../core/services/http-service/HttpService';
+import { employeeController } from '../../apis/employeeController';
+ 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
 
-  private apiUrl = `${environment.apiBaseUrl}Employee`;
-
   constructor(private apiCall: ApiCall) { }
 
   loadEmployees(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/Get', request);
+    return this.apiCall.request('POST', employeeController.loadEmployees, request);
   }
+
   addEmployee(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/Add', request);
+    return this.apiCall.request('POST', employeeController.addEmployee, request);
   }
+
   assginEmployeeToPosition(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/AssginPosition', request);
+    return this.apiCall.request('POST', employeeController.assignToPosition, request);
   }
 
   assginEmployeeToDepartment(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/AssginDepartment', request);
+    return this.apiCall.request('POST', employeeController.assignToDepartment, request);
   }
 
   assginEmployeeToBranch(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/AssginBranch', request);
+    return this.apiCall.request('POST', employeeController.assignToBranch, request);
   }
-  assginShift(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/AssginShift', request);
-  }
-  deleteEmployee(companyId:number,id:number): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + `/Delete/${id}/${companyId}`);
-  }
- loadEmployeeById(request: { id: number }): Observable<any> {
-  return this.apiCall.request('POST', `${this.apiUrl}/Get`, request);
-}
 
+  assginShift(request: any): Observable<any> {
+    return this.apiCall.request('POST', employeeController.assignShift, request);
+  }
+
+  deleteEmployee(companyId: number, id: number): Observable<any> {
+    return this.apiCall.request('POST', employeeController.deleteEmployee(id, companyId));
+  }
+
+  loadEmployeeById(request: { id: number }): Observable<any> {
+    return this.apiCall.request('POST', employeeController.loadEmployeeById, request);
+  }
 }
+    

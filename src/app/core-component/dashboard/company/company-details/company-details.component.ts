@@ -111,7 +111,7 @@ export class CompanyDetailsComponent implements OnInit {
   async activateCompany(): Promise<void> {
     if (this.company.id && this.companyId) {
       try {
-        const response = await this.companyService.ActivatePosition(this.company.id, +this.companyId).toPromise();
+        const response = await this.companyService.activatePosition(this.company.id, +this.companyId).toPromise();
         console.log('Company activated:', response);
         this.showSuccess('Company activated successfully');
       } catch (error) {
@@ -125,7 +125,7 @@ export class CompanyDetailsComponent implements OnInit {
   async deactivateCompany(): Promise<void> {
     if (this.company.id && this.companyId) {
       try {
-        const response = await this.companyService.DeActivatePosition(this.company.id, +this.companyId).toPromise();
+        const response = await this.companyService.deactivatePosition(this.company.id, +this.companyId).toPromise();
         console.log('Company deactivated:', response);
         this.showSuccess('Company deactivated successfully');
       } catch (error) {

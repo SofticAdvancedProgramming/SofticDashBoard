@@ -180,7 +180,7 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   activateBranch(branch: branch): void {
-    this.branchService.ActivateBranch(branch.id, branch.companyId).subscribe({
+    this.branchService.activateBranch(branch.id, branch.companyId).subscribe({
       next: () => {
         branch.isActive = true;
         this.showSuccess('Branch activated successfully');
@@ -189,7 +189,7 @@ export class ViewBranchesComponent implements OnInit {
   }
 
   deactivateBranch(branch: branch): void {
-    this.branchService.DeActivateBranch(branch.id, branch.companyId).subscribe({
+    this.branchService.deactivateBranch(branch.id, branch.companyId).subscribe({
       next: () => {
         branch.isActive = false;
         this.showSuccess('Branch deactivated successfully');

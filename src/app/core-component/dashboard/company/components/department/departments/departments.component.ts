@@ -157,7 +157,7 @@ export class DepartmentsComponent implements OnInit {
 
   activateDepartment(department: Department): void {
     const companyId = this.getCompanyId();
-    this.departmentService.Activatedepartment(department.id, companyId || 0).subscribe({
+    this.departmentService.activateDepartment(department.id, companyId || 0).subscribe({
       next: () => {
         department.isActive = true;
         this.showSuccess('Department activated successfully');
@@ -167,7 +167,7 @@ export class DepartmentsComponent implements OnInit {
 
   deactivateDepartment(department: Department): void {
     const companyId = this.getCompanyId();
-    this.departmentService.DeActivatedepartment(department.id, companyId || 0).subscribe({
+    this.departmentService.deactivateDepartment(department.id, companyId || 0).subscribe({
       next: () => {
         department.isActive = false;
         this.showSuccess('Department deactivated successfully');

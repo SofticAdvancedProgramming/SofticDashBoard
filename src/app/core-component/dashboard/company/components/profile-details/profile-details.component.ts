@@ -171,7 +171,7 @@ export class ProfileDetailsComponent implements OnInit {
         updatedCompany.logo = this.base64ImageForServer;
       }
 
-      this.companyService.EditCompany(updatedCompany).subscribe(
+      this.companyService.editCompany(updatedCompany).subscribe(
         response => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Company updated successfully' });
           this.editMode = false;

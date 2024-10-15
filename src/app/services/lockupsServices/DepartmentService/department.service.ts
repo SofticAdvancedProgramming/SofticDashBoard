@@ -1,37 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environment/environment';
-import { Department } from '../../../../models/department';
+import { Department } from '../../../../models/department'; // Ensure this is correctly imported
 import { ApiCall } from '../../../core/services/http-service/HttpService';
-
+import { departmentController } from '../../../apis/departmentController';
+ 
 @Injectable({
   providedIn: 'root'
 })
 export class DepartmentService {
 
-  private departmentUrl = `${environment.apiBaseUrl}Department`;
-
   constructor(private apiCall: ApiCall) { }
 
   getDepartment(request: any = {}): Observable<any> {
-    return this.apiCall.request('POST', `${this.departmentUrl}/Get`, request);
+    return this.apiCall.request('POST', departmentController.getDepartment, request);
   }
 
   addDepartment(department: Department): Observable<any> {
-    return this.apiCall.request('POST', `${this.departmentUrl}/Add`, department);
+    return this.apiCall.request('POST', departmentController.addDepartment, department);
   }
 
   editDepartment(department: Department): Observable<any> {
-    return this.apiCall.request('POST', `${this.departmentUrl}/Edit`, department);
+    return this.apiCall.request('POST', departmentController.editDepartment, department);
   }
 
   deleteDepartment(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.departmentUrl}/Delete/${id}/${companyId}`, {});
+    return this.apiCall.request('POST', departmentController.deleteDepartment(id, companyId), {});
   }
-  Activatedepartment(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.departmentUrl}/Activate/${id}/${companyId}`, {});
+
+  activateDepartment(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', departmentController.activateDepartment(id, companyId), {});
   }
-  DeActivatedepartment(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.departmentUrl}/DeActivate/${id}/${companyId}`, {});
+
+  deactivateDepartment(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', departmentController.deactivateDepartment(id, companyId), {});
   }
 }

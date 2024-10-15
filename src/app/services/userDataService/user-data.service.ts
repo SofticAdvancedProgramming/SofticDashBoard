@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
-import { environment } from '../../environment/environment';
-
+import { userController } from '../../apis/userController';
+ 
 @Injectable({
   providedIn: 'root'
 })
 export class UserDataService {
-  private PersonalInformationUrl = `${environment.apiBaseUrl}Users`;
 
   constructor(private apiCall: ApiCall) { }
+
   loadPersonalInformation(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.PersonalInformationUrl + '/GetPersonalInformation', request,);
+    return this.apiCall.request('POST', userController.loadPersonalInformation, request);
   }
+
   editPersonalInformation(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.PersonalInformationUrl + '/EditPersonalInformation', request,);
+    return this.apiCall.request('POST', userController.editPersonalInformation, request);
   }
 }
