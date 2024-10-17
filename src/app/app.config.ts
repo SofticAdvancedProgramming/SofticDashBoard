@@ -16,6 +16,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from './environment/environment';
 import { MessagingService } from './services/messaging-service/messaging.service';
+import { LocalStorageService } from './services/local-storage-service/local-storage.service';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -47,7 +48,8 @@ export const appConfig: ApplicationConfig = {
     provideMessaging(() => getMessaging()),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
-    MessagingService
+    MessagingService,
+    LocalStorageService
   ]
 };
 
