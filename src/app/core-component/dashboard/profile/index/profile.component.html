@@ -11,7 +11,7 @@
     </div>
     <div class="col-lg-6 d-flex justify-content-end">
       <div class="custombtn ">
-        <button routerLink="../EditProfile" class="edit-profile-btn">{{'Edit Profile' | translate}}</button>
+        <button routerLink="../EditProfile" class="edit-profile-btn">{{'Profile_Information.Edit Profile' | translate}}</button>
       </div>
     </div>
   </div>
@@ -20,22 +20,22 @@
 <div class="container-fluid p-5">
   <div class="row">
     <div class="profile-card">
-      <h3>Profile Information</h3>
+      <h3>{{"Profile_Information.Profile Information" | translate}}</h3>
       <div class="profile-details">
         <div class="detail">
-          <span class="label">Full Name:</span>
+          <span class="label">{{"Profile_Information.Full Name"| translate}}:</span>
           <span class="value">{{user.firstName}}</span>
         </div>
         <div class="detail">
-          <span class="label">Mobile:</span>
+          <span class="label">{{"Profile_Information.Mobile"| translate}}:</span>
           <span class="value">{{user.phoneNumber}}</span>
         </div>
         <div class="detail">
-          <span class="label">Email:</span>
+          <span class="label">{{"Profile_Information.Email"| translate}}:</span>
           <span class="value">{{user.email}}</span>
         </div>
         <div class="detail">
-          <span class="label">BirthDate:</span>
+          <span class="label">{{"Profile_Information.BirthDate"| translate}}:</span>
           <span class="value">{{user.birthDate | date:'longDate'}}</span>
         </div>
       </div>

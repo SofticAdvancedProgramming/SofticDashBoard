@@ -21,6 +21,7 @@
     "19": "Password reset failed. Please try again.",
     "20": "Referance_Photo_Is_Required"
   },
+  "No notifications": "No notifications",
   "Read More": "اقرا المزيد",
   "WELCOME_BACK": "Welcome Back 👋",
   "LIGHT_DESCRIPTION": "Today is a new day. It's your day. You shape it. Sign in to start managing your projects.",
@@ -50,6 +51,16 @@
   "CHECK_INPUTS": "Please check your inputs and ensure OTP is 7 digits.",
   "SUCCESS": "Success",
   "PASSWORD_RESET_SUCCESS": "Password reset successful. You can now log in with your new password.",
+  "Admin":"Admin",
+  "Save":"Save",
+  "Profile_Information": {
+    "Edit Profile": "Edit Profile",
+    "Profile Information": "Profile Information",
+    "Full Name": "Full Name",
+    "Mobile": "Mobile",
+    "Email": "Email",
+    "BirthDate": "BirthDate"
+  },
   "PROFILE_DETAILS": {
     "EDIT": "Edit",
     "CANCEL": "Cancel",
@@ -135,8 +146,8 @@
     "CONFIRM_DELETE_BRANCH": "Are you sure you want to delete this branch?",
     "DELETE_CONFIRMATION": "Delete Confirmation",
     "BRANCH_DELETED": "Branch deleted successfully",
-    "YES":"Yes",
-    "NO":"No",
+    "YES": "Yes",
+    "NO": "No",
     "GO_BACK": "Go Back",
     "EMPLOYEES_OF": "موظفو {{ branchName }}",
     "COLUMN_ID": "الرقم",
@@ -218,6 +229,9 @@
     "POSITION_ADDED_SUCCESSFULLY": "Position added successfully",
     "ERROR_ADDING_POSITION": "Error adding position",
     "EDIT": "Edit"
+  },
+  "NAV": {
+    "SEARCH": "Search..."
   },
   "INDEX_POSITION": {
     "ADD_POSITION": "Add Position",
@@ -315,7 +329,7 @@
     "ADVANCED_INFORMATION": "Advanced Information",
     "REJECTED": "Rejected",
     "ACCEPTED": "Accepted",
-    "FINANCIAL_INFORMATION":"Financial",
+    "FINANCIAL_INFORMATION": "Financial",
     "Entitlements": "Entitlements",
     "Deductions": "Deductions",
     "Title": "Title",
@@ -328,7 +342,7 @@
     "Bonus": "Bonus",
     "Due_Date": "Due (Date)",
     "Add_Bonus": "Add Bonus",
-     "shifts":"shifts",
+    "shifts": "shifts",
     "Team_Leader": "Team leader",
     "George_Mikhaiel": "George Mikhaiel",
     "Shift_Start_Time": "Shift start time",
