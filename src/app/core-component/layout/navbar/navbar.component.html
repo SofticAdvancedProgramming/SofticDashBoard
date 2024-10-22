@@ -9,10 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <div class="col-lg-6">
         <form class="d-flex" role="search">
-          <input class="customSearch" type="search" placeholder="Search" aria-label="Search">
-          <button class="search-btn" type="submit">
-            <img src="../../../../assets/images/search-normal.png" alt="Search" width="16" height="16">
-          </button>
+          <input class="customSearch" type="search" [placeholder]="'NAV.SEARCH' | translate" aria-label="Search">
         </form>
       </div>
       <div class="col-lg-1 justify-content-center d-flex position-relative">
@@ -35,7 +32,7 @@
         </div>
       </div>
       <div class="col-lg-1 justify-content-center d-flex">
-        <!-- <app-change-language></app-change-language> -->
+        <app-change-language></app-change-language>
       </div> <!-- routerLink="profile" -->
       <div class="col-lg-4 d-flex gap-3 justify-content-end profile flex-fill" routerLink="profile">
         <a> <img class="img-fluid" [src]="profileImage ? profileImage: 'assets/images/default.jpeg'"> </a>
