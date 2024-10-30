@@ -7,29 +7,38 @@ import { PositionService } from '../../../../../../services/positionService/posi
 import { Department } from '../../../../../../../models/department';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { Router, RouterLink } from '@angular/router';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Position } from '../../../../../../../models/positionModel';
+import { DropDownComponent } from "../../../../../../common-component/drop-down/drop-down.component";
 
 @Component({
-  selector: 'app-add-position',
-  standalone: true,
-  imports: [CommonModule, FormsModule, ToastModule, ReactiveFormsModule, RouterLink, TranslateModule],
-  templateUrl: './add-position.component.html',
-  styleUrls: ['./add-position.component.css'],
-  providers: [MessageService],
+    selector: 'app-add-position',
+    standalone: true,
+    templateUrl: './add-position.component.html',
+    styleUrls: ['./add-position.component.css'],
+    providers: [MessageService],
+    imports: [CommonModule, FormsModule, ToastModule, ReactiveFormsModule, RouterLink, TranslateModule, DropDownComponent]
 })
 export class AddPositionComponent implements OnInit {
   @Input() isEdit: boolean = false;
   @Input() positionData: Position | any;
   @Output() action = new EventEmitter<boolean>();
   @Input() companyId?: string = '';
+  
   positionType: any[] = [];
   departments: Department[] = [];
   positions: any[] = [];
   form: FormGroup;
-  loading: boolean = true;
-
+  
+  positionTypePage = 1;
+  departmentPage = 1;
+  positionPage = 1;
+  itemsPerPage = 10;
+  loadingMorePositionTypes = false;
+  loadingMoreDepartments = false;
+  loadingMorePositions = false;
+  pageIndex: any;
   constructor(
     private fb: FormBuilder,
     private positionTypeService: PositionTypeService,
@@ -48,7 +57,7 @@ export class AddPositionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPositionTypes();
-    this.loadDepartmentsAndPositions();
+    this.loadDepartments();
     this.togglePositionField();
     if (this.isEdit) {
       this.initForm();
@@ -61,48 +70,98 @@ export class AddPositionComponent implements OnInit {
       department: this.positionData.departmentId,
       position: this.positionData.positionManagerId,
       isDirectManager: this.positionData.positionManagerId !== null
-    })
+    });
   }
 
   loadPositionTypes(): void {
-    this.positionTypeService.getPositionTypes({ companyId: this.companyId }).subscribe({
+    if (this.loadingMorePositionTypes) return;
+    this.loadingMorePositionTypes = true;
+  
+    this.positionTypeService.getPositionTypes({
+      companyId: this.companyId,
+      pageIndex: this.positionTypePage,
+      pageSize: this.itemsPerPage
+    }).subscribe({
       next: (response) => {
-        this.positionType = response.data.list;
-        this.checkLoadingState();
-      }
+        const newItems = response.data.list.filter((item: any) =>
+          !this.positionType.some((existingItem: any) => existingItem.id === item.id)
+        );
+        this.positionType = [...this.positionType, ...newItems];
+        this.loadingMorePositionTypes = false;
+        if (newItems.length) this.positionTypePage++;  
+      },
+      error: () => this.loadingMorePositionTypes = false
     });
   }
 
-  loadDepartmentsAndPositions(): void {
-    this.departmentsService.getDepartment({ companyId: this.companyId }).subscribe({
+  loadDepartments(): void {
+    if (this.loadingMoreDepartments) return;
+    this.loadingMoreDepartments = true;
+  
+    this.departmentsService.getDepartment({
+      companyId: this.companyId,
+      pageIndex: this.departmentPage,
+      pageSize: this.itemsPerPage
+    }).subscribe({
       next: (response) => {
-        this.departments = response.data.list;
-        this.loadPositions(); // Ensure positions are loaded after departments
-      }
+        const newItems = response.data.list.filter((item: any) =>
+          !this.departments.some((existingItem: any) => existingItem.id === item.id)
+        );
+        this.departments = [...this.departments, ...newItems];
+        this.loadingMoreDepartments = false;
+        if (newItems.length) this.departmentPage++;
+      },
+      error: () => this.loadingMoreDepartments = false
     });
   }
-
+  
   loadPositions(): void {
-    this.positionService.getPosition({ companyId: this.companyId }).subscribe({
+    if (this.loadingMorePositions) return;
+    this.loadingMorePositions = true;
+  
+    this.positionService.getPosition({
+      companyId: this.companyId,
+      pageIndex: this.positionPage,
+      pageSize: this.itemsPerPage
+    }).subscribe({
       next: (response) => {
-        this.positions = response.data.list.map((position: any) => ({
-          ...position,
-          departmentName: this.getDepartmentName(position.departmentId)
-        }));
-        this.checkLoadingState();
-      }
+        const newItems = response.data.list.filter((position: any) =>
+          !this.positions.some((existingPosition: any) => existingPosition.id === position.id)
+        );
+        this.positions = [...this.positions, ...newItems];
+        this.loadingMorePositions = false;
+        if (newItems.length) this.positionPage++;
+      },
+      error: () => this.loadingMorePositions = false
     });
   }
 
-  getDepartmentName(departmentId: number): string {
-    const department = this.departments.find(dep => dep.id === departmentId);
-    return department?.name ?? 'Unknown';
+  loadMorePositionTypes(pageIndex?: number): void {
+    this.positionTypePage = pageIndex || this.positionTypePage + 1;
+    this.loadPositionTypes();
+  }
+  
+  loadMoreDepartments(page?: number): void {
+    this.departmentPage = page || this.departmentPage + 1;
+    this.loadDepartments();
+  }
+  
+  loadMorePositions(page?: number): void {
+    this.positionPage = page || this.positionPage + 1;
+    this.loadPositions();
+  }
+  
+
+  onPositionTypeChange(value: any) {
+    this.form.get('positionType')?.setValue(value);
   }
 
-  checkLoadingState(): void {
-    if (this.positionType.length && this.departments.length && this.positions.length) {
-      this.loading = false;
-    }
+  onDepartmentChange(value: any) {
+    this.form.get('department')?.setValue(value);
+  }
+
+  onPositionChange(value: any) {
+    this.form.get('position')?.setValue(value);
   }
 
   togglePositionField(): void {
@@ -128,14 +187,13 @@ export class AddPositionComponent implements OnInit {
       departmentId: parseInt(this.form.value.department, 10),
       positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : null
     };
-    this.createOrEdit(positionData)
+    this.createOrEdit(positionData);
   }
 
   createOrEdit(positionData: Position) {
     this.positionService[this.isEdit ? 'editPosition' : 'addPosition'](positionData).subscribe({
       next: (response) => {
-        console.log('Position added successfully', response);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: this.isEdit ? 'Position Edit successfully' : 'Position added successfully' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: this.isEdit ? 'Position edited successfully' : 'Position added successfully' });
         if (!this.isEdit) {
           this.form.reset();
         } else {
@@ -149,13 +207,5 @@ export class AddPositionComponent implements OnInit {
 
   onBack(): void {
     this.action.emit(false);
-  }
-
-  trackByPositionId(index: number, item: any): number {
-    return item.id;
-  }
-
-  trackByDepartmentId(index: number, item: Department): number {
-    return item.id!;
   }
 }
