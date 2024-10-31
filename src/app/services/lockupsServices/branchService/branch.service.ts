@@ -1,38 +1,37 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { branch } from '../../../../models/branch';
-import { environment } from '../../../environment/environment';
+import { branch } from '../../../../models/branch'; 
 import { ApiCall } from '../../../core/services/http-service/HttpService';
-
+import { branchController } from '../../../apis/branchController';
+ 
 @Injectable({
   providedIn: 'root'
 })
 export class BranchService {
 
-  private branchUrl = `${environment.apiBaseUrl}Branch`;
-
   constructor(private apiCall: ApiCall) { }
 
   getBranch(request: any = {}): Observable<any> {
-    return this.apiCall.request('POST', `${this.branchUrl}/Get`, request);
+    return this.apiCall.request('POST', branchController.getBranch, request);
   }
 
   addBranch(branch: branch): Observable<any> {
-    return this.apiCall.request('POST', `${this.branchUrl}/Add`, branch);
+    return this.apiCall.request('POST', branchController.addBranch, branch);
   }
 
   editBranch(branch: branch): Observable<any> {
-    return this.apiCall.request('POST', `${this.branchUrl}/Edit`, branch);
+    return this.apiCall.request('POST', branchController.editBranch, branch);
   }
 
   deleteBranch(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.branchUrl}/Delete/${id}/${companyId}`, {});
+    return this.apiCall.request('POST', branchController.deleteBranch(id, companyId), {});
   }
-  ActivateBranch(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.branchUrl}/Activate/${id}/${companyId}`, {});
+
+  activateBranch(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', branchController.activateBranch(id, companyId), {});
   }
-  DeActivateBranch(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.branchUrl}/DeActivate/${id}/${companyId}`, {});
+
+  deactivateBranch(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', branchController.deactivateBranch(id, companyId), {});
   }
 }

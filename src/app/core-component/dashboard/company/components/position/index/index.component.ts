@@ -211,7 +211,7 @@ export class IndexComponent implements OnInit {
 
   activatePosition(Position: Position): void {
     debugger
-    this.positionService.ActivatePosition(Position.id || 0, Position.companyId || 0).subscribe({
+    this.positionService.activatePosition(Position.id || 0, Position.companyId || 0).subscribe({
       next: () => {
         Position.isActive = true;
         this.showSuccess('Position activated successfully');
@@ -221,7 +221,7 @@ export class IndexComponent implements OnInit {
 
   deactivatePosition(Position: Position): void {
     debugger
-    this.positionService.DeActivatePosition(Position.id || 0, Position.companyId || 0).subscribe({
+    this.positionService.deactivatePosition(Position.id || 0, Position.companyId || 0).subscribe({
       next: () => {
         Position.isActive = false;
         this.showSuccess('Position deactivated successfully');

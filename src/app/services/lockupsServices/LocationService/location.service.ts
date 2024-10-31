@@ -1,65 +1,63 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environment/environment';
 import { ApiCall } from '../../../core/services/http-service/HttpService';
-
-
+import { locationController } from '../../../apis/locationController';
+ 
 @Injectable({
   providedIn: 'root',
 })
 export class LocationService {
-  private countryUrl = `${environment.apiBaseUrl}Country`;
-  private cityUrl = `${environment.apiBaseUrl}City`;
-  private zoneUrl = `${environment.apiBaseUrl}Zone`;
 
   constructor(private apiCall: ApiCall) { }
 
   // Country methods
   getCountries(request: any = {}): Observable<any> {
-    return this.apiCall.request('POST', `${this.countryUrl}/Get`, request);
+    return this.apiCall.request('POST', locationController.country.get, request);
   }
 
   addCountry(country: any): Observable<any> {
-    return this.apiCall.request('POST', `${this.countryUrl}/Add`, country);
+    return this.apiCall.request('POST', locationController.country.add, country);
   }
 
   editCountry(country: any): Observable<any> {
-    return this.apiCall.request('POST', `${this.countryUrl}/Edit`, country);
+    return this.apiCall.request('POST', locationController.country.edit, country);
   }
 
   deleteCountry(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.countryUrl}/Delete/${id}/${companyId}`, {});
+    return this.apiCall.request('POST', locationController.country.delete(id, companyId), {});
   }
 
   // City methods
   getCities(request: any = {}): Observable<any> {
-    return this.apiCall.request('POST', `${this.cityUrl}/Get`, request);
+    return this.apiCall.request('POST', locationController.city.get, request);
   }
 
   addCity(city: any): Observable<any> {
-    return this.apiCall.request('POST', `${this.cityUrl}/Add`, city);
+    return this.apiCall.request('POST', locationController.city.add, city);
   }
 
   editCity(city: any): Observable<any> {
-    return this.apiCall.request('POST', `${this.cityUrl}/Edit`, city);
+    return this.apiCall.request('POST', locationController.city.edit, city);
   }
 
   deleteCity(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.cityUrl}/Delete/${id}/${companyId}`, {});
+    return this.apiCall.request('POST', locationController.city.delete(id, companyId), {});
   }
+
+  // Zone methods
   getZones(request: any = {}): Observable<any> {
-    return this.apiCall.request('POST', `${this.zoneUrl}/Get`, request);
+    return this.apiCall.request('POST', locationController.zone.get, request);
   }
 
   addZone(zone: any): Observable<any> {
-    return this.apiCall.request('POST', `${this.zoneUrl}/Add`, zone);
+    return this.apiCall.request('POST', locationController.zone.add, zone);
   }
 
   editZone(zone: any): Observable<any> {
-    return this.apiCall.request('POST', `${this.zoneUrl}/Edit`, zone);
+    return this.apiCall.request('POST', locationController.zone.edit, zone);
   }
 
   deleteZone(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.zoneUrl}/Delete/${id}}`, {});
+    return this.apiCall.request('POST', locationController.zone.delete(id, companyId), {});
   }
 }

@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { ApiCall } from '../../core/services/http-service/HttpService';
-
+import { authController } from '../../apis/authController';
+ 
 @Injectable({
   providedIn: 'root',
 })
@@ -49,7 +50,7 @@ export class AuthenticationService {
   login(email: string, password: string, deviceToken: string): Observable<any> {
     console.log('Attempting login with email:', email);
     return this.apiCall
-      .request('POST', `${environment.apiBaseUrl}Auth/Login`, {
+      .request('POST', `${environment.apiBaseUrl}${authController.login}`, {
         email,
         password,
         deviceToken
@@ -63,15 +64,16 @@ export class AuthenticationService {
             return response;
           }
           return response;
-        }));
+        })
+      );
   }
 
   getPersonalInformation(req: any = {}): Observable<any> {
-    return this.apiCall.request('POST', `${environment.apiBaseUrl}Users/GetPersonalInformation`, req);
+    return this.apiCall.request('POST', `${environment.apiBaseUrl}${authController.getPersonalInformation}`, req);
   }
 
   editUser(payload: any): Observable<any> {
-    return this.apiCall.request('POST', `${environment.apiBaseUrl}Users/EditPersonalInformation`, payload);
+    return this.apiCall.request('POST', `${environment.apiBaseUrl}${authController.editPersonalInformation}`, payload);
   }
 
   logout() {
@@ -84,7 +86,7 @@ export class AuthenticationService {
     window.location.href = '/';
   }
 
-  public decodeToken(token: string): any { // Changed to public
+  public decodeToken(token: string): any {
     try {
       return JSON.parse(atob(token.split('.')[1]));
     } catch (e) {
@@ -113,17 +115,17 @@ export class AuthenticationService {
 
   forgetPassword(email: string): Observable<any> {
     return this.apiCall
-      .request('POST', `${environment.apiBaseUrl}Auth/ForgetPassword`, { email })
+      .request('POST', `${environment.apiBaseUrl}${authController.forgetPassword}`, { email })
       .pipe(
-        map((response) => response),
+        map((response) => response)
       );
   }
 
   resetPassword(email: string, password: string, otp: string): Observable<any> {
     return this.apiCall
-      .request('POST', `${environment.apiBaseUrl}Auth/ResetPassword`, { email, password, otp })
+      .request('POST', `${environment.apiBaseUrl}${authController.resetPassword}`, { email, password, otp })
       .pipe(
-        map((response) => response),
+        map((response) => response)
       );
   }
 }

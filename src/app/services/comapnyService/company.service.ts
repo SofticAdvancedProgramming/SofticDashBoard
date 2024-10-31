@@ -1,39 +1,44 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environment/environment';
 import { ApiCall } from '../../core/services/http-service/HttpService';
-
+import { companyController } from '../../apis/companyController';
+ 
 @Injectable({
   providedIn: 'root',
 })
 export class CompanyService {
-  private apiUrl = `${environment.apiBaseUrl}Company`;
 
   constructor(private apiCall: ApiCall) { }
 
   loadCompanies(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/Get', request,);
+    return this.apiCall.request('POST', companyController.loadCompanies, request);
   }
+
   getCompany(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/Get', request,);
+    return this.apiCall.request('POST', companyController.getCompany, request);
   }
-  AddCompany(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/Add', request,);
+
+  addCompany(request: any): Observable<any> {
+    return this.apiCall.request('POST', companyController.addCompany, request);
   }
-  EditCompany(request: any): Observable<any> {
-     return this.apiCall.request('POST', this.apiUrl + '/Edit',request);
+
+  editCompany(request: any): Observable<any> {
+    return this.apiCall.request('POST', companyController.editCompany, request);
   }
-  
-  ActivateCompany(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/Add', request,);
+
+  activateCompany(request: any): Observable<any> {
+    return this.apiCall.request('POST', companyController.activateCompany, request);
   }
-  DeActivateCompany(request: any): Observable<any> {
-    return this.apiCall.request('POST', this.apiUrl + '/Add', request,);
+
+  deactivateCompany(request: any): Observable<any> {
+    return this.apiCall.request('POST', companyController.deactivateCompany, request);
   }
-  ActivatePosition(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.apiUrl}/Activate/${id}/${companyId}`, {});
+
+  activatePosition(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', companyController.activatePosition(id, companyId), {});
   }
-  DeActivatePosition(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.apiUrl}/DeActivate/${id}/${companyId}`, {});
+
+  deactivatePosition(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', companyController.deactivatePosition(id, companyId), {});
   }
 }

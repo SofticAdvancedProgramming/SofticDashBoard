@@ -19,22 +19,24 @@
   <div class="profile-form">
     <div class="row">
       <div class="col-lg-6 col-md-12">
-        <app-custom-input label="Full Name" [(ngModel)]="userData.fullName" placeholder="Full Name"></app-custom-input>
+        <app-custom-input [label]="'Profile_Information.Full Name' | translate" [(ngModel)]="userData.fullName"
+          [placeholder]="'Profile_Information.Full Name' | translate"></app-custom-input>
       </div>
       <div class="col-lg-6 col-md-12">
-        <app-custom-input label="Mobile" [(ngModel)]="userData.phoneNumber" placeholder="Mobile" [disabled]='true'></app-custom-input>
+        <app-custom-input [label]="'Profile_Information.Mobile' | translate" [(ngModel)]="userData.phoneNumber"
+          [placeholder]="'Profile_Information.Mobile'| translate" [disabled]='true'></app-custom-input>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-6 col-md-12">
-        <app-custom-input label="Email" [(ngModel)]="userData.email" placeholder="Email"
-          [disabled]='true'></app-custom-input>
+        <app-custom-input [label]="'Profile_Information.Email' | translate" [(ngModel)]="userData.email"
+          [placeholder]="'Profile_Information.Email' | translate" [disabled]='true'></app-custom-input>
       </div>
     </div>
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-8 col-sm-10 text-center">
         <div class="p-0 w-100">
-          <button (click)="save()" class="btn save-btn">Save</button>
+          <button (click)="save()" class="btn save-btn">{{'Save' | translate}}</button>
         </div>
       </div>
     </div>
