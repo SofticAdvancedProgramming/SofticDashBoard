@@ -27,7 +27,21 @@ export class EmployeeService {
   }
 
   assginEmployeeToBranch(request: any): Observable<any> {
-    return this.apiCall.request('POST', employeeController.assignToBranch, request);
+    return this.apiCall.request('POST', employeeController.assignToBranch + '/AssginBranch', request);
+  }
+
+
+  // Employee Salary
+  loadEmployeeSalary(request: any): Observable<any> {
+    return this.apiCall.request('POST', employeeController.employeeSalary + '/Get', request);
+  }
+
+  addEmployeeSalary(request: any): Observable<any> {
+    return this.apiCall.request('POST', employeeController.employeeSalary + '/Add', request);
+  }
+
+  assginEmployeeSalary(request: any): Observable<any> {
+    return this.apiCall.request('POST', employeeController.assginSalary, request);
   }
 
   assginShift(request: any): Observable<any> {

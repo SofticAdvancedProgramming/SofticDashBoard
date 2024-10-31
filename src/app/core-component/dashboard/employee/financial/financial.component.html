@@ -83,9 +83,9 @@
           </div>
           <hr>
           <app-modern-table [isThereSearch]="false" (newReqByPage)="loadEntitie('employeeSalary',$event)"
-          (editItem)="openEditModal($event)"
-            (searchApi)="loadEntitie('employeeSalary', 1 ,$event )" [totalRows]="totalRows['employeeSalary']"
-            [tableTitle]="activeTab" [tableData]="financial" [columns]="columns" searchPlaceholder="Search data...">
+            (editItem)="openEditModal($event)" (searchApi)="loadEntitie('employeeSalary', 1 ,$event )"
+            [totalRows]="totalRows['employeeSalary']" [tableTitle]="activeTab" [tableData]="financial"
+            [columns]="columns" searchPlaceholder="Search data...">
           </app-modern-table>
         </div>
       </div>

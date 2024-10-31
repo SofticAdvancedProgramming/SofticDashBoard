@@ -29,7 +29,7 @@ export class SalaryTypeComponent {
   structure = [
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
-    { name: 'isDeduction', label: 'Deduction', type: 'checkbox', required: true },
+    { name: 'isDeduction', label: 'Deduction', type: 'checkbox', required: false },
   ];
 
   entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: string } } = {

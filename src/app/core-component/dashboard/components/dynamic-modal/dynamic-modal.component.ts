@@ -46,7 +46,11 @@ export class DynamicModalComponent implements OnInit, OnChanges {
   initializeForm() {
     const formControls: { [key: string]: any } = {};
     this.structure.forEach((field: Field) => {
-      formControls[field.name] = [this.isEdit ? this.formData[field.name] : null, field.required ? Validators.required : null];
+      if (field.type === 'checkbox') {
+        formControls[field.name] = [this.isEdit ? this.formData[field.name] : false, field.required ? Validators.required : false];
+      } else {
+        formControls[field.name] = [this.isEdit ? this.formData[field.name] : null, field.required ? Validators.required : null];
+      }
     });
     this.form = this.fb.group(formControls);
   }

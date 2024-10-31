@@ -1,12 +1,12 @@
 import { ToastersService } from './../../../../core/services/toast-service/toast.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
 import { SalaryTypeService } from '../../../../services/lockupsServices/SalaryService/salary.service';
 import { DropDownComponent } from "../../components/drop-down/drop-down.component";
 import { ModernTableComponent } from "../../components/modern-table/modern-table.component";
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
@@ -25,6 +25,8 @@ export class FinancialComponent {
   isDeduction = true;
   isEdit = false;
   currentPageDropDown = 1;
+  dropDownDataIsDeductionTrue: any[] = [];
+  dropDownDataIsDeductionFalse: any[] = [];
   dropDownData: any[] = [];
   financial: any[] = [];
   columns: string[] = ['id', 'amount', 'transactionDate'];
@@ -70,7 +72,6 @@ export class FinancialComponent {
   }
 
   ngOnInit(): void {
-    console.log(this.getCurrentMonthDates());
     this.loadEntitiesDropDown('SalaryType', 1);
     this.loadEntitie('employeeSalary', 1);
   }
@@ -122,8 +123,16 @@ export class FinancialComponent {
     (this.salaryTypeService[methodName] as Function)({ pageIndex, isDeduction: this.isDeduction }).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.dropDownData.push(...response.data.list);
-          this.currentPageDropDown = response.data.pageIndex
+          if (this.isDeduction == true) {
+            this.dropDownDataIsDeductionFalse = [];
+            this.dropDownDataIsDeductionTrue.push(...response.data.list);
+            this.dropDownData = this.dropDownDataIsDeductionTrue;
+          } else {
+            this.dropDownDataIsDeductionTrue = [];
+            this.dropDownDataIsDeductionFalse.push(...response.data.list);
+            this.dropDownData = this.dropDownDataIsDeductionFalse;
+          }
+          this.currentPageDropDown = response.data.pageIndex;
         }
       }
     );
@@ -135,7 +144,11 @@ export class FinancialComponent {
     (this.salaryTypeService[methodName] as Function)(searchDataValue.length ? { name: searchDataValue } : {}).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.dropDownData = response.data.list;
+          if (this.isDeduction == true) {
+            this.dropDownDataIsDeductionTrue = response.data.list;
+          } else {
+            this.dropDownDataIsDeductionFalse = response.data.list;
+          }
         }
       }
     );
