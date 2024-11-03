@@ -10,7 +10,7 @@ export class LocalStorageService {
     @Inject(PLATFORM_ID) private platformId: object
   ) { }
 
-  private isBrowser(): boolean {
+  public isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
 

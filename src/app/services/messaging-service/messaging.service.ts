@@ -1,48 +1,65 @@
 import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { getToken, Messaging, onMessage } from '@angular/fire/messaging'
+import { getToken, Messaging, onMessage } from '@angular/fire/messaging';
+ import { LocalStorageService } from '../local-storage-service/local-storage.service';
+import { UserService } from '../user/user-service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class MessagingService {
   currentMessage = new BehaviorSubject<any>(null);
-  countNotifications = signal(0);
+  public countNotifications = signal(0);
 
   constructor(
+    private localStorageService: LocalStorageService,
     private _messaging: Messaging,
-  ) {
-  }
+    private userService: UserService,
+  ) { }
 
   async getFCMToken(): Promise<string | null> {
-    try {
-      const token = await getToken(this._messaging);
-      console.log(token);
-      return token; // Return the FCM token if successful
-    } catch (error) {
-      console.error('Token error', error);
-      return null; // Return null if there's an error
+    if (this.localStorageService.isBrowser()) {
+      try {
+        const token = await getToken(this._messaging);
+        console.log('FCM Token:', token);
+        return token;
+      } catch (error) {
+        console.error('Error getting FCM Token:', error);
+        return null;
+      }
+    }
+    return null; // Return null if not in a browser environment
+  }
+
+  public receiveMessaging(): void {
+    if (this.localStorageService.isBrowser()) {
+      onMessage(this._messaging, {
+        next: (payload: any) => {
+          this.countNotification();
+          this.currentMessage.next(payload);
+          this.showToast(payload.notification.title, payload.notification.body);
+        },
+        error: (error) => console.error('Error receiving message:', error),
+        complete: () => console.log('Done listening for messages')
+      });
     }
   }
 
-
-
-  public receiveMessageing(): void {
-    onMessage(this._messaging, {
-      next: (payload: any) => {
-        this.currentMessage.next(payload);
-        this.showToast(payload.notification.title, payload.notification.body);
-      },
-      error: (error) => console.log('Message error', error),
-      complete: () => console.log('Done listening to messages'),
+  countNotification() {
+    const userId = Number(this.localStorageService.getItem('userId'));
+    const companyId = Number(this.localStorageService.getItem('companyId'));
+    this.userService.countNotification({ companyId, employeeId: userId }).subscribe((res) => {
+      this.localStorageService.setItem('countNotifications', res.data);
+      this.countNotifications.set(res.data);
     });
   }
 
   showToast(title: string, body: string) {
-    if (typeof window !== 'undefined') {
+    if (this.localStorageService.isBrowser()) {
       import('bootstrap').then(({ Toast }) => {
         const toastElement = document.getElementById('liveToast');
         if (toastElement) {
-          // Update the title and body dynamically before showing the toast
+          // Update title and body dynamically
           const toastTitleElement = toastElement.querySelector('.toast-header strong');
           const toastBodyElement = toastElement.querySelector('.toast-body');
 
@@ -58,6 +75,8 @@ export class MessagingService {
           const toast = new Toast(toastElement);
           toast.show();
         }
+      }).catch(error => {
+        console.error('Error loading Bootstrap Toast:', error);
       });
     }
   }
