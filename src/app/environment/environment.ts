@@ -1,6 +1,6 @@
 export const environment = {
-  apiBaseUrl: '/api/',
-  dashboardBaseUrl: 'https://attendancebackend.smartnetworkai.com/',
+  apiBaseUrl: 'http://162.55.240.20:8090/api/',
+  dashboardBaseUrl: 'http://162.55.240.20:8090/',
   ElmedaniHub: 'https://sap-pro.xyz:44333/ElmedaniHub',
   firebaseConfig: {
     apiKey: "AIzaSyCCZ-fcHWUvAtLaJLZG4V69s36QDib4MCk",
