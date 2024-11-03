@@ -70,7 +70,7 @@ export class AddCompanyComponent implements OnInit {
     this.addCompanyForm = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
-      companyExtension: ['', [Validators.required, this.companyExtensionValidator()]],
+      companyExtention: ['', Validators.required],
       description: ['', Validators.required],
       descriptionAr: ['', Validators.required],
       phone: ['', [Validators.required]],
@@ -172,18 +172,25 @@ export class AddCompanyComponent implements OnInit {
     this.executeAddFunction();
   }
 
-
   private executeAddFunction(): void {
     const companyData = { ...this.addCompanyForm.value };
 
     companyData.phone = companyData.phone?.e164Number;
     companyData.phoneNumber = companyData.phoneNumber?.e164Number;
+
+    // Console log the form data before submission
+    console.log('Company Data:', companyData);
+
     this.companyService.addCompany(companyData).subscribe(
       response => {
         this.router.navigate(['../add-admin'], { relativeTo: this.route, queryParams: { companyId: response.data.id } });
+      },
+      error => {
+        console.error('Error adding company:', error);
       }
     );
-  }
+}
+
 
   private validateAllFormFields(formGroup: FormGroup): void {
     Object.keys(formGroup.controls).forEach(field => {
@@ -212,7 +219,7 @@ export class AddCompanyComponent implements OnInit {
     return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
-  companyExtensionValidator(): ValidatorFn {
+  companyExtentionValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
 
@@ -220,7 +227,7 @@ export class AddCompanyComponent implements OnInit {
       const isValid = value && value.startsWith('@') && value.endsWith('.com');
 
       // If valid, return null, else return the error object
-      return isValid ? null : { invalidCompanyExtension: true };
+      return isValid ? null : { invalidcompanyExtention: true };
     };
   }
 
