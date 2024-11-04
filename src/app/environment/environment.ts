@@ -1,5 +1,5 @@
 export const environment = {
-  apiBaseUrl: 'http://162.55.240.20:8090/api/',
+  apiBaseUrl: 'https://smartnetworkai.com/api/',
   dashboardBaseUrl: 'http://162.55.240.20:8090/',
   ElmedaniHub: 'https://sap-pro.xyz:44333/ElmedaniHub',
   firebaseConfig: {
