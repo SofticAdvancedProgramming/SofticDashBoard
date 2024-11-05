@@ -13,11 +13,11 @@ export interface Company {
   secondaryColor: string;
   fontName: string;
   webSite: string;
-  facebook: string;
-  twitter: string;
+  facebook?: string;
+  twitter?: string;
   instgram: string;
-  x: string;
-  tiktok: string;
+  x?: string;
+  tiktok?: string;
   cityId: number;
   countryId: number;
   address: string;
@@ -25,4 +25,5 @@ export interface Company {
   subscriptionPlanId: number;
   id?: number;
   companyId?: number;
+  currency:string;
 }

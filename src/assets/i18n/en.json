@@ -62,6 +62,7 @@
     "BirthDate": "BirthDate"
   },
   "PROFILE_DETAILS": {
+    "currency": "currency",
     "EDIT": "Edit",
     "CANCEL": "Cancel",
     "UPLOAD_ICON": "Upload Icon",
