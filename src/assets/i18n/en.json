@@ -376,7 +376,7 @@
         "label": "Company Field",
         "placeholder": "Enter company field"
       },
-      "companyExtension": {
+      "companyExtention": {
         "label": "Company Extension",
         "placeholder": "@example.com"
       },
@@ -450,6 +450,7 @@
   "addAdminPage": {
     "title": "Assign admin to company",
     "fields": {
+      
       "firstName": {
         "label": "First Name",
         "placeholder": "Enter first name",
@@ -466,6 +467,11 @@
         "required": "Full Name is required."
       },
       "phoneNumber": {
+        "label": "Phone Number",
+        "placeholder": "Enter Phone Number",
+        "required": "Phone Number is required."
+      },
+      "mobile": {
         "label": "Mobile Number",
         "placeholder": "Enter mobile number",
         "required": "Mobile Number is required."

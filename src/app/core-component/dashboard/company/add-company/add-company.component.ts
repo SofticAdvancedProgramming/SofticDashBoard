@@ -88,7 +88,7 @@ export class AddCompanyComponent implements OnInit {
       webSite: ['', Validators.required],
       currency: ['', Validators.required],
       // facebook: [null],
-      // twitter: [null],
+      // twitter: [null],        
       // instgram: [null],
       // tiktok: [null],
       cityId: [null],

@@ -362,6 +362,16 @@
       "instructions": "يجب تحميل ملفات JPG/PNG/PDF. يجب أن يكون الملف عالي الدقة وأصليًا في التصميم."
     },
     "fields": {
+      "phoneNumber": {
+        "label": "رقم الهاتف",
+        "placeholder": "أدخل رقم الهاتف",
+        "required": "رقم الهاتف مطلوب."
+      },
+      "mobile": {
+        "label": "رقم الجوال",
+        "placeholder": "أدخل رقم الجوال",
+        "required": "رقم الجوال مطلوب."
+      },
       "companyNameEn": {
         "label": "اسم الشركة (بالإنجليزية)",
         "placeholder": "أدخل اسم الشركة (بالإنجليزية)"
@@ -374,7 +384,7 @@
         "label": "مجال الشركة",
         "placeholder": "أدخل مجال الشركة"
       },
-      "companyExtension": {
+      "companyExtention": {
         "label": "امتداد الشركة",
         "placeholder": "@example.com"
       },
@@ -399,9 +409,6 @@
       "email": {
         "label": "البريد الإلكتروني",
         "placeholder": "أدخل بريد إلكتروني صالح"
-      },
-      "phoneNumber": {
-        "label": "رقم الجوال"
       },
       "phone": {
         "label": "الهاتف"

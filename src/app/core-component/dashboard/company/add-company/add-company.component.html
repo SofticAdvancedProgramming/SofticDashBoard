@@ -6,7 +6,7 @@
         <div class="col-lg-6 justify-content-center d-flex col-md-12 col-sm-12">
           <label for="fileInput">
             <img [src]="uploadedImageBase64 || '../../../../../assets/images/softic/default.png'" alt="Upload Icon"
-                 class="upload-icon" style="cursor: pointer;">
+              class="upload-icon" style="cursor: pointer;">
           </label>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12">
@@ -32,7 +32,7 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('name')}">
             <label for="name">{{ 'companyFormPage.fields.companyNameEn.label' | translate }}</label>
             <input required type="text" id="name" formControlName="name" class="form-control"
-                   [placeholder]="('companyFormPage.fields.companyNameEn.placeholder' | translate)">
+              [placeholder]="('companyFormPage.fields.companyNameEn.placeholder' | translate)">
             <div *ngIf="isFieldInvalid('name')" class="text-danger">
               <small *ngIf="addCompanyForm.get('name')?.errors?.['required']">
                 {{ 'companyFormPage.validation.companyNameEnRequired' | translate }}
@@ -46,7 +46,7 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('nameAr')}">
             <label for="nameAr">{{ 'companyFormPage.fields.companyNameAr.label' | translate }}</label>
             <input required type="text" id="nameAr" formControlName="nameAr" class="form-control"
-                   [placeholder]="('companyFormPage.fields.companyNameAr.placeholder' | translate)">
+              [placeholder]="('companyFormPage.fields.companyNameAr.placeholder' | translate)">
             <div *ngIf="isFieldInvalid('nameAr')" class="text-danger">
               <small *ngIf="addCompanyForm.get('nameAr')?.errors?.['required']">
                 {{ 'companyFormPage.validation.companyNameArRequired' | translate }}
@@ -60,7 +60,7 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyField')}">
             <label for="companyField">{{ 'companyFormPage.fields.companyField.label' | translate }}</label>
             <input required type="text" id="companyField" formControlName="companyField" class="form-control"
-                   [placeholder]="('companyFormPage.fields.companyField.placeholder' | translate)">
+              [placeholder]="('companyFormPage.fields.companyField.placeholder' | translate)">
             <div *ngIf="isFieldInvalid('companyField')" class="text-danger">
               <small *ngIf="addCompanyForm.get('companyField')?.errors?.['required']">
                 {{ 'companyFormPage.validation.companyFieldRequired' | translate }}
@@ -71,16 +71,16 @@
 
         <!-- Company Extension -->
         <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyExtension')}">
-            <label for="companyExtension">{{ 'companyFormPage.fields.companyExtension.label' | translate }}</label>
-            <input required type="text" id="companyExtension" formControlName="companyExtension" class="form-control"
-                   [placeholder]="('companyFormPage.fields.companyExtension.placeholder' | translate)">
-            <div *ngIf="isFieldInvalid('companyExtension')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('companyExtension')?.errors?.['required']">
-                {{ 'companyFormPage.validation.companyExtensionRequired' | translate }}
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('companyExtention')}">
+            <label for="companyExtention">{{ 'companyFormPage.fields.companyExtention.label' | translate }}</label>
+            <input required type="text" id="companyExtention" formControlName="companyExtention" class="form-control"
+              [placeholder]="('companyFormPage.fields.companyExtention.placeholder' | translate)">
+            <div *ngIf="isFieldInvalid('companyExtention')" class="text-danger">
+              <small *ngIf="addCompanyForm.get('companyExtention')?.errors?.['required']">
+                {{ 'companyFormPage.validation.companyExtentionRequired' | translate }}
               </small>
-              <small *ngIf="addCompanyForm.get('companyExtension')?.errors?.['invalidCompanyExtension']">
-                {{ 'companyFormPage.validation.companyExtensionInvalid' | translate }}
+              <small *ngIf="addCompanyForm.get('companyExtention')?.errors?.['invalidcompanyExtention']">
+                {{ 'companyFormPage.validation.companyExtentionInvalid' | translate }}
               </small>
             </div>
           </div>
@@ -121,7 +121,7 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('fontName')}">
             <label for="fontName">{{ 'companyFormPage.fields.fontName.label' | translate }}</label>
             <input required type="text" id="fontName" formControlName="fontName" class="form-control"
-                   [placeholder]="('companyFormPage.fields.fontName.placeholder' | translate)">
+              [placeholder]="('companyFormPage.fields.fontName.placeholder' | translate)">
             <div *ngIf="isFieldInvalid('fontName')" class="text-danger">
               <small *ngIf="addCompanyForm.get('fontName')?.errors?.['required']">
                 {{ 'companyFormPage.validation.fontNameRequired' | translate }}
@@ -135,7 +135,7 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('currency')}">
             <label for="currency">{{ 'companyFormPage.fields.currency.label' | translate }}</label>
             <input required type="text" id="currency" formControlName="currency" class="form-control"
-                   [placeholder]="('companyFormPage.fields.currency.placeholder' | translate)">
+              [placeholder]="('companyFormPage.fields.currency.placeholder' | translate)">
             <div *ngIf="isFieldInvalid('currency')" class="text-danger">
               <small *ngIf="addCompanyForm.get('currency')?.errors?.['required']">
                 {{ 'companyFormPage.validation.currencyRequired' | translate }}
@@ -147,121 +147,155 @@
 
       <hr>
       <div class="row">
-        <!-- Website -->
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('webSite')}">
-            <label for="webSite">{{ 'companyFormPage.fields.website.label' | translate }}</label>
-            <input type="text" id="webSite" formControlName="webSite" class="form-control"
-                   [placeholder]="('companyFormPage.fields.website.placeholder' | translate)">
-            <div *ngIf="isFieldInvalid('webSite')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('webSite')?.errors?.['required']">
-                {{ 'companyFormPage.validation.websiteRequired' | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <hr>
-      <div class="row">
-        <!-- Address -->
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('address')}">
-            <label for="address">{{ 'companyFormPage.fields.address.label' | translate }}</label>
-            <input required type="text" id="address" formControlName="address" class="form-control"
-                   [placeholder]="('companyFormPage.fields.address.placeholder' | translate)">
-            <div *ngIf="isFieldInvalid('address')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('address')?.errors?.['required']">
-                {{ 'companyFormPage.validation.addressRequired' | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-
-        <!-- Email -->
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('email')}">
-            <label for="email">{{ 'companyFormPage.fields.email.label' | translate }}</label>
-            <input required type="email" id="email" formControlName="email" class="form-control"
-                   [placeholder]="('companyFormPage.fields.email.placeholder' | translate)">
-            <div *ngIf="isFieldInvalid('email')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('email')?.errors?.['required']">
-                {{ 'companyFormPage.validation.emailRequired' | translate }}
-              </small>
-              <small *ngIf="addCompanyForm.get('email')?.errors?.['email']">
-                {{ 'companyFormPage.validation.emailInvalid' | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <hr>
-      <div class="row">
-        <!-- Description (English) -->
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('description')}">
-            <label for="description">{{ 'companyFormPage.fields.descriptionEn.label' | translate }}</label>
-            <textarea id="description" formControlName="description" class="form-control" minlength="100" maxlength="250"
-                      [placeholder]="('companyFormPage.fields.descriptionEn.placeholder' | translate)"></textarea>
-            <p class="char-counter">{{ addCompanyForm.get('description')?.value?.length || 0 }} / 250</p>
-            <div *ngIf="isFieldInvalid('description')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('description')?.errors?.['required']">
-                {{ 'companyFormPage.validation.descriptionEnRequired' | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-
-        <!-- Description (Arabic) -->
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('descriptionAr')}">
-            <label for="descriptionAr">{{ 'companyFormPage.fields.descriptionAr.label' | translate }}</label>
-            <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control" minlength="100" maxlength="250"
-                      [placeholder]="('companyFormPage.fields.descriptionAr.placeholder' | translate)"></textarea>
-            <p class="char-counter">{{ addCompanyForm.get('descriptionAr')?.value?.length || 0 }} / 250</p>
-            <div *ngIf="isFieldInvalid('descriptionAr')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('descriptionAr')?.errors?.['required']">
-                {{ 'companyFormPage.validation.descriptionArRequired' | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <hr>
-      <!-- Additional Fields, Subscription Plan, and Buttons -->
-      <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 w-100 mb-2">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('subscriptionPlanId')}">
-            <label for="subscriptionPlanId">{{ 'companyFormPage.fields.subscriptionPlan.label' | translate }}</label>
-            <select required id="subscriptionPlanId" formControlName="subscriptionPlanId" class="form-control">
-              <option *ngFor="let plan of subscriptionPlans" [value]="plan.id">{{ plan.name }}</option>
-            </select>
-            <div *ngIf="isFieldInvalid('subscriptionPlanId')" class="text-danger">
-              <small *ngIf="addCompanyForm.get('subscriptionPlanId')?.errors?.['required']">
-                {{ 'companyFormPage.validation.subscriptionPlanRequired' | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row form-actions">
         <div class="col-lg-6">
-          <button type="button" routerLink="../addAdmin" class="btn btn-cancel">
-            {{ 'companyFormPage.cancelButton' | translate }}
-          </button>
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
+            <label for="phoneNumber">{{ 'companyFormPage.fields.mobile.label' | translate }}</label>
+            <ngx-intl-tel-input [cssClass]="'custom w-100'" [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+              [searchCountryField]="searchCountryFields" [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.SaudiArabia" [maxLength]="15" [phoneValidation]="true"
+              formControlName="phone">
+            </ngx-intl-tel-input>
+            <div *ngIf="addCompanyForm.get('phone')?.touched && addCompanyForm.get('phone')?.errors" class="text-danger">
+              <small *ngIf="addCompanyForm.get('phone')?.errors?.['required']">{{ 'companyFormPage.fields.mobile.required' | translate }}</small>
+              <small *ngIf="addCompanyForm.get('phone')?.errors?.['validatePhoneNumber']">{{ 'companyFormPage.fields.phoneNumber.validatePhoneNumber' | translate }}</small>
+            </div>
+          </div>
         </div>
+        
         <div class="col-lg-6">
-          <button type="submit" class="btn btn-next">
-            {{ 'companyFormPage.nextButton' | translate }}
-          </button>
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phone')}">
+            <label for="phone">{{ 'companyFormPage.fields.phoneNumber.label' | translate }}</label>
+            <ngx-intl-tel-input [cssClass]="'custom w-100'" [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+              [searchCountryField]="searchCountryFields" [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.SaudiArabia" [maxLength]="15" [phoneValidation]="true"
+              formControlName="phoneNumber">
+            </ngx-intl-tel-input>
+            <div *ngIf="addCompanyForm.get('phoneNumber')?.touched && addCompanyForm.get('phoneNumber')?.errors" class="text-danger">
+              <small *ngIf="addCompanyForm.get('phoneNumber')?.errors?.['required']">{{ 'companyFormPage.fields.phoneNumber.required' | translate }}</small>
+              <small *ngIf="addCompanyForm.get('phoneNumber')?.errors?.['validatePhoneNumber']">{{ 'companyFormPage.fields.phoneNumber.validatePhoneNumber' | translate }}</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <!-- Website -->
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('webSite')}">
+              <label for="webSite">{{ 'companyFormPage.fields.website.label' | translate }}</label>
+              <input type="text" id="webSite" formControlName="webSite" class="form-control"
+                [placeholder]="('companyFormPage.fields.website.placeholder' | translate)">
+              <div *ngIf="isFieldInvalid('webSite')" class="text-danger">
+                <small *ngIf="addCompanyForm.get('webSite')?.errors?.['required']">
+                  {{ 'companyFormPage.validation.websiteRequired' | translate }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+        <div class="row">
+          <!-- Address -->
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('address')}">
+              <label for="address">{{ 'companyFormPage.fields.address.label' | translate }}</label>
+              <input required type="text" id="address" formControlName="address" class="form-control"
+                [placeholder]="('companyFormPage.fields.address.placeholder' | translate)">
+              <div *ngIf="isFieldInvalid('address')" class="text-danger">
+                <small *ngIf="addCompanyForm.get('address')?.errors?.['required']">
+                  {{ 'companyFormPage.validation.addressRequired' | translate }}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('email')}">
+              <label for="email">{{ 'companyFormPage.fields.email.label' | translate }}</label>
+              <input required type="email" id="email" formControlName="email" class="form-control"
+                [placeholder]="('companyFormPage.fields.email.placeholder' | translate)">
+              <div *ngIf="isFieldInvalid('email')" class="text-danger">
+                <small *ngIf="addCompanyForm.get('email')?.errors?.['required']">
+                  {{ 'companyFormPage.validation.emailRequired' | translate }}
+                </small>
+                <small *ngIf="addCompanyForm.get('email')?.errors?.['email']">
+                  {{ 'companyFormPage.validation.emailInvalid' | translate }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+        <div class="row">
+          <!-- Description (English) -->
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('description')}">
+              <label for="description">{{ 'companyFormPage.fields.descriptionEn.label' | translate }}</label>
+              <textarea id="description" formControlName="description" class="form-control" minlength="100"
+                maxlength="250"
+                [placeholder]="('companyFormPage.fields.descriptionEn.placeholder' | translate)"></textarea>
+              <p class="char-counter">{{ addCompanyForm.get('description')?.value?.length || 0 }} / 250</p>
+              <div *ngIf="isFieldInvalid('description')" class="text-danger">
+                <small *ngIf="addCompanyForm.get('description')?.errors?.['required']">
+                  {{ 'companyFormPage.validation.descriptionEnRequired' | translate }}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Description (Arabic) -->
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('descriptionAr')}">
+              <label for="descriptionAr">{{ 'companyFormPage.fields.descriptionAr.label' | translate }}</label>
+              <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control" minlength="100"
+                maxlength="250"
+                [placeholder]="('companyFormPage.fields.descriptionAr.placeholder' | translate)"></textarea>
+              <p class="char-counter">{{ addCompanyForm.get('descriptionAr')?.value?.length || 0 }} / 250</p>
+              <div *ngIf="isFieldInvalid('descriptionAr')" class="text-danger">
+                <small *ngIf="addCompanyForm.get('descriptionAr')?.errors?.['required']">
+                  {{ 'companyFormPage.validation.descriptionArRequired' | translate }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+        <!-- Additional Fields, Subscription Plan, and Buttons -->
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 w-100 mb-2">
+            <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('subscriptionPlanId')}">
+              <label for="subscriptionPlanId">{{ 'companyFormPage.fields.subscriptionPlan.label' | translate }}</label>
+              <select required id="subscriptionPlanId" formControlName="subscriptionPlanId" class="form-control">
+                <option *ngFor="let plan of subscriptionPlans" [value]="plan.id">{{ plan.name }}</option>
+              </select>
+              <div *ngIf="isFieldInvalid('subscriptionPlanId')" class="text-danger">
+                <small *ngIf="addCompanyForm.get('subscriptionPlanId')?.errors?.['required']">
+                  {{ 'companyFormPage.validation.subscriptionPlanRequired' | translate }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row form-actions">
+          <div class="col-lg-6">
+            <button type="button" routerLink="../addAdmin" class="btn btn-cancel">
+              {{ 'companyFormPage.cancelButton' | translate }}
+            </button>
+          </div>
+          <div class="col-lg-6">
+            <button type="submit" class="btn btn-next">
+              {{ 'companyFormPage.nextButton' | translate }}
+            </button>
+          </div>
         </div>
       </div>
-      
     </form>
-  </div>
 </div>
 
 <p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'"
-         [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
+  [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
