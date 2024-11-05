@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccessToken } from '../models/token';
-
+import { AccessToken } from '../../../models/token';
+ 
 
 
 @Injectable({

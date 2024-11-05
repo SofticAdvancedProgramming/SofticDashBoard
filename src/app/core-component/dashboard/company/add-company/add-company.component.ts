@@ -13,6 +13,7 @@ import { AlphanumericDirective } from '../../../../common-component/directives/A
 import { InputRestrictionDirective } from '../../../../common-component/directives/lang-directive/input-restriction.directive';
 import { SpecialCharacterDirective } from '../../../../common-component/directives/specialCharacter-directive/special-character.directive';
 import { NgxIntlTelInputModule, CountryISO, SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-input';
+ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-company',
@@ -28,7 +29,8 @@ import { NgxIntlTelInputModule, CountryISO, SearchCountryField, PhoneNumberForma
     AlphanumericDirective,
     InputRestrictionDirective,
     SpecialCharacterDirective,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule ,
+    TranslateModule
   ],
   providers: [MessageService]
 })
@@ -56,7 +58,8 @@ export class AddCompanyComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private translate: TranslateService
   ) {
     this.addCompanyForm = this.fb.group({});
   }
@@ -83,6 +86,7 @@ export class AddCompanyComponent implements OnInit {
       secondaryColor: ['', Validators.required],
       fontName: ['', Validators.required],
       webSite: ['', Validators.required],
+      currency: ['', Validators.required],
       // facebook: [null],
       // twitter: [null],
       // instgram: [null],

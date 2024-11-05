@@ -1,109 +1,120 @@
 <div class="row py-3 my-3">
   <div class="form-container" [formGroup]="addAdminForm">
     <div class="row">
-      <p class="upload-text">Assign admin to company </p>
+      <p class="upload-text">{{ 'addAdminPage.title' | translate }}</p>
     </div>
     <form>
       <div class="row">
+        <!-- First Name Field -->
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('firstName')}">
-            <label for="firstName">First Name</label>
+            <label for="firstName">{{ 'addAdminPage.fields.firstName.label' | translate }}</label>
             <input required type="text" id="firstName" formControlName="firstName" class="form-control"
-              placeholder="Enter first name">
+              [placeholder]="('addAdminPage.fields.firstName.placeholder' | translate)">
             <div *ngIf="isFieldInvalid('firstName')" class="invalid-feedback">
-              First Name is required.
+              {{ 'addAdminPage.fields.firstName.required' | translate }}
             </div>
           </div>
         </div>
+        
+        <!-- Last Name Field -->
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('lastName')}">
-            <label for="lastName">Last Name</label>
+            <label for="lastName">{{ 'addAdminPage.fields.lastName.label' | translate }}</label>
             <input required type="text" id="lastName" formControlName="lastName" class="form-control"
-              placeholder="Enter last name">
+              [placeholder]="('addAdminPage.fields.lastName.placeholder' | translate)">
             <div *ngIf="isFieldInvalid('lastName')" class="invalid-feedback">
-              Last Name is required.
+              {{ 'addAdminPage.fields.lastName.required' | translate }}
             </div>
           </div>
         </div>
+        
+        <!-- Full Name Field -->
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('fullName')}">
-            <label for="fullName">Full Name</label>
+            <label for="fullName">{{ 'addAdminPage.fields.fullName.label' | translate }}</label>
             <input required type="text" id="fullName" formControlName="fullName" class="form-control"
-              placeholder="Enter full name">
+              [placeholder]="('addAdminPage.fields.fullName.placeholder' | translate)">
             <div *ngIf="isFieldInvalid('fullName')" class="invalid-feedback">
-              Full Name is required.
+              {{ 'addAdminPage.fields.fullName.required' | translate }}
             </div>
           </div>
         </div>
+        
+        <!-- Mobile Number Field -->
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
-            <label for="phoneNumber">Mobile Number</label>
-            <input required type="text" id="phoneNumber" formControlName="phoneNumber"
-              class="form-control" placeholder="Enter mobile number">
+            <label for="phoneNumber">{{ 'addAdminPage.fields.phoneNumber.label' | translate }}</label>
+            <input required type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control"
+              [placeholder]="('addAdminPage.fields.phoneNumber.placeholder' | translate)">
             <div *ngIf="isFieldInvalid('phoneNumber')" class="invalid-feedback">
-              Mobile Number is required.
+              {{ 'addAdminPage.fields.phoneNumber.required' | translate }}
             </div>
           </div>
         </div>
+        
+        <!-- Email Field -->
         <div class="col-lg-12 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('email')}">
-            <label for="email">Email</label>
+            <label for="email">{{ 'addAdminPage.fields.email.label' | translate }}</label>
             <input required type="email" id="email" formControlName="email" class="form-control"
-              placeholder="Enter email">
+              [placeholder]="('addAdminPage.fields.email.placeholder' | translate)">
             <div *ngIf="isFieldInvalid('email')" class="invalid-feedback">
-              A valid Email is required.
+              {{ 'addAdminPage.fields.email.required' | translate }}
             </div>
           </div>
         </div>
       </div>
+
       <div class="row">
+        <!-- Password Field -->
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('password')}">
-            <label for="password">Password</label>
+            <label for="password">{{ 'addAdminPage.fields.password.label' | translate }}</label>
             <div class="password-container">
-              <input [type]="passwordFieldType" id="password" formControlName="password"
-                class="form-control" placeholder="Enter password" autocomplete="new-password">
+              <input [type]="passwordFieldType" id="password" formControlName="password" class="form-control"
+                [placeholder]="('addAdminPage.fields.password.placeholder' | translate)" autocomplete="new-password">
               <i (click)="togglePasswordVisibility()" class="authIcon fa"
                 [ngClass]="passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i>
             </div>
             <div *ngIf="isFieldInvalid('password')" class="invalid-feedback">
-              Password is required.
+              {{ 'addAdminPage.fields.password.required' | translate }}
             </div>
-            <div *ngIf="addAdminForm.get('password')?.errors?.['complexPassword']"
-              class="invalid-feedback">
-              Password must include at least one uppercase letter, one number, and one special
-              character.
+            <div *ngIf="addAdminForm.get('password')?.errors?.['complexPassword']" class="invalid-feedback">
+              {{ 'addAdminPage.fields.password.complexity' | translate }}
             </div>
           </div>
         </div>
+        
+        <!-- Confirm Password Field -->
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('confirmPassword')}">
-            <label for="confirmPassword">Confirm Password</label>
+            <label for="confirmPassword">{{ 'addAdminPage.fields.confirmPassword.label' | translate }}</label>
             <div class="password-container">
-              <input [type]="confirmPasswordFieldType" id="confirmPassword"
-                formControlName="confirmPassword" class="form-control"
-                placeholder="Confirm password" autocomplete="new-password">
+              <input [type]="confirmPasswordFieldType" id="confirmPassword" formControlName="confirmPassword" class="form-control"
+                [placeholder]="('addAdminPage.fields.confirmPassword.placeholder' | translate)" autocomplete="new-password">
               <i (click)="toggleConfirmPasswordVisibility()" class="authIcon fa"
                 [ngClass]="confirmPasswordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i>
             </div>
             <div *ngIf="isFieldInvalid('confirmPassword')" class="invalid-feedback">
-              Confirm Password is required.
+              {{ 'addAdminPage.fields.confirmPassword.required' | translate }}
             </div>
             <div *ngIf="addAdminForm.errors?.['passwordMismatch']" class="invalid-feedback">
-              Passwords do not match.
+              {{ 'addAdminPage.fields.confirmPassword.mismatch' | translate }}
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Action Buttons -->
       <div class="row form-actions">
         <div class="col-lg-6">
-          <button type="button" routerLink="../addCompany" class="btn btn-cancel">Cancel</button>
+          <button type="button" routerLink="../addCompany" class="btn btn-cancel">{{ 'addAdminPage.actions.cancel' | translate }}</button>
         </div>
         <div class="col-lg-6">
-          <button type="button" class="btn btn-next" (click)="onSubmit()">Next</button>
+          <button type="button" class="btn btn-next" (click)="onSubmit()">{{ 'addAdminPage.actions.next' | translate }}</button>
         </div>
       </div>
     </form>
   </div>
 </div>
-
