@@ -29,7 +29,7 @@ export class FinancialComponent {
   dropDownDataIsDeductionFalse: any[] = [];
   dropDownData: any[] = [];
   financial: any[] = [];
-  columns: string[] = ['id', 'amount', 'transactionDate'];
+  columns: string[] = [  'amount', 'transactionDate'];
   form!: FormGroup;
   companyId = localStorage.getItem('companyId');
   employeeId!: number;
@@ -61,6 +61,7 @@ export class FinancialComponent {
       companyId: this.companyId,
       employeeId: this.employeeId,
       salaryTypeId: this.salaryTypeId,
+      comment: [''],
       amount: [null, [Validators.required, Validators.min(0)]]
     })
   }
@@ -167,6 +168,7 @@ export class FinancialComponent {
       employeeId: this.employeeId,
       salaryTypeId: this.salaryTypeId,
       amount: this.form.value.amount,
+      comment: this.form.value.comment,
       id: 0,
     }
     this.employeeService.addEmployeeSalary(payload).subscribe((res) => {

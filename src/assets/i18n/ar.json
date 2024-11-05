@@ -337,6 +337,9 @@
     "Entitlements": "المستحقات",
     "Deductions": "الخصومات",
     "Title": "الوظيفة",
+    "comment":"تعليق",
+    "add_deduction":"اضافة خصم",
+
     "Level": "المستوى",
     "Allowance": "البدلات",
     "Basic_Salary": "الراتب الأساسي",
