@@ -62,6 +62,7 @@
     "BirthDate": "BirthDate"
   },
   "PROFILE_DETAILS": {
+    "currency": "currency",
     "EDIT": "Edit",
     "CANCEL": "Cancel",
     "UPLOAD_ICON": "Upload Icon",
@@ -361,6 +362,149 @@
     "Due_Date": "Due (Date)",
     "Deduction": "Deduction",
     "Save": "Save"
+  },
+  "companyFormPage": {
+        "cancelButton": "Cancel",
+    "nextButton": "Next",
+    "upload": {
+      "logoText": "Upload company logo",
+      "instructions": "JPG/PNG/PDF files should be uploaded. The file must be high in resolution and original in design."
+    },
+    "fields": {
+      "companyNameEn": {
+        "label": "Company Name (English)",
+        "placeholder": "Enter company name (English)"
+      },
+      "companyNameAr": {
+        "label": "Company Name (Arabic)",
+        "placeholder": "Enter company name (Arabic)"
+      },
+      "companyField": {
+        "label": "Company Field",
+        "placeholder": "Enter company field"
+      },
+      "companyExtention": {
+        "label": "Company Extension",
+        "placeholder": "@example.com"
+      },
+      "primaryColor": {
+        "label": "Primary Color"
+      },
+      "secondaryColor": {
+        "label": "Secondary Color"
+      },
+      "fontName": {
+        "label": "Font Name",
+        "placeholder": "Font Name"
+      },
+      "currency": {
+        "label": "Currency",
+        "placeholder": "Currency"
+      },
+      "address": {
+        "label": "Address",
+        "placeholder": "Enter address"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter a valid email"
+      },
+      "phoneNumber": {
+        "label": "Mobile Number"
+      },
+      "phone": {
+        "label": "Phone"
+      },
+      "website": {
+        "label": "Website",
+        "placeholder": "Enter company website"
+      },
+      "descriptionEn": {
+        "label": "Description (English)",
+        "placeholder": "Enter description in English"
+      },
+      "descriptionAr": {
+        "label": "Description (Arabic)",
+        "placeholder": "Description (Arabic)"
+      },
+      "subscriptionPlan": {
+        "label": "Subscription Plan"
+      }
+    },
+    "validation": {
+      "logoRequired": "Company logo is required.",
+      "companyNameEnRequired": "Company Name (English) is required.",
+      "companyNameArRequired": "Company Name (Arabic) is required.",
+      "companyFieldRequired": "Company Field is required.",
+      "companyExtensionRequired": "Company Extension is required.",
+      "companyExtensionInvalid": "Company extension must start with @ and end with '.com'.",
+      "primaryColorRequired": "Primary color is required.",
+      "secondaryColorRequired": "Secondary color is required.",
+      "fontNameRequired": "Font Name is required.",
+      "currencyRequired": "Currency is required.",
+      "addressRequired": "Address is required.",
+      "emailRequired": "A valid Email is required.",
+      "emailInvalid": "Email must be a valid email address.",
+      "phoneRequired": "Phone is required.",
+      "phoneNumberRequired": "Phone number is required.",
+      "phoneNumberInvalid": "Invalid phone number.",
+      "websiteRequired": "A valid website is required.",
+      "descriptionEnRequired": "Description in English is required.",
+      "descriptionArRequired": "Description in Arabic is required.",
+      "subscriptionPlanRequired": "Subscription Plan is required."
+    }
+  },
+  "addAdminPage": {
+    "title": "Assign admin to company",
+    "fields": {
+      
+      "firstName": {
+        "label": "First Name",
+        "placeholder": "Enter first name",
+        "required": "First Name is required."
+      },
+      "lastName": {
+        "label": "Last Name",
+        "placeholder": "Enter last name",
+        "required": "Last Name is required."
+      },
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "Enter full name",
+        "required": "Full Name is required."
+      },
+      "phoneNumber": {
+        "label": "Phone Number",
+        "placeholder": "Enter Phone Number",
+        "required": "Phone Number is required."
+      },
+      "mobile": {
+        "label": "Mobile Number",
+        "placeholder": "Enter mobile number",
+        "required": "Mobile Number is required."
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter email",
+        "required": "A valid Email is required."
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter password",
+        "required": "Password is required.",
+        "complexity": "Password must include at least one uppercase letter, one number, and one special character."
+      },
+      "confirmPassword": {
+        "label": "Confirm Password",
+        "placeholder": "Confirm password",
+        "required": "Confirm Password is required.",
+        "mismatch": "Passwords do not match."
+      }
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "next": "Next"
+    }
   },
   "FIELD_REQUIRED":"This field is required",
   "transactionDate": "Transaction Date",

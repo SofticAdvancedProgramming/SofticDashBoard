@@ -92,6 +92,7 @@
     "DESCRIPTION_MIN_AR": "يجب أن يكون الوصف بالعربية 100 حرف على الأقل.",
     "DESCRIPTION_MAX_AR": "لا يمكن أن يتجاوز الوصف بالعربية 250 حرفًا.",
     "FAX": "فاكس",
+    "currency": "العملة",
     "instagram": "انستجرام",
     "X": "اكس",
     "invalid_url": "الرجاء إدخال عنوان URL صحيح يبدأ بـ http:// أو https://",
@@ -358,6 +359,151 @@
     "Due_Date": "تاريخ الاستحقاق",
     "Deduction": "الخصم",
     "Save": "حفظ"
+  },
+ 
+  "companyFormPage": {
+        "cancelButton": "إلغاء",
+    "nextButton": "التالي",
+    "upload": {
+      "logoText": "تحميل شعار الشركة",
+      "instructions": "يجب تحميل ملفات JPG/PNG/PDF. يجب أن يكون الملف عالي الدقة وأصليًا في التصميم."
+    },
+    "fields": {
+      "phoneNumber": {
+        "label": "رقم الهاتف",
+        "placeholder": "أدخل رقم الهاتف",
+        "required": "رقم الهاتف مطلوب."
+      },
+      "mobile": {
+        "label": "رقم الجوال",
+        "placeholder": "أدخل رقم الجوال",
+        "required": "رقم الجوال مطلوب."
+      },
+      "companyNameEn": {
+        "label": "اسم الشركة (بالإنجليزية)",
+        "placeholder": "أدخل اسم الشركة (بالإنجليزية)"
+      },
+      "companyNameAr": {
+        "label": "اسم الشركة (بالعربية)",
+        "placeholder": "أدخل اسم الشركة (بالعربية)"
+      },
+      "companyField": {
+        "label": "مجال الشركة",
+        "placeholder": "أدخل مجال الشركة"
+      },
+      "companyExtention": {
+        "label": "امتداد الشركة",
+        "placeholder": "@example.com"
+      },
+      "primaryColor": {
+        "label": "اللون الأساسي"
+      },
+      "secondaryColor": {
+        "label": "اللون الثانوي"
+      },
+      "fontName": {
+        "label": "اسم الخط",
+        "placeholder": "اسم الخط"
+      },
+      "currency": {
+        "label": "العملة",
+        "placeholder": "العملة"
+      },
+      "address": {
+        "label": "العنوان",
+        "placeholder": "أدخل العنوان"
+      },
+      "email": {
+        "label": "البريد الإلكتروني",
+        "placeholder": "أدخل بريد إلكتروني صالح"
+      },
+      "phone": {
+        "label": "الهاتف"
+      },
+      "website": {
+        "label": "الموقع الإلكتروني",
+        "placeholder": "أدخل موقع الشركة"
+      },
+      "descriptionEn": {
+        "label": "الوصف (بالإنجليزية)",
+        "placeholder": "أدخل الوصف بالإنجليزية"
+      },
+      "descriptionAr": {
+        "label": "الوصف (بالعربية)",
+        "placeholder": "الوصف (بالعربية)"
+      },
+      "subscriptionPlan": {
+        "label": "خطة الاشتراك"
+      }
+    },
+    "validation": {
+      "logoRequired": "شعار الشركة مطلوب.",
+      "companyNameEnRequired": "اسم الشركة (بالإنجليزية) مطلوب.",
+      "companyNameArRequired": "اسم الشركة (بالعربية) مطلوب.",
+      "companyFieldRequired": "مجال الشركة مطلوب.",
+      "companyExtensionRequired": "امتداد الشركة مطلوب.",
+      "companyExtensionInvalid": "يجب أن يبدأ امتداد الشركة بـ@ وينتهي بـ'.com'.",
+      "primaryColorRequired": "اللون الأساسي مطلوب.",
+      "secondaryColorRequired": "اللون الثانوي مطلوب.",
+      "fontNameRequired": "اسم الخط مطلوب.",
+      "currencyRequired": "العملة مطلوبة.",
+      "addressRequired": "العنوان مطلوب.",
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailInvalid": "يجب أن يكون البريد الإلكتروني عنوانًا صالحًا.",
+      "phoneRequired": "الهاتف مطلوب.",
+      "phoneNumberRequired": "رقم الجوال مطلوب.",
+      "phoneNumberInvalid": "رقم الجوال غير صالح.",
+      "websiteRequired": "الموقع الإلكتروني مطلوب.",
+      "descriptionEnRequired": "الوصف بالإنجليزية مطلوب.",
+      "descriptionArRequired": "الوصف بالعربية مطلوب.",
+      "subscriptionPlanRequired": "خطة الاشتراك مطلوبة."
+    }
+  },
+  "addAdminPage": {
+    "title": "تعيين مشرف للشركة",
+    "fields": {
+      "firstName": {
+        "label": "الاسم الأول",
+        "placeholder": "أدخل الاسم الأول",
+        "required": "الاسم الأول مطلوب."
+      },
+      "lastName": {
+        "label": "اسم العائلة",
+        "placeholder": "أدخل اسم العائلة",
+        "required": "اسم العائلة مطلوب."
+      },
+      "fullName": {
+        "label": "الاسم الكامل",
+        "placeholder": "أدخل الاسم الكامل",
+        "required": "الاسم الكامل مطلوب."
+      },
+      "phoneNumber": {
+        "label": "رقم الهاتف المحمول",
+        "placeholder": "أدخل رقم الهاتف المحمول",
+        "required": "رقم الهاتف المحمول مطلوب."
+      },
+      "email": {
+        "label": "البريد الإلكتروني",
+        "placeholder": "أدخل البريد الإلكتروني",
+        "required": "البريد الإلكتروني مطلوب."
+      },
+      "password": {
+        "label": "كلمة المرور",
+        "placeholder": "أدخل كلمة المرور",
+        "required": "كلمة المرور مطلوبة.",
+        "complexity": "يجب أن تحتوي كلمة المرور على حرف كبير، ورقم، وحرف خاص."
+      },
+      "confirmPassword": {
+        "label": "تأكيد كلمة المرور",
+        "placeholder": "تأكيد كلمة المرور",
+        "required": "تأكيد كلمة المرور مطلوب.",
+        "mismatch": "كلمات المرور غير متطابقة."
+      }
+    },
+    "actions": {
+      "cancel": "إلغاء",
+      "next": "التالي"
+    }
   },
   "transactionDate": "تاريخ المعاملة",
   "amount": "المبلغ",

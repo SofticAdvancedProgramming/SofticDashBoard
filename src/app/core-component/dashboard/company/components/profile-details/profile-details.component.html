@@ -120,42 +120,13 @@
           </div>
         </div>
       </div>
+ 
 
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="form-group">
-          <label for="facebook">{{ 'PROFILE_DETAILS.FACEBOOK' | translate }}</label>
-          <input type="text" id="facebook" formControlName="facebook" class="form-control" />
-          <div *ngIf="companyForm.get('facebook')?.invalid && companyForm.get('facebook')?.touched" class="text-danger">
-            {{ 'PROFILE_DETAILS.invalid_url' | translate }}
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-group">
-          <label for="instgram">{{ 'PROFILE_DETAILS.instagram' | translate }}</label>
-          <input type="text" id="instgram" formControlName="instgram" class="form-control" />
-          <div *ngIf="companyForm.get('instgram')?.invalid && companyForm.get('instgram')?.touched" class="text-danger">
-            {{ 'PROFILE_DETAILS.invalid_url' | translate }}
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-group">
-          <label for="twitter">{{ 'PROFILE_DETAILS.X' | translate }}</label>
-          <input type="text" id="twitter" formControlName="twitter" class="form-control" />
-          <div *ngIf="companyForm.get('twitter')?.invalid && companyForm.get('twitter')?.touched" class="text-danger">
-            {{ 'PROFILE_DETAILS.invalid_url' | translate }}
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="form-group">
-          <label for="tiktok">{{ 'PROFILE_DETAILS.tiktok' | translate }}</label>
-          <input type="text" id="tiktok" formControlName="tiktok" class="form-control" />
-          <div *ngIf="companyForm.get('tiktok')?.invalid && companyForm.get('tiktok')?.touched" class="text-danger">
+          <label for="currency">{{ 'PROFILE_DETAILS.currency' | translate }}</label>
+          <input type="text" id="currency" formControlName="currency" class="form-control" />
+          <div *ngIf="companyForm.get('currency')?.invalid && companyForm.get('currency')?.touched" class="text-danger">
             {{ 'PROFILE_DETAILS.invalid_url' | translate }}
           </div>
         </div>
@@ -233,6 +204,9 @@
         </li>
         <li><strong>{{ 'PROFILE_DETAILS.PHONE' | translate }}</strong>:
           {{ company.phone || ('PROFILE_DETAILS.NO_DATA' | translate) }}
+        </li>
+        <li><strong>{{ 'PROFILE_DETAILS.currency' | translate }}</strong>:
+          {{ company.currency || ('PROFILE_DETAILS.NO_DATA' | translate) }}
         </li>
       </ul>
     </div>

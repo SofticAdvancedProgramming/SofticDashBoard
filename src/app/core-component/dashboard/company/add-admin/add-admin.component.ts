@@ -1,3 +1,4 @@
+import { routes } from './../../../../app.routes';
 import { ToastersService } from './../../../../core/services/toast-service/toast.service';
 import { ChangeDetectorRef, Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,6 +10,7 @@ import { ToastModule } from 'primeng/toast';
 import { AdminService } from '../../../../services/adminService/admin.service';
 import { PasswordValidator } from '../../../../../Modules/passwordValidator';
 import { Company } from '../../../../../models/company';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-admin',
@@ -16,7 +18,7 @@ import { Company } from '../../../../../models/company';
   styleUrls: ['./add-admin.component.css'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, ToastModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, ToastModule, RouterLink, TranslateModule],
   providers: [MessageService, AdminService],
 })
 export class AddAdminComponent implements OnInit, OnDestroy {
@@ -32,6 +34,10 @@ export class AddAdminComponent implements OnInit, OnDestroy {
     private toastersService: ToastersService,
     private adminService: AdminService,
     private route: ActivatedRoute,
+    private router: Router,
+    private translate: TranslateService,
+    private cdr: ChangeDetectorRef
+
   ) {
     this.addAdminForm = this.fb.group({});
   }
@@ -62,19 +68,32 @@ export class AddAdminComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.addAdminForm.invalid) {
-      this.toastersService.typeError('Please fill in all required fields');
+      this.toastersService.typeError(this.translate.instant('addAdminPage.validation.requiredFields'));
       this.validateAllFormFields(this.addAdminForm);
       return;
     }
     this.formValue = this.addAdminForm.value;
-    this.formValue.companyId = Number(this.companyId)
+    this.formValue.companyId = Number(this.companyId);
     this.adminService.AddAdmin(this.formValue).subscribe({
       next: (response: any) => {
-        this.toastersService.typeSuccess('Admin has been added successfully', 'Admin Added');
+        this.toastersService.typeSuccess(
+          this.translate.instant('addAdminPage.toasts.adminAddedSuccess'),
+          this.translate.instant('addAdminPage.toasts.successTitle')
+        );
         this.addAdminForm.reset();
+        this.router.navigate(['home']).then(() => {
+          this.cdr.detectChanges();
+        });
+      },
+      error: () => {
+        this.toastersService.typeError(this.translate.instant('addAdminPage.toasts.errorTitle'));
+      },
+      complete: () => {
+        console.log('AddAdmin request completed');
       }
     });
-  }
+  }    
+
 
   togglePasswordVisibility(): void {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';

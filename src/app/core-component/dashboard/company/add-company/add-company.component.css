@@ -75,3 +75,7 @@
     max-width: 340px;
     max-height: 340px;
 }
+
+hr{
+    margin: 1em;
+}

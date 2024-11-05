@@ -26,7 +26,7 @@ export class AppComponent {
   ) {
     if (typeof window !== 'undefined') {
       this.checkLang();
-      this.messagingService.receiveMessageing();
+      this.messagingService.receiveMessaging();
     }
   }
 
