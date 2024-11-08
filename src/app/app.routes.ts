@@ -30,6 +30,8 @@ import { EmployeeDetailsComponent } from './core-component/dashboard/employee/em
 import { NoPermissionComponent } from './common-component/no-permission/no-permission.component';
 import { ngxPermissionsGuard } from 'ngx-permissions';
 import { SalaryTypeComponent } from './core-component/dashboard/setting/Lockups/salary-type/salary-type.component';
+import { ComplaintsSuggestionsComponent } from './core-component/dashboard/complaints-suggestions/complaints-suggestions.component';
+import { ComplainDetailsComponent } from './core-component/dashboard/complaints-suggestions/complain-details/complain-details.component';
 
 export const routes: Routes = [
   {
@@ -68,6 +70,9 @@ export const routes: Routes = [
       { path: 'ViewEmployees', component: ViewEmployeesComponent ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},
       { path: 'AddEmployee', component: AddEmployeeComponent  },
       { path: 'OrganizationCharts', component: OrganizationChartsComponent  },
+      { path: 'ComplaintsSuggestions', component: ComplaintsSuggestionsComponent  },
+      { path: 'complain-details/:id', component: ComplainDetailsComponent },
+
       { path: 'employee-details/:id', component: EmployeeDetailsComponent },
         ],
   },{

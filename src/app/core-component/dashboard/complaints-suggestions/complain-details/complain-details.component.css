@@ -1,0 +1,135 @@
+.complaint-container {
+     margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+ }
+
+/* User Info Section */
+.user-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 1.5em;
+    border-radius: 14px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-bottom: 1px solid #EAEBED;
+    padding: 0.8em;
+}
+
+.label {
+    color: #2D3A49;
+    font-family: Lama Sans, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+}
+
+.value {
+    color: #736F77;
+    font-family: Lama Sans, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+}
+
+/* Suggestion Details Section */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    background-color: #ffffff;
+    padding: 1.5em;
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-family: Lama Sans, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #0D0714;
+}
+
+/* Message Details Section */
+.message-details {
+    margin-bottom: 20px;
+    padding: 1.5em;
+    background-color: #ffffff;
+    border-radius: 14px;
+}
+
+.message-details .label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.message-details .value {
+    white-space: pre-wrap;
+    color: #736F77;
+    line-height: 1.5;
+}
+
+/* Attachments Section */
+.attachments {
+    padding: 1.5em;
+    background-color: #ffffff;
+    border-radius: 14px;
+}
+
+.attachments .label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.attachment-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.attachment-list img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .info-row {
+        flex-direction: column;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .attachment-list img {
+        width: 100%;
+        height: auto;
+    }
+}

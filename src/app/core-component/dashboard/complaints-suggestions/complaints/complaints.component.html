@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="row mt-5 align-items-stretch">
+        <div class="col-lg-12">
+            <app-line-chart [data]="chartData" [options]="chartOptions"></app-line-chart>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row mt-3">
+            <div *ngIf="filteredComplaints && filteredComplaints.length > 0;">
+                <div class="row mt-5">
+                    <div class="col-lg-6" *ngFor="let complaint of filteredComplaints">
+                        <div class="complaint-card" (click)="viewComplaintDetails(complaint.id)">
+                            <div class="user-info w-100 gap-3">
+                                <img [src]="complaint.employee.profileImage || '../../../assets/images/default.jpeg'"
+                                    alt="User Avatar" class="avatar">
+                                <div class="user-details">
+                                    <h3>{{ complaint.employee.firstName }} {{ complaint.employee.lastName }}</h3>
+                                    <p class="job-title">{{ complaint.employee.jobTitle }}</p>
+                                </div>
+                            </div>
+                            <div class="complaintType d-flex w-100 justify-content-between">
+                                <p>Complaints Title</p>
+                                <p>{{ complaint.title }}</p>
+                            </div>
+                            <div class="complaint-details w-100 mt-2">
+                                <div class="status-container">
+                                    <button class="details-btn btn" (click)="viewComplaintDetails(complaint.id); $event.stopPropagation()">
+                                        See Details
+                                      </button>                                    <button class="delete-button"
+                                        (click)="deleteComplaint(complaint.id); $event.stopPropagation()">
+                                        Delete the Complaint
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
