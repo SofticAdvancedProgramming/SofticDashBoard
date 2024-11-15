@@ -15,9 +15,11 @@
 
 <div class="container">
     <div class="row mt-3">
-        <!-- Display a message if no complaints found -->
+        <!-- No Data Message -->
         <div *ngIf="filteredComplaints.length === 0 && !loading" class="no-data-message">
-            {{ 'complaintsPage.noData' | translate }}
+            {{ activeTab === 'complaints'
+            ? ('complaintsPage.noComplaints' | translate)
+            : ('complaintsPage.noSuggestions' | translate) }}
         </div>
 
         <!-- Loading Spinner -->
@@ -25,8 +27,8 @@
             {{ 'complaintsPage.loading' | translate }}
         </div>
 
-        <!-- Complaints List -->
-        <div *ngIf="filteredComplaints && filteredComplaints.length > 0">
+        <!-- Complaints/Suggestions List -->
+        <div *ngIf="filteredComplaints && filteredComplaints.length > 0;">
             <div class="row mt-5">
                 <div class="col-lg-6" *ngFor="let complaint of filteredComplaints">
                     <div class="complaint-card">
@@ -39,7 +41,7 @@
                             </div>
                         </div>
                         <div class="complaint-details mt-3 justify-content-between d-flex">
-                            <span class="Directed">{{ 'Directed to' | translate }}</span>
+                            <span class="Directed">{{ 'Directed' | translate }}</span>
                             <span class="against-type">{{ complaint.againstTypeName }}</span>
                         </div>
                         <div class="complaint-actions mt-3 justify-content-between d-flex">
@@ -47,12 +49,20 @@
                                 {{ 'complaintsPage.seeDetails' | translate }}
                             </button>
                             <button class="delete-button" (click)="deleteComplaint(complaint.id, $event)">
-                                {{ 'complaintsPage.deleteComplaint' | translate }}
+                                {{ activeTab === 'complaints'
+                                ? ('complaintsPage.deleteComplaint' | translate)
+                                : ('complaintsPage.deleteSuggestion' | translate) }}
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="d-flex justify-content-center mt-3" *ngIf="totalComplaints > itemsPerPage">
+        <pagination [totalItems]="totalComplaints" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
+            (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;"></pagination>
     </div>
 </div>

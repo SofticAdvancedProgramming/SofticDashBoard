@@ -1,5 +1,5 @@
 .complaint-container {
-    margin: 20px auto;
+   margin: 20px auto;
    padding: 20px;
    border-radius: 8px;
    font-family: 'Arial', sans-serif;
@@ -121,15 +121,35 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
    .info-row {
-       flex-direction: column;
+      flex-direction: column;
    }
 
    .form-grid {
-       grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
    }
 
    .attachment-list img {
-       width: 100%;
-       height: auto;
+      width: 100%;
+      height: auto;
    }
+}
+
+.textarea {
+   width: Fixed (1, 151px)px;
+   height: Fixed (129px)px;
+   min-height: 42.45px;
+   border-radius: 14px;
+   border: none;
+   background-color: #f8fbfe;
+   height: 100px;
+   padding: 2em;
+}
+
+.submit-btn {
+   padding: 16px;
+   gap: 0px;
+   border-radius: 10px;
+   opacity: 0px;
+   background: #643695;
+   color: white;
 }

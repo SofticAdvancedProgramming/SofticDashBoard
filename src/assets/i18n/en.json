@@ -512,5 +512,39 @@
   "transactionDate": "Transaction Date",
   "amount": "Amount",
   "Actions": "Actions",
-  "id": "id"
+  "id": "id",
+  "tabs": {
+    "complaints": "Complaints",
+    "suggestions": "Suggestions"
+  },
+  "complaintsPage": {
+    "noData": "No complaints found.",
+    "loading": "Loading complaints...",
+    "seeDetails": "See Details",
+    "deleteComplaint": "Delete Complaint",
+    "deleteSuggestion": "Delete Suggestion"
+  },
+  "status": {
+    "submitted": "Submitted",
+    "opened": "Opened",
+    "in_progress": "In Progress",
+    "closed": "Closed",
+    "unknown": "Unknown"
+  },
+  "Directed": "Directed to",
+  "complainDetails": {
+    "loading": "Loading complaint details...",
+    "error": "Error loading complaint details. Please try again later.",
+    "user": {
+      "name": "User Name",
+      "phone": "User Phone",
+      "email": "User Email"
+    },
+    "complaint": {
+      "type": "Complaint Type",
+      "againstName": "Against Name",
+      "details": "Complaint Details",
+      "attachments": "Attachments"
+    }
+  }
 }

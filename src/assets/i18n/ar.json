@@ -512,5 +512,40 @@
   "amount": "المبلغ",
   "Actions": "الإجراءات",
   "id": "المعرف",
-  "FIELD_REQUIRED":"هذه الخانة مطلوبه"
+  "FIELD_REQUIRED":"هذه الخانة مطلوبه",
+  "tabs": {
+    "complaints": "الشكاوى",
+    "suggestions": "الاقتراحات"
+  },
+  "complaintsPage": {
+    "noData": "لا توجد شكاوى.",
+    "loading": "جارٍ تحميل الشكاوى...",
+    "seeDetails": "عرض التفاصيل",
+    "deleteComplaint": "حذف الشكوى",
+    "deleteSuggestion": "حذف الاقتراح"
+  },
+  "status": {
+    "submitted": "تم الإرسال",
+    "opened": "تم الفتح",
+    "in_progress": "قيد التنفيذ",
+    "closed": "مغلق",
+    "unknown": "غير معروف"
+  },
+  "Directed": "موجه إلى",
+  
+  "complainDetails": {
+    "loading": "جار تحميل تفاصيل الشكوى...",
+    "error": "حدث خطأ أثناء تحميل تفاصيل الشكوى. الرجاء المحاولة مرة أخرى لاحقًا.",
+    "user": {
+      "name": "اسم المستخدم",
+      "phone": "رقم الهاتف",
+      "email": "البريد الإلكتروني"
+    },
+    "complaint": {
+      "type": "نوع الشكوى",
+      "againstName": "الاسم المستهدف",
+      "details": "تفاصيل الشكوى",
+      "attachments": "المرفقات"
+    }
+  }
 }
