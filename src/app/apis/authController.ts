@@ -3,5 +3,7 @@ export const authController = {
     forgetPassword: 'Auth/ForgetPassword',
     resetPassword: 'Auth/ResetPassword',
     getPersonalInformation: 'Users/GetPersonalInformation',
-    editPersonalInformation: 'Users/EditPersonalInformation'
+    editPersonalInformation: 'Users/EditPersonalInformation',
+    GetCurrentUser:"Auth/GetCurrentUser"
+
 };

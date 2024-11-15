@@ -31,8 +31,8 @@ import { NoPermissionComponent } from './common-component/no-permission/no-permi
 import { ngxPermissionsGuard } from 'ngx-permissions';
 import { SalaryTypeComponent } from './core-component/dashboard/setting/Lockups/salary-type/salary-type.component';
 import { ComplaintsSuggestionsComponent } from './core-component/dashboard/complaints-suggestions/complaints-suggestions.component';
-import { ComplainDetailsComponent } from './core-component/dashboard/complaints-suggestions/complain-details/complain-details.component';
-
+import { ComplainSuggestionDetailsComponent } from './core-component/dashboard/complaints-suggestions/complain-suggestion-details/complain-suggestion-details.component';
+ 
 export const routes: Routes = [
   {
     path: '',
@@ -71,8 +71,7 @@ export const routes: Routes = [
       { path: 'AddEmployee', component: AddEmployeeComponent  },
       { path: 'OrganizationCharts', component: OrganizationChartsComponent  },
       { path: 'ComplaintsSuggestions', component: ComplaintsSuggestionsComponent  },
-      { path: 'complain-details/:id', component: ComplainDetailsComponent },
-
+      { path: 'ComplainSuggestionDetails/:id', component: ComplainSuggestionDetailsComponent },
       { path: 'employee-details/:id', component: EmployeeDetailsComponent },
         ],
   },{
