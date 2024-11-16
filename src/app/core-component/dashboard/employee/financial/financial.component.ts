@@ -29,7 +29,7 @@ export class FinancialComponent {
   dropDownDataIsDeductionFalse: any[] = [];
   dropDownData: any[] = [];
   financial: any[] = [];
-  columns: string[] = [  'amount', 'transactionDate'];
+  columns: string[] = ['amount', 'transactionDate'];
   form!: FormGroup;
   companyId = localStorage.getItem('companyId');
   employeeId!: number;
@@ -67,11 +67,10 @@ export class FinancialComponent {
   }
   setActiveTab(tab: string): void {
     this.activeTab = tab;
-    this.isDeduction = tab === 'Entitlements';
+    this.isDeduction = tab === 'Deductions';
     this.loadEntitie('employeeSalary', 1);
     this.loadEntitiesDropDown('SalaryType', 1);
   }
-
   ngOnInit(): void {
     this.loadEntitiesDropDown('SalaryType', 1);
     this.loadEntitie('employeeSalary', 1);
@@ -121,22 +120,23 @@ export class FinancialComponent {
 
   loadEntitiesDropDown(entity: string, pageIndex: number): void {
     const methodName = this.entityTypes[entity].load as keyof SalaryTypeService;
-    (this.salaryTypeService[methodName] as Function)({ pageIndex, isDeduction: this.isDeduction }).subscribe(
-      (response: any) => {
-        if (response.status === 200) {
-          if (this.isDeduction == true) {
-            this.dropDownDataIsDeductionFalse = [];
-            this.dropDownDataIsDeductionTrue.push(...response.data.list);
-            this.dropDownData = this.dropDownDataIsDeductionTrue;
-          } else {
-            this.dropDownDataIsDeductionTrue = [];
-            this.dropDownDataIsDeductionFalse.push(...response.data.list);
-            this.dropDownData = this.dropDownDataIsDeductionFalse;
-          }
-          this.currentPageDropDown = response.data.pageIndex;
+    (this.salaryTypeService[methodName] as Function)({
+      pageIndex,
+      isDeduction: this.isDeduction,
+    }).subscribe((response: any) => {
+      if (response.status === 200) {
+        if (this.isDeduction) {
+          this.dropDownDataIsDeductionFalse = [];
+          this.dropDownDataIsDeductionTrue.push(...response.data.list);
+          this.dropDownData = this.dropDownDataIsDeductionTrue;
+        } else {
+          this.dropDownDataIsDeductionTrue = [];
+          this.dropDownDataIsDeductionFalse.push(...response.data.list);
+          this.dropDownData = this.dropDownDataIsDeductionFalse;
         }
+        this.currentPageDropDown = response.data.pageIndex;
       }
-    );
+    });
   }
 
 
@@ -161,21 +161,24 @@ export class FinancialComponent {
   }
 
 
-  submit() {
-    let payload = {
+  submit(): void {
+    const payload = {
       transactionDate: this.form.value.transactionDate,
       companyId: Number(this.companyId),
       employeeId: this.employeeId,
       salaryTypeId: this.salaryTypeId,
       amount: this.form.value.amount,
       comment: this.form.value.comment,
+      isDeduction: this.isDeduction,
       id: 0,
-    }
+    };
+
     this.employeeService.addEmployeeSalary(payload).subscribe((res) => {
       this.toastersService.typeSuccess('Successfully Completed');
       this.loadEntitie('employeeSalary', 1);
     });
   }
+
 
   convertToTransactionDate(date: Date) {
     return {
@@ -213,13 +216,10 @@ export class FinancialComponent {
   getCurrentMonthDates(): { transactionDateFrom: string, transactionDateTo: string } {
     const now = new Date();
 
-    // Get the first day of the month
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    // Get the last day of the month
     const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
-    // Format the dates as 'yyyy-MM-dd'
     const transactionDateFrom = this.datePipe.transform(startOfMonth, 'yyyy-MM-dd');
     const transactionDateTo = this.datePipe.transform(endOfMonth, 'yyyy-MM-dd');
 
