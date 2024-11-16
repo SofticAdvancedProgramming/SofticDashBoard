@@ -146,7 +146,11 @@ export class ComplaintsSuggestionsComponent {
             let executerId=response.data?.list[0].id;
             console.log("ExecuterId",executerId)
             this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.Opened).subscribe({
-              next:data=>console.log(data)
+              next:data=>
+                {
+                  console.log("sddddsssssssssssssssssss",data)
+                 
+                }
             });
          }
           this.loading = false;
@@ -158,7 +162,6 @@ export class ComplaintsSuggestionsComponent {
         }
       });
 
-    
     this.router.navigate(['/dashboard/ComplainSuggestionDetails', complaintId]);
   }
 

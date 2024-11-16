@@ -26,11 +26,21 @@
                     <span class="label">{{ 'complainDetails.user.email' | translate }}</span>
                     <span class="value">{{ complaintDetails.issue.email }}</span>
                 </div>
-
-                <div class="info-item" *ngIf="complaintDetails.issueStatusId">
-                    <span class="label" [ngClass]="getStatusStyles(complaintDetails.issueStatusId)">{{complaintDetails.issueStatusId | enumToString:issueStatus}}</span>
+               
+               @if(complaintDetails.issue.issueStatusId===issueStatus.Submitted)
+               {
+                <div class="info-item">
+                    <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">Opened</span>
                   
                 </div>
+               } 
+               @else {
+                <div class="info-item">
+                    <span class="label" [ngClass]="getStatusStyles(complaintDetails.issue.issueStatusId)">{{complaintDetails.issue.issueStatusId | enumToString:issueStatus}}</span>
+                  
+                </div>
+               }
+             
             </div>
         </div>
 

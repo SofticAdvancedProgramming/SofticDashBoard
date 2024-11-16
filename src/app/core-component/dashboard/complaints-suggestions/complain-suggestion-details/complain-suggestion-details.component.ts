@@ -51,7 +51,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       this.loading = true;
       this.IssueExcuter.getIssueExcuterById(this.id).subscribe({
         next: (response) => {
-          console.log("my response",response)
+          console.log("my responsekkkkkkkkkkkkkkkk",response)
           this.complaintDetails = response.data?.list[0] || null;
           this.loading = false;
           this.matchAgainstTypeName();
