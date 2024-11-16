@@ -7,11 +7,13 @@ import { CommonModule } from '@angular/common';
 import { EventEmitter, Input, Output } from '@angular/core';
 import { IssueExcuterService } from '../../../../services/IssueExcuter/issue-excuter.service';
 import { Complaint, ComplaintStatus } from '../../../../../models/complain';
+import { issueStatus } from '../../../../core/enums/IssueStatus';
+import { EnumToStringPipe } from '../../../../core/pipes/enum-to-string.pipe';
 
 @Component({
   selector: 'app-complain-suggestion-details',
   standalone: true,
-  imports: [TranslateModule, CommonModule],
+  imports: [TranslateModule, CommonModule,EnumToStringPipe],
   templateUrl: './complain-suggestion-details.component.html',
   styleUrl: './complain-suggestion-details.component.css'
 })
@@ -24,6 +26,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   againstTypeOptions: any[] = [];
   complaintId: number | null = null;
   issueTypeId: number | null = null;
+  issueStatus=issueStatus;
   @Output() confirm = new EventEmitter<boolean>();
 
 
@@ -48,6 +51,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       this.loading = true;
       this.IssueExcuter.getIssueExcuterById(this.id).subscribe({
         next: (response) => {
+          console.log("my response",response)
           this.complaintDetails = response.data?.list[0] || null;
           this.loading = false;
           this.matchAgainstTypeName();
@@ -66,6 +70,44 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
     if (this.complaintDetails && this.complaintDetails.issue.againestTypeId) {
       // Match againstTypeName logic if needed
       this.matchedAgainstTypeName = this.complaintDetails.issue.againestName;
+    }
+  }
+  submitReply()
+  {
+   
+    this.IssueExcuter.getIssueExcuterById(this.complaintDetails.id).subscribe({
+      next: (response) => {
+        if (response.data?.list[0].issue.issueStatusId == issueStatus.Opened) {
+          //3-Change status
+          let executerId=response.data?.list[0].issue.issueExcuters[0].id;
+          this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.InProgress).subscribe({
+            next:data=>console.log(data)
+          });
+        }
+        this.loading = false;
+        console.log('Complaint details loaded:', this.complaintDetails);
+      },
+      error: (error) => {
+        this.loading = false;
+        console.error('Error fetching complaint details:', error);
+      }
+    });
+
+    this.router.navigate(['/dashboard/ComplaintsSuggestions'])
+  }
+
+  getStatusStyles(status: number) {
+    switch (status) {
+      case issueStatus.Submitted:
+        return 'badge-submitted';  // Blue
+      case issueStatus.Opened:
+        return 'badge-opened';     // Green
+      case issueStatus.InProgress:
+        return 'badge-in-progress';// Yellow
+      case issueStatus.Closed:
+        return 'badge-closed';     // Red
+      default:
+        return '';
     }
   }
 }

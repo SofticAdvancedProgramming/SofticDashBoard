@@ -26,6 +26,11 @@
                     <span class="label">{{ 'complainDetails.user.email' | translate }}</span>
                     <span class="value">{{ complaintDetails.issue.email }}</span>
                 </div>
+
+                <div class="info-item" *ngIf="complaintDetails.issueStatusId">
+                    <span class="label" [ngClass]="getStatusStyles(complaintDetails.issueStatusId)">{{complaintDetails.issueStatusId | enumToString:issueStatus}}</span>
+                  
+                </div>
             </div>
         </div>
 
@@ -67,7 +72,7 @@
             </div>
             <div class="row justify-content-center d-flex">
                 <div class="col-lg-3">
-                    <button class="btn w-100 submit-btn"> submit </button>
+                    <button class="btn w-100 submit-btn" (click)="submitReply()"> submit </button>
                 </div>
             </div>
         </div>
