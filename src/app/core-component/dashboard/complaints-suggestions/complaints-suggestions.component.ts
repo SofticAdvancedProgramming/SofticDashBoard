@@ -141,14 +141,14 @@ export class ComplaintsSuggestionsComponent {
       this.IssueExcuter.getIssueExcuterById(complaintId).subscribe({
         next: (response) => {
         console.log("my response data",complaintId)
-         // if (response.data?.list[0].issue.issueStatusId == issueStatus.Submitted) {
+         if (response.data?.list[0].issue.issueStatusId == issueStatus.Submitted) {
             //3-Change status
-            let ecucterId=response.data?.list[0].id;
-           console.log("ExecuterId",ecucterId)
-            this.IssueExcuter.performActionOnIssueExcuter(ecucterId, issueStatus.Opened).subscribe({
+            let executerId=response.data?.list[0].id;
+            console.log("ExecuterId",executerId)
+            this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.Opened).subscribe({
               next:data=>console.log(data)
             });
-        //  }
+         }
           this.loading = false;
           console.log('Complaint details loaded:', this.complaintDetails);
         },

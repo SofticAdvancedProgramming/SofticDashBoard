@@ -79,7 +79,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       next: (response) => {
         if (response.data?.list[0].issue.issueStatusId == issueStatus.Opened) {
           //3-Change status
-          let executerId=response.data?.list[0].issue.issueExcuters[0].id;
+          let executerId=response.data?.list[0].id;
           this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.InProgress).subscribe({
             next:data=>console.log(data)
           });
