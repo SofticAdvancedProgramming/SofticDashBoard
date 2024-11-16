@@ -265,7 +265,8 @@
     "ADD_ADMIN": "Add Admin",
     "SETTING": "Setting",
     "HELP": "Help",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+     "COMPLAINSANDSUGGESTIONS":"Complaints and Suggetions"
   },
   "Home": {
     "ActiveCompanies": "Active Companies",
@@ -332,6 +333,7 @@
     "grossSalary": "Gross Salary",
     "netSalary": "Net Salary",
     "SALARY": "Salary",
+    "comment":"comment",
     "PERSONAL_INFORMATION": "Personal Information",
     "ADVANCED_INFORMATION": "Advanced Information",
     "REJECTED": "Rejected",
@@ -347,6 +349,7 @@
     "Deductions_Label": "Deductions",
     "Net_Salary": "Net Salary",
     "Bonus": "Bonus",
+    "add_deduction":"Add Deduction",
     "Due_Date": "Due (Date)",
     "Add_Bonus": "Add Bonus",
     "shifts": "shifts",
@@ -510,5 +513,39 @@
   "transactionDate": "Transaction Date",
   "amount": "Amount",
   "Actions": "Actions",
-  "id": "id"
+  "id": "id",
+  "tabs": {
+    "complaints": "Complaints",
+    "suggestions": "Suggestions"
+  },
+  "complaintsPage": {
+    "noData": "No complaints found.",
+    "loading": "Loading complaints...",
+    "seeDetails": "See Details",
+    "deleteComplaint": "Delete Complaint",
+    "deleteSuggestion": "Delete Suggestion"
+  },
+  "status": {
+    "submitted": "Submitted",
+    "opened": "Opened",
+    "in_progress": "In Progress",
+    "closed": "Closed",
+    "unknown": "Unknown"
+  },
+  "Directed": "Directed to",
+  "complainDetails": {
+    "loading": "Loading complaint details...",
+    "error": "Error loading complaint details. Please try again later.",
+    "user": {
+      "name": "User Name",
+      "phone": "User Phone",
+      "email": "User Email"
+    },
+    "complaint": {
+      "type": "Complaint Type",
+      "againstName": "Against Name",
+      "details": "Complaint Details",
+      "attachments": "Attachments"
+    }
+  }
 }

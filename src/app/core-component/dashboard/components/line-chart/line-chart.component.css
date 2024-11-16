@@ -8,8 +8,7 @@
 
 .p-chart {
   position: relative;
-  height: 300px;
-}
+ }
 .custom-chart {
   height: var(--custom-height, 300px);
 }
@@ -19,8 +18,6 @@
 }
 
 .custom-chart {
-  height: 100%; /* This allows the chart to take full height of the container */
+  height: 100%; 
 }
-canvas{
-  height: 360px !important;
-}
+ 
