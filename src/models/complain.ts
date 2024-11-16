@@ -1,5 +1,17 @@
 import { IssueExcuter } from './../app/apis/IssueExcuter';
 export interface Complaint {
+    
+  companyId:number;
+  excuterId:number;
+  id:number;
+  issue:Issue;
+  issueId:number;
+  issueStatusId:number;
+ 
+  }
+
+  export interface Issue
+  {
     id: number;
     companyId: number;
     firstName: string;
@@ -16,7 +28,6 @@ export interface Complaint {
     createdOn: string;
     issueAttachments: Attachment[];
     issueExcuters: Excuter[];
- 
   }
   
   export interface Attachment {

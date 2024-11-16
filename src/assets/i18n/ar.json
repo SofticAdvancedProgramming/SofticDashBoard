@@ -259,7 +259,8 @@
     "ADD_ADMIN": "إضافة مسؤول",
     "SETTING": "الإعدادات",
     "HELP": "مساعدة",
-    "LOGOUT": "تسجيل الخروج"
+    "LOGOUT": "تسجيل الخروج",
+    "COMPLAINSANDSUGGESTIONS":"الشكاوى والمقترحات"
   },
   "Home": {
     "ActiveCompanies": "الشركات النشطة",

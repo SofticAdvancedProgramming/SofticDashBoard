@@ -265,7 +265,8 @@
     "ADD_ADMIN": "Add Admin",
     "SETTING": "Setting",
     "HELP": "Help",
-    "LOGOUT": "Logout"
+    "LOGOUT": "Logout",
+     "COMPLAINSANDSUGGESTIONS":"Complaints and Suggetions"
   },
   "Home": {
     "ActiveCompanies": "Active Companies",

@@ -35,8 +35,8 @@
                         <div class="user-info">
                             <img [src]="userImageUrl" alt="User Avatar" class="avatar" (error)="onImageError($event)">
                             <div class="user-details d-flex">
-                                <h3 class="mx-1">{{ complaint.firstName }}</h3>
-                                <h3>{{ complaint.lastName }}</h3>
+                                <h3 class="mx-1">{{ complaint.issue.firstName }}</h3>
+                                <h3>{{ complaint.issue.lastName }}</h3>
                                 <h3 class="title">{{ userPosition }}</h3>
                             </div>
                         </div>
@@ -48,6 +48,9 @@
                             <button class="detailsButton btn" (click)="navigateToDetails(complaint.id)">
                                 {{ 'complaintsPage.seeDetails' | translate }}
                             </button>
+
+                            <span class="badge" [ngClass]="getStatusStyles(complaint.issue.issueStatusId)">{{complaint.issue.issueStatusId | enumToString:issueStatus}}</span>
+
                             <button class="delete-button" (click)="deleteComplaint(complaint.id, $event)">
                                 {{ activeTab === 'complaints'
                                 ? ('complaintsPage.deleteComplaint' | translate)

@@ -153,3 +153,52 @@
    background: #643695;
    color: white;
 }
+
+.badge {
+   font-size: 1rem; /* Adjust text size */
+   font-weight: 600; /* Make text bold */
+   border-radius: 12px; /* Rounded corners */
+   padding: 0.5rem 1rem; /* Add some padding */
+   text-transform: capitalize; /* Capitalize text */
+   display: inline-block;
+   margin-right: 10px;
+   transition: background-color 0.3s, color 0.3s;
+ }
+ 
+ /* Status-specific badge styles */
+ 
+ /* Submitted (Blue) */
+ .badge-submitted {
+   color: #007bff;
+ }
+ 
+ .badge-submitted:hover {
+   color: #0056b3; /* Darken on hover */
+ }
+ 
+ /* Opened (Green) */
+ .badge-opened {
+   color: #28a745;
+ }
+ 
+ .badge-opened:hover {
+   color: #218838; /* Darken on hover */
+ }
+ 
+ /* In Progress (Yellow) */
+ .badge-in-progress {
+   color: #ffc107;
+ }
+ 
+ .badge-in-progress:hover {
+  color: #e0a800; /* Darken on hover */
+ }
+ 
+ /* Closed (Red) */
+ .badge-closed {
+   color:  #dc3545;
+ }
+ 
+ .badge-closed:hover {
+   color: #c82333; /* Darken on hover */
+ }
