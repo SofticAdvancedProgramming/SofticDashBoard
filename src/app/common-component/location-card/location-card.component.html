@@ -1,0 +1,24 @@
+
+<div class="card-text py-2 " *ngIf="addressArr" >
+  <h5 class="card-text-title">{{addressArr[addressArr.length-1]}}({{addressArr[addressArr.length-2]}})</h5>
+  <p class="card-text-address py-1"  >
+   {{addressArr[0]}},{{addressArr[1]}}<br/>
+  <span class="card-text-branch py-1">newcairo branch</span>
+</p>
+</div>
+
+<!-- <div class="location-card d-flex justify-content-center align-items-center rounded bg-white">
+  <div class="row d-flex justify-content-center align-items-center">
+
+    <div class="col-md-3">
+      <img [src]="'assets/images/location-img-circle.png'" alt="location Image" class="img-fluid rounded-circle"
+      />
+    </div>
+    <div class="card-icons col-md-2 d-flex flex-column justify-content-center align-items-center border-start-1">
+      <button class="btn" (click)="editLocation()"><img [src]="'assets/images/edit-green-icon.png'" alt="edit Image" class="img-fluid py-3"/></button>
+      <button class="btn" (click)="removeLocation()"><img [src]="'assets/images/trash 01.png'" alt="edit Image" class="img-fluid py-3"/></button>
+
+    </div>
+  </div>
+
+</div> -->
