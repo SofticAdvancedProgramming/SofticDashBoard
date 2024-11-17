@@ -1,29 +1,37 @@
-<div class="container py-4">
-    <h3 class="text-center fw-bold customHeader mb-4">Medical Insurance</h3>
-    <div class="row gy-3">
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Blood type</label>
-            <div class="text-muted">AB+</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Weight (kg)</label>
-            <div class="text-muted">62 KG</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Height (cm)</label>
-            <div class="text-muted">164 CM</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">What type of chronic disease?</label>
-            <div class="text-muted">sugar</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Medical insurance number</label>
-            <div class="text-muted">sgzghszhas2565</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Insurance company</label>
-            <div class="text-muted">ahli group</div>
-        </div>
+<div class="container py-4 bgColor">
+  <h3 class="text-center fw-bold customHeader mb-4">Medical Insurance</h3>
+  <div class="row gy-3">
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Blood type</label>
+      <div class="text-muted">{{ userMedical.bloodType }}</div>
     </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Weight (kg)</label>
+      <div class="text-muted">{{ userMedical.weight }} KG</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Height (cm)</label>
+      <div class="text-muted">{{ userMedical.hight }} CM</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark"
+        >What type of chronic disease?</label
+      >
+      @if (userMedical.ischronicdisease) {
+      <div class="text-muted">{{ userMedical.ischronicdisease }}</div>
+      } @else {
+      <div class="text-muted">None</div>
+      }
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark"
+        >Medical insurance number</label
+      >
+      <div class="text-muted">{{ userMedical.medicalInsuranceNumber }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Insurance company</label>
+      <div class="text-muted">{{ userMedical.insuranceCompany }}</div>
+    </div>
+  </div>
 </div>

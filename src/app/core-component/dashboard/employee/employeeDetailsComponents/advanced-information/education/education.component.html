@@ -1,57 +1,181 @@
-<div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center" (click)="toggleHighSchool()"
-        style="cursor: pointer;">
-        <h3 class="text-center fw-bold customHeader mb-0">High School</h3>
-        <i [ngClass]="{'bi-chevron-down': !isHighSchoolOpen, 'bi-chevron-up': isHighSchoolOpen}" class="bi"
-            style="color: black;"></i>
+<div class="container py-4 mb-4 bgColor">
+  <div
+    class="d-flex justify-content-between align-items-center"
+    (click)="toggleHighSchool()"
+    style="cursor: pointer"
+  >
+    <h3 class="text-center fw-bold customHeader w-100 mb-0">High School</h3>
+    <i
+      [ngClass]="{
+        'bi-chevron-down': !isHighSchoolOpen,
+        'bi-chevron-up': isHighSchoolOpen
+      }"
+      class="bi"
+      style="color: black"
+    ></i>
+  </div>
+  <div class="row gy-3 mt-3" *ngIf="isHighSchoolOpen" [@slideToggle]>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">High School</label>
+      <div class="text-muted">{{ userEducation.school }}</div>
     </div>
-    <div class="row gy-3 mt-3" *ngIf="isHighSchoolOpen" [@slideToggle]>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">High School</label>
-            <div class="text-muted">Orman language school</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Graduation Year</label>
-            <div class="text-muted">2007</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">GPA/Grade</label>
-            <div class="text-muted">280</div>
-        </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Graduation Year</label>
+      <div class="text-muted">
+        {{ userEducation.educationalEnd | date : "yyyy" }}
+      </div>
     </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">GPA/Grade</label>
+      <div class="text-muted">{{ userEducation.degree }}</div>
+    </div>
+  </div>
 </div>
 
-<div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center" (click)="toggleBachelorDegree()"
-        style="cursor: pointer;">
-        <h3 class="text-center fw-bold customHeader mb-0">Bachelor's Degree</h3>
-        <i [ngClass]="{'bi-chevron-down': !isBachelorDegreeOpen, 'bi-chevron-up': isBachelorDegreeOpen}" class="bi"
-            style="color: black;"></i>
+<div class="container py-4 mb-4 bgColor">
+  <div
+    class="d-flex justify-content-between align-items-center"
+    (click)="toggleBachelorDegree()"
+    style="cursor: pointer"
+  >
+    <h3 class="text-center fw-bold customHeader w-100 mb-0">
+      Bachelor's Degree
+    </h3>
+    <i
+      [ngClass]="{
+        'bi-chevron-down': !isBachelorDegreeOpen,
+        'bi-chevron-up': isBachelorDegreeOpen
+      }"
+      class="bi"
+      style="color: black"
+    ></i>
+  </div>
+  <div class="row gy-3 mt-3" *ngIf="isBachelorDegreeOpen" [@slideToggle]>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">College</label>
+      <div class="text-muted">{{ userEducation.specialist }}</div>
     </div>
-    <div class="row gy-3 mt-3" *ngIf="isBachelorDegreeOpen" [@slideToggle]>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">College</label>
-            <div class="text-muted">Law</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Institution Name</label>
-            <div class="text-muted">Ain Shams University</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Degree Type</label>
-            <div class="text-muted">Bachelor Degree</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Field of Study</label>
-            <div class="text-muted">Law English Department</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">Graduation Year</label>
-            <div class="text-muted">2011</div>
-        </div>
-        <div class="col-12 col-md-6 border-bottom-custom">
-            <label class="d-block fw-semibold text-dark">GPA/Grade</label>
-            <div class="text-muted">650</div>
-        </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Institution Name</label>
+      <div class="text-muted">{{ userEducation.school }}</div>
     </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Degree Type</label>
+      <div class="text-muted">{{ userEducation.name }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Field of Study</label>
+      <div class="text-muted">{{ userEducation.specialist }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Graduation Year</label>
+      <div class="text-muted">
+        {{ userEducation.educationalEnd | date : "yyyy" }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">GPA/Grade</label>
+      <div class="text-muted">{{ userEducation.degree }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="container py-4 mb-4 bgColor">
+  <div
+    class="d-flex justify-content-between align-items-center"
+    (click)="toggleMasterDegree()"
+    style="cursor: pointer"
+  >
+    <h3 class="text-center fw-bold customHeader w-100 mb-0">Master's Degree</h3>
+    <i
+      [ngClass]="{
+        'bi-chevron-down': !isMasterDegreeOpen,
+        'bi-chevron-up': isMasterDegreeOpen
+      }"
+      class="bi"
+      style="color: black"
+    ></i>
+  </div>
+  <div class="row gy-3 mt-3" *ngIf="isMasterDegreeOpen" [@slideToggle]>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Field of Study</label>
+      <div class="text-muted">Law</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Institution Name</label>
+      <div class="text-muted">Ain Shams University</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Graduation Year</label>
+      <div class="text-muted">Bachelor Degree</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">GPA/Grade</label>
+      <div class="text-muted">Law English Department</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Thesis Title</label>
+      <div class="text-muted">
+        (e.g., The Impact of AI on Business Processes)
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Honors and Awards</label>
+      <div class="text-muted">(e.g., Outstanding Graduate Student Award).</div>
+    </div>
+  </div>
+</div>
+
+<div class="container py-4 mb-4 bgColor">
+  <div
+    class="d-flex justify-content-between align-items-center"
+    (click)="toggleDectorate()"
+    style="cursor: pointer"
+  >
+    <h3 class="text-center fw-bold customHeader w-100 mb-0">Doctorate (PhD)</h3>
+    <i
+      [ngClass]="{
+        'bi-chevron-down': !isDoctorate,
+        'bi-chevron-up': isDoctorate
+      }"
+      class="bi"
+      style="color: black"
+    ></i>
+  </div>
+  <div class="row gy-3 mt-3" *ngIf="isDoctorate" [@slideToggle]>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Degree Type</label>
+      <div class="text-muted">Law</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Field of Study</label>
+      <div class="text-muted">Ain Shams University</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Institution Name</label>
+      <div class="text-muted">Bachelor Degree</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Graduation Year</label>
+      <div class="text-muted">Law English Department</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Dissertation Title</label>
+      <div class="text-muted">
+        (e.g., The Impact of AI on Business Processes)
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Supervisor</label>
+      <div class="text-muted">(e.g., Outstanding Graduate Student Award).</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">GPA/Grade</label>
+      <div class="text-muted">(e.g., Outstanding Graduate Student Award).</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Publications</label>
+      <div class="text-muted">(e.g., Outstanding Graduate Student Award).</div>
+    </div>
+  </div>
 </div>
