@@ -52,7 +52,7 @@
   "SUCCESS": "نجاح",
   "PASSWORD_RESET_SUCCESS": "تمت إعادة تعيين كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول باستخدام كلمة المرور الجديدة الخاصة بك.",
   "Admin": "مدير",
-  "Save":"حفظ",
+  "Save": "حفظ",
   "Profile_Information": {
     "Edit Profile": "تعديل الملف الشخصي",
     "Profile Information": "معلومات الملف الشخصي",
@@ -303,8 +303,21 @@
     "NO_EMPLOYEES_FOUND": "لم يتم العثور على موظفين",
     "DELETE_CONFIRMATION": "هل أنت متأكد أنك تريد حذف هذا الموظف؟",
     "CANCEL": "إلغاء",
-    "DELETE": "حذف"
-  },
+    "DELETE": "حذف",
+    "LOCATION": "العنوان",
+    "NO_LOCATION_FOUND": "لا يوجد عنوان",
+    "SAVE":"حفظ",
+    "LONGITUDE_REQUIRED":"خط الطول مطلوب",
+    "LATITUDE_REQUIRED":"دائرة العرض مطلوبة",
+    "Edit":"تعديل",
+    "viewEmployees.Latitude":"دائرة العرض",
+    "viewEmployees.LONGITUDE":"خط الطول",
+    "NUMOFDAY":"عدد الأيام",
+    "select":"اختر عدد الأيام",
+    "Add New Location":"إضافة موقع",
+    "from":"من",
+    "to":"الي"
+    },
   "personalInfo": {
     "PROFILE_INFORMATION": "معلومات الملف الشخصي",
     "GREETING": "مرحبًا، أنا",
@@ -360,9 +373,8 @@
     "Deduction": "الخصم",
     "Save": "حفظ"
   },
- 
   "companyFormPage": {
-        "cancelButton": "إلغاء",
+    "cancelButton": "إلغاء",
     "nextButton": "التالي",
     "upload": {
       "logoText": "تحميل شعار الشركة",
@@ -504,10 +516,6 @@
       "cancel": "إلغاء",
       "next": "التالي"
     }
-  },
-  "transactionDate": "تاريخ المعاملة",
-  "amount": "المبلغ",
-  "Actions": "الإجراءات",
-  "id": "المعرف",
-  "FIELD_REQUIRED":"هذه الخانة مطلوبه"
+  }
+   
 }

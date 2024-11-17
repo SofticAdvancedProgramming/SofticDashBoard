@@ -30,6 +30,7 @@ import { EmployeeDetailsComponent } from './core-component/dashboard/employee/em
 import { NoPermissionComponent } from './common-component/no-permission/no-permission.component';
 import { ngxPermissionsGuard } from 'ngx-permissions';
 import { SalaryTypeComponent } from './core-component/dashboard/setting/Lockups/salary-type/salary-type.component';
+import { AddLocationComponent } from './core-component/dashboard/employee/add-location/add-location.component';
 
 export const routes: Routes = [
   {
@@ -69,6 +70,7 @@ export const routes: Routes = [
       { path: 'AddEmployee', component: AddEmployeeComponent  },
       { path: 'OrganizationCharts', component: OrganizationChartsComponent  },
       { path: 'employee-details/:id', component: EmployeeDetailsComponent },
+      { path: 'employee-locations/:id', component: AddLocationComponent },
         ],
   },{
     path: 'no-permission',
