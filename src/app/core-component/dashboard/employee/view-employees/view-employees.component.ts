@@ -125,8 +125,11 @@ export class ViewEmployeesComponent implements OnInit {
       ? 'viewEmployees.NEW_EMPLOYEE_REQUESTS'
       : 'viewEmployees.CURRENT_EMPLOYEES';
   }
-  getEmployeeStatusLabelButton(){
+  getEmployeeStatusLabelButton() {
     return this.isShowingPending
-      ? 'viewEmployees.CURRENT_EMPLOYEES':'viewEmployees.NEW_EMPLOYEE_REQUESTS';
-}
+      ? 'viewEmployees.CURRENT_EMPLOYEES' : 'viewEmployees.NEW_EMPLOYEE_REQUESTS';
+  }
+  viewLocations(employee: employee) {
+    this.router.navigate(['dashboard/employee-locations', employee.id]);
+  }
 }

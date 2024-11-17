@@ -1,1 +1,103 @@
-<p>add-location works!</p>
+<div class="container">
+  <div class="row mt-4">
+    <div class="justify-content-between d-flex align-items-center">
+      <h2 class="section-title">
+        {{employee.fullName}}
+      </h2>
+      <button class="btn btn-new-employee btn-primary" (click)="openAddLocationModal()">
+        <i class="fas fa-plus-circle"></i>
+        {{ 'viewEmployees.Add New Location' | translate }}
+      </button>
+    </div>
+
+  </div>
+  <div class="row mt-4 gy-4" *ngIf="filteredLocations.length > 0; else noData">
+    <div class="col-md-6" *ngFor="let location of filteredLocations">
+      <div class="location-card d-flex justify-content-center align-items-center rounded bg-white">
+        <div class="row d-flex justify-content-center align-items-center">
+          <div class="col-md-8">
+            <app-location-card [_location]="location">
+            </app-location-card>
+          </div>
+          <div class="col-md-2">
+            <img [src]="'assets/images/location-img-circle.png'" alt="location Image"
+              class="img-fluid rounded-circle" />
+          </div>
+          <div class="card-icons col-md-2 d-flex flex-column justify-content-center align-items-center border-start-1">
+            <button class="btn" (click)="editLocation(location)"><img [src]="'assets/images/edit-green-icon.png'"
+                alt="edit Image" class="img-fluid py-3" /></button>
+            <button class="btn" (click)="removeLocation(location)"><img [src]="'assets/images/trash 01.png'"
+                alt="delete Image" class="img-fluid py-3" /></button>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+  <ng-template #noData>
+    <div class="no-locations-container text-center mt-5">
+      <p class="no-locations-message">{{ 'viewEmployees.NO_LOCATION_FOUND' | translate }}</p>
+    </div>
+  </ng-template>
+
+</div>
+<!-- Add New Location Modal -->
+<div class="modal fade rounded-3 newLocationModal " id="addLocationModal" tabindex="-1"
+  aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-text">
+          <p class="lead">Edit the Employee </p>
+          <h3 class="py-1">UI/UX Designer </h3>
+        </div>
+        <form [formGroup]="form">
+          <div class="form-group d-none">
+            <label for="long">
+              {{'viewEmployees.LONGITUDE' | translate }}
+            </label>
+            <input id="long" formControlName="long" placeholder="Enter Longitude" class="form-control" />
+            <div *ngIf="form.get('long')?.invalid && form.get('long')?.touched" class="text-danger">{{
+              'viewEmployees.LONGITUDE_REQUIRED' | translate }}</div>
+          </div>
+          <div class="form-group d-none">
+            <label for="lat">
+              {{'viewEmployees.Latitude' | translate }}
+            </label>
+            <input id="lat" formControlName="lat" placeholder="Enter Latitude" class="form-control" />
+            <div *ngIf="form.get('lat')?.invalid && form.get('lat')?.touched" class="text-danger">{{
+              'viewEmployees.LATITUDE_REQUIRED' | translate }}</div>
+          </div>
+
+          <div class="form-group">
+            <label for="attendanceDateFrom">{{'viewEmployees.from' | translate }}:</label>
+            <input type="date" id="attendanceDateFrom" formControlName="attendanceDateFrom"
+              class="form-control custom-date-filter" [placeholder]="'From Date'| translate" />
+          </div>
+          <div class="form-group">
+            <label for="attendanceDateTo">{{'viewEmployees.to' | translate }}:</label>
+            <input type="date" id="attendanceDateTo" formControlName="attendanceDateTo"
+              class="form-control custom-date-filter" [placeholder]="'From Date'| translate" />
+          </div>
+          <div class="new-location-map-container">
+            <app-map (locationSelected)="onLocationSelected($event)"></app-map>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-center align-items-center flex-column">
+        <button type="submit" class="btn btn-new-Location w-100" data-bs-dismiss="modal" (click)="onSave()"
+          *ngIf="!editMode">{{ 'viewEmployees.SAVE' | translate }}</button>
+        <button type="submit" class="btn btn-new-Location w-100" data-bs-dismiss="modal" (click)="onUpdate()"
+          *ngIf="editMode">{{ 'viewEmployees.Edit' | translate }}</button>
+        <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal" aria-label="Close"
+          (click)="onCancel()">{{ 'viewEmployees.CANCEL' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
