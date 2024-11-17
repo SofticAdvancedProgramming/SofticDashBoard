@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { LocalStorageService } from '../../../../../../services/local-storage-service/local-storage.service';
+import { ActivatedRoute } from '@angular/router';
+import { UserEducationService } from '../../../../../../services/userEducation/user-education.service';
 
 @Component({
   selector: 'app-education',
@@ -23,14 +27,54 @@ import { CommonModule } from '@angular/common';
     ]),
   ]
 })
-export class HighSchoolComponent {
+export class HighSchoolComponent implements OnInit, OnDestroy {
   isHighSchoolOpen = true;  
   isBachelorDegreeOpen = false;
+  isMasterDegreeOpen = false;
+  isDoctorate = false;
   toggleHighSchool() {
     this.isHighSchoolOpen = !this.isHighSchoolOpen;
   }
 
   toggleBachelorDegree() {
     this.isBachelorDegreeOpen = !this.isBachelorDegreeOpen;
+  }
+  toggleMasterDegree() {
+    this.isMasterDegreeOpen = !this.isMasterDegreeOpen;
+  }
+  toggleDectorate() {
+    this.isDoctorate = !this.isDoctorate;
+  }
+  private unsubscribe$ = new Subject<void>();
+  id: number = 0;
+  userEducation:any;
+
+  constructor(private userEducationService: UserEducationService,private localStorageService: LocalStorageService,private route:ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.pipe(
+      takeUntil(this.unsubscribe$)
+    ).subscribe(params => {
+      this.id = Number(params.get('id'));
+      this.getEducation();
+    })
+  }
+
+  getEducation() {
+    this.userEducationService
+      .getEducation({employeeId: this.id})
+      .pipe(
+        tap((res) => {
+          this.userEducation = res.data.list[0];
+          console.log(res);
+        }),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
