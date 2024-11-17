@@ -1,0 +1,80 @@
+<div class="complaint-container">
+    <div *ngIf="loading" class="loading-spinner">
+        {{ 'complainDetails.loading' | translate }}
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+        {{ 'complainDetails.error' | translate }}
+    </div>
+
+    <div *ngIf="!loading && complaintDetails && !errorMessage">
+        <div class="user-info">
+            <div class="info-row">
+                <div class="info-item">
+                    <span class="label">{{ 'complainDetails.user.name' | translate }}</span>
+                    <span class="value">
+                        {{ complaintDetails.issue.firstName }} {{ complaintDetails.issue.lastName }}
+                    </span>
+                </div>
+                <div class="info-item">
+                    <span class="label">{{ 'complainDetails.user.phone' | translate }}</span>
+                    <span class="value">{{ complaintDetails.issue.mobile }}</span>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-item">
+                    <span class="label">{{ 'complainDetails.user.email' | translate }}</span>
+                    <span class="value">{{ complaintDetails.issue.email }}</span>
+                </div>
+
+                <div class="info-item" *ngIf="complaintDetails.issueStatusId">
+                    <span class="label" [ngClass]="getStatusStyles(complaintDetails.issueStatusId)">{{complaintDetails.issueStatusId | enumToString:issueStatus}}</span>
+                  
+                </div>
+            </div>
+        </div>
+
+        <div class="complaint-details attachments">
+            <div class="info-row">
+                <div class="info-item">
+                    <label class="label">{{ 'complainDetails.complaint.type' | translate }}</label>
+                    <span class="value">{{ matchedAgainstTypeName }}</span>
+                </div>
+                <div class="info-item">
+                    <label class="label">{{ 'complainDetails.complaint.againstName' | translate }}</label>
+                    <span class="value">{{ complaintDetails.issue.againestName }}</span>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-item">
+                    <label class="label">{{ 'complainDetails.complaint.details' | translate }}</label>
+                    <p class="value">{{ complaintDetails.issue.content }}</p>
+                </div>
+            </div>
+
+            <div *ngIf="complaintDetails.issue.issueAttachments?.length" class="attachments">
+                <div class="row info-row">
+                    <div class="info-item">
+                        <span class="label">{{ 'complainDetails.complaint.attachments' | translate }}</span>
+                        <div class="attachment-list">
+                            <img *ngFor="let attachment of complaintDetails.issue.issueAttachments"
+                                [src]="attachment.file" alt="{{ 'complainDetails.complaint.attachments' | translate }}"
+                                class="attachment-image" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row info-row">
+                <div class="info-item">
+                    <span class="label"><img src="../../../../../assets/images/bill.png">Type your reply</span>
+                    <textarea class="textarea"> Type your replay...... </textarea>
+                </div>
+            </div>
+            <div class="row justify-content-center d-flex">
+                <div class="col-lg-3">
+                    <button class="btn w-100 submit-btn" (click)="submitReply()"> submit </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
