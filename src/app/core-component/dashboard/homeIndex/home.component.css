@@ -1,0 +1,221 @@
+.lightCard {
+  background: #FFFFFF;
+  padding: 1em;
+  border-radius: 10px;
+  opacity: 0px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 15em;
+}
+
+.greyCard {
+  background: #E5ECF6;
+  padding: 1em;
+  border-radius: 10px;
+  opacity: 0px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 15em;
+}
+
+.lightCard p:first-of-type {
+  color: #0047B3;
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+}
+
+.greyCard p:first-of-type {
+  color: #0047B3;
+  font-family: Nunito;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+}
+
+.lightCard .text p:last-of-type {
+  color: #2D3A49;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.text {
+  display: flex;
+  gap: 2em;
+}
+
+.chartText {
+  color: #2D3A49;
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.chartText {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chartText .e-chart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+
+}
+
+.chart-content {
+  flex: 1;
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.chart-legend {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.chart-legend ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chart-legend li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.chart-legend li span {
+  margin: 0 13px;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.legend-value {
+  margin-left: auto;
+}
+
+/* canvas {
+  height: 250px !important;
+  width: 250px !important;
+} */
+
+@media (max-width: 767px) {
+
+  .greyCard,
+  .lightCard {
+    width: 75% !important;
+  }
+
+  /* canvas {
+    height: 200px !important;
+    width: 200px !important;
+  } */
+
+  .row {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+  }
+}
+
+@media (max-width: 992px) {
+  .customStyle {
+    width: 75% !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .chartRow {
+    gap: 5em;
+  }
+}
+
+.customStyle {
+  padding: 15px;
+  /* Example padding */
+}
+
+.chart-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-content {
+  width: 100%;
+  max-width: 300px;
+}
+
+
+/* rang */
+
+.date-range-picker mat-form-field {
+  background: #F8FBFE !important;
+  border-radius: 10px;
+  margin-right: 10px;
+  min-width: 150px;
+}
+
+input {
+  text-align: center;
+  font-size: 16px;
+}
+
+.find-btn {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 10px;
+  margin-right: 8px;
+  border: none;
+  width: 106px ;
+  height: 48px;
+  padding: 10px 23px;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  padding: 0;
+  border-radius: 10px;
+}
+
+.mat-datepicker-toggle {
+  color: #666;
+}
