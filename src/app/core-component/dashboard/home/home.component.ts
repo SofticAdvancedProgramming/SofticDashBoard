@@ -5,7 +5,7 @@ import { ActiveCompaniesComponent } from '../components/cards/active-companies/a
 import { UncompletedCompaniesComponent } from '../components/cards/uncompleted-companies/uncompleted-companies.component';
 import { NotificationsComponent } from '../components/cards/notifications/notifications.component';
 import { LineChartComponent } from '../components/line-chart/line-chart.component';
-
+ 
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -19,7 +19,7 @@ import { LineChartComponent } from '../components/line-chart/line-chart.componen
     UncompletedCompaniesComponent,
     NotificationsComponent,
     LineChartComponent
-  ]
+  ],
 })
 export class HomeComponent {
   public chartData: any;

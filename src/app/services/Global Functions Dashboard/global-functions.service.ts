@@ -1,19 +1,18 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as bodyPix from '@tensorflow-models/body-pix';
 import { DatePipe } from '@angular/common';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable(
+)
+
 export class GlobalFunctionsService {
   model: bodyPix.BodyPix | undefined;
-  private datePipe: DatePipe;
 
-  constructor(private injector: Injector) {
-    // Lazily inject DatePipe to avoid circular dependency
-    this.datePipe = this.injector.get(DatePipe);
+  constructor(
+    private datePipe:
+      DatePipe,
+  ) {
   }
-
   async detectHuman(imageElement: HTMLImageElement): Promise<boolean> {
     try {
       console.log("Loading BodyPix model...");
@@ -37,7 +36,7 @@ export class GlobalFunctionsService {
 
       const isHuman = segmentation.data.some((value) => value === 1);
       if (!isHuman) {
-        
+
         return false;
       }
 

@@ -5,7 +5,7 @@ import { BarChartComponent } from '../components/bar-chart/bar-chart.component';
 import { DonutChartComponent } from '../components/donut-chart/donut-chart.component';
 import { ModernTableComponent } from '../components/modern-table/modern-table.component';
 import { Browser } from '../../../../assets/ej2-base';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { TranslationService } from '../../../core/services/translationService/translation.service';
 import { TranslateModule } from '@ngx-translate/core';
  import { MapComponent } from "../../../common-component/map/map.component";
@@ -20,7 +20,7 @@ import { GlobalFunctionsService } from '../../../services/Global Functions Dashb
   selector: 'app-home',
   standalone: true,
   imports: [RouterLink, ReactiveFormsModule, MatDatepickerModule, MatFormFieldModule, DashboardCardComponent, BarChartComponent, DonutChartComponent, ModernTableComponent, CommonModule, TranslateModule, MapComponent],
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(),DatePipe, GlobalFunctionsService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   encapsulation: ViewEncapsulation.None,
