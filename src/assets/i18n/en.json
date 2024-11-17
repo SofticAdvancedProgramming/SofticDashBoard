@@ -523,7 +523,9 @@
     "loading": "Loading complaints...",
     "seeDetails": "See Details",
     "deleteComplaint": "Delete Complaint",
-    "deleteSuggestion": "Delete Suggestion"
+    "deleteSuggestion": "Delete Suggestion",
+    "noComplaints":"There are no complaints",
+    "noSuggestions":"There are no suggetions"
   },
   "status": {
     "submitted": "Submitted",
@@ -547,5 +549,11 @@
       "details": "Complaint Details",
       "attachments": "Attachments"
     }
+  },
+  "CONFIRM_DELETE":{
+    "TITLE":"Confirm Delete",
+    "MESSAGE":"Are you sure from this delete process ?",
+    "CANCEL":"Cancel",
+    "CONFIRM":"Sure"
   }
 }

@@ -1,0 +1,48 @@
+.dialog-icon {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.icon-warning {
+    font-size: 50px;
+    color: #f6c343;
+}
+
+.dialog-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.dialog-content {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cancel-btn {
+    color: #666;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 8px 20px;
+}
+
+.confirm-btn {
+    background-color: #d9534f;
+    color: #fff;
+    border-radius: 4px;
+    padding: 8px 20px;
+}
+.container{
+    padding: 4em;
+}
