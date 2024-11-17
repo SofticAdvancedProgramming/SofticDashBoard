@@ -29,7 +29,7 @@ export class FinancialComponent {
   dropDownDataIsDeductionFalse: any[] = [];
   dropDownData: any[] = [];
   financial: any[] = [];
-  columns: string[] = [  'amount', 'transactionDate'];
+  columns: string[] = ['amount', 'transactionDate'];
   form!: FormGroup;
   companyId = localStorage.getItem('companyId');
   employeeId!: number;
@@ -67,13 +67,15 @@ export class FinancialComponent {
   }
   setActiveTab(tab: string): void {
     this.activeTab = tab;
-    this.isDeduction = tab === 'Entitlements';
+    this.isDeduction = tab === 'Deductions';
     this.loadEntitie('employeeSalary', 1);
-    this.loadEntitiesDropDown('SalaryType', 1);
+    this.loadEntitiesDropDown('SalaryType', 1,this.isDeduction);
+    console.log(tab)
   }
 
+
   ngOnInit(): void {
-    this.loadEntitiesDropDown('SalaryType', 1);
+    this.loadEntitiesDropDown('SalaryType', 1 , false);
     this.loadEntitie('employeeSalary', 1);
   }
 
@@ -119,9 +121,9 @@ export class FinancialComponent {
     );
   }
 
-  loadEntitiesDropDown(entity: string, pageIndex: number): void {
+  loadEntitiesDropDown(entity: string, pageIndex: number,isDeduction:boolean ): void {
     const methodName = this.entityTypes[entity].load as keyof SalaryTypeService;
-    (this.salaryTypeService[methodName] as Function)({ pageIndex, isDeduction: this.isDeduction }).subscribe(
+    (this.salaryTypeService[methodName] as Function)({ pageIndex, isDeduction: isDeduction }).subscribe(
       (response: any) => {
         if (response.status === 200) {
           if (this.isDeduction == true) {
@@ -134,6 +136,7 @@ export class FinancialComponent {
             this.dropDownData = this.dropDownDataIsDeductionFalse;
           }
           this.currentPageDropDown = response.data.pageIndex;
+          console.log(response)
         }
       }
     );
@@ -170,10 +173,13 @@ export class FinancialComponent {
       amount: this.form.value.amount,
       comment: this.form.value.comment,
       id: 0,
+      isDeduction: this.isDeduction,
     }
     this.employeeService.addEmployeeSalary(payload).subscribe((res) => {
-      this.toastersService.typeSuccess('Successfully Completed');
-      this.loadEntitie('employeeSalary', 1);
+      if (res.status === 200) {
+        this.toastersService.typeSuccess(this.isDeduction ? 'Deduction added successfully' : 'Entitlement added successfully');
+        this.loadEntitie('employeeSalary', 1);
+      }
     });
   }
 
@@ -228,5 +234,9 @@ export class FinancialComponent {
       transactionDateTo: transactionDateTo || ''
     };
   }
-
+  get actionButtonLabel(): string {
+    return this.activeTab === 'Deductions'
+      ? 'employeeDetails.Add_Deduction'
+      : 'employeeDetails.Add_Bonus';
+  }
 }

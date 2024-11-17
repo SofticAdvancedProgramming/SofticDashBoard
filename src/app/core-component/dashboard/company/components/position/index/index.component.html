@@ -28,14 +28,14 @@
               </button>
             </div>
             <div class="card-footer">
-              <label class="toggle-label">
+              <!-- <label class="toggle-label">
                 <span>{{ position.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' |
                   translate) }}</span>
                 <label class="switch">
                   <input type="checkbox" [checked]="position.isActive" (change)="toggleActivation(position)">
                   <span class="slider"></span>
                 </label>
-              </label>
+              </label> -->
               <i class="fas fa-trash-alt icon-trash" (click)="deletePosition(position.id||0)"></i>
               <i class="fas fa-edit icon-edit" (click)="editPosition(position)"></i>
               <button class="btn" (click)="showDetailsPage(position.id?.toString()||'0')">

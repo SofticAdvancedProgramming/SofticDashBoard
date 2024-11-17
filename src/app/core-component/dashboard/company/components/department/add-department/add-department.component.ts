@@ -92,7 +92,7 @@ export class AddDepartmentComponent implements OnInit {
     }
 
     const departmentData: Department = {
-      id: this.department?.id || 0,
+      id:   0,
       companyId: this.companyId || 0,
       name: this.form.value.name,
       shortName: this.form.value.shortName,

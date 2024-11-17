@@ -121,7 +121,7 @@
     "LONGITUDE_REQUIRED": "خط الطول مطلوب",
     "LATITUDE_REQUIRED": "خط العرض مطلوب",
     "BACK": "رجوع",
-    "EDIT": "تعديل",
+    "EDIT": "حفظ",
     "SAVE": "حفظ",
     "ERROR": "خطأ",
     "SUCCESS": "نجاح",
@@ -172,7 +172,7 @@
     "DEPARTMENT_LAT": "خط عرض القسم",
     "DEPARTMENT_LOCATION": "موقع القسم",
     "BACK": "رجوع",
-    "EDIT": "تعديل",
+    "EDIT": "حفظ",
     "SAVE": "حفظ",
     "SELECT_OPTION": "اختر خيار",
     "REQUIRED_FIELD": "مطلوب",
@@ -226,7 +226,7 @@
     "FILL_REQUIRED_FIELDS": "يرجى ملء جميع الحقول المطلوبة",
     "POSITION_ADDED_SUCCESSFULLY": "تمت إضافة الوظيفة بنجاح",
     "ERROR_ADDING_POSITION": "خطأ في إضافة الوظيفة",
-    "EDIT": "تعديل"
+    "EDIT": "حفظ"
   },
   "INDEX_POSITION": {
     "ADD_POSITION": "إضافة وظيفة",
