@@ -111,10 +111,7 @@ export class HomeIndexComponent {
 
   getAttendances(searchDate = {}, pageIndex?: number) {
     let query: any = pageIndex ? { pageIndex, sortIsAsc: false, sortCol: "attendanceDate" } : { sortIsAsc: false, sortCol: "attendanceDate"};
-    if (this.roles[0] === 'Employee') {
-      query = { ...query, employeeId: this.userId };
-    }
-    this.attendanceService.getAttendances({ ...searchDate, ...query, attendanceTypeId: null }).subscribe((res) => {
+      this.attendanceService.getAttendances({ ...searchDate,  attendanceTypeId: null }).subscribe((res) => {
       this.attendances = {
         ...res,
         list: res.list.map((item: any) => ({
@@ -142,9 +139,8 @@ export class HomeIndexComponent {
 
   getStatistics() {
     let query: any = { ...this.form.value };
-    if (this.roles[0] === 'Employee') {
-      query = { ...query, employeeId: this.userId };
-    }
+       query = { ...query, employeeId: this.userId };
+ 
     this.employeeService.getStatistics(query).subscribe((res => {
       this.dashboardCards = res;
     }))

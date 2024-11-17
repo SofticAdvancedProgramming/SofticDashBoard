@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component ,Input  } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-card',
@@ -9,7 +9,7 @@ import { Component ,Input  } from '@angular/core';
   styleUrl: './dashboard-card.component.css'
 })
 export class DashboardCardComponent {
-   @Input() title: string = '';
+  @Input() title: string = '';
   @Input() value: number = 0;
   @Input() percentage: string = '0%';
   @Input() cardClass: string = 'lightCard';
