@@ -10,7 +10,8 @@
     "@syncfusion/ej2-data": "^25.1.35",
     "@syncfusion/ej2-file-utils": "^25.1.35",
     "@syncfusion/ej2-pdf-export": "^25.1.35",
-    "@syncfusion/ej2-svg-base": "^25.1.35"
+    "@syncfusion/ej2-svg-base": "^25.1.35",
+    "@syncfusion/ej2-treemap": "file:"
   },
   "devDependencies": {
     "@types/chai": "^3.4.28",

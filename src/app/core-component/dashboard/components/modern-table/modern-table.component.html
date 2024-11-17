@@ -45,14 +45,14 @@
             @if(isThereDelete){
             <button class="btn" type="button" (click)="openDeleteModal(item)" data-bs-toggle="modal"
               [attr.data-bs-target]="'#' +deleteId">
-              <img class="CustomIcon" src="../../../../assets/images/delete.png">
+              <img class="CustomIcon" src="../../../../../assets/images/delete.png">
             </button>
             }
             @if(newAction.length >= 1){
             @for (newA of newAction ; track newA.isExisting ; let idx = $index, e = $even) {
             <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
               (click)="onCLickNewAction(item)">
-              <img class="CustomIcon" [src]="'../../../../assets/images/'+ newA['src']">
+              <img class="CustomIcon" [src]="'../../../../../assets/images/'+ newA['src']">
             </button>
             }
             }

@@ -76,7 +76,7 @@ export const routes: Routes = [
       { path: 'ComplaintsSuggestions', component: ComplaintsSuggestionsComponent  },
       { path: 'ComplainSuggestionDetails/:id', component: ComplainSuggestionDetailsComponent },
       { path: 'employee-details/:id', component: EmployeeDetailsComponent },
-      { path: 'employee-locations/:id', component: AddLocationComponent },
+      { path: 'employee-locations/:id', component: AddLocationComponent }
         ],
   },{
     path: 'no-permission',

@@ -1,3 +1,5 @@
+import { environment } from "../environment/environment";
 export const dashboardController = {
-    GetStatistics: 'Dashboard/Card'
+  
+    GetStatistics: `${environment.apiBaseUrl}Dashboard/Card`
 }
