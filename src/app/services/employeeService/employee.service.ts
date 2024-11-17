@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { employeeController } from '../../apis/employeeController';
+import { dashboardController } from '../../apis/dashboard';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,12 @@ export class EmployeeService {
 
   loadEmployeeById(request: { id: number }): Observable<any> {
     return this.apiCall.request('POST', employeeController.loadEmployeeById, request);
+  }
+  getEmployees(request: any = {}): Observable<any> {
+    return this.apiCall.request('POST', employeeController.GetEmployees, request);
+  }
+
+  getStatistics(request: any = {}): Observable<any> {
+    return this.apiCall.request('POST', dashboardController.GetStatistics, request);
   }
 }

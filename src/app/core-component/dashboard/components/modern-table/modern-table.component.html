@@ -1,5 +1,5 @@
 <div class="table-container">
-  <div class="row mb-3 align-items-center tableContainer">
+  <div class="row mb-3 align-items-center tableContainer justify-content-around">
     <div class="col-lg-3 col-md-12 col-sm-12">
       <h5 class="tableTitle">{{ tableTitle | translate }}</h5>
     </div>
@@ -9,7 +9,7 @@
         (ngModelChange)="searcWithDebounce(searchText)" />
       }
     </div>
-    <div class="col-lg-2 col-md-6 col-sm-6">
+    <!-- <div class="col-lg-2 col-md-6 col-sm-6">
       @if(isThereSearchByDate){
       <input type="date" [(ngModel)]="fromDate" class="form-control custom-date-filter"
         [placeholder]="'From Date'| translate" (change)="searchDate()" />
@@ -20,7 +20,7 @@
       <input type="date" [(ngModel)]="toDate" class="form-control custom-date-filter"
         [placeholder]="'To Date' | translate" (change)="searchDate()" />
       }
-    </div>
+    </div> -->
     <div class="col-lg-2 col-md-12 col-sm-12 text-end">
       <button (click)="exportToExcel()" class="btn btn-primary custom-button">{{'Export to Excel' | translate
         }}</button>

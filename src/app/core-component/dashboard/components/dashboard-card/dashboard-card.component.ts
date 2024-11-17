@@ -9,8 +9,11 @@ import { Component ,Input  } from '@angular/core';
   styleUrl: './dashboard-card.component.css'
 })
 export class DashboardCardComponent {
-  @Input() title!: string;
-  @Input() value!: string;
-  @Input() percentage!: string;
-  @Input() cardClass!: string;
+  language: string = localStorage.getItem('lang') || 'ar'
+  @Input() title: string = '';
+  @Input() value: number = 0;
+  @Input() percentage: string = '0%';
+  @Input() cardClass: string = 'lightCard';
+  @Input() bgColor: string = '#FFFFFF';
+  @Input() icon: string = '';
 }

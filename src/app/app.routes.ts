@@ -30,6 +30,7 @@ import { EmployeeDetailsComponent } from './core-component/dashboard/employee/em
 import { NoPermissionComponent } from './common-component/no-permission/no-permission.component';
 import { ngxPermissionsGuard } from 'ngx-permissions';
 import { SalaryTypeComponent } from './core-component/dashboard/setting/Lockups/salary-type/salary-type.component';
+import { HomeIndexComponent } from './core-component/dashboard/homeIndex/home.component';
 
 export const routes: Routes = [
   {
@@ -60,6 +61,7 @@ export const routes: Routes = [
       { path: 'AddPosition', component: AddPositionComponent },
       { path: 'DepartmentDetails', component: DepartmentDetailsComponent },
       { path: 'AddDepartment', component: AddDepartmentComponent },
+      { path: 'HomeIndex', component: HomeIndexComponent },
       { path: 'DepartmentOverview', component: DepartmentOverviewComponent  },
       { path: 'PositionTypeManagment', component: PositionTypeManagmentComponent  },
       { path: 'salary-type', component: SalaryTypeComponent  },
