@@ -52,7 +52,7 @@
   "SUCCESS": "نجاح",
   "PASSWORD_RESET_SUCCESS": "تمت إعادة تعيين كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول باستخدام كلمة المرور الجديدة الخاصة بك.",
   "Admin": "مدير",
-  "Save":"حفظ",
+  "Save": "حفظ",
   "Profile_Information": {
     "Edit Profile": "تعديل الملف الشخصي",
     "Profile Information": "معلومات الملف الشخصي",
@@ -121,7 +121,7 @@
     "LONGITUDE_REQUIRED": "خط الطول مطلوب",
     "LATITUDE_REQUIRED": "خط العرض مطلوب",
     "BACK": "رجوع",
-    "EDIT": "تعديل",
+    "EDIT": "حفظ",
     "SAVE": "حفظ",
     "ERROR": "خطأ",
     "SUCCESS": "نجاح",
@@ -172,7 +172,7 @@
     "DEPARTMENT_LAT": "خط عرض القسم",
     "DEPARTMENT_LOCATION": "موقع القسم",
     "BACK": "رجوع",
-    "EDIT": "تعديل",
+    "EDIT": "حفظ",
     "SAVE": "حفظ",
     "SELECT_OPTION": "اختر خيار",
     "REQUIRED_FIELD": "مطلوب",
@@ -226,7 +226,7 @@
     "FILL_REQUIRED_FIELDS": "يرجى ملء جميع الحقول المطلوبة",
     "POSITION_ADDED_SUCCESSFULLY": "تمت إضافة الوظيفة بنجاح",
     "ERROR_ADDING_POSITION": "خطأ في إضافة الوظيفة",
-    "EDIT": "تعديل"
+    "EDIT": "حفظ"
   },
   "INDEX_POSITION": {
     "ADD_POSITION": "إضافة وظيفة",
@@ -259,7 +259,8 @@
     "ADD_ADMIN": "إضافة مسؤول",
     "SETTING": "الإعدادات",
     "HELP": "مساعدة",
-    "LOGOUT": "تسجيل الخروج"
+    "LOGOUT": "تسجيل الخروج",
+    "COMPLAINSANDSUGGESTIONS":"الشكاوى والمقترحات"
   },
   "Home": {
     "ActiveCompanies": "الشركات النشطة",
@@ -303,8 +304,21 @@
     "NO_EMPLOYEES_FOUND": "لم يتم العثور على موظفين",
     "DELETE_CONFIRMATION": "هل أنت متأكد أنك تريد حذف هذا الموظف؟",
     "CANCEL": "إلغاء",
-    "DELETE": "حذف"
-  },
+    "DELETE": "حذف",
+    "LOCATION": "العنوان",
+    "NO_LOCATION_FOUND": "لا يوجد عنوان",
+    "SAVE":"حفظ",
+    "LONGITUDE_REQUIRED":"خط الطول مطلوب",
+    "LATITUDE_REQUIRED":"دائرة العرض مطلوبة",
+    "Edit":"تعديل",
+    "viewEmployees.Latitude":"دائرة العرض",
+    "viewEmployees.LONGITUDE":"خط الطول",
+    "NUMOFDAY":"عدد الأيام",
+    "select":"اختر عدد الأيام",
+    "Add New Location":"إضافة موقع",
+    "from":"من",
+    "to":"الي"
+    },
   "personalInfo": {
     "PROFILE_INFORMATION": "معلومات الملف الشخصي",
     "GREETING": "مرحبًا، أنا",
@@ -337,6 +351,9 @@
     "Entitlements": "المستحقات",
     "Deductions": "الخصومات",
     "Title": "الوظيفة",
+    "comment":"تعليق",
+    "add_deduction":"اضافة خصم",
+
     "Level": "المستوى",
     "Allowance": "البدلات",
     "Basic_Salary": "الراتب الأساسي",
@@ -360,9 +377,8 @@
     "Deduction": "الخصم",
     "Save": "حفظ"
   },
- 
   "companyFormPage": {
-        "cancelButton": "إلغاء",
+    "cancelButton": "إلغاء",
     "nextButton": "التالي",
     "upload": {
       "logoText": "تحميل شعار الشركة",
@@ -509,5 +525,40 @@
   "amount": "المبلغ",
   "Actions": "الإجراءات",
   "id": "المعرف",
-  "FIELD_REQUIRED":"هذه الخانة مطلوبه"
+  "FIELD_REQUIRED":"هذه الخانة مطلوبه",
+  "tabs": {
+    "complaints": "الشكاوى",
+    "suggestions": "الاقتراحات"
+  },
+  "complaintsPage": {
+    "noData": "لا توجد شكاوى.",
+    "loading": "جارٍ تحميل الشكاوى...",
+    "seeDetails": "عرض التفاصيل",
+    "deleteComplaint": "حذف الشكوى",
+    "deleteSuggestion": "حذف الاقتراح"
+  },
+  "status": {
+    "submitted": "تم الإرسال",
+    "opened": "تم الفتح",
+    "in_progress": "قيد التنفيذ",
+    "closed": "مغلق",
+    "unknown": "غير معروف"
+  },
+  "Directed": "موجه إلى",
+  
+  "complainDetails": {
+    "loading": "جار تحميل تفاصيل الشكوى...",
+    "error": "حدث خطأ أثناء تحميل تفاصيل الشكوى. الرجاء المحاولة مرة أخرى لاحقًا.",
+    "user": {
+      "name": "اسم المستخدم",
+      "phone": "رقم الهاتف",
+      "email": "البريد الإلكتروني"
+    },
+    "complaint": {
+      "type": "نوع الشكوى",
+      "againstName": "الاسم المستهدف",
+      "details": "تفاصيل الشكوى",
+      "attachments": "المرفقات"
+    }
+  }
 }

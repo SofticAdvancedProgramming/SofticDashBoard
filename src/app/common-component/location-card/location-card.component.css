@@ -1,0 +1,19 @@
+.location-card .card-text .card-text-title{
+  font-weight: 700;
+  font-size: 20px;
+}
+.location-card .card-text .card-text-address,.form-group label{
+  font-weight: 500;
+  font-size: 16px;
+}
+.location-card .card-text .card-text-branch,.form-group option{
+  font-weight: 300;
+  font-size: 14px;
+}
+.card-icons{
+  border-left: 1px solid #EAEBED;
+}
+:host
+{
+  display: inline;
+}
