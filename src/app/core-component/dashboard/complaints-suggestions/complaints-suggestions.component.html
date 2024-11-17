@@ -1,0 +1,71 @@
+<div class="row d-flex justify-content-center">
+    <div class="tab-container justify-content-center">
+        <div class="tabs">
+            <button class="tab-button" [class.active]="activeTab === 'complaints'" (click)="selectTab('complaints')">
+                {{ 'tabs.complaints' | translate }}
+                <span *ngIf="activeTab === 'complaints'" class="indicator"></span>
+            </button>
+            <button class="tab-button" [class.active]="activeTab === 'suggestions'" (click)="selectTab('suggestions')">
+                {{ 'tabs.suggestions' | translate }}
+                <span *ngIf="activeTab === 'suggestions'" class="indicator"></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mt-3">
+        <!-- No Data Message -->
+        <div *ngIf="filteredComplaints.length === 0 && !loading" class="no-data-message">
+            {{ activeTab === 'complaints'
+            ? ('complaintsPage.noComplaints' | translate)
+            : ('complaintsPage.noSuggestions' | translate) }}
+        </div>
+
+        <!-- Loading Spinner -->
+        <div *ngIf="loading" class="loading-spinner">
+            {{ 'complaintsPage.loading' | translate }}
+        </div>
+
+        <!-- Complaints/Suggestions List -->
+        <div *ngIf="filteredComplaints && filteredComplaints.length > 0;">
+            <div class="row mt-5">
+                <div class="col-lg-6" *ngFor="let complaint of filteredComplaints">
+                    <div class="complaint-card">
+                        <div class="user-info">
+                            <img [src]="userImageUrl" alt="User Avatar" class="avatar" (error)="onImageError($event)">
+                            <div class="user-details d-flex">
+                                <h3 class="mx-1">{{ complaint.issue.firstName }}</h3>
+                                <h3>{{ complaint.issue.lastName }}</h3>
+                                <h3 class="title">{{ userPosition }}</h3>
+                            </div>
+                        </div>
+                        <div class="complaint-details mt-3 justify-content-between d-flex">
+                            <span class="Directed">{{ 'Directed' | translate }}</span>
+                            <span class="against-type">{{ complaint.againstTypeName }}</span>
+                        </div>
+                        <div class="complaint-actions mt-3 justify-content-between d-flex">
+                            <button class="detailsButton btn" (click)="navigateToDetails(complaint.id)">
+                                {{ 'complaintsPage.seeDetails' | translate }}
+                            </button>
+
+                            <span class="badge" [ngClass]="getStatusStyles(complaint.issue.issueStatusId)">{{complaint.issue.issueStatusId | enumToString:issueStatus}}</span>
+
+                            <button class="delete-button" (click)="deleteComplaint(complaint.id, $event)">
+                                {{ activeTab === 'complaints'
+                                ? ('complaintsPage.deleteComplaint' | translate)
+                                : ('complaintsPage.deleteSuggestion' | translate) }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="d-flex justify-content-center mt-3" *ngIf="totalComplaints > itemsPerPage">
+        <pagination [totalItems]="totalComplaints" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
+            (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;"></pagination>
+    </div>
+</div>

@@ -12,7 +12,7 @@ import { PositionTypeService } from '../../../../../services/lockupsServices/pos
 })
 export class PositionTypeManagmentComponent implements OnInit {
   PositionTypes: any[] = [];
-  columns: string[] = ['id', 'name', 'nameAr'];
+  columns: string[] = [  'name', 'nameAr'];
   deleteId: string = 'deletePositionType';
   formData: any;
   isEdit = false;

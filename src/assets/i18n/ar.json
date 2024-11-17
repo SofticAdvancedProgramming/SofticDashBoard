@@ -259,7 +259,8 @@
     "ADD_ADMIN": "إضافة مسؤول",
     "SETTING": "الإعدادات",
     "HELP": "مساعدة",
-    "LOGOUT": "تسجيل الخروج"
+    "LOGOUT": "تسجيل الخروج",
+    "COMPLAINSANDSUGGESTIONS":"الشكاوى والمقترحات"
   },
   "Home": {
     "ActiveCompanies": "الشركات النشطة",
@@ -350,6 +351,9 @@
     "Entitlements": "المستحقات",
     "Deductions": "الخصومات",
     "Title": "الوظيفة",
+    "comment":"تعليق",
+    "add_deduction":"اضافة خصم",
+
     "Level": "المستوى",
     "Allowance": "البدلات",
     "Basic_Salary": "الراتب الأساسي",
@@ -516,6 +520,45 @@
       "cancel": "إلغاء",
       "next": "التالي"
     }
+  },
+  "transactionDate": "تاريخ المعاملة",
+  "amount": "المبلغ",
+  "Actions": "الإجراءات",
+  "id": "المعرف",
+  "FIELD_REQUIRED":"هذه الخانة مطلوبه",
+  "tabs": {
+    "complaints": "الشكاوى",
+    "suggestions": "الاقتراحات"
+  },
+  "complaintsPage": {
+    "noData": "لا توجد شكاوى.",
+    "loading": "جارٍ تحميل الشكاوى...",
+    "seeDetails": "عرض التفاصيل",
+    "deleteComplaint": "حذف الشكوى",
+    "deleteSuggestion": "حذف الاقتراح"
+  },
+  "status": {
+    "submitted": "تم الإرسال",
+    "opened": "تم الفتح",
+    "in_progress": "قيد التنفيذ",
+    "closed": "مغلق",
+    "unknown": "غير معروف"
+  },
+  "Directed": "موجه إلى",
+  
+  "complainDetails": {
+    "loading": "جار تحميل تفاصيل الشكوى...",
+    "error": "حدث خطأ أثناء تحميل تفاصيل الشكوى. الرجاء المحاولة مرة أخرى لاحقًا.",
+    "user": {
+      "name": "اسم المستخدم",
+      "phone": "رقم الهاتف",
+      "email": "البريد الإلكتروني"
+    },
+    "complaint": {
+      "type": "نوع الشكوى",
+      "againstName": "الاسم المستهدف",
+      "details": "تفاصيل الشكوى",
+      "attachments": "المرفقات"
+    }
   }
-   
 }
