@@ -16,7 +16,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AttendanceService } from '../../../services/AttendanceService/attendance.service';
  import { EmployeeService } from '../../../services/employeeService/employee.service';
 import { GlobalFunctionsService } from '../../../services/Global Functions Dashboard/global-functions.service';
-import { string } from '@tensorflow/tfjs-core';
+import { math, string } from '@tensorflow/tfjs-core';
+import { AdminStaticsService } from '../../../services/AdminStatistics/AdminStatics.service';
+import { forEach } from 'lodash';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -48,7 +50,7 @@ export class HomeIndexComponent {
     private attendanceService: AttendanceService,
      private employeeService: EmployeeService,
      private functionService: GlobalFunctionsService,
-
+     private adminStatics:AdminStaticsService,
     private fb: FormBuilder,
   ) {
     const currentYear = new Date().getFullYear();
@@ -61,9 +63,24 @@ export class HomeIndexComponent {
     });
     this.getStatistics();
     this.getAttendances({}, 1);
+    this. getAdminStatistics();
+    this.assetCategorycounts();
+    this.getDepartmentEmployeeCounts();
   }
 
   public dashboardCards: any = [];
+  public departmentEmploye: any[] = [];
+  public assetCategory:any;
+  public adminCounts!:
+  {
+    companyId: number,
+    employeeCount: number,
+    branchCount: number,
+    assetCount: number,
+    positionCount: number,
+    departmentCount: number
+  }
+
 
   public chartData: Object[] = [
     { Country: this.translateService.translate("Request an advance"), Literacy_Rate: 19.1 },
@@ -80,16 +97,7 @@ export class HomeIndexComponent {
     { x: 'Others', y: 3.6, DataLabelMappingName: Browser.isDevice ? 'Others: <br> 3.6%' : 'Others: 3.6%' }
   ];
 
-  public donutChartData = {
-    labels: ['Riyadh', 'Jeddah', 'Dammam', 'Other'],
-    datasets: [
-      {
-        data: [20.8, 10.2, 19, 50],
-        backgroundColor: ['#FF9800', '#4CAF50', '#2196F3', '#9E9E9E'],
-        hoverBackgroundColor: ['#FFB74D', '#81C784', '#64B5F6', '#BDBDBD']
-      }
-    ]
-  };
+
 
   public donutChartOptions = {
     cutout: '60%',
@@ -109,7 +117,7 @@ export class HomeIndexComponent {
   map(event: any) {
     this.employee = event;
   }
- 
+
    getAttendances(searchDate = {}, pageIndex?: number) {
     let query: any = pageIndex ? { pageIndex, sortIsAsc: false, sortCol: "attendanceDate" } : { sortIsAsc: false, sortCol: "attendanceDate"};
       this.attendanceService.getAttendances({ ...searchDate,  attendanceTypeId: null }).subscribe((res) => {
@@ -149,6 +157,57 @@ export class HomeIndexComponent {
     this.employeeService.getStatistics(query).subscribe((res => {
       this.dashboardCards = res;
     }))
+  }
+
+  getAdminStatistics() {
+    this.adminStatics.AdminCounts().subscribe((res => {
+      console.log(res)
+      this.adminCounts = res;
+    }))
+  }
+
+  getDepartmentEmployeeCounts() {
+    this.adminStatics.employeeDepartmentcounts(null).subscribe((res => {
+      console.log(res)
+      this.departmentEmploye = res;
+    }))
+  }
+
+  public donutChartData = {
+    labels: ['Riyadh', 'Jeddah', 'Dammam', 'Other'],
+    datasets: [
+      {
+        data: [20.8, 10.2, 19, 50],
+        backgroundColor: ['#FF9800', '#4CAF50', '#2196F3', '#9E9E9E'],
+        hoverBackgroundColor: ['#FFB74D', '#81C784', '#64B5F6', '#BDBDBD']
+      }
+    ]
+  };
+  assetCategorycounts() {
+    this.adminStatics.assetCategorycounts(null).subscribe((res => {
+      console.log(res)
+      let labels:any[]=[];
+      let  data:any []=[];
+      let datasets: any[]=[];
+      res.map((item:any)=>{
+        labels.push(item.name);
+        data.push(item.count);
+        })
+      datasets=[{
+        data:data,
+        backgroundColor: ['#FF9800', '#4CAF50', '#2196F3', '#9E9E9E','#FF9850', '#4CAE58', '#FF9870', '#4CAF51', '#2196F1', '#9E9E9a','#FF9852','#2396F3', '#9E8E9b','#4CAE50', '#2396F2', '#9E8E9E', '#2386F3', '#9E8E9c'],
+        hoverBackgroundColor: ['#FF9800', '#4CAF50', '#2196F3', '#9E9E9E','#FF9850', '#4CAE58', '#FF9870', '#4CAF51', '#2196F1', '#9E9E9a','#FF9852','#2396F3', '#9E8E9b','#4CAE50', '#2396F2', '#9E8E9E', '#2386F3', '#9E8E9c']
+      }]
+      this.assetCategory={
+        labels,
+        datasets
+      }
+//, '#BDBDBD','#FFB74D', '#81C784', '#64B5F6', '#BDBDBD', '#64B5F6', '#BDBDBD'
+
+//'#FF9800', '#4CAF50', '#2196F3', '#9E9E9E','#FF9850',
+      console.log(this.assetCategory)
+      }))
+
   }
 
 }
