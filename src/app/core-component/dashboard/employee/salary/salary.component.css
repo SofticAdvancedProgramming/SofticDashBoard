@@ -1,3 +1,7 @@
+* {
+  font-family: "Lama Sans" !important;
+}
+
 /* Container styling */
 .container {
   margin: 0 auto;

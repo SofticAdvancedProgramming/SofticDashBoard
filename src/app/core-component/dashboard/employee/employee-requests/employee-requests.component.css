@@ -1,226 +1,231 @@
+* {
+  font-family: "Lama Sans" !important;
+}
+
 .request-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-inline: 3em;
-    padding-block: 1em;
-        background-color: #fff;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    flex-direction: column;
-    gap: .5rem !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 3em;
+  padding-block: 1em;
+  background-color: #fff;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 0.5rem !important;
 }
 
 .user-info {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
 }
 
 .user-details h3 {
-    margin: 0;
-    font-size: 18px;
-    width: 100%;
-    justify-content: space-between;
-    display: flex;
+  margin: 0;
+  font-size: 18px;
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
 }
 
 .user-details .job-title {
-    margin: 0;
-    font-size: 14px;
-    color: #888;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin: 0;
+  font-size: 14px;
+  color: #888;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .request-details {
-    font-family: Lama Sans;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 30px;
-    letter-spacing: 0.03em;
-    color: #0D0714;
+  font-family: Lama Sans;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.03em;
+  color: #0d0714;
 }
 
 .request-details h6 {
-    margin: 0;
-    font-size: 16px;
+  margin: 0;
+  font-size: 16px;
 }
 
 .request-details p {
-    font-family: Lama Sans;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 26px;
-    letter-spacing: 0.03em;
-    text-align: left;
-    color: #736F77;
+  font-family: Lama Sans;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 26px;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: #736f77;
 }
 
 .status-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
- }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .status {
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: 500;
- }
-
- .status-pending-bg {
-    background-color: #FFF5E7; 
-    color: #FC9D0F; 
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
 }
 
- .status-rejected-bg {
-    background-color: #FFE5E5; 
-    color: #E63946;  
+.status-pending-bg {
+  background-color: #fff5e7;
+  color: #fc9d0f;
 }
 
- .status-accepted-bg {
-    background-color: #E5FFE5;  
-    color: #2D6A4F;  
+.status-rejected-bg {
+  background-color: #ffe5e5;
+  color: #e63946;
+}
+
+.status-accepted-bg {
+  background-color: #e5ffe5;
+  color: #2d6a4f;
 }
 
 .delete-button {
-    background-color: transparent;
-    border: none;
-    color: #e63946;
-    font-size: 14px;
-    margin-left: 20px;
-    cursor: pointer;
-    transition: color 0.3s ease;
+  background-color: transparent;
+  border: none;
+  color: #e63946;
+  font-size: 14px;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .delete-button:hover {
-    color: #d90429;
+  color: #d90429;
 }
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
-    color: #0D0714;
-    font-family: Lama Sans;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 30px;
-    letter-spacing: 0.03em;
-    text-align: left;
+  color: #0d0714;
+  font-family: Lama Sans;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.03em;
+  text-align: left;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #E7E6E8;
-    border-radius: 10px;
-    font-size: 14px;
-    background: #FBFBFB;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e7e6e8;
+  border-radius: 10px;
+  font-size: 14px;
+  background: #fbfbfb;
 }
 
 .form-group select {
-    height: 40px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+  height: 40px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .form-group input :focus,
 .form-group textarea:focus,
 .form-group select:focus {
-    border: none !important;
+  border: none !important;
 }
 
 .form-group textarea {
-    height: 100px;
-    resize: none;
+  height: 100px;
+  resize: none;
 }
 
 .form-group.full-width {
-    grid-column: span 2;
+  grid-column: span 2;
 }
 
 .form-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 .requestType h6 {
-    color: #0D0714;
-     font-family: Lama Sans;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 30px;
+  color: #0d0714;
+  font-family: Lama Sans;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 30px;
 }
 .requestType p {
-    color: #736F77;
-     font-family: Lama Sans;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 26px;
+  color: #736f77;
+  font-family: Lama Sans;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 26px;
 }
 .details {
-    color: #9ACA3C;
-    font-family: Lama Sans;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 30px;
-    letter-spacing: 0.03em;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5em;
+  color: #9aca3c;
+  font-family: Lama Sans;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.03em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
 }
 
 .rotate-arrow {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .action-buttons {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  justify-content: center;
 }
 
 .reject-button,
 .accept-button {
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 200px !important;}
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 200px !important;
+}
 
 .reject-button {
-    border: 1px solid #d90429;
-    background-color: transparent;
-    color: #d90429;
-    margin-right: 10px;
+  border: 1px solid #d90429;
+  background-color: transparent;
+  color: #d90429;
+  margin-right: 10px;
 }
 
 .reject-button:hover {
-    background-color: #ffd1d1;
+  background-color: #ffd1d1;
 }
 
 .accept-button {
-    border: none;
-    background-color: #8bc34a;
-    color: #fff;
+  border: none;
+  background-color: #8bc34a;
+  color: #fff;
 }
 
 .accept-button:hover {
-    background-color: #7cb342;
+  background-color: #7cb342;
 }

@@ -57,12 +57,12 @@ export class FinancialComponent {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
     this.form = this.fb.group({
       id: 0,
-      transactionDate: [''],
+      transactionDate: ['', Validators.required],
       companyId: this.companyId,
       employeeId: this.employeeId,
       salaryTypeId: this.salaryTypeId,
-      comment: [''],
-      amount: [null, [Validators.required, Validators.min(0)]]
+      comment: ['', Validators.required],
+      amount: ['', [Validators.required, Validators.min(0)]]
     })
   }
   setActiveTab(tab: string): void {
