@@ -96,6 +96,8 @@ export class EmployeeRequestsComponent implements OnInit {
         if (response.status === 200) {
           this.requestTypes = response.data.list || [];
         }
+        console.log("pppppppppppp",response)
+
       }),
       catchError((error) => {
         console.error('Error loading request types:', error);

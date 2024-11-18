@@ -37,7 +37,7 @@ export interface Employee {
   fullName: string;
   jobTitle: string  ;
   profileImage: string ;
-}
+  createdOn: string;}
 
 
 //Reciver Requests
@@ -87,6 +87,8 @@ export interface ReceivedRequest {
     profileImage?: string;
     jobTitle?: string;
   };
+  createdOn?: string;
+
 }
 export interface AddRequest {
   id: number;

@@ -48,7 +48,7 @@
                             {{ getRequestStatusName(request.requestStatusId) }}
                         </span>
                     </div>
-
+                    {{ request.createdOn | date: 'longDate' || ('MY_REQUESTS.NO_CREATED_DATE' | translate) }}
                 </div>
             </div>
         </div>
