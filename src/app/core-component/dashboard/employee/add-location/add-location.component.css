@@ -1,0 +1,66 @@
+
+*{
+  box-sizing: border-box;
+}
+.location-card .card-text .card-text-title{
+  font-weight: 700;
+  font-size: 20px;
+}
+.location-card .card-text .card-text-address,.form-group label{
+  font-weight: 500;
+  font-size: 16px;
+}
+.location-card .card-text .card-text-branch,.form-group option{
+  font-weight: 300;
+  font-size: 14px;
+}
+.card-icons{
+  border-left: 1px solid #EAEBED;
+}
+.modal{
+  border-radius: 20px;
+
+}
+.modal-body p{
+  font-weight: 300;
+  font-size: 24px;
+}
+.new-location-map-container{
+  max-height: 50vh;
+  overflow: hidden;
+}
+
+.no-locations-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  text-align: center;
+}
+.no-locations-message {
+  font-size: 18px;
+  font-weight: bold;
+  color: #6c757d;
+  animation: fadeIn 0.5s ease-in-out;
+}
+.btn-cancel-Location {
+  justify-content: center;
+  border: 2px solid #9ACA3C;
+  color: #9ACA3C;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.btn-new-Location {
+  text-align: center;
+  border: 2px solid #993BF9;
+  background-color: #993BF9;
+  color: white;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

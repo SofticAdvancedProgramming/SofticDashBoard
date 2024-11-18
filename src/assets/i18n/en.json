@@ -22,7 +22,7 @@
     "20": "Referance_Photo_Is_Required"
   },
   "No notifications": "No notifications",
-  "Read More": "اقرا المزيد",
+  "Read More": "read more",
   "WELCOME_BACK": "Welcome Back 👋",
   "LIGHT_DESCRIPTION": "Today is a new day. It's your day. You shape it. Sign in to start managing your projects.",
   "EMAIL": "Email",
@@ -125,7 +125,7 @@
     "LATITUDE_REQUIRED": "Latitude is required",
     "BACK": "Back",
     "SAVE": "Save",
-    "EDIT": "Edit",
+    "EDIT": "Save",
     "ERROR": "Error",
     "SUCCESS": "Success",
     "FILL_ALL_REQUIRED_FIELDS": "Please fill all required fields",
@@ -176,7 +176,7 @@
     "DEPARTMENT_LOCATION": "Department Location",
     "BACK": "Back",
     "SAVE": "Save",
-    "EDIT": "Edit",
+    "EDIT": "Save",
     "SELECT_OPTION": "Select Option",
     "REQUIRED_FIELD": "is required",
     "DESCRIPTION_CONSTRAINT": "must be between 100 and 250 characters.",
@@ -229,7 +229,7 @@
     "FILL_REQUIRED_FIELDS": "Please fill all required fields",
     "POSITION_ADDED_SUCCESSFULLY": "Position added successfully",
     "ERROR_ADDING_POSITION": "Error adding position",
-    "EDIT": "Edit"
+    "EDIT": "Save"
   },
   "NAV": {
     "SEARCH": "Search..."
@@ -296,7 +296,7 @@
     "Salary_Type_DESCRIPTION": "This field defines the type of salary an employee receives, such as fixed, hourly, or commission-based, providing clarity on the employee's pay structure."
   },
   "viewEmployees": {
-    "CURRENT_EMPLOYEES": "Current Employees",
+"CURRENT_EMPLOYEES": "Current Employees",
     "NEW_EMPLOYEE_REQUESTS": "New Employee Requests",
     "SEARCH": "Search...",
     "EMPLOYEE_NAME": "Employee Name",
@@ -304,10 +304,23 @@
     "DEPARTMENT": "Department",
     "POSITION": "Position",
     "ACTION": "Action",
+    "LOCATION": "Location",
+    "NO_LOCATION_FOUND": "No Location found",
     "NO_EMPLOYEES_FOUND": "No employees found",
     "DELETE_CONFIRMATION": "Are you sure you want to delete this employee?",
     "CANCEL": "Cancel",
-    "DELETE": "Delete"
+    "DELETE": "Delete",
+    "SAVE":"Save",
+    "LONGITUDE_REQUIRED":"Longitude is required",
+    "LATITUDE_REQUIRED":"Latitude is required",
+    "Edit":"Edit",
+    "viewEmployees.Latitude":"Latitude",
+    "viewEmployees.LONGITUDE":"Longitude",
+    "NUMOFDAY":"NUMOFDAY",
+    "select":"Open this select menu",
+    "Add New Location":"Add New Location",
+    "from":"from",
+ "to":"To"
   },
   "personalInfo": {
     "PROFILE_INFORMATION": "Profile Information",

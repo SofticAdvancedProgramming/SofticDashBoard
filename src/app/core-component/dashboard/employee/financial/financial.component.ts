@@ -68,11 +68,13 @@ export class FinancialComponent {
   setActiveTab(tab: string): void {
     this.activeTab = tab;
     this.isDeduction = tab === 'Deductions';
-    this.loadEntitie('employeeSalary', 1);
-    this.loadEntitiesDropDown('SalaryType', 1);
+     this.loadEntitie('employeeSalary', 1);
+    this.loadEntitiesDropDown('SalaryType', 1,this.isDeduction);
+    console.log(tab)
   }
+
   ngOnInit(): void {
-    this.loadEntitiesDropDown('SalaryType', 1);
+    this.loadEntitiesDropDown('SalaryType', 1 , false);
     this.loadEntitie('employeeSalary', 1);
   }
 
@@ -118,11 +120,11 @@ export class FinancialComponent {
     );
   }
 
-  loadEntitiesDropDown(entity: string, pageIndex: number): void {
+  loadEntitiesDropDown(entity: string, pageIndex: number,isDeduction:boolean ): void {
     const methodName = this.entityTypes[entity].load as keyof SalaryTypeService;
     (this.salaryTypeService[methodName] as Function)({
       pageIndex,
-      isDeduction: this.isDeduction,
+      isDeduction: isDeduction,
     }).subscribe((response: any) => {
       if (response.status === 200) {
         if (this.isDeduction) {
@@ -135,6 +137,7 @@ export class FinancialComponent {
           this.dropDownData = this.dropDownDataIsDeductionFalse;
         }
         this.currentPageDropDown = response.data.pageIndex;
+          console.log(response)
       }
     });
   }
@@ -171,11 +174,13 @@ export class FinancialComponent {
       comment: this.form.value.comment,
       isDeduction: this.isDeduction,
       id: 0,
-    };
+     };
 
     this.employeeService.addEmployeeSalary(payload).subscribe((res) => {
-      this.toastersService.typeSuccess('Successfully Completed');
-      this.loadEntitie('employeeSalary', 1);
+      if (res.status === 200) {
+        this.toastersService.typeSuccess(this.isDeduction ? 'Deduction added successfully' : 'Entitlement added successfully');
+        this.loadEntitie('employeeSalary', 1);
+      }
     });
   }
 
@@ -228,5 +233,9 @@ export class FinancialComponent {
       transactionDateTo: transactionDateTo || ''
     };
   }
-
+  get actionButtonLabel(): string {
+    return this.activeTab === 'Deductions'
+      ? 'employeeDetails.Add_Deduction'
+      : 'employeeDetails.Add_Bonus';
+  }
 }
