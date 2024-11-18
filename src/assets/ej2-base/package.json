@@ -42,6 +42,7 @@
     "syncfusion-license": "bin/syncfusion-license.js"
   },
   "dependencies": {
+    "@syncfusion/ej2-base": "file:",
     "@syncfusion/ej2-icons": "^25.1.35"
   },
   "devDependencies": {

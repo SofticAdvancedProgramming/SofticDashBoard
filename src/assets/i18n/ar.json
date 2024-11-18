@@ -536,7 +536,9 @@
     "loading": "جارٍ تحميل الشكاوى...",
     "seeDetails": "عرض التفاصيل",
     "deleteComplaint": "حذف الشكوى",
-    "deleteSuggestion": "حذف الاقتراح"
+    "deleteSuggestion": "حذف الاقتراح",
+    "noComplaints":"لا توجد شكاوى",
+    "noSuggestions":"لا توجد مقتراحات"
   },
   "status": {
     "submitted": "تم الإرسال",
@@ -561,6 +563,12 @@
       "details": "تفاصيل الشكوى",
       "attachments": "المرفقات"
     }
+  },
+  "CONFIRM_DELETE":{
+    "TITLE":"تأكيد الحذف",
+    "MESSAGE":"هل انت متأكد من حذف هذا ؟",
+    "CANCEL":"الغاء",
+    "CONFIRM":"تأكيد"
   },
   "MY_REQUESTS": {
     "FILTER": "تصفية",
