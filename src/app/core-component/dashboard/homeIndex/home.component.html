@@ -1,0 +1,61 @@
+<div class="container-fluid  ">
+  <div class="row ">
+    <div class="date-range-picker d-flex justify-content-end">
+      <mat-form-field appearance="fill" class="date-input">
+        <mat-date-range-input [rangePicker]="picker" [formGroup]="form">
+          <input matStartDate formControlName="from" placeholder="Start date" />
+          <input matEndDate formControlName="to" placeholder="End date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <button mat-button class="find-btn" (click)="getStatistics()">{{'Find' | translate}}</button>
+    </div>
+  </div>
+  <div class="row">
+    <ng-container *ngFor="let card of dashboardCards">
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+        <app-dashboard-card [title]="lang === 'ar'? card.titleAr : card.title" [value]="card.value"
+          [cardClass]="card.cardClass" [bgColor]="card.bgColor" [icon]="'assets/images/profile/workdays.png'">
+        </app-dashboard-card>
+      </div>
+    </ng-container>
+  </div>
+  <div class="row chartRow justify-content-center">
+    <div class="col-lg-6 col-md-12 col-sm-12 customStyle">
+      <app-bar-chart class="chartText" [data]="chartData" [title]="'New Request' | translate" [xName]="'Country'"
+        [yName]="'Literacy_Rate'" [tooltipMappingName]="'Text'" [backgroundColor]="'white'"
+        [barWidth]="0.2"></app-bar-chart>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 customStyle d-flex flex-column">
+      <div class="chart-wrapper w-100">
+        <h3 class="chart-title text-center">{{'Traffic by Location' | translate}}</h3>
+        <div class="chart-content d-flex justify-content-center">
+          <donut-chart [data]="donutChartData" [options]="donutChartOptions"></donut-chart>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <app-modern-table [tableTitle]="'Overview'" [totalRows]="attendances.totalRows" [tableData]="attendances.list"
+    [columns]="columns" [isThereSearch]="false" [isThereEdit]="false" [isThereDelete]="false" [newAction]="newAction"
+    (searchDateApi)="searchDateApi($event)" (newReqByPage)="getAttendances({},$event)"
+    (onCLickNewActionOutput)="map($event)" searchPlaceholder="Search data...">
+  </app-modern-table>
+
+</div>
+
+<!-- Modal -->
+<div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="row">
+        <app-map [lat]="employee?.lat || 0" [employee]="employee" [long]="employee?.long || 0"></app-map>
+      </div>
+    </div>
+  </div>
+</div>

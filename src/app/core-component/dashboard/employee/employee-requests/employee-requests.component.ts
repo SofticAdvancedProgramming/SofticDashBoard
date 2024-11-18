@@ -1,14 +1,15 @@
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { catchError, of, Subject, takeUntil, tap } from 'rxjs';
-import { RequestService } from '../../../../services/requestService/request.service';
-import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
-import { ToastModule } from 'primeng/toast';
-import { ReceivedRequest, ReciverRequestSC, RequestAction, RequestStatus } from '../../../../common-component/interfaces/requests';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { tap, catchError, of } from 'rxjs';
+import { MessageService } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute for URL access
+
+import { ReceivedRequest, ReciverRequestSC, RequestStatus } from '../../../../common-component/interfaces/requests';
+import { RequestService } from '../../../../services/requestService/request.service';
 import { RequestLockupService } from '../../../../services/requestLockupService/request-lockup.service';
 
 @Component({
@@ -18,15 +19,14 @@ import { RequestLockupService } from '../../../../services/requestLockupService/
     CommonModule,
     PaginationModule,
     FormsModule,
-    ToastModule,
     TranslateModule,
   ],
   providers: [MessageService],
   templateUrl: './employee-requests.component.html',
-  styleUrl: './employee-requests.component.css',
+  styleUrls: ['./employee-requests.component.css'],
 })
-export class EmployeeRequestsComponent implements OnInit, OnDestroy {
-  receivedRequest: ReceivedRequest[] = [];
+export class EmployeeRequestsComponent implements OnInit {
+  requests: ReceivedRequest[] = [];
   filteredRequests: ReceivedRequest[] = [];
   requestTypes: any[] = [];
   requestStatuses: any[] = [];
@@ -36,53 +36,50 @@ export class EmployeeRequestsComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalRequests: number = 0;
-  isAdmin: boolean = false;
-
-  private unsubscribe$ = new Subject<void>();
-  id: any;
+  employeeId!: number;
   constructor(
-    private route: ActivatedRoute,
     private requestService: RequestService,
+    private requestsService: RequestLockupService,
     private router: Router,
+    private translate: TranslateService,
     private messageService: MessageService,
-    private requestsService: RequestLockupService
-  ) {}
+    private route: ActivatedRoute,
+  ) { }
+
 
   ngOnInit(): void {
-    this.route.paramMap
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((params) => {
-        this.id = params.get('id');
-      });
-    this.isAdmin = this.checkIfAdmin();
+    // Get employee ID from the URL
+    this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
+    if (!this.employeeId) {
+      console.error('Employee ID not found in URL');
+      return;
+    }
+
+    // Load the relevant data
     this.loadRequestTypes();
     this.loadRequestStatuses();
     this.loadRequests();
   }
 
-  checkIfAdmin(): boolean {
-    const roles = JSON.parse(localStorage.getItem('roles') || '[]');
-    return roles.includes('Admin');
-  }
 
   loadRequests(page: number = this.currentPage): void {
     const requestPayload: Partial<ReciverRequestSC> = {
-      receiverId: this.isAdmin ? undefined : parseInt(localStorage.getItem("userId") ?? ""),
+      employeeId: this.employeeId,
       pageIndex: page,
       pageSize: this.itemsPerPage,
-      requestStatusId: this.selectedStatus === RequestStatus.ALL ? undefined : this.selectedStatus
+      requestStatusId: this.selectedStatus === RequestStatus.ALL ? undefined : this.selectedStatus,
     };
 
-    this.requestService.getRequests().pipe(
+    this.requestService.getRequests(requestPayload).pipe(
       tap((response: any) => {
         if (response.status === 200) {
-          this.receivedRequest = response.data.list || [];
-          this.filteredRequests = [...this.receivedRequest];
-          this.totalRequests = response.data.totalRows;
+          this.requests = response.data.list || [];
+          this.totalRequests = response.data.totalRows || 0;
+          this.filterRequests();
         }
       }),
       catchError((error) => {
-        console.error('Error fetching received requests:', error);
+        console.error('Error fetching requests:', error);
         return of([]);
       })
     ).subscribe();
@@ -111,7 +108,9 @@ export class EmployeeRequestsComponent implements OnInit, OnDestroy {
     this.requestsService.getRequestStatus().pipe(
       tap((response: any) => {
         if (response.status === 200) {
-          this.requestStatuses = response.data.list || [];
+          this.requestStatuses = response.data.list.filter(
+            (status: any) => status.id !== RequestStatus.Pending
+          );
         }
       }),
       catchError((error) => {
@@ -120,90 +119,52 @@ export class EmployeeRequestsComponent implements OnInit, OnDestroy {
       })
     ).subscribe();
   }
-
+  
   getRequestTypeName(id: number): string {
-    const type = this.requestTypes.find(rt => rt.id === id);
-    return type ? type.name : 'Unknown Type';
+    const type = this.requestTypes.find((rt) => rt.id === id);
+    return type ? type.name : this.translate.instant('EMPLOYEE_REQUESTS.UNKNOWN_TYPE');
   }
 
   getRequestStatusName(id: number): string {
-    const status = this.requestStatuses.find(rs => rs.id === id);
-    if (status) {
-        return `RECEIVED_REQUESTS.REQUEST_STATUSES.${status.name.toUpperCase()}`;  
-    }
-    return 'RECEIVED_REQUESTS.UNKNOWN_STATUS'; 
-}
+    const status = this.requestStatuses.find((rs) => rs.id === id);
+    return status
+      ? this.translate.instant(`EMPLOYEE_REQUESTS.REQUEST_STATUSES.${status.name.toUpperCase()}`)
+      : this.translate.instant('EMPLOYEE_REQUESTS.UNKNOWN_STATUS');
+  }
 
-  filterRequests(event: Event): void {
+  filterRequests(): void {
+    this.filteredRequests = this.requests.filter(
+      (request) => request.requestStatusId === RequestStatus.Accepted || request.requestStatusId === RequestStatus.Rejected
+    );
+  }
+  
+
+  onStatusChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
-    const statusId = parseInt(selectElement.value, 10);
-    this.selectedStatus = statusId as RequestStatus;
+    this.selectedStatus = parseInt(selectElement.value, 10) as RequestStatus;
     this.currentPage = 1;
     this.loadRequests(this.currentPage);
   }
 
-  filterRequestsByStatus(statusId: RequestStatus): void {
-    if (statusId === RequestStatus.ALL) {
-      this.filteredRequests = this.receivedRequest;
-    } else {
-      this.filteredRequests = this.receivedRequest.filter(receivedRequest => receivedRequest.requestStatusId === statusId);
-    }
+  viewTracking(request: ReceivedRequest): void {
+    this.router.navigate(['/TrackingRequests'], { queryParams: { requestId: request.id } });
   }
 
-  rejectRequest(requestId: number): void {
-    let action: RequestAction = {
-      id: requestId,
-      requestStatusId: RequestStatus.Rejected
-    };
-    this.requestService.actionReciverRequests(action).pipe(
-      tap((res: any) => {
-        console.log(res);
-        this.updateRequestStatus(requestId, RequestStatus.Rejected);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Request rejected successfully.' });
-      }),
-      catchError((error) => {
-        console.error('Error rejecting request:', error);
-        return of([]);
-      })
-    ).subscribe();
-  }
-
-  acceptRequest(requestId: number): void {
-    let action: RequestAction = {
-      id: requestId,
-      requestStatusId: RequestStatus.Accepted
-    };
-    this.requestService.actionReciverRequests(action).pipe(
-      tap((res: any) => {
-        console.log(res);
-        this.updateRequestStatus(requestId, RequestStatus.Accepted);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Request accepted successfully.' });
-      }),
-      catchError((error) => {
-        console.error('Error accepting request:', error);
-        return of([]);
-      })
-    ).subscribe();
-  }
-
-  updateRequestStatus(requestId: number, statusId: RequestStatus): void {
-    const request = this.receivedRequest.find(r => r.id === requestId);
-    if (request) {
-      request.requestStatusId = statusId;
-      this.filterRequestsByStatus(this.selectedStatus);
-    }
-  }
-
-  navigateToDetails(requestId: number): void {
-    this.router.navigate(['/RequestDetails', requestId]);
-  }
   isArabicLanguage(): boolean {
     return localStorage.getItem('lang') === 'ar';
   }
-
-
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
+  deleteRequest(id: number, companyId: number): void {
+    this.requestService.deleteRequest(id, companyId).subscribe(
+      (response) => {
+        if (response.status === 200) {
+          this.requests = this.requests.filter((request) => request.id !== id);
+          this.filterRequests();
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Request deleted successfully.' });
+        }
+      },
+      (error) => {
+        console.error('Error deleting request:', error);
+      }
+    );
   }
 }

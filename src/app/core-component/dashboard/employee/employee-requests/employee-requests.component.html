@@ -2,82 +2,59 @@
     <!-- Filter Dropdown -->
     <div class="row mt-3">
         <div class="col-lg-6">
-            <label for="statusFilter">{{ 'RECEIVED_REQUESTS.FILTER_REQUESTS' | translate }}</label>
-            <select id="statusFilter" class="form-control" (change)="filterRequests($event)">
-                <option [value]="RequestStatus.ALL" [selected]="selectedStatus === RequestStatus.ALL">
-                    {{ 'RECEIVED_REQUESTS.ALL' | translate }}
+            <label for="statusFilter">{{ 'MY_REQUESTS.FILTER' | translate }}</label>
+            <select id="statusFilter" class="form-control" (change)="onStatusChange($event)">
+                <option value="-1" [selected]="selectedStatus === -1">
+                    {{ 'MY_REQUESTS.REQUEST_STATUSES.ALL' | translate }}
                 </option>
                 <option *ngFor="let status of requestStatuses" [value]="status.id"
                     [selected]="status.id === selectedStatus">
-                    {{ 'RECEIVED_REQUESTS.REQUEST_STATUSES.' + status.name | translate }}
+                    {{ getRequestStatusName(status.id) }}
                 </option>
             </select>
         </div>
     </div>
 
+
     <!-- Requests List -->
     <div *ngIf="filteredRequests && filteredRequests.length > 0; else noRequestsTemplate">
         <div class="row mt-3">
-            <div class="col-lg-6" *ngFor="let receivedRequest of filteredRequests">
+            <div class="col-lg-6" *ngFor="let request of filteredRequests">
                 <div class="request-card">
                     <!-- User Info -->
-                    <div class="user-info gap-3 w-100">
-                        <img [src]="receivedRequest.request.employee?.profileImage || '../../../../../assets/images/default.jpeg'"
+                    <div class="user-info w-100 gap-3">
+                        <img [src]="request.employee?.profileImage || '../../../../../assets/images/default.jpeg'"
                             alt="User Avatar" class="avatar">
                         <div class="user-details">
                             <h3>
-                                {{ receivedRequest.request.employee?.firstName || ('RECEIVED_REQUESTS.UNKNOWN_NAME' |
-                                translate) }}
-                                {{ receivedRequest.request.employee?.lastName || ('RECEIVED_REQUESTS.UNKNOWN_NAME' |
-                                translate) }}
+                                {{ request.employee?.firstName || ('MY_REQUESTS.UNKNOWN_NAME' | translate) }}
+                                {{ request.employee?.lastName || ('MY_REQUESTS.UNKNOWN_NAME' | translate) }}
                             </h3>
-                            <p class="job-title">{{ receivedRequest.request.employee?.jobTitle ||
-                                ('RECEIVED_REQUESTS.NO_JOB_TITLE' | translate) }}</p>
+                            <p class="job-title">
+                                {{ request.employee?.jobTitle || ('MY_REQUESTS.NO_JOB_TITLE' | translate) }}
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Request Type -->
                     <div class="requestType d-flex w-100 justify-content-between">
-                        <h6>{{ 'RECEIVED_REQUESTS.REQUEST_TYPE' | translate }}</h6>
-                        <p>{{ getRequestTypeName(receivedRequest.request.requestTypeId) | translate }}</p>
+                        <h6>{{ 'EMPLOYEE_REQUESTS.REQUEST_TYPE' | translate }}</h6>
+                        <p>{{ getRequestTypeName(request.requestTypeId) }}</p>
                     </div>
-
-                    <!-- Request Details -->
                     <div class="request-details w-100 mt-2">
-                        <div class="status-container">
-                            <span class="status" [ngClass]="{
-                                'status-pending-bg': receivedRequest.requestStatusId === RequestStatus.Pending,
-                                'status-rejected-bg': receivedRequest.requestStatusId === RequestStatus.Rejected,
-                                'status-accepted-bg': receivedRequest.requestStatusId === RequestStatus.Accepted
+                        <span class="status" [ngClass]="{
+                                'status-accepted-bg': request.requestStatusId === RequestStatus.Accepted,
+                                'status-rejected-bg': request.requestStatusId === RequestStatus.Rejected
                             }">
-                                {{ getRequestStatusName(receivedRequest.requestStatusId) | translate }}
-                            </span>
-                            <!-- Action Buttons -->
-                            <div class="action-buttons"
-                                *ngIf="receivedRequest.requestStatusId === RequestStatus.Pending">
-                                <button class="reject-button" (click)="rejectRequest(receivedRequest.id)">
-                                    {{ 'RECEIVED_REQUESTS.REJECT' | translate }}
-                                </button>
-                                <button class="accept-button" (click)="acceptRequest(receivedRequest.id)">
-                                    {{ 'RECEIVED_REQUESTS.ACCEPT' | translate }}
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Navigate to Details Button -->
-                        <div class="d-flex justify-content-end">
-                            <button class="btn" (click)="navigateToDetails(receivedRequest.request.id)">
-                                <span class="details">{{ 'RECEIVED_REQUESTS.SHOW_DETAILS' | translate }} <i
-                                        class="fa-solid fa-arrow-right"></i></span>
-                            </button>
-                        </div>
+                            {{ getRequestStatusName(request.requestStatusId) }}
+                        </span>
                     </div>
+
                 </div>
             </div>
         </div>
 
         <!-- Pagination Control -->
-        <div class="d-flex justify-content-center mt-3">
+        <div class="d-flex justify-content-center mt-3" *ngIf="totalRequests > itemsPerPage">
             <pagination [totalItems]="totalRequests" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
                 (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;">
             </pagination>
@@ -86,12 +63,6 @@
 
     <!-- No Requests Template -->
     <ng-template #noRequestsTemplate>
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- <app-no-requests></app-no-requests> -->
-            </div>
-        </div>
+        <p>{{ 'MY_REQUESTS.NO_REQUESTS' | translate }}</p>
     </ng-template>
 </div>
-<p-toast position="top-center" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'"
-    [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>

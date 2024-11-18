@@ -32,7 +32,8 @@ import { ngxPermissionsGuard } from 'ngx-permissions';
 import { SalaryTypeComponent } from './core-component/dashboard/setting/Lockups/salary-type/salary-type.component';
 import { ComplaintsSuggestionsComponent } from './core-component/dashboard/complaints-suggestions/complaints-suggestions.component';
 import { ComplainSuggestionDetailsComponent } from './core-component/dashboard/complaints-suggestions/complain-suggestion-details/complain-suggestion-details.component';
- import { AddLocationComponent } from './core-component/dashboard/employee/add-location/add-location.component';
+import { AddLocationComponent } from './core-component/dashboard/employee/add-location/add-location.component';
+import { HomeIndexComponent } from './core-component/dashboard/homeIndex/home.component';
 
 export const routes: Routes = [
   {
@@ -63,6 +64,7 @@ export const routes: Routes = [
       { path: 'AddPosition', component: AddPositionComponent },
       { path: 'DepartmentDetails', component: DepartmentDetailsComponent },
       { path: 'AddDepartment', component: AddDepartmentComponent },
+      { path: 'HomeIndex', component: HomeIndexComponent },
       { path: 'DepartmentOverview', component: DepartmentOverviewComponent  },
       { path: 'PositionTypeManagment', component: PositionTypeManagmentComponent  },
       { path: 'salary-type', component: SalaryTypeComponent  },
@@ -74,7 +76,7 @@ export const routes: Routes = [
       { path: 'ComplaintsSuggestions', component: ComplaintsSuggestionsComponent  },
       { path: 'ComplainSuggestionDetails/:id', component: ComplainSuggestionDetailsComponent },
       { path: 'employee-details/:id', component: EmployeeDetailsComponent },
-      { path: 'employee-locations/:id', component: AddLocationComponent },
+      { path: 'employee-locations/:id', component: AddLocationComponent }
         ],
   },{
     path: 'no-permission',

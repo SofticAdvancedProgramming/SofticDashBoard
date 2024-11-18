@@ -536,7 +536,9 @@
     "loading": "جارٍ تحميل الشكاوى...",
     "seeDetails": "عرض التفاصيل",
     "deleteComplaint": "حذف الشكوى",
-    "deleteSuggestion": "حذف الاقتراح"
+    "deleteSuggestion": "حذف الاقتراح",
+    "noComplaints":"لا توجد شكاوى",
+    "noSuggestions":"لا توجد مقتراحات"
   },
   "status": {
     "submitted": "تم الإرسال",
@@ -560,6 +562,36 @@
       "againstName": "الاسم المستهدف",
       "details": "تفاصيل الشكوى",
       "attachments": "المرفقات"
+    }
+  },
+  "CONFIRM_DELETE":{
+    "TITLE":"تأكيد الحذف",
+    "MESSAGE":"هل انت متأكد من حذف هذا ؟",
+    "CANCEL":"الغاء",
+    "CONFIRM":"تأكيد"
+  },
+  "MY_REQUESTS": {
+    "FILTER": "تصفية",
+    "REQUEST_STATUSES": {
+      "ALL": "الكل",
+      "PENDING": "قيد الانتظار",
+      "ACCEPTED": "مقبول",
+      "REJECTED": "مرفوض"
+    },
+    "NO_REQUESTS": "لا توجد طلبات متاحة",
+    "UNKNOWN_NAME": "غير معروف",
+    "NO_JOB_TITLE": "لا يوجد مسمى وظيفي"
+  },
+  "EMPLOYEE_REQUESTS": {
+    "REQUEST_TYPE": "نوع الطلب",
+    "UNKNOWN_TYPE": "نوع غير معروف",
+    "REQUEST_STATUSES": {
+      "ALL": "الكل",
+      "PENDING": "قيد الانتظار",
+      "ACCEPTED": "مقبول",
+      "REJECTED": "مرفوض",
+      "APPROVED": "موافق عليه"
+
     }
   }
 }

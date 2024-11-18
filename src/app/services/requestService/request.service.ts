@@ -13,8 +13,7 @@ export class RequestService {
 
   constructor(private http: ApiCall) { }
 
-  // General Requests
-  getRequests(request: Partial<Request> = {}): Observable<any> {
+  getRequests(request: Partial<ReciverRequestSC>): Observable<any> {
     return this.http.request('POST', requestController.Get, request);
   }
 
