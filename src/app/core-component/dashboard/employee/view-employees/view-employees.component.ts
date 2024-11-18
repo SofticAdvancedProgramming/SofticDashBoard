@@ -50,6 +50,10 @@ export class ViewEmployeesComponent implements OnInit {
   ngOnInit() {
     this.loadEmployees();
     this.isShowingPending = false;
+    this.localStorageService.setItem(
+      'isPending',
+      this.isShowingPending.toString()
+    );
   }
 
   loadEmployees() {
@@ -83,12 +87,15 @@ export class ViewEmployeesComponent implements OnInit {
       console.warn('No company found in local storage');
     }
   }
-  
+
   toggleEmployeeStatus() {
     this.isShowingPending = !this.isShowingPending;
-    this.localStorageService.setItem('isPending', this.isShowingPending.toString());
+    this.localStorageService.setItem(
+      'isPending',
+      this.isShowingPending.toString()
+    );
     console.log(localStorage.getItem('isPending'));
-    
+
     // localStorage.setItem('isPending', this.isShowingPending.toString());
     this.currentPage = 1;
     this.loadEmployees();
