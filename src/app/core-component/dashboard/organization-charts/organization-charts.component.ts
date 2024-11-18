@@ -63,7 +63,7 @@ companyId?:number=0
   }
 
   loadPositions(): void {
-    this.positionService.getPosition({ positionManagerId: 0 }).subscribe(response => {
+    this.positionService.getPosition({ positionManagerId: 0 ,isDelete:false}).subscribe(response => {
       if (response.status === 200) {
         const nodeDataArray: any[] = [];
         const linkDataArray: any[] = [];
