@@ -593,5 +593,10 @@
       "APPROVED": "Approved"
 
     }
+  },
+  "CURRENCY": {
+    "SAR": "Saudi Riyal",
+    "EGP": "Egyptian Pound",
+    "USD": "US Dollar"
   }
 }

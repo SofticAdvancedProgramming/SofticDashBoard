@@ -32,7 +32,7 @@ export class ProfileDetailsComponent implements OnInit {
   selectedCountryISO = CountryISO.SaudiArabia;
   subscriptionPlanId: number | null = null;
   companyExtention: string | null = null;
-
+  currencies: string[] = ['SAR', 'EGP', 'USD'];
   constructor(
     private fb: FormBuilder,
     private companyService: CompanyService,
