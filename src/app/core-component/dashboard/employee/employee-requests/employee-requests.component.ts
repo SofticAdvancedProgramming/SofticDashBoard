@@ -96,7 +96,7 @@ export class EmployeeRequestsComponent implements OnInit {
         if (response.status === 200) {
           this.requestTypes = response.data.list || [];
         }
-        console.log("pppppppppppp",response)
+              console.log("pppppppppppp",response)
 
       }),
       catchError((error) => {
