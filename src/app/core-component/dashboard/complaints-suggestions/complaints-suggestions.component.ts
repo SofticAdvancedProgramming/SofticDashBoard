@@ -145,10 +145,13 @@ export class ComplaintsSuggestionsComponent {
     //Change status first time to opened
     //1-Get the complaints or suggetion
 
+    console.log("filteredComplaintsfilteredComplaints",this.filteredComplaints)
     //2-check for status
+    debugger
       this.IssueExcuter.getIssueExcuterById(complaintId).subscribe({
         next: (response) => {
-        console.log("my response data",complaintId)
+        console.log("my response data",response)
+        debugger;
          if (response.data?.list[0].issue.issueStatusId == issueStatus.Submitted) {
             //3-Change status
             let executerId=response.data?.list[0].id;
@@ -243,5 +246,7 @@ export class ComplaintsSuggestionsComponent {
         return 'status-unknown';
     }
   }
+
+
 
 }

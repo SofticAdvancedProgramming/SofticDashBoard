@@ -21,6 +21,7 @@ import { IssueService } from '../../../../services/issueService/issue.service';
 })
 export class ComplainSuggestionDetailsComponent implements OnInit {
   id: number | null = null;
+  issueExecuterId?:number;
   complaintDetails: any = null;
   loading: boolean = false;
   errorMessage: string | null = null;
@@ -54,10 +55,12 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   loadComplaintDetails(): void {
     if (this.id) {
       this.loading = true;
-      this.issueService.getIssueById(this.id).subscribe({
+      this.IssueExcuter.getIssueExcuterById(this.id).subscribe({
         next: (response) => {
+          console.log("response data inside com",response)
           console.log("my responsekkkkkkkkkkkkkkkk",response)
-          this.complaintDetails = response.data?.list[0] || null;
+          this.complaintDetails = response.data?.list[0].issue || null;
+          this.issueExecuterId=response.data?.list[0].id;
           console.log("  this.complaintDetails",  this.complaintDetails)
           this.loading = false;
           this.matchAgainstTypeName();
@@ -73,19 +76,22 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   }
 
   matchAgainstTypeName(): void {
+    console.log("this.complaintDetailsthis.complaintDetails",this.complaintDetails)
     if (this.complaintDetails && this.complaintDetails.againestTypeId) {
       // Match againstTypeName logic if needed
-      this.matchedAgainstTypeName = this.complaintDetails.againestName;
+      this.matchedAgainstTypeName = this.complaintDetails.againestTypeName;
     }
   }
   submitReply(companyId:number,issueExcuterId:number,issueId:number)
   {
-   
-    this.IssueExcuter.getIssueExcuterById(this.complaintDetails.id).subscribe({
+   console.log("this.complaintDetails",this.complaintDetails)
+    this.IssueExcuter.getIssueExcuter({id:this.issueExecuterId}).subscribe({
       next: (response) => {
-        if (response.data?.list[0].issueStatusId == issueStatus.Opened) {
+        console.log("dataaaaaaaaaa",response)
+
+        if (response.data?.list[0].issue.issueStatusId == issueStatus.Opened) {
           //3-Change status
-          let executerId=response.data?.list[0].id;
+          let executerId= response.data?.list[0].id;
           this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.InProgress).subscribe({
             next:data=>console.log(data)
           });
