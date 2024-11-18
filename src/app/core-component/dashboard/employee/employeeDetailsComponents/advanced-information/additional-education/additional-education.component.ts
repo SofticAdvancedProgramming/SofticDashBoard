@@ -43,7 +43,7 @@ export class AdditionalEducationComponent implements OnInit, OnDestroy {
 
   getAditionalEducation() {
     this.additionalEducationService
-      .getAditionalEducation({id: this.id})
+      .getAditionalEducation({employeeId: this.id})
       .pipe(
         tap((res) => {
           this.userEducation = res.data.list[0];

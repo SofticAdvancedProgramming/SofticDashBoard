@@ -42,6 +42,16 @@ export class UserAttachmentsComponent {
       .subscribe();
   }
 
+  downloadPDF() {
+    // URL of the PDF file
+    const pdfUrl = 'https://example.com/your-file.pdf';
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.target = '_blank'; // Open in a new tab or download
+    link.download = 'filename.pdf'; // Optional, specify the downloaded file name
+    link.click(); // Trigger the download
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
