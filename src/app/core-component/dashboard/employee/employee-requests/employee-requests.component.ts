@@ -108,7 +108,9 @@ export class EmployeeRequestsComponent implements OnInit {
     this.requestsService.getRequestStatus().pipe(
       tap((response: any) => {
         if (response.status === 200) {
-          this.requestStatuses = response.data.list || [];
+          this.requestStatuses = response.data.list.filter(
+            (status: any) => status.id !== RequestStatus.Pending
+          );
         }
       }),
       catchError((error) => {
@@ -117,6 +119,7 @@ export class EmployeeRequestsComponent implements OnInit {
       })
     ).subscribe();
   }
+  
   getRequestTypeName(id: number): string {
     const type = this.requestTypes.find((rt) => rt.id === id);
     return type ? type.name : this.translate.instant('EMPLOYEE_REQUESTS.UNKNOWN_TYPE');
@@ -130,10 +133,11 @@ export class EmployeeRequestsComponent implements OnInit {
   }
 
   filterRequests(): void {
-    this.filteredRequests = this.requests.filter((request) =>
-      this.selectedStatus === RequestStatus.ALL || request.requestStatusId === this.selectedStatus
+    this.filteredRequests = this.requests.filter(
+      (request) => request.requestStatusId === RequestStatus.Accepted || request.requestStatusId === RequestStatus.Rejected
     );
   }
+  
 
   onStatusChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
