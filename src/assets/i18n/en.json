@@ -561,5 +561,29 @@
       "details": "Complaint Details",
       "attachments": "Attachments"
     }
+  },
+  "MY_REQUESTS": {
+    "FILTER": "Filter",
+    "REQUEST_STATUSES": {
+      "ALL": "All",
+      "PENDING": "Pending",
+      "ACCEPTED": "Accepted",
+      "REJECTED": "Rejected"
+    },
+    "NO_REQUESTS": "No requests available",
+    "UNKNOWN_NAME": "Unknown",
+    "NO_JOB_TITLE": "No job title"
+  },
+  "EMPLOYEE_REQUESTS": {
+    "REQUEST_TYPE": "Request Type",
+    "UNKNOWN_TYPE": "Unknown Type",
+    "REQUEST_STATUSES": {
+      "ALL": "All",
+      "PENDING": "Pending",
+      "ACCEPTED": "Accepted",
+      "REJECTED": "Rejected",
+      "APPROVED": "Approved"
+
+    }
   }
 }
