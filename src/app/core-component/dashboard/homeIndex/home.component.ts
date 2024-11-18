@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AttendanceService } from '../../../services/AttendanceService/attendance.service';
  import { EmployeeService } from '../../../services/employeeService/employee.service';
 import { GlobalFunctionsService } from '../../../services/Global Functions Dashboard/global-functions.service';
+import { string } from '@tensorflow/tfjs-core';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -99,7 +100,7 @@ export class HomeIndexComponent {
     }
   };
 
-  columns: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'day', 'hour'];
+  columns: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'day', 'hour','department'];
 
   getAddress(e: any) {
     this.addressData = e;
@@ -108,20 +109,23 @@ export class HomeIndexComponent {
   map(event: any) {
     this.employee = event;
   }
-
-  getAttendances(searchDate = {}, pageIndex?: number) {
+ 
+   getAttendances(searchDate = {}, pageIndex?: number) {
     let query: any = pageIndex ? { pageIndex, sortIsAsc: false, sortCol: "attendanceDate" } : { sortIsAsc: false, sortCol: "attendanceDate"};
       this.attendanceService.getAttendances({ ...searchDate,  attendanceTypeId: null }).subscribe((res) => {
-
+      console.log(res);
       this.attendances = {
         ...res,
-        list: res.list.map((item: any) => ({
+        list: res.list.map( (item: any) => ({
           ...item,
           attendanceDate: this.functionService.formatDate(item.attendanceDate),
           hour: this.functionService.formatHour(item.attendanceDate),
-          attendanceType: this.getAttendancebyTypeId(item.attendanceTypeId)
+          attendanceType: this.getAttendancebyTypeId(item.attendanceTypeId),
+          department: item.employeeDepartmentName|| 'no dept'
+          //this.getEmployeeDepartment(item['employeeId'],) || 'no dept'
         })),
       };
+      console.log(this.attendances);
     });
   }
 
