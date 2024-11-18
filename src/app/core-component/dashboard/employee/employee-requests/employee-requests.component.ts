@@ -73,7 +73,7 @@ export class EmployeeRequestsComponent implements OnInit, OnDestroy {
       requestStatusId: this.selectedStatus === RequestStatus.ALL ? undefined : this.selectedStatus
     };
 
-    this.requestService.getRequests(ReciverRequestSC).pipe(
+    this.requestService.getRequests().pipe(
       tap((response: any) => {
         if (response.status === 200) {
           this.receivedRequest = response.data.list || [];

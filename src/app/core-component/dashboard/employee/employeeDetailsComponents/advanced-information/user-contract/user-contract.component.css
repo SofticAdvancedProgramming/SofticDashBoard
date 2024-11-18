@@ -1,3 +1,7 @@
 .bgColor {
-    background-color: white !important;
-  }
+  background-color: white !important;
+}
+h3 {
+  color: #6a0dad;
+  font-size: 20px;
+}
