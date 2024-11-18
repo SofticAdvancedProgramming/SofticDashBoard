@@ -57,6 +57,7 @@ export class PersonalInformationComponent implements OnInit {
         if (response?.list?.length > 0) {
           this.personalInfo = response.list[0] as PersonalInformation;
           this.setImageUrl(this.personalInfo.referancePhoto);
+          console.log(response);
         }
       },
       (error) => {

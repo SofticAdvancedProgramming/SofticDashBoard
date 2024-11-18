@@ -89,7 +89,7 @@
     </div>
 
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-4 col-md-6 mb-3">
         <strong>{{ 'personalInfo.REFERENCE_PHOTO' | translate }}:</strong>
       </div>
@@ -100,7 +100,7 @@
           (error)="onImageError($event)" id="rotatedImage" />
 
         @if( accountStatus==accountStatusenum.Pending){
-        <!-- Rotate Buttons -->
+        
         <div class="btn-group mt-2">
           <button class="btn btn-sm btn-secondary" (click)="rotateImage('left')">
             <i class="fas fa-undo"></i>
@@ -110,17 +110,17 @@
           </button>
         </div>
 
-        <!-- Save Button -->
+        
         <button *ngIf="isRotated" class="btn btn-sm btn-primary mt-2" (click)="saveRotatedImage()">
           <i class="fas fa-save"></i>
         </button>
 
         }
       </div>
-    </div>
+    </div> -->
 
 
-    <div class="row mt-3">
+    <!-- <div class="row mt-3">
       <div class="col-lg-4 col-md-6 mb-3 ">
         <strong>{{ 'personalInfo.PASSPORT_PHOTO' | translate }}:</strong>
       </div>
@@ -128,7 +128,7 @@
         <img [src]="personalInfo.passportPhoto || 'assets/images/default.jpeg'" style=" width: 220px; height: 220px;"
           alt="{{ 'personalInfo.PASSPORT_PHOTO' | translate }}" class="img-fluid" (error)="onImageError($event)" />
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 

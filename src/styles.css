@@ -32,12 +32,21 @@ border-bottom: #0D0714;
 
 }
 .mdc-tab__content span {
-  font-family: Lama Sans;
+  /* font-family: Lama Sans; */
   font-size: 18px;
   font-weight: 700;
   line-height: 40px;
   letter-spacing: 0.03em;
   text-align: center;
+}
+@font-face {
+  font-family: 'Lama Sans';
+  src: url('assets/fonts/LamaSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+body{
+  font-family: 'Lama Sans';
 }
 .p-dialog .p-dialog-header {
   background-color: #663895;

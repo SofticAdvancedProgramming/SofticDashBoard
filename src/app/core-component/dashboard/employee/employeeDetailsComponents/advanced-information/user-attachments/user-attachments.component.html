@@ -8,9 +8,11 @@
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">File</label>
       <div class="text-muted">
-        <img src="{{ userAttachments.file }}" alt="image" />
-        <!-- <button (click)="downloadPDF()" >Download PDF</button> -->
+        <a href="{{userAttachments.file}}" download>
+          <img src="{{ userAttachments.file }}" alt="image"
+        /></a>
       </div>
+      <!-- <button (click)="downloadFile()">Download PDF</button> -->
     </div>
   </div>
 </div>

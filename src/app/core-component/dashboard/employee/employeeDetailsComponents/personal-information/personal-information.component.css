@@ -1,17 +1,20 @@
+* {
+  font-family: "Lama Sans" !important;
+}
 .profile-info-card {
   background-color: white;
   border-radius: 8px;
   padding: 20px;
   margin: 20px auto;
-  max-width: 100%; 
+  max-width: 100%;
 }
 
 .card-title {
-  color: #36313C;
-  font-family: Nunito;
-  font-size: 1.2rem;  
+  color: #36313c;
+  /* font-family: Nunito; */
+  font-size: 1.2rem;
   font-weight: 700;
-  line-height: 1.5;  
+  line-height: 1.5;
   letter-spacing: 0.03em;
 }
 
@@ -49,74 +52,75 @@
 }
 
 strong {
-  color: #36313C;
-  font-family: Lama Sans;
-  font-size: 1.1rem;  
+  color: #36313c;
+  /* font-family: Lama Sans; */
+  font-size: 1.1rem;
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: 0.03em;
 }
 
 .col-lg-8 p {
-  font-family: Lama Sans;
-  font-size: 1rem; 
+  /* font-family: Lama Sans; */
+  font-size: 1rem;
   font-weight: 300;
-  line-height: 1.6; 
+  line-height: 1.6;
   letter-spacing: 0.03em;
-  color: #9C999F;
+  color: #9c999f;
 }
 
 .row {
   display: flex;
   align-items: center;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .text-muted {
-  color: #A9AEB4;
-  font-family: Lama Sans;
-  font-size: 1rem;  
+  color: #a9aeb4;
+  /* font-family: Lama Sans; */
+  font-size: 1rem;
   font-weight: 300;
   line-height: 1.5;
   letter-spacing: 0.03em;
 }
 
- @media (max-width: 768px) {
+@media (max-width: 768px) {
   .card-body {
-    padding: 15px;  
+    padding: 15px;
   }
 
   .row {
-    flex-direction: column; 
+    flex-direction: column;
   }
 
-  .col-lg-4, .col-lg-8 {
-    width: 100%;  
-    padding: 5px 0;  
+  .col-lg-4,
+  .col-lg-8 {
+    width: 100%;
+    padding: 5px 0;
   }
 
   strong {
-    font-size: 1rem; 
+    font-size: 1rem;
   }
 
   .col-lg-8 p {
-    font-size: 0.9rem;  
-    line-height: 1.4; 
+    font-size: 0.9rem;
+    line-height: 1.4;
   }
 
   img {
-    width: 100%;  
-    height: auto; 
+    width: 100%;
+    height: auto;
   }
 }
 
- @media (max-width: 576px) {
+@media (max-width: 576px) {
   .card-title {
-    font-size: 1.2rem;  
+    font-size: 1.2rem;
   }
 
   .col-lg-8 p {
-    font-size: 0.85rem; 
+    font-size: 0.85rem;
     line-height: 1.3;
   }
 

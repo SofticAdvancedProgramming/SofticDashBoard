@@ -17,7 +17,8 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { FinancialComponent } from '../financial/financial.component';
 import { ShiftsComponent } from '../shifts/shifts.component';
 import { SalaryComponent } from '../salary/salary.component';
-import { EmployeeRequestsComponent } from "../employee-requests/employee-requests.component";
+import { EmployeeRequestsComponent } from '../employee-requests/employee-requests.component';
+import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
 
 @Component({
   selector: 'app-employee-details',
@@ -35,8 +36,8 @@ import { EmployeeRequestsComponent } from "../employee-requests/employee-request
     FinancialComponent,
     ShiftsComponent,
     SalaryComponent,
-    EmployeeRequestsComponent
-],
+    EmployeeRequestsComponent,
+  ],
 })
 export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   activeTab: string = 'personal';
@@ -44,6 +45,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   employee: employee = {} as employee;
   accountStatus = accountStatus;
   currentLang: string = 'en';
+  isPending: string | null = '';
 
   private unsubscribe$ = new Subject<void>();
 
@@ -52,7 +54,8 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
     private employeeService: EmployeeService,
     private adminService: AdminService,
     private toast: ToastersService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -62,10 +65,16 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
         this.id = Number(params.get('id'));
         this.getEmployee();
       });
+    this.isPending = this.localStorageService.getItem('isPending');
     this.currentLang = this.translate.currentLang;
     this.translate.onLangChange.subscribe((event) => {
       this.currentLang = event.lang;
     });
+    console.log(this.isPending);
+    
+    console.log(accountStatus.Pending);
+    console.log(this.employee.accountStatus);
+    console.log(this.employee.accountStatus === accountStatus.Pending);
   }
   switchLang(lang: string) {
     this.translate.use(lang);
@@ -76,6 +85,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
       .pipe(
         tap((response: any) => {
           this.employee = response.data.list[0];
+          console.log(response);
         }),
         takeUntil(this.unsubscribe$)
       )

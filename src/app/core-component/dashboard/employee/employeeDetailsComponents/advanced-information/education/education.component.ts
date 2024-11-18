@@ -29,7 +29,7 @@ import { UserEducationService } from '../../../../../../services/userEducation/u
 })
 export class HighSchoolComponent implements OnInit, OnDestroy {
   isHighSchoolOpen = true;  
-  isBachelorDegreeOpen = false;
+  isBachelorDegreeOpen = true;
   isMasterDegreeOpen = false;
   isDoctorate = false;
   toggleHighSchool() {
