@@ -19,6 +19,19 @@
             "polyfills": [
               "zone.js"
             ],
+            "allowedCommonJsDependencies": [
+      "google-libphonenumber",
+      "mapbox-gl",
+      "@mapbox/mapbox-gl-geocoder",
+      "@mapbox/mapbox-gl-language",
+      "@grpc/grpc-js",
+      "@grpc/proto-loader",
+      "undici",
+      "whatwg-url",
+      "encoding",
+      "long",
+      "seedrandom"
+    ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/assets"
