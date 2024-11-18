@@ -352,6 +352,7 @@
     "REJECTED": "Rejected",
     "ACCEPTED": "Accepted",
     "FINANCIAL_INFORMATION": "Financial",
+    "REQUEST": "Requests",
     "Entitlements": "Entitlements",
     "Deductions": "Deductions",
     "Title": "Title",

@@ -29,6 +29,9 @@
       <div class="tab" [ngClass]="{'active': activeTab === 'shifts'}" (click)="setActiveTab('shifts')">
         {{ 'employeeDetails.shifts' | translate }}
       </div>
+      <div class="tab" [ngClass]="{'active': activeTab === 'request'}" (click)="setActiveTab('request')">
+        {{ 'employeeDetails.REQUEST' | translate }}
+      </div>
 
     </div>
   </div>
@@ -60,6 +63,9 @@
   </div>
   <div *ngIf="activeTab === 'shifts'">
     <app-shifts></app-shifts>
+  </div>
+  <div *ngIf="activeTab === 'request'">
+    <app-employee-requests></app-employee-requests>
   </div>
 </div>
 
