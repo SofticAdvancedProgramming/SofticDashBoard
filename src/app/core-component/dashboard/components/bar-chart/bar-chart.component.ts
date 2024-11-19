@@ -18,8 +18,9 @@ export class BarChartComponent implements OnChanges {
   @Input() public xName: string = 'x';
   @Input() public yName: string = 'y';
   @Input() public tooltipMappingName: string = 'tooltip';
-  @Input() public backgroundColor: string = '#ffffff'; 
-  @Input() public barWidth: number = 0.8;     
+  @Input() public backgroundColor: string = '#ffffff';
+  @Input() public barWidth: number = 0.8;
+  @Input() public chartData: any ;
 
   public primaryXAxis: Object = {
     valueType: 'Category',
@@ -27,7 +28,7 @@ export class BarChartComponent implements OnChanges {
     labelStyle: { fontFamily: 'Nunito, sans-serif' }
   };
   public primaryYAxis: Object = {
-    labelFormat: '{value}%',
+    labelFormat: '{value}',
     title: '',
     labelStyle: { fontFamily: 'Nunito, sans-serif' }
   };
@@ -69,7 +70,7 @@ export class BarChartComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data'] && !changes['data'].firstChange) {
-      this.chart.refresh(); 
+      this.chart.refresh();
     }
   }
 
@@ -85,8 +86,8 @@ export class BarChartComponent implements OnChanges {
   }
 
   public pointRender(args: IPointRenderEventArgs): void {
-    const colors = ['#ff6384', '#36a2eb', '#cc65fe']; 
-    args.fill = colors[args.point.index % colors.length]; 
+    const colors = ['#ff6384', '#36a2eb', '#cc65fe'];
+    args.fill = colors[args.point.index % colors.length];
   }
 
   constructor() {}
