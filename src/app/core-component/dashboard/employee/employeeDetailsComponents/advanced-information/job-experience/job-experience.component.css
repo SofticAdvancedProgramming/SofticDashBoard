@@ -1,7 +1,10 @@
-.bgColor{
-    background-color: white !important;
+* {
+  font-family: "Lama Sans" !important;
 }
-h3{
-    color: #6a0dad;
-    font-size: 20px;
+.bgColor {
+  background-color: white !important;
+}
+h3 {
+  color: #6a0dad;
+  font-size: 20px;
 }

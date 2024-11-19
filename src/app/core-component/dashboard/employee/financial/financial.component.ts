@@ -4,20 +4,32 @@ import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
 import { SalaryTypeService } from '../../../../services/lockupsServices/SalaryService/salary.service';
-import { DropDownComponent } from "../../components/drop-down/drop-down.component";
-import { ModernTableComponent } from "../../components/modern-table/modern-table.component";
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DropDownComponent } from '../../components/drop-down/drop-down.component';
+import { ModernTableComponent } from '../../components/modern-table/modern-table.component';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
+import { DynamicModalComponent } from '../../components/dynamic-modal/dynamic-modal.component';
 
 @Component({
   selector: 'app-financial',
   standalone: true,
-  imports: [CommonModule, TranslateModule, DropDownComponent, ModernTableComponent, ReactiveFormsModule, DynamicModalComponent],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    DropDownComponent,
+    ModernTableComponent,
+    ReactiveFormsModule,
+    DynamicModalComponent,
+  ],
   providers: [DatePipe],
   templateUrl: './financial.component.html',
-  styleUrl: './financial.component.css'
+  styleUrl: './financial.component.css',
 })
 export class FinancialComponent {
   modalId = 'editEmployeeService';
@@ -36,15 +48,20 @@ export class FinancialComponent {
   salaryTypeId!: number;
   formData: any = {};
   pageIndex: any = {
-    "employeeSalary": 1
+    employeeSalary: 1,
   };
   totalRows: any = {
-    "employeeSalary": 0
+    employeeSalary: 0,
   };
   structure = [
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
-    { name: 'isDeduction', label: 'Deduction', type: 'checkbox', required: true },
+    {
+      name: 'isDeduction',
+      label: 'Deduction',
+      type: 'checkbox',
+      required: true,
+    },
   ];
   constructor(
     private route: ActivatedRoute,
@@ -57,62 +74,80 @@ export class FinancialComponent {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
     this.form = this.fb.group({
       id: 0,
-      transactionDate: [''],
+      transactionDate: ['', Validators.required],
       companyId: this.companyId,
       employeeId: this.employeeId,
       salaryTypeId: this.salaryTypeId,
-      comment: [''],
-      amount: [null, [Validators.required, Validators.min(0)]]
-    })
+      comment: ['', Validators.required],
+      amount: ['', [Validators.required, Validators.min(0)]],
+    });
   }
   setActiveTab(tab: string): void {
     this.activeTab = tab;
     this.isDeduction = tab === 'Deductions';
-     this.loadEntitie('employeeSalary', 1);
-    this.loadEntitiesDropDown('SalaryType', 1,this.isDeduction);
-    console.log(tab)
+    this.loadEntitie('employeeSalary', 1);
+    this.loadEntitiesDropDown('SalaryType', 1, this.isDeduction);
+    console.log(tab);
   }
 
   ngOnInit(): void {
-    this.loadEntitiesDropDown('SalaryType', 1 , false);
+    this.loadEntitiesDropDown('SalaryType', 1, false);
     this.loadEntitie('employeeSalary', 1);
   }
 
-  entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: any } } = {
+  entityTypes: {
+    [key: string]: {
+      load: string;
+      add: string;
+      edit: string;
+      delete: string;
+      data: any;
+    };
+  } = {
     SalaryType: {
       load: 'getSalaryTypes',
       add: 'addSalaryType',
       edit: 'editSalaryType',
       delete: 'deleteSalaryType',
-      data: 'SalaryTypes'
+      data: 'SalaryTypes',
     },
     employeeSalary: {
       load: 'loadEmployeeSalary',
       add: 'addEmployeeSalary',
       edit: 'editEmployeeSalary',
       delete: 'deleteEmployeeSalary',
-      data: 'financial'
-    }
+      data: 'financial',
+    },
   };
 
   loadEntitie(entity: string, pageIndex: number, name?: string): void {
-    let query: any = { companyId: this.companyId, isDeduction: this.isDeduction, pageIndex, ...this.getCurrentMonthDates() };
+    let query: any = {
+      companyId: this.companyId,
+      isDeduction: this.isDeduction,
+      pageIndex,
+      ...this.getCurrentMonthDates(),
+    };
     if (name) {
       query = {
         ...query,
-        name
+        name,
       };
     }
     const methodName = this.entityTypes[entity].load as keyof EmployeeService;
     (this.employeeService[methodName] as Function)(query).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          (this as any)[this.entityTypes[entity].data] = response.data.list.map((res: any) => {
-            return {
-              ...res,
-              transactionDate: this.datePipe.transform(res.transactionDate, 'yyyy-MM-dd')
-            };
-          });
+          (this as any)[this.entityTypes[entity].data] = response.data.list.map(
+            (res: any) => {
+              return {
+                ...res,
+                transactionDate: this.datePipe.transform(
+                  res.transactionDate,
+                  'yyyy-MM-dd'
+                ),
+              };
+            }
+          );
           this.pageIndex[entity] = response.data.pageIndex;
           this.totalRows[entity] = response.data.totalRows;
         }
@@ -120,7 +155,11 @@ export class FinancialComponent {
     );
   }
 
-  loadEntitiesDropDown(entity: string, pageIndex: number,isDeduction:boolean ): void {
+  loadEntitiesDropDown(
+    entity: string,
+    pageIndex: number,
+    isDeduction: boolean
+  ): void {
     const methodName = this.entityTypes[entity].load as keyof SalaryTypeService;
     (this.salaryTypeService[methodName] as Function)({
       pageIndex,
@@ -137,32 +176,29 @@ export class FinancialComponent {
           this.dropDownData = this.dropDownDataIsDeductionFalse;
         }
         this.currentPageDropDown = response.data.pageIndex;
-          console.log(response)
+        console.log(response);
       }
     });
   }
 
-
   searchInDropDown(entity: string, searchDataValue: string): void {
     const methodName = this.entityTypes[entity].load as keyof SalaryTypeService;
-    (this.salaryTypeService[methodName] as Function)(searchDataValue.length ? { name: searchDataValue } : {}).subscribe(
-      (response: any) => {
-        if (response.status === 200) {
-          if (this.isDeduction == true) {
-            this.dropDownDataIsDeductionTrue = response.data.list;
-          } else {
-            this.dropDownDataIsDeductionFalse = response.data.list;
-          }
+    (this.salaryTypeService[methodName] as Function)(
+      searchDataValue.length ? { name: searchDataValue } : {}
+    ).subscribe((response: any) => {
+      if (response.status === 200) {
+        if (this.isDeduction == true) {
+          this.dropDownDataIsDeductionTrue = response.data.list;
+        } else {
+          this.dropDownDataIsDeductionFalse = response.data.list;
         }
       }
-    );
+    });
   }
-
 
   dropDown(e: any) {
     this.salaryTypeId = e;
   }
-
 
   submit(): void {
     const payload = {
@@ -174,16 +210,28 @@ export class FinancialComponent {
       comment: this.form.value.comment,
       isDeduction: this.isDeduction,
       id: 0,
-     };
+    };
 
-    this.employeeService.addEmployeeSalary(payload).subscribe((res) => {
-      if (res.status === 200) {
-        this.toastersService.typeSuccess(this.isDeduction ? 'Deduction added successfully' : 'Entitlement added successfully');
-        this.loadEntitie('employeeSalary', 1);
-      }
+    this.employeeService.addEmployeeSalary(payload).subscribe({
+      next: (res) => {
+        if (res.status === 200) {
+          this.toastersService.typeSuccess(
+            this.isDeduction
+              ? 'Deduction added successfully'
+              : 'Entitlement added successfully'
+          );
+          this.loadEntitie('employeeSalary', 1);
+        }
+      },
+      error: (err) => {
+        this.toastersService.typeError(
+          this.isDeduction
+            ? 'Deduction added Failed'
+            : 'Entitlement added Failed'
+        );
+      },
     });
   }
-
 
   convertToTransactionDate(date: Date) {
     return {
@@ -194,7 +242,7 @@ export class FinancialComponent {
   }
 
   handleFormSubmission(data: any): void {
-    console.log(data, "data")
+    console.log(data, 'data');
     if (this.isEdit) {
       data.companyId = this.companyId;
       data.id = this.formData.id;
@@ -218,19 +266,25 @@ export class FinancialComponent {
     this.formData = { ...item, companyId: this.companyId };
   }
 
-  getCurrentMonthDates(): { transactionDateFrom: string, transactionDateTo: string } {
+  getCurrentMonthDates(): {
+    transactionDateFrom: string;
+    transactionDateTo: string;
+  } {
     const now = new Date();
 
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
     const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
-    const transactionDateFrom = this.datePipe.transform(startOfMonth, 'yyyy-MM-dd');
+    const transactionDateFrom = this.datePipe.transform(
+      startOfMonth,
+      'yyyy-MM-dd'
+    );
     const transactionDateTo = this.datePipe.transform(endOfMonth, 'yyyy-MM-dd');
 
     return {
       transactionDateFrom: transactionDateFrom || '',
-      transactionDateTo: transactionDateTo || ''
+      transactionDateTo: transactionDateTo || '',
     };
   }
   get actionButtonLabel(): string {

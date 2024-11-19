@@ -1,3 +1,7 @@
+* {
+    font-family: "Lama Sans" !important;
+  }
+
 ::after,
 ::before {
     box-sizing: border-box;

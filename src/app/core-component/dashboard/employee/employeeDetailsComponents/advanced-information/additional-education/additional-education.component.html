@@ -63,23 +63,27 @@
   <div class="row gy-3 mt-3" *ngIf="isCertificateOpen" [@slideToggle]>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">Certificate Name</label>
-      <div class="text-muted">Law</div>
+      <div class="text-muted">{{userEducation.name}}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">Specialist</label>
+      <div class="text-muted">{{userEducation.specialist}}</div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">Issuing Organization</label>
-      <div class="text-muted">Ain Shams University</div>
+      <div class="text-muted">{{userEducation.issuer}}</div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">Issue Date</label>
-      <div class="text-muted">Bachelor Degree</div>
+      <div class="text-muted">{{userEducation.from}}</div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark"
         >Expiry Date (if applicable)</label
       >
-      <div class="text-muted">Law English Department</div>
+      <div class="text-muted">{{userEducation.to}}</div>
     </div>
-    <div class="col-12 col-md-6 border-bottom-custom">
+    <!-- <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark"
         >GPA/Grade (if applicable)</label
       >
@@ -90,7 +94,7 @@
         >Certifications (if any)</label
       >
       <div class="text-muted">650</div>
-    </div>
+    </div> -->
   </div>
 </div>
 

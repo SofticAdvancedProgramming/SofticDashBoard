@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ModernTableComponent } from "../../components/modern-table/modern-table.component";
+import { ModernTableComponent } from '../../components/modern-table/modern-table.component';
 import { Router, RouterLink } from '@angular/router';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
 import { employee } from '../../../../../models/employee';
@@ -10,6 +10,7 @@ import { accountStatus } from '../../../../../models/enums/accountStatus';
 import { tap, catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
 
 declare var bootstrap: any;
 
@@ -18,7 +19,14 @@ declare var bootstrap: any;
   standalone: true,
   templateUrl: './view-employees.component.html',
   styleUrls: ['./view-employees.component.css'],
-  imports: [ModernTableComponent, RouterLink, FormsModule, CommonModule, PaginationModule, TranslateModule]
+  imports: [
+    ModernTableComponent,
+    RouterLink,
+    FormsModule,
+    CommonModule,
+    PaginationModule,
+    TranslateModule,
+  ],
 })
 export class ViewEmployeesComponent implements OnInit {
   companyId: number = 0;
@@ -31,36 +39,50 @@ export class ViewEmployeesComponent implements OnInit {
   isShowingPending: boolean = false;
   employeeToDelete: employee | null = null;
 
-  constructor(private employeeService: EmployeeService,
-    private translate: TranslateService
-    , private cdr: ChangeDetectorRef, private router: Router) { }
+  constructor(
+    private employeeService: EmployeeService,
+    private translate: TranslateService,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private localStorageService: LocalStorageService
+  ) {}
 
   ngOnInit() {
     this.loadEmployees();
+    this.isShowingPending = false;
+    this.localStorageService.setItem(
+      'isPending',
+      this.isShowingPending.toString()
+    );
   }
 
   loadEmployees() {
-    const status = this.isShowingPending ? accountStatus.Pending : accountStatus.Active;
+    const status = this.isShowingPending
+      ? accountStatus.Pending
+      : accountStatus.Active;
     this.loadEmployeesByCompany(status);
   }
 
   loadEmployeesByCompany(status: accountStatus) {
     this.companyId = Number(localStorage.getItem('companyId'));
     if (this.companyId) {
-      this.employeeService.loadEmployees({
-        companyId: this.companyId,
-        pageSize: this.itemsPerPage,
-        pageIndex: this.currentPage,
-        accountStatus: status
-      }).pipe(
-        tap((response: any) => {
-          this.employees = response.data.list;
-          this.filteredEmployees = [...this.employees];
-          this.totalRows = response.data.totalRows;
-          this.applyFilter();
-          this.cdr.detectChanges();
+      this.employeeService
+        .loadEmployees({
+          companyId: this.companyId,
+          pageSize: this.itemsPerPage,
+          pageIndex: this.currentPage,
+          accountStatus: status,
         })
-      ).subscribe();
+        .pipe(
+          tap((response: any) => {
+            this.employees = response.data.list;
+            this.filteredEmployees = [...this.employees];
+            this.totalRows = response.data.totalRows;
+            this.applyFilter();
+            this.cdr.detectChanges();
+          })
+        )
+        .subscribe();
     } else {
       console.warn('No company found in local storage');
     }
@@ -68,18 +90,33 @@ export class ViewEmployeesComponent implements OnInit {
 
   toggleEmployeeStatus() {
     this.isShowingPending = !this.isShowingPending;
+    this.localStorageService.setItem(
+      'isPending',
+      this.isShowingPending.toString()
+    );
+    console.log(localStorage.getItem('isPending'));
+
+    // localStorage.setItem('isPending', this.isShowingPending.toString());
     this.currentPage = 1;
     this.loadEmployees();
   }
 
-
   applyFilter() {
     if (this.searchText.trim()) {
-      this.filteredEmployees = this.employees.filter(employee =>
-        employee.fullName.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        employee.id.toString().includes(this.searchText) ||
-        (employee.department?.name?.toLowerCase().includes(this.searchText.toLowerCase()) || '') ||
-        (employee.position?.name?.toLowerCase().includes(this.searchText.toLowerCase()) || '')
+      this.filteredEmployees = this.employees.filter(
+        (employee) =>
+          employee.fullName
+            .toLowerCase()
+            .includes(this.searchText.toLowerCase()) ||
+          employee.id.toString().includes(this.searchText) ||
+          employee.department?.name
+            ?.toLowerCase()
+            .includes(this.searchText.toLowerCase()) ||
+          '' ||
+          employee.position?.name
+            ?.toLowerCase()
+            .includes(this.searchText.toLowerCase()) ||
+          ''
       );
     } else {
       this.filteredEmployees = [...this.employees];
@@ -100,10 +137,13 @@ export class ViewEmployeesComponent implements OnInit {
 
   confirmDelete() {
     if (this.employeeToDelete && this.companyId) {
-      this.employeeService.deleteEmployee(this.companyId, this.employeeToDelete.id)
+      this.employeeService
+        .deleteEmployee(this.companyId, this.employeeToDelete.id)
         .pipe(
           tap(() => {
-            console.log(`Employee ${this.employeeToDelete?.id} deleted successfully.`);
+            console.log(
+              `Employee ${this.employeeToDelete?.id} deleted successfully.`
+            );
             this.loadEmployees();
             this.employeeToDelete = null;
           })
@@ -127,7 +167,8 @@ export class ViewEmployeesComponent implements OnInit {
   }
   getEmployeeStatusLabelButton() {
     return this.isShowingPending
-      ? 'viewEmployees.CURRENT_EMPLOYEES' : 'viewEmployees.NEW_EMPLOYEE_REQUESTS';
+      ? 'viewEmployees.CURRENT_EMPLOYEES'
+      : 'viewEmployees.NEW_EMPLOYEE_REQUESTS';
   }
   viewLocations(employee: employee) {
     this.router.navigate(['dashboard/employee-locations', employee.id]);

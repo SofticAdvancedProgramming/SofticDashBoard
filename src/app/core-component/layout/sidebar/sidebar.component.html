@@ -3,97 +3,142 @@
     <i class="lni lni-grid-alt"></i> ☰
   </button>
 </div>
-<aside id="sidebar" [ngClass]="{ 'expand': isExpanded, 'd-none': !isVisible }" class="h-100">
+<aside
+  id="sidebar"
+  [ngClass]="{ expand: isExpanded, 'd-none': !isVisible }"
+  class="h-100"
+>
   <div class="d-flex">
-    <button class="toggle-btn d-none d-md-block" type="button" (click)="toggleSidebar()">
+    <button
+      class="toggle-btn d-none d-md-block"
+      type="button"
+      (click)="toggleSidebar()"
+    >
       <i class="lni lni-grid-alt"></i> ☰
     </button>
     <div class="sidebar-logo">
       <a>
-        <img style="width: 170px;" src="../../../../assets/images/Chabaka Al- Dhakia- logo options-01 1.svg">
+        <img
+          style="width: 170px"
+          src="../../../../assets/images/Chabaka Al- Dhakia- logo options-01 1.svg"
+        />
       </a>
     </div>
   </div>
   <ul class="sidebar-nav">
     <li class="sidebar-item">
       <a class="sidebar-link">
-        <span class="lightDescription justify-content-between">{{ 'SIDEBAR.QUICK_ACCESS' | translate }}</span>
+        <span class="lightDescription justify-content-between">{{
+          "SIDEBAR.QUICK_ACCESS" | translate
+        }}</span>
       </a>
     </li>
 
     <!-- Apply `routerLinkActive` directive here -->
-    <li class="sidebar-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+    <li
+      class="sidebar-item"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <a routerLink="/dashboard/HomeIndex" class="sidebar-link">
-        <img src="../../../../assets/images/element-4.png">
-        <span>{{ 'SIDEBAR.DASHBOARD' | translate }}</span>
+        <img src="../../../../assets/images/element-4.png" />
+        <span>{{ "SIDEBAR.DASHBOARD" | translate }}</span>
       </a>
     </li>
 
     <!-- Admin Role Sidebar Link -->
-    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="active-link">
+    <li
+      class="sidebar-item"
+      *ngIf="role[0] === 'Admin'"
+      routerLinkActive="active-link"
+    >
       <a [routerLink]="'/dashboard/company/' + companyId" class="sidebar-link">
-        <img src="../../../../assets/images/softic/companyIcon.png">
-        <span>{{ 'SIDEBAR.COMPANY' | translate }}</span>
+        <img src="../../../../assets/images/softic/companyIcon.png" />
+        <span>{{ "SIDEBAR.COMPANY" | translate }}</span>
       </a>
     </li>
 
     <!-- SuperAdmin Role Sidebar Link -->
-    <li class="sidebar-item" *ngIf="role[0] === 'SuperAdmin'" routerLinkActive="active-link">
+    <li
+      class="sidebar-item"
+      *ngIf="role[0] === 'SuperAdmin'"
+      routerLinkActive="active-link"
+    >
       <a routerLink="/dashboard/indexCompany" class="sidebar-link">
-        <img src="../../../../assets/images/softic/companyIcon.png">
-        <span>{{ 'SIDEBAR.COMPANIES' | translate }}</span>
+        <img src="../../../../assets/images/softic/companyIcon.png" />
+        <span>{{ "SIDEBAR.COMPANIES" | translate }}</span>
       </a>
     </li>
 
-    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="active-link">
+    <li
+      class="sidebar-item"
+      *ngIf="role[0] === 'Admin'"
+      routerLinkActive="active-link"
+    >
       <a routerLink="/dashboard/OrganizationCharts" class="sidebar-link">
-        <img src="../../../../assets/images/softic/orgIcon.png">
-        <span>{{ 'SIDEBAR.ORGANIZATIONAL_CHART' | translate }}</span>
+        <img src="../../../../assets/images/softic/orgIcon.png" />
+        <span>{{ "SIDEBAR.ORGANIZATIONAL_CHART" | translate }}</span>
       </a>
     </li>
-    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="active-link">
+    <li
+      class="sidebar-item"
+      *ngIf="role[0] === 'Admin'"
+      routerLinkActive="active-link"
+    >
       <a routerLink="/dashboard/ComplaintsSuggestions" class="sidebar-link">
-        <img src="../../../../assets/images/archive-book.png">
-        <span>{{ 'SIDEBAR.COMPLAINSANDSUGGESTIONS' | translate }}</span>
+        <img src="../../../../assets/images/archive-book.png" />
+        <span>{{ "SIDEBAR.COMPLAINSANDSUGGESTIONS" | translate }}</span>
       </a>
     </li>
 
     <!-- Conditional Employee Link for Admin and SuperAdmin Roles -->
-    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="active-link">
+    <li
+      class="sidebar-item"
+      *ngIf="role[0] === 'Admin'"
+      routerLinkActive="active-link"
+    >
       <a routerLink="/dashboard/ViewEmployees" class="sidebar-link">
-        <img src="../../../../assets/images/profile-circle.png">
-        <span>{{ 'SIDEBAR.EMPLOYEE' | translate }}</span>
+        <img src="../../../../assets/images/profile-circle.png" />
+        <span>{{ "SIDEBAR.EMPLOYEE" | translate }}</span>
       </a>
     </li>
   </ul>
   <div class="sidebar-footer">
-    <a routerLink="add-admin" *ngIf="role[0] === 'Admin'" class="sidebar-link" routerLinkActive="active-link"
-      [routerLinkActiveOptions]="{ exact: true }">
-      <img src="../../../../assets/images/softic/user-add.png">
-      <span class="settingText">{{ 'SIDEBAR.ADD_ADMIN' | translate }}</span>
+    <a
+      routerLink="add-admin"
+      *ngIf="role[0] === 'Admin'"
+      class="sidebar-link"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <img src="../../../../assets/images/softic/user-add.png" />
+      <span class="settingText">{{ "SIDEBAR.ADD_ADMIN" | translate }}</span>
     </a>
 
     <ng-container *ngIf="role[0] === 'Admin' || role[0] === 'SuperAdmin'">
-      <a routerLink="generalLookups" class="sidebar-link" routerLinkActive="active-link"
-        [routerLinkActiveOptions]="{ exact: true }">
-        <img src="../../../../assets/images/settings.png">
-        <span class="settingText">{{ 'SIDEBAR.SETTING' | translate }}</span>
+      <a
+        routerLink="generalLookups"
+        class="sidebar-link"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <img src="../../../../assets/images/settings.png" />
+        <span class="settingText">{{ "SIDEBAR.SETTING" | translate }}</span>
       </a>
     </ng-container>
 
     <!-- Help Link -->
     <a href="#" class="sidebar-link" routerLinkActive="active-link">
-      <img src="../../../../assets/images/help.png">
-      <span class="helpText">{{ 'SIDEBAR.HELP' | translate }}</span>
+      <img src="../../../../assets/images/help.png" />
+      <span class="helpText">{{ "SIDEBAR.HELP" | translate }}</span>
     </a>
 
     <!-- Logout Button -->
     <div>
       <a class="sidebar-link" (click)="logout()">
-        <img src="../../../../assets/images/logout.png">
-        <span class="logoutText">{{ 'SIDEBAR.LOGOUT' | translate }}</span>
+        <img src="../../../../assets/images/logout.png" />
+        <span class="logoutText">{{ "SIDEBAR.LOGOUT" | translate }}</span>
       </a>
     </div>
   </div>
-
 </aside>

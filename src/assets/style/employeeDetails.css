@@ -2,7 +2,7 @@
 
 .title {
     color: #36313C;
-    font-family: Lama Sans;
+    /* font-family: Lama Sans; */
     font-size: 20px;
     font-weight: 700;
     line-height: 40px;
@@ -23,7 +23,7 @@
 
 .grid-item label {
     color: #0D0714;
-    font-family: Lama Sans;
+    /* font-family: Lama Sans; */
     font-size: 18px;
     font-weight: 500;
     line-height: 30px;
@@ -33,7 +33,7 @@
 
 .grid-item .value {
     color: #858D95;
-    font-family: Lama Sans;
+    /* font-family: Lama Sans; */
     font-size: 16px;
     font-weight: 300;
     line-height: 26px;
@@ -48,7 +48,7 @@
 .text-muted {
     border-bottom: 1px solid #eee;
     color: #858D95;
-    font-family: Lama Sans;
+    /* font-family: Lama Sans; */
     font-size: 14px;
     font-weight: 300;
     line-height: 26px;
@@ -58,7 +58,7 @@
 
 .customHeader {
     color: #36313C;
-    font-family: Lama Sans;
+    /* font-family: Lama Sans; */
     font-size: 20px;
     font-weight: 700;
     line-height: 40px;
@@ -69,7 +69,7 @@
 
 .text-dark {
     color: #0D0714;
-    font-family: Lama Sans;
+    /* font-family: Lama Sans; */
     font-size: 16px;
     font-weight: 500;
     line-height: 30px;
