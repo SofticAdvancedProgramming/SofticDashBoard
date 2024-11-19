@@ -8,7 +8,9 @@
   margin: 20px auto;
   max-width: 100%;
 }
-
+h3 {
+  color: #6a0dad !important;
+}
 .card-title {
   color: #36313c;
   /* font-family: Nunito; */

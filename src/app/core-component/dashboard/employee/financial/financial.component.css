@@ -1,7 +1,9 @@
 * {
   font-family: "Lama Sans" !important;
 }
-
+.invailed{
+  outline: 1px solid red;
+}
 .nav-tabs .nav-link.active {
   color: #8e2de2;
   font-weight: bold;
