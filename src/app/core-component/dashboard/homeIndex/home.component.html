@@ -48,17 +48,19 @@
     </div>
 
   </div>
+
   <div class="row chartRow justify-content-center">
-    <div class="col-lg-6 col-md-12 col-sm-12 customStyle">
-      <app-bar-chart class="chartText" [data]="departmentEmploye" [title]="'Departments Employees' | translate" [xName]="'name'"
+    <!-- <div class="col-lg-6 col-md-12 col-sm-12 customStyle">
+      <app-bar-chart #departemployee [chartData]="'chartDepartemployee'" class="chartText" [data]="departmentEmploye" [title]="'Departments Employees' | translate" [xName]="'name'"
         [yName]="'count'" [tooltipMappingName]="'Text'" [backgroundColor]="'white'"
         [barWidth]=".3"></app-bar-chart>
-    </div>
-    <div class="col-lg-6 col-md-12 col-sm-12 customStyle">
-      <app-bar-chart class="chartText" [data]="assetCategory" [title]="'assets category' | translate" [xName]="'name'"
+    </div> -->
+    <div class="col-lg-12 col-md-12 col-sm-12 customStyle">
+      <app-bar-chart #assets [chartData]="'chartassetsCategory'"  class="chartText" [data]="assetCategory" [title]="'assets category' | translate" [xName]="'name'"
         [yName]="'count'" [tooltipMappingName]="'Text'" [backgroundColor]="'white'"
-        [barWidth]=".1"></app-bar-chart>
+        [barWidth]=".25"></app-bar-chart>
     </div>
+
     <!-- <div class="col-lg-6 col-md-12 col-sm-12 customStyle d-flex flex-column">
 
        <div class="chart-wrapper w-100">
