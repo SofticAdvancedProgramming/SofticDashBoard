@@ -54,14 +54,20 @@
         [yName]="'count'" [tooltipMappingName]="'Text'" [backgroundColor]="'white'"
         [barWidth]=".3"></app-bar-chart>
     </div>
-    <div class="col-lg-6 col-md-12 col-sm-12 customStyle d-flex flex-column">
-      <div class="chart-wrapper w-100">
+    <div class="col-lg-6 col-md-12 col-sm-12 customStyle">
+      <app-bar-chart class="chartText" [data]="assetCategory" [title]="'assets category' | translate" [xName]="'name'"
+        [yName]="'count'" [tooltipMappingName]="'Text'" [backgroundColor]="'white'"
+        [barWidth]=".1"></app-bar-chart>
+    </div>
+    <!-- <div class="col-lg-6 col-md-12 col-sm-12 customStyle d-flex flex-column">
+
+       <div class="chart-wrapper w-100">
         <h3 class="chart-title text-center">{{'Traffic by Location' | translate}}</h3>
         <div class="chart-content d-flex justify-content-center">
-          <donut-chart [data]="assetCategory" [options]="donutChartOptions"></donut-chart>
+          <donut-chart [data]="donutChartData" [options]="donutChartOptions"></donut-chart>
         </div>
       </div>
-    </div>
+    </div> -->
 
   </div>
   <app-modern-table [tableTitle]="'Overview'" [totalRows]="attendances.totalRows" [tableData]="attendances.list"

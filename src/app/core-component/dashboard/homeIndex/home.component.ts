@@ -64,13 +64,13 @@ export class HomeIndexComponent {
     this.getStatistics();
     this.getAttendances({}, 1);
     this. getAdminStatistics();
-    this.assetCategorycounts();
     this.getDepartmentEmployeeCounts();
+    this.assetCategorycounts();
   }
 
   public dashboardCards: any = [];
   public departmentEmploye: any[] = [];
-  public assetCategory:any;
+  public assetCategory:any[]=[];
   public adminCounts!:
   {
     companyId: number,
@@ -96,7 +96,16 @@ export class HomeIndexComponent {
     { x: 'Firefox', y: 2.6, DataLabelMappingName: Browser.isDevice ? 'Firefox: <br> 2.6%' : 'Firefox: 2.6%' },
     { x: 'Others', y: 3.6, DataLabelMappingName: Browser.isDevice ? 'Others: <br> 3.6%' : 'Others: 3.6%' }
   ];
-
+  public donutChartData = {
+    labels: ['Riyadh', 'Jeddah', 'Dammam', 'Other'],
+    datasets: [
+      {
+        data: [20.8, 10.2, 19, 50],
+        backgroundColor: ['#FF9800', '#4CAF50', '#2196F3', '#9E9E9E'],
+        hoverBackgroundColor: ['#FFB74D', '#81C784', '#64B5F6', '#BDBDBD']
+      }
+    ]
+  };
 
 
   public donutChartOptions = {
@@ -173,42 +182,13 @@ export class HomeIndexComponent {
     }))
   }
 
-  public donutChartData = {
-    labels: ['Riyadh', 'Jeddah', 'Dammam', 'Other'],
-    datasets: [
-      {
-        data: [20.8, 10.2, 19, 50],
-        backgroundColor: ['#FF9800', '#4CAF50', '#2196F3', '#9E9E9E'],
-        hoverBackgroundColor: ['#FFB74D', '#81C784', '#64B5F6', '#BDBDBD']
-      }
-    ]
-  };
+
   assetCategorycounts() {
     this.adminStatics.assetCategorycounts(null).subscribe((res => {
-      console.log(res)
-      let labels:any[]=[];
-      let  data:any []=[];
-      let datasets: any[]=[];
-      res.map((item:any)=>{
-        labels.push(item.name);
-        data.push(item.count);
-        })
-      datasets=[{
-        data:data,
-        backgroundColor: ['#FF9800', '#4CAF50', '#2196F3', '#9E9E9E','#FF9850', '#4CAE58', '#FF9870', '#4CAF51', '#2196F1', '#9E9E9a','#FF9852','#2396F3', '#9E8E9b','#4CAE50', '#2396F2', '#9E8E9E', '#2386F3', '#9E8E9c'],
-        hoverBackgroundColor: ['#FF9800', '#4CAF50', '#2196F3', '#9E9E9E','#FF9850', '#4CAE58', '#FF9870', '#4CAF51', '#2196F1', '#9E9E9a','#FF9852','#2396F3', '#9E8E9b','#4CAE50', '#2396F2', '#9E8E9E', '#2386F3', '#9E8E9c']
-      }]
-      this.assetCategory={
-        labels,
-        datasets
-      }
-//, '#BDBDBD','#FFB74D', '#81C784', '#64B5F6', '#BDBDBD', '#64B5F6', '#BDBDBD'
-
-//'#FF9800', '#4CAF50', '#2196F3', '#9E9E9E','#FF9850',
+       console.log(res)
+       this.assetCategory=res;
       console.log(this.assetCategory)
-      }))
+    }))
+  }}
 
-  }
-
-}
 
