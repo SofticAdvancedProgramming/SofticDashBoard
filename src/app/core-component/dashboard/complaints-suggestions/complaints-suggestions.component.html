@@ -45,18 +45,23 @@
                             <span class="against-type">{{ complaint.againstTypeName }}</span>
                         </div>
                         <div class="complaint-actions mt-3 justify-content-between d-flex">
-                            <button class="detailsButton btn" (click)="navigateToDetails(complaint.id)">
-                                {{ 'complaintsPage.seeDetails' | translate }}
-                            </button>
+                           
+                            <div class="complaint-actions mt-3 justify-content-between d-flex">
+                                <span class="status" [ngClass]="getStatusClass(complaint.issue.issueStatusId)">
+                                    {{ getComplaintStatusName(complaint.issue.issueStatusId) }}
+                                </span>
+                            </div>
 
-                            <span class="badge" [ngClass]="getStatusStyles(complaint.issue.issueStatusId)">{{complaint.issue.issueStatusId | enumToString:issueStatus}}</span>
-
-                            <button class="delete-button" (click)="deleteComplaint(complaint.id, $event)">
+                            <button class="delete-button"
+                                (click)="deleteComplaint(complaint.companyId,complaint.issue.id, $event)">
                                 {{ activeTab === 'complaints'
                                 ? ('complaintsPage.deleteComplaint' | translate)
                                 : ('complaintsPage.deleteSuggestion' | translate) }}
                             </button>
                         </div>
+                        <button class="detailsButton btn text-center" (click)="navigateToDetails(complaint.id)">
+                            {{ 'complaintsPage.seeDetails' | translate }}
+                        </button>
                     </div>
                 </div>
             </div>

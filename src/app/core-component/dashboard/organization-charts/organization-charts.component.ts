@@ -63,13 +63,16 @@ companyId?:number=0
   }
 
   loadPositions(): void {
-    this.positionService.getPosition({ positionManagerId: 0 }).subscribe(response => {
+    this.positionService.getPosition({isDelete:false}).subscribe(response => {
       if (response.status === 200) {
         const nodeDataArray: any[] = [];
         const linkDataArray: any[] = [];
-
+        console.log("response.data",response.data)
         response.data.list.forEach((item: any) => {
+         
           const { nodeDataArray: nodes, linkDataArray: links } = this.transformData([item]);
+          console.log("nodeDataArray",nodeDataArray);
+          console.log("linkDataArray",linkDataArray)
 
           nodeDataArray.push(...nodes);
           linkDataArray.push(...links);
@@ -89,6 +92,7 @@ companyId?:number=0
       const positionTypeName = this.positionTypesMap.get(data.positionTypeId) || 'Unknown Position';
       const departmentName = this.departmentsMap.get(data.departmentId) || 'Unknown Department';
       const employeeName = this.employeeMap.get(nodeId) || 'Unassigned'; // Get the employee name
+      const positionManagerId= data.positionManagerId;
 
       nodeMap.set(nodeId, {
         key: nodeId,
@@ -98,8 +102,10 @@ companyId?:number=0
         id: data.id.toString()
       });
 
-      if (parentId) {
-        linkDataArray.push({ from: parentId, to: nodeId });
+      if (positionManagerId &&positionManagerId!=null) {
+        console.log("here")
+        console.log("parentId",parentId)
+        linkDataArray.push({ from: positionManagerId, to: nodeId });
       }
 
       if (data.subPositions && data.subPositions.length > 0) {

@@ -1,0 +1,68 @@
+<div class="container">
+    <!-- Filter Dropdown -->
+    <div class="row mt-3">
+        <div class="col-lg-6">
+            <label for="statusFilter">{{ 'MY_REQUESTS.FILTER' | translate }}</label>
+            <select id="statusFilter" class="form-control" (change)="onStatusChange($event)">
+                <option value="-1" [selected]="selectedStatus === -1">
+                    {{ 'MY_REQUESTS.REQUEST_STATUSES.ALL' | translate }}
+                </option>
+                <option *ngFor="let status of requestStatuses" [value]="status.id"
+                    [selected]="status.id === selectedStatus">
+                    {{ getRequestStatusName(status.id) }}
+                </option>
+            </select>
+        </div>
+    </div>
+
+
+    <!-- Requests List -->
+    <div *ngIf="filteredRequests && filteredRequests.length > 0; else noRequestsTemplate">
+        <div class="row mt-3">
+            <div class="col-lg-6" *ngFor="let request of filteredRequests">
+                <div class="request-card">
+                    <!-- User Info -->
+                    <div class="user-info w-100 gap-3">
+                        <img [src]="request.employee?.profileImage || '../../../../../assets/images/default.jpeg'"
+                            alt="User Avatar" class="avatar">
+                        <div class="user-details">
+                            <h3>
+                                {{ request.employee?.firstName || ('MY_REQUESTS.UNKNOWN_NAME' | translate) }}
+                                {{ request.employee?.lastName || ('MY_REQUESTS.UNKNOWN_NAME' | translate) }}
+                            </h3>
+                            <p class="job-title">
+                                {{ request.employee?.jobTitle || ('MY_REQUESTS.NO_JOB_TITLE' | translate) }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="requestType d-flex w-100 justify-content-between">
+                        <h6>{{ 'EMPLOYEE_REQUESTS.REQUEST_TYPE' | translate }}</h6>
+                        <p>{{ getRequestTypeName(request.requestTypeId) }}</p>
+                    </div>
+                    <div class="request-details w-100 mt-2">
+                        <span class="status" [ngClass]="{
+                                'status-accepted-bg': request.requestStatusId === RequestStatus.Accepted,
+                                'status-rejected-bg': request.requestStatusId === RequestStatus.Rejected
+                            }">
+                            {{ getRequestStatusName(request.requestStatusId) }}
+                        </span>
+                    </div>
+                    {{ request.createdOn | date: 'longDate' || ('MY_REQUESTS.NO_CREATED_DATE' | translate) }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination Control -->
+        <div class="d-flex justify-content-center mt-3" *ngIf="totalRequests > itemsPerPage">
+            <pagination [totalItems]="totalRequests" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
+                (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;">
+            </pagination>
+        </div>
+    </div>
+
+    <!-- No Requests Template -->
+    <ng-template #noRequestsTemplate>
+        <p>{{ 'MY_REQUESTS.NO_REQUESTS' | translate }}</p>
+    </ng-template>
+</div>

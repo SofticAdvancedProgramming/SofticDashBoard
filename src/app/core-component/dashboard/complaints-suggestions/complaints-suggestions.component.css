@@ -376,8 +376,10 @@
   padding: 10px;
   border-radius: 10px;
   opacity: 0px;
-  background: #8413F8;
-color: white;
+  background: lightblue;
+color: black;
+display: block;  /* Makes the button a block-level element */
+margin: 0 auto;  /* Horizontally centers the element */
 }
 
 .activate {
@@ -431,4 +433,45 @@ color: white;
 
 .badge-closed:hover {
   color: #c82333; /* Darken on hover */
+}
+.no-data-message
+{
+  color:#007bff;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.status-submitted {
+  color: #17a2b8;  
+  background-color: #e3f7fc;  
+  padding: 5px 10px;
+  border-radius: 14px;
+}
+
+.status-opened {
+  color: #28a745; 
+  background-color: #eafaf1; 
+  padding: 5px 10px;
+  border-radius: 14px;
+}
+
+.status-in-progress {
+  color: #ffc107; 
+  background-color: #fff8e1;  
+  padding: 5px 10px;
+  border-radius: 14px;
+}
+
+.status-closed {
+  color: #dc3545;  
+  background-color: #fdecea;  
+  padding: 5px 10px;
+  border-radius: 14px;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 500;
 }

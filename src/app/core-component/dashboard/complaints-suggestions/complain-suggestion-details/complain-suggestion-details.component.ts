@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
@@ -9,6 +9,8 @@ import { IssueExcuterService } from '../../../../services/IssueExcuter/issue-exc
 import { Complaint, ComplaintStatus } from '../../../../../models/complain';
 import { issueStatus } from '../../../../core/enums/IssueStatus';
 import { EnumToStringPipe } from '../../../../core/pipes/enum-to-string.pipe';
+import { IssueCommentService } from '../../../../services/IssueComment/issue-comment.service';
+import { IssueService } from '../../../../services/issueService/issue.service';
 
 @Component({
   selector: 'app-complain-suggestion-details',
@@ -19,6 +21,7 @@ import { EnumToStringPipe } from '../../../../core/pipes/enum-to-string.pipe';
 })
 export class ComplainSuggestionDetailsComponent implements OnInit {
   id: number | null = null;
+  issueExecuterId?:number;
   complaintDetails: any = null;
   loading: boolean = false;
   errorMessage: string | null = null;
@@ -28,6 +31,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   issueTypeId: number | null = null;
   issueStatus=issueStatus;
   @Output() confirm = new EventEmitter<boolean>();
+  @ViewChild('comment') comment? :ElementRef;
 
 
   constructor(
@@ -35,7 +39,9 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
     private router: Router,
     private IssueExcuter: IssueExcuterService,
     private complaintsService: CompliantsAndSuggestionsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private issueCommentService:IssueCommentService,
+    private issueService:IssueService
   ) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -51,11 +57,14 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       this.loading = true;
       this.IssueExcuter.getIssueExcuterById(this.id).subscribe({
         next: (response) => {
-          console.log("my response",response)
-          this.complaintDetails = response.data?.list[0] || null;
+          console.log("response data inside com",response)
+          console.log("my responsekkkkkkkkkkkkkkkk",response)
+          this.complaintDetails = response.data?.list[0].issue || null;
+          this.issueExecuterId=response.data?.list[0].id;
+          console.log("  this.complaintDetails",  this.complaintDetails)
           this.loading = false;
           this.matchAgainstTypeName();
-          console.log('Complaint details loaded:', this.complaintDetails);
+        
         },
         error: (error) => {
           this.loading = false;
@@ -67,19 +76,22 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   }
 
   matchAgainstTypeName(): void {
-    if (this.complaintDetails && this.complaintDetails.issue.againestTypeId) {
+    console.log("this.complaintDetailsthis.complaintDetails",this.complaintDetails)
+    if (this.complaintDetails && this.complaintDetails.againestTypeId) {
       // Match againstTypeName logic if needed
-      this.matchedAgainstTypeName = this.complaintDetails.issue.againestName;
+      this.matchedAgainstTypeName = this.complaintDetails.againestTypeName;
     }
   }
-  submitReply()
+  submitReply(companyId:number,issueExcuterId:number,issueId:number)
   {
-   
-    this.IssueExcuter.getIssueExcuterById(this.complaintDetails.id).subscribe({
+   console.log("this.complaintDetails",this.complaintDetails)
+    this.IssueExcuter.getIssueExcuter({id:this.issueExecuterId}).subscribe({
       next: (response) => {
+        console.log("dataaaaaaaaaa",response)
+
         if (response.data?.list[0].issue.issueStatusId == issueStatus.Opened) {
           //3-Change status
-          let executerId=response.data?.list[0].issue.issueExcuters[0].id;
+          let executerId= response.data?.list[0].id;
           this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.InProgress).subscribe({
             next:data=>console.log(data)
           });
@@ -93,7 +105,18 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       }
     });
 
-    this.router.navigate(['/dashboard/ComplaintsSuggestions'])
+    console.log('comment is',)
+
+    //submit comment
+    let comment=this.comment?.nativeElement.value;
+    this.issueCommentService.addIssueComment(comment,companyId,issueExcuterId,issueId).subscribe({
+      next:data=>{
+        console.log("comment data",data)
+        this.router.navigate(['/dashboard/ComplaintsSuggestions'])
+      }
+    })
+
+   
   }
 
   getStatusStyles(status: number) {

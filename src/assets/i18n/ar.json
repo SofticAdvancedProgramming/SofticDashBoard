@@ -121,7 +121,7 @@
     "LONGITUDE_REQUIRED": "خط الطول مطلوب",
     "LATITUDE_REQUIRED": "خط العرض مطلوب",
     "BACK": "رجوع",
-    "EDIT": "تعديل",
+    "EDIT": "حفظ",
     "SAVE": "حفظ",
     "ERROR": "خطأ",
     "SUCCESS": "نجاح",
@@ -172,7 +172,7 @@
     "DEPARTMENT_LAT": "خط عرض القسم",
     "DEPARTMENT_LOCATION": "موقع القسم",
     "BACK": "رجوع",
-    "EDIT": "تعديل",
+    "EDIT": "حفظ",
     "SAVE": "حفظ",
     "SELECT_OPTION": "اختر خيار",
     "REQUIRED_FIELD": "مطلوب",
@@ -226,7 +226,7 @@
     "FILL_REQUIRED_FIELDS": "يرجى ملء جميع الحقول المطلوبة",
     "POSITION_ADDED_SUCCESSFULLY": "تمت إضافة الوظيفة بنجاح",
     "ERROR_ADDING_POSITION": "خطأ في إضافة الوظيفة",
-    "EDIT": "تعديل"
+    "EDIT": "حفظ"
   },
   "INDEX_POSITION": {
     "ADD_POSITION": "إضافة وظيفة",
@@ -348,6 +348,7 @@
     "REJECTED": "مرفوض",
     "ACCEPTED": "مقبول",
     "FINANCIAL_INFORMATION": "مالي",
+    "REQUEST": "الطلبات",
     "Entitlements": "المستحقات",
     "Deductions": "الخصومات",
     "Title": "الوظيفة",
@@ -535,7 +536,9 @@
     "loading": "جارٍ تحميل الشكاوى...",
     "seeDetails": "عرض التفاصيل",
     "deleteComplaint": "حذف الشكوى",
-    "deleteSuggestion": "حذف الاقتراح"
+    "deleteSuggestion": "حذف الاقتراح",
+    "noComplaints":"لا توجد شكاوى",
+    "noSuggestions":"لا توجد مقتراحات"
   },
   "status": {
     "submitted": "تم الإرسال",
@@ -560,5 +563,40 @@
       "details": "تفاصيل الشكوى",
       "attachments": "المرفقات"
     }
+  },
+  "CONFIRM_DELETE":{
+    "TITLE":"تأكيد الحذف",
+    "MESSAGE":"هل انت متأكد من حذف هذا ؟",
+    "CANCEL":"الغاء",
+    "CONFIRM":"تأكيد"
+  },
+  "MY_REQUESTS": {
+    "FILTER": "تصفية",
+    "REQUEST_STATUSES": {
+      "ALL": "الكل",
+      "PENDING": "قيد الانتظار",
+      "ACCEPTED": "مقبول",
+      "REJECTED": "مرفوض"
+    },
+    "NO_REQUESTS": "لا توجد طلبات متاحة",
+    "UNKNOWN_NAME": "غير معروف",
+    "NO_JOB_TITLE": "لا يوجد مسمى وظيفي"
+  },
+  "EMPLOYEE_REQUESTS": {
+    "REQUEST_TYPE": "نوع الطلب",
+    "UNKNOWN_TYPE": "نوع غير معروف",
+    "REQUEST_STATUSES": {
+      "ALL": "الكل",
+      "PENDING": "قيد الانتظار",
+      "ACCEPTED": "مقبول",
+      "REJECTED": "مرفوض",
+      "APPROVED": "موافق عليه"
+
+    }
+  },
+  "CURRENCY": {
+    "SAR": "Saudi Riyal",
+    "EGP": "Egyptian Pound",
+    "USD": "US Dollar"
   }
 }

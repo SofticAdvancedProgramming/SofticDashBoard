@@ -22,7 +22,7 @@
     "20": "Referance_Photo_Is_Required"
   },
   "No notifications": "No notifications",
-  "Read More": "اقرا المزيد",
+  "Read More": "read more",
   "WELCOME_BACK": "Welcome Back 👋",
   "LIGHT_DESCRIPTION": "Today is a new day. It's your day. You shape it. Sign in to start managing your projects.",
   "EMAIL": "Email",
@@ -125,7 +125,7 @@
     "LATITUDE_REQUIRED": "Latitude is required",
     "BACK": "Back",
     "SAVE": "Save",
-    "EDIT": "Edit",
+    "EDIT": "Save",
     "ERROR": "Error",
     "SUCCESS": "Success",
     "FILL_ALL_REQUIRED_FIELDS": "Please fill all required fields",
@@ -176,7 +176,7 @@
     "DEPARTMENT_LOCATION": "Department Location",
     "BACK": "Back",
     "SAVE": "Save",
-    "EDIT": "Edit",
+    "EDIT": "Save",
     "SELECT_OPTION": "Select Option",
     "REQUIRED_FIELD": "is required",
     "DESCRIPTION_CONSTRAINT": "must be between 100 and 250 characters.",
@@ -229,7 +229,7 @@
     "FILL_REQUIRED_FIELDS": "Please fill all required fields",
     "POSITION_ADDED_SUCCESSFULLY": "Position added successfully",
     "ERROR_ADDING_POSITION": "Error adding position",
-    "EDIT": "Edit"
+    "EDIT": "Save"
   },
   "NAV": {
     "SEARCH": "Search..."
@@ -352,6 +352,7 @@
     "REJECTED": "Rejected",
     "ACCEPTED": "Accepted",
     "FINANCIAL_INFORMATION": "Financial",
+    "REQUEST": "Requests",
     "Entitlements": "Entitlements",
     "Deductions": "Deductions",
     "Title": "Title",
@@ -536,7 +537,9 @@
     "loading": "Loading complaints...",
     "seeDetails": "See Details",
     "deleteComplaint": "Delete Complaint",
-    "deleteSuggestion": "Delete Suggestion"
+    "deleteSuggestion": "Delete Suggestion",
+    "noComplaints":"There are no complaints",
+    "noSuggestions":"There are no suggetions"
   },
   "status": {
     "submitted": "Submitted",
@@ -560,5 +563,40 @@
       "details": "Complaint Details",
       "attachments": "Attachments"
     }
+  },
+  "CONFIRM_DELETE":{
+    "TITLE":"Confirm Delete",
+    "MESSAGE":"Are you sure from this delete process ?",
+    "CANCEL":"Cancel",
+    "CONFIRM":"Sure"
+  },
+  "MY_REQUESTS": {
+    "FILTER": "Filter",
+    "REQUEST_STATUSES": {
+      "ALL": "All",
+      "PENDING": "Pending",
+      "ACCEPTED": "Accepted",
+      "REJECTED": "Rejected"
+    },
+    "NO_REQUESTS": "No requests available",
+    "UNKNOWN_NAME": "Unknown",
+    "NO_JOB_TITLE": "No job title"
+  },
+  "EMPLOYEE_REQUESTS": {
+    "REQUEST_TYPE": "Request Type",
+    "UNKNOWN_TYPE": "Unknown Type",
+    "REQUEST_STATUSES": {
+      "ALL": "All",
+      "PENDING": "Pending",
+      "ACCEPTED": "Accepted",
+      "REJECTED": "Rejected",
+      "APPROVED": "Approved"
+
+    }
+  },
+  "CURRENCY": {
+    "SAR": "Saudi Riyal",
+    "EGP": "Egyptian Pound",
+    "USD": "US Dollar"
   }
 }

@@ -13,24 +13,34 @@
                 <div class="info-item">
                     <span class="label">{{ 'complainDetails.user.name' | translate }}</span>
                     <span class="value">
-                        {{ complaintDetails.issue.firstName }} {{ complaintDetails.issue.lastName }}
+                        {{ complaintDetails.firstName }} {{ complaintDetails.lastName }}
                     </span>
                 </div>
                 <div class="info-item">
                     <span class="label">{{ 'complainDetails.user.phone' | translate }}</span>
-                    <span class="value">{{ complaintDetails.issue.mobile }}</span>
+                    <span class="value">{{ complaintDetails.mobile }}</span>
                 </div>
             </div>
             <div class="info-row">
                 <div class="info-item">
                     <span class="label">{{ 'complainDetails.user.email' | translate }}</span>
-                    <span class="value">{{ complaintDetails.issue.email }}</span>
+                    <span class="value">{{ complaintDetails.email }}</span>
                 </div>
-
-                <div class="info-item" *ngIf="complaintDetails.issueStatusId">
+               
+               @if(complaintDetails.issueStatusId===issueStatus.Submitted)
+               {
+                <div class="info-item">
+                    <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">Opened</span>
+                  
+                </div>
+               } 
+               @else {
+                <div class="info-item">
                     <span class="label" [ngClass]="getStatusStyles(complaintDetails.issueStatusId)">{{complaintDetails.issueStatusId | enumToString:issueStatus}}</span>
                   
                 </div>
+               }
+             
             </div>
         </div>
 
@@ -42,22 +52,22 @@
                 </div>
                 <div class="info-item">
                     <label class="label">{{ 'complainDetails.complaint.againstName' | translate }}</label>
-                    <span class="value">{{ complaintDetails.issue.againestName }}</span>
+                    <span class="value">{{ complaintDetails.againestName }}</span>
                 </div>
             </div>
             <div class="info-row">
                 <div class="info-item">
                     <label class="label">{{ 'complainDetails.complaint.details' | translate }}</label>
-                    <p class="value">{{ complaintDetails.issue.content }}</p>
+                    <p class="value">{{ complaintDetails.content }}</p>
                 </div>
             </div>
 
-            <div *ngIf="complaintDetails.issue.issueAttachments?.length" class="attachments">
+            <div *ngIf="complaintDetails.issueAttachments?.length" class="attachments">
                 <div class="row info-row">
                     <div class="info-item">
                         <span class="label">{{ 'complainDetails.complaint.attachments' | translate }}</span>
                         <div class="attachment-list">
-                            <img *ngFor="let attachment of complaintDetails.issue.issueAttachments"
+                            <img *ngFor="let attachment of complaintDetails.issueAttachments"
                                 [src]="attachment.file" alt="{{ 'complainDetails.complaint.attachments' | translate }}"
                                 class="attachment-image" />
                         </div>
@@ -67,12 +77,12 @@
             <div class="row info-row">
                 <div class="info-item">
                     <span class="label"><img src="../../../../../assets/images/bill.png">Type your reply</span>
-                    <textarea class="textarea"> Type your replay...... </textarea>
+                    <textarea class="textarea" #comment> Type your replay...... </textarea>
                 </div>
             </div>
             <div class="row justify-content-center d-flex">
                 <div class="col-lg-3">
-                    <button class="btn w-100 submit-btn" (click)="submitReply()"> submit </button>
+                    <button class="btn w-100 submit-btn" (click)="submitReply(complaintDetails.companyId,complaintDetails.issueExcuters[0].excuterId,complaintDetails.issueExcuters[0].issueId)"> submit </button>
                 </div>
             </div>
         </div>

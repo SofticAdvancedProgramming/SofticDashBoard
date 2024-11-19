@@ -11,7 +11,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { issueStatus } from '../../../core/enums/IssueStatus';
 import { EnumToStringPipe } from '../../../core/pipes/enum-to-string.pipe';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteComplaintComponent } from '../components/confirm-delete-complaint/confirm-delete-complaint.component';
 @Component({
   selector: 'app-complaints-suggestions',
   standalone: true,
@@ -46,7 +47,8 @@ export class ComplaintsSuggestionsComponent {
     private IssueExcuter: IssueExcuterService,
     private localStorageService: LocalStorageService,
     private complaintsService: CompliantsAndSuggestionsService,
-    private IssueService:IssueService
+    private IssueService:IssueService,
+    private dialog: MatDialog
 
   ) { }
 
@@ -73,27 +75,22 @@ export class ComplaintsSuggestionsComponent {
         companyId,
         issueTypeId: this.issueTypeId,
         pageIndex: page,
-        pageSize: this.itemsPerPage,
+        pageSize: this.itemsPerPage
       };
 
       this.IssueExcuter.getIssueExcuter(params).subscribe({
         next: (response: any) => {
           this.loading = false;
-          console.log("responsءشءشءششe", response)
+
 
           if (response?.data?.list) {
-            console.log("compiantsadqdsss", response?.data?.list)
-            console.log("response.data.list",response.data.list)
             this.complaints = response.data.list.map((item: any) => ({
               ...item,
               againstTypeName: this.matchAgainstTypeName(item.issue.againestTypeId),
             }));
 
-            
-
-            console.log("compiantssss", this.complaints)
-
             this.filteredComplaints = this.complaints;
+            console.log("dddddaaaatttttaaa",this.filteredComplaints)
             this.totalComplaints = response.data.totalRows || 0;
           }
         },
@@ -107,11 +104,22 @@ export class ComplaintsSuggestionsComponent {
 
 
 
-  deleteComplaint(id: number, event: Event): void {
+  deleteComplaint(companyId:number,id: number, event: Event): void {
     event.stopPropagation();
     this.deleteId = id;
     this.showDeletePopup = true;
-
+    const dialogRef = this.dialog.open(ConfirmDeleteComplaintComponent);
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.IssueService.deleteIssue(id,companyId).subscribe({
+          next:data=>{
+            console.log("deleted",data);
+            this.loadComplaints();
+          }
+        })
+      }
+    });
     if (this.activeTab === 'complaints') {
       console.log(`Deleting complaint with ID: ${id}`);
     } else if (this.activeTab === 'suggestions') {
@@ -137,18 +145,25 @@ export class ComplaintsSuggestionsComponent {
     //Change status first time to opened
     //1-Get the complaints or suggetion
 
+    console.log("filteredComplaintsfilteredComplaints",this.filteredComplaints)
     //2-check for status
+    debugger
       this.IssueExcuter.getIssueExcuterById(complaintId).subscribe({
         next: (response) => {
-        console.log("my response data",complaintId)
-         // if (response.data?.list[0].issue.issueStatusId == issueStatus.Submitted) {
+        console.log("my response data",response)
+        debugger;
+         if (response.data?.list[0].issue.issueStatusId == issueStatus.Submitted) {
             //3-Change status
-            let ecucterId=response.data?.list[0].id;
-           console.log("ExecuterId",ecucterId)
-            this.IssueExcuter.performActionOnIssueExcuter(ecucterId, issueStatus.Opened).subscribe({
-              next:data=>console.log(data)
+            let executerId=response.data?.list[0].id;
+            console.log("ExecuterId",executerId)
+            this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.Opened).subscribe({
+              next:data=>
+                {
+                  console.log("sddddsssssssssssssssssss",data)
+                 
+                }
             });
-        //  }
+         }
           this.loading = false;
           console.log('Complaint details loaded:', this.complaintDetails);
         },
@@ -158,7 +173,6 @@ export class ComplaintsSuggestionsComponent {
         }
       });
 
-    
     this.router.navigate(['/dashboard/ComplainSuggestionDetails', complaintId]);
   }
 
@@ -217,5 +231,22 @@ export class ComplaintsSuggestionsComponent {
         return '';
     }
   }
+
+  getStatusClass(issueStatusId: number): string {
+    switch (issueStatusId) {
+      case 1:
+        return 'status-submitted';
+      case 2:
+        return 'status-opened';
+      case 3:
+        return 'status-in-progress';
+      case 4:
+        return 'status-closed';
+      default:
+        return 'status-unknown';
+    }
+  }
+
+
 
 }

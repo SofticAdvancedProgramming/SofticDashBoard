@@ -19,8 +19,8 @@ export class IssueService {
     return this.apiCall.request("POST", issueController.Add, newEntity);
   }
 
-  deletIssue(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', issueController.Delete(id, companyId), {});
+  deleteIssue(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request("POST", issueController.Delete(id, companyId), {});
   }
   getIssueById(id: number): Observable<any> {
     const requestBody = { id };  

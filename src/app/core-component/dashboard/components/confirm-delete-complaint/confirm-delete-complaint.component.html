@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="dialog-icon">
+        <i class="icon-warning">!</i>
+    </div>
+    <h2 mat-dialog-title class="dialog-title">{{ 'CONFIRM_DELETE.TITLE' | translate }}</h2>
+    <div mat-dialog-content class="dialog-content">{{ 'CONFIRM_DELETE.MESSAGE' | translate }}</div>
+    <div mat-dialog-actions class="dialog-actions">
+        <button mat-button class="cancel-btn btn" (click)="onCancel()">{{ 'CONFIRM_DELETE.CANCEL' | translate}}</button>
+        <button mat-button color="warn" class="confirm-btn btn" (click)="onConfirm()">{{ 'CONFIRM_DELETE.CONFIRM' |translate }}</button>
+    </div>
+</div>

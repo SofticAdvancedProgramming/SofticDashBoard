@@ -125,11 +125,16 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="form-group">
           <label for="currency">{{ 'PROFILE_DETAILS.currency' | translate }}</label>
-          <input type="text" id="currency" formControlName="currency" class="form-control" />
+          <select id="currency" formControlName="currency" class="form-control">
+            <option *ngFor="let currency of currencies" [value]="currency">
+              {{ currency }}
+            </option>
+          </select>
           <div *ngIf="companyForm.get('currency')?.invalid && companyForm.get('currency')?.touched" class="text-danger">
             {{ 'PROFILE_DETAILS.invalid_url' | translate }}
           </div>
         </div>
+        
       </div>
 
 
