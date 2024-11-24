@@ -3,11 +3,12 @@ import { LocalStorageService } from '../../../../../../services/local-storage-se
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { UserJobExperienceService } from '../../../../../../services/JobExperienceService/user-job-experience.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-job-experience',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './job-experience.component.html',
   styleUrl: './job-experience.component.css'
 })
