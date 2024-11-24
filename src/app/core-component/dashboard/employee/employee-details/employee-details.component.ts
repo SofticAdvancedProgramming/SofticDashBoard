@@ -105,7 +105,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
       .EditStatus({ id: this.id, accountStatus: status })
       .subscribe({
         next: (response: any) => {
-          this.toast.typeSuccess(`Employee ${status.toString()} successfully.`);
+          this.toast.typeSuccess(`${response.message}`);
           this.getEmployee();
         },
       });
