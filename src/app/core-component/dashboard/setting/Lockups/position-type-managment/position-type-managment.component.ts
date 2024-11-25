@@ -19,8 +19,8 @@ export class PositionTypeManagmentComponent implements OnInit {
   modalId = 'AddPositionType';
   companyId: number = 0;
   structure = [
-    { name: 'name', label: 'Name', type: 'text', required: true },
-    { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
+    { name: 'name', label: 'Name In English', type: 'text', required: true },
+    { name: 'nameAr', label: 'Name In Arabic', type: 'text', required: true },
   ];
   pageIndex: any = {
     "PositionType": 1
