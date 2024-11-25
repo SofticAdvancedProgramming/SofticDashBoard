@@ -266,7 +266,7 @@
     "SETTING": "Setting",
     "HELP": "Help",
     "LOGOUT": "Logout",
-     "COMPLAINSANDSUGGESTIONS":"Complaints and Suggetions"
+     "COMPLAINSANDSUGGESTIONS":"Complaints & Suggetions"
   },
   "Home": {
     "ActiveCompanies": "Active Companies",
@@ -474,7 +474,7 @@
   "addAdminPage": {
     "title": "Assign admin to company",
     "fields": {
-      
+
       "firstName": {
         "label": "First Name",
         "placeholder": "Enter first name",
