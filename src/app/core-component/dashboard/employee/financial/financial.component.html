@@ -26,7 +26,7 @@
               </div>
               <div class="col-lg-4">
                 <label>{{ 'employeeDetails.Due_Date' | translate }}</label>
-                <input type="date" class="form-control ml-3" formControlName="transactionDate" />
+                <input type="date" [max]="todayDate" class="form-control ml-3" formControlName="transactionDate" />
               </div>
               <div class="col-lg-4">
                 <app-drop-down (currentPage)="currentPageDropDown" (onChange)="dropDown($event)"
