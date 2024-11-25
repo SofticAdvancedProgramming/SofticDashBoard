@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PositionService } from '../../../../../../services/positionService/position.service';
@@ -17,6 +17,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Position } from '../../../../../../../models/postion';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { EventEmitter } from 'stream';import { PositionTypeService } from '../../../../../../services/lockupsServices/positionTypeService/position-type.service';
 @Component({
   selector: 'app-index',
   standalone: true,
@@ -41,6 +42,18 @@ export class IndexComponent implements OnInit {
   itemsPerPage: number = 10;
   totalItems: number = 0;
   isArabic: boolean = false;
+  searchText!:string;
+  entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: string } } = {
+    PositionType: {
+      load: 'getPositionTypes',
+      add: 'addPositionType',
+      edit: 'editPositionType',
+      delete: 'deletePositionType',
+      data: 'PositionTypes'
+    }
+  };
+
+
   positionData!: Position;
   constructor(
     private positionService: PositionService,
@@ -48,7 +61,8 @@ export class IndexComponent implements OnInit {
     private messageService: MessageService,
     private departmentService: DepartmentService,
     private translate: TranslateService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private positionTypeService: PositionTypeService
   ) { }
 
   ngOnInit(): void {
@@ -230,5 +244,33 @@ export class IndexComponent implements OnInit {
   }
   private showSuccess(detail: string): void {
     this.messageService.add({ severity: 'success', summary: 'Success', detail });
+  }
+  loadEntities(entity: string, pageIndex: number): void {
+    let name=this.searchText.trim();
+    let query: any = { companyId: this.companyId, pageIndex };
+    console.log(name);
+    if(name){
+    if (/^[a-zA-Z]/.test(name)) {
+      query = {
+        ...query,
+        name:name
+      };
+    }else if(name){
+      query = {
+        ...query,
+        nameAr:name
+      };
+    }}
+    console.log(query)
+    const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
+    (this.positionTypeService[methodName] as Function)(query).subscribe(
+      (response: any) => {
+        console.log(response);
+        if (response.status === 200) {
+          (this as any)[this.entityTypes[entity].data] = response.data.list;
+         this.positions=response.data.list
+        }
+      }
+    );
   }
 }

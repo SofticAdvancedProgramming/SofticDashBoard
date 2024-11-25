@@ -8,12 +8,14 @@
 
     <!-- Position List -->
     <ng-template #positionList>
-      <div class="row">
-        <div class="justify-content-end d-flex">
-          <button class="btn addPositionBtn" (click)="addPosition()">
-            <i class="fas fa-plus"></i> {{ 'INDEX_POSITION.ADD_POSITION' | translate }}
-          </button>
+      <div class="row justify-content-between">
+        <div class="col-5">
+          <label class="form-label ">{{'COMPANY_DETAILS.search_position'|translate}}</label>
+          <input [(ngModel)]="searchText" placeholder="{{'COMPANY_DETAILS.search_position'|translate}}" (input)="loadEntities('PositionType', 1)" placeholder="translate" class="form-control custom-search "/>
         </div>
+        <button class="col-3  btn addPositionBtn" (click)="addPosition()">
+          <i class="fas fa-plus"></i> {{ 'INDEX_POSITION.ADD_POSITION' | translate }}
+        </button>
       </div>
       <div class="row">
         <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let position of positions">

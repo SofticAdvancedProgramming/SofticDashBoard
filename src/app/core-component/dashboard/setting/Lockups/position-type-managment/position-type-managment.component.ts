@@ -46,17 +46,26 @@ export class PositionTypeManagmentComponent implements OnInit {
     this.loadEntities('PositionType', this.pageIndex['PositionType']);
   }
 
-  loadEntities(entity: string, pageIndex: number, name?: string): void {
+  loadEntities(entity: string, pageIndex: number, name?:string): void {
     let query: any = { companyId: this.companyId, pageIndex };
-    if (name) {
+    console.log(name);
+    if(name){
+    if (/^[a-zA-Z]/.test(name)) {
       query = {
         ...query,
-        name
+        name:name
       };
-    }
+    }else if(name){
+      query = {
+        ...query,
+        nameAr:name
+      };
+    }}
+    console.log(query)
     const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
     (this.positionTypeService[methodName] as Function)(query).subscribe(
       (response: any) => {
+        console.log(response);
         if (response.status === 200) {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
           this.totalRows[entity] = response.data.totalRows;
@@ -65,6 +74,7 @@ export class PositionTypeManagmentComponent implements OnInit {
       }
     );
   }
+
 
   addEntity(entity: string, newEntity: any): void {
     const methodName = this.entityTypes[entity].add as keyof PositionTypeService;
