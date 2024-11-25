@@ -1,6 +1,7 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
+    font-family: Lama Sans;
 }
 
 .profile-header {
@@ -58,7 +59,8 @@ body {
 
 .edit-profile-btn {
     padding: 10px 20px;
-    font-family: Nunito;
+    /* font-family: Nunito; */
+    font-family: Lama Sans;
     font-size: 14px;
     font-weight: 700;
     line-height: 23px;
@@ -90,9 +92,10 @@ body {
 }
 
 .profile-card h3 {
-    font-family: Nunito;
+    /* font-family: Nunito; */
+    font-family: Lama Sans;
     font-size: 16px;
-    font-weight: 700;  
+    font-weight: 700;
 }
 
 .profile-card .description {
@@ -113,7 +116,7 @@ body {
 
 .profile-card .label {
     font-size: 16px;
-    font-weight: 500;   
+    font-weight: 500;
 }
 
 .profile-card .value {

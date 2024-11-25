@@ -2,7 +2,8 @@
     display: flex;
     gap: 10px;
     justify-content: center;
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
+    font-family: Lama Sans;
     margin-top: 3rem;
 }
 
@@ -26,7 +27,8 @@
 
 .coming-soon-container {
     text-align: center;
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
+    font-family: Lama Sans;
     padding: 20px 20px;
 }
 

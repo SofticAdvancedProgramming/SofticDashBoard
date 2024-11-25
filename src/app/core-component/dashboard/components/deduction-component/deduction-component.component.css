@@ -14,7 +14,8 @@
 }
 
 .title {
-  font-family: Nunito;
+  /* font-family: Nunito; */
+  font-family: Lama Sans;
   font-weight: bold;
 }
 
@@ -47,7 +48,8 @@
 
 .Allowance li {
   color: #F47B7B;
-  font-family: Nunito;
+  /* font-family: Nunito; */
+  font-family: Lama Sans;
   font-size: 16px;
   font-weight: 500;
 }
