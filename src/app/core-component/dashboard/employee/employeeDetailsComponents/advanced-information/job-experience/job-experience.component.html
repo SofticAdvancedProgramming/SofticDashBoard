@@ -20,20 +20,14 @@
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.Start_Date' | translate }}
-      </label>
+    
       <div class="text-muted">
-        {{ userJobExperience?.startFrom ? userJobExperience?.startFrom : ('jobExperience.No_Data' | translate) }}
+        {{ userJobExperience?.startFrom ? userJobExperience?.startFrom | date:"mediumDate" : ('jobExperience.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.End_Date' | translate }}
-      </label>
-      <div class="text-muted">
-        {{ userJobExperience?.endAt ? userJobExperience?.endAt : ('jobExperience.No_Data' | translate) }}
-      </div>
+      <label class="d-block fw-semibold text-dark">End Date</label>
+      <div class="text-muted">{{ userJobExperience.endAt }}</div>
     </div>
     <div class="col-12 col-md-12 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
