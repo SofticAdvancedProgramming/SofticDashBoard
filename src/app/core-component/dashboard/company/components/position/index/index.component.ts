@@ -22,8 +22,8 @@ import { ConfirmationService } from 'primeng/api';
   standalone: true,
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
-  providers: [PositionService, EmployeeService, MessageService,ConfirmationService],
-  imports: [RouterLink, CommonModule, AssignEmployeesComponent, PaginationModule, AddPositionComponent, ToastModule, ModernTableComponent, FormsModule, TranslateModule,ConfirmDialogModule]
+  providers: [PositionService, EmployeeService, MessageService, ConfirmationService],
+  imports: [RouterLink, CommonModule, AssignEmployeesComponent, PaginationModule, AddPositionComponent, ToastModule, ModernTableComponent, FormsModule, TranslateModule, ConfirmDialogModule]
 })
 export class IndexComponent implements OnInit {
   isAdd: boolean = false;
@@ -73,7 +73,7 @@ export class IndexComponent implements OnInit {
   }
 
   loadUnassignedEmployees(): void {
-    this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
+    this.employeeService.loadEmployees({ companyId: this.companyId, accountStatus: 1 }).subscribe({
       next: (response) => {
         this.employees = response.data.list.filter(
           (employee: any) => !employee.positionId
