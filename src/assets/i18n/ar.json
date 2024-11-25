@@ -572,6 +572,8 @@
   },
   "MY_REQUESTS": {
     "FILTER": "تصفية",
+    "CREATED_ON_FROM": "  من",
+    "CREATED_ON_TO": "  إلى",
     "REQUEST_STATUSES": {
       "ALL": "الكل",
       "PENDING": "قيد الانتظار",
@@ -582,6 +584,8 @@
     "UNKNOWN_NAME": "غير معروف",
     "NO_JOB_TITLE": "لا يوجد مسمى وظيفي"
   },
+  "CREATED_ON_FROM": "تاريخ الإنشاء من",
+  "CREATED_ON_TO": "تاريخ الإنشاء إلى",
   "EMPLOYEE_REQUESTS": {
     "REQUEST_TYPE": "نوع الطلب",
     "UNKNOWN_TYPE": "نوع غير معروف",
