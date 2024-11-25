@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { MapComponent } from '../../../../../../common-component/map/map.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-branch',
@@ -30,7 +31,9 @@ export class AddBranchComponent implements OnInit {
     private fb: FormBuilder,
     private branchService: BranchService,
     private messageService: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router:Router,
+    private activatedRoute:ActivatedRoute
 
   ) {
     this.form = this.fb.group({
@@ -89,6 +92,8 @@ export class AddBranchComponent implements OnInit {
         }
       }
     });
+    this.ngOnInit();
+    this.action.emit(false);
   }
 
   onBack(): void {
