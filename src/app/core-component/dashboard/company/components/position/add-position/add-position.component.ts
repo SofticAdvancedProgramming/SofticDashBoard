@@ -128,7 +128,9 @@ export class AddPositionComponent implements OnInit {
       departmentId: parseInt(this.form.value.department, 10),
       positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : null
     };
-    this.createOrEdit(positionData)
+    this.createOrEdit(positionData);
+    this.ngOnInit();
+    this.action.emit(false);
   }
 
   createOrEdit(positionData: Position) {

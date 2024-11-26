@@ -32,11 +32,15 @@ export class EmployeeRequestsComponent implements OnInit {
   requestStatuses: any[] = [];
   selectedStatus: RequestStatus = RequestStatus.ALL;
   public RequestStatus = RequestStatus;
-
+  startDate:string='';
+  endDate:string='';
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalRequests: number = 0;
   employeeId!: number;
+  createdOnFrom: string = '';
+createdOnTo: string = '';
+dateError: string = ''; 
   constructor(
     private requestService: RequestService,
     private requestsService: RequestLockupService,
@@ -68,22 +72,30 @@ export class EmployeeRequestsComponent implements OnInit {
       pageIndex: page,
       pageSize: this.itemsPerPage,
       requestStatusId: this.selectedStatus === RequestStatus.ALL ? undefined : this.selectedStatus,
+      createdOnFrom: this.createdOnFrom ? new Date(this.createdOnFrom).toISOString() : undefined,
+      createdOnTo: this.createdOnTo ? new Date(this.createdOnTo).toISOString() : undefined,
     };
-
+  
+    console.log('Request Payload:', requestPayload); // Debug payload
     this.requestService.getRequests(requestPayload).pipe(
       tap((response: any) => {
+        console.log('API Response:', response);
         if (response.status === 200) {
           this.requests = response.data.list || [];
           this.totalRequests = response.data.totalRows || 0;
-          this.filterRequests();
+          this.filteredRequests = [...this.requests]; // Default: Show all requests
+        } else {
+          console.error('Unexpected response status:', response.status);
         }
       }),
       catchError((error) => {
-        console.error('Error fetching requests:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load requests.' });
         return of([]);
       })
     ).subscribe();
   }
+  
+  
 
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
@@ -135,10 +147,15 @@ export class EmployeeRequestsComponent implements OnInit {
   }
 
   filterRequests(): void {
-    this.filteredRequests = this.requests.filter(
-      (request) => request.requestStatusId === RequestStatus.Accepted || request.requestStatusId === RequestStatus.Rejected
-    );
+    if (this.selectedStatus === RequestStatus.ALL) {
+      this.filteredRequests = [...this.requests];  
+    } else {
+      this.filteredRequests = this.requests.filter(
+        (request) => request.requestStatusId === this.selectedStatus
+      );
+    }
   }
+  
   
 
   onStatusChange(event: Event): void {
@@ -169,4 +186,31 @@ export class EmployeeRequestsComponent implements OnInit {
       }
     );
   }
+  onDateChange(): void {
+    this.validateDates();  
+    if (!this.dateError) {
+      this.currentPage = 1;  
+      this.loadRequests(this.currentPage);
+    }
+  }
+  showDatePicker(event: Event, inputId: string): void {
+    event.stopPropagation();  
+    const inputElement = document.getElementById(inputId) as HTMLInputElement;
+    if (inputElement) {
+      inputElement.click();  
+    }
+  }
+  validateDates(): void {
+    if (this.createdOnFrom && this.createdOnTo) {
+      const startDate = new Date(this.createdOnFrom);
+      const endDate = new Date(this.createdOnTo);
+
+      if (endDate < startDate) {
+         this.dateError = this.translate.instant('DATE_ERROR.END_BEFORE_START');
+      } else {
+        this.dateError = ''; 
+      }
+    }
+  }
+  
 }

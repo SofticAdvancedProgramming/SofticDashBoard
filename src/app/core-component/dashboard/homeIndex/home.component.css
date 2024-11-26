@@ -24,7 +24,8 @@
 
 .lightCard p:first-of-type {
   color: #0047B3;
-  font-family: Nunito;
+  /* font-family: Nunito; */
+  font-family: Lama Sans;
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;
@@ -33,7 +34,8 @@
 
 .greyCard p:first-of-type {
   color: #0047B3;
-  font-family: Nunito;
+  /* font-family: Nunito; */
+  font-family: Lama Sans;
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;
@@ -42,7 +44,8 @@
 
 .lightCard .text p:last-of-type {
   color: #2D3A49;
-  font-family: Inter;
+  /* font-family: Inter; */
+  font-family: Lama Sans;
   font-size: 15px;
   font-weight: 400;
 }
@@ -54,7 +57,8 @@
 
 .chartText {
   color: #2D3A49;
-  font-family: Inter;
+  /* font-family: Inter; */
+  font-family: Lama Sans;
   font-size: 15px;
   font-weight: 400;
 }
