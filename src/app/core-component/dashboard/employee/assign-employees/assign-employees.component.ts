@@ -62,8 +62,7 @@ export class AssignEmployeesComponent {
         }));
          this.loadingMoreEmployees = false;
         if(newItems.length) this.employeePage++;
-        console.log('API Respsadsadewdefe3wonse:', this.employees);  
-
+ 
       },
       error: (err) => this.loadingMoreEmployees = false,
     });

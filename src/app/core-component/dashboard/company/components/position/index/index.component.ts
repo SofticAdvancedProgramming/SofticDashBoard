@@ -82,8 +82,7 @@ export class IndexComponent implements OnInit {
       next: (response) => {
         this.positions = response.data.list;
         this.totalItems = response.data.totalRows;
-        console.table(response.data)
-      }
+       }
     });
   }
 
@@ -99,10 +98,8 @@ export class IndexComponent implements OnInit {
           (employee: any) => !employee.positionId
         );
         this.totalEmployees = response.data.totalRows;  
-        console.log('Unassigned Employees:', this.employees);
-      },
-      error: (err) => console.error('Error loading employees:', err)
-    });
+       },
+     });
   }
   
 
@@ -117,8 +114,7 @@ export class IndexComponent implements OnInit {
         this.employees = response.data.list.filter(
           (employee: any) => employee.positionId === positionId
         );
-        console.log("Employees for Position:", this.employees);
-      }
+       }
     });
   }
 
@@ -129,8 +125,7 @@ export class IndexComponent implements OnInit {
           this.departments = response.data.list;
         },
         error: (err) => {
-          console.error('Error loading departments', err);
-        }
+         }
       });
     }
   }
@@ -258,8 +253,7 @@ export class IndexComponent implements OnInit {
   loadEntities(entity: string, pageIndex: number): void {
     let name=this.searchText.trim();
     let query: any = { companyId: this.companyId, pageIndex };
-    console.log(name);
-    if(name){
+     if(name){
     if (/^[a-zA-Z]/.test(name)) {
       query = {
         ...query,
@@ -271,12 +265,10 @@ export class IndexComponent implements OnInit {
         nameAr:name
       };
     }}
-    console.log(query)
-    const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
+     const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
     (this.positionTypeService[methodName] as Function)(query).subscribe(
       (response: any) => {
-        console.log(response);
-        if (response.status === 200) {
+         if (response.status === 200) {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
          this.positions=response.data.list
         }
@@ -291,14 +283,12 @@ export class IndexComponent implements OnInit {
       pageSize: this.itemsPerPage,
     }).subscribe({
       next: (response) => {
-        console.log('API Response:', response);  
-        this.employees.push(
+         this.employees.push(
           ...response.data.list.filter((employee: any) => !employee.positionId)
         );
         this.totalEmployees = response.data.totalRows;
       },
-      error: (err) => console.error('Error loading employees:', err),
-    });
+     });
   }
   
   searchUnassignedEmployees(searchTerm: string): void {
@@ -313,8 +303,7 @@ export class IndexComponent implements OnInit {
         );
         this.totalEmployees = response.data.totalRows;
       },
-      error: (err) => console.error('Error searching employees:', err)
-    });
+     });
   }
     
 }
