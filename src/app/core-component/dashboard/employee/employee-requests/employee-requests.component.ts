@@ -204,11 +204,11 @@ dateError: string = '';
     if (this.createdOnFrom && this.createdOnTo) {
       const startDate = new Date(this.createdOnFrom);
       const endDate = new Date(this.createdOnTo);
-  
+
       if (endDate < startDate) {
-        this.dateError = 'End date cannot be earlier than the start date.';
+         this.dateError = this.translate.instant('DATE_ERROR.END_BEFORE_START');
       } else {
-        this.dateError = ''; // Clear the error if the dates are valid
+        this.dateError = ''; 
       }
     }
   }

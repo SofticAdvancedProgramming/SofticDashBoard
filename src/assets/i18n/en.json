@@ -600,5 +600,8 @@
     "SAR": "Saudi Riyal",
     "EGP": "Egyptian Pound",
     "USD": "US Dollar"
+  },
+  "DATE_ERROR": {
+    "END_BEFORE_START": "End date cannot be earlier than the start date."
   }
 }

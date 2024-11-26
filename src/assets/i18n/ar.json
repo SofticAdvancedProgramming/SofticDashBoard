@@ -599,8 +599,11 @@
     }
   },
   "CURRENCY": {
-    "SAR": "Saudi Riyal",
-    "EGP": "Egyptian Pound",
-    "USD": "US Dollar"
+    "SAR": "ريال سعودي",
+    "EGP": "جنية مصري",
+    "USD": "دولار امريكي"
+  },
+  "DATE_ERROR": {
+    "END_BEFORE_START": "لا يمكن أن يكون تاريخ النهاية قبل تاريخ البداية."
   }
 }
