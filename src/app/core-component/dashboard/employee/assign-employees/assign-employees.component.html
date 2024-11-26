@@ -22,10 +22,16 @@
       <form (ngSubmit)="onSubmit()">
         <div class="form-group mt-3">
           <label for="employeeName">Name</label>
-          <select id="employeeName" class="form-control" [(ngModel)]="selectedEmployeeId" name="employeeName">
-            <option value="" disabled>Select Employee</option>
-            <option *ngFor="let employee of employees" [value]="employee.id">{{ employee.fullName }}</option>
-          </select>
+          <app-drop-down 
+          [placeholder]="'Select Employee'"
+          [placeholderSearch]="'Search by Name'"
+          [currentPage]="employeePage"
+          [items]="employees"
+          [itemsLength]="employees.length"
+          (getNextPageApi)="loadEmployees()"
+          (search)="loadEmployees()"
+          (onChange)="onEmployeeSelect($event)"
+        ></app-drop-down>
         </div>
         <div class="row d-flex justify-content-center">
           <button class="assignBtn" type="submit" [disabled]="!selectedEmployeeId">Assign</button>

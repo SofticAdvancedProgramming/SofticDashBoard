@@ -4,10 +4,15 @@
   font-size: 16px;
   padding: 10px;
   border-radius: 4px;
-  background-color: #fff !important;
   color: black;
+  border: 1px solid #e7e6e8 !important;
+  background: #fbfbfb !important;
+  border-radius: 8px;
+  
 }
-
+.ng-trigger{
+  background-color: white !important;
+}
 .form-group {
   margin: 20px 0;
 }
@@ -20,4 +25,10 @@ mat-form-field {
 .search {
   background-color: #F9F9F9;
   margin-bottom: 15px;
+}
+ .cdk-overlay-pane{
+  width: 264px;
+    top: 313.8px !important;
+    left: 747px !important;
+    border-radius: 8px;
 }
