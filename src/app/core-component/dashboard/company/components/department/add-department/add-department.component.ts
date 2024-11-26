@@ -118,6 +118,9 @@ export class AddDepartmentComponent implements OnInit {
 
       }
     });
+    this.ngOnInit();
+    this.action.emit(false);
+
   }
 
   onBack(): void {

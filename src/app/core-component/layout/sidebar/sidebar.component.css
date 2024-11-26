@@ -96,7 +96,8 @@ a.sidebar-link {
     font-size: 0.9rem;
     white-space: nowrap;
     border-right: 3px solid transparent;
-    font-family: Nunito;
+    /* font-family: Nunito; */
+  font-family: Lama Sans;
     font-weight: 500;
     cursor: pointer;
 }
@@ -166,12 +167,14 @@ a.sidebar-link:hover {
 
 .helpText {
     color: #30CC3A !important;
-    font-family: Nunito;
+    /* font-family: Nunito; */
+    font-family: Lama Sans;
 }
 
 .settingText {
     color: #66696e !important;
-    font-family: Nunito;
+    /* font-family: Nunito; */
+  font-family: Lama Sans;
 }
 
 #sidebar::-webkit-scrollbar {

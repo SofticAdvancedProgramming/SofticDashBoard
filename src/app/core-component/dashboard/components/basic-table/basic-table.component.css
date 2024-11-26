@@ -13,7 +13,8 @@
 .table th {
     border-bottom: 2px solid #dee2e6;
     color: #A2A1A8;
-    font-family: Nunito;
+    /* font-family: Nunito; */
+    font-family: Lama Sans;
     font-size: 16px;
     font-weight: 300;
     line-height: 26px;
@@ -24,7 +25,8 @@
 
 .table td {
     color: #2D3A49;
-    font-family: Lexend;
+    /* font-family: Lexend; */
+    font-family: Lama Sans;
     font-size: 16px;
     font-weight: 300;
     line-height: 24px;
@@ -40,7 +42,8 @@
 }
 .tableTitle{
     color: #2D3A49;
-    font-family: Lexend;
+    /* font-family: Lexend; */
+    font-family: Lama Sans;
     font-size: 20px;
     font-weight: 600;
     line-height: 30px;
