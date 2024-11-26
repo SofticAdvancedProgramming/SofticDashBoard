@@ -573,6 +573,8 @@
   },
   "MY_REQUESTS": {
     "FILTER": "تصفية",
+    "CREATED_ON_FROM": "  من",
+    "CREATED_ON_TO": "  إلى",
     "REQUEST_STATUSES": {
       "ALL": "الكل",
       "PENDING": "قيد الانتظار",
@@ -583,6 +585,8 @@
     "UNKNOWN_NAME": "غير معروف",
     "NO_JOB_TITLE": "لا يوجد مسمى وظيفي"
   },
+  "CREATED_ON_FROM": "تاريخ الإنشاء من",
+  "CREATED_ON_TO": "تاريخ الإنشاء إلى",
   "EMPLOYEE_REQUESTS": {
     "REQUEST_TYPE": "نوع الطلب",
     "UNKNOWN_TYPE": "نوع غير معروف",
@@ -596,8 +600,11 @@
     }
   },
   "CURRENCY": {
-    "SAR": "Saudi Riyal",
-    "EGP": "Egyptian Pound",
-    "USD": "US Dollar"
+    "SAR": "ريال سعودي",
+    "EGP": "جنية مصري",
+    "USD": "دولار امريكي"
+  },
+  "DATE_ERROR": {
+    "END_BEFORE_START": "لا يمكن أن يكون تاريخ النهاية قبل تاريخ البداية."
   }
 }

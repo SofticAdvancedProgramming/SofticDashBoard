@@ -573,6 +573,8 @@
   },
   "MY_REQUESTS": {
     "FILTER": "Filter",
+    "CREATED_ON_FROM": "From",
+    "CREATED_ON_TO": "To",
     "REQUEST_STATUSES": {
       "ALL": "All",
       "PENDING": "Pending",
@@ -592,12 +594,15 @@
       "ACCEPTED": "Accepted",
       "REJECTED": "Rejected",
       "APPROVED": "Approved"
-
     }
   },
+
   "CURRENCY": {
     "SAR": "Saudi Riyal",
     "EGP": "Egyptian Pound",
     "USD": "US Dollar"
+  },
+  "DATE_ERROR": {
+    "END_BEFORE_START": "End date cannot be earlier than the start date."
   }
 }

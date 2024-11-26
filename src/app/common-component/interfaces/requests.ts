@@ -1,3 +1,4 @@
+import { string } from '@tensorflow/tfjs-core';
 export interface RequestAttachment {
   id: number;
   companyId: number;
@@ -52,7 +53,11 @@ export interface ReciverRequestSC {
   companyId: number;
   pageIndex?: number;
   pageSize?: number;
-  employeeId?:number
+  employeeId?:number;
+  startDate:string;
+  endDate:string;
+  createdOnTo:string;
+  createdOnFrom:string;
 }
 
 
