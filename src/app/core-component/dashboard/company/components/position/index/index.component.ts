@@ -43,6 +43,7 @@ export class IndexComponent implements OnInit {
   totalItems: number = 0;
   isArabic: boolean = false;
   searchText!:string;
+  totalEmployees: number = 0;
   entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: string } } = {
     PositionType: {
       load: 'getPositionTypes',
@@ -86,16 +87,24 @@ export class IndexComponent implements OnInit {
     });
   }
 
-  loadUnassignedEmployees(): void {
-    this.employeeService.loadEmployees({ companyId: this.companyId, accountStatus: 1 }).subscribe({
+  loadUnassignedEmployees(page: number = 1): void {
+    this.employeeService.loadEmployees({
+      companyId: this.companyId,
+      accountStatus: 1,
+      pageIndex: page,
+      pageSize: this.itemsPerPage,
+    }).subscribe({
       next: (response) => {
         this.employees = response.data.list.filter(
           (employee: any) => !employee.positionId
         );
-        console.log("Unassigned Employees:", this.employees);
-      }
+        this.totalEmployees = response.data.totalRows;  
+        console.log('Unassigned Employees:', this.employees);
+      },
+      error: (err) => console.error('Error loading employees:', err)
     });
   }
+  
 
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
@@ -144,9 +153,10 @@ export class IndexComponent implements OnInit {
   addEmployee(positionId: string): void {
     this.selectedPositionId = positionId;
     this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
-    this.loadUnassignedEmployees();
+    this.loadUnassignedEmployees(); 
     this.isAddEmployee = true;
   }
+  
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
@@ -273,4 +283,38 @@ export class IndexComponent implements OnInit {
       }
     );
   }
+  loadMoreEmployees(page: number): void {
+    this.employeeService.loadEmployees({
+      companyId: this.companyId,
+      accountStatus: 1,
+      pageIndex: page,
+      pageSize: this.itemsPerPage,
+    }).subscribe({
+      next: (response) => {
+        console.log('API Response:', response);  
+        this.employees.push(
+          ...response.data.list.filter((employee: any) => !employee.positionId)
+        );
+        this.totalEmployees = response.data.totalRows;
+      },
+      error: (err) => console.error('Error loading employees:', err),
+    });
+  }
+  
+  searchUnassignedEmployees(searchTerm: string): void {
+    this.employeeService.loadEmployees({
+      companyId: this.companyId,
+      accountStatus: 1,
+      search: searchTerm  
+    }).subscribe({
+      next: (response) => {
+        this.employees = response.data.list.filter(
+          (employee: any) => !employee.positionId
+        );
+        this.totalEmployees = response.data.totalRows;
+      },
+      error: (err) => console.error('Error searching employees:', err)
+    });
+  }
+    
 }
