@@ -21,7 +21,7 @@
         <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let position of positions">
           <div class="card">
             <div class="card-header">
-              <h3>{{ position.name }}</h3>
+              <h3>{{ isArabic ?position.nameAr:position.name }}</h3>
               <p>{{ 'INDEX_POSITION.DEPARTMENT' | translate }}: {{ getDepartmentName(position.departmentId) }}</p>
             </div>
             <div class="card-body">
