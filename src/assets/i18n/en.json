@@ -321,7 +321,10 @@
     "select":"Open this select menu",
     "Add New Location":"Add New Location",
     "from":"from",
- "to":"To"
+    "to":"To",
+    "Rejected":"Rejected",
+    "reasonForRejection":"reason for rejection",
+    "writeComment":"please write your comment no more than 300 words"
   },
   "personalInfo": {
     "PROFILE_INFORMATION": "Profile Information",
