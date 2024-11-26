@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <!-- Button to open the modal -->
+    <div class="col-6">
+      <button
+        type="button"
+        class="btn custom-button btn-primary"
+        data-bs-toggle="modal"
+        [attr.data-bs-target]="'#' + modalId"
+        (click)="openAddModal()"
+      >
+        Add Currency
+      </button>
+    </div>
+
+    <!-- Dropdown to select Type -->
+    <!-- <div class="col-6">
+        <div class="form-group">
+          <label for="type">Type</label>
+          <select
+            class="form-control"
+            id="type"
+            [(ngModel)]="isDeduction"
+            (change)="onTypeChange()"
+            name="type"
+          >
+            <option *ngFor="let o of options" [ngValue]="o.value">
+              {{ o.name }}
+            </option>
+          </select>
+        </div>
+      </div> -->
+  </div>
+
+  <!-- Dynamic Modal Component -->
+  <app-dynamic-modal
+    [structure]="structure"
+    [isEdit]="isEdit"
+    [formData]="formData"
+    [modalId]="modalId"
+    (submitForm)="handleFormSubmission($event)"
+  ></app-dynamic-modal>
+
+  <!-- Modern Table Component -->
+  <app-currency-table
+    [tableTitle]="'Currency Types'"
+    (newReqByPage)="loadEntities('CurrencyType', $event)"
+    [totalRows]="totalRows['CurrencyType']"
+    [tableData]="CurrencyTypes"
+    [columns]="columns"
+    [modalId]="modalId"
+    searchPlaceholder="Search data..."
+    (editItem)="openEditModal($event)"
+    (deleteItem)="deleteEntity('CurrencyType', $event.id)"
+    [deleteId] = "deleteId"
+    (defaultItem) ="defaultEntity('CurrencyType', $event.id)"
+    [defaultId]="defaultId"
+    (searchApi)="loadEntities('CurrencyType', 1, $event)"
+  ></app-currency-table> 
+</div>

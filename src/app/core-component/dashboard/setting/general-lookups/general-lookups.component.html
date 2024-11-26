@@ -20,5 +20,12 @@
         link="../salary-type">
       </app-lockup-card>
     </div>
+    <div class="col-lg-4 mt-3" *ngIf="role[0] === 'Admin' || role[0] === 'SuperAdmin'">
+      <app-lockup-card iconSrc="../../../../../assets/images/lockup/security-user.png"
+        header="{{ 'generalLookups.CurrencyType' | translate }}"
+        description="{{ 'generalLookups.Salary_Type_DESCRIPTION' | translate }}"
+        link="../currency-type">
+      </app-lockup-card>
+    </div>
   </div>
 </div>

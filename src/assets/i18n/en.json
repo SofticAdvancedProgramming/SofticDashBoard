@@ -293,7 +293,8 @@
     "POSITION_MANAGEMENT": "Position Management",
     "POSITION_MANAGEMENT_DESCRIPTION": "Define and update organizational roles and positions efficiently.",
     "SalaryType": "Salary Type",
-    "Salary_Type_DESCRIPTION": "This field defines the type of salary an employee receives, such as fixed, hourly, or commission-based, providing clarity on the employee's pay structure."
+    "Salary_Type_DESCRIPTION": "This field defines the type of salary an employee receives, such as fixed, hourly, or commission-based, providing clarity on the employee's pay structure.",
+    "CurrencyType": "Currency Type"
   },
   "viewEmployees": {
 "CURRENT_EMPLOYEES": "Current Employees",

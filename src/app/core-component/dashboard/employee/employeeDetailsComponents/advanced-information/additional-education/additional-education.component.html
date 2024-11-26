@@ -68,7 +68,7 @@
         "certificate.Certificate_Name" | translate
       }}</label>
       <div class="text-muted">
-        {{ userEducation?.name ? userEducation?.name : "No Data" }}
+        {{ userEducation?.name ? userEducation?.name : ('certificate.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -76,7 +76,7 @@
         "certificate.Specialist" | translate
       }}</label>
       <div class="text-muted">
-        {{ userEducation?.specialist ? userEducation?.specialist : "No Data" }}
+        {{ userEducation?.specialist ? userEducation?.specialist : ('certificate.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -84,7 +84,7 @@
         "certificate.Issuing_Organization" | translate
       }}</label>
       <div class="text-muted">
-        {{ userEducation?.issuer ? userEducation?.issuer : "No Data" }}
+        {{ userEducation?.issuer ? userEducation?.issuer : ('certificate.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -92,7 +92,7 @@
         "certificate.Issue_Date" | translate
       }}</label>
       <div class="text-muted">
-        {{ userEducation?.from ? userEducation?.from : "No Data" }}
+        {{ userEducation?.from ? userEducation?.from : ('certificate.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -100,7 +100,7 @@
         "certificate.Expiry_Date" | translate
       }}</label>
       <div class="text-muted">
-        {{ userEducation?.to ? userEducation?.to : "No Data" }}
+        {{ userEducation?.to ? userEducation?.to : ('certificate.No_Data' | translate) }}
       </div>
     </div>
     <!-- <div class="col-12 col-md-6 border-bottom-custom">
