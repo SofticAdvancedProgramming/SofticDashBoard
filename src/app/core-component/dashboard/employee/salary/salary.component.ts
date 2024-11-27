@@ -4,6 +4,10 @@ import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angula
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
+import { ModernTableComponent } from "../../components/modern-table/modern-table.component";
+import { SalaryTypeService } from '../../../../services/lockupsServices/SalaryService/salary.service';
+import { ToastersService } from '../../../../core/services/toast-service/toast.service';
+import { CommonModule, DatePipe } from '@angular/common';
 
 interface Salary {
   grossSalary: string;
@@ -21,22 +25,56 @@ interface EmployeeResponse {
 }
 
 @Component({
-  selector: 'app-salary',
-  standalone: true,
-  imports: [TranslateModule, ReactiveFormsModule],
-  templateUrl: './salary.component.html',
-  styleUrls: ['./salary.component.css']
+    selector: 'app-salary',
+    standalone: true,
+    templateUrl: './salary.component.html',
+    styleUrls: ['./salary.component.css'],
+    imports: [TranslateModule, ReactiveFormsModule, ModernTableComponent , CommonModule,DatePipe],
+    providers: [DatePipe] 
 })
 export class SalaryComponent implements OnInit {
+  modalId = 'editEmployeeService';
+  activeTab: string = 'Entitlements';
+  isDeduction = true;
+  todayDate: string="";
+  isEdit = false;
+  currentPageDropDown = 1;
+  dropDownDataIsDeductionTrue: any[] = [];
+  dropDownDataIsDeductionFalse: any[] = [];
+  dropDownData: any[] = [];
+  financial: any[] = [];
+  columns: string[] = ['amount', 'transactionDate'];
+   companyId = localStorage.getItem('companyId');
+   salaryTypeId!: number;
+  formData: any = {};
+  pageIndex: any = {
+    employeeSalary: 1,
+  };
+  totalRows: any = {
+    employeeSalary: 0,
+  };
+  structure = [
+    { name: 'name', label: 'Name', type: 'text', required: true },
+    { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
+    {
+      name: 'isDeduction',
+      label: 'Deduction',
+      type: 'checkbox',
+      required: true,
+    },
+  ];
   form!: FormGroup;
   employeeId = 0;
 
   constructor(
-    private fb: FormBuilder,
+       private toast: ToastrService,
+    private translate: TranslateService,
     private route: ActivatedRoute,
     private employeeService: EmployeeService,
-    private toast: ToastrService,
-    private translate: TranslateService
+    private salaryTypeService: SalaryTypeService,
+    private fb: FormBuilder,
+    private toastersService: ToastersService,
+    private datePipe: DatePipe
   ) {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -78,4 +116,7 @@ export class SalaryComponent implements OnInit {
     );
   }
 
+  loadEntitie(entity: string, pageIndex: number, name?: string): void {
+    
+  }
 }
