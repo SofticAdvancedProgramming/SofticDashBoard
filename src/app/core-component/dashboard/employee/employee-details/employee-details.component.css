@@ -215,3 +215,16 @@ body[dir="rtl"] .profile-img {
     float: right;
     margin-right: 10px;
 }
+
+.rejectionPopUp{
+  
+}
+textarea
+{
+  height: 150px;
+  background: #e4e4e4;
+  resize: none;
+}
+.modal-footer button{
+  width: 40%;
+}

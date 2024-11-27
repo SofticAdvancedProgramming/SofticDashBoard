@@ -19,6 +19,8 @@ import { ShiftsComponent } from '../shifts/shifts.component';
 import { SalaryComponent } from '../salary/salary.component';
 import { EmployeeRequestsComponent } from '../employee-requests/employee-requests.component';
 import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-employee-details',
@@ -37,6 +39,8 @@ import { LocalStorageService } from '../../../../services/local-storage-service/
     ShiftsComponent,
     SalaryComponent,
     EmployeeRequestsComponent,
+    FormsModule,ReactiveFormsModule
+
   ],
 })
 export class EmployeeDetailsComponent implements OnInit, OnDestroy {
@@ -46,17 +50,23 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   accountStatus = accountStatus;
   currentLang: string = 'en';
   isPending: string | null = '';
+  form!:FormGroup;
 
   private unsubscribe$ = new Subject<void>();
 
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private employeeService: EmployeeService,
     private adminService: AdminService,
     private toast: ToastersService,
     private translate: TranslateService,
     private localStorageService: LocalStorageService
-  ) {}
+  ) {
+    this.form = this.fb.group({
+      rejectionReson:['', Validators.required]
+   });
+  }
 
   ngOnInit(): void {
     this.route.paramMap
@@ -71,7 +81,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
       this.currentLang = event.lang;
     });
     console.log(this.isPending);
-    
+
     console.log(accountStatus.Pending);
     console.log(this.employee.accountStatus);
     console.log(this.employee.accountStatus === accountStatus.Pending);
@@ -101,14 +111,15 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   }
   updateStatus(status: accountStatus): void {
     if (!this.id) return;
-    this.adminService
-      .EditStatus({ id: this.id, accountStatus: status })
-      .subscribe({
-        next: (response: any) => {
-          this.toast.typeSuccess(`${response.message}`);
-          this.getEmployee();
-        },
-      });
+    this.addRejectReason();
+    // this.adminService
+    //   .EditStatus({ id: this.id, accountStatus: status })
+    //   .subscribe({
+    //     next: (response: any) => {
+    //       this.toast.typeSuccess(`${response.message}`);
+    //       this.getEmployee();
+    //     },
+    //   });
   }
   ngOnDestroy(): void {
     this.unsubscribe$.next();
@@ -118,5 +129,27 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
     if (rotatedImageDataUrl) {
       this.employee.referancePhoto = rotatedImageDataUrl;
     }
+  }
+
+  addRejectReason(){
+    const modalElement = document.getElementById('rejectionPopUpModal');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  }
+
+  reject(status: accountStatus){
+    const rejectionReson=this.form.value.rejectionReson;
+    console.log(rejectionReson);
+    this.adminService
+      .EditStatus({ id: this.id, accountStatus: status ,comment:rejectionReson})
+      .subscribe({
+        next: (response: any) => {
+          this.toast.typeSuccess(`${response.message}`);
+          this.getEmployee();
+        },
+      });
+  }
+  onCancel(){
+
   }
 }

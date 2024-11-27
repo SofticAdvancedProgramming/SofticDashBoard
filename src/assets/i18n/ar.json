@@ -319,7 +319,10 @@
     "select":"اختر عدد الأيام",
     "Add New Location":"إضافة موقع",
     "from":"من",
-    "to":"الي"
+    "to":"الي",
+    "Rejected":"رفض",
+    "reasonForRejection":"سبب الرفض",
+    "writeComment":"من فضلك اكتب تعليقاً لا يزيد عن 300 كلمة"
     },
   "personalInfo": {
     "PROFILE_INFORMATION": "معلومات الملف الشخصي",
