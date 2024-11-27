@@ -20,6 +20,7 @@ export class AssignEmployeesComponent {
   @Input() DepartmentDescription: string = '';
   @Input() DirectManager: string = 'Direct Manager';
   @Input() DirectManagerDescription: string = '';
+  @Input() employee!: any[];
   employees: employee[] = [];  
   loadingMoreEmployees = false;
   employeePage = 1;
