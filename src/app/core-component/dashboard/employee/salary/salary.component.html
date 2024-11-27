@@ -32,7 +32,7 @@
 
   <div class="row justify-content-center">
     <div class="col-lg-6">
-      <button class="btn-save" (click)="submit()">{{ 'employeeDetails.Save' | translate }}</button>
+      <button class="btn-save" (click)="submitSalary()">{{ 'employeeDetails.Save' | translate }}</button>
     </div>
   </div>
 </div>
@@ -43,11 +43,10 @@
       <!-- Salary Type in English -->
       <div class="col-lg-5">
         <div class="form-group">
-          <label for="salaryType">{{ 'Salary Type In English' }}</label>
+          <label for="salaryType">{{ 'Salary Type In English' | translate }}</label>
           <select id="salaryType" formControlName="salaryType" class="form-control">
-            <option value="Basic Salary">Basic Salary</option>
-            <!-- Add more options as needed -->
-          </select>
+            <option *ngFor="let benefit of benefitTypes" [value]="benefit.id">{{ benefit.name }}</option>
+           </select>
         </div>
       </div>
 
@@ -68,7 +67,7 @@
 
   <div class="row justify-content-center align-items-center mt-3">
     <div class="col-lg-6 d-flex  ">
-      <button class="btn-save" (click)="submit()">{{ 'Save' }}</button>
+      <button class="btn-save" (click)="submitBenefit()">{{ 'Save' }}</button>
     </div>
   </div>
 </div>

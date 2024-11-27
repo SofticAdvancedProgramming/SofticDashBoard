@@ -2,18 +2,16 @@
     <div class="mt-4">
         <button type="button" class="btn custom-button btn-primary" data-bs-toggle="modal"
             [attr.data-bs-target]="'#' + modalId" (click)="openAddModal()">
-            Add Benefit
+            {{ 'benefitType.ADD_BENEFIT' | translate }}  
         </button>
     </div>
 
-    <!-- Modal for adding/editing benefit -->
-    <app-dynamic-modal [structure]="structure" [isEdit]="isEdit" [formData]="formData" [modalId]="modalId"
+     <app-dynamic-modal [structure]="structure" [isEdit]="isEdit" [formData]="formData" [modalId]="modalId"
         (submitForm)="handleFormSubmission($event)">
     </app-dynamic-modal>
 
-    <!-- Modern Table for displaying benefits -->
-    <app-modern-table [tableTitle]="'Benefits'" [tableData]="benefits" [columns]="columns" [modalId]="modalId"
-        searchPlaceholder="Search benefits..." (editItem)="openEditModal($event)"
-        (deleteItem)="deleteEntity('Benefit', $event.id)" [deleteId]="deleteId">
+    <app-modern-table [tableTitle]="'benefitType.BENEFITS' | translate" [tableData]="benefits" [columns]="columns"
+        [modalId]="modalId" [searchPlaceholder]="'benefitType.SEARCH_BENEFITS' | translate"
+        (editItem)="openEditModal($event)" (deleteItem)="deleteEntity('Benefit', $event.id)" [deleteId]="deleteId">
     </app-modern-table>
 </div>

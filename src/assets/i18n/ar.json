@@ -289,7 +289,9 @@
     "POSITION_MANAGEMENT_DESCRIPTION": "تحديد وتحديث الأدوار والمناصب التنظيمية بكفاءة.",
     "SalaryType": "نوع الراتب",
     "Salary_Type_DESCRIPTION": "يحدد هذا الحقل نوع الراتب الذي يتقاضاه الموظف، مثل الراتب الثابت أو بالساعة أو على أساس العمولة، لتوضيح هيكل الدفع للموظف.",
-    "CurrencyType": "نوع العملة"
+    "CurrencyType": "نوع العملة",
+    "BenefitType": "نوع الميزة",
+    "BenefitType_DESCRIPTION": "إدارة أنواع المزايا المقدمة للموظفين."
   },
   "NAV": {
     "SEARCH": "بحث..."
@@ -679,5 +681,10 @@
   },
   "DATE_ERROR": {
     "END_BEFORE_START": "لا يمكن أن يكون تاريخ النهاية قبل تاريخ البداية."
+  },
+  "benefitType": {
+    "ADD_BENEFIT": "إضافة ميزة",
+    "BENEFITS": "المزايا",
+    "SEARCH_BENEFITS": "ابحث عن المزايا..."
   }
 }

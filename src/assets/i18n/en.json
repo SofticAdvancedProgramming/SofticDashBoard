@@ -295,7 +295,9 @@
     "POSITION_MANAGEMENT_DESCRIPTION": "Define and update organizational roles and positions efficiently.",
     "SalaryType": "Salary Type",
     "Salary_Type_DESCRIPTION": "This field defines the type of salary an employee receives, such as fixed, hourly, or commission-based, providing clarity on the employee's pay structure.",
-    "CurrencyType": "Currency Type"
+    "CurrencyType": "Currency Type",
+    "BenefitType": "Benefit Type",
+    "BenefitType_DESCRIPTION": "Manage the types of benefits offered to employees."
   },
   "viewEmployees": {
 "CURRENT_EMPLOYEES": "Current Employees",
@@ -677,5 +679,10 @@
   },
   "DATE_ERROR": {
     "END_BEFORE_START": "End date cannot be earlier than the start date."
+  },
+  "benefitType": {
+    "ADD_BENEFIT": "Add Benefit",
+    "BENEFITS": "Benefits",
+    "SEARCH_BENEFITS": "Search benefits..."
   }
 }

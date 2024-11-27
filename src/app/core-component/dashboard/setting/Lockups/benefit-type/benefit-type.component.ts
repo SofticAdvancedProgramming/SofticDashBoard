@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { DynamicModalComponent } from '../../../components/dynamic-modal/dynamic-modal.component';
 import { ModernTableComponent } from '../../../components/modern-table/modern-table.component';
 import { BenefitTypeService } from '../../../../../services/benefitService/benefit-type.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-benefit-type',
   standalone: true,
   templateUrl: './benefit-type.component.html',
   styleUrls: ['./benefit-type.component.css'],
-  imports: [DynamicModalComponent, ModernTableComponent]
+  imports: [DynamicModalComponent, ModernTableComponent,TranslateModule]
 })
 export class BenefitTypeComponent implements OnInit {
   benefits: any[] = [];
-  columns: string[] = ['id', 'name', 'description', 'amount'];
+  columns: string[] = ['name', 'nameAr'];
   deleteId: string = 'deleteBenefit';
   formData: any = {};
   isEdit = false;
@@ -23,7 +24,8 @@ export class BenefitTypeComponent implements OnInit {
     { name: 'nameAr', label: 'Benefit Name (Arabic)', type: 'text', required: true }
   ];
 
-  constructor(private benefitService: BenefitTypeService) {
+
+  constructor(private benefitService: BenefitTypeService,private translate: TranslateService) {
     this.companyId = Number(localStorage.getItem('companyId')) || 0;
   }
 
@@ -35,7 +37,7 @@ export class BenefitTypeComponent implements OnInit {
     this.benefitService.getBenefits({ companyId: this.companyId }).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.benefits = response.data.list; // Populate benefits
+          this.benefits = response.data.list;
         }
       },
       (error: any) => {
@@ -48,7 +50,7 @@ export class BenefitTypeComponent implements OnInit {
     this.benefitService.addBenefit(newEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity); // Reload benefits after adding
+          this.loadEntities(entity);
         }
       },
       (error: any) => {
@@ -61,7 +63,7 @@ export class BenefitTypeComponent implements OnInit {
     this.benefitService.editBenefit(updatedEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity); // Reload benefits after editing
+          this.loadEntities(entity);
         }
       },
       (error: any) => {
@@ -74,7 +76,7 @@ export class BenefitTypeComponent implements OnInit {
     this.benefitService.deleteBenefit(id, this.companyId).subscribe(
       (response: any) => {
         if (response.status === 200) {
-          this.loadEntities(entity); // Reload benefits after deletion
+          this.loadEntities(entity);
         }
       },
       (error: any) => {
@@ -85,27 +87,24 @@ export class BenefitTypeComponent implements OnInit {
 
   handleFormSubmission(data: any): void {
     if (this.isEdit) {
-      // Update existing entity
       data.companyId = this.companyId;
-      data.id = this.formData.id; // Ensure ID is set if editing
+      data.id = this.formData.id;
       this.editEntity('Benefit', data);
     } else {
-      // Add new entity
-      data.id = 0; // Ensure ID is 0 for new entity
-      data.companyId = this.companyId; // Set companyId
+      data.id = 0;
+      data.companyId = this.companyId;
       this.addEntity('Benefit', data);
     }
   }
-  
+
 
   openAddModal(): void {
     this.isEdit = false;
-    this.formData = { id: 0, companyId: this.companyId, name: '', nameAr: '' }; // Initialize form with empty values
+    this.formData = { id: 0, companyId: this.companyId, name: '', nameAr: '' };
   }
-  
+
   openEditModal(item: any): void {
     this.isEdit = true;
-    this.formData = { ...item, companyId: this.companyId }; // Fill the form with the data of the selected item
+    this.formData = { ...item, companyId: this.companyId };
   }
-  
 }

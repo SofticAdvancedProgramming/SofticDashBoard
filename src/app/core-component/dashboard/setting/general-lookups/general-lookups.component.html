@@ -28,7 +28,8 @@
       </app-lockup-card>
     </div>
     <div class="col-lg-4 mt-3" *ngIf="role[0] === 'Admin'">
-      <app-lockup-card iconSrc="../../../../../assets/images/lockup/security-user.png"
+      <app-lockup-card 
+        iconSrc="../../../../../assets/images/lockup/security-user.png"
         header="{{ 'generalLookups.BenefitType' | translate }}"
         description="{{ 'generalLookups.BenefitType_DESCRIPTION' | translate }}"
         link="../BenefitType">
