@@ -35,6 +35,7 @@ import { ComplainSuggestionDetailsComponent } from './core-component/dashboard/c
 import { AddLocationComponent } from './core-component/dashboard/employee/add-location/add-location.component';
 import { HomeIndexComponent } from './core-component/dashboard/homeIndex/home.component';
 import { CurrencyTypeComponent } from './core-component/dashboard/setting/Lockups/currency-type/currency-type.component';
+import { BenefitTypeComponent } from './core-component/dashboard/setting/Lockups/benefit-type/benefit-type.component';
 
 export const routes: Routes = [
   {
@@ -75,6 +76,7 @@ export const routes: Routes = [
       { path: 'ViewEmployees', component: ViewEmployeesComponent ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},
       { path: 'AddEmployee', component: AddEmployeeComponent  },
       { path: 'OrganizationCharts', component: OrganizationChartsComponent  },
+      { path: 'BenefitType', component: BenefitTypeComponent  },
       { path: 'ComplaintsSuggestions', component: ComplaintsSuggestionsComponent  },
       { path: 'ComplainSuggestionDetails/:id', component: ComplainSuggestionDetailsComponent },
       { path: 'employee-details/:id', component: EmployeeDetailsComponent },
