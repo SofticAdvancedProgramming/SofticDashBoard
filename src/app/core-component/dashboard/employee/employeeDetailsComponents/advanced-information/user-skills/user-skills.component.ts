@@ -3,18 +3,20 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { LocalStorageService } from '../../../../../../services/local-storage-service/local-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserSkillsService } from '../../../../../../services/userSkillsService/user-skills.service';
+import { Skills } from '../../../../../../../models/advancedIfomation';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-skills',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './user-skills.component.html',
   styleUrl: './user-skills.component.css'
 })
 export class UserSkillsComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   id: number = 0;
-  userSkills:any;
+  userSkills?:Skills;
 
   constructor(private userSkillsService: UserSkillsService,private localStorageService: LocalStorageService,private route:ActivatedRoute) {}
 

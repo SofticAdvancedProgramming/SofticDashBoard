@@ -288,7 +288,8 @@
     "POSITION_MANAGEMENT": "إدارة المناصب",
     "POSITION_MANAGEMENT_DESCRIPTION": "تحديد وتحديث الأدوار والمناصب التنظيمية بكفاءة.",
     "SalaryType": "نوع الراتب",
-    "Salary_Type_DESCRIPTION": "يحدد هذا الحقل نوع الراتب الذي يتقاضاه الموظف، مثل الراتب الثابت أو بالساعة أو على أساس العمولة، لتوضيح هيكل الدفع للموظف."
+    "Salary_Type_DESCRIPTION": "يحدد هذا الحقل نوع الراتب الذي يتقاضاه الموظف، مثل الراتب الثابت أو بالساعة أو على أساس العمولة، لتوضيح هيكل الدفع للموظف.",
+    "CurrencyType": "نوع العملة"
   },
   "NAV": {
     "SEARCH": "بحث..."
@@ -375,6 +376,75 @@
     "Shift_End_Time": "وقت نهاية المناوبة",
     "Cancel": "إلغاء",
     "Save": "حفظ"
+  },
+  "certificate": {
+    "Certificates": "الشهادات",
+    "Certificate_Name": "اسم الشهادة",
+    "Specialist": "التخصص",
+    "Issuing_Organization": "الجهة المصدرة",
+    "Issue_Date": "تاريخ الإصدار",
+    "Expiry_Date": "تاريخ الانتهاء (إذا كان متاح)",
+    "No_Data": "لا توجد بيانات"
+  },
+  "address": {
+    "Title": "العنوان",
+    "Country": "الدولة",
+    "City": "المدينة",
+    "Street_Name": "اسم الشارع",
+    "Building_Number": "رقم المبنى",
+    "Full_Address": "العنوان الكامل",
+    "No_Data": "لا توجد بيانات"
+  },
+  "education": {
+    "Title": "آخر شهادة تعليمية",
+    "College": "الكلية",
+    "Institution_Name": "اسم المؤسسة",
+    "Degree_Type": "نوع الدرجة",
+    "Field_Of_Study": "مجال الدراسة",
+    "Graduation_Year": "سنة التخرج",
+    "GPA_Grade": "المعدل/الدرجة",
+    "No_Data": "لا توجد بيانات"
+  },
+  "jobExperience": {
+    "Title": "خبرة العمل",
+    "Job_Title": "المسمى الوظيفي",
+    "Company_Name": "اسم الشركة",
+    "Start_Date": "تاريخ البدء",
+    "End_Date": "تاريخ الانتهاء",
+    "Job_Responsibilities": "المسؤوليات الوظيفية",
+    "Supervisor_Number": "رقم المشرف/المدير",
+    "No_Data": "لا توجد بيانات"
+  },
+  "medicalInsurance": {
+    "Title": "التأمين الطبي",
+    "Blood_Type": "فصيلة الدم",
+    "Weight": "الوزن (كجم)",
+    "Height": "الطول (سم)",
+    "Chronic_Disease": "ما نوع المرض المزمن؟",
+    "No_Data": "لا توجد بيانات"
+  },
+  "socialMediaContact": {
+    "Title": "التواصل عبر وسائل التواصل الاجتماعي",
+    "Facebook": "فيسبوك",
+    "Instagram": "إنستغرام",
+    "LinkedIn": "لينكد إن",
+    "Snapchat": "سناب شات",
+    "Twitter": "تويتر",
+    "No_Data": "لا توجد بيانات"
+  },
+  "attachments": {
+    "Title": "المرفقات",
+    "Name": "اسم المرفق",
+    "File": "الملف",
+    "No_Data": "لا توجد بيانات",
+    "Download_PDF": "تنزيل ملف PDF"
+  },
+  "skills": {
+    "Title": "المهارات",
+    "Name": "اسم المهارة",
+    "Type": "نوع المهارة",
+    "Description": "وصف المهارة",
+    "Edit": "تعديل المهارة"
   },
   "deductions": {
     "Loan_Deduction": "خصم القرض",

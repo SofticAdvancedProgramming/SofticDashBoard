@@ -39,7 +39,7 @@
     style="cursor: pointer"
   >
     <h3 class="text-center fw-bold customHeader w-100 mb-0">
-      Last Eductional Certificate
+      {{ 'education.Title' | translate }}
     </h3>
     <i
       [ngClass]="{
@@ -52,30 +52,40 @@
   </div>
   <div class="row gy-3 mt-3" *ngIf="isBachelorDegreeOpen" [@slideToggle]>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">College</label>
-      <div class="text-muted">{{ userEducation.specialist }}</div>
-    </div>
-    <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Institution Name</label>
-      <div class="text-muted">{{ userEducation.school }}</div>
-    </div>
-    <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Degree Type</label>
-      <div class="text-muted">{{ userEducation.name }}</div>
-    </div>
-    <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Field of Study</label>
-      <div class="text-muted">{{ userEducation.specialist }}</div>
-    </div>
-    <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Graduation Year</label>
+      <label class="d-block fw-semibold text-dark">{{ 'education.College' | translate }}</label>
       <div class="text-muted">
-        {{ userEducation.educationalEnd | date : "yyyy" }}
+        {{ userEducation?.specialist ? userEducation?.specialist : ('education.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">GPA/Grade</label>
-      <div class="text-muted">{{ userEducation.degree }}</div>
+      <label class="d-block fw-semibold text-dark">{{ 'education.Institution_Name' | translate }}</label>
+      <div class="text-muted">
+        {{ userEducation?.school ? userEducation?.school : ('education.No_Data' | translate) }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'education.Degree_Type' | translate }}</label>
+      <div class="text-muted">
+        {{ userEducation?.name ? userEducation?.name : ('education.No_Data' | translate) }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'education.Field_Of_Study' | translate }}</label>
+      <div class="text-muted">
+        {{ userEducation?.specialist ? userEducation?.specialist : ('education.No_Data' | translate) }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'education.Graduation_Year' | translate }}</label>
+      <div class="text-muted">
+        {{ userEducation?.educationalEnd ? userEducation?.educationalEnd : ('education.No_Data' | translate) }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'education.GPA_Grade' | translate }}</label>
+      <div class="text-muted">
+        {{ userEducation?.degree ? userEducation?.degree : ('education.No_Data' | translate) }}
+      </div>
     </div>
   </div>
 </div>

@@ -4,17 +4,19 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { UserJobExperienceService } from '../../../../../../services/JobExperienceService/user-job-experience.service';
 import { DatePipe } from '@angular/common';
+import { WorkHistory } from '../../../../../../../models/advancedIfomation';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-job-experience',
   standalone: true,
-  imports: [DatePipe],
+  imports: [TranslateModule,DatePipe],
   templateUrl: './job-experience.component.html',
   styleUrl: './job-experience.component.css'
 })
 export class JobExperienceComponent implements OnInit, OnDestroy {
   id: any;
-  userJobExperience: any;
+  userJobExperience?: WorkHistory;
   private unsubscribe$ = new Subject<void>();
   constructor(private userJobExperienceService: UserJobExperienceService,private localStorageService: LocalStorageService,private route:ActivatedRoute) {}
 

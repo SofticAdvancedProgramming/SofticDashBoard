@@ -1,18 +1,26 @@
 <div class="container py-4 bgColor">
-  <h3 class="text-center fw-bold customHeader mb-4">Attachments</h3>
+  <h3 class="text-center fw-bold customHeader mb-4">{{ 'attachments.Title' | translate }}</h3>
   <div class="row gy-3">
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Attachment Name</label>
-      <div class="text-muted">{{ userAttachments.name }}</div>
+      <label class="d-block fw-semibold text-dark">{{ 'attachments.Name' | translate }}</label>
+      <div class="text-muted">
+        {{ userAttachments?.name ? userAttachments?.name : ('attachments.No_Data' | translate) }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">File</label>
+      <label class="d-block fw-semibold text-dark">{{ 'attachments.File' | translate }}</label>
       <div class="text-muted">
-        <a href="{{userAttachments.file}}" download>
-          <img src="{{ userAttachments.file }}" alt="image"
-        /></a>
+        @if (userAttachments?.file) {
+        <a [routerLink]=" userAttachments?.file " download>
+          <img [src]=" userAttachments?.file " alt="image" /></a
+        >}
+        @else {
+          <div class="text-muted">{{ 'attachments.No_Data' | translate }}</div>
+        }
       </div>
-      <!-- <button (click)="downloadFile()">Download PDF</button> -->
+      @if(userAttachments?.file){
+      <button (click)="downloadFile()">{{"attachments.Download_PDF" | translate}}</button>
+      }
     </div>
   </div>
 </div>

@@ -22,7 +22,7 @@ import { ConfirmDeleteComplaintComponent } from '../components/confirm-delete-co
 })
 export class ComplaintsSuggestionsComponent {
   activeTab: string = 'complaints';
-  issueTypeId: number = 1;
+  issueTypeId: number = 2;
   issueStatus=issueStatus;
   complaints: (Complaint & { againstTypeName?: string })[] = [];
   filteredComplaints: (Complaint & { againstTypeName?: string })[] = [];
@@ -59,7 +59,7 @@ export class ComplaintsSuggestionsComponent {
   }
   selectTab(tab: string): void {
     this.activeTab = tab;
-    this.issueTypeId = tab === 'complaints' ? 1 : 2;
+    this.issueTypeId = tab === 'suggestions' ? 1 : 2; 
     this.loadComplaints();
   }
 
@@ -69,39 +69,34 @@ export class ComplaintsSuggestionsComponent {
     this.loading = true;
     const companyId = Number(this.localStorageService.getItem('companyId'));
     const employeeId = Number(this.localStorageService.getItem('userId'));
-
+  
     if (companyId && employeeId) {
       const params = {
         companyId,
-        issueTypeId: this.issueTypeId,
+        issueTypeId: this.issueTypeId,  
         pageIndex: page,
-        pageSize: this.itemsPerPage
+        pageSize: this.itemsPerPage,
       };
-
+  
       this.IssueExcuter.getIssueExcuter(params).subscribe({
         next: (response: any) => {
           this.loading = false;
-
-
+  
           if (response?.data?.list) {
             this.complaints = response.data.list.map((item: any) => ({
               ...item,
               againstTypeName: this.matchAgainstTypeName(item.issue.againestTypeId),
             }));
-
+  
             this.filteredComplaints = this.complaints;
-            console.log("dddddaaaatttttaaa",this.filteredComplaints)
             this.totalComplaints = response.data.totalRows || 0;
           }
         },
-        error: (error) => {
-          this.loading = false;
-          console.error('Error fetching complaints/suggestions:', error);
-        },
+        
       });
     }
   }
-
+  
 
 
   deleteComplaint(companyId:number,id: number, event: Event): void {

@@ -1,25 +1,25 @@
 <div class="container py-4 bgColor">
-  <h3 class="text-center fw-bold customHeader mb-4">Address</h3>
+  <h3 class="text-center fw-bold customHeader mb-4">{{ 'address.Title' | translate }}</h3>
   <div class="row gy-3">
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Country</label>
-      <div class="text-muted">{{ requestTypes.name }}</div>
+      <label class="d-block fw-semibold text-dark">{{ 'address.Country' | translate }}</label>
+      <div class="text-muted">{{ ContryName?.name ? ContryName?.name : ('address.No_Data' | translate) }}</div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">City</label>
-      <div class="text-muted">{{ city.name }}</div>
+      <label class="d-block fw-semibold text-dark">{{ 'address.City' | translate }}</label>
+      <div class="text-muted">{{ city?.name ? city?.name : ('address.No_Data' | translate) }}</div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Street name</label>
-      <div class="text-muted">{{ userAddress.street }}</div>
+      <label class="d-block fw-semibold text-dark">{{ 'address.Street_Name' | translate }}</label>
+      <div class="text-muted">{{ userAddress?.street ? userAddress?.street : ('address.No_Data' | translate) }}</div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Building number</label>
-      <div class="text-muted">{{ userAddress.buildingNo }}</div>
+      <label class="d-block fw-semibold text-dark">{{ 'address.Building_Number' | translate }}</label>
+      <div class="text-muted">{{ userAddress?.buildingNo ? userAddress?.buildingNo : ('address.No_Data' | translate) }}</div>
     </div>
     <div class="col-12">
-      <label class="d-block fw-semibold text-dark">Address</label>
-      <div class="text-muted">{{ userAddress.fullAddress }}</div>
+      <label class="d-block fw-semibold text-dark">{{ 'address.Full_Address' | translate }}</label>
+      <div class="text-muted">{{ userAddress?.fullAddress ? userAddress?.fullAddress : ('address.No_Data' | translate) }}</div>
     </div>
   </div>
 </div>

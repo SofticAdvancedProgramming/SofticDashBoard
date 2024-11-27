@@ -43,6 +43,7 @@ export class IndexComponent implements OnInit {
   totalItems: number = 0;
   isArabic: boolean = false;
   searchText!:string;
+  totalEmployees: number = 0;
   entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: string } } = {
     PositionType: {
       load: 'getPositionTypes',
@@ -81,21 +82,26 @@ export class IndexComponent implements OnInit {
       next: (response) => {
         this.positions = response.data.list;
         this.totalItems = response.data.totalRows;
-        console.table(response.data)
-      }
+       }
     });
   }
 
-  loadUnassignedEmployees(): void {
-    this.employeeService.loadEmployees({ companyId: this.companyId, accountStatus: 1 }).subscribe({
+  loadUnassignedEmployees(page: number = 1): void {
+    this.employeeService.loadEmployees({
+      companyId: this.companyId,
+      accountStatus: 1,
+      pageIndex: page,
+      pageSize: this.itemsPerPage,
+    }).subscribe({
       next: (response) => {
         this.employees = response.data.list.filter(
           (employee: any) => !employee.positionId
         );
-        console.log("Unassigned Employees:", this.employees);
-      }
-    });
+        this.totalEmployees = response.data.totalRows;  
+       },
+     });
   }
+  
 
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
@@ -108,8 +114,7 @@ export class IndexComponent implements OnInit {
         this.employees = response.data.list.filter(
           (employee: any) => employee.positionId === positionId
         );
-        console.log("Employees for Position:", this.employees);
-      }
+       }
     });
   }
 
@@ -120,8 +125,7 @@ export class IndexComponent implements OnInit {
           this.departments = response.data.list;
         },
         error: (err) => {
-          console.error('Error loading departments', err);
-        }
+         }
       });
     }
   }
@@ -144,9 +148,10 @@ export class IndexComponent implements OnInit {
   addEmployee(positionId: string): void {
     this.selectedPositionId = positionId;
     this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
-    this.loadUnassignedEmployees();
+    this.loadUnassignedEmployees(); 
     this.isAddEmployee = true;
   }
+  
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
@@ -248,8 +253,7 @@ export class IndexComponent implements OnInit {
   loadEntities(entity: string, pageIndex: number): void {
     let name=this.searchText.trim();
     let query: any = { companyId: this.companyId, pageIndex };
-    console.log(name);
-    if(name){
+     if(name){
     if (/^[a-zA-Z]/.test(name)) {
       query = {
         ...query,
@@ -261,16 +265,45 @@ export class IndexComponent implements OnInit {
         nameAr:name
       };
     }}
-    console.log(query)
-    const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
+     const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
     (this.positionTypeService[methodName] as Function)(query).subscribe(
       (response: any) => {
-        console.log(response);
-        if (response.status === 200) {
+         if (response.status === 200) {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
          this.positions=response.data.list
         }
       }
     );
   }
+  loadMoreEmployees(page: number): void {
+    this.employeeService.loadEmployees({
+      companyId: this.companyId,
+      accountStatus: 1,
+      pageIndex: page,
+      pageSize: this.itemsPerPage,
+    }).subscribe({
+      next: (response) => {
+         this.employees.push(
+          ...response.data.list.filter((employee: any) => !employee.positionId)
+        );
+        this.totalEmployees = response.data.totalRows;
+      },
+     });
+  }
+  
+  searchUnassignedEmployees(searchTerm: string): void {
+    this.employeeService.loadEmployees({
+      companyId: this.companyId,
+      accountStatus: 1,
+      search: searchTerm  
+    }).subscribe({
+      next: (response) => {
+        this.employees = response.data.list.filter(
+          (employee: any) => !employee.positionId
+        );
+        this.totalEmployees = response.data.totalRows;
+      },
+     });
+  }
+    
 }

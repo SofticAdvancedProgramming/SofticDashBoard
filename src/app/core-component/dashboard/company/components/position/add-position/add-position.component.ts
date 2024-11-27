@@ -136,8 +136,7 @@ export class AddPositionComponent implements OnInit {
   createOrEdit(positionData: Position) {
     this.positionService[this.isEdit ? 'editPosition' : 'addPosition'](positionData).subscribe({
       next: (response) => {
-        console.log('Position added successfully', response);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: this.isEdit ? 'Position Edit successfully' : 'Position added successfully' });
+         this.messageService.add({ severity: 'success', summary: 'Success', detail: this.isEdit ? 'Position Edit successfully' : 'Position added successfully' });
         if (!this.isEdit) {
           this.form.reset();
         } else {

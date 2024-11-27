@@ -294,7 +294,8 @@
     "POSITION_MANAGEMENT": "Position Management",
     "POSITION_MANAGEMENT_DESCRIPTION": "Define and update organizational roles and positions efficiently.",
     "SalaryType": "Salary Type",
-    "Salary_Type_DESCRIPTION": "This field defines the type of salary an employee receives, such as fixed, hourly, or commission-based, providing clarity on the employee's pay structure."
+    "Salary_Type_DESCRIPTION": "This field defines the type of salary an employee receives, such as fixed, hourly, or commission-based, providing clarity on the employee's pay structure.",
+    "CurrencyType": "Currency Type"
   },
   "viewEmployees": {
 "CURRENT_EMPLOYEES": "Current Employees",
@@ -377,6 +378,75 @@
     "Shift_End_Time": "Shift end time",
     "Cancel": "Cancel",
     "Save": "Save"
+  },
+  "certificate": {
+    "Certificates": "Certificates",
+    "Certificate_Name": "Certificate Name",
+    "Specialist": "Specialist",
+    "Issuing_Organization": "Issuing Organization",
+    "Issue_Date": "Issue Date",
+    "Expiry_Date": "Expiry Date (if applicable)",
+    "No_Data": "No Data"
+  },
+  "address": {
+    "Title": "Address",
+    "Country": "Country",
+    "City": "City",
+    "Street_Name": "Street name",
+    "Building_Number": "Building number",
+    "Full_Address": "Address",
+    "No_Data": "No Data"
+  },
+  "education": {
+    "Title": "Last Educational Certificate",
+    "College": "College",
+    "Institution_Name": "Institution Name",
+    "Degree_Type": "Degree Type",
+    "Field_Of_Study": "Field of Study",
+    "Graduation_Year": "Graduation Year",
+    "GPA_Grade": "GPA/Grade",
+    "No_Data": "No Data"
+  },
+  "jobExperience": {
+    "Title": "Job Experience",
+    "Job_Title": "Job Title",
+    "Company_Name": "Company Name",
+    "Start_Date": "Start Date",
+    "End_Date": "End Date",
+    "Job_Responsibilities": "Job Responsibilities",
+    "Supervisor_Number": "Supervisor/Manager Number",
+    "No_Data": "No Data"
+  },
+  "medicalInsurance": {
+    "Title": "Medical Insurance",
+    "Blood_Type": "Blood Type",
+    "Weight": "Weight (kg)",
+    "Height": "Height (cm)",
+    "Chronic_Disease": "What type of chronic disease?",
+    "No_Data": "No Data"
+  },
+  "socialMediaContact": {
+    "Title": "Social Media Contact",
+    "Facebook": "Facebook",
+    "Instagram": "Instagram",
+    "LinkedIn": "LinkedIn",
+    "Snapchat": "Snapchat",
+    "Twitter": "Twitter",
+    "No_Data": "No Data"
+  },
+  "attachments": {
+    "Title": "Attachments",
+    "Name": "Attachment Name",
+    "File": "File",
+    "No_Data": "No Data",
+    "Download_PDF": "Download PDF"
+  },
+  "skills": {
+    "Title": "Skills",
+    "Name": "Skill Name",
+    "Type": "Skill Type",
+    "Description": "Skill Description",
+    "Edit": "Edit Skill"
   },
   "deductions": {
     "Loan_Deduction": "Loan Deduction",
