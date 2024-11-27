@@ -108,7 +108,8 @@
     "TOP_MANAGEMENT": "الإدارة العليا",
     "NAME": "اسم الشركة",
     "PHONE_NUMBER": "رقم الهاتف",
-    "TYPE": "شركة البرمجيات"
+    "TYPE": "شركة البرمجيات" ,
+     "search_position":"بحث عن المسمى الوظيفي"
   },
   "addBranch": {
     "BRANCH_NAME_EN": "اسم الفرع (بالإنجليزية)",
@@ -618,7 +619,7 @@
     "unknown": "غير معروف"
   },
   "Directed": "موجه إلى",
-  
+
   "complainDetails": {
     "loading": "جار تحميل تفاصيل الشكوى...",
     "error": "حدث خطأ أثناء تحميل تفاصيل الشكوى. الرجاء المحاولة مرة أخرى لاحقًا.",
@@ -642,6 +643,8 @@
   },
   "MY_REQUESTS": {
     "FILTER": "تصفية",
+    "CREATED_ON_FROM": "  من",
+    "CREATED_ON_TO": "  إلى",
     "REQUEST_STATUSES": {
       "ALL": "الكل",
       "PENDING": "قيد الانتظار",
@@ -652,6 +655,8 @@
     "UNKNOWN_NAME": "غير معروف",
     "NO_JOB_TITLE": "لا يوجد مسمى وظيفي"
   },
+  "CREATED_ON_FROM": "تاريخ الإنشاء من",
+  "CREATED_ON_TO": "تاريخ الإنشاء إلى",
   "EMPLOYEE_REQUESTS": {
     "REQUEST_TYPE": "نوع الطلب",
     "UNKNOWN_TYPE": "نوع غير معروف",
@@ -679,6 +684,12 @@
     "Delete":"حذف",
     "question": "هل انت متاكد من عملية الحذف؟",
     "Cancel": "الغاء",
-    "delete": "مسح"
+    "delete": "مسح",
+    "SAR": "ريال سعودي",
+    "EGP": "جنية مصري",
+    "USD": "دولار امريكي"
+  },
+  "DATE_ERROR": {
+    "END_BEFORE_START": "لا يمكن أن يكون تاريخ النهاية قبل تاريخ البداية."
   }
 }

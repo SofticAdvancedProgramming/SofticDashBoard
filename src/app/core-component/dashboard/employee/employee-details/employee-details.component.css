@@ -58,7 +58,8 @@ body {
 
 .edit-profile-btn {
     padding: 10px 20px;
-    font-family: Nunito;
+    /* font-family: Nunito; */
+    font-family: Lama Sans;
     font-size: 14px;
     font-weight: 700;
     line-height: 23px;
@@ -191,18 +192,18 @@ body {
     direction: rtl;
 }
 
- 
+
 .profile-info[dir="rtl"] {
     margin-left: 0;
-    margin-right: 20px; 
+    margin-right: 20px;
 }
 
 .tabs[dir="rtl"] {
-    flex-direction: row-reverse;  
+    flex-direction: row-reverse;
 }
 
 .tab[dir="rtl"] {
-    text-align: right;  
+    text-align: right;
 }
 
 .profile-img {

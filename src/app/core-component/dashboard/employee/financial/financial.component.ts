@@ -35,6 +35,7 @@ export class FinancialComponent {
   modalId = 'editEmployeeService';
   activeTab: string = 'Entitlements';
   isDeduction = true;
+  todayDate: string="";
   isEdit = false;
   currentPageDropDown = 1;
   dropDownDataIsDeductionTrue: any[] = [];
@@ -93,6 +94,7 @@ export class FinancialComponent {
   ngOnInit(): void {
     this.loadEntitiesDropDown('SalaryType', 1, false);
     this.loadEntitie('employeeSalary', 1);
+    this.todayDate = new Date().toISOString().split('T')[0];
   }
 
   entityTypes: {

@@ -13,7 +13,29 @@
                 </option>
             </select>
         </div>
+        <div class="col-lg-3 d-flex flex-column">
+            <label for="createdOnFrom">{{ 'MY_REQUESTS.CREATED_ON_FROM' | translate }}</label>
+            <div class="date-input" (click)="showDatePicker($event, 'createdOnFrom')">
+                <span>{{ createdOnFrom || 'MM-DD-YYYY' }}</span>
+                <input id="createdOnFrom" type="date" [(ngModel)]="createdOnFrom" (change)="onDateChange()" />
+            </div>
+        </div>
+        <div class="col-lg-3 d-flex flex-column">
+            <label for="createdOnTo">{{ 'MY_REQUESTS.CREATED_ON_TO' | translate }}</label>
+            <div class="date-input" (click)="showDatePicker($event, 'createdOnTo')">
+                <span>{{ createdOnTo || 'MM-DD-YYYY' }}</span>
+                <input id="createdOnTo" type="date" [(ngModel)]="createdOnTo" (change)="onDateChange()" />
+            </div>
+            <div *ngIf="dateError" class="alert alert-danger mt-2">
+                {{ dateError }}
+            </div>
+        </div>
+
     </div>
+
+
+
+
 
 
     <!-- Requests List -->
