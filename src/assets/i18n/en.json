@@ -668,5 +668,17 @@
     "SAR": "Saudi Riyal",
     "EGP": "Egyptian Pound",
     "USD": "US Dollar"
+  },
+  "defaultPopUp": {
+    "Default":"Default",
+    "question": "Are you sure you want to make this currency Default?",
+    "Cancel": "Cancel",
+    "Confirm": "Confirm"
+  },
+  "deletePopUp": {
+    "Delete":"Default",
+    "question": "Are you sure about the deletion process?",
+    "Cancel": "Cancel",
+    "delete": "Delete"
   }
 }

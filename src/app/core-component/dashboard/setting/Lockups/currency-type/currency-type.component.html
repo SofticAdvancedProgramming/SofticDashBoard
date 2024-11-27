@@ -52,8 +52,8 @@
     searchPlaceholder="Search data..."
     (editItem)="openEditModal($event)"
     (deleteItem)="deleteEntity('CurrencyType', $event.id)"
-    [deleteId] = "deleteId"
-    (defaultItem) ="defaultEntity('CurrencyType', $event.id)"
+    [deleteId]="deleteId"
+    (defaultItem)="defaultEntity('CurrencyType', $event.id)"
     [defaultId]="defaultId"
     (searchApi)="loadEntities('CurrencyType', 1, $event)"
   ></app-currency-table> 

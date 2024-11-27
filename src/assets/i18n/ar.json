@@ -668,5 +668,17 @@
     "SAR": "Saudi Riyal",
     "EGP": "Egyptian Pound",
     "USD": "US Dollar"
+  },
+  "defaultPopUp": {
+    "Default":"افتراضي",
+    "question": "هل أنت متأكد أنك تريد جعل هذه العملة افتراضية؟",
+    "Cancel": "الغاء",
+    "Confirm": "تأكيد"
+  },
+  "deletePopUp": {
+    "Delete":"حذف",
+    "question": "هل انت متاكد من عملية الحذف؟",
+    "Cancel": "الغاء",
+    "delete": "مسح"
   }
 }

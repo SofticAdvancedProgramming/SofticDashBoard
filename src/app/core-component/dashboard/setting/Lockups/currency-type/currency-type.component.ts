@@ -22,17 +22,14 @@ export class CurrencyTypeComponent {
   isEdit = false;
   modalId = 'addCurrencyType';
   companyId: number = 0;
-  isDeduction = true;
-  options = [
-    { name: 'Deduction', value: true },
-    { name: 'Addition', value: false },
-  ];
+  isDefault = false;
+  
   pageIndex: any = { CurrencyType: 1 };
   totalRows: any = { CurrencyType: 0 };
   structure = [
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
-    { name: 'isDeduction', label: 'Deduction', type: 'checkbox', required: false },
+    { name: 'isDefault', label: 'Default', type: 'checkbox', required: false },
   ];
 
   entityTypes: Record<
@@ -60,7 +57,7 @@ export class CurrencyTypeComponent {
   loadEntities(entity: string, pageIndex: number, name?: string): void {
     const query: any = {
       companyId: this.companyId,
-      isDeduction: this.isDeduction,
+      isDefault: this.isDefault,
       pageIndex,
     };
     if (name) {
@@ -104,6 +101,7 @@ export class CurrencyTypeComponent {
 
   deleteEntity(entity: string, id: number): void {
     const methodName = this.entityTypes[entity].delete as keyof CurrencyService;
+    console.log(methodName);
     (this.currencyTypeService[methodName] as Function)(id, this.companyId).subscribe((response: any) => {
       if (response.status === 200) {
         this.loadEntities(entity, this.pageIndex[entity]);
@@ -112,8 +110,10 @@ export class CurrencyTypeComponent {
   }
   defaultEntity(entity: string, id: number): void{
     const methodName = this.entityTypes[entity].default as keyof CurrencyService;
+    console.log(methodName);
     (this.currencyTypeService[methodName] as Function)(id, this.companyId).subscribe((response: any) => {
       if (response.status === 200) {
+        console.log(entity);
         this.loadEntities(entity, this.pageIndex[entity]);
       }
     });

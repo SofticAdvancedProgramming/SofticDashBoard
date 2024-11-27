@@ -21,6 +21,7 @@ export class DynamicModalComponent implements OnInit, OnChanges {
   @Input() isEdit: boolean = false;
   @Input() formData: any = {};
   @Input() modalId!: string;
+  @Input() currencyModelId!: string;
   @Output() submitForm = new EventEmitter<any>();
 
   form!: FormGroup;
