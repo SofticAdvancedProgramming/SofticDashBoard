@@ -691,5 +691,15 @@
   },
   "DATE_ERROR": {
     "END_BEFORE_START": "لا يمكن أن يكون تاريخ النهاية قبل تاريخ البداية."
-  }
+  },
+  "name": "الاسم",
+  "nameAr": "الاسم (بالعربية)",
+  "Actions": "الافعال",
+  "Export to Excel": "اخرجه الي الاكسيل",
+  "Add Currency": "اضافه عملة",
+  "Currency Types": "انواع العملات",
+  "Add Salary": "اضافة مرتب",
+  "Type": "النوع",
+  "Salary Types": "انواع المرتبات",
+  "Add Position": "اضافة منصب"
 }

@@ -40,7 +40,7 @@
           <th class="customColumn" *ngFor="let column of columns">
             {{ column | translate }}
           </th>
-          <th class="customColumn" *ngIf="showActions">Actions</th>
+          <th class="customColumn" *ngIf="showActions">{{'Actions' | translate}}</th>
           <!-- Only show if showActions is true -->
         </tr>
       </thead>
@@ -79,16 +79,21 @@
               class="btn"
               *ngIf="isThereDefault"
               type="button"
-              (click)="openDefaultModal(item)"
+              (click)="openDefaultModal(true)"
               data-bs-toggle="modal"
               [attr.data-bs-target]="'#' + defaultId"
             >
-              <img
-                class="CustomIcon"
-                src="../../../../../../assets/images/defaulfIcon.png"
-              />
+              <div class="image-container">
+                <img
+                  class="CustomIcon"
+                  src="../../../../../../assets/images/defaulfIcon.png"
+                />
+                <span class="tooltip-text">Default</span>
+              </div>
             </button>
-
+            @if(item.isDefault){
+              <img src="../../../../../../assets/images/correctIcon.png" alt="" style="width: 30px;height: 30px;">
+            }
             @if(newAction.length >= 1){ @for (newA of newAction ; track
             newA.isExisting ; let idx = $index, e = $even) {
             <button

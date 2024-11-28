@@ -15,7 +15,8 @@ export class IssueCommentService {
       companyId,
       issueExcuterId,
       issueId,
-      comment
+      comment,
+      isAdmin: true
     }  
     return this.apiCall.request("POST", issueCommentController.Add,body);
   }

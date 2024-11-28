@@ -5,17 +5,18 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CurrencyService } from '../../../../../services/lockupsServices/CurrencyService/currency.service';
 import { CurrencyTableComponent } from '../../../components/currency-table/currency-table/currency-table.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-currency-type',
   standalone: true,
-  imports: [DynamicModalComponent, ModernTableComponent, FormsModule, CommonModule, CurrencyTableComponent],
+  imports: [DynamicModalComponent, ModernTableComponent, FormsModule, CommonModule, CurrencyTableComponent, TranslateModule],
   templateUrl: './currency-type.component.html',
   styleUrl: './currency-type.component.css'
 })
 export class CurrencyTypeComponent {
   CurrencyTypes: any[] = [];
-  columns: string[] = [  'name', 'nameAr'];
+  columns: string[] = ['name' , 'nameAr'];
   deleteId: string = 'deleteCurrencyType';
   defaultId: string = 'defaultCurrencyType';
   formData: any = {};
@@ -46,12 +47,15 @@ export class CurrencyTypeComponent {
     },
   };
 
-  constructor(private currencyTypeService: CurrencyService) {
+  constructor(private currencyTypeService: CurrencyService, private translate:TranslateService) {
     this.companyId = Number(localStorage.getItem('companyId')) || 0;
   }
 
   ngOnInit(): void {
     this.loadEntities('CurrencyType', 1);
+    // this.translate.get(['name', 'nameAr']).subscribe(translations => {
+    //   this.columns = [translations['name'], translations['nameAr']];
+    // });
   }
 
   loadEntities(entity: string, pageIndex: number, name?: string): void {
@@ -89,6 +93,10 @@ export class CurrencyTypeComponent {
     });
 
   }
+  openEditModal(item: any): void {
+    this.isEdit = true;
+    this.formData = { ...item, companyId: this.companyId };
+  }
 
   editEntity(entity: string, updatedEntity: any): void {
     const methodName = this.entityTypes[entity].edit as keyof CurrencyService;
@@ -108,10 +116,10 @@ export class CurrencyTypeComponent {
       }
     });
   }
-  defaultEntity(entity: string, id: number): void{
-    const methodName = this.entityTypes[entity].default as keyof CurrencyService;
+  defaultEntity(entity: string, updatedEntity: any): void{
+    const methodName = this.entityTypes[entity].edit as keyof CurrencyService;
     console.log(methodName);
-    (this.currencyTypeService[methodName] as Function)(id, this.companyId).subscribe((response: any) => {
+    (this.currencyTypeService[methodName] as Function)(updatedEntity).subscribe((response: any) => {
       if (response.status === 200) {
         console.log(entity);
         this.loadEntities(entity, this.pageIndex[entity]);
@@ -135,10 +143,7 @@ export class CurrencyTypeComponent {
     this.formData = { isDeduction: true }; 
   }
 
-  openEditModal(item: any): void {
-    this.isEdit = true;
-    this.formData = { ...item, companyId: this.companyId };
-  }
+  
 
    onTypeChange(): void {
     this.loadEntities('CurrencyType', 1);
