@@ -322,7 +322,10 @@
     "select":"Open this select menu",
     "Add New Location":"Add New Location",
     "from":"from",
- "to":"To"
+    "to":"To",
+    "Rejected":"Rejected",
+    "reasonForRejection":"reason for rejection",
+    "writeComment":"please write your comment no more than 300 words"
   },
   "personalInfo": {
     "PROFILE_INFORMATION": "Profile Information",
@@ -616,6 +619,8 @@
     "submitted": "Submitted",
     "opened": "Opened",
     "in_progress": "In Progress",
+    "waiting": "waiting for reply",
+    "reopen": "reopen",
     "closed": "Closed",
     "unknown": "Unknown"
   },
@@ -623,6 +628,12 @@
   "complainDetails": {
     "loading": "Loading complaint details...",
     "error": "Error loading complaint details. Please try again later.",
+    "comments":"comments",
+    "Type your reply":"Type your reply",
+    "wait":"wait for reply",
+    "submit":"submit",
+    "congratulations":"congratulations",
+    "congratulationsParagraph":"Your  Message  has been submitted successfully",
     "user": {
       "name": "User Name",
       "phone": "User Phone",
@@ -634,6 +645,7 @@
       "details": "Complaint Details",
       "attachments": "Attachments"
     }
+
   },
   "CONFIRM_DELETE":{
     "TITLE":"Confirm Delete",

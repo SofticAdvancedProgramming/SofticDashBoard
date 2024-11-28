@@ -23,7 +23,7 @@
 
 <div class="row justify-content-end d-flex my-4">
   <div class="col-lg-6">
-    <div class="tabs">
+    <div class="tabs" style="width:1000px">
       <div
         class="tab"
         [ngClass]="{ active: activeTab === 'personal' }"
@@ -114,3 +114,29 @@
     <p>{{ "employeeDetails.LOADING" | translate }}</p>
   </div>
 </ng-template>
+
+
+<div class="modal fade rounded-3 rejectionPopUp vh-75" id="rejectionPopUpModal" tabindex="-1"
+  aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-text">
+          <h3 class="py-1 text-center">Rejection Reason</h3>
+        </div>
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="rejectionReson">{{'viewEmployees.reasonForRejection' | translate }}:</label>
+            <textarea class="form-text form-control" id="rejectionReson" formControlName="rejectionReson" [placeholder]="'viewEmployees.writeComment'| translate"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-between align-items-center flex-row">
+        <button type="submit" class="btn btn-danger " data-bs-dismiss="modal" (click)="reject(accountStatus.Rejected)"
+          >{{ 'viewEmployees.Rejected' | translate }}</button>
+        <button type="button" class="btn btn-secondary " data-bs-dismiss="modal" aria-label="Close"
+          (click)="onCancel()">{{ 'viewEmployees.CANCEL' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

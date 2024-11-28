@@ -9,7 +9,7 @@
       [Department]="'INDEX_POSITION.DEPARTMENT_DESCRIPTION' | translate"
       [DepartmentDescription]="getDepartmentName(selectedPositionData?.departmentId) || ' '"
       [DirectManager]="'INDEX_POSITION.DIRECT_MANAGER' | translate"
-      [DirectManagerDescription]="directManger?.fullName || ''" [employees]="employees" (close)="closePopup()"
+      [DirectManagerDescription]="directManger?.fullName || ''" [employee]="employees" (close)="closePopup()"
       (submitForm)="handleFormSubmit($event)">
     </app-assign-employees>
   </ng-container>

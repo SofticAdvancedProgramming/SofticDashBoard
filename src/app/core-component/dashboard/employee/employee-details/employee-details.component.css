@@ -158,7 +158,7 @@ body {
     align-items: center;
     margin-top: 10px;
     padding-bottom: 10px;
-    gap: 3rem !important;
+    gap: 5rem !important;
 
 }
 
@@ -214,4 +214,17 @@ body {
 body[dir="rtl"] .profile-img {
     float: right;
     margin-right: 10px;
+}
+
+.rejectionPopUp{
+  
+}
+textarea
+{
+  height: 150px;
+  background: #e4e4e4;
+  resize: none;
+}
+.modal-footer button{
+  width: 40%;
 }
