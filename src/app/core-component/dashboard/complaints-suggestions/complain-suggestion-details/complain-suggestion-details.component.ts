@@ -145,7 +145,6 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       }
     })
 
-
   }
 
   getAllReplays(companyId:number,issueId:number){
@@ -158,6 +157,9 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
         }
       }
     )
+
+   this.ngOnInit();
+   
 
   }
 
