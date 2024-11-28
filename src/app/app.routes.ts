@@ -34,6 +34,7 @@ import { ComplaintsSuggestionsComponent } from './core-component/dashboard/compl
 import { ComplainSuggestionDetailsComponent } from './core-component/dashboard/complaints-suggestions/complain-suggestion-details/complain-suggestion-details.component';
 import { AddLocationComponent } from './core-component/dashboard/employee/add-location/add-location.component';
 import { HomeIndexComponent } from './core-component/dashboard/homeIndex/home.component';
+import { CurrencyTypeComponent } from './core-component/dashboard/setting/Lockups/currency-type/currency-type.component';
 
 export const routes: Routes = [
   {
@@ -49,7 +50,7 @@ export const routes: Routes = [
     component: DashboardLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '', redirectTo: 'HomeIndex', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'indexCompany', component: IndexComponent },
       { path: 'addCompany', component: AddCompanyComponent },
@@ -68,6 +69,7 @@ export const routes: Routes = [
       { path: 'DepartmentOverview', component: DepartmentOverviewComponent  },
       { path: 'PositionTypeManagment', component: PositionTypeManagmentComponent  },
       { path: 'salary-type', component: SalaryTypeComponent  },
+      { path: 'currency-type', component: CurrencyTypeComponent  },
       { path: 'departmentManagment', component: DepartmentManagmentComponent  },
       { path: 'branchManagment', component: BranchManagmentComponent  },
       { path: 'ViewEmployees', component: ViewEmployeesComponent ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},

@@ -9,6 +9,7 @@ import { Company } from '../../../../../../models/company';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { CurrencyService } from '../../../../../services/lockupsServices/CurrencyService/currency.service';
 
 @Component({
   selector: 'app-profile-details',
@@ -32,7 +33,7 @@ export class ProfileDetailsComponent implements OnInit {
   selectedCountryISO = CountryISO.SaudiArabia;
   subscriptionPlanId: number | null = null;
   companyExtention: string | null = null;
-  currencies: string[] = ['SAR', 'EGP', 'USD'];
+  currencies: any;
   constructor(
     private fb: FormBuilder,
     private companyService: CompanyService,
@@ -40,7 +41,8 @@ export class ProfileDetailsComponent implements OnInit {
     private imageUploadService: ImageUploadService,
     private translate: TranslateService,
     private messageService: MessageService,
-    private subscriptionPlanService: SubscriptionPlanService
+    private subscriptionPlanService: SubscriptionPlanService,
+    private currenyService:CurrencyService
   ) { }
 
   get isArabic(): boolean {
@@ -56,10 +58,21 @@ export class ProfileDetailsComponent implements OnInit {
     }
     this.initializeForm();
     this.loadSubscriptionPlan();
+    this.getCurrencies();
   }
 
   toggleEdit(): void {
     this.editMode = !this.editMode;
+  }
+  getCurrencies(){
+    this.currenyService.getCurrencyTypes().subscribe({
+      next: (res) => {
+        this.currencies = res.data.list;
+        console.log(res);
+      },
+      error: (err) => console.log(err)
+      
+    })
   }
 
   onFileChange(event: any): void {

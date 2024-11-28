@@ -1,37 +1,49 @@
 <div class="container py-4 bgColor">
-  <h3 class="text-center fw-bold customHeader mb-4">Medical Insurance</h3>
+  <h3 class="text-center fw-bold customHeader mb-4">
+    {{ 'medicalInsurance.Title' | translate }}
+  </h3>
   <div class="row gy-3">
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Blood type</label>
-      <div class="text-muted">{{ userMedical.bloodType }}</div>
+      <label class="d-block fw-semibold text-dark">
+        {{ 'medicalInsurance.Blood_Type' | translate }}
+      </label>
+      <div class="text-muted">
+        {{ userMedical?.bloodType ? userMedical?.bloodType : ('medicalInsurance.No_Data' | translate) }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Weight (kg)</label>
-      <div class="text-muted">{{ userMedical.weight }} KG</div>
+      <label class="d-block fw-semibold text-dark">
+        {{ 'medicalInsurance.Weight' | translate }}
+      </label>
+      <div class="text-muted">
+        {{ userMedical?.weight ? userMedical?.weight : ('medicalInsurance.No_Data' | translate) }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Height (cm)</label>
-      <div class="text-muted">{{ userMedical.hight }} CM</div>
+      <label class="d-block fw-semibold text-dark">
+        {{ 'medicalInsurance.Height' | translate }}
+      </label>
+      <div class="text-muted">
+        {{ userMedical?.hight ? userMedical?.hight : ('medicalInsurance.No_Data' | translate) }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark"
-        >What type of chronic disease?</label
-      >
-      @if (userMedical.ischronicdisease) {
-      <div class="text-muted">{{ userMedical.ischronicdisease }}</div>
-      } @else {
-      <div class="text-muted">None</div>
-      }
+      <label class="d-block fw-semibold text-dark">
+        {{ 'medicalInsurance.Chronic_Disease' | translate }}
+      </label>
+      <div class="text-muted">
+        {{ userMedical?.ischronicdisease ? userMedical?.ischronicdisease : ('medicalInsurance.No_Data' | translate) }}
+      </div>
     </div>
     <!-- <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark"
         >Medical insurance number</label
       >
-      <div class="text-muted">{{ userMedical.medicalInsuranceNumber }}</div>
+      <div class="text-muted">{{ userMedical?.medicalInsuranceNumber }}</div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">Insurance company</label>
-      <div class="text-muted">{{ userMedical.insuranceCompany }}</div>
+      <div class="text-muted">{{ userMedical?.insuranceCompany }}</div>
     </div> -->
   </div>
 </div>

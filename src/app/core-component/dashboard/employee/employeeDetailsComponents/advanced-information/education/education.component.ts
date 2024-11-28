@@ -5,11 +5,13 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { LocalStorageService } from '../../../../../../services/local-storage-service/local-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserEducationService } from '../../../../../../services/userEducation/user-education.service';
+import { Education } from '../../../../../../../models/advancedIfomation';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-education',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './education.component.html',
   styleUrl: './education.component.css',
   animations: [
@@ -47,7 +49,7 @@ export class HighSchoolComponent implements OnInit, OnDestroy {
   }
   private unsubscribe$ = new Subject<void>();
   id: number = 0;
-  userEducation:any;
+  userEducation?: Education;
 
   constructor(private userEducationService: UserEducationService,private localStorageService: LocalStorageService,private route:ActivatedRoute) {}
 

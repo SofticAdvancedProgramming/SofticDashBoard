@@ -50,7 +50,9 @@
     (click)="toggleCertificate()"
     style="cursor: pointer"
   >
-    <h3 class="text-center fw-bold customHeader w-100 mb-0">Certificates</h3>
+    <h3 class="text-center fw-bold customHeader w-100 mb-0">
+      {{ "certificate.Certificates" | translate }}
+    </h3>
     <!-- <i
       [ngClass]="{
         'bi-chevron-down': !isCertificateOpen,
@@ -62,26 +64,44 @@
   </div>
   <div class="row gy-3 mt-3" *ngIf="isCertificateOpen" [@slideToggle]>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Certificate Name</label>
-      <div class="text-muted">{{userEducation.name}}</div>
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Certificate_Name" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ userEducation?.name ? userEducation?.name : ('certificate.No_Data' | translate) }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Specialist</label>
-      <div class="text-muted">{{userEducation.specialist}}</div>
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Specialist" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ userEducation?.specialist ? userEducation?.specialist : ('certificate.No_Data' | translate) }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Issuing Organization</label>
-      <div class="text-muted">{{userEducation.issuer}}</div>
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Issuing_Organization" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ userEducation?.issuer ? userEducation?.issuer : ('certificate.No_Data' | translate) }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Issue Date</label>
-      <div class="text-muted">{{userEducation.from}}</div>
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Issue_Date" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ userEducation?.from ? userEducation?.from : ('certificate.No_Data' | translate) }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark"
-        >Expiry Date (if applicable)</label
-      >
-      <div class="text-muted">{{userEducation.to}}</div>
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Expiry_Date" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ userEducation?.to ? userEducation?.to : ('certificate.No_Data' | translate) }}
+      </div>
     </div>
     <!-- <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark"

@@ -1,18 +1,36 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import * as go from 'gojs';
 import { PositionService } from '../../../services/positionService/position.service';
 import { PositionTypeService } from '../../../services/lockupsServices/positionTypeService/position-type.service';
 import { DepartmentService } from '../../../services/lockupsServices/DepartmentService/department.service';
 import { EmployeeService } from '../../../services/employeeService/employee.service'; // Import EmployeeService
+import { Router } from '@angular/router';
+import { employee } from '../../../../models/employee';
+import { Position } from '../../../../models/positionModel';
+import { Department } from '../../../../models/department';
+import { MessageService } from 'primeng/api';
+import { AssignEmployeesComponent } from '../employee/assign-employees/assign-employees.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-organization-chart',
   templateUrl: './organization-charts.component.html',
-  styleUrls: ['./organization-charts.component.css']
+  styleUrls: ['./organization-charts.component.css'],
+  providers: [],
+  imports: [AssignEmployeesComponent, TranslateModule, FormsModule, CommonModule]
 })
-export class OrganizationChartsComponent implements AfterViewInit {
+export class OrganizationChartsComponent implements AfterViewInit, OnChanges {
   @ViewChild('diagramDiv') diagramDiv!: ElementRef;
-
+  isAddEmployee: boolean = false;
+  selectedPositionId?: string;
+  selectedPositionData: any = {};
+  employees: employee[] = [];
+  positions: Position[] = [];
+  departments: Department[] = [];
+  directManger?: employee = {} as employee;
   private positionTypesMap = new Map<number, string>();
   private departmentsMap = new Map<number, string>();
   private employeeMap = new Map<number, string>();
@@ -21,9 +39,21 @@ companyId?:number=0
     private positionService: PositionService,
     private positionTypeService: PositionTypeService,
     private departmentService: DepartmentService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private router: Router,
+    private messageService: MessageService,
   ) { }
-
+  ngOnChanges(changes: SimpleChanges): void {
+    // this.reloadComponent();
+  }
+  reloadComponent(){
+    let currentUrl = this.router.url;
+    this.router.navigateByUrl('/',{
+      skipLocationChange: true
+    }).then(()=>{
+      this.router.navigate([currentUrl])
+    })
+  }
   ngAfterViewInit(): void {
     this.loadPositionTypes();
     this.loadDepartments();
@@ -45,6 +75,7 @@ companyId?:number=0
     this.departmentService.getDepartment().subscribe(response => {
       if (response.status === 200) {
         response.data.list.forEach((dept: any) => {
+          this.departments = response.data.list;
           this.departmentsMap.set(dept.id, dept.name);
         });
       }
@@ -67,9 +98,10 @@ companyId?:number=0
       if (response.status === 200) {
         const nodeDataArray: any[] = [];
         const linkDataArray: any[] = [];
+        this.positions = response.data.list;
+        console.log(response);
         console.log("response.data",response.data)
         response.data.list.forEach((item: any) => {
-         
           const { nodeDataArray: nodes, linkDataArray: links } = this.transformData([item]);
           console.log("nodeDataArray",nodeDataArray);
           console.log("linkDataArray",linkDataArray)
@@ -115,6 +147,49 @@ companyId?:number=0
 
     data.forEach(node => processNode(node));
     return { nodeDataArray: Array.from(nodeMap.values()), linkDataArray };
+  }
+
+
+  loadUnassignedEmployees(): void {
+    this.employeeService.loadEmployees({ companyId: this.companyId, accountStatus: 1 }).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.employees = response.data.list.filter(
+          (employee: any) => !employee.positionId
+        );
+        console.log("Unassigned Employees:", this.employees);
+      }
+    });
+  }
+  addEmployee(positionId: string): void {
+    this.selectedPositionId = positionId;
+    this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
+    this.loadUnassignedEmployees();
+    this.isAddEmployee = true;
+  }
+  getDepartmentName(departmentId: number): string {
+    const department = this.departments.find(dep => dep.id === departmentId);
+    return department?.name ?? 'Unknown';
+  }
+  closePopup(): void {
+    this.isAddEmployee = false;
+  }
+  handleFormSubmit(formData: { employeeId: number, positionId: number }): void {
+    this.employeeService.assginEmployeeToPosition({
+      employeeId: formData.employeeId,
+      positionId: formData.positionId
+    }).subscribe({
+      next: (response) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Employee assigned successfully' });
+        this.closePopup();
+        this.loadPositions();
+        this.loadUnassignedEmployees();
+        this.reloadComponent();
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error assigning employee' });
+      }
+    });
   }
 
   initDiagram(nodeDataArray: any[], linkDataArray: any[]) {
@@ -164,7 +239,17 @@ companyId?:number=0
               margin: new go.Margin(10, 0, 0, 0)
             },
             new go.Binding('text', 'title')) // Position type name binding
-        )
+        ),
+        {
+          click:(e: go.InputEvent, obj: go.GraphObject) => {
+            const node = obj.part as go.Node; // Cast obj.part to Node
+            if (node && node.data) {
+            const nodeId = node.data.id;
+            console.log(nodeId);
+            this.addEmployee(nodeId?.toString()||'0');
+            }
+          },
+        }
       );
 
     diagram.linkTemplate =
@@ -176,4 +261,10 @@ companyId?:number=0
 
     diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
   }
+
+  // onNodeClick() {
+  //   // Assuming the node has an `id` or some identifier
+  //   // this.router.navigate(['/dashboard/company/', this.companyId]);
+  //   this.addEmployee();
+  // }
 }

@@ -127,7 +127,7 @@
           <label for="currency">{{ 'PROFILE_DETAILS.currency' | translate }}</label>
           <select id="currency" formControlName="currency" class="form-control">
             <option *ngFor="let currency of currencies" [value]="currency">
-              {{ currency }}
+              {{ currency.name }}
             </option>
           </select>
           <div *ngIf="companyForm.get('currency')?.invalid && companyForm.get('currency')?.touched" class="text-danger">

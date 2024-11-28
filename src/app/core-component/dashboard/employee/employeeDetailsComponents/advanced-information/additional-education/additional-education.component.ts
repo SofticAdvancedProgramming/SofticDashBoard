@@ -4,18 +4,20 @@ import { LocalStorageService } from '../../../../../../services/local-storage-se
 import { ActivatedRoute } from '@angular/router';
 import { AdditionalEducationService } from '../../../../../../services/additionalEducationService/additional-education.service';
 import { CommonModule } from '@angular/common';
+import { Certificates } from '../../../../../../../models/advancedIfomation';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-additional-education',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './additional-education.component.html',
-  styleUrl: './additional-education.component.css'
+  styleUrl: './additional-education.component.css',
 })
 export class AdditionalEducationComponent implements OnInit, OnDestroy {
-  isDiplomaOpen = true;  
+  isDiplomaOpen = true;
   isCertificateOpen = true;
-  isAdditionalFields= false;
+  isAdditionalFields = false;
   toggleDiploma() {
     this.isDiplomaOpen = !this.isDiplomaOpen;
   }
@@ -28,22 +30,26 @@ export class AdditionalEducationComponent implements OnInit, OnDestroy {
   }
   private unsubscribe$ = new Subject<void>();
   id: number = 0;
-  userEducation:any;
+  userEducation?: Certificates;
 
-  constructor(private additionalEducationService: AdditionalEducationService,private localStorageService: LocalStorageService,private route:ActivatedRoute) {}
+  constructor(
+    private additionalEducationService: AdditionalEducationService,
+    private localStorageService: LocalStorageService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      takeUntil(this.unsubscribe$)
-    ).subscribe(params => {
-      this.id = Number(params.get('id'));
-      this.getAditionalEducation();
-    })
+    this.route.paramMap
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((params) => {
+        this.id = Number(params.get('id'));
+        this.getAditionalEducation();
+      });
   }
 
   getAditionalEducation() {
     this.additionalEducationService
-      .getAditionalEducation({employeeId: this.id})
+      .getAditionalEducation({ employeeId: this.id })
       .pipe(
         tap((res) => {
           this.userEducation = res.data.list[0];
@@ -58,5 +64,4 @@ export class AdditionalEducationComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
 }

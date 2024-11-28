@@ -1,32 +1,48 @@
 <div class="container py-4 bgColor">
-  <h3 class="text-center fw-bold customHeader mb-4">Job Experience</h3>
+  <h3 class="text-center fw-bold customHeader mb-4">
+    {{ 'jobExperience.Title' | translate }}
+  </h3>
   <div class="row gy-3">
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Job Title</label>
-      <div class="text-muted">{{ userJobExperience.jobTitle }}</div>
+      <label class="d-block fw-semibold text-dark">
+        {{ 'jobExperience.Job_Title' | translate }}
+      </label>
+      <div class="text-muted">
+        {{ userJobExperience?.jobTitle ? userJobExperience?.jobTitle : ('jobExperience.No_Data' | translate) }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Company Name</label>
-      <div class="text-muted">{{ userJobExperience.companyName }}</div>
+      <label class="d-block fw-semibold text-dark">
+        {{ 'jobExperience.Company_Name' | translate }}
+      </label>
+      <div class="text-muted">
+        {{ userJobExperience?.companyName ? userJobExperience?.companyName : ('jobExperience.No_Data' | translate) }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Start Date</label>
-      <div class="text-muted">{{ userJobExperience.startFrom | date:"mediumDate" }}</div>
+    
+      <div class="text-muted">
+        {{ userJobExperience?.startFrom ? userJobExperience?.startFrom  : ('jobExperience.No_Data' | translate) | date:"mediumDate" }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">End Date</label>
-      <div class="text-muted">{{ userJobExperience.endAt |date:"mediumDate" }}</div>
+      <label class="d-block fw-semibold text-dark">{{ 'jobExperience.End_Date' | translate }}</label>
+      <div class="text-muted">{{ userJobExperience?.endAt ? userJobExperience?.endAt : ('jobExperience.No_Data' | translate) }}</div>
     </div>
     <div class="col-12 col-md-12 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">Job Responsibilities</label>
-      <div class="text-muted">{{ userJobExperience.jobDescription }}</div>
+      <label class="d-block fw-semibold text-dark">
+        {{ 'jobExperience.Job_Responsibilities' | translate }}
+      </label>
+      <div class="text-muted">
+        {{ userJobExperience?.jobDescription ? userJobExperience?.jobDescription : ('jobExperience.No_Data' | translate) }}
+      </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark"
-        >Supervisor/Manager Number</label
-      >
+      <label class="d-block fw-semibold text-dark">
+        {{ 'jobExperience.Supervisor_Number' | translate }}
+      </label>
       <div class="text-muted">
-        {{ userJobExperience.firstReferencTelephone }}
+        {{ userJobExperience?.firstReferencTelephone ? userJobExperience?.firstReferencTelephone : ('jobExperience.No_Data' | translate) }}
       </div>
     </div>
   </div>

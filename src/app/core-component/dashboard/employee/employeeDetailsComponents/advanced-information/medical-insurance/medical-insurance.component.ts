@@ -3,18 +3,20 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { LocalStorageService } from '../../../../../../services/local-storage-service/local-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserMedicalInsuranceService } from '../../../../../../services/userMedicalInsuranceService/user-medical-insurance.service';
+import { Medical } from '../../../../../../../models/advancedIfomation';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-medical-insurance',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './medical-insurance.component.html',
   styleUrl: './medical-insurance.component.css',
 })
 export class MedicalInsuranceComponent {
   private unsubscribe$ = new Subject<void>();
   id: number = 0;
-  userMedical: any;
+  userMedical?: Medical;
 
   constructor(
     private _UserMedicalInsuranceService: UserMedicalInsuranceService,

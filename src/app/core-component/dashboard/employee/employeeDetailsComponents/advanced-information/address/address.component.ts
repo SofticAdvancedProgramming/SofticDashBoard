@@ -3,21 +3,23 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { LocalStorageService } from '../../../../../../services/local-storage-service/local-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserAddressService } from '../../../../../../services/userAddressService/user-address.service';
+import { Address, CityName, ContryName } from '../../../../../../../models/advancedIfomation';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-address',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './address.component.html',
   styleUrl: './address.component.css',
 })
 export class AddressComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   id: number = 0;
-  userAddress: any;
-  requestTypes: any;
+  userAddress?: Address;
+  ContryName?: ContryName;
   currentLang: string = 'en';
-  city: any;
+  city?: CityName;
 
   constructor(
     private userAddressService: UserAddressService,
@@ -42,20 +44,20 @@ export class AddressComponent implements OnInit, OnDestroy {
         tap((res) => {
           this.userAddress = res.data.list[0];
           console.log(res);
-          this.getCountry(this.userAddress.countryId);
-          this.getCity(this.userAddress.cityId);
+          this.getCountry(this.userAddress?.countryId);
+          this.getCity(this.userAddress?.cityId);
         }),
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
   }
-  getCountry(countryId: number) {
+  getCountry(countryId?: number) {
     const requestPayload = { countryId };
     this.userAddressService
       .getCountry(requestPayload)
       .pipe(
         tap((response: any) => {
-          this.requestTypes = response.data.list[0];
+          this.ContryName = response.data.list[0];
           // .map((type: any) => ({
           //   id: type.id,
           //   name: this.currentLang === 'ar' ? type.nameAr : type.name,
@@ -70,7 +72,7 @@ export class AddressComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCity(cityId: number) {
+  getCity(cityId?: number) {
     const requestPayload = { cityId };
     this.userAddressService
       .getCity(requestPayload)
