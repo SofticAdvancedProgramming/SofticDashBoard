@@ -18,12 +18,7 @@
       <div class="col-lg-5">
         <div class="form-group">
           <label for="grossSalary">{{ 'employeeDetails.grossSalary' | translate }}</label>
-          <label type="number" id="grossSalary" formControlName="grossSalary" class="form-control">000</label>
-          @if(form.get('grossSalary')?.invalid && form.get('grossSalary')?.touched){
-          <div>
-            <small class="text-danger">{{ 'FIELD_REQUIRED' | translate}}</small>
-          </div>
-          }
+          <input type="number" id="grossSalary" class="form-control" [value]="form.value.netSalary" readonly>
         </div>
       </div>
     </div>
@@ -38,15 +33,15 @@
 </div>
 
 <div class="container mt-4">
-  <form [formGroup]="form">
+  <form [formGroup]="benefitForm">
     <div class="row d-flex align-items-center">
       <!-- Salary Type in English -->
       <div class="col-lg-5">
         <div class="form-group">
           <label for="salaryType">{{ 'Salary Type In English' | translate }}</label>
-          <select id="salaryType" formControlName="salaryType" class="form-control">
+          <select id="salaryType" formControlName="benefitTypeId" class="form-control">
             <option *ngFor="let benefit of benefitTypes" [value]="benefit.id">{{ benefit.name }}</option>
-           </select>
+          </select>
         </div>
       </div>
 
@@ -67,13 +62,13 @@
 
   <div class="row justify-content-center align-items-center mt-3">
     <div class="col-lg-6 d-flex  ">
-      <button class="btn-save" (click)="submitBenefit()">{{ 'Save' }}</button>
+      <button class="btn-save" (click)="submitBenefit()">{{ 'Save' | translate }}</button>
     </div>
   </div>
 </div>
 <div class="container mt-4">
   <app-modern-table [isThereSearch]="false" (newReqByPage)="loadEntitie('employeeSalary',$event)"
-  (searchApi)="loadEntitie('employeeSalary', 1 ,$event )" [totalRows]="totalRows['employeeSalary']"
-  [tableTitle]="activeTab" [tableData]="financial" [columns]="columns" searchPlaceholder="Search data...">
-</app-modern-table>
+    (searchApi)="loadEntitie('employeeSalary', 1 ,$event )" [totalRows]="totalRows['employeeSalary']"
+    [tableTitle]="activeTab" [tableData]="financial" [columns]="columns" searchPlaceholder="Search data...">
+  </app-modern-table>
 </div>

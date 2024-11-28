@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { employeeController } from '../../apis/employeeController';
 import { dashboardController } from '../../apis/dashboard';
+import { EmployeeBenefitController } from '../../apis/EmployeeBenefit';
 
 @Injectable({
   providedIn: 'root'
@@ -79,4 +80,5 @@ export class EmployeeService {
   getStatistics(request: any = {}): Observable<any> {
     return this.apiCall.request('POST', dashboardController.GetStatistics, request);
   }
+
 }

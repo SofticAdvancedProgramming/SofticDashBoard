@@ -8,7 +8,8 @@ import { ModernTableComponent } from "../../components/modern-table/modern-table
 import { SalaryTypeService } from '../../../../services/lockupsServices/SalaryService/salary.service';
 import { ToastersService } from '../../../../core/services/toast-service/toast.service';
 import { CommonModule, DatePipe } from '@angular/common';
-import { BenefitTypeService } from '../../../../services/benefitService/benefit-type.service';
+import { BenefitTypeService } from '../../../../services/benefitTypeService/benefit-type.service';
+import { BenefitService } from '../../../../services/benefitService/benefit.service';
 
 interface Salary {
   grossSalary: string;
@@ -78,22 +79,24 @@ export class SalaryComponent implements OnInit {
     private fb: FormBuilder,
     private toastersService: ToastersService,
     private datePipe: DatePipe,
-    private benefitService: BenefitTypeService
+    private benefitTypeService: BenefitTypeService,
+    private benefitService: BenefitService
   ) {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
   ngOnInit(): void {
     this.initForm();
+    this.initBenefitForm();
     this.getSalary();
     this.loadBenefitTypes();
   }
+
 
   initForm(): void {
     this.form = this.fb.group({
       employeeId: [this.employeeId],
       netSalary: ['', [Validators.required]],
-      grossSalary: ['', [Validators.required]]
     });
   }
 
@@ -102,10 +105,29 @@ export class SalaryComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    this.employeeService.assginEmployeeSalary(this.form.value).subscribe(
-      (res) => this.toast.success(this.translate.instant('employeeDetails.SALARY_ASSIGN_SUCCESS')),
+  
+    const { netSalary } = this.form.value;
+  
+     const grossSalary = netSalary;   
+  
+    const salaryData = {
+      employeeId: this.employeeId,
+      netSalary,
+      grossSalary,   
+    };
+  
+    this.employeeService.assginEmployeeSalary(salaryData).subscribe(
+      (res) => {
+        this.toast.success(this.translate.instant('employeeDetails.SALARY_ASSIGN_SUCCESS'));
+        this.getSalary();  
+      },
+      (error) => {
+        this.toast.error(this.translate.instant('employeeDetails.SALARY_ASSIGN_ERROR'));
+        console.error('Error assigning salary:', error);
+      }
     );
   }
+  
 
 
   initFormWithSalary(salary: Salary) {
@@ -120,12 +142,13 @@ export class SalaryComponent implements OnInit {
       }
     );
   }
+  
 
   loadEntitie(entity: string, pageIndex: number, name?: string): void {
 
   }
   loadBenefitTypes() {
-    this.benefitService.getBenefits().subscribe(
+    this.benefitTypeService.getBenefitsType().subscribe(
       (response) => {
         if (response.status === 200) {
           this.benefitTypes = response.data.list;
@@ -141,11 +164,38 @@ export class SalaryComponent implements OnInit {
   }
   submitBenefit() {
     if (this.benefitForm.invalid) {
+      console.log('Form is invalid');
       this.benefitForm.markAllAsTouched();
       return;
     }
-    this.employeeService.assginEmployeeSalary(this.benefitForm.value).subscribe(
-      (res) => this.toast.success(this.translate.instant('employeeDetails.BENEFIT_ASSIGN_SUCCESS'))
+
+    const benefitData = {
+      ...this.benefitForm.value,
+      benefitTypeId: Number(this.benefitForm.value.benefitTypeId)
+    };
+
+    console.log('Benefit Data:', benefitData);
+
+    this.benefitService.addEmployeeBenefit(benefitData).subscribe(
+      (res) => {
+        this.toast.success(this.translate.instant('employeeDetails.BENEFIT_ASSIGN_SUCCESS'));
+        this.getSalary();
+      },
+      (error) => {
+        console.error('Error submitting benefit:', error);
+        this.toast.error('Error submitting benefit');
+      }
     );
   }
+
+
+
+  initBenefitForm(): void {
+    this.benefitForm = this.fb.group({
+      employeeId: [this.employeeId],
+      benefitTypeId: [null, [Validators.required]],
+      amount: [null, [Validators.required, Validators.min(0)]],
+    });
+  }
+
 }

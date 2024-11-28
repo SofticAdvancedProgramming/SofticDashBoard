@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicModalComponent } from '../../../components/dynamic-modal/dynamic-modal.component';
 import { ModernTableComponent } from '../../../components/modern-table/modern-table.component';
-import { BenefitTypeService } from '../../../../../services/benefitService/benefit-type.service';
+import { BenefitTypeService } from '../../../../../services/benefitTypeService/benefit-type.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -34,7 +34,7 @@ export class BenefitTypeComponent implements OnInit {
   }
 
   loadEntities(entity: string): void {
-    this.benefitService.getBenefits({ companyId: this.companyId }).subscribe(
+    this.benefitService.getBenefitsType({ companyId: this.companyId }).subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.benefits = response.data.list;
@@ -47,7 +47,7 @@ export class BenefitTypeComponent implements OnInit {
   }
 
   addEntity(entity: string, newEntity: any): void {
-    this.benefitService.addBenefit(newEntity).subscribe(
+    this.benefitService.addBenefitType(newEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.loadEntities(entity);
@@ -60,7 +60,7 @@ export class BenefitTypeComponent implements OnInit {
   }
 
   editEntity(entity: string, updatedEntity: any): void {
-    this.benefitService.editBenefit(updatedEntity).subscribe(
+    this.benefitService.editBenefitType(updatedEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.loadEntities(entity);
@@ -73,7 +73,7 @@ export class BenefitTypeComponent implements OnInit {
   }
 
   deleteEntity(entity: string, id: number): void {
-    this.benefitService.deleteBenefit(id, this.companyId).subscribe(
+    this.benefitService.deleteBenefitType(id, this.companyId).subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.loadEntities(entity);
