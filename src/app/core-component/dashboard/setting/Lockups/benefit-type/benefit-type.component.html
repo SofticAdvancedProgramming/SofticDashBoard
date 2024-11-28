@@ -2,11 +2,11 @@
     <div class="mt-4">
         <button type="button" class="btn custom-button btn-primary" data-bs-toggle="modal"
             [attr.data-bs-target]="'#' + modalId" (click)="openAddModal()">
-            {{ 'benefitType.ADD_BENEFIT' | translate }}  
+            {{ 'benefitType.ADD_BENEFIT' | translate }}
         </button>
     </div>
 
-     <app-dynamic-modal [structure]="structure" [isEdit]="isEdit" [formData]="formData" [modalId]="modalId"
+    <app-dynamic-modal [structure]="structure" [isEdit]="isEdit" [formData]="formData" [modalId]="modalId"
         (submitForm)="handleFormSubmission($event)">
     </app-dynamic-modal>
 

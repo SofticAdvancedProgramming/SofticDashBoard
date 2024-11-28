@@ -18,7 +18,7 @@
       <div class="col-lg-5">
         <div class="form-group">
           <label for="grossSalary">{{ 'employeeDetails.grossSalary' | translate }}</label>
-          <input type="number" id="grossSalary" class="form-control" [value]="form.value.netSalary" readonly>
+          <input type="number" id="grossSalary" class="form-control" [value]="updatedGrossSalary" readonly>
         </div>
       </div>
     </div>
@@ -69,13 +69,19 @@
 <div class="container mt-4">
   <app-modern-table
   [isThereSearch]="false"
-  (newReqByPage)="loadEntitie('employeeSalary', $event)"
-  (searchApi)="loadEntitie('employeeSalary', 1, $event)"
+  (newReqByPage)="loadEmployeeBenefits( )"
+  (searchApi)="loadEmployeeBenefits( )"
   [totalRows]="totalRows['employeeSalary']"
   [tableTitle]="activeTab"
   [tableData]="financial"
   [columns]="columns"
   searchPlaceholder="Search data..."
->
+  (editItem)="openEditModal($event)" 
+  >
 </app-modern-table>
 </div>
+
+
+<app-dynamic-modal [structure]="structure" [isEdit]="isEdit" [formData]="formData" [modalId]="modalId"
+(submitForm)="handleFormSubmission($event)">
+</app-dynamic-modal>
