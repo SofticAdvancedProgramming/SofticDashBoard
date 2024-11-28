@@ -620,6 +620,8 @@
     "submitted": "تم الإرسال",
     "opened": "تم الفتح",
     "in_progress": "قيد التنفيذ",
+    "waiting": "انتظار قيد الرد",
+    "reopen": "ًفُتح مجددا",
     "closed": "مغلق",
     "unknown": "غير معروف"
   },
@@ -628,6 +630,12 @@
   "complainDetails": {
     "loading": "جار تحميل تفاصيل الشكوى...",
     "error": "حدث خطأ أثناء تحميل تفاصيل الشكوى. الرجاء المحاولة مرة أخرى لاحقًا.",
+    "comments":"الردود",
+    "Type your reply":"اكتب ردا....",
+    "wait":"قيد الانتظار",
+    "submit":"ارسال",
+    "congratulations":"تهانيناً",
+    "congratulationsParagraph":"تم ارسال الرسالة بنجاح",
     "user": {
       "name": "اسم المستخدم",
       "phone": "رقم الهاتف",

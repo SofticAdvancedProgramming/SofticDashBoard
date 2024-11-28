@@ -398,9 +398,8 @@ margin: 0 auto;  /* Horizontally centers the element */
 }
 
 /* Status-specific badge styles */
-
-/* Submitted (Blue) */
-.badge-submitted {
+ /* Submitted (Blue) */
+ .badge-submitted {
   color: #007bff;
 }
 
@@ -418,12 +417,25 @@ margin: 0 auto;  /* Horizontally centers the element */
 }
 
 /* In Progress (Yellow) */
-.badge-in-progress {
+.badge-Progress {
   color: #ffc107;
 }
 
-.badge-in-progress:hover {
+.badge-Progress:hover {
  color: #e0a800; /* Darken on hover */
+}
+.badge-Waiting{
+ color: #e06c00;
+}
+.badge-Waiting:hover{
+ color: #c05d00;
+}
+
+.badge-Reopend{
+ color: #006ac0;
+}
+.badge-Reopend:hover{
+ color: #035598;
 }
 
 /* Closed (Red) */
@@ -434,6 +446,8 @@ margin: 0 auto;  /* Horizontally centers the element */
 .badge-closed:hover {
   color: #c82333; /* Darken on hover */
 }
+
+
 .no-data-message
 {
   color:#007bff;
@@ -442,29 +456,43 @@ margin: 0 auto;  /* Horizontally centers the element */
 }
 
 .status-submitted {
-  color: #17a2b8;  
-  background-color: #e3f7fc;  
+  color: #17a2b8;
+  background-color: #e3f7fc;
   padding: 5px 10px;
   border-radius: 14px;
 }
 
 .status-opened {
-  color: #28a745; 
-  background-color: #eafaf1; 
+  color: #28a745;
+  background-color: #eafaf1;
   padding: 5px 10px;
   border-radius: 14px;
 }
 
-.status-in-progress {
-  color: #ffc107; 
-  background-color: #fff8e1;  
+.status-Progress {
+  color: #ffc107;
+  background-color: #fff8e1;
+  padding: 5px 10px;
+  border-radius: 14px;
+}
+ 
+.status-Waiting {
+  color:  #e06c00;;
+  background-color: #fff8e1;
+  padding: 5px 10px;
+  border-radius: 14px;
+}
+
+.status-Reopend {
+  color: #006ac0;
+  background-color: #fff8e1;
   padding: 5px 10px;
   border-radius: 14px;
 }
 
 .status-closed {
-  color: #dc3545;  
-  background-color: #fdecea;  
+  color: #dc3545;
+  background-color: #fdecea;
   padding: 5px 10px;
   border-radius: 14px;
 }

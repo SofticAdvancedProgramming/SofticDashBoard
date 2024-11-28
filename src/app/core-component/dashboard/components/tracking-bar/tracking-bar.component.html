@@ -1,0 +1,31 @@
+<div class="progress-container">
+    <div class="progress-bar" [style.width.%]="progressValue">
+        <div *ngFor="let step of steps; let i = index" [ngClass]="{
+              'Submitted': step.name === 'Submitted',
+              'opened': step.name === 'opened',
+              'In-progress': step.name === 'In-progress',
+              'Waiting': step.name === 'Waiting',
+              'Reopend': step.name === 'Reopend',
+              'closed': step.name === 'closed',
+              'active': i === currentStep,
+              'current-step': i === currentStep
+           }"
+           class="step-indicator">
+        </div>
+        <img *ngIf="currentStep !== steps.length" class="arrow" src="../../../../../assets/images/send.png" alt="Arrow">
+    </div>
+</div>
+
+<div class="details">
+    <div *ngFor="let step of steps; let i = index" [ngClass]="{'current': i === currentStep}" >
+        <div class="recieverName text-end" *ngIf="step.name!='Waiting'">{{step.name}}  </div>
+        <div class="recieverName text-end"*ngIf="step.name=='Waiting'">Waiting for replay </div>
+        <!-- <div class="recieverTitle"><i>{{ step.name }}</i></div>
+        <div *ngIf="step.name === 'Submitted'" class="status-indicator">submitted</div>
+        <div *ngIf="step.name === 'opened'" class="status-indicator">opened</div>
+        <div *ngIf="step.name === 'In-progress'" class="status-indicator">In-progress</div>
+        <div *ngIf="step.name === 'Waiting'" class="status-indicator">Waiting</div>
+        <div *ngIf="step.name === 'Reopend'" class="status-indicator">Reopend</div>
+        <div *ngIf="step.name === 'closed'" class="status-indicator">closed</div> -->
+    </div>
+</div>

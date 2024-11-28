@@ -59,7 +59,7 @@ export class ComplaintsSuggestionsComponent {
   }
   selectTab(tab: string): void {
     this.activeTab = tab;
-    this.issueTypeId = tab === 'suggestions' ? 1 : 2; 
+    this.issueTypeId = tab === 'suggestions' ? 1 : 2;
     this.loadComplaints();
   }
 
@@ -69,34 +69,38 @@ export class ComplaintsSuggestionsComponent {
     this.loading = true;
     const companyId = Number(this.localStorageService.getItem('companyId'));
     const employeeId = Number(this.localStorageService.getItem('userId'));
-  
+
     if (companyId && employeeId) {
       const params = {
         companyId,
-        issueTypeId: this.issueTypeId,  
+        issueTypeId: this.issueTypeId,
         pageIndex: page,
         pageSize: this.itemsPerPage,
       };
-  
+
       this.IssueExcuter.getIssueExcuter(params).subscribe({
         next: (response: any) => {
           this.loading = false;
-  
+
           if (response?.data?.list) {
             this.complaints = response.data.list.map((item: any) => ({
               ...item,
               againstTypeName: this.matchAgainstTypeName(item.issue.againestTypeId),
             }));
-  
+
             this.filteredComplaints = this.complaints;
+            console.log("dddddaaaatttttaaa",this.filteredComplaints)
             this.totalComplaints = response.data.totalRows || 0;
           }
         },
-        
+        error: (error) => {
+          this.loading = false;
+          console.error('Error fetching complaints/suggestions:', error);
+        },
       });
     }
   }
-  
+
 
 
   deleteComplaint(companyId:number,id: number, event: Event): void {
@@ -104,21 +108,21 @@ export class ComplaintsSuggestionsComponent {
     this.deleteId = id;
     this.showDeletePopup = true;
     const dialogRef = this.dialog.open(ConfirmDeleteComplaintComponent);
-  
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.IssueService.deleteIssue(id,companyId).subscribe({
           next:data=>{
-            console.log("deleted",data);
+         //   console.log("deleted",data);
             this.loadComplaints();
           }
         })
       }
     });
     if (this.activeTab === 'complaints') {
-      console.log(`Deleting complaint with ID: ${id}`);
+      //console.log(`Deleting complaint with ID: ${id}`);
     } else if (this.activeTab === 'suggestions') {
-      console.log(`Deleting suggestion with ID: ${id}`);
+     // console.log(`Deleting suggestion with ID: ${id}`);
     }
   }
 
@@ -140,31 +144,31 @@ export class ComplaintsSuggestionsComponent {
     //Change status first time to opened
     //1-Get the complaints or suggetion
 
-    console.log("filteredComplaintsfilteredComplaints",this.filteredComplaints)
+   // console.log("filteredComplaintsfilteredComplaints",this.filteredComplaints)
     //2-check for status
-    debugger
+    //debugger
       this.IssueExcuter.getIssueExcuterById(complaintId).subscribe({
         next: (response) => {
         console.log("my response data",response)
-        debugger;
+        //debugger;
          if (response.data?.list[0].issue.issueStatusId == issueStatus.Submitted) {
             //3-Change status
             let executerId=response.data?.list[0].id;
-            console.log("ExecuterId",executerId)
+          //  console.log("ExecuterId",executerId)
             this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.Opened).subscribe({
               next:data=>
                 {
-                  console.log("sddddsssssssssssssssssss",data)
-                 
+                 // console.log("sddddsssssssssssssssssss",data)
+
                 }
             });
          }
           this.loading = false;
-          console.log('Complaint details loaded:', this.complaintDetails);
+        //  console.log('Complaint details loaded:', this.complaintDetails);
         },
         error: (error) => {
           this.loading = false;
-          console.error('Error fetching complaint details:', error);
+         // console.error('Error fetching complaint details:', error);
         }
       });
 
@@ -190,7 +194,11 @@ export class ComplaintsSuggestionsComponent {
       case 3:
         return this.translate.instant('status.in_progress');
       case 4:
-        return this.translate.instant('status.closed');
+        return this.translate.instant('status.waiting');
+      case 5:
+          return this.translate.instant('status.reopen');
+      case 6:
+          return this.translate.instant('status.closed');
       default:
         return this.translate.instant('status.unknown');
     }
@@ -218,8 +226,12 @@ export class ComplaintsSuggestionsComponent {
         return 'badge-submitted';  // Blue
       case issueStatus.Opened:
         return 'badge-opened';     // Green
-      case issueStatus.InProgress:
-        return 'badge-in-progress';// Yellow
+      case issueStatus.Progress:
+        return 'badge-Progress';// Yellow
+      case issueStatus.WaitingForReplay:
+        return 'badge-Waiting';// Yellow
+      case issueStatus.Reopend:
+        return 'badge-Reopend';// Yellow
       case issueStatus.Closed:
         return 'badge-closed';     // Red
       default:
@@ -234,8 +246,12 @@ export class ComplaintsSuggestionsComponent {
       case 2:
         return 'status-opened';
       case 3:
-        return 'status-in-progress';
+        return 'status-Progress';
       case 4:
+        return 'status-Waiting';
+      case 5:
+        return 'status-Reopend';
+      case 6:
         return 'status-closed';
       default:
         return 'status-unknown';
