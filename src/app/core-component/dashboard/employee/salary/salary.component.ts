@@ -1,5 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -11,7 +11,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { BenefitTypeService } from '../../../../services/benefitTypeService/benefit-type.service';
 import { BenefitService } from '../../../../services/benefitService/benefit.service';
 import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
- interface Salary {
+interface Salary {
   grossSalary: string;
   netSalary: string;
 }
@@ -27,7 +27,7 @@ interface EmployeeResponse {
 }
 interface Benefit {
   amount: number;
-  benefitTypeName:string
+  benefitTypeName: string
   transactionDate: string;
   benefitType?: {
     name: string;
@@ -41,12 +41,12 @@ interface BenefitType {
   nameAr: string;
 }
 @Component({
-    selector: 'app-salary',
-    standalone: true,
-    templateUrl: './salary.component.html',
-    styleUrls: ['./salary.component.css'],
-    providers: [DatePipe],
-    imports: [TranslateModule, ReactiveFormsModule, ModernTableComponent, CommonModule, DatePipe, DynamicModalComponent]
+  selector: 'app-salary',
+  standalone: true,
+  templateUrl: './salary.component.html',
+  styleUrls: ['./salary.component.css'],
+  providers: [DatePipe],
+  imports: [TranslateModule, ReactiveFormsModule, ModernTableComponent, CommonModule, DatePipe, DynamicModalComponent]
 })
 
 export class SalaryComponent implements OnInit {
@@ -55,8 +55,8 @@ export class SalaryComponent implements OnInit {
     { name: 'nameAr', label: 'Benefit Name (Arabic)', type: 'text', required: true }
   ];
 
-   activeTab: string = 'Entitlements';
-   todayDate: string = "";
+  activeTab: string = 'Entitlements';
+  todayDate: string = "";
   isEdit = false;
   currentPageDropDown = 1;
   updatedGrossSalary: number = 0;
@@ -74,10 +74,10 @@ export class SalaryComponent implements OnInit {
   totalRows: any = {
     employeeSalary: 0,
   };
-   
+
   form!: FormGroup;
   employeeId = 0;
-  modalId = 'Benefit';
+  modalId = 'EditBenefit';
 
   constructor(
     private toast: ToastrService,
@@ -115,16 +115,16 @@ export class SalaryComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-  
+
     const { netSalary } = this.form.value;
-    const grossSalary = netSalary;  
-  
+    const grossSalary = netSalary;
+
     const salaryData = {
       employeeId: this.employeeId,
       netSalary,
       grossSalary,
     };
-  
+
     this.employeeService.assginEmployeeSalary(salaryData).subscribe(
       (res) => {
         this.toast.success(this.translate.instant('employeeDetails.SALARY_ASSIGN_SUCCESS'));
@@ -136,7 +136,7 @@ export class SalaryComponent implements OnInit {
       }
     );
   }
-  
+
 
 
   initFormWithSalary(salary: Salary) {
@@ -147,13 +147,13 @@ export class SalaryComponent implements OnInit {
     this.employeeService.loadEmployees({ id: this.employeeId }).subscribe(
       (res: EmployeeResponse) => {
         const { grossSalary, netSalary } = res.data.list[0];
-        this.updatedGrossSalary = Number(grossSalary);  
+        this.updatedGrossSalary = Number(grossSalary);
         this.initFormWithSalary({ grossSalary, netSalary });
       }
     );
   }
-  
- 
+
+
   loadBenefitTypes() {
     this.benefitTypeService.getBenefitsType().subscribe(
       (response) => {
@@ -175,26 +175,26 @@ export class SalaryComponent implements OnInit {
       this.benefitForm.markAllAsTouched();
       return;
     }
-  
+
     const companyId = localStorage.getItem('companyId');
     if (!companyId) {
       this.toast.error('Company ID not found in localStorage');
       return;
     }
-  
+
     const benefitData = {
       ...this.benefitForm.value,
       companyId,
       benefitTypeId: Number(this.benefitForm.value.benefitTypeId),
     };
-  
+
     console.log('Benefit Data:', benefitData);
-  
+
     this.benefitService.addEmployeeBenefit(benefitData).subscribe(
       (res) => {
         this.toast.success(this.translate.instant('employeeDetails.BENEFIT_ASSIGN_SUCCESS'));
-        this.loadEmployeeBenefits();  
-        this.updateGrossSalary(); 
+        this.loadEmployeeBenefits();
+        this.updateGrossSalary();
       },
       (error) => {
         console.error('Error submitting benefit:', error);
@@ -202,24 +202,24 @@ export class SalaryComponent implements OnInit {
       }
     );
   }
-  
+
   updateGrossSalary() {
-     const totalBenefitAmount = this.financial.reduce((sum, benefit) => sum + benefit.amount, 0);
-  
-     const currentNetSalary = this.form.value.netSalary;
-  
-     this.updatedGrossSalary = currentNetSalary + totalBenefitAmount;
-  
-     const updatedSalaryData = {
+    const totalBenefitAmount = this.financial.reduce((sum, benefit) => sum + benefit.amount, 0);
+
+    const currentNetSalary = this.form.value.netSalary;
+
+    this.updatedGrossSalary = currentNetSalary + totalBenefitAmount;
+
+    const updatedSalaryData = {
       employeeId: this.employeeId,
       netSalary: currentNetSalary,
       grossSalary: this.updatedGrossSalary,
     };
-  
+
     this.employeeService.assginEmployeeSalary(updatedSalaryData).subscribe(
       (res) => {
         this.toast.success(this.translate.instant('employeeDetails.SALARY_UPDATED_SUCCESS'));
-        this.getSalary(); 
+        this.getSalary();
       },
       (error) => {
         console.error('Error updating salary:', error);
@@ -227,7 +227,7 @@ export class SalaryComponent implements OnInit {
       }
     );
   }
-  
+
 
   initBenefitForm(): void {
     this.benefitForm = this.fb.group({
@@ -240,7 +240,7 @@ export class SalaryComponent implements OnInit {
     const request = {
       employeeId: this.employeeId,
     };
-  
+
     this.benefitService.GetEmployeeBenefit(request).subscribe(
       (res: any) => {
         if (res.status === 200) {
@@ -249,10 +249,10 @@ export class SalaryComponent implements OnInit {
             benefitTypeName: benefit.benefitTypeName,
           }));
           this.totalRows['employeeSalary'] = res.data.list.length;
-  
-           const totalBenefitAmount = this.financial.reduce((sum, benefit) => sum + benefit.amount, 0);
-  
-           this.updateGrossSalary( );
+
+          const totalBenefitAmount = this.financial.reduce((sum, benefit) => sum + benefit.amount, 0);
+
+          this.updateGrossSalary();
         } else {
           this.toast.error('Failed to load employee benefits');
         }
@@ -263,40 +263,53 @@ export class SalaryComponent implements OnInit {
       }
     );
   }
-  
+ 
+
   handleFormSubmission(data: any): void {
     if (this.isEdit) {
-       data.companyId = this.companyId;
+      data.companyId = this.companyId;
       data.id = this.formData.id;
-      this.editEntity('Benefit', data);
-    } else {
-      
-    }
+      this.editBenefit( data);
+    }  
   }
-  
-
-  editEntity(entity: string, updatedEntity: any): void {
+  editBenefit(updatedEntity: any): void {
     this.benefitService.editBenefit(updatedEntity).subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.loadEmployeeBenefits();
+        } else {
+          this.toast.error('Error updating benefit');
         }
       },
-      (error: any) => {
-        console.error(`Error updating ${entity}`, error);
+      (error) => {
+        console.error('Error updating benefit:', error);
+        this.toast.error('Error updating benefit');
       }
     );
   }
-  openAddModal(): void {
-    this.isEdit = false;
-    this.formData = { id: 0, companyId: this.companyId, name: '', nameAr: '' };  
-    this.modalId = 'AddBenefit';  
+  deleteBenefit(id: number, companyId: number): void {
+    this.benefitService.deleteBenefit(id , companyId).subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          this.loadEmployeeBenefits();
+        } else {
+          this.toast.error('Error deleting benefit');
+        }
+      },
+      (error) => {
+        console.error('Error deleting benefit:', error);
+        this.toast.error('Error deleting benefit');
+      }
+    );
   }
-  
+
   openEditModal(item: any): void {
     this.isEdit = true;
-    this.formData = { ...item, companyId: this.companyId };   
-    this.modalId = 'EditBenefit';  
+    this.formData = { ...item };
+    this.benefitForm.patchValue({
+      benefitTypeId: item.benefitTypeId,
+      amount: item.amount,
+    });
+    this.modalId = 'EditBenefit';
   }
-  
 }

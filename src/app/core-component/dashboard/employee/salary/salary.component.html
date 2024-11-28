@@ -68,17 +68,18 @@
 </div>
 <div class="container mt-4">
   <app-modern-table
-  [isThereSearch]="false"
-  (newReqByPage)="loadEmployeeBenefits( )"
-  (searchApi)="loadEmployeeBenefits( )"
-  [totalRows]="totalRows['employeeSalary']"
-  [tableTitle]="activeTab"
-  [tableData]="financial"
-  [columns]="columns"
-  searchPlaceholder="Search data..."
-  (editItem)="openEditModal($event)" 
+    [isThereSearch]="false"
+    (newReqByPage)="loadEmployeeBenefits()"
+    (searchApi)="loadEmployeeBenefits()"
+    [totalRows]="totalRows['employeeSalary']"
+    [tableTitle]="activeTab"
+    [tableData]="financial"
+    [columns]="columns"
+    searchPlaceholder="Search data..."
+    (editItem)="openEditModal($event)"
+    (deleteItem)="deleteBenefit($event.id , $event.companyId)"
   >
-</app-modern-table>
+  </app-modern-table>
 </div>
 
 
