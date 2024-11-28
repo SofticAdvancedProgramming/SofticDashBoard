@@ -9,14 +9,14 @@
         [attr.data-bs-target]="'#' + modalId"
         (click)="openAddModal()"
       >
-        Add Item
+        {{'Add Salary' | translate}}
       </button>
     </div>
 
     <!-- Dropdown to select Type -->
     <div class="col-6">
       <div class="form-group">
-        <label for="type">Type</label>
+        <label for="type">{{'Type' | translate}}</label>
         <select
           class="form-control"
           id="type"

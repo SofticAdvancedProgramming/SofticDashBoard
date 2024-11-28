@@ -41,6 +41,7 @@ border-bottom: #0D0714;
   letter-spacing: 0.03em;
   text-align: center;
 }
+
 @font-face {
   font-family: 'Lama Sans';
   src: url('assets/fonts/LamaSans-Regular.ttf') format('truetype');
@@ -50,6 +51,7 @@ border-bottom: #0D0714;
 body{
   font-family: 'Lama Sans';
 }
+
 .p-dialog .p-dialog-header {
   background-color: #663895;
   color: #fff;

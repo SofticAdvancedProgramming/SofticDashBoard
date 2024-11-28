@@ -684,7 +684,29 @@
     "EGP": "Egyptian Pound",
     "USD": "US Dollar"
   },
+  "defaultPopUp": {
+    "Default":"Default",
+    "question": "Are you sure you want to make this currency Default?",
+    "Cancel": "Cancel",
+    "Confirm": "Confirm"
+  },
+  "deletePopUp": {
+    "Delete":"Default",
+    "question": "Are you sure about the deletion process?",
+    "Cancel": "Cancel",
+    "delete": "Delete"
+  },
   "DATE_ERROR": {
     "END_BEFORE_START": "End date cannot be earlier than the start date."
-  }
+  },
+  "name": "Name",
+  "nameAr": "Name (Arabic)",
+  "Actions": "Actions",
+  "Export to Excel": "Export to Excel",
+  "Add Currency": "Add Currency",
+  "Currency Types": "Currency Types",
+  "Add Salary": "Add Salary",
+  "Type":"Type",
+  "Salary Types": "Salary Types",
+  "Add Position": "Add Position"
 }

@@ -21,6 +21,7 @@ import { debounce } from 'lodash';
 import * as XLSX from 'xlsx';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TranslateModule } from '@ngx-translate/core';
+import { DefaultPopUpComponent } from '../../default-pop-up/default-pop-up/default-pop-up.component';
 
 interface newAction {
   isExisting: false;
@@ -36,6 +37,7 @@ interface newAction {
     PaginationModule,
     DeletePopUpComponent,
     TranslateModule,
+    DefaultPopUpComponent
   ],
   templateUrl: './currency-table.component.html',
   styleUrl: './currency-table.component.css',
@@ -64,6 +66,7 @@ export class CurrencyTableComponent {
   @Output() searchApi = new EventEmitter<any>();
   @Output() onCLickNewActionOutput = new EventEmitter<any>();
   @ViewChild('deletePopUp') deletePopUp!: DeletePopUpComponent;
+  @ViewChild('defaultPopUp') defaultPopUp!: DefaultPopUpComponent;
   deleteMethod!: (index: number) => void;
   searchText: string = '';
   currentPage: number = 1;
@@ -102,20 +105,24 @@ export class CurrencyTableComponent {
 
   openDeleteModal(item: any): void {
     this.selectedItemToDelete = item;
+    console.log('Delete modal opened for:', item);
   }
   openDefaultModal(item: any): void {
+    console.log('Default modal opened for:', item);
     this.selectedItemToDefault = item;
   }
 
   confirmDelete(): void {
     if (this.selectedItemToDelete) {
       this.deleteItem.emit(this.selectedItemToDelete);
+      console.log(this.selectedItemToDelete);
       this.selectedItemToDelete = null;
     }
   }
   confirmDefualt(): void {
     if (this.selectedItemToDefault) {
       this.defaultItem.emit(this.selectedItemToDefault);
+      console.log(this.selectedItemToDefault);
       this.selectedItemToDefault = null;
     }
   }
