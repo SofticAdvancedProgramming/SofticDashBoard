@@ -67,8 +67,15 @@
   </div>
 </div>
 <div class="container mt-4">
-  <app-modern-table [isThereSearch]="false" (newReqByPage)="loadEntitie('employeeSalary',$event)"
-    (searchApi)="loadEntitie('employeeSalary', 1 ,$event )" [totalRows]="totalRows['employeeSalary']"
-    [tableTitle]="activeTab" [tableData]="financial" [columns]="columns" searchPlaceholder="Search data...">
-  </app-modern-table>
+  <app-modern-table
+  [isThereSearch]="false"
+  (newReqByPage)="loadEntitie('employeeSalary', $event)"
+  (searchApi)="loadEntitie('employeeSalary', 1, $event)"
+  [totalRows]="totalRows['employeeSalary']"
+  [tableTitle]="activeTab"
+  [tableData]="financial"
+  [columns]="columns"
+  searchPlaceholder="Search data..."
+>
+</app-modern-table>
 </div>

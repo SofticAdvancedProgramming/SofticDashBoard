@@ -10,8 +10,7 @@ import { ToastersService } from '../../../../core/services/toast-service/toast.s
 import { CommonModule, DatePipe } from '@angular/common';
 import { BenefitTypeService } from '../../../../services/benefitTypeService/benefit-type.service';
 import { BenefitService } from '../../../../services/benefitService/benefit.service';
-
-interface Salary {
+ interface Salary {
   grossSalary: string;
   netSalary: string;
 }
@@ -25,7 +24,21 @@ interface EmployeeResponse {
   };
   message: string;
 }
-
+interface Benefit {
+  amount: number;
+  benefitTypeName:string
+  transactionDate: string;
+  benefitType?: {
+    name: string;
+    nameAr: string;
+  };
+}
+interface BenefitType {
+  id: number;
+  companyId: number;
+  name: string;
+  nameAr: string;
+}
 @Component({
   selector: 'app-salary',
   standalone: true,
@@ -34,7 +47,9 @@ interface EmployeeResponse {
   imports: [TranslateModule, ReactiveFormsModule, ModernTableComponent, CommonModule, DatePipe],
   providers: [DatePipe]
 })
+
 export class SalaryComponent implements OnInit {
+
   modalId = 'editEmployeeService';
   activeTab: string = 'Entitlements';
   isDeduction = true;
@@ -45,7 +60,7 @@ export class SalaryComponent implements OnInit {
   dropDownDataIsDeductionFalse: any[] = [];
   dropDownData: any[] = [];
   financial: any[] = [];
-  columns: string[] = ['amount', 'transactionDate'];
+  columns: string[] = ['amount', 'benefitTypeName'];
   companyId = localStorage.getItem('companyId');
   salaryTypeId!: number;
   benefitTypes: any[] = [];
@@ -57,16 +72,7 @@ export class SalaryComponent implements OnInit {
   totalRows: any = {
     employeeSalary: 0,
   };
-  structure = [
-    { name: 'name', label: 'Name', type: 'text', required: true },
-    { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
-    {
-      name: 'isDeduction',
-      label: 'Deduction',
-      type: 'checkbox',
-      required: true,
-    },
-  ];
+   
   form!: FormGroup;
   employeeId = 0;
 
@@ -90,6 +96,7 @@ export class SalaryComponent implements OnInit {
     this.initBenefitForm();
     this.getSalary();
     this.loadBenefitTypes();
+    this.loadEmployeeBenefits();
   }
 
 
@@ -105,21 +112,21 @@ export class SalaryComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-  
+
     const { netSalary } = this.form.value;
-  
-     const grossSalary = netSalary;   
-  
+
+    const grossSalary = netSalary;
+
     const salaryData = {
       employeeId: this.employeeId,
       netSalary,
-      grossSalary,   
+      grossSalary,
     };
-  
+
     this.employeeService.assginEmployeeSalary(salaryData).subscribe(
       (res) => {
         this.toast.success(this.translate.instant('employeeDetails.SALARY_ASSIGN_SUCCESS'));
-        this.getSalary();  
+        this.getSalary();
       },
       (error) => {
         this.toast.error(this.translate.instant('employeeDetails.SALARY_ASSIGN_ERROR'));
@@ -127,7 +134,7 @@ export class SalaryComponent implements OnInit {
       }
     );
   }
-  
+
 
 
   initFormWithSalary(salary: Salary) {
@@ -142,7 +149,7 @@ export class SalaryComponent implements OnInit {
       }
     );
   }
-  
+
 
   loadEntitie(entity: string, pageIndex: number, name?: string): void {
 
@@ -169,8 +176,15 @@ export class SalaryComponent implements OnInit {
       return;
     }
 
+    const companyId = localStorage.getItem('companyId');
+    if (!companyId) {
+      this.toast.error('Company ID not found in localStorage');
+      return;
+    }
+
     const benefitData = {
       ...this.benefitForm.value,
+      companyId,
       benefitTypeId: Number(this.benefitForm.value.benefitTypeId)
     };
 
@@ -179,7 +193,7 @@ export class SalaryComponent implements OnInit {
     this.benefitService.addEmployeeBenefit(benefitData).subscribe(
       (res) => {
         this.toast.success(this.translate.instant('employeeDetails.BENEFIT_ASSIGN_SUCCESS'));
-        this.getSalary();
+        this.loadEmployeeBenefits(); 
       },
       (error) => {
         console.error('Error submitting benefit:', error);
@@ -197,5 +211,27 @@ export class SalaryComponent implements OnInit {
       amount: [null, [Validators.required, Validators.min(0)]],
     });
   }
+  loadEmployeeBenefits() {
+    const request = {
+      employeeId: this.employeeId,
+    };
 
+    this.benefitService.GetEmployeeBenefit(request).subscribe(
+      (res: any) => {
+        if (res.status === 200) {
+           this.financial = res.data.list.map((benefit: Benefit) => ({
+            ...benefit,
+            benefitTypeName: benefit.benefitTypeName,
+          }));
+          this.totalRows['employeeSalary'] = res.data.list.length;
+        } else {
+          this.toast.error('Failed to load employee benefits');
+        }
+      },
+      (error) => {
+        console.error('Error loading employee benefits:', error);
+        this.toast.error('Error loading employee benefits');
+      }
+    );
+  }
 }
