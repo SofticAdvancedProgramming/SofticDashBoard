@@ -8,5 +8,7 @@ export const IssueExcuter = {
     Activate: (id: number, companyId: number) => `${environment.apiBaseUrl}IssueExcuter/Activate/${id}/${companyId}`,
     DeActivate: (id: number, companyId: number) => `${environment.apiBaseUrl}IssueExcuter/DeActivate/${id}/${companyId}`,
     Action: (id: number, issueStatusId: number) => `${environment.apiBaseUrl}IssueExcuter/${id}/Action/${issueStatusId}`,
+    Status:`${environment.apiBaseUrl}IssueStatus/Get`,
     Count: `${environment.apiBaseUrl}IssueExcuter/Count`
 };
+

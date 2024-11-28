@@ -16,7 +16,15 @@ export class IssueCommentService {
       issueExcuterId,
       issueId,
       comment
-    }  
+    }
     return this.apiCall.request("POST", issueCommentController.Add,body);
+  }
+
+  getIssueComments(companyId:number,issueId:number){
+    let body={
+      companyId,
+      issueId
+    }
+    return this.apiCall.request("POST", issueCommentController.Get,body);
   }
 }

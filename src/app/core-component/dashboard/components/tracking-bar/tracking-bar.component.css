@@ -1,0 +1,138 @@
+.progress-container {
+  width: 100%;
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 5px;
+  position: relative;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #C5E0B4;
+  border-radius: 5px;
+  position: relative;
+  top: 0;
+  left: 0;
+  transition: width 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 0;
+  overflow: visible; /* Allow the arrow to overflow the bar */
+}
+
+.step {
+  position: relative;
+  text-align: center;
+  flex: 1;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #4CAF50;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+
+
+.arrow {
+  position: absolute;
+  right: -15px; /* Adjust based on the size of your arrow image */
+  top: -10px; /* Center the arrow vertically */
+  width: 40px; /* Adjust to match the design */
+  height: 40px; /* Adjust to match the design */
+  z-index: 1;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 20px;
+  text-align: center;
+  color: #333;
+  margin-top: 10px;
+}
+
+.details div {
+  font-size: 14px;
+}
+
+.current-step .circle {
+  background-color: #FFC107; /* Highlight the current step */
+  border-color: #FFC107;
+}
+
+.turn-indicator {
+  color: #FF5733;
+  font-weight: bold;
+  margin-top: 5px;
+}
+.Submitted .circle {
+  background-color: #17a2b8;
+  color: #fff;
+}
+.opened .circle {
+  background-color: #28a745;
+}
+.In-progress .circle {
+  background-color: #FFC107;
+}
+.Waiting .circle {
+  border-color: #e06c00;
+}
+.Reopend .circle {
+  border-color: #006ac0;
+}
+.closed .circle {
+  background-color: #4CAF50;
+  color: #fff;
+}
+.active .circle {
+  border-color: #4CAF50;
+}
+.recieverTitle{
+  color: #736F77;
+   font-family: Lama Sans;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 26px;
+  letter-spacing: 0.03em;
+
+}
+.recieverName{
+  color: #0b0213;
+   font-family: Lama Sans;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: 0.03em;
+
+}
+.status-indicator {
+  font-weight: bold;
+  font-size: 14px;
+  color: #666;
+}
+
+.status-indicator.approved {
+  color: green;
+}
+
+.status-indicator.rejected {
+  color: red;
+}
+
+.status-indicator.pending {
+  color: orange;
+}

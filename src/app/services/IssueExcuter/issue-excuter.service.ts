@@ -45,4 +45,7 @@ export class IssueExcuterService {
   getIssueExcuterById(id: number): Observable<any> {
     return this.apiCall.request("POST", IssueExcuter.Get, { id });
 }
-}
+  getAllStatus(){
+    return this.apiCall.request("POST", IssueExcuter.Status, {});
+  }
+  }

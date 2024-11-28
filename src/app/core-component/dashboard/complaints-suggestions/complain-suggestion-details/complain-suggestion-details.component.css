@@ -135,6 +135,16 @@
    }
 }
 
+.replay-section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  padding: 1.5em;
+  border-radius: 14px;
+}
+
 .textarea {
    width: Fixed (1, 151px)px;
    height: Fixed (129px)px;
@@ -152,6 +162,14 @@
    border-radius: 10px;
    opacity: 0px;
    background: #643695;
+   color: white;
+}
+.wait-btn{
+  padding: 16px;
+   gap: 0px;
+   border-radius: 10px;
+   opacity: 0px;
+   background: #1b6a11;
    color: white;
 }
 
@@ -187,19 +205,41 @@
  }
 
  /* In Progress (Yellow) */
- .badge-in-progress {
+ .badge-Progress {
    color: #ffc107;
  }
 
- .badge-in-progress:hover {
+ .badge-Progress:hover {
   color: #e0a800; /* Darken on hover */
  }
+.badge-Waiting{
+  color: #e06c00;
+}
+.badge-Waiting:hover{
+  color: #c05d00;
+}
+
+.badge-Reopend{
+  color: #006ac0;
+}
+.badge-Reopend:hover{
+  color: #035598;
+}
 
  /* Closed (Red) */
  .badge-closed {
    color:  #dc3545;
+
  }
 
  .badge-closed:hover {
    color: #c82333; /* Darken on hover */
+ }
+
+ .comments div p {
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+  margin-bottom: 0;
+  box-shadow: 1px 1px 1.5px rgba(140, 140, 140, 0.131), -1px -1px 1.5px rgba(140, 140, 140, 0.152) ;
  }
