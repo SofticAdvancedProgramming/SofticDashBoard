@@ -115,7 +115,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
         this.router.navigate(['/dashboard/ComplaintsSuggestions'])
       }
     })
-
+   this.ngOnInit();
    
   }
 

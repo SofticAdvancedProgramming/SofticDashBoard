@@ -135,8 +135,6 @@ companyId?:number=0
       });
 
       if (positionManagerId &&positionManagerId!=null) {
-        console.log("here")
-        console.log("parentId",parentId)
         linkDataArray.push({ from: positionManagerId, to: nodeId });
       }
 

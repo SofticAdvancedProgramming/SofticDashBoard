@@ -30,8 +30,8 @@ export class CurrencyTypeComponent {
   pageIndex: any = { CurrencyType: 1 };
   totalRows: any = { CurrencyType: 0 };
   structure = [
-    { name: 'name', label: 'Name', type: 'text', required: true },
-    { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
+    { name: 'name', label: 'Name In Arabic', type: 'text', required: true },
+    { name: 'nameAr', label: 'Name In English', type: 'text', required: true },
     { name: 'isDeduction', label: 'Deduction', type: 'checkbox', required: false },
   ];
 
