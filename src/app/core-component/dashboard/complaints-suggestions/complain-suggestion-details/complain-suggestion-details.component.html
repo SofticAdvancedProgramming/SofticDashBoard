@@ -6,7 +6,7 @@
     <div *ngIf="errorMessage" class="error-message">
         {{ 'complainDetails.error' | translate }}
     </div>
-
+    <app-progressbar [complaintDetails]="complaintDetails"></app-progressbar>
     <div *ngIf="!loading && complaintDetails && !errorMessage">
         <div class="user-info">
             <div class="info-row">
@@ -26,21 +26,21 @@
                     <span class="label">{{ 'complainDetails.user.email' | translate }}</span>
                     <span class="value">{{ complaintDetails.email }}</span>
                 </div>
-               
+
                @if(complaintDetails.issueStatusId===issueStatus.Submitted)
                {
                 <div class="info-item">
                     <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">Opened</span>
-                  
+
                 </div>
-               } 
+               }
                @else {
                 <div class="info-item">
                     <span class="label" [ngClass]="getStatusStyles(complaintDetails.issueStatusId)">{{complaintDetails.issueStatusId | enumToString:issueStatus}}</span>
-                  
+
                 </div>
                }
-             
+
             </div>
         </div>
 
@@ -74,17 +74,57 @@
                     </div>
                 </div>
             </div>
-            <div class="row info-row">
+        </div>
+        <div class="replay-section">
+
+            <div class=" info-row comments row" *ngIf="comments.length>=1">
+              <p class="lead">{{"complainDetails.comments"|translate}}</p>
+              <div class="col-12"  *ngFor="let _commet of comments;index as i">
+                <div *ngIf="_commet.isAdmin" class=" py-1 w-75 rounded my-1 d-flex justify-content-start flex-row align-items-end"  > <!-- [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"  [ngStyle]="{'direction: rtl;':_commet.isAdmin==false}"-->
+                  <img src="../../../../../assets/images/Avatar (2).png" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
+                  <p>{{_commet.comment}} </p>
+                </div>
+                <div *ngIf="!_commet.isAdmin" class="py-1 w-75 rounded my-1 d-flex justify-content-end flex-row align-items-end" [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"> <!-- [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"    [ngStyle]="{'direction: rtl;':_commet.isAdmin==false}"-->
+                  <p>{{_commet.comment}} </p>
+                  <img src="../../../../../assets/images/Avatar (2).png" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
+                </div>
+              </div>
+
+            </div>
+            <div class="row info-row"  *ngIf="complaintDetails.issueStatusId!=6">
                 <div class="info-item">
-                    <span class="label"><img src="../../../../../assets/images/bill.png">Type your reply</span>
-                    <textarea class="textarea" #comment> Type your replay...... </textarea>
+                    <span class="label"><img src="../../../../../assets/images/bill.png">{{"complainDetails.Type your reply"|translate}}</span>
+                    <textarea class="textarea" #comment placeholder="Type your replay......">  </textarea>
                 </div>
             </div>
-            <div class="row justify-content-center d-flex">
+            <div class="row justify-content-center d-flex" *ngIf="complaintDetails.issueStatusId!=6">
+              <div class="col-lg-3"*ngIf="comments.length>=1">
+                <button class="btn w-100 wait-btn" (click)="wait()">{{"complainDetails.wait"|translate}}</button>
+              </div>
                 <div class="col-lg-3">
-                    <button class="btn w-100 submit-btn" (click)="submitReply(complaintDetails.companyId,complaintDetails.issueExcuters[0].excuterId,complaintDetails.issueExcuters[0].issueId)"> submit </button>
+                    <button class="btn w-100 submit-btn" (click)="submitReply(complaintDetails.companyId,complaintDetails.issueExcuters[0].excuterId,complaintDetails.issueExcuters[0].issueId)">{{"complainDetails.submit"|translate}}</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<!--finish modal-->
+<div class="modal fade" id="closeIssue" tabindex="-1" aria-labelledby="closeIssueModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h3 style="font-size:32px;font-weight: 700;color: #00A475;">{{ 'complainDetails.congratulations' | translate }}</h3>
+        <img src="../../../../../assets/images/congrats.png">
+      </div>
+      <div class="modal-body">
+        <p class="lead">{{ 'complainDetails.congratulationsParagraph' | translate }}</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"(click)="congrats()" >{{ 'complainDetails.congratulations' | translate }}</button>
+         </div>
+    </div>
+  </div>
 </div>

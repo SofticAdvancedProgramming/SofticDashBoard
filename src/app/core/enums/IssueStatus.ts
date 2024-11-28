@@ -1,7 +1,9 @@
 export enum issueStatus
 {
-    Submitted=1,
-    Opened=2,
-    InProgress=3,
-    Closed=4
+  Submitted = 1,
+  Opened = 2,
+  Progress = 3,
+  WaitingForReplay = 4,
+  Reopend = 5,
+  Closed = 6
 }
