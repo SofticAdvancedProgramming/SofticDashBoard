@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -10,6 +10,7 @@ interface Field {
 }
 
 @Component({
+  changeDetection:ChangeDetectionStrategy.OnPush,
   selector: 'app-dynamic-modal',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
@@ -51,8 +52,10 @@ export class DynamicModalComponent implements OnInit, OnChanges {
       } else {
         formControls[field.name] = [this.isEdit ? this.formData[field.name] : null, field.required ? Validators.required : null];
       }
+      console.log("#######################")
     });
     this.form = this.fb.group(formControls);
+    console.log("------------------------")
   }
 
 

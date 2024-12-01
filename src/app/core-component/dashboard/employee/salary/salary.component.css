@@ -101,3 +101,11 @@
 .btn-save:hover {
   background-color: #6e1db2;
 }
+.modal {
+  display: block; /* Ensure it's visible when *ngIf is true */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+}

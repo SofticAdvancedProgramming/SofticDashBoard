@@ -54,7 +54,7 @@ export class SalaryComponent implements OnInit {
     { name: 'name', label: 'Benefit Name', type: 'text', required: true },
     { name: 'nameAr', label: 'Benefit Name (Arabic)', type: 'text', required: true }
   ];
-
+  employeeId: number = 0;
   activeTab: string = 'Entitlements';
   todayDate: string = "";
   isEdit = false;
@@ -63,7 +63,7 @@ export class SalaryComponent implements OnInit {
   dropDownData: any[] = [];
   financial: any[] = [];
   columns: string[] = ['amount', 'benefitTypeName'];
-  companyId = localStorage.getItem('companyId');
+   companyId = Number(localStorage.getItem('companyId'));
   salaryTypeId!: number;
   benefitTypes: any[] = [];
   benefitForm!: FormGroup;
@@ -74,10 +74,10 @@ export class SalaryComponent implements OnInit {
   totalRows: any = {
     employeeSalary: 0,
   };
+  showModal: boolean = false;
 
   form!: FormGroup;
-  employeeId = 0;
-  modalId = 'EditBenefit';
+   modalId = 'EditBenefit';
 
   constructor(
     private toast: ToastrService,
@@ -100,6 +100,12 @@ export class SalaryComponent implements OnInit {
     this.getSalary();
     this.loadBenefitTypes();
     this.loadEmployeeBenefits();
+    this.route.paramMap.subscribe(params => {
+      const employeeId = params.get('id');
+      if (employeeId) {
+        this.employeeId = Number(employeeId);   
+      }
+    });
   }
 
 
@@ -171,37 +177,33 @@ export class SalaryComponent implements OnInit {
   }
   submitBenefit() {
     if (this.benefitForm.invalid) {
-      console.log('Form is invalid');
-      this.benefitForm.markAllAsTouched();
+      this.benefitForm.markAllAsTouched();   
       return;
     }
-
-    const companyId = localStorage.getItem('companyId');
-    if (!companyId) {
-      this.toast.error('Company ID not found in localStorage');
-      return;
-    }
-
-    const benefitData = {
+  
+    const updatedBenefit = {
       ...this.benefitForm.value,
-      companyId,
-      benefitTypeId: Number(this.benefitForm.value.benefitTypeId),
+      id: this.formData.id,
+      companyId: this.companyId,
     };
-
-    console.log('Benefit Data:', benefitData);
-
-    this.benefitService.addEmployeeBenefit(benefitData).subscribe(
-      (res) => {
-        this.toast.success(this.translate.instant('employeeDetails.BENEFIT_ASSIGN_SUCCESS'));
-        this.loadEmployeeBenefits();
-        this.updateGrossSalary();
+  
+     this.benefitService.editBenefit(updatedBenefit).subscribe(
+      (response) => {
+        if (response.status === 200) {
+          this.toast.success('Benefit updated successfully');
+          this.loadEmployeeBenefits(); 
+          this.closeModal();  
+        } else {
+          this.toast.error('Error updating benefit');
+        }
       },
       (error) => {
-        console.error('Error submitting benefit:', error);
-        this.toast.error('Error submitting benefit');
+        console.error('Error updating benefit:', error);
+        this.toast.error('Error updating benefit');
       }
     );
   }
+  
 
   updateGrossSalary() {
     const totalBenefitAmount = this.financial.reduce((sum, benefit) => sum + benefit.amount, 0);
@@ -311,5 +313,13 @@ export class SalaryComponent implements OnInit {
       amount: item.amount,
     });
     this.modalId = 'EditBenefit';
+    this.showModal = true;
+    console.log('Modal open:', this.showModal); 
+  }
+  
+  
+  closeModal(): void {
+    this.showModal = false;   
+    this.benefitForm.reset();   
   }
 }
