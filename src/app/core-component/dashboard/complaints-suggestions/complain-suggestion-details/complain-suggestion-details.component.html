@@ -86,12 +86,12 @@
               <p class="lead">{{"complainDetails.comments"|translate}}</p>
               <div class="col-12"  *ngFor="let _commet of comments;index as i">
                 <div *ngIf="_commet.isAdmin" class=" py-1 w-75 rounded my-1 d-flex justify-content-start flex-row align-items-end"  > <!-- [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"  [ngStyle]="{'direction: rtl;':_commet.isAdmin==false}"-->
-                  <img src="../../../../../assets/images/Avatar (2).png" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
+                  <img src="../../../../../assets/images/default.jpeg" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
                   <p>{{_commet.comment}} </p>
                 </div>
                 <div *ngIf="!_commet.isAdmin" class="py-1 w-75 rounded my-1 d-flex justify-content-end flex-row align-items-end" [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"> <!-- [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"    [ngStyle]="{'direction: rtl;':_commet.isAdmin==false}"-->
                   <p>{{_commet.comment}} </p>
-                  <img src="../../../../../assets/images/Avatar (2).png" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
+                  <img src="../../../../../assets/images/default.jpeg" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
                 </div>
               </div>
 

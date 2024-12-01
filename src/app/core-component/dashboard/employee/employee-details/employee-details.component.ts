@@ -111,16 +111,20 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   }
   updateStatus(status: accountStatus): void {
     if (!this.id) return;
-    this.addRejectReason();
-    // this.adminService
-    //   .EditStatus({ id: this.id, accountStatus: status })
-    //   .subscribe({
-    //     next: (response: any) => {
-    //       this.toast.typeSuccess(`${response.message}`);
-    //       this.getEmployee();
-    //     },
-    //   });
+    this.adminService
+      .EditStatus({ id: this.id, accountStatus: status })
+      .subscribe({
+        next: (response: any) => {
+          this.toast.typeSuccess(`${response.message}`);
+          this.getEmployee();
+        },
+      });
   }
+  updateStatusToReject(status: accountStatus): void {
+    if (!this.id) return;
+    this.addRejectReason();
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
