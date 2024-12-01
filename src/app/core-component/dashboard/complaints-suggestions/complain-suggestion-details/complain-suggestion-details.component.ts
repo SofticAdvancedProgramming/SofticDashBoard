@@ -183,6 +183,25 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
     }
   }
 
+  getComplaintStatusName(issueStatusId: number): string {
+    switch (issueStatusId) {
+      case 1:
+        return this.translate.instant('status.submitted');
+      case 2:
+        return this.translate.instant('status.opened');
+      case 3:
+        return this.translate.instant('status.in_progress');
+      case 4:
+        return this.translate.instant('status.waiting');
+      case 5:
+          return this.translate.instant('status.reopen');
+      case 6:
+          return this.translate.instant('status.closed');
+      default:
+        return this.translate.instant('status.unknown');
+    }
+  }
+
   congrats(){
     this.router.navigate(['/dashboard/ComplaintsSuggestions'])
   }
