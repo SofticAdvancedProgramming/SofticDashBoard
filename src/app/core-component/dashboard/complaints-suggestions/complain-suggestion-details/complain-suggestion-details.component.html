@@ -26,20 +26,25 @@
                     <span class="label">{{ 'complainDetails.user.email' | translate }}</span>
                     <span class="value">{{ complaintDetails.email }}</span>
                 </div>
-
-               @if(complaintDetails.issueStatusId===issueStatus.Submitted)
+                @if(complaintDetails.issueTypeId==1)
+                {
+                 <div class="info-item">
+                     <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">Submitted</span>
+                 </div>
+                }
+               @else if(complaintDetails.issueStatusId===issueStatus.Submitted )
                {
                 <div class="info-item">
                     <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">Opened</span>
-
                 </div>
                }
                @else {
                 <div class="info-item">
                     <span class="label" [ngClass]="getStatusStyles(complaintDetails.issueStatusId)">{{complaintDetails.issueStatusId | enumToString:issueStatus}}</span>
-
                 </div>
                }
+
+
 
             </div>
         </div>
@@ -91,14 +96,14 @@
               </div>
 
             </div>
-            <div class="row info-row"  *ngIf="complaintDetails.issueStatusId!=6">
+            <div class="row info-row"  *ngIf="complaintDetails.issueStatusId!=6 &&complaintDetails.issueTypeId==2">
                 <div class="info-item">
                     <span class="label"><img src="../../../../../assets/images/bill.png">{{"complainDetails.Type your reply"|translate}}</span>
                     <textarea class="textarea" #comment placeholder="Type your replay......">  </textarea>
                 </div>
             </div>
-            <div class="row justify-content-center d-flex" *ngIf="complaintDetails.issueStatusId!=6">
-              <div class="col-lg-3"*ngIf="comments.length>=1">
+            <div class="row justify-content-center d-flex" *ngIf="complaintDetails.issueStatusId!=6 &&complaintDetails.issueTypeId==2">
+              <div class="col-lg-3"*ngIf="comments.length>=1 &&complaintDetails.issueTypeId==2">
                 <button class="btn w-100 wait-btn" (click)="wait()">{{"complainDetails.wait"|translate}}</button>
               </div>
                 <div class="col-lg-3">

@@ -112,7 +112,7 @@
     "NAME": "Company Name",
     "PHONE_NUMBER": "Phone Number",
     "TYPE": "Software Company",
-    "search_position":"search position"
+    "search_position":"Search Position"
   },
   "addBranch": {
     "BRANCH_NAME_EN": "Branch Name (English)",
@@ -619,7 +619,7 @@
     "submitted": "Submitted",
     "opened": "Opened",
     "in_progress": "In Progress",
-    "waiting": "waiting for reply",
+    "waiting": "Waiting For Reply",
     "reopen": "reopen",
     "closed": "Closed",
     "unknown": "Unknown"
@@ -628,10 +628,10 @@
   "complainDetails": {
     "loading": "Loading complaint details...",
     "error": "Error loading complaint details. Please try again later.",
-    "comments":"comments",
+    "comments":"Comments",
     "Type your reply":"Type your reply",
-    "wait":"wait for reply",
-    "submit":"submit",
+    "wait":"Wait For Reply",
+    "submit":"Submit",
     "congratulations":"congratulations",
     "congratulationsParagraph":"Your  Message  has been submitted successfully",
     "user": {

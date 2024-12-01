@@ -47,7 +47,9 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private issueCommentService:IssueCommentService,
     private issueService:IssueService
-  ) { }
+  ) {
+    console.log('welcome')
+  }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = Number(params.get('id'));
@@ -60,15 +62,16 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   }
 
   loadComplaintDetails(): void {
+    console.log(this.id);
     if (this.id) {
       this.loading = true;
       this.IssueExcuter.getIssueExcuterById(this.id).subscribe({
         next: (response) => {
-          //console.log("response data inside com",response)
+        //  console.log("response data inside com",response)
           //console.log("my responsekkkkkkkkkkkkkkkk",response)
           this.complaintDetails = response.data?.list[0].issue || null;
           this.issueExecuterId=response.data?.list[0].id;
-          //console.log("  this.complaintDetails",  this.complaintDetails)
+          console.log("  this.complaintDetails",  this.complaintDetails)
           this.loading = false;
           this.matchAgainstTypeName();
           //console.log(this.complaintDetails.companyId+' line 73 '+this.complaintDetails.id)
@@ -158,8 +161,6 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       }
     )
 
-   this.ngOnInit();
-   
 
   }
 
