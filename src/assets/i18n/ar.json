@@ -694,5 +694,12 @@
     "ADD_BENEFIT": "إضافة ميزة",
     "BENEFITS": "المزايا",
     "SEARCH_BENEFITS": "ابحث عن المزايا..."
-  }
+  },
+  "Salary Type In English": "نوع الراتب بالإنجليزية",
+  "Amount": "المبلغ",
+  "Search data": "بحث في البيانات",
+  "Edit Benefit": "تعديل الميزة",
+  "Benefit Type": "نوع الميزة",
+  "Enter benefit amount": "أدخل مبلغ الميزة",
+  "Cancel": "إلغاء"
 }

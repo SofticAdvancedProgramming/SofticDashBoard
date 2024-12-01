@@ -11,6 +11,8 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { BenefitTypeService } from '../../../../services/benefitTypeService/benefit-type.service';
 import { BenefitService } from '../../../../services/benefitService/benefit.service';
 import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
+import { DeletePopUpComponent } from "../../components/delete-pop-up/delete-pop-up.component";
+import { MatDialog } from '@angular/material/dialog';
 interface Salary {
   grossSalary: string;
   netSalary: string;
@@ -41,19 +43,16 @@ interface BenefitType {
   nameAr: string;
 }
 @Component({
-  selector: 'app-salary',
-  standalone: true,
-  templateUrl: './salary.component.html',
-  styleUrls: ['./salary.component.css'],
-  providers: [DatePipe],
-  imports: [TranslateModule, ReactiveFormsModule, ModernTableComponent, CommonModule, DatePipe, DynamicModalComponent]
+    selector: 'app-salary',
+    standalone: true,
+    templateUrl: './salary.component.html',
+    styleUrls: ['./salary.component.css'],
+    providers: [DatePipe],
+    imports: [TranslateModule, ReactiveFormsModule, ModernTableComponent, CommonModule, DatePipe, DynamicModalComponent, DeletePopUpComponent]
 })
 
 export class SalaryComponent implements OnInit {
-  structure = [
-    { name: 'name', label: 'Benefit Name', type: 'text', required: true },
-    { name: 'nameAr', label: 'Benefit Name (Arabic)', type: 'text', required: true }
-  ];
+  showDeleteModal: boolean = false;
   employeeId: number = 0;
   activeTab: string = 'Entitlements';
   todayDate: string = "";
@@ -68,6 +67,8 @@ export class SalaryComponent implements OnInit {
   benefitTypes: any[] = [];
   benefitForm!: FormGroup;
   formData: any = {};
+  benefitToDelete: { id: number, companyId: number } | null = null;
+
   pageIndex: any = {
     employeeSalary: 1,
   };
@@ -88,7 +89,8 @@ export class SalaryComponent implements OnInit {
     private toastersService: ToastersService,
     private datePipe: DatePipe,
     private benefitTypeService: BenefitTypeService,
-    private benefitService: BenefitService
+    private benefitService: BenefitService,
+    private dialog: MatDialog,
   ) {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -293,17 +295,18 @@ export class SalaryComponent implements OnInit {
   
 
 
-
-  deleteBenefit(id: number, companyId: number): void {
-    this.benefitService.deleteBenefit(id, companyId).subscribe(
-      (response: any) => {
-        if (response.status === 200) {
-          this.loadEmployeeBenefits();
-        }
-      },
-
-    );
+  openDeleteConfirmation(benefitId: number, companyId: number): void {
+     this.benefitToDelete = { id: benefitId, companyId };
   }
+
+   confirmDelete(): void {
+    if (this.benefitToDelete) {
+      this.deleteBenefit(this.benefitToDelete.id, this.benefitToDelete.companyId);
+      this.benefitToDelete = null;   
+    }
+  }
+
+ 
 
   openEditModal(benefit: any): void {
     this.isEdit = true;
@@ -324,4 +327,30 @@ export class SalaryComponent implements OnInit {
     this.showModal = false;
     this.resetForm();
   }
+  openDeleteModal(item: { id: number, companyId: number }): void {
+    this.benefitToDelete = item;
+    this.showDeleteModal = true;
+  }
+  deleteBenefit(id: number, companyId: number): void {
+    this.benefitService.deleteBenefit(id, companyId).subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          this.loadEmployeeBenefits();  
+          this.toast.success('Benefit deleted successfully');
+        } else {
+          this.toast.error('Failed to delete benefit');
+        }
+      },
+      (error) => {
+        console.error('Error deleting benefit:', error);
+        this.toast.error('Error deleting benefit');
+      }
+    );
+  }
+  
+ 
+ 
+
+ 
+
 }

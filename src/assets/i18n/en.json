@@ -693,5 +693,12 @@
     "ADD_BENEFIT": "Add Benefit",
     "BENEFITS": "Benefits",
     "SEARCH_BENEFITS": "Search benefits..."
-  }
+  },
+  "Salary Type In English": "Salary Type in English",
+  "Amount": "Amount",
+  "Search data": "Search data",
+  "Edit Benefit": "Edit Benefit",
+  "Benefit Type": "Benefit Type",
+  "Enter benefit amount": "Enter benefit amount",
+   "Cancel": "Cancel"
 }
