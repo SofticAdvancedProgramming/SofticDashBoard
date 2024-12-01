@@ -205,19 +205,30 @@ export class SalaryComponent implements OnInit {
       this.benefitForm.markAllAsTouched();
       return;
     }
-
-    const benefitData = { ...this.benefitForm.value, id: this.formData.id };
-
+  
+    const benefitData = {
+      ...this.benefitForm.value,
+      id: this.formData.id,
+      employeeId: this.employeeId,   
+      companyId: this.companyId      
+    };  
+      
+  
     this.benefitService.editBenefit(benefitData).subscribe(
       (response) => {
         if (response.status === 200) {
           this.toast.success('Benefit updated successfully');
           this.closeModal();
+          this.loadEmployeeBenefits();
         }
+        console.log(response, "edit hereeeee")
       },
-
+      (error) => {
+        this.toast.error('Error updating benefit');
+      }
     );
   }
+  
   updateGrossSalary() {
     const totalBenefitAmount = this.financial.reduce((sum, benefit) => sum + benefit.amount, 0);
 
@@ -263,7 +274,11 @@ export class SalaryComponent implements OnInit {
             benefitTypeName: benefit.benefitTypeName,
           }));
           this.totalRows['employeeSalary'] = res.data.total;
-          const totalBenefitAmount = this.financial.reduce((sum, benefit) => sum + benefit.amount, 0);
+  
+          const totalBenefitAmount = this.financial.reduce(
+            (sum, benefit) => sum + benefit.amount,
+            0
+          );
           this.updateGrossSalary();
         } else {
           this.toast.error('Failed to load employee benefits');
@@ -292,13 +307,14 @@ export class SalaryComponent implements OnInit {
 
   openEditModal(benefit: any): void {
     this.isEdit = true;
-    this.formData = { ...benefit };
+    this.formData = { ...benefit };  
     this.benefitForm.patchValue({
       benefitTypeId: benefit.benefitTypeId,
       amount: benefit.amount
     });
     this.showModal = true;
   }
+  
 
   resetForm(): void {
     this.benefitForm.reset();
