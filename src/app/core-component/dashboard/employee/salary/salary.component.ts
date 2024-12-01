@@ -63,7 +63,7 @@ export class SalaryComponent implements OnInit {
   dropDownData: any[] = [];
   financial: any[] = [];
   columns: string[] = ['amount', 'benefitTypeName'];
-   companyId = Number(localStorage.getItem('companyId'));
+  companyId = Number(localStorage.getItem('companyId'));
   salaryTypeId!: number;
   benefitTypes: any[] = [];
   benefitForm!: FormGroup;
@@ -77,7 +77,6 @@ export class SalaryComponent implements OnInit {
   showModal: boolean = false;
 
   form!: FormGroup;
-   modalId = 'EditBenefit';
 
   constructor(
     private toast: ToastrService,
@@ -103,7 +102,7 @@ export class SalaryComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const employeeId = params.get('id');
       if (employeeId) {
-        this.employeeId = Number(employeeId);   
+        this.employeeId = Number(employeeId);
       }
     });
   }
@@ -136,10 +135,6 @@ export class SalaryComponent implements OnInit {
         this.toast.success(this.translate.instant('employeeDetails.SALARY_ASSIGN_SUCCESS'));
         this.getSalary();
       },
-      (error) => {
-        this.toast.error(this.translate.instant('employeeDetails.SALARY_ASSIGN_ERROR'));
-        console.error('Error assigning salary:', error);
-      }
     );
   }
 
@@ -165,46 +160,64 @@ export class SalaryComponent implements OnInit {
       (response) => {
         if (response.status === 200) {
           this.benefitTypes = response.data.list;
-        } else {
-          this.toast.error('Failed to load benefit types');
+        }
+      },
+    );
+  }
+
+  submitAddBenefit(): void {
+    if (this.benefitForm.invalid) {
+      this.benefitForm.markAllAsTouched();
+      return;
+    }
+
+    const benefitData = this.benefitForm.value;
+    benefitData.employeeId = this.employeeId;
+    benefitData.benefitTypeId = Number(benefitData.benefitTypeId);
+
+    this.benefitService.addEmployeeBenefit(benefitData).subscribe(
+      (response) => {
+        if (response.status === 200) {
+          this.toast.success('Benefit added successfully');
+
+          const newBenefit = response.data;
+
+          this.financial.push({
+            amount: newBenefit.amount,
+            benefitTypeName: newBenefit.benefitTypeName,
+          });
+
+          this.totalRows['employeeSalary'] = this.financial.length;
+
+          this.updateGrossSalary();
+
+          this.resetForm();
         }
       },
       (error) => {
-        console.error('Error loading benefit types:', error);
-        this.toast.error('Error loading benefit types');
+        this.toast.error('Error adding benefit');
       }
     );
   }
-  submitBenefit() {
+
+  submitBenefit(): void {
     if (this.benefitForm.invalid) {
-      this.benefitForm.markAllAsTouched();   
+      this.benefitForm.markAllAsTouched();
       return;
     }
-  
-    const updatedBenefit = {
-      ...this.benefitForm.value,
-      id: this.formData.id,
-      companyId: this.companyId,
-    };
-  
-     this.benefitService.editBenefit(updatedBenefit).subscribe(
+
+    const benefitData = { ...this.benefitForm.value, id: this.formData.id };
+
+    this.benefitService.editBenefit(benefitData).subscribe(
       (response) => {
         if (response.status === 200) {
           this.toast.success('Benefit updated successfully');
-          this.loadEmployeeBenefits(); 
-          this.closeModal();  
-        } else {
-          this.toast.error('Error updating benefit');
+          this.closeModal();
         }
       },
-      (error) => {
-        console.error('Error updating benefit:', error);
-        this.toast.error('Error updating benefit');
-      }
+
     );
   }
-  
-
   updateGrossSalary() {
     const totalBenefitAmount = this.financial.reduce((sum, benefit) => sum + benefit.amount, 0);
 
@@ -220,12 +233,7 @@ export class SalaryComponent implements OnInit {
 
     this.employeeService.assginEmployeeSalary(updatedSalaryData).subscribe(
       (res) => {
-        this.toast.success(this.translate.instant('employeeDetails.SALARY_UPDATED_SUCCESS'));
         this.getSalary();
-      },
-      (error) => {
-        console.error('Error updating salary:', error);
-        this.toast.error('Error updating salary');
       }
     );
   }
@@ -236,13 +244,17 @@ export class SalaryComponent implements OnInit {
       employeeId: [this.employeeId],
       benefitTypeId: [null, [Validators.required]],
       amount: [null, [Validators.required, Validators.min(0)]],
+      companyId: [this.companyId]
     });
   }
-  loadEmployeeBenefits() {
+
+  loadEmployeeBenefits(page: number = 1, pageSize: number = 10) {
     const request = {
       employeeId: this.employeeId,
+      page,
+      pageSize,
     };
-
+  
     this.benefitService.GetEmployeeBenefit(request).subscribe(
       (res: any) => {
         if (res.status === 200) {
@@ -250,76 +262,50 @@ export class SalaryComponent implements OnInit {
             ...benefit,
             benefitTypeName: benefit.benefitTypeName,
           }));
-          this.totalRows['employeeSalary'] = res.data.list.length;
-
+          this.totalRows['employeeSalary'] = res.data.total;
           const totalBenefitAmount = this.financial.reduce((sum, benefit) => sum + benefit.amount, 0);
-
           this.updateGrossSalary();
         } else {
           this.toast.error('Failed to load employee benefits');
         }
       },
       (error) => {
+        this.toast.error('An error occurred while loading employee benefits.');
         console.error('Error loading employee benefits:', error);
-        this.toast.error('Error loading employee benefits');
       }
     );
   }
- 
+  
 
-  handleFormSubmission(data: any): void {
-    if (this.isEdit) {
-      data.companyId = this.companyId;
-      data.id = this.formData.id;
-      this.editBenefit( data);
-    }  
-  }
-  editBenefit(updatedEntity: any): void {
-    this.benefitService.editBenefit(updatedEntity).subscribe(
-      (response: any) => {
-        if (response.status === 200) {
-          this.loadEmployeeBenefits();
-        } else {
-          this.toast.error('Error updating benefit');
-        }
-      },
-      (error) => {
-        console.error('Error updating benefit:', error);
-        this.toast.error('Error updating benefit');
-      }
-    );
-  }
+
+
   deleteBenefit(id: number, companyId: number): void {
-    this.benefitService.deleteBenefit(id , companyId).subscribe(
+    this.benefitService.deleteBenefit(id, companyId).subscribe(
       (response: any) => {
         if (response.status === 200) {
           this.loadEmployeeBenefits();
-        } else {
-          this.toast.error('Error deleting benefit');
         }
       },
-      (error) => {
-        console.error('Error deleting benefit:', error);
-        this.toast.error('Error deleting benefit');
-      }
+
     );
   }
 
-  openEditModal(item: any): void {
+  openEditModal(benefit: any): void {
     this.isEdit = true;
-    this.formData = { ...item };
+    this.formData = { ...benefit };
     this.benefitForm.patchValue({
-      benefitTypeId: item.benefitTypeId,
-      amount: item.amount,
+      benefitTypeId: benefit.benefitTypeId,
+      amount: benefit.amount
     });
-    this.modalId = 'EditBenefit';
     this.showModal = true;
-    console.log('Modal open:', this.showModal); 
   }
-  
-  
+
+  resetForm(): void {
+    this.benefitForm.reset();
+    this.isEdit = false;
+  }
   closeModal(): void {
-    this.showModal = false;   
-    this.benefitForm.reset();   
+    this.showModal = false;
+    this.resetForm();
   }
 }

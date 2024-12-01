@@ -54,78 +54,68 @@
       <div class="col-lg-5">
         <div class="form-group">
           <label for="amount">{{ 'Amount' }}</label>
-          <input type="number" id="amount" formControlName="amount" class="form-control" placeholder="10,000">
+          <input type="number" id="amount" formControlName="amount" class="form-control" placeholder="Enter amount">
         </div>
       </div>
     </div>
-  </form>
 
-  <div class="row justify-content-center align-items-center mt-3">
-    <div class="col-lg-6 d-flex  ">
-      <button class="btn-save" (click)="submitBenefit()">{{ 'Save' | translate }}</button>
+    <!-- Save Button -->
+    <div class="row justify-content-center align-items-center mt-3">
+      <div class="col-lg-6 d-flex">
+        <button type="button" class="btn-save" (click)="submitAddBenefit()">{{ 'Save' | translate }}</button>
+      </div>
     </div>
-  </div>
+  </form>
+ 
 </div>
 <div class="container mt-4">
   <app-modern-table
-    [isThereSearch]="false"
-    (newReqByPage)="loadEmployeeBenefits()"
-    (searchApi)="loadEmployeeBenefits()"
-    [totalRows]="totalRows['employeeSalary']"
-    [tableTitle]="activeTab"
-    [tableData]="financial"
-    [columns]="columns"
-    searchPlaceholder="Search data..."
-    (editItem)="openEditModal($event)"
-    (deleteItem)="deleteBenefit($event.id , $event.companyId)"
-  >
-  </app-modern-table>
+  [isThereSearch]="false"
+  (newReqByPage)="loadEmployeeBenefits()"
+  (searchApi)="loadEmployeeBenefits()"
+  [totalRows]="totalRows['employeeSalary']"
+  [tableTitle]="activeTab"
+  [tableData]="financial"
+  [columns]="columns"
+  searchPlaceholder="Search data..."
+  (editItem)="openEditModal($event)"
+  (deleteItem)="deleteBenefit($event.id , $event.companyId)"
+>
+</app-modern-table>
+
  
 </div>
 
 
-<!-- Dynamic Modal (Edit Benefit Modal) -->
-<div *ngIf="showModal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">{{ 'Edit Benefit' | translate }}</h5>
-        <button type="button" class="close" (click)="closeModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="benefitForm">
-          <div class="form-group">
-            <label for="benefitTypeId">{{ 'Benefit Type' | translate }}</label>
-            <select id="benefitTypeId" formControlName="benefitTypeId" class="form-control" required>
-              <option *ngFor="let benefitType of benefitTypes" [value]="benefitType.id">
-                {{ benefitType.name }}
-              </option>
-            </select>
-          </div>
+<div *ngIf="showModal" class="modal" id="benefit-modal" [ngClass]="{'show': showModal}">
+  <div class="modal-content">
+    <h2>Edit Benefit</h2>
 
-          <div class="form-group">
-            <label for="amount">{{ 'Amount' | translate }}</label>
-            <input
-              type="number"
-              id="amount"
-              formControlName="amount"
-              class="form-control"
-              required
-              [min]="0"
-            />
-          </div>
-        </form>
+    <form [formGroup]="benefitForm" (ngSubmit)="submitBenefit()">
+      <div class="form-group">
+        <label for="benefitTypeId">{{ 'Benefit Type' | translate }}</label>
+        <select id="benefitTypeId" formControlName="benefitTypeId" class="form-control">
+          <option *ngFor="let benefitType of benefitTypes" [value]="benefitType.id">
+            {{ benefitType.name }}
+          </option>
+        </select>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeModal()">
-          {{ 'Close' | translate }}
-        </button>
-        <button type="button" class="btn btn-primary" (click)="submitBenefit()">
-          {{ 'Save Changes' | translate }}
-        </button>
+
+      <div class="form-group">
+        <label for="amount">{{ 'Amount' | translate }}</label>
+        <input
+          type="number"
+          id="amount"
+          formControlName="amount"
+          class="form-control"
+          placeholder="{{ 'Enter benefit amount' | translate }}"
+        />
       </div>
-    </div>
+
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">{{ 'Update Benefit' | translate }}</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">{{ 'Cancel' | translate }}</button>
+      </div>
+    </form>
   </div>
 </div>
