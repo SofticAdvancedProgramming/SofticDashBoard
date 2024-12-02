@@ -29,20 +29,21 @@
                 @if(complaintDetails.issueTypeId==1)
                 {
                  <div class="info-item">
-                     <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">Submitted</span>
+                     <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">{{ getComplaintStatusName(1) }}</span>
                  </div>
                 }
                @else if(complaintDetails.issueStatusId===issueStatus.Submitted )
                {
                 <div class="info-item">
-                    <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">Opened</span>
+                    <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">{{ getComplaintStatusName(2) }}</span>
                 </div>
                }
                @else {
                 <div class="info-item">
-                    <span class="label" [ngClass]="getStatusStyles(complaintDetails.issueStatusId)">{{complaintDetails.issueStatusId | enumToString:issueStatus}}</span>
+                    <span class="label" [ngClass]="getStatusStyles(complaintDetails.issueStatusId)"> {{ getComplaintStatusName(complaintDetails.issueStatusId) }}</span>
                 </div>
                }
+               <!-- {{complaintDetails.issueStatusId | enumToString:issueStatus}}  -->
 
 
 
@@ -86,12 +87,12 @@
               <p class="lead">{{"complainDetails.comments"|translate}}</p>
               <div class="col-12"  *ngFor="let _commet of comments;index as i">
                 <div *ngIf="_commet.isAdmin" class=" py-1 w-75 rounded my-1 d-flex justify-content-start flex-row align-items-end"  > <!-- [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"  [ngStyle]="{'direction: rtl;':_commet.isAdmin==false}"-->
-                  <img src="../../../../../assets/images/Avatar (2).png" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
+                  <img src="../../../../../assets/images/default.jpeg" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
                   <p>{{_commet.comment}} </p>
                 </div>
                 <div *ngIf="!_commet.isAdmin" class="py-1 w-75 rounded my-1 d-flex justify-content-end flex-row align-items-end" [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"> <!-- [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"    [ngStyle]="{'direction: rtl;':_commet.isAdmin==false}"-->
                   <p>{{_commet.comment}} </p>
-                  <img src="../../../../../assets/images/Avatar (2).png" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
+                  <img src="../../../../../assets/images/default.jpeg" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
                 </div>
               </div>
 
