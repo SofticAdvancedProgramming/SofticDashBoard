@@ -10,7 +10,7 @@
             <button class="btn action-btn"><img src="../../../../../assets/images/document-upload.png">Import
                 Excel</button>
 
-            <button class="btn action-btn"><img src="../../../../../assets/images/add-square.png">Add Assets</button>
+            <button class="btn action-btn" routerLink="../AddAssets"><img src="../../../../../assets/images/add-square.png">Add Assets</button>
         </div>
     </div>
     <div class="row mt-3">
@@ -46,11 +46,11 @@
             </div>
         </div>
     </div>
- <div class="row">
-    <div class="col-lg-6">
+ <div class="row mt-3">
+    <div class="col-lg-6 chart">
         <app-basic-line-chart [chartOptions]="barChartOptions"></app-basic-line-chart>
     </div>
-<div class="col-lg-6 d-flex justify-content-center align-items-center">
+<div class="col-lg-6 chart d-flex justify-content-center align-items-center">
     <app-basic-donut-chart [chartOptions]="donutChartOptions"></app-basic-donut-chart>
 
 </div>

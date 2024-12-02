@@ -15,6 +15,7 @@ import {
 } from 'ng-apexcharts';
 import { BasicLineChartComponent } from "../../../../common-component/basic-line-chart/basic-line-chart.component";
 import { BasicDonutChartComponent } from "../../../../common-component/basic-donut-chart/basic-donut-chart.component";
+import { RouterLink } from '@angular/router';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -34,7 +35,7 @@ export type ChartOptions = {
     standalone: true,
     templateUrl: './assets-index.component.html',
     styleUrls: ['./assets-index.component.css'],
-    imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent]
+    imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent,RouterLink]
 })
 export class AssetsIndexComponent {
 
