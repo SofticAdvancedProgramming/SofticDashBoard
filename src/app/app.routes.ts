@@ -36,6 +36,7 @@ import { AddLocationComponent } from './core-component/dashboard/employee/add-lo
 import { HomeIndexComponent } from './core-component/dashboard/homeIndex/home.component';
 import { CurrencyTypeComponent } from './core-component/dashboard/setting/Lockups/currency-type/currency-type.component';
 import { BenefitTypeComponent } from './core-component/dashboard/setting/Lockups/benefit-type/benefit-type.component';
+import { AssetsIndexComponent } from './core-component/dashboard/assets/assets-index/assets-index.component';
 
 export const routes: Routes = [
   {
@@ -80,6 +81,7 @@ export const routes: Routes = [
       { path: 'ComplaintsSuggestions', component: ComplaintsSuggestionsComponent  },
       { path: 'ComplainSuggestionDetails/:id', component: ComplainSuggestionDetailsComponent },
       { path: 'employee-details/:id', component: EmployeeDetailsComponent },
+      { path: 'AssetsIndex', component: AssetsIndexComponent },
       { path: 'employee-locations/:id', component: AddLocationComponent }
         ],
   },{

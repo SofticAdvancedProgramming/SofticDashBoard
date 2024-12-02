@@ -102,6 +102,16 @@
         <span>{{ "SIDEBAR.EMPLOYEE" | translate }}</span>
       </a>
     </li>
+    <li
+      class="sidebar-item"
+      *ngIf="role[0] === 'Admin'"
+      routerLinkActive="active-link"
+    >
+      <a routerLink="/dashboard/AssetsIndex" class="sidebar-link">
+        <img src="../../../../assets/images/chart.png" />
+        <span>{{ "SIDEBAR.ASSETS" | translate }}</span>
+      </a>
+    </li>
   </ul>
   <div class="sidebar-footer">
     <a
