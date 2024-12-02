@@ -14,6 +14,8 @@ import {
   ChartComponent
 } from 'ng-apexcharts';
 import { BasicLineChartComponent } from "../../../../common-component/basic-line-chart/basic-line-chart.component";
+import { BasicDonutChartComponent } from "../../../../common-component/basic-donut-chart/basic-donut-chart.component";
+
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -31,12 +33,13 @@ export type ChartOptions = {
     selector: 'app-assets-index',
     standalone: true,
     templateUrl: './assets-index.component.html',
-    styleUrl: './assets-index.component.css',
-    imports: [BasicLineChartComponent,NgApexchartsModule]
+    styleUrls: ['./assets-index.component.css'],
+    imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent]
 })
 export class AssetsIndexComponent {
 
-  chartOptions = {
+  // Bar Chart Options
+  barChartOptions = {
     series: [
       {
         name: 'Assets',
@@ -83,5 +86,37 @@ export class AssetsIndexComponent {
       show: true
     }
   };
-  
+
+  donutChartOptions = {
+    series: [44, 55, 41, 17, 15],  
+    chart: {
+      width: 380,
+      type: 'donut' as ChartType  
+    },
+    labels: ['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5'],  
+    dataLabels: {
+      enabled: false
+    },
+    fill: {
+      type: 'gradient' // Gradient fill
+    },
+    legend: {
+      formatter: function(val: any, opts: any) {
+        return `${val} - ${opts.w.globals.series[opts.seriesIndex]}`; // Legend formatter
+      }
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }
+    ]
+  };
 }

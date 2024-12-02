@@ -48,8 +48,11 @@
     </div>
  <div class="row">
     <div class="col-lg-6">
-        <app-basic-line-chart [chartOptions]="chartOptions"></app-basic-line-chart>
+        <app-basic-line-chart [chartOptions]="barChartOptions"></app-basic-line-chart>
     </div>
+<div class="col-lg-6 d-flex justify-content-center align-items-center">
+    <app-basic-donut-chart [chartOptions]="donutChartOptions"></app-basic-donut-chart>
 
+</div>
  </div>
 </div>
