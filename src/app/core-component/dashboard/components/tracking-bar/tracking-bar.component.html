@@ -18,8 +18,8 @@
 
 <div class="details">
     <div *ngFor="let step of steps; let i = index" [ngClass]="{'current': i === currentStep}" >
-        <div class="recieverName text-end" *ngIf="step.name!='Waiting'">{{step.name}}  </div>
-        <div class="recieverName text-end"*ngIf="step.name=='Waiting'">Waiting for replay </div>
+        <div class="recieverName text-end" *ngIf="step.name!='Waiting'">{{ getComplaintStatusName(i+1)}}</div> <!--{{step.name}} -->
+        <div class="recieverName text-end"*ngIf="step.name=='Waiting'">{{ getComplaintStatusName(i+1)}}</div>
         <!-- <div class="recieverTitle"><i>{{ step.name }}</i></div>
         <div *ngIf="step.name === 'Submitted'" class="status-indicator">submitted</div>
         <div *ngIf="step.name === 'opened'" class="status-indicator">opened</div>

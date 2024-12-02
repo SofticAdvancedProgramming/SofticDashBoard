@@ -89,13 +89,13 @@ export class ComplaintsSuggestionsComponent {
             }));
 
             this.filteredComplaints = this.complaints;
-            console.log("dddddaaaatttttaaa",this.filteredComplaints)
+           // console.log("dddddaaaatttttaaa",this.filteredComplaints)
             this.totalComplaints = response.data.totalRows || 0;
           }
         },
         error: (error) => {
           this.loading = false;
-          console.error('Error fetching complaints/suggestions:', error);
+        //  console.error('Error fetching complaints/suggestions:', error);
         },
       });
     }
@@ -146,7 +146,7 @@ export class ComplaintsSuggestionsComponent {
 
    // console.log("filteredComplaintsfilteredComplaints",this.filteredComplaints)
     //2-check for status
-    //debugger
+   // debugger
       this.IssueExcuter.getIssueExcuterById(complaintId).subscribe({
         next: (response) => {
         console.log("my response data",response)
@@ -158,17 +158,17 @@ export class ComplaintsSuggestionsComponent {
             this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.Opened).subscribe({
               next:data=>
                 {
-                 // console.log("sddddsssssssssssssssssss",data)
+                  console.log("sddddsssssssssssssssssss",data)
 
                 }
             });
          }
           this.loading = false;
-        //  console.log('Complaint details loaded:', this.complaintDetails);
+          console.log('Complaint details loaded:', this.complaintDetails);
         },
         error: (error) => {
           this.loading = false;
-         // console.error('Error fetching complaint details:', error);
+          console.error('Error fetching complaint details:', error);
         }
       });
 

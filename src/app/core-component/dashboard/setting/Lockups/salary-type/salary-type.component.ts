@@ -4,17 +4,18 @@ import { ModernTableComponent } from '../../../components/modern-table/modern-ta
 import { SalaryTypeService } from '../../../../../services/lockupsServices/SalaryService/salary.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-salary-type',
   standalone: true,
-  imports: [DynamicModalComponent, ModernTableComponent, FormsModule, CommonModule],
+  imports: [DynamicModalComponent, ModernTableComponent, FormsModule, CommonModule, TranslateModule],
   templateUrl: './salary-type.component.html',
   styleUrls: ['./salary-type.component.css'],
 })
 export class SalaryTypeComponent {
   SalaryTypes: any[] = [];
-  columns: string[] = [  'name', 'nameAr'];
+  columns: string[] = ['name' , 'nameAr'];
   deleteId: string = 'deleteSalaryType';
   formData: any = {};
   isEdit = false;
@@ -46,12 +47,15 @@ export class SalaryTypeComponent {
     },
   };
 
-  constructor(private salaryTypeService: SalaryTypeService) {
+  constructor(private salaryTypeService: SalaryTypeService, private translate:TranslateService) {
     this.companyId = Number(localStorage.getItem('companyId')) || 0;
   }
 
   ngOnInit(): void {
     this.loadEntities('SalaryType', 1);
+    // this.translate.get(['name', 'nameAr']).subscribe(translations => {
+    //   this.columns = [translations['name'], translations['nameAr']];
+    // });
   }
 
   loadEntities(entity: string, pageIndex: number, name?: string): void {

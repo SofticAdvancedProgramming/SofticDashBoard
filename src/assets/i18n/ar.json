@@ -683,6 +683,21 @@
     }
   },
   "CURRENCY": {
+    "SAR": "Saudi Riyal",
+    "EGP": "Egyptian Pound",
+    "USD": "US Dollar"
+  },
+  "defaultPopUp": {
+    "Default":"افتراضي",
+    "question": "هل أنت متأكد أنك تريد جعل هذه العملة افتراضية؟",
+    "Cancel": "الغاء",
+    "Confirm": "تأكيد"
+  },
+  "deletePopUp": {
+    "Delete":"حذف",
+    "question": "هل انت متاكد من عملية الحذف؟",
+    "Cancel": "الغاء",
+    "delete": "مسح",
     "SAR": "ريال سعودي",
     "EGP": "جنية مصري",
     "USD": "دولار امريكي"
@@ -690,6 +705,15 @@
   "DATE_ERROR": {
     "END_BEFORE_START": "لا يمكن أن يكون تاريخ النهاية قبل تاريخ البداية."
   },
+  "name": "الاسم",
+  "nameAr": "الاسم (بالعربية)",
+   "Export to Excel": "اخرجه الي الاكسيل",
+  "Add Currency": "اضافه عملة",
+  "Currency Types": "انواع العملات",
+  "Add Salary": "اضافة مرتب",
+  "Type": "النوع",
+  "Salary Types": "انواع المرتبات",
+  "Add Position": "اضافة منصب",
   "benefitType": {
     "ADD_BENEFIT": "إضافة ميزة",
     "BENEFITS": "المزايا",
@@ -702,4 +726,5 @@
   "Benefit Type": "نوع الميزة",
   "Enter benefit amount": "أدخل مبلغ الميزة",
   "Cancel": "إلغاء"
+
 }

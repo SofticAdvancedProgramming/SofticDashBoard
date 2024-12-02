@@ -45,11 +45,19 @@
                             <span class="against-type">{{ complaint.againstTypeName }}</span>
                         </div>
                         <div class="complaint-actions mt-3 justify-content-between d-flex">
-                           
+
                             <div class="complaint-actions mt-3 justify-content-between d-flex">
+                              @if(complaint.issue.issueTypeId==2){
                                 <span class="status" [ngClass]="getStatusClass(complaint.issue.issueStatusId)">
-                                    {{ getComplaintStatusName(complaint.issue.issueStatusId) }}
-                                </span>
+                                  {{ getComplaintStatusName(complaint.issue.issueStatusId) }}
+                              </span>
+                              }
+                              @else {
+                                <span class="status status-submitted" >
+                                 {{'status.submitted'| translate}}
+                              </span>
+                              }
+
                             </div>
 
                             <button class="delete-button"

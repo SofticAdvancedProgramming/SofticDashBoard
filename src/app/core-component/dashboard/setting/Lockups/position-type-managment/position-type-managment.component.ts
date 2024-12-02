@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { DynamicModalComponent } from '../../../components/dynamic-modal/dynamic-modal.component';
 import { ModernTableComponent } from '../../../components/modern-table/modern-table.component';
 import { PositionTypeService } from '../../../../../services/lockupsServices/positionTypeService/position-type.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-position-type-managment',
   standalone: true,
   templateUrl: './position-type-managment.component.html',
   styleUrls: ['./position-type-managment.component.css'],
-  imports: [DynamicModalComponent, ModernTableComponent]
+  imports: [DynamicModalComponent, ModernTableComponent, TranslateModule]
 })
 export class PositionTypeManagmentComponent implements OnInit {
   PositionTypes: any[] = [];

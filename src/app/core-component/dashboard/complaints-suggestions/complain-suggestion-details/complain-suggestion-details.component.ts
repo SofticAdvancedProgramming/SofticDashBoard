@@ -47,7 +47,9 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private issueCommentService:IssueCommentService,
     private issueService:IssueService
-  ) { }
+  ) {
+    console.log('welcome')
+  }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = Number(params.get('id'));
@@ -60,15 +62,16 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   }
 
   loadComplaintDetails(): void {
+    console.log(this.id);
     if (this.id) {
       this.loading = true;
       this.IssueExcuter.getIssueExcuterById(this.id).subscribe({
         next: (response) => {
-          //console.log("response data inside com",response)
+        //  console.log("response data inside com",response)
           //console.log("my responsekkkkkkkkkkkkkkkk",response)
           this.complaintDetails = response.data?.list[0].issue || null;
           this.issueExecuterId=response.data?.list[0].id;
-          //console.log("  this.complaintDetails",  this.complaintDetails)
+          console.log("  this.complaintDetails",  this.complaintDetails)
           this.loading = false;
           this.matchAgainstTypeName();
           //console.log(this.complaintDetails.companyId+' line 73 '+this.complaintDetails.id)
@@ -158,8 +161,6 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       }
     )
 
-   this.ngOnInit();
-   
 
   }
 
@@ -179,6 +180,25 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
         return 'badge-closed';     // Red
       default:
         return '';
+    }
+  }
+
+  getComplaintStatusName(issueStatusId: number): string {
+    switch (issueStatusId) {
+      case 1:
+        return this.translate.instant('status.submitted');
+      case 2:
+        return this.translate.instant('status.opened');
+      case 3:
+        return this.translate.instant('status.in_progress');
+      case 4:
+        return this.translate.instant('status.waiting');
+      case 5:
+          return this.translate.instant('status.reopen');
+      case 6:
+          return this.translate.instant('status.closed');
+      default:
+        return this.translate.instant('status.unknown');
     }
   }
 
