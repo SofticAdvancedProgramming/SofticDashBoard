@@ -1,6 +1,4 @@
-import {  Input,   ChangeDetectionStrategy, OnChanges } from '@angular/core';
-import { Component, ViewChild } from "@angular/core";
-import { BrowserModule } from '@angular/platform-browser';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -13,97 +11,80 @@ import {
   ApexXAxis,
   ApexFill,
   ApexTooltip,
-  NgApexchartsModule} from "ng-apexcharts";
- 
+  NgApexchartsModule,
+  ChartType  
+} from 'ng-apexcharts';
+ import { CommonModule } from '@angular/common';
 
-  export type ChartOptions = {
-    series: ApexAxisChartSeries;
-    chart: ApexChart;
-    dataLabels: ApexDataLabels;
-    plotOptions: ApexPlotOptions;
-    yaxis: ApexYAxis;
-    xaxis: ApexXAxis;
-    fill: ApexFill;
-    tooltip: ApexTooltip;
-    stroke: ApexStroke;
-    legend: ApexLegend;
-  };
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
+  stroke: ApexStroke;
+  legend: ApexLegend;
+};
+
 @Component({
   selector: 'app-basic-line-chart',
   standalone: true,
-    templateUrl: './basic-line-chart.component.html',
+  templateUrl: './basic-line-chart.component.html',
   styleUrls: ['./basic-line-chart.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [BrowserModule, NgApexchartsModule],
+  imports: [CommonModule, NgApexchartsModule],
 })
+export class BasicLineChartComponent implements OnInit {
+  @ViewChild('chart') chart?: ChartComponent;
+  
+  @Input() chartOptions: ChartOptions = {} as ChartOptions;  // Enforce non-optional input
+  
+  constructor() {}
 
- 
- export class BasicLineChartComponent{
-  @ViewChild("chart") chart?: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
-
-  constructor() {
+  ngOnInit(): void {
+    // Provide default values for missing chart options
     this.chartOptions = {
-      series: [
-        {
-          name: "Net Profit",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-        },
-        {
-          name: "Revenue",
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-        },
-        {
-          name: "Free Cash Flow",
-          data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-        }
-      ],
-      chart: {
-        type: "bar",
+      series: this.chartOptions.series || [],
+      chart: this.chartOptions.chart || {
+        type: 'bar',
         height: 350
       },
-      plotOptions: {
+      
+      plotOptions: this.chartOptions.plotOptions || {
         bar: {
           horizontal: false,
-          columnWidth: "55%",
-         }
+          columnWidth: '55%',
+        }
       },
-      dataLabels: {
+      dataLabels: this.chartOptions.dataLabels || {
         enabled: false
       },
-      stroke: {
+      stroke: this.chartOptions.stroke || {
         show: true,
         width: 2,
-        colors: ["transparent"]
+        colors: ['transparent']
       },
-      xaxis: {
-        categories: [
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct"
-        ]
+      xaxis: this.chartOptions.xaxis || {
+        categories: []
       },
-      yaxis: {
+      yaxis: this.chartOptions.yaxis || {
         title: {
-          text: "$ (thousands)"
+          text: '$ (thousands)'
         }
       },
-      fill: {
+      fill: this.chartOptions.fill || {
         opacity: 1
       },
-      tooltip: {
+      tooltip: this.chartOptions.tooltip || {
         y: {
-          formatter: function(val) {
-            return "$ " + val + " thousands";
+          formatter: function (val) {
+            return '$ ' + val + ' thousands';
           }
         }
-      }
+      },
+      legend: this.chartOptions.legend || {},  // Ensure `legend` is also initialized
     };
   }
 }
