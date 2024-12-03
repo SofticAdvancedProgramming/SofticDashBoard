@@ -65,3 +65,8 @@
     color: #777;
     margin-top: 10px;
 }
+.chart{
+    background-color: white;
+    border-radius: 16px;
+    width: 45%;
+}
