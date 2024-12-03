@@ -85,7 +85,7 @@ export const routes: Routes = [
       { path: 'employee-details/:id', component: EmployeeDetailsComponent },
       { path: 'AssetsIndex', component: AssetsIndexComponent },
       { path: 'employee-locations/:id', component: AddLocationComponent },
-      { path: 'assetsCategory', component: AssetsCategoryComponent}
+      { path: 'assetsCategory', component: AssetsCategoryComponent},
       { path: 'AddAssets', component: AddAssetsComponent },
       { path: 'employee-locations/:id', component: AddLocationComponent }
         ],
