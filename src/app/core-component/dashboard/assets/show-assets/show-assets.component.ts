@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { TranslateService , TranslateModule} from '@ngx-translate/core';
 import { FilterPopupComponent } from '../../../../common-component/filter-popup/filter-popup.component';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
  
 @Component({
   selector: 'app-show-assets',
   standalone: true,
-  imports: [TranslateModule , FilterPopupComponent,CommonModule],
+  imports: [TranslateModule , FilterPopupComponent,CommonModule,RouterLink],
   templateUrl: './show-assets.component.html',
   styleUrl: './show-assets.component.css'
 })
