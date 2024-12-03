@@ -11,11 +11,18 @@ export class AssetsService {
 
   constructor(private apiCall: ApiCall) { }
 
-  getMainAssets():Observable<any>{
-    return this.apiCall.request("POST", assetsController.getMainAssets, {pageSize:50})
+  getMainAssetsCategory(request: any = {}):Observable<any>{
+    return this.apiCall.request("POST", assetsController.getMainAssets, request)
   }
 
-  addAsset(assets: Assets):Observable<any>{
+  addAssetCategory(assets: Assets):Observable<any>{
     return this.apiCall.request("POST", assetsController.addAsset, assets)
+  }
+  editAssetCategory(AssetCategory: any): Observable<any> {
+    return this.apiCall.request('POST', assetsController.editAsset, AssetCategory);
+  }
+
+  deleteAssetCategory(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request('POST', `${assetsController.deleteAsset}/${id}/${companyId}`, {});
   }
 }

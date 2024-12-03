@@ -23,7 +23,7 @@ export class CurrencyTypeComponent {
   isEdit = false;
   modalId = 'addCurrencyType';
   companyId: number = 0;
-  isDefault = false;
+  isDefault: boolean = false;
   
   pageIndex: any = { CurrencyType: 1 };
   totalRows: any = { CurrencyType: 0 };
@@ -69,17 +69,25 @@ export class CurrencyTypeComponent {
     }
 
     const methodName = this.entityTypes[entity].load as keyof CurrencyService;
-    this.currencyTypeService.getCurrencyTypes().subscribe({
-      next:(response: any) => {
+    (this.currencyTypeService[methodName] as Function)(query).subscribe((response: any) => {
       if (response.status === 200) {
         (this as any)[this.entityTypes[entity].data] = response.data.list;
-        console.log(response);
         this.pageIndex[entity] = response.data.pageIndex;
         this.totalRows[entity] = response.data.totalRows;
       }
-    },
-    error: (err:any) => console.log(err)
-  });
+    });
+  //   this.currencyTypeService.getCurrencyTypes().subscribe({
+  //     next:(response: any) => {
+  //     if (response.status === 200) {
+  //       (this as any)[this.entityTypes[entity].data] = response.data.list;
+  //       console.log(response);
+  //       this.pageIndex[entity] = response.data.pageIndex;
+  //       this.totalRows[entity] = response.data.totalRows;
+  //     }
+  //   },
+  //   error: (err:any) => console.log(err)
+  // });
+
   }
 
   addEntity(entity: string, newEntity: any): void {
@@ -116,15 +124,24 @@ export class CurrencyTypeComponent {
       }
     });
   }
-  defaultEntity(entity: string, updatedEntity: any): void{
-    const methodName = this.entityTypes[entity].edit as keyof CurrencyService;
-    console.log(methodName);
-    (this.currencyTypeService[methodName] as Function)(updatedEntity).subscribe((response: any) => {
-      if (response.status === 200) {
-        console.log(entity);
-        this.loadEntities(entity, this.pageIndex[entity]);
+  defaultEntity(currencyId:number): void{
+    // const methodName = this.entityTypes[entity].edit as keyof CurrencyService;
+    // console.log(methodName);
+    // (this.currencyTypeService[methodName] as Function)(updatedEntity).subscribe((response: any) => {
+    //   if (response.status === 200) {
+    //     console.log(entity);
+    //     this.loadEntities(entity, this.pageIndex[entity]);
+    //   }
+    // });
+    this.currencyTypeService.defaultCurrencyType(currencyId,true).subscribe({
+      next: (res) => {
+        this.ngOnInit()
+      },
+      error: (err) => {
+        console.log(err)
       }
-    });
+    })
+
   }
 
   handleFormSubmission(data: any): void {
@@ -143,9 +160,4 @@ export class CurrencyTypeComponent {
     this.formData = { isDeduction: true }; 
   }
 
-  
-
-   onTypeChange(): void {
-    this.loadEntities('CurrencyType', 1);
-  }
 }

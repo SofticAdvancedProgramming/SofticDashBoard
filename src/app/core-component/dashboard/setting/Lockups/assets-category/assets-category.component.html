@@ -95,6 +95,20 @@
               </div>
             </div>
           </form>
+          <!-- Modern Table Component -->
+          <app-modern-table
+            [tableTitle]="'Assets Category'"
+            (newReqByPage)="loadEntities('AssetsCategories', $event)"
+            [totalRows]="totalRows['AssetsCategories']"
+            [tableData]="assets"
+            [columns]="columns"
+            [modalId]="modalId"
+            searchPlaceholder="Search data..."
+            (editItem)="openEditModal($event)"
+            (deleteItem)="deleteEntity('AssetsCategories', $event.id)"
+            [deleteId]="deleteId"
+            (searchApi)="loadEntities('AssetsCategories', 1, $event)"
+          ></app-modern-table>
         </div>
       </div>
     </div>

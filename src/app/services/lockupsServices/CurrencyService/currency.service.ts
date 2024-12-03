@@ -11,8 +11,8 @@ export class CurrencyService {
 
   constructor(private apiCall:ApiCall) { }
 
-  getCurrencyTypes(): Observable<any> {
-    return this.apiCall.request('POST', `${this.CurrencyTypeUrl}/Get`, {});
+  getCurrencyTypes(request: any = {}): Observable<any> {
+    return this.apiCall.request('POST', `${this.CurrencyTypeUrl}/Get`, request);
   }
 
   addCurrencyType(CurrencyType: any): Observable<any> {
@@ -27,7 +27,7 @@ export class CurrencyService {
     return this.apiCall.request('POST', `${this.CurrencyTypeUrl}/Delete/${id}/${companyId}`, {});
   }
 
-  defaultCurrencyType(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${this.CurrencyTypeUrl}/Default/${id}/${companyId}`, {});
+  defaultCurrencyType(currencyId: number, isDefault: boolean): Observable<any> {
+    return this.apiCall.request('POST', `${this.CurrencyTypeUrl}/AssignIsDefault`, {currencyId,isDefault});
   }
 }

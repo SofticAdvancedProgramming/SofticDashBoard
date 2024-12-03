@@ -150,6 +150,8 @@ export class IndexComponent implements OnInit {
     this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
     this.loadUnassignedEmployees(); 
     this.isAddEmployee = true;
+    console.log(positionId);
+    
   }
   
 
