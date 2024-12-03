@@ -95,6 +95,16 @@
               </div>
             </div>
           </form>
+
+          <!-- Dynamic Modal Component -->
+          <app-dynamic-modal
+            [structure]="structure"
+            [isEdit]="isEdit"
+            [formData]="formData"
+            [modalId]="modalId"
+            (submitForm)="handleFormSubmission($event)"
+          ></app-dynamic-modal>
+
           <!-- Modern Table Component -->
           <app-modern-table
             [tableTitle]="'Assets Category'"

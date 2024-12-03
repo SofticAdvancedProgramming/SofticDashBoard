@@ -30,7 +30,6 @@ export class CurrencyTypeComponent {
   structure = [
     { name: 'name', label: 'Name In Arabic', type: 'text', required: true },
     { name: 'nameAr', label: 'Name In English', type: 'text', required: true },
-    { name: 'isDeduction', label: 'Deduction', type: 'checkbox', required: false },
   ];
 
   entityTypes: Record<

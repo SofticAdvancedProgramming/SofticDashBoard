@@ -15,6 +15,8 @@ import { Assets } from '../../../../../../models/assetsModel';
 import { LocalStorageService } from '../../../../../services/local-storage-service/local-storage.service';
 import { ModernTableComponent } from '../../../components/modern-table/modern-table.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { DynamicFormComponent } from '../../../../../common-component/form/dynamic-form/dynamic-form.component';
+import { DynamicModalComponent } from "../../../components/dynamic-modal/dynamic-modal.component";
 
 @Component({
   selector: 'app-assets-category',
@@ -26,8 +28,10 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     ReactiveFormsModule,
     TranslateModule,
     ModernTableComponent,
-    PaginationModule
-  ],
+    PaginationModule,
+    DynamicFormComponent,
+    DynamicModalComponent
+],
   templateUrl: './assets-category.component.html',
   styleUrl: './assets-category.component.css',
 })
@@ -40,7 +44,7 @@ export class AssetsCategoryComponent implements OnInit {
   totalRows: any = { AssetsCategories: 0 };
   currentPage: number = 1;
   itemsPerPage: number = 10;
-  modalId = 'addAssetCategory';
+  modalId = 'AssetsCategories';
   deleteId: string = 'deleteAssetCategory';
   columns: string[] = ['name' , 'nameAr'];
   companyId = this.localStorageService.getItem('companyId');
@@ -58,6 +62,10 @@ export class AssetsCategoryComponent implements OnInit {
     },
   };
   isEdit: boolean = false;
+  structure = [
+    { name: 'name', label: 'Name In Arabic', type: 'text', required: true },
+    { name: 'nameAr', label: 'Name In English', type: 'text', required: true },
+  ];
   constructor(
     private fb: FormBuilder,
     private assetsService: AssetsService,
@@ -111,6 +119,15 @@ export class AssetsCategoryComponent implements OnInit {
     });
   }
 
+  editEntity(entity: string, updatedEntity: any): void {
+    const methodName = this.entityTypes[entity].edit as keyof AssetsService;
+    (this.assetsService[methodName] as Function)(updatedEntity).subscribe((response: any) => {
+      if (response.status === 200) {
+        this.loadEntities(entity, this.pageIndex[entity]);
+      }
+    });
+  }
+
   deleteEntity(entity: string, id: number): void {
     const methodName = this.entityTypes[entity].delete as keyof AssetsService;
     (this.assetsService[methodName] as Function)(id, this.companyId).subscribe((response: any) => {
@@ -154,7 +171,6 @@ export class AssetsCategoryComponent implements OnInit {
   }
   openAddModal(): void {
     this.isEdit = false;
-    this.formData = { isDeduction: true }; 
   }
 
   openEditModal(item: any): void {
@@ -164,5 +180,13 @@ export class AssetsCategoryComponent implements OnInit {
 
    onTypeChange(): void {
     this.loadEntities('AssetsCategories', 1);
+  }
+
+  handleFormSubmission(data: any): void {
+    data.companyId = this.companyId;
+    if (this.isEdit) {
+      data.id = this.formData.id;
+      this.editEntity('AssetsCategories', data);
+    }
   }
 }

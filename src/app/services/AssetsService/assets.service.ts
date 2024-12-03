@@ -25,4 +25,8 @@ export class AssetsService {
   deleteAssetCategory(id: number, companyId: number): Observable<any> {
     return this.apiCall.request('POST', `${assetsController.deleteAsset}/${id}/${companyId}`, {});
   }
+
+  addAsset(request: any):Observable<any>{
+    return this.apiCall.request("POST", assetsController.addAsset, request)
+  }
 }
