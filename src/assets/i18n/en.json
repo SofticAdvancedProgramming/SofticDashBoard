@@ -51,8 +51,8 @@
   "CHECK_INPUTS": "Please check your inputs and ensure OTP is 7 digits.",
   "SUCCESS": "Success",
   "PASSWORD_RESET_SUCCESS": "Password reset successful. You can now log in with your new password.",
-  "Admin":"Admin",
-  "Save":"Save",
+  "Admin": "Admin",
+  "Save": "Save",
   "Profile_Information": {
     "Edit Profile": "Edit Profile",
     "Profile Information": "Profile Information",
@@ -112,7 +112,7 @@
     "NAME": "Company Name",
     "PHONE_NUMBER": "Phone Number",
     "TYPE": "Software Company",
-    "search_position":"Search Position"
+    "search_position": "Search Position"
   },
   "addBranch": {
     "BRANCH_NAME_EN": "Branch Name (English)",
@@ -232,10 +232,10 @@
     "ERROR_ADDING_POSITION": "Error adding position",
     "EDIT": "Save"
   },
-  "ADD_ASSETS":{
+  "ADD_ASSETS": {
     "TITLE": "Assets Categories",
     "NAME": "Name",
-    "NAME_AR":"Name (Arabic)",
+    "NAME_AR": "Name (Arabic)",
     "DIRECT_PARENT": "Direct Parent",
     "ASSETS": "Assets",
     "SELECT_ASSET": "Select Asset",
@@ -277,8 +277,8 @@
     "SETTING": "Setting",
     "HELP": "Help",
     "LOGOUT": "Logout",
-    "ASSETS":"Assets",
-     "COMPLAINSANDSUGGESTIONS":"Complaints & Suggetions"
+    "ASSETS": "Assets",
+    "COMPLAINSANDSUGGESTIONS": "Complaints & Suggetions"
   },
   "Home": {
     "ActiveCompanies": "Active Companies",
@@ -313,7 +313,7 @@
     "AssetsCategory_DESCRIPTION": "Manage All Assets Categories."
   },
   "viewEmployees": {
-"CURRENT_EMPLOYEES": "Current Employees",
+    "CURRENT_EMPLOYEES": "Current Employees",
     "NEW_EMPLOYEE_REQUESTS": "New Employee Requests",
     "SEARCH": "Search...",
     "EMPLOYEE_NAME": "Employee Name",
@@ -327,20 +327,20 @@
     "DELETE_CONFIRMATION": "Are you sure you want to delete this employee?",
     "CANCEL": "Cancel",
     "DELETE": "Delete",
-    "SAVE":"Save",
-    "LONGITUDE_REQUIRED":"Longitude is required",
-    "LATITUDE_REQUIRED":"Latitude is required",
-    "Edit":"Edit",
-    "viewEmployees.Latitude":"Latitude",
-    "viewEmployees.LONGITUDE":"Longitude",
-    "NUMOFDAY":"NUMOFDAY",
-    "select":"Open this select menu",
-    "Add New Location":"Add New Location",
-    "from":"from",
-    "to":"To",
-    "Rejected":"Rejected",
-    "reasonForRejection":"reason for rejection",
-    "writeComment":"please write your comment no more than 300 words"
+    "SAVE": "Save",
+    "LONGITUDE_REQUIRED": "Longitude is required",
+    "LATITUDE_REQUIRED": "Latitude is required",
+    "Edit": "Edit",
+    "viewEmployees.Latitude": "Latitude",
+    "viewEmployees.LONGITUDE": "Longitude",
+    "NUMOFDAY": "NUMOFDAY",
+    "select": "Open this select menu",
+    "Add New Location": "Add New Location",
+    "from": "from",
+    "to": "To",
+    "Rejected": "Rejected",
+    "reasonForRejection": "reason for rejection",
+    "writeComment": "please write your comment no more than 300 words"
   },
   "personalInfo": {
     "PROFILE_INFORMATION": "Profile Information",
@@ -366,7 +366,7 @@
     "grossSalary": "Gross Salary",
     "netSalary": "Net Salary",
     "SALARY": "Salary",
-    "comment":"comment",
+    "comment": "comment",
     "PERSONAL_INFORMATION": "Personal Information",
     "ADVANCED_INFORMATION": "Advanced Information",
     "REJECTED": "Rejected",
@@ -383,7 +383,7 @@
     "Deductions_Label": "Deductions",
     "Net_Salary": "Net Salary",
     "Bonus": "Bonus",
-    "add_deduction":"Add Deduction",
+    "add_deduction": "Add Deduction",
     "Due_Date": "Due (Date)",
     "Add_Bonus": "Add Bonus",
     "shifts": "shifts",
@@ -470,7 +470,7 @@
     "Save": "Save"
   },
   "companyFormPage": {
-        "cancelButton": "Cancel",
+    "cancelButton": "Cancel",
     "nextButton": "Next",
     "upload": {
       "logoText": "Upload company logo",
@@ -563,7 +563,6 @@
   "addAdminPage": {
     "title": "Assign admin to company",
     "fields": {
-
       "firstName": {
         "label": "First Name",
         "placeholder": "Enter first name",
@@ -612,7 +611,7 @@
       "next": "Next"
     }
   },
-  "FIELD_REQUIRED":"This field is required",
+  "FIELD_REQUIRED": "This field is required",
   "transactionDate": "Transaction Date",
   "amount": "Amount",
   "Actions": "Actions",
@@ -627,8 +626,8 @@
     "seeDetails": "See Details",
     "deleteComplaint": "Delete Complaint",
     "deleteSuggestion": "Delete Suggestion",
-    "noComplaints":"There are no complaints",
-    "noSuggestions":"There are no suggetions"
+    "noComplaints": "There are no complaints",
+    "noSuggestions": "There are no suggetions"
   },
   "status": {
     "submitted": "Submitted",
@@ -643,12 +642,12 @@
   "complainDetails": {
     "loading": "Loading complaint details...",
     "error": "Error loading complaint details. Please try again later.",
-    "comments":"Comments",
-    "Type your reply":"Type your reply",
-    "wait":"Wait For Reply",
-    "submit":"Submit",
-    "congratulations":"congratulations",
-    "congratulationsParagraph":"Your  Message  has been submitted successfully",
+    "comments": "Comments",
+    "Type your reply": "Type your reply",
+    "wait": "Wait For Reply",
+    "submit": "Submit",
+    "congratulations": "congratulations",
+    "congratulationsParagraph": "Your  Message  has been submitted successfully",
     "user": {
       "name": "User Name",
       "phone": "User Phone",
@@ -660,13 +659,12 @@
       "details": "Complaint Details",
       "attachments": "Attachments"
     }
-
   },
-  "CONFIRM_DELETE":{
-    "TITLE":"Confirm Delete",
-    "MESSAGE":"Are you sure from this delete process ?",
-    "CANCEL":"Cancel",
-    "CONFIRM":"Sure"
+  "CONFIRM_DELETE": {
+    "TITLE": "Confirm Delete",
+    "MESSAGE": "Are you sure from this delete process ?",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Sure"
   },
   "MY_REQUESTS": {
     "FILTER": "Filter",
@@ -693,20 +691,19 @@
       "APPROVED": "Approved"
     }
   },
-
   "CURRENCY": {
     "SAR": "Saudi Riyal",
     "EGP": "Egyptian Pound",
     "USD": "US Dollar"
   },
   "defaultPopUp": {
-    "Default":"Default",
+    "Default": "Default",
     "question": "Are you sure you want to make this currency Default?",
     "Cancel": "Cancel",
     "Confirm": "Confirm"
   },
   "deletePopUp": {
-    "Delete":"Default",
+    "Delete": "Default",
     "question": "Are you sure about the deletion process?",
     "Cancel": "Cancel",
     "delete": "Delete"
@@ -716,14 +713,13 @@
   },
   "name": "Name",
   "nameAr": "Name (Arabic)",
-   "Export to Excel": "Export to Excel",
+  "Export to Excel": "Export to Excel",
   "Add Currency": "Add Currency",
   "Currency Types": "Currency Types",
   "Add Salary": "Add Salary",
-  "Type":"Type",
+  "Type": "Type",
   "Salary Types": "Salary Types",
-  "Add Position": "Add Position"
-  ,
+  "Add Position": "Add Position",
   "benefitType": {
     "ADD_BENEFIT": "Add Benefit",
     "BENEFITS": "Benefits",
@@ -735,5 +731,32 @@
   "Edit Benefit": "Edit Benefit",
   "Benefit Type": "Benefit Type",
   "Enter benefit amount": "Enter benefit amount",
-   "Cancel": "Cancel"
+  "Cancel": "Cancel",
+  "Assets": {
+    "AddNewAsset": "Add New Asset",
+    "AssetName": "Asset Name",
+    "AssetID": "Asset ID",
+    "AssetCategory": "Asset Category",
+    "AssetSup-Category": "Asset Supplier Category",
+    "TechnicalDescription": "Technical Description",
+    "AssetAccessories": "Asset Accessories",
+    "AssetLocation": "Asset Location",
+    "AssetNamePlaceholder": "Enter the asset name",
+    "AssetIDPlaceholder": "Enter the asset ID",
+    "AssetCategoryPlaceholder": "Enter the asset category",
+    "AssetSupCategoryPlaceholder": "Enter the asset sub-category",
+    "AssetAccessoriesPlaceholder": "Enter any accessories",
+    "AssetLocationPlaceholder": "Enter the asset location",
+    "TechnicalDescriptionPlaceholder": "Provide a technical description of the asset",
+    "attachment": "Attachment",
+    "photo": "Photo"
+  },
+  "ASSET_UPLOADER": {
+    "BROWSE_FILE": "Browse File",
+    "NO_FILE_SELECTED": "No file selected",
+    "SELECTED_FILE": "Selected File",
+    "IMAGE_UPLOADED": "Image uploaded successfully.",
+    "FILE_UPLOADED": "File uploaded successfully.",
+    "SEND": "Send"
+  }
 }

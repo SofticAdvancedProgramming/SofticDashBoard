@@ -108,8 +108,8 @@
     "TOP_MANAGEMENT": "الإدارة العليا",
     "NAME": "اسم الشركة",
     "PHONE_NUMBER": "رقم الهاتف",
-    "TYPE": "شركة البرمجيات" ,
-     "search_position":"بحث عن المسمى الوظيفي"
+    "TYPE": "شركة البرمجيات",
+    "search_position": "بحث عن المسمى الوظيفي"
   },
   "addBranch": {
     "BRANCH_NAME_EN": "اسم الفرع (بالإنجليزية)",
@@ -230,14 +230,14 @@
     "EDIT": "حفظ"
   },
   "ADD_ASSETS": {
-  "TITLE": "فئات الأصول",
-  "NAME": "الاسم (بالانجليزية)",
-  "NAME_AR":"الاسم (بالعربية)",
-  "DIRECT_PARENT": "الأصل المباشر",
-  "ASSETS": "الأصول",
-  "SELECT_ASSET": "اختر الأصل",
-  "REQUIRED_FIELD": "هذا الحقل مطلوب",
-  "BTN": "إضافة أصل"
+    "TITLE": "فئات الأصول",
+    "NAME": "الاسم (بالانجليزية)",
+    "NAME_AR": "الاسم (بالعربية)",
+    "DIRECT_PARENT": "الأصل المباشر",
+    "ASSETS": "الأصول",
+    "SELECT_ASSET": "اختر الأصل",
+    "REQUIRED_FIELD": "هذا الحقل مطلوب",
+    "BTN": "إضافة أصل"
   },
   "INDEX_POSITION": {
     "ADD_POSITION": "إضافة وظيفة",
@@ -270,9 +270,9 @@
     "ADD_ADMIN": "إضافة مسؤول",
     "SETTING": "الإعدادات",
     "HELP": "مساعدة",
-    "ASSETS":"أصول",
+    "ASSETS": "أصول",
     "LOGOUT": "تسجيل الخروج",
-    "COMPLAINSANDSUGGESTIONS":"الشكاوى والمقترحات"
+    "COMPLAINSANDSUGGESTIONS": "الشكاوى والمقترحات"
   },
   "Home": {
     "ActiveCompanies": "الشركات النشطة",
@@ -324,21 +324,21 @@
     "DELETE": "حذف",
     "LOCATION": "العنوان",
     "NO_LOCATION_FOUND": "لا يوجد عنوان",
-    "SAVE":"حفظ",
-    "LONGITUDE_REQUIRED":"خط الطول مطلوب",
-    "LATITUDE_REQUIRED":"دائرة العرض مطلوبة",
-    "Edit":"تعديل",
-    "viewEmployees.Latitude":"دائرة العرض",
-    "viewEmployees.LONGITUDE":"خط الطول",
-    "NUMOFDAY":"عدد الأيام",
-    "select":"اختر عدد الأيام",
-    "Add New Location":"إضافة موقع",
-    "from":"من",
-    "to":"الي",
-    "Rejected":"رفض",
-    "reasonForRejection":"سبب الرفض",
-    "writeComment":"من فضلك اكتب تعليقاً لا يزيد عن 300 كلمة"
-    },
+    "SAVE": "حفظ",
+    "LONGITUDE_REQUIRED": "خط الطول مطلوب",
+    "LATITUDE_REQUIRED": "دائرة العرض مطلوبة",
+    "Edit": "تعديل",
+    "viewEmployees.Latitude": "دائرة العرض",
+    "viewEmployees.LONGITUDE": "خط الطول",
+    "NUMOFDAY": "عدد الأيام",
+    "select": "اختر عدد الأيام",
+    "Add New Location": "إضافة موقع",
+    "from": "من",
+    "to": "الي",
+    "Rejected": "رفض",
+    "reasonForRejection": "سبب الرفض",
+    "writeComment": "من فضلك اكتب تعليقاً لا يزيد عن 300 كلمة"
+  },
   "personalInfo": {
     "PROFILE_INFORMATION": "معلومات الملف الشخصي",
     "GREETING": "مرحبًا، أنا",
@@ -372,9 +372,8 @@
     "Entitlements": "المستحقات",
     "Deductions": "الخصومات",
     "Title": "الوظيفة",
-    "comment":"تعليق",
-    "add_deduction":"اضافة خصم",
-
+    "comment": "تعليق",
+    "add_deduction": "اضافة خصم",
     "Level": "المستوى",
     "Allowance": "البدلات",
     "Basic_Salary": "الراتب الأساسي",
@@ -615,7 +614,7 @@
   "amount": "المبلغ",
   "Actions": "الإجراءات",
   "id": "المعرف",
-  "FIELD_REQUIRED":"هذه الخانة مطلوبه",
+  "FIELD_REQUIRED": "هذه الخانة مطلوبه",
   "tabs": {
     "complaints": "الشكاوى",
     "suggestions": "الاقتراحات"
@@ -626,8 +625,8 @@
     "seeDetails": "عرض التفاصيل",
     "deleteComplaint": "حذف الشكوى",
     "deleteSuggestion": "حذف الاقتراح",
-    "noComplaints":"لا توجد شكاوى",
-    "noSuggestions":"لا توجد مقتراحات"
+    "noComplaints": "لا توجد شكاوى",
+    "noSuggestions": "لا توجد مقتراحات"
   },
   "status": {
     "submitted": "تم الإرسال",
@@ -639,16 +638,15 @@
     "unknown": "غير معروف"
   },
   "Directed": "موجه إلى",
-
   "complainDetails": {
     "loading": "جار تحميل تفاصيل الشكوى...",
     "error": "حدث خطأ أثناء تحميل تفاصيل الشكوى. الرجاء المحاولة مرة أخرى لاحقًا.",
-    "comments":"الردود",
-    "Type your reply":"اكتب ردا....",
-    "wait":"قيد الانتظار",
-    "submit":"ارسال",
-    "congratulations":"تهانيناً",
-    "congratulationsParagraph":"تم ارسال الرسالة بنجاح",
+    "comments": "الردود",
+    "Type your reply": "اكتب ردا....",
+    "wait": "قيد الانتظار",
+    "submit": "ارسال",
+    "congratulations": "تهانيناً",
+    "congratulationsParagraph": "تم ارسال الرسالة بنجاح",
     "user": {
       "name": "اسم المستخدم",
       "phone": "رقم الهاتف",
@@ -661,11 +659,11 @@
       "attachments": "المرفقات"
     }
   },
-  "CONFIRM_DELETE":{
-    "TITLE":"تأكيد الحذف",
-    "MESSAGE":"هل انت متأكد من حذف هذا ؟",
-    "CANCEL":"الغاء",
-    "CONFIRM":"تأكيد"
+  "CONFIRM_DELETE": {
+    "TITLE": "تأكيد الحذف",
+    "MESSAGE": "هل انت متأكد من حذف هذا ؟",
+    "CANCEL": "الغاء",
+    "CONFIRM": "تأكيد"
   },
   "MY_REQUESTS": {
     "FILTER": "تصفية",
@@ -692,7 +690,6 @@
       "ACCEPTED": "مقبول",
       "REJECTED": "مرفوض",
       "APPROVED": "موافق عليه"
-
     }
   },
   "CURRENCY": {
@@ -701,13 +698,13 @@
     "USD": "US Dollar"
   },
   "defaultPopUp": {
-    "Default":"افتراضي",
+    "Default": "افتراضي",
     "question": "هل أنت متأكد أنك تريد جعل هذه العملة افتراضية؟",
     "Cancel": "الغاء",
     "Confirm": "تأكيد"
   },
   "deletePopUp": {
-    "Delete":"حذف",
+    "Delete": "حذف",
     "question": "هل انت متاكد من عملية الحذف؟",
     "Cancel": "الغاء",
     "delete": "مسح",
@@ -720,7 +717,7 @@
   },
   "name": "الاسم",
   "nameAr": "الاسم (بالعربية)",
-   "Export to Excel": "اخرجه الي الاكسيل",
+  "Export to Excel": "اخرجه الي الاكسيل",
   "Add Currency": "اضافه عملة",
   "Currency Types": "انواع العملات",
   "Add Salary": "اضافة مرتب",
@@ -738,6 +735,32 @@
   "Edit Benefit": "تعديل الميزة",
   "Benefit Type": "نوع الميزة",
   "Enter benefit amount": "أدخل مبلغ الميزة",
-  "Cancel": "إلغاء"
-
+  "Cancel": "إلغاء",
+  "Assets": {
+    "AddNewAsset": "إضافة أصل جديد",
+    "AssetName": "اسم الأصل",
+    "AssetID": "معرف الأصل",
+    "AssetCategory": "فئة الأصل",
+    "AssetSup-Category": "فئة مورد الأصل",
+    "TechnicalDescription": "الوصف الفني",
+    "AssetAccessories": "ملحقات الأصل",
+    "AssetLocation": "موقع الأصل",
+    "AssetNamePlaceholder": "أدخل اسم الأصل",
+    "AssetIDPlaceholder": "أدخل معرف الأصل",
+    "AssetCategoryPlaceholder": "أدخل فئة الأصل",
+    "AssetSupCategoryPlaceholder": "أدخل الفئة الفرعية للأصل",
+    "AssetAccessoriesPlaceholder": "أدخل الملحقات",
+    "AssetLocationPlaceholder": "أدخل موقع الأصل",
+    "TechnicalDescriptionPlaceholder": "قدم وصفًا فنيًا للأصل",
+    "attachment": "مرفق",
+    "photo": "صورة"
+  },
+  "ASSET_UPLOADER": {
+    "BROWSE_FILE": "تصفح الملف",
+    "NO_FILE_SELECTED": "لم يتم اختيار ملف",
+    "SELECTED_FILE": "الملف المحدد",
+    "IMAGE_UPLOADED": "تم تحميل الصورة بنجاح.",
+    "FILE_UPLOADED": "تم تحميل الملف بنجاح.",
+    "SEND": "إرسال"
+  }
 }
