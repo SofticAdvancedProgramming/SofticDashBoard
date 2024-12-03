@@ -37,6 +37,7 @@ import { HomeIndexComponent } from './core-component/dashboard/homeIndex/home.co
 import { CurrencyTypeComponent } from './core-component/dashboard/setting/Lockups/currency-type/currency-type.component';
 import { BenefitTypeComponent } from './core-component/dashboard/setting/Lockups/benefit-type/benefit-type.component';
 import { AssetsIndexComponent } from './core-component/dashboard/assets/assets-index/assets-index.component';
+import { AssetsCategoryComponent } from './core-component/dashboard/setting/Lockups/assets-category/assets-category.component';
 
 export const routes: Routes = [
   {
@@ -82,7 +83,8 @@ export const routes: Routes = [
       { path: 'ComplainSuggestionDetails/:id', component: ComplainSuggestionDetailsComponent },
       { path: 'employee-details/:id', component: EmployeeDetailsComponent },
       { path: 'AssetsIndex', component: AssetsIndexComponent },
-      { path: 'employee-locations/:id', component: AddLocationComponent }
+      { path: 'employee-locations/:id', component: AddLocationComponent },
+      { path: 'assetsCategory', component: AssetsCategoryComponent}
         ],
   },{
     path: 'no-permission',

@@ -232,6 +232,16 @@
     "ERROR_ADDING_POSITION": "Error adding position",
     "EDIT": "Save"
   },
+  "ADD_ASSETS":{
+    "TITLE": "Assets Categories",
+    "NAME": "Name",
+    "NAME_AR":"Name (Arabic)",
+    "DIRECT_PARENT": "Direct Parent",
+    "ASSETS": "Assets",
+    "SELECT_ASSET": "Select Asset",
+    "REQUIRED_FIELD": "This field is required",
+    "BTN": "Add Asset"
+  },
   "NAV": {
     "SEARCH": "Search..."
   },
@@ -298,7 +308,9 @@
     "Salary_Type_DESCRIPTION": "This field defines the type of salary an employee receives, such as fixed, hourly, or commission-based, providing clarity on the employee's pay structure.",
     "CurrencyType": "Currency Type",
     "BenefitType": "Benefit Type",
-    "BenefitType_DESCRIPTION": "Manage the types of benefits offered to employees."
+    "BenefitType_DESCRIPTION": "Manage the types of benefits offered to employees.",
+    "AssetsCategory": "Assets Categories",
+    "AssetsCategory_DESCRIPTION": "Manage All Assets Categories."
   },
   "viewEmployees": {
 "CURRENT_EMPLOYEES": "Current Employees",

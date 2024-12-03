@@ -229,6 +229,16 @@
     "ERROR_ADDING_POSITION": "خطأ في إضافة الوظيفة",
     "EDIT": "حفظ"
   },
+  "ADD_ASSETS": {
+  "TITLE": "فئات الأصول",
+  "NAME": "الاسم (بالانجليزية)",
+  "NAME_AR":"الاسم (بالعربية)",
+  "DIRECT_PARENT": "الأصل المباشر",
+  "ASSETS": "الأصول",
+  "SELECT_ASSET": "اختر الأصل",
+  "REQUIRED_FIELD": "هذا الحقل مطلوب",
+  "BTN": "إضافة أصل"
+  },
   "INDEX_POSITION": {
     "ADD_POSITION": "إضافة وظيفة",
     "DEPARTMENT": "القسم",
@@ -292,7 +302,9 @@
     "Salary_Type_DESCRIPTION": "يحدد هذا الحقل نوع الراتب الذي يتقاضاه الموظف، مثل الراتب الثابت أو بالساعة أو على أساس العمولة، لتوضيح هيكل الدفع للموظف.",
     "CurrencyType": "نوع العملة",
     "BenefitType": "نوع الميزة",
-    "BenefitType_DESCRIPTION": "إدارة أنواع المزايا المقدمة للموظفين."
+    "BenefitType_DESCRIPTION": "إدارة أنواع المزايا المقدمة للموظفين.",
+    "AssetsCategory": "فئات الأصول",
+    "AssetsCategory_DESCRIPTION": "إدارة كافة فئات الأصول."
   },
   "NAV": {
     "SEARCH": "بحث..."
