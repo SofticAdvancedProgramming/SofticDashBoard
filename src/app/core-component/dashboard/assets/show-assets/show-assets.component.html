@@ -1,0 +1,39 @@
+<div class="row justify-content-center d-flex">
+  <div class="col-lg-6">
+    <form class="d-flex gap-4" role="search">
+      <input class="customSearch" type="search" [placeholder]="'NAV.SEARCH' | translate" aria-label="Search">
+      <img class="filter" src="../../../../../assets/images/filter-search.svg" (click)="toggleFilterPopup()">
+    </form>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="item">
+    <img src="https://via.placeholder.com/100" class="image">
+  </div>
+  <div class="item">
+    <b>Category</b>
+    <p>Computers</p>
+  </div>
+  <div class="item">
+    <b>Sub-Category</b>
+    <p>Laptop</p>
+  </div>
+  <div class="item">
+    <b>Sub-Sub-Category</b>
+    <p>HP</p>
+  </div>
+  <div class="item">
+    <b>id Assets</b>
+    <p>5676786786</p>
+  </div>
+  <div class="item">
+    <b>Asset status</b>
+    <p class="status">Out of service</p>
+  </div>
+  <div class="actions flex-column d-flex">
+    <img class="icon" src="../../../../../assets/images/more-square.svg">
+    <img class="icon" src="../../../../../assets/images/trash 01.svg">
+  </div>
+</div>
+<app-filter-popup *ngIf="isFilterPopupVisible" (closeFilterPopup)="onFilterPopupClose($event)"></app-filter-popup>

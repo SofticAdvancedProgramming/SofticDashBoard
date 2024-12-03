@@ -39,6 +39,7 @@ import { BenefitTypeComponent } from './core-component/dashboard/setting/Lockups
 import { AssetsIndexComponent } from './core-component/dashboard/assets/assets-index/assets-index.component';
 import { AssetsCategoryComponent } from './core-component/dashboard/setting/Lockups/assets-category/assets-category.component';
 import { AddAssetsComponent } from './core-component/dashboard/assets/add-assets/add-assets.component';
+import { ShowAssetsComponent } from './core-component/dashboard/assets/show-assets/show-assets.component';
 
 export const routes: Routes = [
   {
@@ -87,6 +88,7 @@ export const routes: Routes = [
       { path: 'employee-locations/:id', component: AddLocationComponent },
       { path: 'assetsCategory', component: AssetsCategoryComponent},
       { path: 'AddAssets', component: AddAssetsComponent },
+      { path: 'ShowAssets', component: ShowAssetsComponent },
       { path: 'employee-locations/:id', component: AddLocationComponent }
         ],
   },{

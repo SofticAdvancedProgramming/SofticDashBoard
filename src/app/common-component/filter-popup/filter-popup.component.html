@@ -1,0 +1,49 @@
+<div class="filter-popup">
+    <div class="filter-popup-content">
+        <div class="filterHeader">
+            <p> <img class="filter" src="../../../../../assets/images/filter-search.svg">
+                Filter</p>
+        </div>
+        <form (submit)="applyFilters()">
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="computers">Computers</option>
+                    <option value="laptops">Laptops</option>
+                    <option value="phones">Phones</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="category">Sub-Category</label>
+                <select id="Sub-Category" name="Sub-Category">
+                    <option value="computers">Computers</option>
+                    <option value="laptops">Laptops</option>
+                    <option value="phones">Phones</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Sub-Sub-Category">Sub-Sub-Category</label>
+                <select id="Sub-Sub-Category" name="Sub-Sub-Category">
+                    <option value="computers">Computers</option>
+                    <option value="laptops">Laptops</option>
+                    <option value="phones">Phones</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="status">id Assets</label>
+                <input placeholder="Enter Id Assets">
+            </div>
+            <div class=" d-flex justify-content-center gap-2">
+                <button class="apply-btn" type="submit">Apply Filters</button>
+                <button class="cancle-btn" (click)="closePopup()">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
