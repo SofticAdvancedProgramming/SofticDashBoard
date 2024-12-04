@@ -63,8 +63,8 @@ export class AssetsIndexComponent {
     },
     stroke: {
       show: true,
-      width: 0,   
-      colors: ['transparent']   
+      width: 0,
+      colors: ['transparent']
     },
     xaxis: {
       categories: ['Jan', 'Feb', 'Mar']
@@ -89,7 +89,7 @@ export class AssetsIndexComponent {
       show: true
     }
   };
-  
+
 
 
   donutChartOptions = {
