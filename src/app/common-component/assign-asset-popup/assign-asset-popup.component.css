@@ -1,0 +1,109 @@
+.filter-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+ 
+  }
+ 
+  .filter-popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 557px;
+    gap: 0px;
+    border-radius: 24px;
+    opacity: 0px;
+  }
+ 
+  .filter {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+  }
+ 
+  .apply-btn {
+    margin-top: 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    background: #8413F8;
+    width: Fixed (240px)px;
+    height: Fixed (48px)px;
+    padding: 16px 0px;
+    gap: 0px;
+    border-radius: 10px;
+    opacity: 0px;
+    width: 120px;
+  }
+ 
+  .cancel-btn {
+    margin-top: 20px;
+    color: #CE2619;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    width: Fixed (240px)px;
+    height: Fixed (48px)px;
+    padding: 16px 0px;
+    gap: 0px;
+    border-radius: 10px;
+    opacity: 0px;
+    border: 1px solid #CE2619;
+    width: 120px;
+  }
+ 
+ 
+  .form-group {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+ 
+  .form-group select,
+  input {
+    height: 48px;
+    gap: 0px;
+    border-radius: 10px;
+    border: 1px;
+    opacity: 0px;
+    border: 1px solid #E7E6E8;
+    background: #FBFBFB;
+ 
+  }
+ 
+  .form-group select :focus,
+  input :focus {
+    border: 1px solid #E7E6E8;
+    background: #FBFBFB;
+  }
+ 
+  .filter {
+    border-radius: 50%;
+    background: #FAF9FE;
+    padding: 0.2em;
+  }
+ 
+  .filter img {
+    color: #736F77 !important;
+ 
+  }
+ 
+  .filterHeader {
+    color: #36313C;
+    font-family: Lama Sans;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid #E7E6E8;
+  }

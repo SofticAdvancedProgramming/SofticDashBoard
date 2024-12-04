@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ChartType, NgApexchartsModule } from 'ng-apexcharts'; 
+import { ChartType, NgApexchartsModule } from 'ng-apexcharts';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -31,11 +31,11 @@ export type ChartOptions = {
 };
 
 @Component({
-    selector: 'app-assets-index',
-    standalone: true,
-    templateUrl: './assets-index.component.html',
-    styleUrls: ['./assets-index.component.css'],
-    imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent,RouterLink]
+  selector: 'app-assets-index',
+  standalone: true,
+  templateUrl: './assets-index.component.html',
+  styleUrls: ['./assets-index.component.css'],
+  imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent, RouterLink]
 })
 export class AssetsIndexComponent {
 
@@ -44,17 +44,18 @@ export class AssetsIndexComponent {
     series: [
       {
         name: 'Assets',
-        data: [31, 40, 28, 51, 42, 109, 100]
+        data: [31, 40, 28]
       }
     ],
     chart: {
-      type: 'bar' as ChartType,  
-      height: 350
+      type: 'bar' as ChartType,
+      height: 300
     },
     plotOptions: {
       bar: {
-        horizontal: false,   
-        columnWidth: '20%'
+        horizontal: false,
+        columnWidth: '25%',
+        borderRadius: 10
       }
     },
     dataLabels: {
@@ -62,11 +63,11 @@ export class AssetsIndexComponent {
     },
     stroke: {
       show: true,
-      width: 2,
+      width: 0,
       colors: ['transparent']
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
+      categories: ['Jan', 'Feb', 'Mar']
     },
     yaxis: {
       title: {
@@ -74,7 +75,8 @@ export class AssetsIndexComponent {
       }
     },
     fill: {
-      opacity: 1
+      opacity: 1,
+      colors: ['#FF4560', '#00E396', '#fff']  // Specify different colors for each bar
     },
     tooltip: {
       y: {
@@ -88,22 +90,24 @@ export class AssetsIndexComponent {
     }
   };
 
+
+
   donutChartOptions = {
-    series: [44, 55, 41, 17, 15],  
+    series: [44, 55, 41, 17, 15],
     chart: {
       width: 380,
-      type: 'donut' as ChartType  
+      type: 'donut' as ChartType
     },
-    labels: ['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5'],  
+    labels: ['Category 1', 'Category 2', 'Category 3'],
     dataLabels: {
       enabled: false
     },
     fill: {
-      type: 'gradient' // Gradient fill
+      type: 'gradient'
     },
     legend: {
-      formatter: function(val: any, opts: any) {
-        return `${val} - ${opts.w.globals.series[opts.seriesIndex]}`; // Legend formatter
+      formatter: function (val: any, opts: any) {
+        return `${val} - ${opts.w.globals.series[opts.seriesIndex]}`;
       }
     },
     responsive: [

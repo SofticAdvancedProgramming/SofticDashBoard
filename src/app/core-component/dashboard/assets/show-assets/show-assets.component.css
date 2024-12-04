@@ -153,3 +153,34 @@ p {
     background-color: white;
     padding: 0.5em;
 }
+
+.tab-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.tabs {
+  display: flex;
+  gap: 20px;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  color: #8a8a8a;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: Lama Sans;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 26px;
+  letter-spacing: 0.03em;
+  position: relative;
+}
+
+.tab-button.active {
+  color: var(--secondary-color);
+
+}

@@ -39,13 +39,12 @@ export type ChartOptions = {
 export class BasicLineChartComponent implements OnInit {
   @ViewChild('chart') chart?: ChartComponent;
   
-  @Input() chartOptions: ChartOptions = {} as ChartOptions;  // Enforce non-optional input
+  @Input() chartOptions: ChartOptions = {} as ChartOptions;   
   
   constructor() {}
 
   ngOnInit(): void {
-    // Provide default values for missing chart options
-    this.chartOptions = {
+     this.chartOptions = {
       series: this.chartOptions.series || [],
       chart: this.chartOptions.chart || {
         type: 'bar',
@@ -62,10 +61,9 @@ export class BasicLineChartComponent implements OnInit {
         enabled: false
       },
       stroke: this.chartOptions.stroke || {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-      },
+        show: false,
+        width: 0,
+       },
       xaxis: this.chartOptions.xaxis || {
         categories: []
       },
@@ -84,7 +82,7 @@ export class BasicLineChartComponent implements OnInit {
           }
         }
       },
-      legend: this.chartOptions.legend || {},  // Ensure `legend` is also initialized
+      legend: this.chartOptions.legend || {},   
     };
   }
 }
