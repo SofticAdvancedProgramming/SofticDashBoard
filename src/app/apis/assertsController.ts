@@ -10,5 +10,6 @@ export const assetsCategoryController = {
 };
 
 export const assetsController = {
-    addAsset: `${environment.apiBaseUrl}Asset/Add`
+    addAsset: `${environment.apiBaseUrl}Asset/Add`,
+    getAsset:`${environment.apiBaseUrl}Asset/Get`,
 }
