@@ -317,9 +317,10 @@
 .assign-btn {
     top: 98px;
     left: 1138px;
-    padding: 14px 0px;
+    padding: 14px;
     gap: 0px;
     border-radius: 10px;
     opacity: 0px;
     background: #8413F8;
+    color: white;
 }
