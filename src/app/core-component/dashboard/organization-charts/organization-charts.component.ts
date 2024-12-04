@@ -236,7 +236,8 @@ companyId?:number=0
           imageStretch: go.GraphObject.Uniform, // Maintain aspect ratio
           cursor: 'pointer'
         },
-        new go.Binding('source', 'image')), // Bind the image source dynamically
+        new go.Binding('source', 'image', (src) => src && src.trim() !== "" ? src : 'assets/images/defualt.jpg')),
+       // Bind the image source dynamically
           $(go.TextBlock,
             {
               font: 'bold 18px sans-serif',
