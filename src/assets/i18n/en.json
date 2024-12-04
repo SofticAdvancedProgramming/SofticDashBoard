@@ -722,5 +722,6 @@
   "Edit Benefit": "Edit Benefit",
   "Benefit Type": "Benefit Type",
   "Enter benefit amount": "Enter benefit amount",
-   "Cancel": "Cancel"
+   "Cancel": "Cancel",
+   "AssignedToEmployee":"Already Assigned To An Employee."
 }

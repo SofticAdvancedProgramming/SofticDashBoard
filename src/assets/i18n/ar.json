@@ -725,6 +725,7 @@
   "Edit Benefit": "تعديل الميزة",
   "Benefit Type": "نوع الميزة",
   "Enter benefit amount": "أدخل مبلغ الميزة",
-  "Cancel": "إلغاء"
+  "Cancel": "إلغاء",
+  "AssignedToEmployee":"تم التخصيص بالفعل لموظف."
 
 }

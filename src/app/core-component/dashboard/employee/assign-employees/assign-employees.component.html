@@ -1,42 +1,58 @@
-<div class="popup-overlay" (click)="close.emit()">
-  <div class="popup-content" (click)="$event.stopPropagation()">
-    <button class="close-btn" (click)="close.emit()">&times;</button>
-    <div class="header">
-      <div class="d-flex">
-        <p>{{ Position }}:</p>
-        <label>{{ PositionDescription }}</label>
-      </div>
-      <div class="d-flex">
-        <p>{{ Department }}:</p>
-        <label>{{ DepartmentDescription }}</label>
-      </div>
-      <div class="d-flex" *ngIf="DirectManagerDescription">
-        <p>{{ DirectManager }}:</p>
-        <label>{{ DirectManagerDescription }}</label>
-      </div>
-    </div>
-    <div *ngIf="popupContent else defaultContent">
-      <ng-container *ngTemplateOutlet="popupContent"></ng-container>
-    </div>
-    <ng-template #defaultContent>
-      <form (ngSubmit)="onSubmit()">
-        <div class="form-group mt-3">
-          <label for="employeeName">Name</label>
-          <app-drop-down 
-          [placeholder]="'Select Employee'"
-          [placeholderSearch]="'Search by Name'"
-          [currentPage]="employeePage"
-          [items]="employees"
-          [itemsLength]="employees.length"
-          (getNextPageApi)="loadEmployees()"
-          (search)="loadEmployees()"
-          (onChange)="onEmployeeSelect($event)"
-        ></app-drop-down>
+<div *ngIf="!isAssigned">
+  <div class="popup-overlay" (click)="close.emit()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="close.emit()">&times;</button>
+      <div class="header">
+        <div class="d-flex">
+          <p>{{ Position }}:</p>
+          <label>{{ PositionDescription }}</label>
         </div>
-        <div class="row d-flex justify-content-center">
-          <button class="assignBtn" type="submit" [disabled]="!selectedEmployeeId">Assign</button>
+        <div class="d-flex">
+          <p>{{ Department }}:</p>
+          <label>{{ DepartmentDescription }}</label>
         </div>
-      </form>
-    </ng-template>
+        <div class="d-flex" *ngIf="DirectManagerDescription">
+          <p>{{ DirectManager }}:</p>
+          <label>{{ DirectManagerDescription }}</label>
+        </div>
+      </div>
+      <div *ngIf="popupContent else defaultContent">
+        <ng-container *ngTemplateOutlet="popupContent"></ng-container>
+      </div>
+      <ng-template #defaultContent>
+        <form (ngSubmit)="onSubmit()">
+          <div class="form-group mt-3">
+            <label for="employeeName">Name</label>
+            <app-drop-down 
+            [placeholder]="'Select Employee'"
+            [placeholderSearch]="'Search by Name'"
+            [currentPage]="employeePage"
+            [items]="employees"
+            [itemsLength]="employees.length"
+            (getNextPageApi)="loadEmployees()"
+            (search)="loadEmployees()"
+            (onChange)="onEmployeeSelect($event)"
+          ></app-drop-down>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <button class="assignBtn" type="submit" [disabled]="!selectedEmployeeId">Assign</button>
+          </div>
+        </form>
+      </ng-template>
+    </div>
   </div>
 </div>
+
+<div *ngIf="isAssigned">
+  <div class="popup-overlay" (click)="close.emit()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="close.emit()">&times;</button>
+      <div class="header">
+        <div class="d-flex">
+         {{"AssignedToEmployee" |translate}}
+        
+      </div> 
+    </div>
+  </div>
+</div>
+
