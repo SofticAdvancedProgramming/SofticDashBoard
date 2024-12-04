@@ -6,13 +6,14 @@ import { AssetsService } from '../../../../services/AssetsService/assets.service
 import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { Asset } from '../../../../../models/assets';
+import { MapComponent } from '../../../../common-component/map/map.component';
 
 @Component({
   selector: 'app-assets-details',
   standalone: true,
   templateUrl: './assets-details.component.html',
   styleUrls: ['./assets-details.component.css'],
-  imports: [CommonModule, AssignAssetPopupComponent]
+  imports: [CommonModule, AssignAssetPopupComponent, MapComponent]
 })
 export class AssetsDetailsComponent implements OnInit {
   assets: Asset[] = [];
@@ -24,7 +25,7 @@ export class AssetsDetailsComponent implements OnInit {
     companyId: number
   }[] = [];
   isAssignAssetVisible = false;
-
+  selectedAssetLocation: { lat: number, long: number } = { lat: 0, long: 0 };
   constructor(
     private route: ActivatedRoute,
     private translate: TranslateService,
@@ -83,21 +84,26 @@ export class AssetsDetailsComponent implements OnInit {
     const params = { id };
     this.assetsService.getAsset(params).subscribe({
       next: (res) => {
-        console.log('Assets Response:', res.data.list); // Log the response
+        console.log('Assets Response:', res.data.list);
         this.assets = res.data.list.map((asset: any) => {
-           const category = this.assetsCategory.find(cat => cat.id === asset.assetCategoryId);
-           const assetCategoryName = category ? (this.translate.currentLang === 'ar' ? category.nameAr : category.name) : 'Unknown';
+          const category = this.assetsCategory.find(cat => cat.id === asset.assetCategoryId);
+          const assetCategoryName = category ? (this.translate.currentLang === 'ar' ? category.nameAr : category.name) : 'Unknown';
 
-           return {
+          if (asset.lat && asset.long) {
+            this.selectedAssetLocation = { lat: asset.lat, long: asset.long };
+          } 
+
+          return {
             ...asset,
             assetCategoryName: assetCategoryName
           };
         });
-        console.log('Mapped Assets Array:', this.assets); 
+        console.log('Mapped Assets Array:', this.assets);
       },
       error: (err) => {
         console.error('Error fetching assets:', err);
       }
     });
   }
+
 }
