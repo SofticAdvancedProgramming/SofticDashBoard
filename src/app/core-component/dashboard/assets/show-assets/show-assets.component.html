@@ -6,8 +6,14 @@
     </form>
   </div>
 </div>
-
-<div class="container mt-5">
+<div class="tab-container justify-content-center">
+  <div class="categories tabs">
+    <button *ngFor="let category of assetsCategory" class="tab-button">
+      {{isArabic? category.nameAr:category.name}}
+  </button>
+  </div>
+</div>
+<div class="container mt-5" *ngFor="let asset of assets">
   <div class="item">
     <img src="https://via.placeholder.com/100" class="image">
   </div>
@@ -35,7 +41,7 @@
     <button class="btn" routerLink="../AssetsDetails">
       <img class="icon" src="../../../../../assets/images/more-square.svg">
     </button>
-  
+
     <img class="icon" src="../../../../../assets/images/trash 01.svg">
   </div>
 </div>

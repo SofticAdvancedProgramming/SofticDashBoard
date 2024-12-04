@@ -3,6 +3,7 @@ import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
 import { assetsController } from '../../apis/assertsController';
 import { Assets } from '../../../models/assetsModel';
+import { request } from 'http';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,9 @@ export class AssetsService {
     return this.apiCall.request("POST", assetsController.getMainAssets, request)
   }
 
+  getAsset(request: any = {}):Observable<any>{
+    return this.apiCall.request("POST", assetsController.getAsset, request)
+  }
   addAssetCategory(assets: Assets):Observable<any>{
     return this.apiCall.request("POST", assetsController.addAsset, assets)
   }
