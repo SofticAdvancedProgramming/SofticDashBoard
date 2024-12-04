@@ -17,7 +17,7 @@ export class AssetsService {
   }
 
   getAsset(request: any = {}):Observable<any>{
-    return this.apiCall.request("POST", assetsController.getAsset, request)
+    return this.apiCall.request("POST", assetsCategoryController.getAsset, request)
   }
   addAssetCategory(assets: Assets):Observable<any>{
     return this.apiCall.request("POST", assetsCategoryController.addAsset, assets)
