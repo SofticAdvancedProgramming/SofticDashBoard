@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
-import { assetsController } from '../../apis/assertsController';
+import { assetsCategoryController, assetsController } from '../../apis/assertsController';
 import { Assets } from '../../../models/assetsModel';
 import { request } from 'http';
 
@@ -13,21 +13,21 @@ export class AssetsService {
   constructor(private apiCall: ApiCall) { }
 
   getMainAssetsCategory(request: any = {}):Observable<any>{
-    return this.apiCall.request("POST", assetsController.getMainAssets, request)
+    return this.apiCall.request("POST", assetsCategoryController.getMainAssets, request)
   }
 
   getAsset(request: any = {}):Observable<any>{
     return this.apiCall.request("POST", assetsController.getAsset, request)
   }
   addAssetCategory(assets: Assets):Observable<any>{
-    return this.apiCall.request("POST", assetsController.addAsset, assets)
+    return this.apiCall.request("POST", assetsCategoryController.addAsset, assets)
   }
   editAssetCategory(AssetCategory: any): Observable<any> {
-    return this.apiCall.request('POST', assetsController.editAsset, AssetCategory);
+    return this.apiCall.request('POST', assetsCategoryController.editAsset, AssetCategory);
   }
 
   deleteAssetCategory(id: number, companyId: number): Observable<any> {
-    return this.apiCall.request('POST', `${assetsController.deleteAsset}/${id}/${companyId}`, {});
+    return this.apiCall.request('POST', `${assetsCategoryController.deleteAsset}/${id}/${companyId}`, {});
   }
 
   addAsset(request: any):Observable<any>{

@@ -37,7 +37,7 @@
 .form-group select {
     border: 1px solid #E7E6E8;
     width: 100%;
-    max-width: 499px;
+    /* max-width: 499px; */
     height: 48px;
     border-radius: 10px;
     border: 1px solid #E7E6E8;
@@ -272,7 +272,7 @@
 }
 
 .img-preview {
-    width: 100%;
+    width: 50%;
     height: auto;
     object-fit: cover;
     position: absolute;
