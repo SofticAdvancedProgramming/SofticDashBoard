@@ -19,26 +19,26 @@
   </div>
   <div class="item">
     <b>Category</b>
-    <p>Computers</p>
+    <p>{{asset.assetCategoryName}}Computers</p>
   </div>
   <div class="item">
     <b>Sub-Category</b>
-    <p>Laptop</p>
+    <p>{{asset.name}}</p>
   </div>
   <div class="item">
     <b>Sub-Sub-Category</b>
-    <p>HP</p>
+    <p>{{asset.modal}}</p>
   </div>
   <div class="item">
     <b>id Assets</b>
-    <p>5676786786</p>
+    <p>{{asset.id}}</p>
   </div>
   <div class="item">
     <b>Asset status</b>
-    <p class="status">Out of service</p>
+    <p class="status">{{asset.assetCategoryName}}Out of service</p>
   </div>
   <div class="actions flex-column d-flex">
-    <button class="btn" routerLink="../AssetsDetails">
+    <button class="btn" [routerLink]="['../AssetsDetails',asset.id]">
       <img class="icon" src="../../../../../assets/images/more-square.svg">
     </button>
 

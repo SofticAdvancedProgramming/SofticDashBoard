@@ -18,7 +18,7 @@ export class ShowAssetsComponent {
 
   isFilterPopupVisible = false;
 
-  assets: Assets[] = [];
+  assets: any[] = [];
   assetsCategory:{
         name: string,
         nameAr: string,
