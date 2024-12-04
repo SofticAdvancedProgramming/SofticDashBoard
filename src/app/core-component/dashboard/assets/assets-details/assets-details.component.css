@@ -58,7 +58,7 @@
     color: #09050E;
     flex-shrink: 0;
     width: 150px;
- }
+}
 
 .detail-description {
     color: #9C999F;
@@ -129,7 +129,7 @@
     color: #888;
 }
 
- .detail-description .tooltip {
+.detail-description .tooltip {
     cursor: pointer;
     position: relative;
 }
@@ -147,7 +147,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
- @media (max-width: 768px) {
+@media (max-width: 768px) {
     .container {
         padding: 10px;
     }
@@ -164,7 +164,7 @@
     .detail-title {
         font-size: 14px;
         width: 120px;
-     }
+    }
 
     .detail-description {
         font-size: 14px;
@@ -310,5 +310,16 @@
 }
 
 .download-icon:hover {
-    background-color:   #8c3cdb;;
+    background-color: #8c3cdb;
+    ;
+}
+
+.assign-btn {
+    top: 98px;
+    left: 1138px;
+    padding: 14px 0px;
+    gap: 0px;
+    border-radius: 10px;
+    opacity: 0px;
+    background: #8413F8;
 }
