@@ -1,25 +1,30 @@
 <div class="row justify-content-center d-flex">
   <div class="col-lg-6">
     <form class="d-flex gap-4" role="search">
-      <input class="customSearch" type="search" [placeholder]="'NAV.SEARCH' | translate" aria-label="Search">
+      <input  [(ngModel)]="searchText" name="searchText" class="customSearch" type="search" [placeholder]="'NAV.SEARCH' | translate" aria-label="Search" (input)="applyFilter()">
       <img class="filter" src="../../../../../assets/images/filter-search.svg" (click)="toggleFilterPopup()">
     </form>
   </div>
 </div>
 <div class="tab-container justify-content-center">
   <div class="categories tabs">
-    <button *ngFor="let category of assetsCategory" class="tab-button">
+    <button *ngIf="page>1" class="btn" (click)="prevPage()"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+
+    <button *ngFor="let category of assetsCategory" class="tab-button" (click)="gettAssets(category.id)" [class.active]="category.id">
       {{isArabic? category.nameAr:category.name}}
   </button>
+  <button  class="btn" (click)="clear()"><i class="fa fa-filter" aria-hidden="true"></i></button>
+  <button *ngIf="page<totalPages"   class="btn" (click)="nextPage()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
   </div>
 </div>
-<div class="container mt-5" *ngFor="let asset of assets">
+<div class="container mt-5" *ngFor="let asset of filteredAssets">
   <div class="item">
-    <img src="https://via.placeholder.com/100" class="image">
+    <img *ngIf="asset.photo" [src]="asset.photo" class="image">
+    <img *ngIf="!asset.photo" src="https://via.placeholder.com/100" class="image">
   </div>
   <div class="item">
     <b>Category</b>
-    <p>{{asset.assetCategoryName}}Computers</p>
+    <p>{{asset.assetCategoryName}}</p>
   </div>
   <div class="item">
     <b>Sub-Category</b>
@@ -44,5 +49,16 @@
 
     <img class="icon" src="../../../../../assets/images/trash 01.svg">
   </div>
+</div>
+
+<div class="d-flex justify-content-center mt-4">
+  <pagination
+    [totalItems]="totalRows"
+    [(ngModel)]="currentPage"
+    [itemsPerPage]="itemsPerPage"
+    (pageChanged)="handlePageChange($event)"
+    previousText="&laquo;"
+    nextText="&raquo;">
+  </pagination>
 </div>
 <app-filter-popup *ngIf="isFilterPopupVisible" (closeFilterPopup)="onFilterPopupClose($event)"></app-filter-popup>
