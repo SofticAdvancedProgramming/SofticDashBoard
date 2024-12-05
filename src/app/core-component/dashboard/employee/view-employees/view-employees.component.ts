@@ -71,7 +71,7 @@ export class ViewEmployeesComponent implements OnInit {
           companyId: this.companyId,
           pageSize: this.itemsPerPage,
           pageIndex: this.currentPage,
-          accountStatus: status,
+          accountStatus: status!=0?status:'',
         })
         .pipe(
           tap((response: any) => {
@@ -91,10 +91,9 @@ export class ViewEmployeesComponent implements OnInit {
   onOptionSelected(event:Event)
   {
     const selectedValue = (event.target as HTMLSelectElement).value;
-    if(selectedValue!=="0")
-    {
+ 
       this.loadEmployeesByCompany(+selectedValue);
-    }
+    
     
   }
 

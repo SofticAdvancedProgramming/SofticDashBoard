@@ -10,19 +10,22 @@
       </button>
     </div>
  
-    <div class="col-12 mt-4">
-      <input [(ngModel)]="searchText" placeholder="{{ 'viewEmployees.SEARCH' | translate }}" class="form-control custom-search" (input)="applyFilter()" />
-    </div>
+    
   </div>
-  <div class="mb-3 col-3">
-    <label for="employeeStatus" class="form-label">Select Filteration Option</label>
+<div class="row">
+  <div class="col-8 mt-4">
+    <input [(ngModel)]="searchText" placeholder="{{ 'viewEmployees.SEARCH' | translate }}" class="form-control custom-search" (input)="applyFilter()" />
+  </div>
+  <div class="mb-4 col-3">
+    <label for="employeeStatus" class="form-label">{{"employeeFilteration" |translate}}</label>
     <select class="form-select" (change)="onOptionSelected($event)" id="exampleSelect">
-      <option value="0">All</option>
-      <option value="1">Active</option>
-      <option value="2">Pending</option>
-      <option value="3">Rejected</option>
+      <option value="0">{{"AllEmployee"|translate}}</option>
+      <option value="1">{{"ActiveEmployees" |translate}}</option>
+      <option value="2">{{"PendingEmployees"|translate}}</option>
+      <option value="3">{{"RejectedEmployees"|translate}}</option>
     </select>
   </div>
+</div>
   <div class="table-responsive mt-4" *ngIf="filteredEmployees.length > 0; else noData">
     <table class="table custom-table">
       <thead>

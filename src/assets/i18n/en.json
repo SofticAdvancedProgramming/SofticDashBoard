@@ -723,5 +723,10 @@
   "Benefit Type": "Benefit Type",
   "Enter benefit amount": "Enter benefit amount",
    "Cancel": "Cancel",
-   "AssignedToEmployee":"Already Assigned To An Employee."
+   "AssignedToEmployee":"Already Assigned To An Employee.",
+   "employeeFilteration":"Select Employee Category",
+   "AllEmployee":"All Employees",
+   "ActiveEmployees":"Active Employees",
+   "PendingEmployees":"Pending Employees ",
+   "RejectedEmployees":"Rejected Employees"
 }
