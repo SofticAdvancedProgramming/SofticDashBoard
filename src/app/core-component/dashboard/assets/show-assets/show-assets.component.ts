@@ -20,6 +20,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 export class ShowAssetsComponent {
 
   isFilterPopupVisible = false;
+
+  companyId:number=0;
   assets: any[] = [];
   filteredAssets: any[] = [];
   assetsCategory:{
@@ -33,9 +35,11 @@ export class ShowAssetsComponent {
   totalPages:number=1;
   page: number=1;
   searchText: string = '';
-  companyId:number=0;
   currentPage: number = 1;
   totalRows: number = 0;
+  activeButtonIndex: number | null = null;
+
+
   constructor(
     private translate: TranslateService,
     private assetsService: AssetsService,
@@ -45,6 +49,7 @@ export class ShowAssetsComponent {
     this.getAssetsCategory();
     this.gettAssets();
   }
+
 
   getAssetsCategory(page?:number){
     const companyId = Number(this.localStorageService.getItem('companyId'));
@@ -62,7 +67,10 @@ export class ShowAssetsComponent {
       }
     )
   }
-  gettAssets(event?:any){
+  gettAssets(event?:any,i?:number){
+    if(i!=null){
+      this.setActiveButton(i);
+    }
     const query={"assetCategoryId":event}
    // console.log(event)
     this.assetsService.getAsset(query).subscribe({
@@ -124,15 +132,18 @@ export class ShowAssetsComponent {
   get isArabic(): boolean {
     return localStorage.getItem('lang') === 'ar';
   }
+
   prevPage(){
     if(this.page>1)
     this.getAssetsCategory(this.page--);
   }
+
   clear(){
     this.page=1
     this.getAssetsCategory(this.page);
     this.gettAssets();
   }
+
   nextPage(){
     if(this.page<this.totalPages){
       this.getAssetsCategory(this.page++);
@@ -143,6 +154,10 @@ export class ShowAssetsComponent {
   handlePageChange(event: { page: number }) {
     this.currentPage = event.page;
     this.gettAssets();
+  }
+
+  setActiveButton(index: number): void {
+    this.activeButtonIndex = index;
   }
 
 }

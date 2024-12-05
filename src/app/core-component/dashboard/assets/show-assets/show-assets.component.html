@@ -10,7 +10,7 @@
   <div class="categories tabs">
     <button *ngIf="page>1" class="btn" (click)="prevPage()"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
 
-    <button *ngFor="let category of assetsCategory" class="tab-button" (click)="gettAssets(category.id)" [class.active]="category.id">
+    <button *ngFor="let category of assetsCategory;let i =index" class="tab-button" (click)="gettAssets(category.id,i)" [class.active]="activeButtonIndex === i" >
       {{isArabic? category.nameAr:category.name}}
   </button>
   <button  class="btn" (click)="clear()"><i class="fa fa-filter" aria-hidden="true"></i></button>
