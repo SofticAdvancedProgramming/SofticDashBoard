@@ -1,18 +1,20 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { employee } from '../../../../../models/employee';
 import { DropDownComponent } from "../../components/drop-down/drop-down.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
+import { firstValueFrom } from 'rxjs';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-assign-employees',
     standalone: true,
     templateUrl: './assign-employees.component.html',
     styleUrls: ['./assign-employees.component.css'],
-    imports: [DropDownComponent,FormsModule,CommonModule]
+    imports: [DropDownComponent,FormsModule,CommonModule,TranslateModule]
 })
-export class AssignEmployeesComponent {
+export class AssignEmployeesComponent  implements OnInit{
   @Input() positionId?: string;
   @Input() Position: string = 'Position';
   @Input() PositionDescription: string = '';
@@ -21,6 +23,7 @@ export class AssignEmployeesComponent {
   @Input() DirectManager: string = 'Direct Manager';
   @Input() DirectManagerDescription: string = '';
   @Input() employee!: any[];
+  isAssigned?:boolean;
   employees: employee[] = [];  
   loadingMoreEmployees = false;
   employeePage = 1;
@@ -37,6 +40,18 @@ export class AssignEmployeesComponent {
   constructor(private employeeService:EmployeeService) { 
     this.loadEmployees();
   }
+  ngOnInit(): void {
+    this.getPositionEmployee();
+  }
+  async getPositionEmployee(): Promise<void> {
+      const response: any = await firstValueFrom(this.employeeService.getEmployees({ positionId: this.positionId }));
+      if (response.data.list.length > 0) {
+         this.isAssigned=true
+      } else {
+        this.isAssigned=false;
+      }
+    }
+  
 
  
   onEmployeeSelect(employee: any) {

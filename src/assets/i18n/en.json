@@ -731,7 +731,7 @@
   "Edit Benefit": "Edit Benefit",
   "Benefit Type": "Benefit Type",
   "Enter benefit amount": "Enter benefit amount",
-  "Cancel": "Cancel",
+   "Cancel": "Cancel",
   "Assets": {
     "AddNewAsset": "Add New Asset",
     "AssetName": "Asset Name",
@@ -760,3 +760,12 @@
     "SEND": "Send"
   }
 }
+    "Cancel": "Cancel",
+   "AssignedToEmployee":"Already Assigned To An Employee.",
+   "employeeFilteration":"Select Employee Category",
+   "AllEmployee":"All Employees",
+   "ActiveEmployees":"Active Employees",
+   "PendingEmployees":"Pending Employees ",
+   "RejectedEmployees":"Rejected Employees"
+}
+ 

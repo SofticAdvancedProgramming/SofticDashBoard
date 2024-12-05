@@ -38,7 +38,7 @@
       >
         {{ "employeeDetails.ADVANCED_INFORMATION" | translate }}
       </div>
-      @if(isPending == 'false'){
+      @if(employee.accountStatus==accountStatus.Active){
       <div
         class="tab"
         [ngClass]="{ active: activeTab === 'salary' }"
@@ -72,7 +72,7 @@
   </div>
   <div class="col-lg-6 justify-content-end gap-3 d-flex">
     @if(employee.accountStatus === accountStatus.Pending) {
-    <button class="btn rejected" (click)="updateStatus(accountStatus.Rejected)">
+    <button class="btn rejected" (click)="updateStatusToReject(accountStatus.Rejected)">
       {{ "employeeDetails.REJECTED" | translate }}
     </button>
     <button class="btn accepted" (click)="updateStatus(accountStatus.Active)">
@@ -93,7 +93,7 @@
   <div *ngIf="activeTab === 'advanced'">
     <app-advanced-information></app-advanced-information>
   </div>
-  @if(accountStatus.Pending){
+  @if(employee.accountStatus==accountStatus.Active){
   <div *ngIf="activeTab === 'salary'">
     <app-salary></app-salary>
   </div>
