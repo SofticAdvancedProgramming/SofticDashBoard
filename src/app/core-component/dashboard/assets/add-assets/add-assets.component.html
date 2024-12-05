@@ -14,8 +14,23 @@
             class="form-control"
             formControlName="AssetName"
             placeholder="{{ 'Assets.AssetNamePlaceholder' | translate }}"
-            required
+            [ngClass]="{
+              'is-invalid':
+              form.controls['AssetName'].touched &&
+              form.controls['AssetName'].errors,
+              'is-valid':
+              form.controls['AssetName'].touched &&
+              form.controls['AssetName'].errors == null ,
+              'is-touched':
+              form.controls['AssetName'].untouched &&
+              form.controls['AssetName'].errors == null,
+          }"
           />
+          <div *ngIf="isFieldInvalid('AssetName')" class="text-danger">
+            <small *ngIf="form.get('AssetName')?.errors?.['required']">
+              {{ "Assets.validation.assetNameRequired" | translate }}
+            </small>
+          </div>
         </div>
       </div>
       <div class="col-lg-6">
@@ -28,8 +43,23 @@
             class="form-control"
             formControlName="AssetNameAr"
             placeholder="{{ 'Assets.AssetNamePlaceholder' | translate }}"
-            required
+            [ngClass]="{
+              'is-invalid':
+              form.controls['AssetNameAr'].touched &&
+              form.controls['AssetNameAr'].errors,
+              'is-valid':
+              form.controls['AssetNameAr'].touched &&
+              form.controls['AssetNameAr'].errors == null ,
+              'is-touched':
+              form.controls['AssetNameAr'].untouched &&
+              form.controls['AssetNameAr'].errors == null,
+          }"
           />
+          <div *ngIf="isFieldInvalid('AssetNameAr')" class="text-danger">
+            <small *ngIf="form.get('AssetNameAr')?.errors?.['required']">
+              {{ "Assets.validation.assetNameArRequired" | translate }}
+            </small>
+          </div>
         </div>
       </div>
       <div class="col-lg-6">
@@ -42,8 +72,23 @@
             class="form-control"
             formControlName="Model"
             placeholder="{{ 'Assets.AssetIDPlaceholder' | translate }}"
-            required
+            [ngClass]="{
+              'is-invalid':
+              form.controls['Model'].touched &&
+              form.controls['Model'].errors,
+              'is-valid':
+              form.controls['Model'].touched &&
+              form.controls['Model'].errors == null ,
+              'is-touched':
+              form.controls['Model'].untouched &&
+              form.controls['Model'].errors == null,
+          }"
           />
+          <div *ngIf="isFieldInvalid('Model')" class="text-danger">
+            <small *ngIf="form.get('Model')?.errors?.['required']">
+              {{ "Assets.validation.ModelRequired" | translate }}
+            </small>
+          </div>
         </div>
       </div>
       <div class="col-lg-6">
@@ -55,6 +100,17 @@
             id="AssetCategory"
             formControlName="AssetCategory"
             class="form-control"
+            [ngClass]="{
+              'is-invalid':
+              form.controls['AssetCategory'].touched &&
+              form.controls['AssetCategory'].errors,
+              'is-valid':
+              form.controls['AssetCategory'].touched &&
+              form.controls['AssetCategory'].errors == null ,
+              'is-touched':
+              form.controls['AssetCategory'].untouched &&
+              form.controls['AssetCategory'].errors == null,
+          }"
           >
             <option value="" disabled>
               {{ "Assets.AssetCategoryPlaceholder" | translate }}
@@ -66,6 +122,11 @@
               }
             </option>
           </select>
+          <div *ngIf="isFieldInvalid('AssetCategory')" class="text-danger">
+            <small *ngIf="form.get('AssetCategory')?.errors?.['required']">
+              {{ "Assets.validation.AssetCategoryRequired" | translate }}
+            </small>
+          </div>
         </div>
       </div>
       <!-- <div class="col-lg-6">
@@ -98,7 +159,33 @@
             minlength="100"
             formControlName="AssetReason"
             maxlength="300"
+            [ngClass]="{
+              'is-invalid':
+              form.controls['AssetReason'].touched &&
+              form.controls['AssetReason'].errors,
+              'is-valid':
+              form.controls['AssetReason'].touched &&
+              form.controls['AssetReason'].errors == null ,
+              'is-touched':
+              form.controls['AssetReason'].untouched &&
+              form.controls['AssetReason'].errors == null,
+          }"
           ></textarea>
+          <div *ngIf="isFieldInvalid('AssetReason')" class="text-danger">
+            <small *ngIf="form.get('AssetReason')?.errors?.['required']">
+              {{ "Assets.validation.AssetReasonRequired" | translate }}
+            </small>
+          </div>
+          <div *ngIf="isFieldInvalid('AssetReason')" class="text-danger">
+            <small *ngIf="form.get('AssetReason')?.errors?.['minlength']">
+              {{ "Assets.validation.AssetReasonMinLength" | translate }}
+            </small>
+          </div>
+          <div *ngIf="isFieldInvalid('AssetReason')" class="text-danger">
+            <small *ngIf="form.get('AssetReason')?.errors?.['maxlength']">
+              {{ "Assets.validation.AssetReasonMaxLength" | translate }}
+            </small>
+          </div>
         </div>
       </div>
       <!-- <div class="col-lg-12">
@@ -119,64 +206,45 @@
       </div> -->
       <div class="form-group d-none">
         <label for="long">Longitude</label>
-        <input id="long" formControlName="long" placeholder="Enter Longitude" class="form-control" />
-        <div *ngIf="form.get('long')?.invalid && form.get('long')?.touched" class="text-danger">{{
-          'addBranch.LONGITUDE_REQUIRED' | translate }}</div>
+        <input
+          id="long"
+          formControlName="long"
+          placeholder="Enter Longitude"
+          class="form-control"
+        />
+        <div
+          *ngIf="form.get('long')?.invalid && form.get('long')?.touched"
+          class="text-danger"
+        >
+          {{ "addBranch.LONGITUDE_REQUIRED" | translate }}
+        </div>
       </div>
       <div class="form-group d-none">
         <label for="lat">Latitude</label>
-        <input id="lat" formControlName="lat" placeholder="Enter Latitude" class="form-control" />
-        <div *ngIf="form.get('lat')?.invalid && form.get('lat')?.touched" class="text-danger">{{
-          'addBranch.LATITUDE_REQUIRED' | translate }}</div>
+        <input
+          id="lat"
+          formControlName="lat"
+          placeholder="Enter Latitude"
+          class="form-control"
+        />
+        <div
+          *ngIf="form.get('lat')?.invalid && form.get('lat')?.touched"
+          class="text-danger"
+        >
+          {{ "addBranch.LATITUDE_REQUIRED" | translate }}
+        </div>
       </div>
       <div class="col-lg-12">
         <div class="form-group">
-          <label for="map">{{
-            "Assets.AssetLocation" | translate
-          }}</label>
-        <app-map (locationSelected)="onLocationSelected($event)" [long]="46.738586" [lat]="24.774265"></app-map>
+          <label for="map">{{ "Assets.AssetLocation" | translate }}</label>
+          <app-map
+            (locationSelected)="onLocationSelected($event)"
+            [long]="46.738586"
+            [lat]="24.774265"
+          ></app-map>
         </div>
       </div>
-      <!-- <div class="row d-flex gap-3">
-        <div class="form-group">
-          <label for="photo">{{ "Assets.attachment" | translate }}</label>
-          <div class="container-upload">
-            <div
-              *ngIf="!fileType1 || fileType1.startsWith('image/')"
-              class="header"
-            >
-              <p>{{ "ASSET_UPLOADER.BROWSE_FILE" | translate }}</p>
-            </div>
-            <label for="file" class="footer">
-              <p *ngIf="!selectedFileName1 && !uploadMessage1">
-                {{ "ASSET_UPLOADER.NO_FILE_SELECTED" | translate }}
-              </p>
-              <div
-                *ngIf="selectedFileName1 && !fileType1?.startsWith('image/')"
-                class="file-info"
-              >
-                <i class="fa fa-file" aria-hidden="true"></i>
-                <span>{{ selectedFileName1 }}</span>
-              </div>
-              <img
-                *ngIf="imagePreviewUrl1 && fileType1?.startsWith('image/')"
-                [src]="imagePreviewUrl1"
-                alt="{{ 'ASSET_UPLOADER.SELECTED_FILE' | translate }}"
-                class="img-preview"
-              />
-              <p *ngIf="uploadMessage1" class="upload-message">
-                {{ uploadMessage1 }}
-              </p>
-            </label>
-            <input
-              id="file"
-              type="file"
-              (change)="onFile1Change($event)"
-              formControlName="AssetAttachment"
-              class="form-control-file"
-            />
-          </div>
-        </div> -->
+      <div class="row d-grid gap-3">
         <div class="form-group">
           <label for="photo">{{ "Assets.photo" | translate }}</label>
           <div class="container-upload">
@@ -215,16 +283,64 @@
               class="form-control-file"
             />
           </div>
-        </div>
-      </div>
 
-      <div class="row my-3">
-        <div class="">
-          <button type="submit" class="btn btn-primary w-100">
-            {{ "ASSET_UPLOADER.SEND" | translate }}
-          </button>
+          <div class="d-flex gap-1 flex-wrap" style="grid-column: 1 / -1">
+            <div class="container-upload">
+              <div
+                *ngIf="
+                  !attachmentfileType || attachmentfileType.startsWith('image/')
+                "
+                class="header"
+              >
+                <p>{{ "ASSET_UPLOADER.BROWSE_FILE" | translate }}</p>
+              </div>
+              <label for="attachmentfile" class="footer">
+                <p *ngIf="files.length === 0 && !attachmentUploadMessage">
+                  {{ "ASSET_UPLOADER.NO_FILE_SELECTED" | translate }}
+                </p>
+
+                <p *ngIf="attachmentUploadMessage" class="upload-message">
+                  {{ attachmentUploadMessage }}
+                </p>
+              </label>
+
+              <input
+                id="attachmentfile"
+                type="file"
+                (change)="onAttachmentChange($event)"
+                formControlName="AssetAttachment"
+                class="form-control-file"
+              />
+            </div>
+            <div *ngFor="let file of files" class="file-info">
+              <div *ngIf="!file.fileType?.startsWith('image/')">
+                <i class="fa fa-file" aria-hidden="true"></i>
+                <span>{{ file.fileName }}</span>
+              </div>
+
+              <img
+                *ngIf="file.previewUrl"
+                [src]="file.previewUrl"
+                alt="{{ file.fileName }}"
+                class="img-preview"
+              />
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+
+    <div class="row my-3">
+      <div class="">
+        <button
+          type="submit"
+          class="btn btn-primary w-100"
+          [ngClass]="{ inValidForm: form.invalid }"
+        >
+          {{ "ASSET_UPLOADER.SEND" | translate }}
+        </button>
+      </div>
+    </div>
     <!-- </div> -->
   </form>
 </div>
