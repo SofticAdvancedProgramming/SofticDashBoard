@@ -33,4 +33,12 @@ export class AssetsService {
   addAsset(request: any):Observable<any>{
     return this.apiCall.request("POST", assetsController.addAsset, request)
   }
+  getAssetsCount(request:any):Observable<any>{
+    //AssetAssignmentCounts
+    return this.apiCall.request("POST", assetsController.AssetAssignmentCounts, request)
+  }
+
+  AssetCategorycounts(request:any):Observable<any>{
+    return this.apiCall.request("POST", assetsController.AssetCategorycounts, request)
+  }
 }
