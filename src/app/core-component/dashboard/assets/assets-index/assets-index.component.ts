@@ -56,6 +56,9 @@ export class AssetsIndexComponent {
     nameAr: string,
     count: number
   }[]=[]
+  assetsCategoryInArabic:string[]=[]
+  assetsCategoryInEnglish:string[]=[]
+  assetsInCatCount:number[]=[];
   getAssetsCount(){
     const req=null;
     this.assetsService.getAssetsCount(req).subscribe(
@@ -83,7 +86,17 @@ export class AssetsIndexComponent {
       {
         next:(res)=>{
           console.log(res)
+
           this.assetsInCategoriesCount=res;
+          res.map((item:any)=>{
+            this.assetsCategoryInArabic.push(item.nameAr);
+            this.assetsCategoryInEnglish.push(item.name);
+            this.assetsInCatCount.push(item.count);
+          }
+        )
+        console.log(this.assetsCategoryInArabic)
+        console.log( this.assetsCategoryInEnglish)
+        console.log(this.assetsInCatCount)
         },
 
         error:(res)=>{
@@ -148,12 +161,14 @@ export class AssetsIndexComponent {
 
 
   donutChartOptions = {
-    series: [44, 55, 41, 17, 15],
+    //series: [44, 55, 41, 17, 15],
+    series:  this.assetsInCatCount,
     chart: {
       width: 380,
       type: 'donut' as ChartType
     },
-    labels: ['Category 1', 'Category 2', 'Category 3'],
+ //   labels: ['Category 1', 'Category 2', 'Category 3'],
+    labels: this.isArabic?this.assetsCategoryInArabic:this.assetsCategoryInEnglish,
     dataLabels: {
       enabled: false
     },
@@ -179,4 +194,9 @@ export class AssetsIndexComponent {
       }
     ]
   };
+
+
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+  }
 }
