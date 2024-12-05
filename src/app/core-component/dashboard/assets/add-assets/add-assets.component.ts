@@ -30,19 +30,20 @@ import { MapComponent } from '../../../../common-component/map/map.component';
 export class AddAssetsComponent implements OnInit {
   form!: FormGroup;
   selectedFileName: string | null = null;
-  // selectedFileName2: string | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
-  // imagePreviewUrl: string | ArrayBuffer | null = null;
+  attachmentImagePreviewUrl: string | ArrayBuffer | null = null;
   fileType: string | null = null;
-  // fileType2: string | null = null;
+  attachmentfileType: string | null = null;
   uploadMessage: string | null = null;
-  // uploadMessage2: string | null = null;
+  attachmentUploadMessage: string | null = null;
+  attachments:any[]=[];
   companyId = this.localStorageService.getItem('companyId');
   employeeId = this.localStorageService.getItem('userId');
   uploadedImageBase64: any;
   lang: string = this.localStorageService.getItem('lang')!;
   assetsCategories: any;
   PhotoExtension: any;
+  files: { companyId: number; fileExtension: string; previewUrl: string; file?: string, fileName?:string, fileType?:string }[] = [];
 
   constructor(
     private translate: TranslateService,
@@ -81,6 +82,7 @@ export class AddAssetsComponent implements OnInit {
   }
 
   onFileChange(event: any): void {
+    console.log("onFileChange");
     const file = event.target.files[0];
     if (file) {
       const fileName = file.name;
@@ -104,19 +106,6 @@ export class AddAssetsComponent implements OnInit {
         });
     }
   }
-  // onFile2Change(event: any): void {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     this.fileType2 = file.type;
-  //     this.selectedFileName2 = file.name;
-  //     this.read1File(file);
-  //     this.imageUploadService.convertFileToBase64(file).then(base64 => {
-  //       this.uploadedImageBase64 = base64;
-  //     }).catch(error => {
-  //       console.error('Error converting file to base64', error);
-  //     })
-  //   }
-  // }
   readFile(file: File): void {
     const reader = new FileReader();
     reader.onload = () => {
@@ -131,30 +120,65 @@ export class AddAssetsComponent implements OnInit {
         );
         if (this.fileType?.startsWith('image/')) {
           this.imagePreviewUrl = result;
+          console.log(this.imagePreviewUrl);
+          
         }
       }
     };
     reader.readAsDataURL(file);
   }
-  // read2File(file: File): void {
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     const result = reader.result as string | null;
-  //     if (result) {
-  //       const base64String = result.split(',')[1];
-  //       this.addAttachment(base64String, file.name);
-  //       this.uploadMessage2 = this.translate.instant(
-  //         this.fileType2?.startsWith('image/')
-  //           ? 'ASSET_UPLOADER.IMAGE_UPLOADED'
-  //           : 'ASSET_UPLOADER.FILE_UPLOADED'
-  //       );
-  //       if (this.fileType2?.startsWith('image/')) {
-  //         this.imagePreviewUrl2 = result;
-  //       }
-  //     }
-  //   };
-  //   reader.readAsDataURL(file);
-  // }
+
+
+  onAttachmentChange(event: any): void {
+    console.log("onAttachmentChange");
+    
+    const file = event.target.files[0];
+    if (file) {
+      const attachmentfileType = file.type;
+      const fileName = file.name;
+  
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string | null;
+        if (result) {
+          const base64String = result.split(',')[1];
+          const companyId = Number(this.localStorageService.getItem('companyId'));
+          const extension = fileName.split('.').pop();
+          const fileDetails: { companyId: number; fileExtension: string; previewUrl: string; file?: string, fileName?:string, fileType?:string } = {
+            companyId: companyId,
+            fileExtension:extension,
+            file: base64String,
+            fileName: fileName,
+            fileType: attachmentfileType,
+            previewUrl: result
+          };
+          const dataFile:{ companyId: number; fileExtension: string; file: string, id:number, assetId:number } = {
+            companyId: companyId, fileExtension: extension, file: base64String , id:0 , assetId:0
+          }
+          this.attachments.push(dataFile);
+          
+          // If the file is an image, add a preview URL
+          if (attachmentfileType.startsWith('image/')) {
+            this.attachmentImagePreviewUrl = result;
+            console.log(this.attachmentImagePreviewUrl);
+          }
+  
+          // Add the file to the array
+          this.files.push(fileDetails);
+          console.log(fileDetails);
+          console.log(this.attachments);
+          
+  
+          // Update message
+          this.attachmentUploadMessage = this.translate.instant(
+            attachmentfileType.startsWith('image/') ? 'fileUploadModule.messages.uploadAnotherImage' : 'fileUploadModule.messages.uploadAnotherFile'
+          );
+        }
+      };
+  
+      reader.readAsDataURL(file);
+    }
+  }
   addAttachment(base64String: string, fileName: string): void {
     const extension = fileName.split('.').pop();
     // this.AddRequest.requestAttachments.push({
@@ -163,6 +187,10 @@ export class AddAssetsComponent implements OnInit {
     //   file: base64String,
     //   fileExtension: extension || '',
     // });
+  }
+  isFieldInvalid(field: string): boolean {
+    const control = this.form.get(field);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
   }
 
   onSubmit() {
@@ -176,6 +204,7 @@ export class AddAssetsComponent implements OnInit {
       photoExtension: this.PhotoExtension,
       long: this.form.controls['long'].value,
       lat: this.form.controls['lat'].value,
+      assetAttachments: this.attachments
     };
     this.assetsService.addAsset(params).subscribe({
       next: (res) => {

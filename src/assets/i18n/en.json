@@ -752,7 +752,16 @@
     "AssetLocationPlaceholder": "Enter the asset location",
     "TechnicalDescriptionPlaceholder": "Provide a technical description of the asset",
     "attachment": "Attachment",
-    "photo": "Photo"
+    "photo": "Photo",
+    "validation": {
+      "assetNameRequired": "Asset Name Required",
+      "assetNameArRequired": "Asset Name (Arabic) Required",
+      "ModelRequired" : "Asset Model Required",
+      "AssetCategoryRequired": "Asset Category Required",
+      "AssetReasonRequired": "Description Required",
+      "AssetReasonMinLength":"Description Min Characters is 100",
+      "AssetReasonMaxLength":"Description Max Characters is 300"
+    }
   },
   "ASSET_UPLOADER": {
     "BROWSE_FILE": "Browse File",
