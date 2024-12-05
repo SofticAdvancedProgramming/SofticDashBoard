@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { TranslateModule } from '@ngx-translate/core';
 import { debounce } from "lodash";
 import { MatSelectInfiniteScrollModule } from 'ng-mat-select-infinite-scroll';
+import { employee } from '../../../../../models/employee';
 
 @Component({
   selector: 'app-drop-down',
@@ -27,7 +28,7 @@ export class DropDownComponent {
   @Output() onChange = new EventEmitter<any>();
   @Output() search = new EventEmitter<any>();
   @Output() getNextPageApi = new EventEmitter<any>();
-
+ 
   limit: number = 10;
   private debounceSearchWithDiscount: (() => void) | any;
 

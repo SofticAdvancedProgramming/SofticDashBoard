@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
 import { assetsCategoryController, assetsController } from '../../apis/assertsController';
-import { Assets } from '../../../models/assetsModel';
+import { Assets , assignAsset } from '../../../models/assetsModel';
 import { request } from 'http';
 
 @Injectable({
@@ -33,8 +33,7 @@ export class AssetsService {
   addAsset(request: any): Observable<any> {
     return this.apiCall.request("POST", assetsController.addAsset, request)
   }
-  receivedAsset(assetId: number, employeeId: number, request: any): Observable<any> {
-    const url = assetsController.receivedAsset(assetId, employeeId);
-    return this.apiCall.request("POST", url, request);
+  assignAsset(assignAsset:assignAsset ): Observable<any> {
+     return this.apiCall.request("POST", assetsController.assignAsset, assignAsset)
   }
 }

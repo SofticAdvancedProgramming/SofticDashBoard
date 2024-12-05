@@ -19,8 +19,14 @@
               ></app-drop-down>
             </div>
             <div class="form-group">
-                <label for="status">Assign Date</label>
-                <input type="date" placeholder="Enter Assign Date" id="assignDate" name="assignDate" required>
+                <label for="assignDate">Assign Date</label>
+                <input 
+                    type="date" 
+                    id="assignDate" 
+                    name="assignDate" 
+                    [(ngModel)]="assignDate" 
+                    required
+                >
             </div>
             <div class="d-flex justify-content-center gap-2">
                 <button class="apply-btn" type="submit">Submit</button>

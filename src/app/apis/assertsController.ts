@@ -12,6 +12,6 @@ export const assetsCategoryController = {
 export const assetsController = {
     addAsset: `${environment.apiBaseUrl}Asset/Add`,
     getAsset:`${environment.apiBaseUrl}Asset/Get`,
-    receivedAsset: (assetId: number, employeeId: number) => `${environment.apiBaseUrl}Asset/Recived/${assetId}/${employeeId}`, 
+    assignAsset: `${environment.apiBaseUrl}Asset/Assgin`,
 
 }
