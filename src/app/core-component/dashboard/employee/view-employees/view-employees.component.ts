@@ -88,6 +88,16 @@ export class ViewEmployeesComponent implements OnInit {
     }
   }
 
+  onOptionSelected(event:Event)
+  {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    if(selectedValue!=="0")
+    {
+      this.loadEmployeesByCompany(+selectedValue);
+    }
+    
+  }
+
   toggleEmployeeStatus() {
     this.isShowingPending = !this.isShowingPending;
     this.localStorageService.setItem(
