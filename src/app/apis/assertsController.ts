@@ -15,3 +15,11 @@ export const assetsController = {
     receivedAsset: (assetId: number, employeeId: number) => `${environment.apiBaseUrl}Asset/Recived/${assetId}/${employeeId}`, 
 
 }
+
+export const relatedAssetsController = {
+    getRelatedAssets:`${environment.apiBaseUrl}RelatedAsset/Get`,
+    addRelatedAssets:`${environment.apiBaseUrl}RelatedAsset/Add`,
+    editRelatedAssets:`${environment.apiBaseUrl}RelatedAsset/Edit`,
+    deleteRelatedAssets: `${environment.apiBaseUrl}RelatedAsset/Delete`,
+
+}

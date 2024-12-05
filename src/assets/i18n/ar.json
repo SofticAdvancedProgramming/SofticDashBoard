@@ -239,6 +239,13 @@
     "REQUIRED_FIELD": "هذا الحقل مطلوب",
     "BTN": "إضافة أصل"
   },
+  "RELATED_ASSETS": {
+  "TITLE": "الأصول ذات الصلة",
+  "NAME": "الأصول ذات الصلة",
+  "NAME_AR": "الأصول ذات الصلة (عربي)",
+  "MODEL": "الموديل",
+  "DIRECT_PARENT": "الأصل المباشر"
+  },
   "INDEX_POSITION": {
     "ADD_POSITION": "إضافة وظيفة",
     "DEPARTMENT": "القسم",
@@ -304,7 +311,9 @@
     "BenefitType": "نوع الميزة",
     "BenefitType_DESCRIPTION": "إدارة أنواع المزايا المقدمة للموظفين.",
     "AssetsCategory": "فئات الأصول",
-    "AssetsCategory_DESCRIPTION": "إدارة كافة فئات الأصول."
+    "AssetsCategory_DESCRIPTION": "إدارة كافة فئات الأصول.",
+    "RelatedAssets": "الأصول ذات الصلة",
+    "RelatedAssets_DESCRIPTION": "إدارة الأصول ذات الصلة."
   },
   "NAV": {
     "SEARCH": "بحث..."

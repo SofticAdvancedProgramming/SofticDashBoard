@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DropDownComponent } from '../../../../components/drop-down/drop-down.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -29,16 +29,17 @@ import { LocalStorageService } from '../../../../../../services/local-storage-se
   templateUrl: './related-assets.component.html',
   styleUrl: './related-assets.component.css'
 })
-export class RelatedAssetsComponent {
+export class RelatedAssetsComponent implements OnInit{
   form!: FormGroup;
   formData: any = {};
   assets: any[] = [];
-  AssetsData!: Assets;
+  relatedAssets: any[] = [];
+  RelatedAssetsData: any;
   lang: string = this.localStorageService.getItem('lang')!;
-  totalRows: any = { AssetsCategories: 0 };
+  totalRows: any = { RelatedAssets: 0 };
   currentPage: number = 1;
   itemsPerPage: number = 10;
-  modalId = 'AssetsCategories';
+  modalId = 'RelatedAssets';
   deleteId: string = 'deleteAssetCategory';
   columns: string[] = ['name' , 'nameAr'];
   companyId = this.localStorageService.getItem('companyId');
@@ -47,11 +48,11 @@ export class RelatedAssetsComponent {
     string,
     { load: string; add: string; edit: string; delete: string; data: string }
   > = {
-    AssetsCategories: {
-      load: 'getMainAssetsCategory',
-      add: 'addAssetCategory',
-      edit: 'editAssetCategory',
-      delete: 'deleteAssetCategory',
+    RelatedAssets: {
+      load: 'getRelatedAssets',
+      add: 'addRelatedAssets',
+      edit: 'editRelatedAssets',
+      delete: 'deleteRelatedAssets',
       data: 'getMainAssetsCategory'
     },
   };
@@ -59,6 +60,8 @@ export class RelatedAssetsComponent {
   structure = [
     { name: 'name', label: 'Name In Arabic', type: 'text', required: true },
     { name: 'nameAr', label: 'Name In English', type: 'text', required: true },
+    { name: 'model', label: 'Model', type: 'text', required: true },
+    { name: 'mainAssetId', label: 'Asset', type: 'text', required: true },
   ];
   constructor(
     private fb: FormBuilder,
@@ -70,12 +73,14 @@ export class RelatedAssetsComponent {
   ngOnInit(): void {
     this.initiation();
     // this.getMainAssets();
-    this.loadEntities('AssetsCategories', 1);
+    this.loadEntities('RelatedAssets', 1);
+    this.loadAssets();
   }
   initiation() {
     this.form = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
+      model: ['' , Validators.required],
       mainAssetId: [],
       isHasMainCategory: [false],
     });
@@ -91,7 +96,16 @@ export class RelatedAssetsComponent {
   //     error: (err) => console.log(err),
   //   });
   // }
-
+  loadAssets(){
+    this.assetsService.getAsset().subscribe({
+      next: (res) => {
+        this.assets = res.data.list
+      },
+      error: (err)=>{
+        console.log(err)
+      }
+    })
+  }
   loadEntities(entity: string, pageIndex: number, name?: string): void {
     const query: any = {
       companyId: this.companyId,
@@ -107,7 +121,7 @@ export class RelatedAssetsComponent {
         (this as any)[this.entityTypes[entity].data] = response.data.list;
         this.pageIndex[entity] = response.data.pageIndex;
         this.totalRows[entity] = response.data.totalRows;
-        this.assets = response.data.list;
+        this.relatedAssets = response.data.list;
         // this.totalRows = response.data.totalRows;
       }
     });
@@ -142,23 +156,25 @@ export class RelatedAssetsComponent {
       return;
     }
     if (this.form.controls['isHasMainCategory'].value) {
-      this.AssetsData  = {
+      this.RelatedAssetsData  = {
         companyId: Number(this.localStorageService.getItem('companyId')),
         name: this.form.controls['name'].value,
         nameAr: this.form.controls['nameAr'].value,
-        mainAssetId: Number(this.form.controls['mainAssetId'].value),
+        model: this.form.controls['model'].value,
+        assetId: Number(this.form.controls['mainAssetId'].value),
       };
     }else{
-      this.AssetsData  = {
+      this.RelatedAssetsData  = {
         companyId: Number(this.localStorageService.getItem('companyId')),
         name: this.form.controls['name'].value,
         nameAr: this.form.controls['nameAr'].value
       };
     }
 
-    this.assetsService.addAssetCategory(this.AssetsData).subscribe({
+    this.assetsService.addRelatedAssets(this.RelatedAssetsData).subscribe({
       next: (res) => {
         console.log(res);
+        this.ngOnInit();
       },
       error: (err) => console.log(err),
     });
@@ -173,14 +189,14 @@ export class RelatedAssetsComponent {
   }
 
    onTypeChange(): void {
-    this.loadEntities('AssetsCategories', 1);
+    this.loadEntities('RelatedAssets', 1);
   }
 
   handleFormSubmission(data: any): void {
     data.companyId = this.companyId;
     if (this.isEdit) {
       data.id = this.formData.id;
-      this.editEntity('AssetsCategories', data);
+      this.editEntity('RelatedAssets', data);
     }
   }
 }
