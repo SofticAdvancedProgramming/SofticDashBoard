@@ -19,11 +19,10 @@
 
 .image {
     width: 100%;
-    max-width: 400px;
-    height: auto;
-    margin: 1em;
-    margin-block: 2em;
-}
+     height: auto;
+      min-width: 396px;
+    min-height: 264px;
+ }
 
 .image img {
     width: 100%;
@@ -154,8 +153,7 @@
 
     .image {
         max-width: 100%;
-        margin: 1em 0;
-    }
+     }
 
     .details {
         padding: 1em;
@@ -194,7 +192,7 @@
 
     .image {
         max-width: 100%;
-        margin: 0.5em 0;
+
     }
 
     .details {
@@ -227,8 +225,7 @@
     width: 100%;
     max-width: 400px;
     height: auto;
-    margin: 1em;
-    margin-block: 2em;
+ 
 }
 
 .details {
@@ -323,4 +320,33 @@
     opacity: 0px;
     background: #8413F8;
     color: white;
+}
+.map-container{
+    height: 430px;
+}
+.d-flex {
+    display: flex !important;
+     gap: 20px; 
+    align-items: flex-end;
+}
+
+.col-lg-4, .col-lg-8 {
+    padding: 0;  
+}
+
+ 
+.map-container {
+    width: 100%;  
+    height: 430px;
+    max-width: 650px;  
+}
+
+@media (max-width: 768px) {
+    .col-lg-4, .col-lg-8 {
+        width: 100%; 
+    }
+
+    .image, .map-container {
+        max-width: 100%;
+    }
 }

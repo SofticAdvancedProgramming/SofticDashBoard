@@ -3,28 +3,36 @@
     <p class="header"><img class="mx-1" src="../../../../../assets/images/chart.png">Assets Details</p>
     <button class="btn assign-btn" (click)="toggleAssignPopup()">Assign Asset</button>
   </div>
-  
-  <div class="image">
-    <img [src]="assets[0]?.photo || '../../../../../assets/images/default.jpeg'" alt="Image" *ngIf="assets.length > 0">
-  </div>
-   <div class="row">
+  <div class="d-flex">
+    <div class="col-lg-4">
+        <div class="image">
+            <img [src]="assets[0]?.photo || '../../../../../assets/images/default.jpeg'" alt="Image" *ngIf="assets.length > 0">
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="map-container">
+            <app-map [lat]="selectedAssetLocation.lat" [long]="selectedAssetLocation.long"></app-map>
+        </div>
+    </div>
+</div>
+  <div class="row">
     <div class="col-lg-8">
       <div class="details">
         <div *ngFor="let asset of assets">
           <div *ngIf="asset" class="detail">
-            <div class="detail-title">Category</div>
+            <div class="detail-title">Asset Name</div>
             <div class="detail-description">{{ asset.name }}</div>
           </div>
           <div class="detail">
             <div class="detail-title">Category</div>
             <div class="detail-description">{{ asset.assetCategoryName }}</div>
           </div>
-          <div class="detail">
+          <!-- <div class="detail">
             <div class="detail-title">Technical description</div>
             <div class="detail-description long-text">
-              {{ asset.model }} - {{ asset.name }}  
+              {{ asset.model }} - {{ asset.name }}
             </div>
-          </div>
+          </div> -->
           <!-- <div class="detail">
             <div class="detail-title">Accessories</div>
             <div class="detail-description">keyboard & ...............</div>
@@ -34,8 +42,12 @@
             <div class="detail-description">{{ asset.model }}</div>
           </div>
           <div class="detail">
-            <div class="detail-title">Asset location</div>
-            <div class="detail-description">Maadi Branch (Al-Zohour Street)</div>
+            <div class="detail-title"> Address </div>
+            <div class="detail-description long-text" *ngIf="selectedAssetAddress; else noAddress">{{
+              selectedAssetAddress }}</div>
+            <ng-template #noAddress>
+              <div class="detail-description"> Address not available </div>
+            </ng-template>
           </div>
           <div class="detail">
             <div class="detail-title">Takeover</div>
@@ -58,7 +70,8 @@
       </div>
     </div>
   </div>
-  
-  
-  <app-assign-asset-popup *ngIf="isAssignAssetVisible" (closeAssignAssets)="onAssignAssetClose($event)"></app-assign-asset-popup>
+
+
+  <app-assign-asset-popup *ngIf="isAssignAssetVisible"
+    (closeAssignAssets)="onAssignAssetClose($event)"></app-assign-asset-popup>
 </div>

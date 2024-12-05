@@ -12,14 +12,14 @@ export class AssetsService {
 
   constructor(private apiCall: ApiCall) { }
 
-  getMainAssetsCategory(request: any = {}):Observable<any>{
+  getMainAssetsCategory(request: any = {}): Observable<any> {
     return this.apiCall.request("POST", assetsCategoryController.getMainAssets, request)
   }
 
-  getAsset(request: any = {}):Observable<any>{
-    return this.apiCall.request("POST", assetsController.getAsset, request)
+  getAsset(request: any = {}): Observable<any> {
+    return this.apiCall.request("POST", assetsCategoryController.getAsset, request)
   }
-  addAssetCategory(assets: Assets):Observable<any>{
+  addAssetCategory(assets: Assets): Observable<any> {
     return this.apiCall.request("POST", assetsCategoryController.addAsset, assets)
   }
   editAssetCategory(AssetCategory: any): Observable<any> {
@@ -30,7 +30,11 @@ export class AssetsService {
     return this.apiCall.request('POST', `${assetsCategoryController.deleteAsset}/${id}/${companyId}`, {});
   }
 
-  addAsset(request: any):Observable<any>{
+  addAsset(request: any): Observable<any> {
     return this.apiCall.request("POST", assetsController.addAsset, request)
+  }
+  receivedAsset(assetId: number, employeeId: number, request: any): Observable<any> {
+    const url = assetsController.receivedAsset(assetId, employeeId);
+    return this.apiCall.request("POST", url, request);
   }
 }
