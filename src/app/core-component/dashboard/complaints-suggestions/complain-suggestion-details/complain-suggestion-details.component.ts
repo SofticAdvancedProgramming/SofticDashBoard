@@ -87,6 +87,10 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
     }
   }
 
+  openImage(imageUrl: string): void {
+    window.open(imageUrl, '_blank');
+  }
+
   matchAgainstTypeName(): void {
     //console.log("this.complaintDetailsthis.complaintDetails",this.complaintDetails)
     if (this.complaintDetails && this.complaintDetails.againestTypeId) {

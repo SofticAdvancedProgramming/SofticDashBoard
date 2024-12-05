@@ -29,7 +29,7 @@
 
 
 
-<mat-tab-group>
+<mat-tab-group [(selectedIndex)]="activeTabIndex">
   <mat-tab label="{{ 'COMPANY_DETAILS.TITLE' | translate }}">
     <app-profile-details [company]="company" [cityName]="cityName" [countryName]="countryName"></app-profile-details>
   </mat-tab>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterLink } from '@angular/router';
 import { ProfileDetailsComponent } from '../components/profile-details/profile-details.component';
@@ -29,12 +29,15 @@ export class CompanyDetailsComponent implements OnInit {
   cityName: string = '';
   countryName: string = '';
   isArabic: boolean = false;
+  activeTabIndex: number = 0; // Default tab index (first tab)
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
     private locationService: LocationService,
     private messageService: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router :Router
+    
   ) {}
 
   async ngOnInit() {
@@ -42,11 +45,21 @@ export class CompanyDetailsComponent implements OnInit {
     if (this.companyId) {
       await this.getCompanyDetails(this.companyId);
     }
+    this.route.queryParams.subscribe((params) => {
+      const tab = params['tab'];
+      this.activeTabIndex = tab ? parseInt(tab, 10) : 0; // Default to 0 if no tab param
+    });
   }
   checkLanguageDirection(): void {
     this.isArabic = this.translate.currentLang === 'ar';
   }
-
+  navigateToTab(index: number): void {
+    this.activeTabIndex = index; // Update active tab
+    this.router.navigate([], {
+      queryParams: { tab: index }, // Update query params in URL
+      queryParamsHandling: 'merge' // Merge with existing query params
+    });
+  }
   async getCompanyDetails(companyId: string): Promise<void> {
     try {
       const response = await this.companyService.getCompany({ id: companyId }).toPromise();
