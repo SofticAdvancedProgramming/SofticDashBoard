@@ -41,6 +41,7 @@ import { AssetsCategoryComponent } from './core-component/dashboard/setting/Lock
 import { AddAssetsComponent } from './core-component/dashboard/assets/add-assets/add-assets.component';
 import { ShowAssetsComponent } from './core-component/dashboard/assets/show-assets/show-assets.component';
 import { AssetsDetailsComponent } from './core-component/dashboard/assets/assets-details/assets-details.component';
+import { RelatedAssetsComponent } from './core-component/dashboard/setting/Lockups/relatedAssrts/related-assets/related-assets.component';
 
 export const routes: Routes = [
   {
@@ -88,6 +89,7 @@ export const routes: Routes = [
       { path: 'AssetsIndex', component: AssetsIndexComponent },
       { path: 'employee-locations/:id', component: AddLocationComponent },
       { path: 'assetsCategory', component: AssetsCategoryComponent},
+      { path: 'relatedAssets', component: RelatedAssetsComponent},
       { path: 'AddAssets', component: AddAssetsComponent },
       { path: 'ShowAssets', component: ShowAssetsComponent },
       { path: 'AssetsDetails/:id', component: AssetsDetailsComponent },

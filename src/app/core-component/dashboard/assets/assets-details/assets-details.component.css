@@ -19,11 +19,10 @@
 
 .image {
     width: 100%;
-    max-width: 400px;
-    height: auto;
-    margin: 1em;
-    margin-block: 2em;
-}
+     height: auto;
+      min-width: 396px;
+    min-height: 264px;
+ }
 
 .image img {
     width: 100%;
@@ -58,7 +57,7 @@
     color: #09050E;
     flex-shrink: 0;
     width: 150px;
- }
+}
 
 .detail-description {
     color: #9C999F;
@@ -129,7 +128,7 @@
     color: #888;
 }
 
- .detail-description .tooltip {
+.detail-description .tooltip {
     cursor: pointer;
     position: relative;
 }
@@ -147,15 +146,14 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
- @media (max-width: 768px) {
+@media (max-width: 768px) {
     .container {
         padding: 10px;
     }
 
     .image {
         max-width: 100%;
-        margin: 1em 0;
-    }
+     }
 
     .details {
         padding: 1em;
@@ -164,7 +162,7 @@
     .detail-title {
         font-size: 14px;
         width: 120px;
-     }
+    }
 
     .detail-description {
         font-size: 14px;
@@ -194,7 +192,7 @@
 
     .image {
         max-width: 100%;
-        margin: 0.5em 0;
+
     }
 
     .details {
@@ -227,8 +225,7 @@
     width: 100%;
     max-width: 400px;
     height: auto;
-    margin: 1em;
-    margin-block: 2em;
+ 
 }
 
 .details {
@@ -310,5 +307,46 @@
 }
 
 .download-icon:hover {
-    background-color:   #8c3cdb;;
+    background-color: #8c3cdb;
+    ;
+}
+
+.assign-btn {
+    top: 98px;
+    left: 1138px;
+    padding: 14px;
+    gap: 0px;
+    border-radius: 10px;
+    opacity: 0px;
+    background: #8413F8;
+    color: white;
+}
+.map-container{
+    height: 430px;
+}
+.d-flex {
+    display: flex !important;
+     gap: 20px; 
+    align-items: flex-end;
+}
+
+.col-lg-4, .col-lg-8 {
+    padding: 0;  
+}
+
+ 
+.map-container {
+    width: 100%;  
+    height: 430px;
+    max-width: 650px;  
+}
+
+@media (max-width: 768px) {
+    .col-lg-4, .col-lg-8 {
+        width: 100%; 
+    }
+
+    .image, .map-container {
+        max-width: 100%;
+    }
 }

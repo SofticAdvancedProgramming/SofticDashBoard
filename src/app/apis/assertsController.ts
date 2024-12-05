@@ -1,7 +1,7 @@
 import { environment } from "../environment/environment";
 
 
-export const assetsController = {
+export const assetsCategoryController = {
     getAsset:`${environment.apiBaseUrl}Asset/Get`,
     getMainAssets: `${environment.apiBaseUrl}AssetCategory/Get`,
     addAsset: `${environment.apiBaseUrl}AssetCategory/Add`,
@@ -11,3 +11,10 @@ export const assetsController = {
     AssetCategorycounts:`${environment.apiBaseUrl}AdminStatics/AssetCategorycounts`
 
 };
+
+export const assetsController = {
+    addAsset: `${environment.apiBaseUrl}Asset/Add`,
+    getAsset:`${environment.apiBaseUrl}Asset/Get`,
+    assignAsset: `${environment.apiBaseUrl}Asset/Assgin`,
+
+}
