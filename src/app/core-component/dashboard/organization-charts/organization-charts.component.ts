@@ -36,6 +36,8 @@ export class OrganizationChartsComponent implements AfterViewInit, OnChanges {
   private imageMap = new Map<number,string>();
   private employeeMap = new Map<number, string>();
 companyId?:number=0
+itemsPerPage: number = 10;
+totalEmployees: number = 0;
   constructor(
     private positionService: PositionService,
     private positionTypeService: PositionTypeService,
@@ -161,6 +163,7 @@ companyId?:number=0
         this.employees = response.data.list.filter(
           (employee: any) => !employee.positionId
         );
+        this.totalEmployees = response.data.totalRows; 
         console.log("Unassigned Employees:", this.employees);
       }
     });
@@ -170,6 +173,7 @@ companyId?:number=0
     this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
     this.loadUnassignedEmployees();
     this.isAddEmployee = true;
+    console.log(positionId);
   }
   getDepartmentName(departmentId: number): string {
     const department = this.departments.find(dep => dep.id === departmentId);
@@ -195,6 +199,36 @@ companyId?:number=0
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error assigning employee' });
       }
     });
+  }
+  loadMoreEmployees(page: number): void {
+    this.employeeService.loadEmployees({
+      companyId: this.companyId,
+      accountStatus: 1,
+      pageIndex: page,
+      pageSize: this.itemsPerPage,
+    }).subscribe({
+      next: (response) => {
+         this.employees.push(
+          ...response.data.list.filter((employee: any) => !employee.positionId)
+        );
+        this.totalEmployees = response.data.totalRows;
+      },
+     });
+  }
+
+  searchUnassignedEmployees(searchTerm: string): void {
+    this.employeeService.loadEmployees({
+      companyId: this.companyId,
+      accountStatus: 1,
+      search: searchTerm  
+    }).subscribe({
+      next: (response) => {
+        this.employees = response.data.list.filter(
+          (employee: any) => !employee.positionId
+        );
+        this.totalEmployees = response.data.totalRows;
+      },
+     });
   }
 
   initDiagram(nodeDataArray: any[], linkDataArray: any[]) {

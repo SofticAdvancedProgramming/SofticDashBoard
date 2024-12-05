@@ -36,6 +36,11 @@ import { AddLocationComponent } from './core-component/dashboard/employee/add-lo
 import { HomeIndexComponent } from './core-component/dashboard/homeIndex/home.component';
 import { CurrencyTypeComponent } from './core-component/dashboard/setting/Lockups/currency-type/currency-type.component';
 import { BenefitTypeComponent } from './core-component/dashboard/setting/Lockups/benefit-type/benefit-type.component';
+import { AssetsIndexComponent } from './core-component/dashboard/assets/assets-index/assets-index.component';
+import { AssetsCategoryComponent } from './core-component/dashboard/setting/Lockups/assets-category/assets-category.component';
+import { AddAssetsComponent } from './core-component/dashboard/assets/add-assets/add-assets.component';
+import { ShowAssetsComponent } from './core-component/dashboard/assets/show-assets/show-assets.component';
+import { AssetsDetailsComponent } from './core-component/dashboard/assets/assets-details/assets-details.component';
 
 export const routes: Routes = [
   {
@@ -80,6 +85,12 @@ export const routes: Routes = [
       { path: 'ComplaintsSuggestions', component: ComplaintsSuggestionsComponent  },
       { path: 'ComplainSuggestionDetails/:id', component: ComplainSuggestionDetailsComponent },
       { path: 'employee-details/:id', component: EmployeeDetailsComponent },
+      { path: 'AssetsIndex', component: AssetsIndexComponent },
+      { path: 'employee-locations/:id', component: AddLocationComponent },
+      { path: 'assetsCategory', component: AssetsCategoryComponent},
+      { path: 'AddAssets', component: AddAssetsComponent },
+      { path: 'ShowAssets', component: ShowAssetsComponent },
+      { path: 'AssetsDetails/:id', component: AssetsDetailsComponent },
       { path: 'employee-locations/:id', component: AddLocationComponent }
         ],
   },{

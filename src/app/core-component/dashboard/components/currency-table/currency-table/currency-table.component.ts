@@ -105,24 +105,20 @@ export class CurrencyTableComponent {
 
   openDeleteModal(item: any): void {
     this.selectedItemToDelete = item;
-    console.log('Delete modal opened for:', item);
   }
   openDefaultModal(item: any): void {
-    console.log('Default modal opened for:', item);
     this.selectedItemToDefault = item;
   }
 
   confirmDelete(): void {
     if (this.selectedItemToDelete) {
       this.deleteItem.emit(this.selectedItemToDelete);
-      console.log(this.selectedItemToDelete);
       this.selectedItemToDelete = null;
     }
   }
   confirmDefualt(): void {
     if (this.selectedItemToDefault) {
       this.defaultItem.emit(this.selectedItemToDefault);
-      console.log(this.selectedItemToDefault);
       this.selectedItemToDefault = null;
     }
   }
@@ -139,6 +135,7 @@ export class CurrencyTableComponent {
 
   public searcWithDebounce(event: any): void {
     this.debounceSearchWithDiscount(event);
+    console.log("###########");
   }
 
   public search(value: any): void {

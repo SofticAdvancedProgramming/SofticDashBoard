@@ -79,7 +79,7 @@
               class="btn"
               *ngIf="isThereDefault"
               type="button"
-              (click)="openDefaultModal(true)"
+              (click)="openDefaultModal(item.id)"
               data-bs-toggle="modal"
               [attr.data-bs-target]="'#' + defaultId"
             >

@@ -12,24 +12,6 @@
         {{"Add Currency" | translate}}
       </button>
     </div>
-
-    <!-- Dropdown to select Type -->
-    <!-- <div class="col-6">
-        <div class="form-group">
-          <label for="type">Type</label>
-          <select
-            class="form-control"
-            id="type"
-            [(ngModel)]="isDeduction"
-            (change)="onTypeChange()"
-            name="type"
-          >
-            <option *ngFor="let o of options" [ngValue]="o.value">
-              {{ o.name }}
-            </option>
-          </select>
-        </div>
-      </div> -->
   </div>
 
   <!-- Dynamic Modal Component -->
@@ -53,7 +35,7 @@
     (editItem)="openEditModal($event)"
     (deleteItem)="deleteEntity('CurrencyType', $event.id)"
     [deleteId]="deleteId"
-    (defaultItem)="defaultEntity('CurrencyType', $event.id)"
+    (defaultItem)="defaultEntity($event)"
     [defaultId]="defaultId"
     (searchApi)="loadEntities('CurrencyType', 1, $event)"
   ></app-currency-table> 

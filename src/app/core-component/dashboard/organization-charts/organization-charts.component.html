@@ -1,15 +1,22 @@
 <div #diagramDiv style="width: 100%; height: 600px"></div>
 
-
-
 <!-- Assign Employees Popup -->
 <ng-container *ngIf="isAddEmployee">
-    <app-assign-employees [positionId]="selectedPositionId" [Position]="'INDEX_POSITION.POSITION' | translate"
-      [PositionDescription]="selectedPositionData?.name || ''"
-      [Department]="'INDEX_POSITION.DEPARTMENT_DESCRIPTION' | translate"
-      [DepartmentDescription]="getDepartmentName(selectedPositionData?.departmentId) || ' '"
-      [DirectManager]="'INDEX_POSITION.DIRECT_MANAGER' | translate"
-      [DirectManagerDescription]="directManger?.fullName || ''" [employee]="employees" (close)="closePopup()"
-      (submitForm)="handleFormSubmit($event)">
-    </app-assign-employees>
-  </ng-container>
+  <app-assign-employees
+    [positionId]="selectedPositionId"
+    [Position]="'INDEX_POSITION.POSITION' | translate"
+    [PositionDescription]="selectedPositionData?.name || ''"
+    [Department]="'INDEX_POSITION.DEPARTMENT_DESCRIPTION' | translate"
+    [DepartmentDescription]="
+      getDepartmentName(selectedPositionData?.departmentId) || ' '
+    "
+    [DirectManager]="'INDEX_POSITION.DIRECT_MANAGER' | translate"
+    [DirectManagerDescription]="directManger?.fullName || ''"
+    [employee]="employees"
+    (close)="closePopup()"
+    (submitForm)="handleFormSubmit($event)"
+    (getNextPage)="loadMoreEmployees($event)"
+    (search)="searchUnassignedEmployees($event)">
+  >
+  </app-assign-employees>
+</ng-container>

@@ -1,0 +1,202 @@
+<div class="assets-form container">
+  <form (ngSubmit)="onSubmit()">
+    <div class="row">
+      <p class="AddNewAsset">{{ "Assets.AddNewAsset" | translate }}</p>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="AssetName">{{ "Assets.AssetName" | translate }}</label>
+          <input
+            type="text"
+            id="AssetName"
+            name="AssetName"
+            class="form-control"
+            formControlName="AssetName"
+            placeholder="{{ 'Assets.AssetNamePlaceholder' | translate }}"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="AssetID">{{ "Assets.AssetID" | translate }}</label>
+          <input
+            type="text"
+            id="AssetID"
+            name="AssetID"
+            class="form-control"
+            formControlName="AssetID"
+            placeholder="{{ 'Assets.AssetIDPlaceholder' | translate }}"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="AssetCategory">{{
+            "Assets.AssetCategory" | translate
+          }}</label>
+          <input
+            type="text"
+            id="AssetCategory"
+            name="AssetCategory"
+            class="form-control"
+            formControlName="AssetCategory"
+            placeholder="{{ 'Assets.AssetCategoryPlaceholder' | translate }}"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="AssetSupCategory">{{
+            "Assets.AssetSup-Category" | translate
+          }}</label>
+          <input
+            type="text"
+            id="AssetSupCategory"
+            name="AssetSupCategory"
+            class="form-control"
+            formControlName="AssetSupCategory"
+            placeholder="{{ 'Assets.AssetSupCategoryPlaceholder' | translate }}"
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group full-width">
+        <label for="reason">{{ "Assets.TechnicalDescription" | translate }}</label>
+        <textarea
+          id="reason"
+          name="reason"
+          class="form-control"
+          [placeholder]="'Assets.TechnicalDescriptionPlaceholder' | translate"
+          required
+          minlength="100"
+          formControlName="AssetReason"
+          maxlength="300"
+        ></textarea>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="AssetAccessories">{{
+            "Assets.AssetAccessories" | translate
+          }}</label>
+          <input
+            type="text"
+            id="AssetAccessories"
+            name="AssetAccessories"
+            class="form-control"
+            formControlName="AssetAccessories"
+            placeholder="{{ 'Assets.AssetAccessoriesPlaceholder' | translate }}"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="AssetLocation">{{
+            "Assets.AssetLocation" | translate
+          }}</label>
+          <input
+            type="text"
+            id="AssetLocation"
+            name="AssetLocation"
+            class="form-control"
+            formControlName="AssetLocation"
+            placeholder="{{ 'Assets.AssetLocationPlaceholder' | translate }}"
+            required
+          />
+        </div>
+      </div>
+      <div class="row d-flex gap-3">
+        <div class="form-group">
+          <label for="photo">{{ "Assets.attachment" | translate }}</label>
+          <div class="container-upload">
+            <div
+              *ngIf="!fileType || fileType.startsWith('image/')"
+              class="header"
+            >
+              <p>{{ "ASSET_UPLOADER.BROWSE_FILE" | translate }}</p>
+            </div>
+            <label for="file" class="footer">
+              <p *ngIf="!selectedFileName && !uploadMessage">
+                {{ "ASSET_UPLOADER.NO_FILE_SELECTED" | translate }}
+              </p>
+              <div
+                *ngIf="selectedFileName && !fileType?.startsWith('image/')"
+                class="file-info"
+              >
+                <i class="fa fa-file" aria-hidden="true"></i>
+                <span>{{ selectedFileName }}</span>
+              </div>
+              <img
+                *ngIf="imagePreviewUrl && fileType?.startsWith('image/')"
+                [src]="imagePreviewUrl"
+                alt="{{ 'ASSET_UPLOADER.SELECTED_FILE' | translate }}"
+                class="img-preview"
+              />
+              <p *ngIf="uploadMessage" class="upload-message">
+                {{ uploadMessage }}
+              </p>
+            </label>
+            <input
+              id="file"
+              type="file"
+              (change)="onFileChange($event)"
+              formControlName="AssetAttachment"
+              class="form-control-file"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="photo">{{ "Assets.photo" | translate }}</label>
+          <div class="container-upload">
+            <div
+              *ngIf="!fileType || fileType.startsWith('image/')"
+              class="header"
+            >
+              <p>{{ "ASSET_UPLOADER.BROWSE_FILE" | translate }}</p>
+            </div>
+            <label for="file" class="footer">
+              <p *ngIf="!selectedFileName && !uploadMessage">
+                {{ "ASSET_UPLOADER.NO_FILE_SELECTED" | translate }}
+              </p>
+              <div
+                *ngIf="selectedFileName && !fileType?.startsWith('image/')"
+                class="file-info"
+              >
+                <i class="fa fa-file" aria-hidden="true"></i>
+                <span>{{ selectedFileName }}</span>
+              </div>
+              <img
+                *ngIf="imagePreviewUrl && fileType?.startsWith('image/')"
+                [src]="imagePreviewUrl"
+                alt="{{ 'ASSET_UPLOADER.SELECTED_FILE' | translate }}"
+                class="img-preview"
+              />
+              <p *ngIf="uploadMessage" class="upload-message">
+                {{ uploadMessage }}
+              </p>
+            </label>
+            <input
+              id="file"
+              type="file"
+              (change)="onFileChange($event)"
+              formControlName="AssetPhoto"
+              class="form-control-file"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="justify-content-end d-flex">
+          <button type="submit" class="btn btn-primary">
+            {{ "ASSET_UPLOADER.SEND" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
