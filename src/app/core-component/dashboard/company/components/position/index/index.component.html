@@ -24,10 +24,13 @@
               <h3>{{ isArabic ?position.nameAr:position.name }}</h3>
               <p>{{ 'INDEX_POSITION.DEPARTMENT' | translate }}: {{ getDepartmentName(position.departmentId) }}</p>
             </div>
-            <div class="card-body">
+            <div class="card-body" *ngIf="!position.isAssigned">
               <button class="btn btn-add" (click)="addEmployee(position.id?.toString()||'0')">
                 <i class="fas fa-plus"></i> {{ 'INDEX_POSITION.ADD_EMPLOYEE' | translate }}
               </button>
+            </div>
+            <div class="card-header" *ngIf="position.isAssigned">
+                   {{position.employeeName}}
             </div>
             <div class="card-footer">
               <!-- <label class="toggle-label">

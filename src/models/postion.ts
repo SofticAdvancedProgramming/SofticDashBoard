@@ -6,5 +6,7 @@ export interface Position {
   nameAr: string;
   positionManagerId: number | null;
   positionTypeId: number;
-  isActive?:boolean
+  isActive?:boolean;
+  isAssigned:boolean;
+  employeeName:string;
 }

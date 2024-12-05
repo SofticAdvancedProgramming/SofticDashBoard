@@ -18,6 +18,7 @@ import { Position } from '../../../../../../../models/postion';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { EventEmitter } from 'stream';import { PositionTypeService } from '../../../../../../services/lockupsServices/positionTypeService/position-type.service';
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-index',
   standalone: true,
@@ -81,9 +82,22 @@ export class IndexComponent implements OnInit {
     this.positionService.getPosition({ companyId: this.companyId, pageSize: this.itemsPerPage, pageIndex: page }).subscribe({
       next: (response) => {
         this.positions = response.data.list;
+        
         this.totalItems = response.data.totalRows;
+         this.getPositionEmployee();
        }
     });
+  }
+  async getPositionEmployee(): Promise<void> {
+    for (let item of this.positions) {
+      const response: any = await firstValueFrom(this.employeeService.getEmployees({ positionId: item.id }));
+      if (response.data.list.length > 0) {
+        item.isAssigned = true;
+        item.employeeName=response.data.list[0].firstName +" " + response.data.list[0].lastName
+      } else {
+        item.isAssigned = false; // Explicitly set it to false if no employee is assigned
+      }
+    }
   }
 
   loadUnassignedEmployees(page: number = 1): void {
