@@ -32,7 +32,7 @@
         <select id="position" formControlName="position" class="form-control">
           <option value="" disabled>{{ 'ADD_POSITION.SELECT_POSITION' | translate }}</option>
           <option *ngFor="let item of positions; trackBy: trackByPositionId" [value]="item.id">
-            {{ item.name }} - {{ item.departmentName }}
+            {{ item.name }} - {{ item.departmentName }} - {{item.employeeName}}
           </option>
         </select>
         <div *ngIf="form.get('position')?.invalid && form.get('position')?.touched" class="text-danger">

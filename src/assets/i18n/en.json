@@ -731,8 +731,9 @@
   "Edit Benefit": "Edit Benefit",
   "Benefit Type": "Benefit Type",
   "Enter benefit amount": "Enter benefit amount",
-  "Cancel": "Cancel",
-  "Assets": {
+   "Cancel": "Cancel",
+   "AssignedToEmployee":"Already Assigned To An Employee.",
+   "Assets": {
     "AddNewAsset": "Add New Asset",
     "AssetName": "Asset Name",
     "AssetNameAr": "Asset Name (Arabic)",
@@ -761,4 +762,5 @@
     "FILE_UPLOADED": "File uploaded successfully.",
     "SEND": "Send"
   }
+
 }

@@ -10,6 +10,8 @@ import { ToastModule } from 'primeng/toast';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Position } from '../../../../../../../models/positionModel';
+import { EmployeeService } from '../../../../../../services/employeeService/employee.service';
+import { firstValueFrom, map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-position',
@@ -37,6 +39,7 @@ export class AddPositionComponent implements OnInit {
     private positionService: PositionService,
     private messageService: MessageService,
     private translate: TranslateService,
+    private employeeService:EmployeeService
   ) {
     this.form = this.fb.group({
       positionType: ['', Validators.required],
@@ -82,19 +85,39 @@ export class AddPositionComponent implements OnInit {
     });
   }
 
-  loadPositions(): void {
+  async loadPositions(): Promise<void> {
     this.positionService.getPosition({ companyId: this.companyId }).subscribe({
-      next: (response) => {
-        this.positions = response.data.list.map((position: any) => ({
-          ...position,
-          departmentName: this.getDepartmentName(position.departmentId)
-        }));
+      next: async (response) => {
+        console.log("response.data.list", response.data.list);
+  
+        // Use Promise.all to resolve all employee names
+        const positionsWithEmployeeNames = await Promise.all(
+          response.data.list.map(async (position: any) => {
+            const employeeName = await this.getPositionEmployee(position.id); // Resolve the employee name
+            return {
+              ...position,
+              departmentName: this.getDepartmentName(position.departmentId),
+              employeeName, // Add the resolved employee name
+            };
+          })
+        );
+  
+        this.positions = positionsWithEmployeeNames;
         this.checkLoadingState();
       }
     });
   }
 
+  async getPositionEmployee(id: number): Promise<string> {
+    const response = await firstValueFrom(this.employeeService.getEmployees({ positionId: id }));
+    if (response.data.list.length > 0) {
+      return response.data.list[0].firstName + " " + response.data.list[0].lastName;
+    }
+    return "Unassigned";
+  }
+
   getDepartmentName(departmentId: number): string {
+    console.log("this.departments",this.departments)
     const department = this.departments.find(dep => dep.id === departmentId);
     return department?.name ?? 'Unknown';
   }

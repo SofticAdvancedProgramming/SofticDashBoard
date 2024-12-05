@@ -33,6 +33,7 @@ export class OrganizationChartsComponent implements AfterViewInit, OnChanges {
   directManger?: employee = {} as employee;
   private positionTypesMap = new Map<number, string>();
   private departmentsMap = new Map<number, string>();
+  private imageMap = new Map<number,string>();
   private employeeMap = new Map<number, string>();
 companyId?:number=0
 itemsPerPage: number = 10;
@@ -88,7 +89,9 @@ totalEmployees: number = 0;
     this.employeeService.loadEmployees({companyId:this.companyId}).subscribe(response => {
       if (response.status === 200) {
         response.data.list.forEach((employee: any) => {
-          this.employeeMap.set(employee.positionId, employee.fullName);
+          console.log("employeeeeee",employee)
+          this.employeeMap.set(employee.positionId, (employee.firstName+" "+employee.lastName));
+          this.imageMap.set(employee.positionId,employee.referancePhoto);
         });
         this.loadPositions();
       }
@@ -104,6 +107,7 @@ totalEmployees: number = 0;
         console.log(response);
         console.log("response.data",response.data)
         response.data.list.forEach((item: any) => {
+          console.log("item",item)
           const { nodeDataArray: nodes, linkDataArray: links } = this.transformData([item]);
           console.log("nodeDataArray",nodeDataArray);
           console.log("linkDataArray",linkDataArray)
@@ -127,13 +131,15 @@ totalEmployees: number = 0;
       const departmentName = this.departmentsMap.get(data.departmentId) || 'Unknown Department';
       const employeeName = this.employeeMap.get(nodeId) || 'Unassigned'; // Get the employee name
       const positionManagerId= data.positionManagerId;
+      const image=this.imageMap.get(nodeId);
 
       nodeMap.set(nodeId, {
         key: nodeId,
         name: employeeName,
         title: positionTypeName,
         department: departmentName,
-        id: data.id.toString()
+        id: data.id.toString(),
+        image:image
       });
 
       if (positionManagerId &&positionManagerId!=null) {
@@ -177,6 +183,7 @@ totalEmployees: number = 0;
     this.isAddEmployee = false;
   }
   handleFormSubmit(formData: { employeeId: number, positionId: number }): void {
+    console.log("formData",formData)
     this.employeeService.assginEmployeeToPosition({
       employeeId: formData.employeeId,
       positionId: formData.positionId
@@ -225,6 +232,9 @@ totalEmployees: number = 0;
   }
 
   initDiagram(nodeDataArray: any[], linkDataArray: any[]) {
+    console.log("nodeDataArray",nodeDataArray)
+    console.log("linkDataArray",linkDataArray)
+
     const $ = go.GraphObject.make;
 
     const diagram = $(go.Diagram, this.diagramDiv.nativeElement, {
@@ -242,14 +252,26 @@ totalEmployees: number = 0;
         $(go.Shape, 'RoundedRectangle',
           {
             fill: '#FAF9FE',
-            stroke: '#CCCCCC',
+            stroke: '#8413f8',
             strokeWidth: 1,
             width: 366,
             height: 153.05,
             cursor: 'pointer'
           }),
+          
         $(go.Panel, 'Vertical',
           { margin: 6 },
+          // Image for the node
+      $(go.Picture,
+        {
+          margin: new go.Margin(10, 0, 0, 0),
+          width: 50, // Set desired width for the image
+          height: 50, // Set desired height for the image
+          imageStretch: go.GraphObject.Uniform, // Maintain aspect ratio
+          cursor: 'pointer'
+        },
+        new go.Binding('source', 'image', (src) => src && src.trim() !== "" ? src : 'assets/images/defualt.jpg')),
+       // Bind the image source dynamically
           $(go.TextBlock,
             {
               font: 'bold 18px sans-serif',
@@ -277,7 +299,7 @@ totalEmployees: number = 0;
             const node = obj.part as go.Node; // Cast obj.part to Node
             if (node && node.data) {
             const nodeId = node.data.id;
-            console.log(nodeId);
+            console.log("nodeId",nodeId);
             this.addEmployee(nodeId?.toString()||'0');
             }
           },
