@@ -55,7 +55,20 @@
             <div class="detail-title">Takeover</div>
             <div class="detail-description">George Mikhaiel</div>
           </div>
+          <h3>Related Assets</h3>
+          <div *ngFor="let relatedAsset of relatedAssets">
+            <div class="detail">
+              <div class="detail-title">Related Asset Name</div>
+              <div class="detail-description">{{ relatedAsset.name }}</div>
+            </div>
+            <div class="detail">
+              <div class="detail-title">Model</div>
+              <div class="detail-description">{{ relatedAsset.model }}</div>
+            </div>
+          </div>
         </div>
+      </div>
+         </div>
       </div>
     </div>
     <div class="col-lg-3">
@@ -79,6 +92,5 @@
 
     <app-assign-asset-popup *ngIf="isAssignAssetVisible"
       (closeAssignAssets)="onAssignAssetClose($event)"></app-assign-asset-popup>
-  </div>
-  <app-related-assets-popup *ngIf="isRelatedAssetsVisible"
+   <app-related-assets-popup *ngIf="isRelatedAssetsVisible"
   (closeRelatedAssets)="onRelatedAssetsClose($event)"></app-related-assets-popup>
