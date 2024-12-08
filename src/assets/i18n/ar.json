@@ -773,5 +773,16 @@
     "SEND": "إرسال"
   }
  
-  }
+,
+  "AssignedToEmployee":"تم التخصيص بالفعل لموظف.",
+  "employeeFilteration":"اختار فئه الموظفين الذى تريدها",
+  "AllEmployee":"كل الموظفين",
+  "ActiveEmployees":"الموظفين النشطين",
+  "PendingEmployees":"المظفين قيد الموافقة",
+  "RejectedEmployees":"الموظفين المرفوضين"
 }
+
+  
+  } 
+}
+ 

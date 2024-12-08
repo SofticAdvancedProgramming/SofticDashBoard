@@ -770,7 +770,17 @@
     "IMAGE_UPLOADED": "Image uploaded successfully.",
     "FILE_UPLOADED": "File uploaded successfully.",
     "SEND": "Send"
-   },
+   }
+,
+    "Cancel": "Cancel",
+   "AssignedToEmployee":"Already Assigned To An Employee.",
+   "employeeFilteration":"Select Employee Category",
+   "AllEmployee":"All Employees",
+   "ActiveEmployees":"Active Employees",
+   "PendingEmployees":"Pending Employees ",
+   "RejectedEmployees":"Rejected Employees"
+
+    },
   "AssignedToEmployee":"Already Assigned To An Employee.",
   "employeeFilteration":"Select Employee Category",
   "AllEmployee":"All Employees",
@@ -780,5 +790,6 @@
 }
 
 
+ 
  
  
