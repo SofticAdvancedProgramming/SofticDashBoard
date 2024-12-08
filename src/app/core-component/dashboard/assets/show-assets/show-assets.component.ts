@@ -44,8 +44,8 @@ export class ShowAssetsComponent implements OnInit {
   currentPage: number = 1;
   totalRows: number = 0;
   activeButtonIndex: number | null = null;
-   isAssined!:boolean;
-  
+  isAssined!: boolean;
+
   constructor(
     private translate: TranslateService,
     private assetsService: AssetsService,
@@ -54,29 +54,18 @@ export class ShowAssetsComponent implements OnInit {
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
     this.getAssetsCategory();
-   }
-
-  ngOnInit(): void {
-
-    this.route.params.subscribe(res=>{
-      if(res['isAssined']!=undefined){
-        this.isAssined=res['isAssined'];
-       // console.log(res)
-      }
-      //console.log(res)
-     // console.log(this.isAssined)
-      this.gettAssets();
-    })
-    this.gettAssets();
-=======
-    this.getAssets();
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((res) => {
-      console.log(res);
+    this.route.params.subscribe(res => {
+      if (res['isAssined'] !== undefined) {
+        this.isAssined = res['isAssined'];
+
+        this.getAssets();
+      }
     });
-   }
+  }
+
 
   getAssetsCategory(page?: number) {
     const companyId = Number(this.localStorageService.getItem('companyId'));
@@ -88,26 +77,23 @@ export class ShowAssetsComponent implements OnInit {
     this.assetsService.getMainAssetsCategory(params).subscribe((res) => {
       this.assetsCategory = res.data.list;
       this.totalPages = res.data.totalPages;
-      // console.log(res.data.list);
-      // console.log( this.assetsCategory);
+
     });
   }
-   gettAssets(event?:any,i?:number,page=this.currentPage){
-   getAssets(
+  getAssets(
     event?: any,
     i?: number,
     page = this.currentPage,
     isAssigned?: boolean
   ) {
-     let query;
+    let query;
     if (i != null) {
       this.setActiveButton(i);
     }
 
-     query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:this.isAssined  }
+    query = { "assetCategoryId": event, pageSize: this.itemsPerPage, pageIndex: page, isAssgined: this.isAssined }
 
-   // console.log(query)
-     query = {
+    query = {
       assetCategoryId: event,
       pageSize: this.itemsPerPage,
       pageIndex: page,
@@ -120,11 +106,9 @@ export class ShowAssetsComponent implements OnInit {
         isAssgined: isAssigned,
       };
     }
-    // console.log(event)
      this.assetsService.getAsset(query).subscribe({
       next: (res) => {
-        // console.log(res.data.list);
-        this.assets = res.data.list;
+         this.assets = res.data.list;
         this.filteredAssets = this.assets;
         this.totalRows = res.data.totalRows;
       },
@@ -134,20 +118,17 @@ export class ShowAssetsComponent implements OnInit {
     });
   }
 
-  // Toggle the visibility of the filter popup
-  toggleFilterPopup() {
+   toggleFilterPopup() {
     this.isFilterPopupVisible = !this.isFilterPopupVisible;
   }
 
-  // Handle the close event from the filter popup
-  onFilterPopupClose(isVisible: boolean) {
+   onFilterPopupClose(isVisible: boolean) {
     this.isFilterPopupVisible = isVisible;
   }
   applyFilterPopup(event: any) {
     console.log('Received Data:', event);
 
-    // Extract individual values
-    const assetName = event.name;
+     const assetName = event.name;
     const isAssigned: boolean = event.isAssigned;
     console.log(isAssigned)
     const assetCategoryId = event.AssetCategory;
@@ -186,7 +167,7 @@ export class ShowAssetsComponent implements OnInit {
         assetCategoryId: assetCategoryId,
         isAssgined: isAssigned,
       };
-    }else if (isDrived) {
+    } else if (isDrived) {
       query = {
         companyId: this.companyId,
         pageIndex: this.page,
