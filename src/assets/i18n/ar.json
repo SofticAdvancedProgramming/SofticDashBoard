@@ -736,16 +736,25 @@
   "Benefit Type": "نوع الميزة",
   "Enter benefit amount": "أدخل مبلغ الميزة",
   "Cancel": "إلغاء",
-   "Assets": {
-    "AddNewAsset": "إضافة أصل جديد",
+   "AssignedToEmployee":"تم التخصيص بالفعل لموظف.",
+  "employeeFilteration":"اختار فئه الموظفين الذى تريدها",
+  "AllEmployee":"كل الموظفين",
+  "ActiveEmployees":"الموظفين النشطين",
+  "PendingEmployees":"المظفين قيد الموافقة",
+  "RejectedEmployees":"الموظفين المرفوضين",
+  "Assets": {
+    "Assets": {
+     "AddNewAsset": "إضافة أصل جديد",
     "AssetName": "اسم الأصل",
-    "AssetID": "معرف الأصل",
+    "AssetNameAr":"اسم الأصل بالعربية",
+    "Model": "الموديل",
     "AssetCategory": "فئة الأصل",
     "AssetSup-Category": "فئة مورد الأصل",
     "TechnicalDescription": "الوصف الفني",
     "AssetAccessories": "ملحقات الأصل",
     "AssetLocation": "موقع الأصل",
     "AssetNamePlaceholder": "أدخل اسم الأصل",
+    "AssetNamePlaceholderAr": "أدخل اسم الأصل بالعربية",
     "AssetIDPlaceholder": "أدخل معرف الأصل",
     "AssetCategoryPlaceholder": "أدخل فئة الأصل",
     "AssetSupCategoryPlaceholder": "أدخل الفئة الفرعية للأصل",
@@ -763,7 +772,7 @@
     "FILE_UPLOADED": "تم تحميل الملف بنجاح.",
     "SEND": "إرسال"
   }
-
+ 
 ,
   "AssignedToEmployee":"تم التخصيص بالفعل لموظف.",
   "employeeFilteration":"اختار فئه الموظفين الذى تريدها",
@@ -773,3 +782,7 @@
   "RejectedEmployees":"الموظفين المرفوضين"
 }
 
+  
+  } 
+}
+ 
