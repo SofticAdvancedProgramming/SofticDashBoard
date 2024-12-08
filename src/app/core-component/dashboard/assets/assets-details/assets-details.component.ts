@@ -11,11 +11,11 @@ import { HttpClient } from '@angular/common/http';
 import { RelatedAssetsPopupComponent } from "../../../../common-component/related-assets-popup/related-assets-popup.component";
 
 @Component({
-    selector: 'app-assets-details',
-    standalone: true,
-    templateUrl: './assets-details.component.html',
-    styleUrls: ['./assets-details.component.css'],
-    imports: [CommonModule, AssignAssetPopupComponent, MapComponent, RelatedAssetsPopupComponent]
+  selector: 'app-assets-details',
+  standalone: true,
+  templateUrl: './assets-details.component.html',
+  styleUrls: ['./assets-details.component.css'],
+  imports: [CommonModule, AssignAssetPopupComponent, MapComponent, RelatedAssetsPopupComponent]
 })
 export class AssetsDetailsComponent implements OnInit {
   assets: Asset[] = [];
@@ -26,7 +26,7 @@ export class AssetsDetailsComponent implements OnInit {
     id: number,
     companyId: number
   }[] = [];
-  files: { name: string, url: string }[] = []; 
+  files: { name: string, url: string }[] = [];
   isAssignAssetVisible = false;
   isRelatedAssetsVisible = false;
   selectedAssetLocation: { lat: number, long: number } = { lat: 0, long: 0 };
@@ -40,7 +40,7 @@ export class AssetsDetailsComponent implements OnInit {
 
     private localStorageService: LocalStorageService,
   ) { }
-selectedAssetAddress: string = '';
+  selectedAssetAddress: string = '';
   ngOnInit() {
     this.route.params.subscribe(params => {
       const id = params['id'];
@@ -50,22 +50,22 @@ selectedAssetAddress: string = '';
     });
     this.getAssetsCategory();
   }
- 
+
 
   downloadFile(fileUrl: string) {
-    console.log('File URL:', fileUrl);  
-  
-     const link = document.createElement('a');
+    console.log('File URL:', fileUrl);
+
+    const link = document.createElement('a');
     link.href = fileUrl;
-    link.target = '_blank';  
+    link.target = '_blank';
     link.download = this.extractFileName(fileUrl);
-  
-     document.body.appendChild(link);
+
+    document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }
-  
-  
+
+
   extractFileName(fileUrl: string): string {
     return fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
   }
@@ -81,7 +81,7 @@ selectedAssetAddress: string = '';
   onAssignAssetClose(isVisible: boolean) {
     this.isAssignAssetVisible = isVisible;
   }
- 
+
 
   getAssetsCategory() {
     const companyId = Number(this.localStorageService.getItem('companyId'));
@@ -105,19 +105,19 @@ selectedAssetAddress: string = '';
         this.assets = res.data.list.map((asset: any) => {
           const category = this.assetsCategory.find(cat => cat.id === asset.assetCategoryId);
           const assetCategoryName = category ? (this.translate.currentLang === 'ar' ? category.nameAr : category.name) : 'Unknown';
-  
-           this.files = asset.assetAttachments ? asset.assetAttachments.map((attachment: any) => ({
-            name: attachment.file.split('/').pop(),  
+
+          this.files = asset.assetAttachments ? asset.assetAttachments.map((attachment: any) => ({
+            name: attachment.file.split('/').pop(),
             url: attachment.file
           })) : [];
-  
+
           if (asset.lat && asset.long) {
             this.selectedAssetLocation = { lat: asset.lat, long: asset.long };
-            this.getAddressFromCoordinates(asset.lat, asset.long);  
+            this.getAddressFromCoordinates(asset.lat, asset.long);
           } else {
             this.selectedAssetAddress = 'Address not available';
           }
-  
+
           return {
             ...asset,
             assetCategoryName: assetCategoryName
@@ -130,11 +130,11 @@ selectedAssetAddress: string = '';
       }
     });
   }
-  
+
 
   getAddressFromCoordinates(lat: number, long: number) {
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${long},${lat}.json?access_token=${this.accessToken}`;
-    
+
     this.http.get(url).subscribe({
       next: (response: any) => {
         if (response.features && response.features.length > 0) {
@@ -153,5 +153,5 @@ selectedAssetAddress: string = '';
       }
     });
   }
-  
+
 }
