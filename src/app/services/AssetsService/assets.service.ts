@@ -48,4 +48,7 @@ export class AssetsService {
   addRelatedAsset(request: RelatedAsset): Observable<any> {
     return this.apiCall.request("POST", RelatedAssetsController.addRelatedAsset, request);
   }
+  getRelatedAssets(assetId: number) {
+    return this.apiCall.request("POST", RelatedAssetsController.getRelatedAsset, request);
+   }
 }

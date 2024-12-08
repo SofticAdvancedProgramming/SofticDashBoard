@@ -7,7 +7,7 @@ import { DropDownComponent } from "../../core-component/dashboard/components/dro
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RelatedAsset } from '../../../models/assets';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
     selector: 'app-related-assets-popup',
     standalone: true,
@@ -29,7 +29,8 @@ export class RelatedAssetsPopupComponent {
 
     constructor(
         private assetService: AssetsService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private toastr: ToastrService
     ) { }
     ngOnInit() {
         const assetIdFromRoute = Number(this.route.snapshot.paramMap.get('id'));
@@ -53,14 +54,15 @@ export class RelatedAssetsPopupComponent {
             this.assetService.addRelatedAsset(this.relatedAsset).subscribe({
                 next: (response) => {
                     console.log('Related asset added:', response);
+
+                    this.toastr.success('Related asset added successfully');
+
                     this.closePopup();
                 },
-                error: (error) => {
-                    console.error('Error adding related asset:', error);
-                },
+
             });
         } else {
-            console.error('All fields are required!');
+            this.toastr.error('All fields are required!');
         }
     }
 }

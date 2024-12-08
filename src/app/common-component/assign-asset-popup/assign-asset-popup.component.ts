@@ -6,6 +6,7 @@ import { AssetsService } from '../../services/AssetsService/assets.service';
 import { DropDownComponent } from "../../core-component/dashboard/components/drop-down/drop-down.component";
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-assign-asset-popup',
   standalone: true,
@@ -26,7 +27,8 @@ export class AssignAssetPopupComponent {
 
   constructor(private employeeService: EmployeeService,
     private assetService: AssetsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toast: ToastrService
   ) { }
   ngOnInit() {
     this.assetId = Number(this.route.snapshot.paramMap.get('id'));
@@ -46,6 +48,7 @@ export class AssignAssetPopupComponent {
 
       this.assetService.assignAsset(assignAssetData).subscribe({
         next: (response) => {
+          this.toast.success('Asset assigned successfully');  
           this.onEmployeeSelected.emit(this.selectedEmployee!);
           this.closePopup();
         },
@@ -83,16 +86,16 @@ export class AssignAssetPopupComponent {
   }
 
   onEmployeeSelect(employeeId: number) {
-     const employee = this.employees.find(emp => emp.id === employeeId);
-  
+    const employee = this.employees.find(emp => emp.id === employeeId);
+
     if (employee) {
-      console.log('Selected Employee:', employee);  
+      console.log('Selected Employee:', employee);
       this.selectedEmployee = employee;
-      console.log('Selected Employee ID:', this.selectedEmployee?.id);  
+      console.log('Selected Employee ID:', this.selectedEmployee?.id);
     } else {
       console.log('Employee not found.');
     }
   }
-  
+
 
 }
