@@ -763,8 +763,8 @@
     "FILE_UPLOADED": "تم تحميل الملف بنجاح.",
     "SEND": "إرسال"
   }
-}
- 
+
+,
   "AssignedToEmployee":"تم التخصيص بالفعل لموظف.",
   "employeeFilteration":"اختار فئه الموظفين الذى تريدها",
   "AllEmployee":"كل الموظفين",
@@ -772,4 +772,4 @@
   "PendingEmployees":"المظفين قيد الموافقة",
   "RejectedEmployees":"الموظفين المرفوضين"
 }
- 
+

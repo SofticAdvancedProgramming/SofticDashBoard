@@ -90,6 +90,7 @@ export const routes: Routes = [
       { path: 'assetsCategory', component: AssetsCategoryComponent},
       { path: 'AddAssets', component: AddAssetsComponent },
       { path: 'ShowAssets', component: ShowAssetsComponent },
+      { path: 'ShowAssets/:isAssined', component: ShowAssetsComponent },
       { path: 'AssetsDetails/:id', component: AssetsDetailsComponent },
       { path: 'employee-locations/:id', component: AddLocationComponent }
         ],

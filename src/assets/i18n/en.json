@@ -759,7 +759,7 @@
     "FILE_UPLOADED": "File uploaded successfully.",
     "SEND": "Send"
   }
-}
+,
     "Cancel": "Cancel",
    "AssignedToEmployee":"Already Assigned To An Employee.",
    "employeeFilteration":"Select Employee Category",
@@ -768,4 +768,3 @@
    "PendingEmployees":"Pending Employees ",
    "RejectedEmployees":"Rejected Employees"
 }
- 

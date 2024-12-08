@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartType, NgApexchartsModule } from 'ng-apexcharts';
 import {
   ApexAxisChartSeries,
@@ -15,7 +15,7 @@ import {
 } from 'ng-apexcharts';
 import { BasicLineChartComponent } from "../../../../common-component/basic-line-chart/basic-line-chart.component";
 import { BasicDonutChartComponent } from "../../../../common-component/basic-donut-chart/basic-donut-chart.component";
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AssetsService } from '../../../../services/AssetsService/assets.service';
 
 export type ChartOptions = {
@@ -38,11 +38,12 @@ export type ChartOptions = {
   styleUrls: ['./assets-index.component.css'],
   imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent, RouterLink]
 })
-export class AssetsIndexComponent {
+export class AssetsIndexComponent{
   constructor(private assetsService: AssetsService){
     this.getAssetsCount();
     this.getAssetsPerCategoriesCount();
   }
+
   assetsCount!:{
     companyId: number,
     totalAssetsCount: number,
@@ -59,6 +60,7 @@ export class AssetsIndexComponent {
   assetsCategoryInArabic:string[]=[]
   assetsCategoryInEnglish:string[]=[]
   assetsInCatCount:number[]=[];
+  isAssined:boolean=true;
   getAssetsCount(){
     const req=null;
     this.assetsService.getAssetsCount(req).subscribe(

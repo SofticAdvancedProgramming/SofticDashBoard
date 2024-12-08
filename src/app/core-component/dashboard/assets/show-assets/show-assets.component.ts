@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService , TranslateModule} from '@ngx-translate/core';
 import { FilterPopupComponent } from '../../../../common-component/filter-popup/filter-popup.component';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AssetsService } from '../../../../services/AssetsService/assets.service';
 import { Assets } from '../../../../../models/assetsModel';
 import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
@@ -17,7 +17,10 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
   templateUrl: './show-assets.component.html',
   styleUrl: './show-assets.component.css'
 })
-export class ShowAssetsComponent {
+export class ShowAssetsComponent implements OnInit{
+
+
+
 
   isFilterPopupVisible = false;
 
@@ -44,12 +47,18 @@ export class ShowAssetsComponent {
     private translate: TranslateService,
     private assetsService: AssetsService,
     private localStorageService: LocalStorageService,
+    private route:ActivatedRoute
   ) {
     this.companyId=Number(localStorage.getItem('companyId'));
     this.getAssetsCategory();
     this.gettAssets();
   }
 
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(res=>{
+      console.log(res)
+    })
+  }
 
   getAssetsCategory(page?:number){
     const companyId = Number(this.localStorageService.getItem('companyId'));
@@ -67,11 +76,16 @@ export class ShowAssetsComponent {
       }
     )
   }
-  gettAssets(event?:any,i?:number){
+  gettAssets(event?:any,i?:number,page=this.currentPage,isAssigned?:boolean){
+    let query;
     if(i!=null){
       this.setActiveButton(i);
     }
-    const query={"assetCategoryId":event}
+
+    query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page }
+    if(isAssigned!=undefined){
+      query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:isAssigned }
+    }
    // console.log(event)
     this.assetsService.getAsset(query).subscribe({
       next:(res=>{
@@ -153,7 +167,7 @@ export class ShowAssetsComponent {
 
   handlePageChange(event: { page: number }) {
     this.currentPage = event.page;
-    this.gettAssets();
+    this.gettAssets( );
   }
 
   setActiveButton(index: number): void {
