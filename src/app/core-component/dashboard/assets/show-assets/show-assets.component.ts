@@ -9,6 +9,7 @@ import { LocalStorageService } from '../../../../services/local-storage-service/
 import { FormsModule } from '@angular/forms';
 import { search } from '@tensorflow/tfjs-core/dist/io/composite_array_buffer';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { any } from '@tensorflow/tfjs-core';
 
 @Component({
   selector: 'app-show-assets',
@@ -41,7 +42,7 @@ export class ShowAssetsComponent implements OnInit{
   currentPage: number = 1;
   totalRows: number = 0;
   activeButtonIndex: number | null = null;
-
+  isAssined!:boolean;
 
   constructor(
     private translate: TranslateService,
@@ -55,8 +56,12 @@ export class ShowAssetsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(res=>{
+    this.route.params.subscribe(res=>{
+      if(res['isAssined']!=undefined){
+        this.isAssined=res['isAssined'];
+      }
       console.log(res)
+      console.log(this.isAssined)
     })
   }
 
