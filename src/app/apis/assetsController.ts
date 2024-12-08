@@ -18,6 +18,14 @@ export const assetsController = {
     AssetAssignmentCounts:`${environment.apiBaseUrl}AdminStatics/AssetAssignmentCounts`,
     AssetCategorycounts:`${environment.apiBaseUrl}AdminStatics/AssetCategorycounts`
 }
+
+export const relatedAssetsController = {
+    getRelatedAssets:`${environment.apiBaseUrl}RelatedAsset/Get`,
+    addRelatedAssets:`${environment.apiBaseUrl}RelatedAsset/Add`,
+    editRelatedAssets:`${environment.apiBaseUrl}RelatedAsset/Edit`,
+    deleteRelatedAssets: `${environment.apiBaseUrl}RelatedAsset/Delete`,
+
+}
 export const RelatedAssetsController = {
     addRelatedAsset: `${environment.apiBaseUrl}RelatedAsset/Add`,
     getRelatedAsset:`${environment.apiBaseUrl}RelatedAsset/Get`,

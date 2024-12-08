@@ -66,7 +66,7 @@ export class AssetsIndexComponent{
     this.assetsService.getAssetsCount(req).subscribe(
       {
         next:(res)=>{
-          console.log(res)
+         // console.log(res)
           this.assetsCount={
             companyId:res.companyId,
             totalAssetsCount:res.totalAssetsCount,
@@ -76,7 +76,7 @@ export class AssetsIndexComponent{
           }
         },
         error:(res)=>{
-          console.log(res)
+         // console.log(res)
         }
       }
     )
@@ -87,7 +87,7 @@ export class AssetsIndexComponent{
     this.assetsService.AssetCategorycounts(req).subscribe(
       {
         next:(res)=>{
-          console.log(res)
+          //console.log(res)
 
           this.assetsInCategoriesCount=res;
           res.map((item:any)=>{
@@ -96,9 +96,9 @@ export class AssetsIndexComponent{
             this.assetsInCatCount.push(item.count);
           }
         )
-        console.log(this.assetsCategoryInArabic)
-        console.log( this.assetsCategoryInEnglish)
-        console.log(this.assetsInCatCount)
+       // console.log(this.assetsCategoryInArabic)
+       // console.log( this.assetsCategoryInEnglish)
+       // console.log(this.assetsInCatCount)
         },
 
         error:(res)=>{
