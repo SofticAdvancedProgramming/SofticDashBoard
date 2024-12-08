@@ -25,6 +25,7 @@ export class AssetsDetailsComponent implements OnInit {
     id: number,
     companyId: number
   }[] = [];
+  files: { name: string, url: string }[] = []; 
   isAssignAssetVisible = false;
   selectedAssetLocation: { lat: number, long: number } = { lat: 0, long: 0 };
   private accessToken = 'pk.eyJ1IjoiYWRoYW1rYW1hbDIyMzQ1IiwiYSI6ImNtMHVvNjM1dDBpenUyaXFzb21tM2JiOWkifQ.wXQZpp_tsqdoiqZAl9PbpQ'
@@ -47,22 +48,27 @@ selectedAssetAddress: string = '';
     });
     this.getAssetsCategory();
   }
-
-  files = [
-    { name: 'Laptop Spec Sheet', url: 'assets/files/laptop-spec.pdf' },
-    { name: 'User Manual', url: 'assets/files/user-manual.pdf' },
-    { name: 'Warranty Information', url: 'assets/files/warranty.pdf' }
-  ];
+ 
 
   downloadFile(fileUrl: string) {
+    console.log('File URL:', fileUrl); // Log the URL to verify it
+  
+    // Create a temporary anchor element to trigger the download
     const link = document.createElement('a');
     link.href = fileUrl;
-    link.download = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+    link.target = '_blank';  // Ensure it opens a new tab if needed
+    link.download = this.extractFileName(fileUrl);
+  
+    // Append to the body, click to download, and then remove it
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }
-
+  
+  
+  extractFileName(fileUrl: string): string {
+    return fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+  }
   toggleAssignPopup() {
     this.isAssignAssetVisible = !this.isAssignAssetVisible;
   }
@@ -93,14 +99,19 @@ selectedAssetAddress: string = '';
         this.assets = res.data.list.map((asset: any) => {
           const category = this.assetsCategory.find(cat => cat.id === asset.assetCategoryId);
           const assetCategoryName = category ? (this.translate.currentLang === 'ar' ? category.nameAr : category.name) : 'Unknown';
-
-           if (asset.lat && asset.long) {
+  
+           this.files = asset.assetAttachments ? asset.assetAttachments.map((attachment: any) => ({
+            name: attachment.file.split('/').pop(),  
+            url: attachment.file
+          })) : [];
+  
+          if (asset.lat && asset.long) {
             this.selectedAssetLocation = { lat: asset.lat, long: asset.long };
             this.getAddressFromCoordinates(asset.lat, asset.long);  
           } else {
             this.selectedAssetAddress = 'Address not available';
           }
-
+  
           return {
             ...asset,
             assetCategoryName: assetCategoryName
@@ -113,6 +124,7 @@ selectedAssetAddress: string = '';
       }
     });
   }
+  
 
   getAddressFromCoordinates(lat: number, long: number) {
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${long},${lat}.json?access_token=${this.accessToken}`;

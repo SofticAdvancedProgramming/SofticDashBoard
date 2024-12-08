@@ -7,8 +7,7 @@ export const assetsCategoryController = {
     addAsset: `${environment.apiBaseUrl}AssetCategory/Add`,
     editAsset: `${environment.apiBaseUrl}AssetCategory/Edit`,
     deleteAsset: `${environment.apiBaseUrl}AssetCategory/Delete`,
-    AssetAssignmentCounts:`${environment.apiBaseUrl}AdminStatics/AssetAssignmentCounts`,
-    AssetCategorycounts:`${environment.apiBaseUrl}AdminStatics/AssetCategorycounts`
+
 
 };
 
@@ -16,5 +15,6 @@ export const assetsController = {
     addAsset: `${environment.apiBaseUrl}Asset/Add`,
     getAsset:`${environment.apiBaseUrl}Asset/Get`,
     assignAsset: `${environment.apiBaseUrl}Asset/Assgin`,
-
+    AssetAssignmentCounts:`${environment.apiBaseUrl}AdminStatics/AssetAssignmentCounts`,
+    AssetCategorycounts:`${environment.apiBaseUrl}AdminStatics/AssetCategorycounts`
 }
