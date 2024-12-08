@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
-import {
-  assetsCategoryController,
-  assetsController,
-  relatedAssetsController,
-} from '../../apis/assertsController';
-import { Assets, assignAsset } from '../../../models/assetsModel';
+ import { Assets , assignAsset } from '../../../models/assetsModel';
 import { request } from 'http';
+import { RelatedAsset } from '../../../models/assets';
+import { assetsCategoryController, assetsController, RelatedAssetsController } from '../../apis/assetsController';
 
 @Injectable({
   providedIn: 'root',
@@ -37,13 +34,7 @@ export class AssetsService {
       request
     );
   }
-  assignAsset(assignAsset: assignAsset): Observable<any> {
-    return this.apiCall.request(
-      'POST',
-      assetsController.assignAsset,
-      assignAsset
-    );
-  }
+ 
   getAsset(request: any = {}): Observable<any> {
     return this.apiCall.request(
       'POST',
@@ -77,12 +68,17 @@ export class AssetsService {
   addAsset(request: any): Observable<any> {
     return this.apiCall.request('POST', assetsController.addAsset, request);
   }
-
-  addRelatedAssets(request: any): Observable<any> {
-    return this.apiCall.request(
-      'POST',
-      relatedAssetsController.addRelatedAssets,
-      request
-    );
+  assignAsset(assignAsset: assignAsset): Observable<any> {
+    return this.apiCall.request("POST", assetsController.assignAsset, assignAsset)
   }
+ 
+
+ 
+ 
+  addRelatedAsset(request: RelatedAsset): Observable<any> {
+    return this.apiCall.request("POST", RelatedAssetsController.addRelatedAsset, request);
+  }
+  getRelatedAssets(request: any) {
+    return this.apiCall.request("POST", RelatedAssetsController.getRelatedAsset, request);
+   }
 }

@@ -26,3 +26,8 @@ export const relatedAssetsController = {
     deleteRelatedAssets: `${environment.apiBaseUrl}RelatedAsset/Delete`,
 
 }
+export const RelatedAssetsController = {
+    addRelatedAsset: `${environment.apiBaseUrl}RelatedAsset/Add`,
+    getRelatedAsset:`${environment.apiBaseUrl}RelatedAsset/Get`,
+ 
+}
