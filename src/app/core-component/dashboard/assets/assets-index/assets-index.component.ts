@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartType, NgApexchartsModule } from 'ng-apexcharts';
 import {
   ApexAxisChartSeries,
@@ -15,7 +15,8 @@ import {
 } from 'ng-apexcharts';
 import { BasicLineChartComponent } from "../../../../common-component/basic-line-chart/basic-line-chart.component";
 import { BasicDonutChartComponent } from "../../../../common-component/basic-donut-chart/basic-donut-chart.component";
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { AssetsService } from '../../../../services/AssetsService/assets.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -37,7 +38,76 @@ export type ChartOptions = {
   styleUrls: ['./assets-index.component.css'],
   imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent, RouterLink]
 })
-export class AssetsIndexComponent {
+export class AssetsIndexComponent{
+  constructor(private assetsService: AssetsService){
+    this.getAssetsCount();
+    this.getAssetsPerCategoriesCount();
+  }
+
+  assetsCount!:{
+    companyId: number,
+    totalAssetsCount: number,
+    notInServiceAssetsCount: number,
+    assignedAssetsCount: number,
+    unassignedAssetsCount: number
+  }
+
+  assetsInCategoriesCount:{
+    name: string,
+    nameAr: string,
+    count: number
+  }[]=[]
+  assetsCategoryInArabic:string[]=[]
+  assetsCategoryInEnglish:string[]=[]
+  assetsInCatCount:number[]=[];
+  isAssined:boolean=true;
+  getAssetsCount(){
+    const req=null;
+    this.assetsService.getAssetsCount(req).subscribe(
+      {
+        next:(res)=>{
+          console.log(res)
+          this.assetsCount={
+            companyId:res.companyId,
+            totalAssetsCount:res.totalAssetsCount,
+            notInServiceAssetsCount:res.notInServiceAssetsCount,
+            assignedAssetsCount: res.assignedAssetsCount,
+            unassignedAssetsCount: res.unassignedAssetsCount
+          }
+        },
+        error:(res)=>{
+          console.log(res)
+        }
+      }
+    )
+  }
+
+  getAssetsPerCategoriesCount(){
+    const req=null;
+    this.assetsService.AssetCategorycounts(req).subscribe(
+      {
+        next:(res)=>{
+          console.log(res)
+
+          this.assetsInCategoriesCount=res;
+          res.map((item:any)=>{
+            this.assetsCategoryInArabic.push(item.nameAr);
+            this.assetsCategoryInEnglish.push(item.name);
+            this.assetsInCatCount.push(item.count);
+          }
+        )
+        console.log(this.assetsCategoryInArabic)
+        console.log( this.assetsCategoryInEnglish)
+        console.log(this.assetsInCatCount)
+        },
+
+        error:(res)=>{
+          console.log(res)
+        }
+      }
+    )
+  }
+
 
   // Bar Chart Options
   barChartOptions = {
@@ -93,12 +163,14 @@ export class AssetsIndexComponent {
 
 
   donutChartOptions = {
-    series: [44, 55, 41, 17, 15],
+    //series: [44, 55, 41, 17, 15],
+    series:  this.assetsInCatCount,
     chart: {
       width: 380,
       type: 'donut' as ChartType
     },
-    labels: ['Category 1', 'Category 2', 'Category 3'],
+ //   labels: ['Category 1', 'Category 2', 'Category 3'],
+    labels: this.isArabic?this.assetsCategoryInArabic:this.assetsCategoryInEnglish,
     dataLabels: {
       enabled: false
     },
@@ -124,4 +196,9 @@ export class AssetsIndexComponent {
       }
     ]
   };
+
+
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+  }
 }

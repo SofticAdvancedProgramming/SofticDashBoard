@@ -19,6 +19,7 @@ import { GlobalFunctionsService } from '../../../services/Global Functions Dashb
 import { math, string } from '@tensorflow/tfjs-core';
 import { AdminStaticsService } from '../../../services/AdminStatistics/AdminStatics.service';
 import { forEach } from 'lodash';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -40,6 +41,7 @@ export class HomeIndexComponent {
   endDate!: Date;
   form!: FormGroup;
   cards: any = [];
+  comapnyId:number=Number(localStorage.getItem('companyId')) || 0;
 
   public newAction: any = [{
     isExisting: true,
@@ -52,6 +54,7 @@ export class HomeIndexComponent {
      private functionService: GlobalFunctionsService,
      private adminStatics:AdminStaticsService,
     private fb: FormBuilder,
+    private router:Router
   ) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
@@ -125,6 +128,12 @@ export class HomeIndexComponent {
 
   map(event: any) {
     this.employee = event;
+  }
+
+  navigateToSecondPageWithTab(index:number)
+  {
+    this.router.navigate([`/dashboard/company/${this.comapnyId}`], { queryParams: { tab: index} });
+
   }
 
    getAttendances(searchDate = {}, pageIndex?: number) {

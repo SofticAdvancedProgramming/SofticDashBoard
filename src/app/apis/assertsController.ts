@@ -6,14 +6,17 @@ export const assetsCategoryController = {
     getMainAssets: `${environment.apiBaseUrl}AssetCategory/Get`,
     addAsset: `${environment.apiBaseUrl}AssetCategory/Add`,
     editAsset: `${environment.apiBaseUrl}AssetCategory/Edit`,
-    deleteAsset: `${environment.apiBaseUrl}AssetCategory/Delete`
+    deleteAsset: `${environment.apiBaseUrl}AssetCategory/Delete`,
+
+
 };
 
 export const assetsController = {
     addAsset: `${environment.apiBaseUrl}Asset/Add`,
     getAsset:`${environment.apiBaseUrl}Asset/Get`,
-    receivedAsset: (assetId: number, employeeId: number) => `${environment.apiBaseUrl}Asset/Recived/${assetId}/${employeeId}`, 
-
+    assignAsset: `${environment.apiBaseUrl}Asset/Assgin`,
+    AssetAssignmentCounts:`${environment.apiBaseUrl}AdminStatics/AssetAssignmentCounts`,
+    AssetCategorycounts:`${environment.apiBaseUrl}AdminStatics/AssetCategorycounts`
 }
 
 export const relatedAssetsController = {

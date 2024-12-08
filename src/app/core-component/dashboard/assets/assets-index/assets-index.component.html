@@ -19,29 +19,29 @@
                 <div class="icon">
                     <img src="../../../../../assets/images/allAssetsColored.png">All Assets
                 </div>
-                <h4>300</h4>
+                <h4>{{assetsCount.totalAssetsCount}}</h4>
                 <p class="update">Update: July 14, 2023</p>
             </div>
 
             <div class="card col-lg-3">
-                <div class="icon">
+                <div class="icon"  [routerLink]="['../ShowAssets',isAssined]" >
                     <img src="../../../../../assets/images/onDuty.png">Assets on duty
                 </div>
-                <h4>300</h4>
+                <h4>{{assetsCount.assignedAssetsCount}}</h4>
                 <p class="update">Update: July 14, 2023</p>
             </div>
             <div class="card col-lg-3">
-                <div class="icon">
+                <div class="icon"  routerLink="../ShowAssets"  >
                     <img src="../../../../../assets/images/outService.png">Out of service- for depreciation
                 </div>
-                <h4>300</h4>
+                <h4>{{assetsCount.notInServiceAssetsCount}}</h4>
                 <p class="update">Update: July 14, 2023</p>
             </div>
-            <div class="card col-lg-3">
+            <div class="card col-lg-3"  [routerLink]="['../ShowAssets',false]">
                 <div class="icon">
                     <img src="../../../../../assets/images/outserv.png">Assets out of service
                 </div>
-                <h4>300</h4>
+                <h4>{{assetsCount.unassignedAssetsCount}}</h4>
                 <p class="update">Update: July 14, 2023</p>
             </div>
         </div>

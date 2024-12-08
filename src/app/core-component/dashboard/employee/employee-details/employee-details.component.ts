@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { PersonalInformationComponent } from '../employeeDetailsComponents/personal-information/personal-information.component';
 import { AdvancedInformationComponent } from '../employeeDetailsComponents/advanced-information/advanced-information.component';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
-import { tap, catchError, of, Subject } from 'rxjs';
+import { tap, catchError, of, Subject, firstValueFrom } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { employee } from '../../../../../models/employee';
 import { accountStatus } from '../../../../../models/enums/accountStatus';
@@ -68,38 +68,40 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
    });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.route.paramMap
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((params) => {
+      .subscribe(async (params) => {
         this.id = Number(params.get('id'));
-        this.getEmployee();
+  
+        await this.getEmployee(); // Wait for employee data to load
+  
+        // Now it's safe to access this.employee
+        console.log("this.employee.accountStatus:", this.employee.accountStatus);
+        console.log(
+          "Is account status pending?",
+          this.employee.accountStatus === accountStatus.Pending
+        );
       });
+  
     this.isPending = this.localStorageService.getItem('isPending');
     this.currentLang = this.translate.currentLang;
+  
     this.translate.onLangChange.subscribe((event) => {
       this.currentLang = event.lang;
     });
-    console.log(this.isPending);
 
-    console.log(accountStatus.Pending);
-    console.log(this.employee.accountStatus);
-    console.log(this.employee.accountStatus === accountStatus.Pending);
+    console.log("employee.accountStatus==accountStatus.Active",this.employee.accountStatus==accountStatus.Active)
   }
   switchLang(lang: string) {
     this.translate.use(lang);
   }
-  getEmployee() {
-    this.employeeService
-      .loadEmployees({ id: this.id })
-      .pipe(
-        tap((response: any) => {
-          this.employee = response.data.list[0];
-          console.log(response);
-        }),
-        takeUntil(this.unsubscribe$)
-      )
-      .subscribe();
+  async getEmployee(): Promise<void> {
+    const response: any = await firstValueFrom(
+      this.employeeService.loadEmployees({ id: this.id })
+    );
+    this.employee = response.data.list[0];
+    console.log("Employee data loaded:", this.employee);
   }
 
   setActiveTab(tab: string): void {

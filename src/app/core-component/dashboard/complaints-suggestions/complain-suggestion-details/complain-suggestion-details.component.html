@@ -74,7 +74,7 @@
                         <span class="label">{{ 'complainDetails.complaint.attachments' | translate }}</span>
                         <div class="attachment-list">
                             <img *ngFor="let attachment of complaintDetails.issueAttachments"
-                                [src]="attachment.file" alt="{{ 'complainDetails.complaint.attachments' | translate }}"
+                                [src]="attachment.file" (click)="openImage(attachment.file)" alt="{{ 'complainDetails.complaint.attachments' | translate }}"
                                 class="attachment-image" />
                         </div>
                     </div>
@@ -103,8 +103,8 @@
                     <textarea class="textarea" #comment placeholder="Type your replay......">  </textarea>
                 </div>
             </div>
-            <div class="row justify-content-center d-flex" *ngIf="complaintDetails.issueStatusId!=6 &&complaintDetails.issueTypeId==2&&complaintDetails.issueStatusId!=4">
-              <div class="col-lg-3"*ngIf="comments.length>=1 &&complaintDetails.issueTypeId==2">
+            <div class="row justify-content-center d-flex" *ngIf="complaintDetails.issueStatusId!=6 &&complaintDetails.issueTypeId==2">
+              <div class="col-lg-3"*ngIf="comments.length>=1 &&complaintDetails.issueTypeId==2 &&complaintDetails.issueStatusId!=4">
                 <button class="btn w-100 wait-btn" (click)="wait()">{{"complainDetails.wait"|translate}}</button>
               </div>
                 <div class="col-lg-3">

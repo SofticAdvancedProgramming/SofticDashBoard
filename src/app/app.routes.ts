@@ -92,6 +92,7 @@ export const routes: Routes = [
       { path: 'relatedAssets', component: RelatedAssetsComponent},
       { path: 'AddAssets', component: AddAssetsComponent },
       { path: 'ShowAssets', component: ShowAssetsComponent },
+      { path: 'ShowAssets/:isAssined', component: ShowAssetsComponent },
       { path: 'AssetsDetails/:id', component: AssetsDetailsComponent },
       { path: 'employee-locations/:id', component: AddLocationComponent }
         ],

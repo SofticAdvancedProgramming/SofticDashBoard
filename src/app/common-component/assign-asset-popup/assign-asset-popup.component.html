@@ -7,15 +7,26 @@
         <form (ngSubmit)="Submit()">
             <div class="form-group">
                 <label for="Name">Name</label>
-                <select id="Name" name="Name">
-                    <option value="computers">Mohamed</option>
-                    <option value="laptops">Mayar</option>
-                    <option value="phones">George</option>
-                </select>
+                <app-drop-down 
+                [placeholder]="'Select Employee'"
+                [placeholderSearch]="'Search by Name'"
+                [items]="employees"
+                [currentPage]="employeePage"
+                [itemsLength]="employees.length"
+                (getNextPageApi)="loadEmployees()"
+                (search)="loadEmployees()"
+                (onChange)="onEmployeeSelect($event)"
+              ></app-drop-down>
             </div>
             <div class="form-group">
-                <label for="status">Assign Date</label>
-                <input type="date" placeholder="Enter Assign Date" id="assignDate" name="assignDate" required>
+                <label for="assignDate">Assign Date</label>
+                <input 
+                    type="date" 
+                    id="assignDate" 
+                    name="assignDate" 
+                    [(ngModel)]="assignDate" 
+                    required
+                >
             </div>
             <div class="d-flex justify-content-center gap-2">
                 <button class="apply-btn" type="submit">Submit</button>

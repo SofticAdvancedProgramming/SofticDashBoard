@@ -57,7 +57,7 @@
       </div>
     </div>
     <div class="col-lg-3">
-      <div class="files-section">
+      <div class="files-section" *ngIf="files.length > 0">
         <div *ngFor="let file of files" class="file-item">
           <div class="file-name">
             <i class="fas fa-file"></i>
@@ -68,9 +68,12 @@
           </div>
         </div>
       </div>
-    </div>
+      <div *ngIf="files.length === 0" class="no-files">
+        No attachments available.
+      </div>
+      
   </div>
-
+ 
 
   <app-assign-asset-popup *ngIf="isAssignAssetVisible"
     (closeAssignAssets)="onAssignAssetClose($event)"></app-assign-asset-popup>

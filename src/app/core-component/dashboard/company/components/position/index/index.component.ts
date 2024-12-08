@@ -82,12 +82,12 @@ export class IndexComponent implements OnInit {
     this.positionService.getPosition({ companyId: this.companyId, pageSize: this.itemsPerPage, pageIndex: page }).subscribe({
       next: (response) => {
         this.positions = response.data.list;
-        
+
         this.totalItems = response.data.totalRows;
          this.getPositionEmployee();
        }
     });
-  }
+  } 
   async getPositionEmployee(): Promise<void> {
     for (let item of this.positions) {
       const response: any = await firstValueFrom(this.employeeService.getEmployees({ positionId: item.id }));
@@ -111,11 +111,11 @@ export class IndexComponent implements OnInit {
         this.employees = response.data.list.filter(
           (employee: any) => !employee.positionId
         );
-        this.totalEmployees = response.data.totalRows;  
+        this.totalEmployees = response.data.totalRows;
        },
      });
   }
-  
+
 
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
@@ -162,12 +162,12 @@ export class IndexComponent implements OnInit {
   addEmployee(positionId: string): void {
     this.selectedPositionId = positionId;
     this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
-    this.loadUnassignedEmployees(); 
+    this.loadUnassignedEmployees();
     this.isAddEmployee = true;
     console.log(positionId);
-    
+
   }
-  
+
 
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
@@ -306,12 +306,12 @@ export class IndexComponent implements OnInit {
       },
      });
   }
-  
+
   searchUnassignedEmployees(searchTerm: string): void {
     this.employeeService.loadEmployees({
       companyId: this.companyId,
       accountStatus: 1,
-      search: searchTerm  
+      search: searchTerm
     }).subscribe({
       next: (response) => {
         this.employees = response.data.list.filter(
@@ -321,5 +321,5 @@ export class IndexComponent implements OnInit {
       },
      });
   }
-    
+
 }
