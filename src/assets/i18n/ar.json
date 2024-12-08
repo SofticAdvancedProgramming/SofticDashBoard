@@ -239,6 +239,13 @@
     "REQUIRED_FIELD": "هذا الحقل مطلوب",
     "BTN": "إضافة أصل"
   },
+  "RELATED_ASSETS": {
+    "TITLE": "الأصول ذات الصلة",
+    "NAME": "الأصول ذات الصلة",
+    "NAME_AR": "الأصول ذات الصلة (عربي)",
+    "MODEL": "الموديل",
+    "DIRECT_PARENT": "الأصل المباشر"
+  },
   "INDEX_POSITION": {
     "ADD_POSITION": "إضافة وظيفة",
     "DEPARTMENT": "القسم",
@@ -284,15 +291,7 @@
     "ThisYear": "هذا العام",
     "LastYear": "العام الماضي"
   },
-  "MONTHS": [
-    "يناير",
-    "فبراير",
-    "مارس",
-    "أبريل",
-    "مايو",
-    "يونيو",
-    "يوليو"
-  ],
+  "MONTHS": ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو"],
   "generalLookups": {
     "SUBSCRIPTION_PLAN_MANAGEMENT": "إدارة خطط الاشتراك",
     "SUBSCRIPTION_PLAN_DESCRIPTION": "إنشاء وإدارة خطط الاشتراك لتلبية احتياجات المستخدمين المتنوعة.",
@@ -304,7 +303,9 @@
     "BenefitType": "نوع الميزة",
     "BenefitType_DESCRIPTION": "إدارة أنواع المزايا المقدمة للموظفين.",
     "AssetsCategory": "فئات الأصول",
-    "AssetsCategory_DESCRIPTION": "إدارة كافة فئات الأصول."
+    "AssetsCategory_DESCRIPTION": "إدارة كافة فئات الأصول.",
+    "RelatedAssets": "الأصول ذات الصلة",
+    "RelatedAssets_DESCRIPTION": "إدارة الأصول ذات الصلة."
   },
   "NAV": {
     "SEARCH": "بحث..."
@@ -369,6 +370,7 @@
     "ACCEPTED": "مقبول",
     "FINANCIAL_INFORMATION": "مالي",
     "REQUEST": "الطلبات",
+    "ASSETS": "الأصول",
     "Entitlements": "المستحقات",
     "Deductions": "الخصومات",
     "Title": "الوظيفة",
@@ -743,44 +745,70 @@
   "PendingEmployees": "المظفين قيد الموافقة",
   "RejectedEmployees": "الموظفين المرفوضين",
   "Assets": {
-    "Assets": {
-      "AddNewAsset": "إضافة أصل جديد",
-      "AssetName": "اسم الأصل",
-      "AssetNameAr": "اسم الأصل بالعربية",
-      "Model": "الموديل",
-      "AssetCategory": "فئة الأصل",
-      "AssetSup-Category": "فئة مورد الأصل",
-      "TechnicalDescription": "الوصف الفني",
-      "AssetAccessories": "ملحقات الأصل",
-      "AssetLocation": "موقع الأصل",
-      "AssetNamePlaceholder": "أدخل اسم الأصل",
-      "AssetNamePlaceholderAr": "أدخل اسم الأصل بالعربية",
-      "AssetIDPlaceholder": "أدخل معرف الأصل",
-      "AssetCategoryPlaceholder": "أدخل فئة الأصل",
-      "AssetSupCategoryPlaceholder": "أدخل الفئة الفرعية للأصل",
-      "AssetAccessoriesPlaceholder": "أدخل الملحقات",
-      "AssetLocationPlaceholder": "أدخل موقع الأصل",
-      "TechnicalDescriptionPlaceholder": "قدم وصفًا فنيًا للأصل",
-      "attachment": "مرفق",
-      "photo": "صورة"
+    "AddNewAsset": "إضافة أصل جديد",
+    "AssetName": "اسم الأصل",
+    "AssetNameAr": "اسم الأصل بالعربية",
+    "Model": "الموديل",
+    "AssetCategory": "فئة الأصل",
+    "AssetSup-Category": "فئة مورد الأصل",
+    "TechnicalDescription": "الوصف الفني",
+    "AssetAccessories": "ملحقات الأصل",
+    "AssetLocation": "موقع الأصل",
+    "AssetNamePlaceholder": "أدخل اسم الأصل",
+    "AssetNamePlaceholderAr": "أدخل اسم الأصل بالعربية",
+    "AssetIDPlaceholder": "أدخل معرف الأصل",
+    "AssetCategoryPlaceholder": "أدخل فئة الأصل",
+    "AssetSupCategoryPlaceholder": "أدخل الفئة الفرعية للأصل",
+    "AssetAccessoriesPlaceholder": "أدخل الملحقات",
+    "AssetLocationPlaceholder": "أدخل موقع الأصل",
+    "TechnicalDescriptionPlaceholder": "قدم وصفًا فنيًا للأصل",
+    "attachment": "مرفق",
+    "photo": "صورة",
+    "validation": {
+      "assetNameRequired": "اسم الأصل مطلوب",
+      "assetNameArRequired": "اسم الأصل (بالعربية) مطلوب",
+      "ModelRequired": "نموذج الأصل مطلوب",
+      "AssetCategoryRequired": "فئة الأصل مطلوبة",
+      "AssetReasonRequired": "الوصف مطلوب",
+      "AssetReasonMinLength": "الحد الأدنى لعدد أحرف الوصف هو 100",
+      "AssetReasonMaxLength": "الحد الأقصى لعدد أحرف الوصف هو 300"
     },
-    "ASSET_UPLOADER": {
-      "BROWSE_FILE": "تصفح الملف",
-      "BROWSE_IMG": "تصفح الصور",
-      "NO_FILE_SELECTED": "لم يتم اختيار ملف",
-      "NO_IMG_SELECTED":"لم يتم اختيار صورة",
-      "SELECTED_FILE": "الملف المحدد",
-      "IMAGE_UPLOADED": "تم تحميل الصورة بنجاح.",
-      "uploadAnotherImage":"تحميل صورة اخرى",
-      "uploadAnotherFile":"تحميل ملف اخر",
-      "FILE_UPLOADED": "تم تحميل الملف بنجاح.",
-      "SEND": "إرسال"
-    },
-    "AssignedToEmployee": "تم التخصيص بالفعل لموظف.",
-    "employeeFilteration": "اختار فئه الموظفين الذى تريدها",
-    "AllEmployee": "كل الموظفين",
-    "ActiveEmployees": "الموظفين النشطين",
-    "PendingEmployees": "المظفين قيد الموافقة",
-    "RejectedEmployees": "الموظفين المرفوضين"
+    "messages": {
+      "uploadAnotherImage": "رفع صورة أخرى",
+      "uploadAnotherFile": "رفع ملف آخر"
+    }
+  },
+  "ASSET_UPLOADER": {
+    "BROWSE_FILE": "تصفح الملف",
+    "NO_FILE_SELECTED": "لم يتم اختيار ملف",
+    "NO_PHOTO_SELECTED": "لم يتم اختيار صورة",
+    "SELECTED_FILE": "الملف المحدد",
+    "IMAGE_UPLOADED": "تم تحميل الصورة بنجاح.",
+    "FILE_UPLOADED": "تم تحميل الملف بنجاح.",
+    "SEND": "إرسال",
+    "BROWSE_IMG": "تصفح الصور",
+    "NO_IMG_SELECTED":"لم يتم اختيار صورة",
+    "uploadAnotherImage":"تحميل صورة اخرى",
+    "uploadAnotherFile":"تحميل ملف اخر",
+  },
+
+  "employeeAssets": {
+    "category": "الفئة",
+    "subcategory": "الفئة الفرعية",
+    "subsubsategory": "الفئة الفرعية الثانية",
+    "assetsId": "معرف الأصل",
+    "assetstatus": "حالة الأصل",
+    "outofservice": "خارج الخدمة"
+  },
+  "FILTER_POPUP": {
+    "name": "الاسم",
+    "status": "الحالة",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "delivered": "تم التسليم",
+    "yes": "نعم",
+    "no": "لا",
+    "filter": "تصفية",
+    "close": "إغلاق"
   }
 }

@@ -65,7 +65,6 @@ export class AddAssetsComponent implements OnInit {
       Model: ['', Validators.required],
       AssetCategory: ['', Validators.required],
       AssetReason: ['', Validators.required],
-      AssetLocation: ['', Validators.required],
       AssetAttachment: ['', Validators.required],
       AssetPhoto: ['', Validators.required],
       long: [0, Validators.required],

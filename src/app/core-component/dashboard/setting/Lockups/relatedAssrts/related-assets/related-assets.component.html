@@ -3,41 +3,44 @@
       <div class="tab-content">
         <div>
           <div class="row mt-4">
-            <h2>{{ "ADD_ASSETS.TITLE" | translate }}</h2>
+            <h2>{{ "RELATED_ASSETS.TITLE" | translate }}</h2>
             <form [formGroup]="form" (ngSubmit)="onSave()">
               <div class="row">
-                <div class="col-12">
-                  <label>{{ "ADD_ASSETS.NAME" | translate }}</label>
+                <div class="form-group col-12">
+                  <label>{{ "RELATED_ASSETS.NAME" | translate }}</label>
                   <input
                     type="text"
                     class="form-control"
                     formControlName="name"
                   />
                 </div>
-                <div class="col-12">
-                  <label>{{ "ADD_ASSETS.NAME_AR" | translate }}</label>
+                <div class="form-group col-12">
+                  <label>{{ "RELATED_ASSETS.NAME_AR" | translate }}</label>
                   <input
                     type="text"
                     class="form-control ml-3"
                     formControlName="nameAr"
                   />
                 </div>
-                <div class="form-group toggle-group">
+                <div class="form-group col-12">
+                    <label>{{ "RELATED_ASSETS.MODEL" | translate }}</label>
+                    <input
+                      type="text"
+                      class="form-control ml-3"
+                      formControlName="model"
+                    />
+                  </div>
+                <!-- <div class="form-group toggle-group">
                   <label class="switch">
                     <input type="checkbox" formControlName="isHasMainCategory" />
                     <span class="slider"></span>
                   </label>
                   <label for="direct-manager" class="toggle-label">{{
-                    "ADD_ASSETS.DIRECT_PARENT" | translate
+                    "RELATED_ASSETS.DIRECT_PARENT" | translate
                   }}</label>
-                </div>
-                <div
-                  class="form-group"
-                  *ngIf="form.get('isHasMainCategory')?.value"
-                >
-                  <label for="mainAssetId">{{
-                    "ADD_ASSETS.ASSETS" | translate
-                  }}</label>
+                </div> -->
+                <div class="form-group col-12">
+                  <label for="mainAssetId">{{ "ADD_ASSETS.ASSETS" | translate }}</label>
                   <select
                     id="mainAssetId"
                     formControlName="mainAssetId"
@@ -107,17 +110,17 @@
   
             <!-- Modern Table Component -->
             <app-modern-table
-              [tableTitle]="'Assets Category'"
-              (newReqByPage)="loadEntities('AssetsCategories', $event)"
-              [totalRows]="totalRows['AssetsCategories']"
-              [tableData]="assets"
+              [tableTitle]="'Related Assets'"
+              (newReqByPage)="loadEntities('RelatedAssets', $event)"
+              [totalRows]="totalRows['RelatedAssets']"
+              [tableData]="relatedAssets"
               [columns]="columns"
               [modalId]="modalId"
               searchPlaceholder="Search data..."
               (editItem)="openEditModal($event)"
-              (deleteItem)="deleteEntity('AssetsCategories', $event.id)"
+              (deleteItem)="deleteEntity('RelatedAssets', $event.id)"
               [deleteId]="deleteId"
-              (searchApi)="loadEntities('AssetsCategories', 1, $event)"
+              (searchApi)="loadEntities('RelatedAssets', 1, $event)"
             ></app-modern-table>
           </div>
         </div>
