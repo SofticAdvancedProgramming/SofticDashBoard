@@ -52,17 +52,20 @@ export class ShowAssetsComponent implements OnInit{
   ) {
     this.companyId=Number(localStorage.getItem('companyId'));
     this.getAssetsCategory();
-    this.gettAssets();
   }
 
   ngOnInit(): void {
+
     this.route.params.subscribe(res=>{
       if(res['isAssined']!=undefined){
         this.isAssined=res['isAssined'];
+       // console.log(res)
       }
-      console.log(res)
-      console.log(this.isAssined)
+      //console.log(res)
+     // console.log(this.isAssined)
+      this.gettAssets();
     })
+    this.gettAssets();
   }
 
   getAssetsCategory(page?:number){
@@ -81,17 +84,15 @@ export class ShowAssetsComponent implements OnInit{
       }
     )
   }
-  gettAssets(event?:any,i?:number,page=this.currentPage,isAssigned?:boolean){
+  gettAssets(event?:any,i?:number,page=this.currentPage){
     let query;
     if(i!=null){
       this.setActiveButton(i);
     }
 
-    query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page }
-    if(isAssigned!=undefined){
-      query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:isAssigned }
-    }
-   // console.log(event)
+    query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:this.isAssined  }
+
+   // console.log(query)
     this.assetsService.getAsset(query).subscribe({
       next:(res=>{
        // console.log(res.data.list);
