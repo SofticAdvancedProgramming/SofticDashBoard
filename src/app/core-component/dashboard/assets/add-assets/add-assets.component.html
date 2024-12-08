@@ -252,11 +252,11 @@
               *ngIf="!fileType || fileType.startsWith('image/')"
               class="header"
             >
-              <p>{{ "ASSET_UPLOADER.BROWSE_FILE" | translate }}</p>
+              <p>{{ "ASSET_UPLOADER.BROWSE_IMG" | translate }}</p>
             </div>
             <label for="file" class="footer">
               <p *ngIf="!selectedFileName && !uploadMessage">
-                {{ "ASSET_UPLOADER.NO_FILE_SELECTED" | translate }}
+                {{ "ASSET_UPLOADER.NO_IMG_SELECTED" | translate }}
               </p>
               <div
                 *ngIf="selectedFileName && !fileType?.startsWith('image/')"
@@ -278,6 +278,7 @@
             <input
               id="file"
               type="file"
+              accept="image/*"
               (change)="onFileChange($event)"
               formControlName="AssetPhoto"
               class="form-control-file"
@@ -319,7 +320,7 @@
               </div>
 
               <img
-                *ngIf="file.previewUrl"
+                *ngIf="file.previewUrl && file.fileType?.startsWith('image/')"
                 [src]="file.previewUrl"
                 alt="{{ file.fileName }}"
                 class="img-preview"

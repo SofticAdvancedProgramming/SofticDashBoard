@@ -23,7 +23,7 @@
         <form (ngSubmit)="onSubmit()">
           <div class="form-group mt-3">
             <label for="employeeName">Name</label>
-            <app-drop-down 
+            <app-drop-down
             [placeholder]="'Select Employee'"
             [placeholderSearch]="'Search by Name'"
             [currentPage]="employeePage"
@@ -50,8 +50,9 @@
       <div class="header">
         <div class="d-flex">
          {{"AssignedToEmployee" |translate}}
-        
-      </div> 
+
+         <button class="btn" (click)="isAssigned=false">change employee</button>
+      </div>
     </div>
   </div>
 </div>

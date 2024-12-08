@@ -766,9 +766,13 @@
     },
     "ASSET_UPLOADER": {
       "BROWSE_FILE": "تصفح الملف",
+      "BROWSE_IMG": "تصفح الصور",
       "NO_FILE_SELECTED": "لم يتم اختيار ملف",
+      "NO_IMG_SELECTED":"لم يتم اختيار صورة",
       "SELECTED_FILE": "الملف المحدد",
       "IMAGE_UPLOADED": "تم تحميل الصورة بنجاح.",
+      "uploadAnotherImage":"تحميل صورة اخرى",
+      "uploadAnotherFile":"تحميل ملف اخر",
       "FILE_UPLOADED": "تم تحميل الملف بنجاح.",
       "SEND": "إرسال"
     },

@@ -98,7 +98,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       this.matchedAgainstTypeName = this.complaintDetails.againestTypeName;
     }
   }
-
+ 
   wait(){
     this.IssueExcuter.getIssueExcuter({id:this.issueExecuterId}).subscribe({
       next: (response) => {
@@ -147,8 +147,9 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
     let comment=this.comment?.nativeElement.value;
     this.issueCommentService.addIssueComment(comment,companyId,issueExcuterId,issueId).subscribe({
       next:data=>{
+        this.ngOnInit();
        // console.log("comment data",data)
-        this.router.navigate(['/dashboard/ComplaintsSuggestions'])
+       // this.router.navigate(['/dashboard/ComplaintsSuggestions'])
       }
     })
 

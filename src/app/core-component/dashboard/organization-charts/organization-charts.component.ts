@@ -91,7 +91,13 @@ totalEmployees: number = 0;
         response.data.list.forEach((employee: any) => {
           console.log("employeeeeee",employee)
           this.employeeMap.set(employee.positionId, (employee.firstName+" "+employee.lastName));
-          this.imageMap.set(employee.positionId,employee.referancePhoto);
+          if(employee.profileImage)
+          this.imageMap.set(employee.positionId,employee.profileImage);
+          else{
+            let img= '../../../../assets/images/defaultImg.svg'
+            this.imageMap.set(employee.positionId,img);
+          }
+
         });
         this.loadPositions();
       }
@@ -163,7 +169,7 @@ totalEmployees: number = 0;
         this.employees = response.data.list.filter(
           (employee: any) => !employee.positionId
         );
-        this.totalEmployees = response.data.totalRows; 
+        this.totalEmployees = response.data.totalRows;
         console.log("Unassigned Employees:", this.employees);
       }
     });
@@ -220,7 +226,7 @@ totalEmployees: number = 0;
     this.employeeService.loadEmployees({
       companyId: this.companyId,
       accountStatus: 1,
-      search: searchTerm  
+      search: searchTerm
     }).subscribe({
       next: (response) => {
         this.employees = response.data.list.filter(
@@ -258,7 +264,7 @@ totalEmployees: number = 0;
             height: 153.05,
             cursor: 'pointer'
           }),
-          
+
         $(go.Panel, 'Vertical',
           { margin: 6 },
           // Image for the node
@@ -270,7 +276,7 @@ totalEmployees: number = 0;
           imageStretch: go.GraphObject.Uniform, // Maintain aspect ratio
           cursor: 'pointer'
         },
-        new go.Binding('source', 'image', (src) => src && src.trim() !== "" ? src : 'assets/images/defualt.jpg')),
+        new go.Binding('source', 'image', (src) => src && 1 &&src.trim() !== "" ? src : 'assets/images/defualt.jpg')),
        // Bind the image source dynamically
           $(go.TextBlock,
             {

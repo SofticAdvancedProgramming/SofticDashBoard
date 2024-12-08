@@ -9,8 +9,8 @@
         {{ getEmployeeStatusLabelButton() | translate }}
       </button>
     </div>
- 
-    
+
+
   </div>
 <div class="row">
   <div class="col-8 mt-4">
@@ -45,7 +45,7 @@
             {{ employee.fullName }}
           </td>
           <td>{{ employee.id }}</td>
-          <td>{{ employee.department?.name }}</td>
+          <td ><span *ngIf="employee.accountStatus==1">{{ employee.department?.name }}</span></td>
           <td>{{ employee.position?.name }}</td>
           <td>
             <button class="btn btn-sm" (click)="viewDetails(employee)">
@@ -80,7 +80,7 @@
       previousText="&laquo;"
       nextText="&raquo;">
     </pagination>
-  </div> 
+  </div>
 </div>
 
 <!-- Delete Confirmation Modal -->

@@ -121,7 +121,7 @@ export class AddAssetsComponent implements OnInit {
         if (this.fileType?.startsWith('image/')) {
           this.imagePreviewUrl = result;
           console.log(this.imagePreviewUrl);
-          
+
         }
       }
     };
@@ -131,12 +131,12 @@ export class AddAssetsComponent implements OnInit {
 
   onAttachmentChange(event: any): void {
     console.log("onAttachmentChange");
-    
+
     const file = event.target.files[0];
     if (file) {
       const attachmentfileType = file.type;
       const fileName = file.name;
-  
+
       const reader = new FileReader();
       reader.onload = () => {
         const result = reader.result as string | null;
@@ -156,26 +156,26 @@ export class AddAssetsComponent implements OnInit {
             companyId: companyId, fileExtension: extension, file: base64String , id:0 , assetId:0
           }
           this.attachments.push(dataFile);
-          
+
           // If the file is an image, add a preview URL
           if (attachmentfileType.startsWith('image/')) {
             this.attachmentImagePreviewUrl = result;
             console.log(this.attachmentImagePreviewUrl);
           }
-  
+
           // Add the file to the array
           this.files.push(fileDetails);
           console.log(fileDetails);
           console.log(this.attachments);
-          
-  
+
+
           // Update message
           this.attachmentUploadMessage = this.translate.instant(
-            attachmentfileType.startsWith('image/') ? 'fileUploadModule.messages.uploadAnotherImage' : 'fileUploadModule.messages.uploadAnotherFile'
+            attachmentfileType.startsWith('image/') ? 'ASSET_UPLOADER.uploadAnotherImage' : 'ASSET_UPLOADER.uploadAnotherFile'
           );
         }
       };
-  
+
       reader.readAsDataURL(file);
     }
   }
