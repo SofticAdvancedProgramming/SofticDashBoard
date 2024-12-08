@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AssignAssetPopupComponent } from "../../../../common-component/assign-asset-popup/assign-asset-popup.component";
 import { TranslateService } from '@ngx-translate/core';
@@ -38,6 +38,7 @@ export class AssetsDetailsComponent implements OnInit {
     private translate: TranslateService,
     private assetsService: AssetsService,
     private http: HttpClient,
+    private cdRef: ChangeDetectorRef,
 
     private localStorageService: LocalStorageService,
   ) { }
@@ -72,7 +73,7 @@ export class AssetsDetailsComponent implements OnInit {
     return fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
   }
   toggleAssignPopup() {
-    this.isRelatedAssetsVisible = !this.isRelatedAssetsVisible;
+    this.isAssignAssetVisible = !this.isAssignAssetVisible;
   }
   toggleRelatedAssetsPopup() {
     this.isAssignAssetVisible = !this.isAssignAssetVisible;
@@ -100,8 +101,8 @@ export class AssetsDetailsComponent implements OnInit {
   }
 
   gettAssets(id: number) {
-    const params = { id };  // Pass the assetId to the service
-    console.log('Requesting asset with ID:', id);  // Log for debugging
+    const params = { id };   
+    console.log('Requesting asset with ID:', id);   
     this.assetsService.getAsset(params).subscribe({
       next: (res) => {
         console.log('Assets Response:', res.data.list);
@@ -128,7 +129,7 @@ export class AssetsDetailsComponent implements OnInit {
         });
         console.log('Mapped Assets Array:', this.assets);
     
-        this.getRelatedAssets(id);  // Pass assetId to get related assets
+        this.getRelatedAssets(id);  
       },
       error: (err) => {
         console.error('Error fetching assets:', err);
@@ -161,16 +162,20 @@ export class AssetsDetailsComponent implements OnInit {
   }
   getRelatedAssets(assetId: number) {
     const params = { assetId };
-    console.log('Requesting related assets for assetId:', assetId);  
+    console.log('Requesting related assets for assetId:', assetId);
     this.assetsService.getRelatedAssets(params).subscribe({
       next: (res) => {
         console.log('Related Assets Response:', res);
-        // Ensure relatedAssets is always an array
-        this.relatedAssets = Array.isArray(res.data) ? res.data : [];  // If res.data is not an array, set it as an empty array
+        if (res.data && Array.isArray(res.data.list)) {
+          this.relatedAssets = res.data.list;  
+        } else {
+          this.relatedAssets = [];
+        }
+        this.cdRef.detectChanges(); 
       },
       error: (err) => {
         console.error('Error fetching related assets:', err);
-        this.relatedAssets = [];  // Fallback to empty array in case of error
+        this.relatedAssets = [];
       }
     });
   }

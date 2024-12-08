@@ -368,3 +368,11 @@
     border: 1px solid #B876FB;
     width: 180px;
 }
+h3{
+    font-family: "Lama Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #09050E;
+    flex-shrink: 0;
+    width: 150px;
+}
