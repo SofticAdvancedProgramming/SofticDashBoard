@@ -770,10 +770,14 @@
   },
   "ASSET_UPLOADER": {
     "BROWSE_FILE": "Browse File",
+    "BROWSE_IMG": "Browse Img",
     "BROWSE_PHOTO": "Browse Photo",
     "NO_FILE_SELECTED": "No file selected",
+    "NO_IMG_SELECTED":"NO IMG SELECTED",
     "NO_PHOTO_SELECTED": "No Photo selected",
     "SELECTED_FILE": "Selected File",
+    "uploadAnotherImage":"upload Another Image",
+    "uploadAnotherFile":"upload Another File",
     "IMAGE_UPLOADED": "Image uploaded successfully.",
     "FILE_UPLOADED": "File uploaded successfully.",
     "SEND": "Send"
@@ -804,3 +808,4 @@
     "close": "Close"
   }
 }
+

@@ -24,20 +24,20 @@ export class AssignEmployeesComponent  implements OnInit{
   @Input() DirectManagerDescription: string = '';
   @Input() employee!: any[];
   isAssigned?:boolean;
-  employees: employee[] = [];  
+  employees: employee[] = [];
   loadingMoreEmployees = false;
   employeePage = 1;
-  totalEmployees: number = 10;  
+  totalEmployees: number = 10;
   @Output() close = new EventEmitter<void>();
   @Output() submitForm = new EventEmitter<{ employeeId: number, positionId: number }>();
-  @Output() getNextPage = new EventEmitter<number>(); 
-    @Output() search = new EventEmitter<string>(); 
+  @Output() getNextPage = new EventEmitter<number>();
+    @Output() search = new EventEmitter<string>();
     @Input() popupContent?: TemplateRef<any>;
   selectedEmployeeId: string = '';
   currentPage: number = 1;
 
- 
-  constructor(private employeeService:EmployeeService) { 
+
+  constructor(private employeeService:EmployeeService) {
     this.loadEmployees();
   }
   ngOnInit(): void {
@@ -51,18 +51,18 @@ export class AssignEmployeesComponent  implements OnInit{
         this.isAssigned=false;
       }
     }
-  
 
- 
+
+
   onEmployeeSelect(employee: any) {
      this.selectedEmployeeId = employee;
     console.log(employee);
-    
+
   }
   loadEmployees(): void {
     if(this.loadingMoreEmployees) return;
     this.loadingMoreEmployees = true
-    this.employeeService.loadEmployees({ 
+    this.employeeService.loadEmployees({
       accountStatus: 1,
       pageIndex: this.employeePage,
       pageSize: 10,
@@ -73,12 +73,12 @@ export class AssignEmployeesComponent  implements OnInit{
 
         this.employees =[...this.employees.filter((employee: any) => !employee.positionId)]
         this.employees = this.employees.map(employee => ({
-          ...employee,               
-          name: employee.firstName + " " + employee.lastName  
+          ...employee,
+          name: employee.firstName + " " + employee.lastName
         }));
          this.loadingMoreEmployees = false;
         if(newItems.length) this.employeePage++;
- 
+
       },
       error: (err) => this.loadingMoreEmployees = false,
     });

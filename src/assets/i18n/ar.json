@@ -785,14 +785,13 @@
     "SELECTED_FILE": "الملف المحدد",
     "IMAGE_UPLOADED": "تم تحميل الصورة بنجاح.",
     "FILE_UPLOADED": "تم تحميل الملف بنجاح.",
-    "SEND": "إرسال"
+    "SEND": "إرسال",
+    "BROWSE_IMG": "تصفح الصور",
+    "NO_IMG_SELECTED":"لم يتم اختيار صورة",
+    "uploadAnotherImage":"تحميل صورة اخرى",
+    "uploadAnotherFile":"تحميل ملف اخر"
   },
-  "AssignedToEmployee": "تم التخصيص بالفعل لموظف.",
-  "employeeFilteration": "اختار فئه الموظفين الذى تريدها",
-  "AllEmployee": "كل الموظفين",
-  "ActiveEmployees": "الموظفين النشطين",
-  "PendingEmployees": "المظفين قيد الموافقة",
-  "RejectedEmployees": "الموظفين المرفوضين",
+
   "employeeAssets": {
     "category": "الفئة",
     "subcategory": "الفئة الفرعية",

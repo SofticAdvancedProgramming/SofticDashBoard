@@ -75,6 +75,7 @@ export class ViewEmployeesComponent implements OnInit {
         })
         .pipe(
           tap((response: any) => {
+            console.log(response.data.list);
             this.employees = response.data.list;
             this.filteredEmployees = [...this.employees];
             this.totalRows = response.data.totalRows;
@@ -91,10 +92,10 @@ export class ViewEmployeesComponent implements OnInit {
   onOptionSelected(event:Event)
   {
     const selectedValue = (event.target as HTMLSelectElement).value;
- 
+
       this.loadEmployeesByCompany(+selectedValue);
-    
-    
+
+
   }
 
   toggleEmployeeStatus() {
