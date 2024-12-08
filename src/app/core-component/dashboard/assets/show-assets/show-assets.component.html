@@ -10,7 +10,7 @@
   <div class="categories tabs">
     <button *ngIf="page>1" class="btn" (click)="prevPage()"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
 
-    <button *ngFor="let category of assetsCategory;let i =index" class="tab-button" (click)="gettAssets(category.id,i)" [class.active]="activeButtonIndex === i" >
+    <button *ngFor="let category of assetsCategory;let i =index" class="tab-button" (click)="getAssets(category.id,i)" [class.active]="activeButtonIndex === i" >
       {{isArabic? category.nameAr:category.name}}
   </button>
   <button  class="btn" (click)="clear()"><i class="fa fa-filter" aria-hidden="true"></i></button>
@@ -23,24 +23,24 @@
     <img *ngIf="!asset.photo" src="https://via.placeholder.com/100" class="image">
   </div>
   <div class="item">
-    <b>Category</b>
+    <b>{{ 'employeeAssets.category' | translate}}</b>
     <p>{{asset.assetCategoryName}}</p>
   </div>
   <div class="item">
-    <b>Sub-Category</b>
+    <b>{{ 'employeeAssets.subcategory' | translate}}</b>
     <p>{{asset.name}}</p>
   </div>
   <div class="item">
-    <b>Sub-Sub-Category</b>
+    <b>{{ 'employeeAssets.subsubsategory' | translate}}</b>
     <p>{{asset.modal}}</p>
   </div>
   <div class="item">
-    <b>id Assets</b>
+    <b>{{ 'employeeAssets.assetsId' | translate}}</b>
     <p>{{asset.id}}</p>
   </div>
   <div class="item">
-    <b>Asset status</b>
-    <p class="status">{{asset.assetCategoryName}}Out of service</p>
+    <b>{{ 'employeeAssets.assetstatus' | translate}}</b>
+    <p class="status">{{asset.assetCategoryName}} {{ 'employeeAssets.outofservice' | translate}}</p>
   </div>
   <div class="actions flex-column d-flex">
     <button class="btn" [routerLink]="['/dashboard/AssetsDetails',asset.id]">
@@ -61,4 +61,4 @@
     nextText="&raquo;">
   </pagination>
 </div>
-<app-filter-popup *ngIf="isFilterPopupVisible" (closeFilterPopup)="onFilterPopupClose($event)"></app-filter-popup>
+<app-filter-popup *ngIf="isFilterPopupVisible" (closeFilterPopup)="onFilterPopupClose($event)" (confirmFilterPopup)="applyFilterPopup($event)"></app-filter-popup>

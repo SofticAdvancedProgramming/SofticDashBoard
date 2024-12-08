@@ -244,47 +244,53 @@
           ></app-map>
         </div>
       </div>
-      <div class="row d-grid gap-3">
-        <div class="form-group">
-          <label for="photo">{{ "Assets.photo" | translate }}</label>
-          <div class="container-upload">
-            <div
-              *ngIf="!fileType || fileType.startsWith('image/')"
-              class="header"
-            >
-              <p>{{ "ASSET_UPLOADER.BROWSE_FILE" | translate }}</p>
-            </div>
-            <label for="file" class="footer">
-              <p *ngIf="!selectedFileName && !uploadMessage">
-                {{ "ASSET_UPLOADER.NO_FILE_SELECTED" | translate }}
-              </p>
+      <div class="row">
+        <div class="d-flex gap-1 flex-wrap" style="grid-column: 1 / -1">
+          <div class="form-group">
+            <label for="photo">{{ "Assets.photo" | translate }}</label>
+            <div class="container-upload">
               <div
-                *ngIf="selectedFileName && !fileType?.startsWith('image/')"
-                class="file-info"
+                *ngIf="!fileType || !fileType.startsWith('image/')"
+                class="header"
               >
-                <i class="fa fa-file" aria-hidden="true"></i>
-                <span>{{ selectedFileName }}</span>
+                <p>{{ "ASSET_UPLOADER.BROWSE_PHOTO" | translate }}</p>
               </div>
-              <img
-                *ngIf="imagePreviewUrl && fileType?.startsWith('image/')"
-                [src]="imagePreviewUrl"
-                alt="{{ 'ASSET_UPLOADER.SELECTED_FILE' | translate }}"
-                class="img-preview"
+              <label for="file" class="footer">
+                <p *ngIf="!selectedFileName && !uploadMessage">
+                  {{ "ASSET_UPLOADER.NO_PHOTO_SELECTED" | translate }}
+                </p>
+                <div
+                  *ngIf="selectedFileName && !fileType?.startsWith('image/')"
+                  class="file-info"
+                >
+                  <i class="fa fa-file" aria-hidden="true"></i>
+                  <span>{{ selectedFileName }}</span>
+                </div>
+                
+                <p *ngIf="uploadMessage" class="upload-message">
+                  {{ uploadMessage }}
+                </p>
+              </label>
+              <input
+                id="file"
+                type="file"
+                (change)="onFileChange($event)"
+                formControlName="AssetPhoto"
+                class="form-control-file"
               />
-              <p *ngIf="uploadMessage" class="upload-message">
-                {{ uploadMessage }}
-              </p>
-            </label>
-            <input
-              id="file"
-              type="file"
-              (change)="onFileChange($event)"
-              formControlName="AssetPhoto"
-              class="form-control-file"
-            />
+              <img
+                  *ngIf="imagePreviewUrl && fileType?.startsWith('image/')"
+                  [src]="imagePreviewUrl"
+                  alt="{{ 'ASSET_UPLOADER.SELECTED_FILE' | translate }}"
+                  class="img-preview"
+                />
+            </div>
           </div>
+        </div>
 
-          <div class="d-flex gap-1 flex-wrap" style="grid-column: 1 / -1">
+        <div class="d-flex gap-1 flex-wrap" style="grid-column: 1 / -1">
+          <div class="form-group">
+            <label for="photo">{{ "Assets.attachment" | translate }}</label>
             <div class="container-upload">
               <div
                 *ngIf="
@@ -312,19 +318,19 @@
                 class="form-control-file"
               />
             </div>
-            <div *ngFor="let file of files" class="file-info">
-              <div *ngIf="!file.fileType?.startsWith('image/')">
-                <i class="fa fa-file" aria-hidden="true"></i>
-                <span>{{ file.fileName }}</span>
-              </div>
-
-              <img
-                *ngIf="file.previewUrl"
-                [src]="file.previewUrl"
-                alt="{{ file.fileName }}"
-                class="img-preview"
-              />
+          </div>
+          <div *ngFor="let file of files" class="file-info">
+            <div *ngIf="!file.fileType?.startsWith('image/')">
+              <i class="fa fa-file" aria-hidden="true"></i>
+              <span>{{ file.fileName }}</span>
             </div>
+
+            <img
+              *ngIf="file.previewUrl"
+              [src]="file.previewUrl"
+              alt="{{ file.fileName }}"
+              class="img-preview2"
+            />
           </div>
         </div>
       </div>
@@ -336,6 +342,7 @@
           type="submit"
           class="btn btn-primary w-100"
           [ngClass]="{ inValidForm: form.invalid }"
+          [disabled]="!form.valid"
         >
           {{ "ASSET_UPLOADER.SEND" | translate }}
         </button>
