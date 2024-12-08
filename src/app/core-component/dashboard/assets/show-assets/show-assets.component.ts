@@ -9,6 +9,7 @@ import { LocalStorageService } from '../../../../services/local-storage-service/
 import { FormsModule } from '@angular/forms';
 import { search } from '@tensorflow/tfjs-core/dist/io/composite_array_buffer';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { any } from '@tensorflow/tfjs-core';
 
 @Component({
   selector: 'app-show-assets',
@@ -43,7 +44,8 @@ export class ShowAssetsComponent implements OnInit {
   currentPage: number = 1;
   totalRows: number = 0;
   activeButtonIndex: number | null = null;
-
+   isAssined!:boolean;
+  
   constructor(
     private translate: TranslateService,
     private assetsService: AssetsService,
@@ -52,6 +54,21 @@ export class ShowAssetsComponent implements OnInit {
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
     this.getAssetsCategory();
+   }
+
+  ngOnInit(): void {
+
+    this.route.params.subscribe(res=>{
+      if(res['isAssined']!=undefined){
+        this.isAssined=res['isAssined'];
+       // console.log(res)
+      }
+      //console.log(res)
+     // console.log(this.isAssined)
+      this.gettAssets();
+    })
+    this.gettAssets();
+=======
     this.getAssets();
   }
 
@@ -59,7 +76,7 @@ export class ShowAssetsComponent implements OnInit {
     this.route.queryParams.subscribe((res) => {
       console.log(res);
     });
-  }
+   }
 
   getAssetsCategory(page?: number) {
     const companyId = Number(this.localStorageService.getItem('companyId'));
@@ -75,18 +92,22 @@ export class ShowAssetsComponent implements OnInit {
       // console.log( this.assetsCategory);
     });
   }
-  getAssets(
+   gettAssets(event?:any,i?:number,page=this.currentPage){
+   getAssets(
     event?: any,
     i?: number,
     page = this.currentPage,
     isAssigned?: boolean
   ) {
-    let query;
+     let query;
     if (i != null) {
       this.setActiveButton(i);
     }
 
-    query = {
+     query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:this.isAssined  }
+
+   // console.log(query)
+     query = {
       assetCategoryId: event,
       pageSize: this.itemsPerPage,
       pageIndex: page,
@@ -100,7 +121,7 @@ export class ShowAssetsComponent implements OnInit {
       };
     }
     // console.log(event)
-    this.assetsService.getAsset(query).subscribe({
+     this.assetsService.getAsset(query).subscribe({
       next: (res) => {
         // console.log(res.data.list);
         this.assets = res.data.list;

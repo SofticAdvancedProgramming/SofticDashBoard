@@ -43,7 +43,7 @@
     <p class="status">{{asset.assetCategoryName}} {{ 'employeeAssets.outofservice' | translate}}</p>
   </div>
   <div class="actions flex-column d-flex">
-    <button class="btn" [routerLink]="['../AssetsDetails',asset.id]">
+    <button class="btn" [routerLink]="['/dashboard/AssetsDetails',asset.id]">
       <img class="icon" src="../../../../../assets/images/more-square.svg">
     </button>
 
