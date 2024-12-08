@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
-import { assetsCategoryController, assetsController, RelatedAssetsController } from '../../apis/assertsController';
+import { assetsCategoryController, assetsController, RelatedAssetsController } from '../../apis/assetsController';
 import { Assets, assignAsset } from '../../../models/assetsModel';
 import { request } from 'http';
 import { RelatedAsset } from '../../../models/assets';
