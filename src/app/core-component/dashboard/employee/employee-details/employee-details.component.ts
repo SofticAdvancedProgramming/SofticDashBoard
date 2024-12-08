@@ -20,6 +20,7 @@ import { SalaryComponent } from '../salary/salary.component';
 import { EmployeeRequestsComponent } from '../employee-requests/employee-requests.component';
 import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { EmployeeAssetsComponent } from '../employee-assets/employee-assets/employee-assets.component';
 declare var bootstrap: any;
 
 @Component({
@@ -39,8 +40,8 @@ declare var bootstrap: any;
     ShiftsComponent,
     SalaryComponent,
     EmployeeRequestsComponent,
-    FormsModule,ReactiveFormsModule
-
+    FormsModule,ReactiveFormsModule,
+    EmployeeAssetsComponent
   ],
 })
 export class EmployeeDetailsComponent implements OnInit, OnDestroy {

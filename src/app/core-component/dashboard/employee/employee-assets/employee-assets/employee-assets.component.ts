@@ -1,30 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { FilterPopupComponent } from '../../../../common-component/filter-popup/filter-popup.component';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { AssetsService } from '../../../../services/AssetsService/assets.service';
-import { Assets } from '../../../../../models/assetsModel';
-import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { search } from '@tensorflow/tfjs-core/dist/io/composite_array_buffer';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { AssetsService } from '../../../../../services/AssetsService/assets.service';
+import { LocalStorageService } from '../../../../../services/local-storage-service/local-storage.service';
+import { FilterPopupComponent } from '../../../../../common-component/filter-popup/filter-popup.component';
 
 @Component({
-  selector: 'app-show-assets',
+  selector: 'app-employee-assets',
   standalone: true,
   imports: [
     TranslateModule,
-    FilterPopupComponent,
     CommonModule,
     RouterLink,
     FormsModule,
     PaginationModule,
+    FilterPopupComponent,
   ],
-  templateUrl: './show-assets.component.html',
-  styleUrl: './show-assets.component.css',
+  templateUrl: './employee-assets.component.html',
+  styleUrl: './employee-assets.component.css',
 })
-export class ShowAssetsComponent implements OnInit {
+export class EmployeeAssetsComponent implements OnInit {
   isFilterPopupVisible = false;
   companyId: number = 0;
   assets: any[] = [];
@@ -43,6 +41,7 @@ export class ShowAssetsComponent implements OnInit {
   currentPage: number = 1;
   totalRows: number = 0;
   activeButtonIndex: number | null = null;
+  employeeId: number | null = null;
 
   constructor(
     private translate: TranslateService,
@@ -51,14 +50,15 @@ export class ShowAssetsComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
-    this.getAssetsCategory();
-    this.getAssets();
   }
 
   ngOnInit(): void {
+    this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
     this.route.queryParams.subscribe((res) => {
       console.log(res);
     });
+    this.getAssetsCategory();
+    this.getAssets();
   }
 
   getAssetsCategory(page?: number) {
@@ -90,6 +90,7 @@ export class ShowAssetsComponent implements OnInit {
       assetCategoryId: event,
       pageSize: this.itemsPerPage,
       pageIndex: page,
+      employeeId: this.employeeId
     };
     if (isAssigned != undefined) {
       query = {
@@ -97,8 +98,11 @@ export class ShowAssetsComponent implements OnInit {
         pageSize: this.itemsPerPage,
         pageIndex: page,
         isAssgined: isAssigned,
+        employeeId: this.employeeId
       };
     }
+    console.log(this.employeeId);
+    
     // console.log(event)
     this.assetsService.getAsset(query).subscribe({
       next: (res) => {
@@ -172,8 +176,10 @@ export class ShowAssetsComponent implements OnInit {
         isDrived: isDrived,
       };
     } else {
-      query = { companyId: this.companyId, pageIndex: this.page };
+      query = { companyId: this.companyId, pageIndex: this.page , employeeId: this.employeeId };
     }
+    console.log(this.employeeId);
+    
     this.assetsService.getAsset(query).subscribe({
       next: (res) => {
         this.assets = res.data.list;
@@ -204,23 +210,6 @@ export class ShowAssetsComponent implements OnInit {
           console.log(err);
         },
       });
-
-    // if (this.searchText.trim()) {
-    // //  console.log(this.searchText)
-    //   this.filteredAssets = this.assets.filter(
-    //     (asset) =>
-    //         asset.assetCategoryName?.toLowerCase()
-    //         .includes(this.searchText.toLowerCase()) ||
-    //         asset.employeeName?.includes(this.searchText) ||
-    //         asset.name?.toLowerCase()
-    //         .includes(this.searchText.toLowerCase()) ||
-    //         asset.nameAr?.toLowerCase()
-    //         .includes(this.searchText.toLowerCase()) ||
-    //       ''
-    //   );
-    // } else {
-    //   this.filteredAssets = [...this.assets];
-    // }
   }
 
   get isArabic(): boolean {

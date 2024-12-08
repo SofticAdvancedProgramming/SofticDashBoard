@@ -242,6 +242,13 @@
     "REQUIRED_FIELD": "This field is required",
     "BTN": "Add Asset"
   },
+  "RELATED_ASSETS": {
+    "TITLE": "Related Assets",
+    "NAME": "Related Assets",
+    "NAME_AR": "Related Assets (Arabic)",
+    "MODEL": "Model",
+    "DIRECT_PARENT": "Direct Parent"
+  },
   "NAV": {
     "SEARCH": "Search..."
   },
@@ -290,15 +297,7 @@
     "ThisYear": "This Year",
     "LastYear": "Last Year"
   },
-  "MONTHS": [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul"
-  ],
+  "MONTHS": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
   "generalLookups": {
     "SUBSCRIPTION_PLAN_MANAGEMENT": "Subscription Plan Management",
     "SUBSCRIPTION_PLAN_DESCRIPTION": "Create and manage subscription plans to meet diverse user needs.",
@@ -310,7 +309,9 @@
     "BenefitType": "Benefit Type",
     "BenefitType_DESCRIPTION": "Manage the types of benefits offered to employees.",
     "AssetsCategory": "Assets Categories",
-    "AssetsCategory_DESCRIPTION": "Manage All Assets Categories."
+    "AssetsCategory_DESCRIPTION": "Manage All Assets Categories.",
+    "RelatedAssets": "Related Assets",
+    "RelatedAssets_DESCRIPTION": "Manage Related Assets."
   },
   "viewEmployees": {
     "CURRENT_EMPLOYEES": "Current Employees",
@@ -373,6 +374,7 @@
     "ACCEPTED": "Accepted",
     "FINANCIAL_INFORMATION": "Financial",
     "REQUEST": "Requests",
+    "ASSETS": "Assets",
     "Entitlements": "Entitlements",
     "Deductions": "Deductions",
     "Title": "Title",
@@ -760,11 +762,17 @@
       "AssetReasonRequired": "Description Required",
       "AssetReasonMinLength": "Description Min Characters is 100",
       "AssetReasonMaxLength": "Description Max Characters is 300"
+    },
+    "messages": {
+      "uploadAnotherImage": "Upload Another Image",
+      "uploadAnotherFile": "Upload Another File"
     }
   },
   "ASSET_UPLOADER": {
     "BROWSE_FILE": "Browse File",
+    "BROWSE_PHOTO": "Browse Photo",
     "NO_FILE_SELECTED": "No file selected",
+    "NO_PHOTO_SELECTED": "No Photo selected",
     "SELECTED_FILE": "Selected File",
     "IMAGE_UPLOADED": "Image uploaded successfully.",
     "FILE_UPLOADED": "File uploaded successfully.",
@@ -775,5 +783,24 @@
   "AllEmployee": "All Employees",
   "ActiveEmployees": "Active Employees",
   "PendingEmployees": "Pending Employees ",
-  "RejectedEmployees": "Rejected Employees"
+  "RejectedEmployees": "Rejected Employees",
+  "employeeAssets": {
+    "category": "Category",
+    "subcategory": "Sub Category",
+    "subsubsategory": "Sub Sub Category",
+    "assetsId": "Asset Id",
+    "assetstatus": "Asset Status",
+    "outofservice": "Out of service"
+  },
+  "FILTER_POPUP": {
+    "name": "Name",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "In Active",
+    "delivered": "Delivered",
+    "yes": "Yes",
+    "no": "No",
+    "filter": "Filter",
+    "close": "Close"
+  }
 }

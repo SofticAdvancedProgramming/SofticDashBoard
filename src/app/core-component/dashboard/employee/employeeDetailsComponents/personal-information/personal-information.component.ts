@@ -42,6 +42,8 @@ export class PersonalInformationComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
+    console.log(this.employeeId);
+    
     if (this.employeeId) {
       this.loadPersonalInformation();
     } else {

@@ -65,7 +65,6 @@ export class AddAssetsComponent implements OnInit {
       Model: ['', Validators.required],
       AssetCategory: ['', Validators.required],
       AssetReason: ['', Validators.required],
-      AssetLocation: ['', Validators.required],
       AssetAttachment: ['', Validators.required],
       AssetPhoto: ['', Validators.required],
       long: [0, Validators.required],
@@ -171,7 +170,7 @@ export class AddAssetsComponent implements OnInit {
   
           // Update message
           this.attachmentUploadMessage = this.translate.instant(
-            attachmentfileType.startsWith('image/') ? 'fileUploadModule.messages.uploadAnotherImage' : 'fileUploadModule.messages.uploadAnotherFile'
+            attachmentfileType.startsWith('image/') ? 'Assets.messages.uploadAnotherImage' : 'Assets.messages.uploadAnotherFile'
           );
         }
       };

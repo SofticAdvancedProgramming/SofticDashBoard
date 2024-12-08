@@ -30,6 +30,7 @@ export class CurrencyTypeComponent {
   structure = [
     { name: 'name', label: 'Name In Arabic', type: 'text', required: true },
     { name: 'nameAr', label: 'Name In English', type: 'text', required: true },
+    { name: 'isDefault', label: 'Default', type: 'checkbox', required: false }
   ];
 
   entityTypes: Record<
@@ -58,17 +59,13 @@ export class CurrencyTypeComponent {
   }
 
   loadEntities(entity: string, pageIndex: number, name?: string): void {
-    const query: any = {
-      companyId: this.companyId,
-      isDefault: this.isDefault,
-      pageIndex,
-    };
+    const query: any = {};
     if (name) {
       query.name = name;
     }
 
     const methodName = this.entityTypes[entity].load as keyof CurrencyService;
-    (this.currencyTypeService[methodName] as Function)(query).subscribe((response: any) => {
+    (this.currencyTypeService[methodName] as Function)(query).subscribe((response: any) => {  
       if (response.status === 200) {
         (this as any)[this.entityTypes[entity].data] = response.data.list;
         this.pageIndex[entity] = response.data.pageIndex;
