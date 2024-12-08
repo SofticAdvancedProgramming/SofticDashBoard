@@ -731,9 +731,8 @@
   "Edit Benefit": "Edit Benefit",
   "Benefit Type": "Benefit Type",
   "Enter benefit amount": "Enter benefit amount",
-   "Cancel": "Cancel",
- 
-    "Assets": {
+  "Cancel": "Cancel",
+  "Assets": {
     "AddNewAsset": "Add New Asset",
     "AssetName": "Asset Name",
     "AssetNameAr": "Asset Name (Arabic)",
@@ -756,11 +755,11 @@
     "validation": {
       "assetNameRequired": "Asset Name Required",
       "assetNameArRequired": "Asset Name (Arabic) Required",
-      "ModelRequired" : "Asset Model Required",
+      "ModelRequired": "Asset Model Required",
       "AssetCategoryRequired": "Asset Category Required",
       "AssetReasonRequired": "Description Required",
-      "AssetReasonMinLength":"Description Min Characters is 100",
-      "AssetReasonMaxLength":"Description Max Characters is 300"
+      "AssetReasonMinLength": "Description Min Characters is 100",
+      "AssetReasonMaxLength": "Description Max Characters is 300"
     }
   },
   "ASSET_UPLOADER": {
@@ -770,26 +769,11 @@
     "IMAGE_UPLOADED": "Image uploaded successfully.",
     "FILE_UPLOADED": "File uploaded successfully.",
     "SEND": "Send"
-   }
-,
-    "Cancel": "Cancel",
-   "AssignedToEmployee":"Already Assigned To An Employee.",
-   "employeeFilteration":"Select Employee Category",
-   "AllEmployee":"All Employees",
-   "ActiveEmployees":"Active Employees",
-   "PendingEmployees":"Pending Employees ",
-   "RejectedEmployees":"Rejected Employees"
-
-    },
-  "AssignedToEmployee":"Already Assigned To An Employee.",
-  "employeeFilteration":"Select Employee Category",
-  "AllEmployee":"All Employees",
-  "ActiveEmployees":"Active Employees",
-  "PendingEmployees":"Pending Employees ",
-  "RejectedEmployees":"Rejected Employees"
+  },
+  "AssignedToEmployee": "Already Assigned To An Employee.",
+  "employeeFilteration": "Select Employee Category",
+  "AllEmployee": "All Employees",
+  "ActiveEmployees": "Active Employees",
+  "PendingEmployees": "Pending Employees ",
+  "RejectedEmployees": "Rejected Employees"
 }
-
-
- 
- 
- 
