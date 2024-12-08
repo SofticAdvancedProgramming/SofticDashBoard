@@ -1,49 +1,78 @@
 <div class="filter-popup">
-    <div class="filter-popup-content">
-        <div class="filterHeader">
-            <p> <img class="filter" src="../../../../../assets/images/filter-search.svg">
-                Filter</p>
-        </div>
-        <form (submit)="applyFilters()">
-            <div class="form-group">
-                <label for="category">Category</label>
-                <select id="category" name="category">
-                    <option value="computers">Computers</option>
-                    <option value="laptops">Laptops</option>
-                    <option value="phones">Phones</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="category">Sub-Category</label>
-                <select id="Sub-Category" name="Sub-Category">
-                    <option value="computers">Computers</option>
-                    <option value="laptops">Laptops</option>
-                    <option value="phones">Phones</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="Sub-Sub-Category">Sub-Sub-Category</label>
-                <select id="Sub-Sub-Category" name="Sub-Sub-Category">
-                    <option value="computers">Computers</option>
-                    <option value="laptops">Laptops</option>
-                    <option value="phones">Phones</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select id="status" name="status">
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="status">id Assets</label>
-                <input placeholder="Enter Id Assets">
-            </div>
-            <div class=" d-flex justify-content-center gap-2">
-                <button class="apply-btn" type="submit">Apply Filters</button>
-                <button class="cancle-btn" (click)="closePopup()">Close</button>
-            </div>
-        </form>
+  <div class="filter-popup-content">
+    <div class="filterHeader">
+      <p>
+        <img
+          class="filter"
+          src="../../../../../assets/images/filter-search.svg"
+        />
+        Filter
+      </p>
     </div>
+    <form (ngSubmit)="applyFilters()" [formGroup]="form">
+        <div class="form-group">
+            <label for="category">{{"FILTER_POPUP.name" | translate}}</label>
+            <input type="text" formControlName="name" class="form-control">
+          </div>
+      
+        <div class="form-group">
+        <label for="AssetCategory">{{
+          "Assets.AssetCategory" | translate
+        }}</label>
+        <select
+          id="AssetCategory"
+          formControlName="AssetCategory"
+          class="form-control"
+        >
+          <option value="" disabled>
+            {{ "Assets.AssetCategoryPlaceholder" | translate }}
+          </option>
+          <option *ngFor="let item of assetsCategories" [value]="item.id">
+            @if (lang == 'en') {
+            {{ item.name }}} @else{
+            {{ item.nameAr }}
+            }
+          </option>
+        </select>
+      </div>
+      <!-- <div class="form-group">
+        <label for="category">Sub-Category</label>
+        <select id="Sub-Category" name="Sub-Category">
+          <option value="computers">Computers</option>
+          <option value="laptops">Laptops</option>
+          <option value="phones">Phones</option>
+        </select>
+      </div> -->
+      <!-- <div class="form-group">
+        <label for="Sub-Sub-Category">Sub-Sub-Category</label>
+        <select id="Sub-Sub-Category" name="Sub-Sub-Category">
+          <option value="computers">Computers</option>
+          <option value="laptops">Laptops</option>
+          <option value="phones">Phones</option>
+        </select>
+      </div> -->
+      <div class="form-group">
+        <label for="status">{{"FILTER_POPUP.status" | translate}}</label>
+        <select id="status" name="status" formControlName="isAssigned">
+          <option value="active" value=true>{{"FILTER_POPUP.active" | translate}}</option>
+          <option value="inactive" value=false>{{"FILTER_POPUP.inactive" | translate}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="status">{{"FILTER_POPUP.delivered" | translate}}</label>
+        <select id="status" name="status" formControlName="isDrived">
+          <option value="active" value=true>{{"FILTER_POPUP.yes" | translate}}</option>
+          <option value="inactive" value=false>{{"FILTER_POPUP.no" | translate}}</option>
+        </select>
+      </div>
+      <!-- <div class="form-group">
+        <label for="status">id Assets</label>
+        <input placeholder="Enter Id Assets" />
+      </div> -->
+      <div class="d-flex justify-content-center gap-2">
+        <button class="apply-btn" type="submit">{{"FILTER_POPUP.filter" | translate}}</button>
+        <button class="cancle-btn" (click)="closePopup()">{{"FILTER_POPUP.close" | translate}}</button>
+      </div>
+    </form>
+  </div>
 </div>

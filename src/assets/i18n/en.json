@@ -297,15 +297,7 @@
     "ThisYear": "This Year",
     "LastYear": "Last Year"
   },
-  "MONTHS": [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul"
-  ],
+  "MONTHS": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
   "generalLookups": {
     "SUBSCRIPTION_PLAN_MANAGEMENT": "Subscription Plan Management",
     "SUBSCRIPTION_PLAN_DESCRIPTION": "Create and manage subscription plans to meet diverse user needs.",
@@ -382,6 +374,7 @@
     "ACCEPTED": "Accepted",
     "FINANCIAL_INFORMATION": "Financial",
     "REQUEST": "Requests",
+    "ASSETS": "Assets",
     "Entitlements": "Entitlements",
     "Deductions": "Deductions",
     "Title": "Title",
@@ -770,7 +763,7 @@
       "AssetReasonMinLength": "Description Min Characters is 100",
       "AssetReasonMaxLength": "Description Max Characters is 300"
     },
-    "messages":{
+    "messages": {
       "uploadAnotherImage": "Upload Another Image",
       "uploadAnotherFile": "Upload Another File"
     }
@@ -790,5 +783,24 @@
   "AllEmployee": "All Employees",
   "ActiveEmployees": "Active Employees",
   "PendingEmployees": "Pending Employees ",
-  "RejectedEmployees": "Rejected Employees"
+  "RejectedEmployees": "Rejected Employees",
+  "employeeAssets": {
+    "category": "Category",
+    "subcategory": "Sub Category",
+    "subsubsategory": "Sub Sub Category",
+    "assetsId": "Asset Id",
+    "assetstatus": "Asset Status",
+    "outofservice": "Out of service"
+  },
+  "FILTER_POPUP": {
+    "name": "Name",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "In Active",
+    "delivered": "Delivered",
+    "yes": "Yes",
+    "no": "No",
+    "filter": "Filter",
+    "close": "Close"
+  }
 }
