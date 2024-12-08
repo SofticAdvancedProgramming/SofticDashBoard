@@ -1,0 +1,26 @@
+<div class="filter-popup">
+    <div class="filter-popup-content">
+        <div class="filterHeader">
+            <p> <img class="filter" src="../../../../../assets/images/filter-search.svg">
+                Add Related Assets </p>
+        </div>
+        <form (ngSubmit)="Submit()">
+            <div class="form-group">
+                <label for="Name">Related Assets Name</label>
+                <input type="text" id="name" name="name" [(ngModel)]="relatedAsset.name" required />
+            </div>
+            <div class="form-group">
+                <label for="Name">Related Assets Arabic Name</label>
+                <input type="text" id="nameAr" name="nameAr" [(ngModel)]="relatedAsset.nameAr" required />
+            </div>
+            <div class="form-group">
+                <label for="assignDate">Model</label>
+                <input type="text" id="model" name="model" [(ngModel)]="relatedAsset.model" required />
+            </div>
+            <div class="d-flex justify-content-center gap-2">
+                <button class="apply-btn" type="submit">Submit</button>
+                <button class="cancel-btn" type="button" (click)="closePopup()">Close</button>
+            </div>
+        </form>
+    </div>
+</div>

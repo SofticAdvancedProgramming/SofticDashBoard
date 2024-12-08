@@ -8,13 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Asset } from '../../../../../models/assets';
 import { MapComponent } from '../../../../common-component/map/map.component';
 import { HttpClient } from '@angular/common/http';
+import { RelatedAssetsPopupComponent } from "../../../../common-component/related-assets-popup/related-assets-popup.component";
 
 @Component({
-  selector: 'app-assets-details',
-  standalone: true,
-  templateUrl: './assets-details.component.html',
-  styleUrls: ['./assets-details.component.css'],
-  imports: [CommonModule, AssignAssetPopupComponent, MapComponent]
+    selector: 'app-assets-details',
+    standalone: true,
+    templateUrl: './assets-details.component.html',
+    styleUrls: ['./assets-details.component.css'],
+    imports: [CommonModule, AssignAssetPopupComponent, MapComponent, RelatedAssetsPopupComponent]
 })
 export class AssetsDetailsComponent implements OnInit {
   assets: Asset[] = [];
@@ -27,6 +28,7 @@ export class AssetsDetailsComponent implements OnInit {
   }[] = [];
   files: { name: string, url: string }[] = []; 
   isAssignAssetVisible = false;
+  isRelatedAssetsVisible = false;
   selectedAssetLocation: { lat: number, long: number } = { lat: 0, long: 0 };
   private accessToken = 'pk.eyJ1IjoiYWRoYW1rYW1hbDIyMzQ1IiwiYSI6ImNtMHVvNjM1dDBpenUyaXFzb21tM2JiOWkifQ.wXQZpp_tsqdoiqZAl9PbpQ'
 
@@ -51,16 +53,14 @@ selectedAssetAddress: string = '';
  
 
   downloadFile(fileUrl: string) {
-    console.log('File URL:', fileUrl); // Log the URL to verify it
+    console.log('File URL:', fileUrl);  
   
-    // Create a temporary anchor element to trigger the download
-    const link = document.createElement('a');
+     const link = document.createElement('a');
     link.href = fileUrl;
-    link.target = '_blank';  // Ensure it opens a new tab if needed
+    link.target = '_blank';  
     link.download = this.extractFileName(fileUrl);
   
-    // Append to the body, click to download, and then remove it
-    document.body.appendChild(link);
+     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }
@@ -70,12 +70,18 @@ selectedAssetAddress: string = '';
     return fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
   }
   toggleAssignPopup() {
+    this.isRelatedAssetsVisible = !this.isRelatedAssetsVisible;
+  }
+  toggleRelatedAssetsPopup() {
     this.isAssignAssetVisible = !this.isAssignAssetVisible;
   }
-
+  onRelatedAssetsClose(isVisible: boolean) {
+    this.isRelatedAssetsVisible = isVisible;
+  }
   onAssignAssetClose(isVisible: boolean) {
     this.isAssignAssetVisible = isVisible;
   }
+ 
 
   getAssetsCategory() {
     const companyId = Number(this.localStorageService.getItem('companyId'));

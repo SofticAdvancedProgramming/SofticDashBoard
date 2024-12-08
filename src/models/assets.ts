@@ -12,3 +12,12 @@ export interface Asset {
     employeeId: number;
     assetCategoryName: string;
   }
+  export interface RelatedAsset {
+     companyId: number;
+    name: string;
+    nameAr: string;
+    model: string;
+    assetId: number;
+ 
+  }
+  
