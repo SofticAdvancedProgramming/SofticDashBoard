@@ -171,7 +171,7 @@ export class RelatedAssetsComponent implements OnInit{
       };
     }
 
-    this.assetsService.addRelatedAssets(this.RelatedAssetsData).subscribe({
+    this.assetsService.addRelatedAsset(this.RelatedAssetsData).subscribe({
       next: (res) => {
         console.log(res);
         this.ngOnInit();
