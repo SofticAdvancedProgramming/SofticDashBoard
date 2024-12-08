@@ -54,16 +54,16 @@ export class ShowAssetsComponent implements OnInit {
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
     this.getAssetsCategory();
+
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(res => {
-      if (res['isAssined'] !== undefined) {
+      if (res['isAssined'] != undefined) {
         this.isAssined = res['isAssined'];
-
-        this.getAssets();
       }
     });
+    this.gettAssets();
   }
 
 
@@ -80,42 +80,26 @@ export class ShowAssetsComponent implements OnInit {
 
     });
   }
-  getAssets(
-    event?: any,
-    i?: number,
-    page = this.currentPage,
-    isAssigned?: boolean
-  ) {
+  gettAssets(event?:any,i?:number,page=this.currentPage){
     let query;
-    if (i != null) {
+    if(i!=null){
       this.setActiveButton(i);
     }
-
-    query = { "assetCategoryId": event, pageSize: this.itemsPerPage, pageIndex: page, isAssgined: this.isAssined }
-
-    query = {
-      assetCategoryId: event,
-      pageSize: this.itemsPerPage,
-      pageIndex: page,
-    };
-    if (isAssigned != undefined) {
-      query = {
-        assetCategoryId: event,
-        pageSize: this.itemsPerPage,
-        pageIndex: page,
-        isAssgined: isAssigned,
-      };
+    query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:this.isAssined }
+    if(this.isAssined!=undefined){
+      query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:this.isAssined }
     }
-     this.assetsService.getAsset(query).subscribe({
-      next: (res) => {
-         this.assets = res.data.list;
-        this.filteredAssets = this.assets;
+    console.log(query)
+    this.assetsService.getAsset(query).subscribe({
+      next:(res=>{
+       // console.log(res.data.list);
+        this.assets=res.data.list;
+        this.filteredAssets= this.assets
         this.totalRows = res.data.totalRows;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+      }
+    ),
+      error:(err=>{ console.log(err)})
+    })
   }
 
    toggleFilterPopup() {
@@ -233,10 +217,10 @@ export class ShowAssetsComponent implements OnInit {
     if (this.page > 1) this.getAssetsCategory(this.page--);
   }
 
-  clear() {
-    this.page = 1;
+  clear(){
+    this.page=1
     this.getAssetsCategory(this.page);
-    this.getAssets();
+    this.gettAssets();
   }
 
   nextPage() {
@@ -247,9 +231,8 @@ export class ShowAssetsComponent implements OnInit {
 
   handlePageChange(event: { page: number }) {
     this.currentPage = event.page;
-    this.getAssets();
+    this.gettAssets( );
   }
-
   setActiveButton(index: number): void {
     this.activeButtonIndex = index;
   }
