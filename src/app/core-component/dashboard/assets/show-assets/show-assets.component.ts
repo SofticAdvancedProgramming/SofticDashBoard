@@ -106,6 +106,13 @@ export class ShowAssetsComponent implements OnInit {
     this.isFilterPopupVisible = !this.isFilterPopupVisible;
   }
 
+    delete(id:number){
+      console.log(id)
+      this.assetsService.deleteAsset(id,this.companyId).subscribe({
+        next:(res)=>{console.log(res);
+          this.gettAssets();}
+      })
+    }
    onFilterPopupClose(isVisible: boolean) {
     this.isFilterPopupVisible = isVisible;
   }

@@ -1,4 +1,4 @@
-<div class="row justify-content-center d-flex">
+<div class="row justify-content-center d-flex" >
   <div class="col-lg-6">
     <form class="d-flex gap-4" role="search">
       <input  [(ngModel)]="searchText" name="searchText" class="customSearch" type="search" [placeholder]="'NAV.SEARCH' | translate" aria-label="Search" (input)="applyFilter()">
@@ -17,7 +17,7 @@
   <button *ngIf="page<totalPages"   class="btn" (click)="nextPage()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
   </div>
 </div>
-<div class="container mt-5" *ngFor="let asset of filteredAssets">
+<div class="container mt-5" *ngFor="let asset of filteredAssets" [routerLink]="['/dashboard/AssetsDetails',asset.id]">
   <div class="item">
     <img *ngIf="asset.photo" [src]="asset.photo" class="image">
     <img *ngIf="!asset.photo" src="https://via.placeholder.com/100" class="image">
@@ -46,9 +46,10 @@
     <button class="btn" [routerLink]="['/dashboard/AssetsDetails',asset.id]">
       <img class="icon" src="../../../../../assets/images/more-square.svg">
     </button>
-
-    <img class="icon" src="../../../../../assets/images/trash 01.svg">
-  </div>
+    <button class="btn" (click)="delete(asset.id)">
+      <img class="icon" src="../../../../../assets/images/trash 01.svg">
+    </button>
+    </div>
 </div>
 
 <div class="d-flex justify-content-center mt-4">

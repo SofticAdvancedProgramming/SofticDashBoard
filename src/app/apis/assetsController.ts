@@ -16,7 +16,8 @@ export const assetsController = {
     getAsset:`${environment.apiBaseUrl}Asset/Get`,
     assignAsset: `${environment.apiBaseUrl}Asset/Assgin`,
     AssetAssignmentCounts:`${environment.apiBaseUrl}AdminStatics/AssetAssignmentCounts`,
-    AssetCategorycounts:`${environment.apiBaseUrl}AdminStatics/AssetCategorycounts`
+    AssetCategorycounts:`${environment.apiBaseUrl}AdminStatics/AssetCategorycounts`,
+    deleteAsset: `${environment.apiBaseUrl}Asset/Delete`,
 }
 
 export const relatedAssetsController = {
@@ -29,5 +30,5 @@ export const relatedAssetsController = {
 export const RelatedAssetsController = {
     addRelatedAsset: `${environment.apiBaseUrl}RelatedAsset/Add`,
     getRelatedAsset:`${environment.apiBaseUrl}RelatedAsset/Get`,
- 
+
 }
