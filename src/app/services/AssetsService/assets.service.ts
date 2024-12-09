@@ -34,7 +34,7 @@ export class AssetsService {
       request
     );
   }
- 
+
   getAsset(request: any = {}): Observable<any> {
     return this.apiCall.request(
       'POST',
@@ -71,10 +71,16 @@ export class AssetsService {
   assignAsset(assignAsset: assignAsset): Observable<any> {
     return this.apiCall.request("POST", assetsController.assignAsset, assignAsset)
   }
- 
 
- 
- 
+  deleteAsset(id: number, companyId: number): Observable<any> {
+    return this.apiCall.request(
+      'POST',
+      `${assetsController.deleteAsset}/${id}/${companyId}`,
+      {}
+    );
+  }
+
+
   addRelatedAsset(request: RelatedAsset): Observable<any> {
     return this.apiCall.request("POST", RelatedAssetsController.addRelatedAsset, request);
   }
