@@ -76,7 +76,7 @@ export class AssetsDetailsComponent implements OnInit {
     this.isAssignAssetVisible = !this.isAssignAssetVisible;
   }
   toggleRelatedAssetsPopup() {
-    this.isAssignAssetVisible = !this.isAssignAssetVisible;
+    this.isRelatedAssetsVisible = !this.isRelatedAssetsVisible;
   }
   onRelatedAssetsClose(isVisible: boolean) {
     this.isRelatedAssetsVisible = isVisible;
