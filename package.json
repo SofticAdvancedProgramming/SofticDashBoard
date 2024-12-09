@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "set NODE_OPTIONS=--max-old-space-size=4096 && ng build",
+    "build": "set NODE_OPTIONS=--max-old-space-size=9999 && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:Softic-dashboard": "node dist/softic-dashboard/server/server.mjs"

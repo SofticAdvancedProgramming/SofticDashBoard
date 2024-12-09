@@ -33,15 +33,24 @@ export class MessagingService {
 
   public receiveMessaging(): void {
     if (this.localStorageService.isBrowser()) {
-      onMessage(this._messaging, {
-        next: (payload: any) => {
-          this.countNotification();
-          this.currentMessage.next(payload);
-          this.showToast(payload.notification.title, payload.notification.body);
-        },
-        error: (error) => console.error('Error receiving message:', error),
-        complete: () => console.log('Done listening for messages')
-      });
+      if (!this._messaging) {
+        console.error('Firebase Messaging instance is null!');
+        return;
+      }
+  
+      try {
+        onMessage(this._messaging, {
+          next: (payload: any) => {
+            this.countNotification();
+            this.currentMessage.next(payload);
+            this.showToast(payload.notification.title, payload.notification.body);
+          },
+          error: (error) => console.error('Error receiving message:', error),
+          complete: () => console.log('Done listening for messages')
+        });
+      } catch (error) {
+        console.error('Error in onMessage setup:', error);
+      }
     }
   }
 
