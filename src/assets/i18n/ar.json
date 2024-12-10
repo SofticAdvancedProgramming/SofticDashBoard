@@ -798,7 +798,9 @@
     "subsubsategory": "الفئة الفرعية الثانية",
     "assetsId": "معرف الأصل",
     "assetstatus": "حالة الأصل",
-    "outofservice": "خارج الخدمة"
+    "outofservice": "خارج الخدمة",
+     "AssienedTo":"مسندة لـ",
+    "NotAssiened":"لم يتم الاسناد بعد"
   },
   "FILTER_POPUP": {
     "name": "الاسم",

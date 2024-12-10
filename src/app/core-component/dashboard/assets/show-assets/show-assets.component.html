@@ -17,7 +17,7 @@
   <button *ngIf="page<totalPages"   class="btn" (click)="nextPage()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
   </div>
 </div>
-<div class="container mt-5" *ngFor="let asset of filteredAssets" [routerLink]="['/dashboard/AssetsDetails',asset.id]">
+<div class="container mt-5" *ngFor="let asset of filteredAssets">
   <div class="item">
     <img *ngIf="asset.photo" [src]="asset.photo" class="image">
     <img *ngIf="!asset.photo" src="https://via.placeholder.com/100" class="image">
@@ -30,9 +30,10 @@
     <b>{{ 'employeeAssets.subcategory' | translate}}</b>
     <p>{{asset.name}}</p>
   </div>
-  <div class="item">
-    <b>{{ 'employeeAssets.subsubsategory' | translate}}</b>
-    <p>{{asset.modal}}</p>
+  <div class="item" >
+    <b>{{ 'employeeAssets.AssienedTo' | translate}}</b>
+    <p *ngIf="asset.employeeId">{{asset.employeeName}}</p>
+    <p *ngIf="!asset.employeeId">{{ 'employeeAssets.NotAssiened' | translate}}</p>
   </div>
   <div class="item">
     <b>{{ 'employeeAssets.assetsId' | translate}}</b>
@@ -43,7 +44,7 @@
     <p class="status">{{asset.assetCategoryName}} {{ 'employeeAssets.outofservice' | translate}}</p>
   </div>
   <div class="actions flex-column d-flex">
-    <button class="btn" [routerLink]="['/dashboard/AssetsDetails',asset.id]">
+    <button class="btn" (click)="toggleChangStatusPopup(asset.id)">
       <img class="icon" src="../../../../../assets/images/more-square.svg">
     </button>
     <button class="btn" (click)="delete(asset.id)">
@@ -63,3 +64,4 @@
   </pagination>
 </div>
 <app-filter-popup *ngIf="isFilterPopupVisible" (closeFilterPopup)="onFilterPopupClose($event)" (confirmFilterPopup)="applyFilterPopup($event)"></app-filter-popup>
+<app-chang-status-assets-popup [assetId]="editedAssetsId" *ngIf="isChangeStatusPopupVisible" (closeAssignAssets)="onChangeStatusPopupClose($event)" ></app-chang-status-assets-popup>

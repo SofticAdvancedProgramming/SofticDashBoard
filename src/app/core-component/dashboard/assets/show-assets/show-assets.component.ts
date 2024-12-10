@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { search } from '@tensorflow/tfjs-core/dist/io/composite_array_buffer';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { any } from '@tensorflow/tfjs-core';
+import { ChangStatusAssetsPopupComponent } from '../../../../common-component/chang-status-assets-popup/chang-status-assets-popup.component';
 
 @Component({
   selector: 'app-show-assets',
@@ -21,12 +22,14 @@ import { any } from '@tensorflow/tfjs-core';
     RouterLink,
     FormsModule,
     PaginationModule,
+    ChangStatusAssetsPopupComponent
   ],
   templateUrl: './show-assets.component.html',
   styleUrl: './show-assets.component.css',
 })
 export class ShowAssetsComponent implements OnInit {
   isFilterPopupVisible = false;
+  isChangeStatusPopupVisible=false;
   companyId: number = 0;
   assets: any[] = [];
   filteredAssets: any[] = [];
@@ -105,6 +108,11 @@ export class ShowAssetsComponent implements OnInit {
    toggleFilterPopup() {
     this.isFilterPopupVisible = !this.isFilterPopupVisible;
   }
+  editedAssetsId!:number;
+  toggleChangStatusPopup(assetId:number){
+    this.editedAssetsId=assetId;
+    this.isChangeStatusPopupVisible=!this.isChangeStatusPopupVisible
+  }
 
     delete(id:number){
       console.log(id)
@@ -115,6 +123,9 @@ export class ShowAssetsComponent implements OnInit {
     }
    onFilterPopupClose(isVisible: boolean) {
     this.isFilterPopupVisible = isVisible;
+  }
+  onChangeStatusPopupClose(isVisible: boolean) {
+    this.isChangeStatusPopupVisible = isVisible;
   }
   applyFilterPopup(event: any) {
     console.log('Received Data:', event);
@@ -242,5 +253,9 @@ export class ShowAssetsComponent implements OnInit {
   }
   setActiveButton(index: number): void {
     this.activeButtonIndex = index;
+  }
+  isAssignAssetVisible = false;
+  toggleAssignPopup() {
+    this.isAssignAssetVisible = !this.isAssignAssetVisible;
   }
 }

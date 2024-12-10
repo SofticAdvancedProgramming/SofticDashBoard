@@ -794,7 +794,9 @@
     "subsubsategory": "Sub Sub Category",
     "assetsId": "Asset Id",
     "assetstatus": "Asset Status",
-    "outofservice": "Out of service"
+    "outofservice": "Out of service",
+    "AssienedTo":"Assiened To",
+    "NotAssiened":"Not Assiened"
   },
   "FILTER_POPUP": {
     "name": "Name",
