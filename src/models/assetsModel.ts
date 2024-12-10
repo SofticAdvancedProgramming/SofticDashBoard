@@ -8,4 +8,5 @@ export interface Assets {
     assetId: number;
     employeeId: number;
     assignDate: string;
+    assetAttachments:any;
   }

@@ -1,37 +1,89 @@
 <div class="filter-popup">
-    <div class="filter-popup-content">
-        <div class="filterHeader">
-            <p> <img class="filter" src="../../../../../assets/images/filter-search.svg">
-                Assign an asset to employee </p>
-        </div>
-        <form (ngSubmit)="Submit()">
-            <div class="form-group">
-                <label for="Name">Name</label>
-                <app-drop-down 
-                [placeholder]="'Select Employee'"
-                [placeholderSearch]="'Search by Name'"
-                [items]="employees"
-                [currentPage]="employeePage"
-                [itemsLength]="employees.length"
-                (getNextPageApi)="loadEmployees()"
-                (search)="loadEmployees()"
-                (onChange)="onEmployeeSelect($event)"
-              ></app-drop-down>
-            </div>
-            <div class="form-group">
-                <label for="assignDate">Assign Date</label>
-                <input 
-                    type="date" 
-                    id="assignDate" 
-                    name="assignDate" 
-                    [(ngModel)]="assignDate" 
-                    required
-                >
-            </div>
-            <div class="d-flex justify-content-center gap-2">
-                <button class="apply-btn" type="submit">Submit</button>
-                <button class="cancel-btn" type="button" (click)="closePopup()">Close</button>
-            </div>
-        </form>
+  <div class="filter-popup-content">
+    <div class="filterHeader">
+      <p>
+        <img
+          class="filter"
+          src="../../../../../assets/images/filter-search.svg"
+        />
+        Assign an asset to employee
+      </p>
     </div>
+    <form [formGroup]="form" (ngSubmit)="Submit()">
+      <div class="form-group">
+        <label for="Name">Name</label>
+        <app-drop-down
+          [placeholder]="'Select Employee'"
+          [placeholderSearch]="'Search by Name'"
+          [items]="employees"
+          [currentPage]="employeePage"
+          [itemsLength]="employees.length"
+          (getNextPageApi)="loadEmployees()"
+          (search)="loadEmployees()"
+          (onChange)="onEmployeeSelect($event)"
+        ></app-drop-down>
+      </div>
+      <div class="form-group">
+        <label for="assignDate">Assign Date</label>
+        <input
+          type="date"
+          id="assignDate"
+          name="assignDate"
+          formControlName="assignDate"
+          [(ngModel)]="assignDate"
+          required
+        />
+      </div>
+      <div class="d-flex gap-1 flex-wrap" style="grid-column: 1 / -1">
+        <div class="form-group">
+          <label for="photo">{{ "Assets.photo" | translate }}</label>
+          <label for="file">
+            <div class="container-upload">
+              <div
+                *ngIf="!fileType || !fileType.startsWith('image/')"
+                class="header"
+              >
+                <p>{{ "ASSET_UPLOADER.BROWSE_PHOTO" | translate }}</p>
+              </div>
+              <label for="file" class="footer">
+                <p *ngIf="!selectedFileName && !uploadMessage">
+                  {{ "ASSET_UPLOADER.NO_PHOTO_SELECTED" | translate }}
+                </p>
+                <div
+                  *ngIf="selectedFileName && !fileType?.startsWith('image/')"
+                  class="file-info"
+                >
+                  <i class="fa fa-file" aria-hidden="true"></i>
+                  <span>{{ selectedFileName }}</span>
+                </div>
+
+                <p *ngIf="uploadMessage" class="upload-message">
+                  {{ uploadMessage }}
+                </p>
+              </label>
+              <input
+                id="file"
+                type="file"
+                (change)="onFileChange($event)"
+                formControlName="AssetPhoto"
+                class="form-control-file"
+              />
+            </div>
+          </label>
+          <img
+            *ngIf="imagePreviewUrl && fileType?.startsWith('image/')"
+            [src]="imagePreviewUrl"
+            alt="{{ 'ASSET_UPLOADER.SELECTED_FILE' | translate }}"
+            class="img-preview"
+          />
+        </div>
+      </div>
+      <div class="d-flex justify-content-center gap-2">
+        <button class="apply-btn" type="submit">Submit</button>
+        <button class="cancel-btn" type="button" (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
