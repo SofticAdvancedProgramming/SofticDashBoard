@@ -79,6 +79,13 @@ export class AssetsService {
       {}
     );
   }
+  changrStatus(id: number,statusId:number): Observable<any>{
+    return this.apiCall.request(
+      'POST',
+      `${assetsController.changrStatus}/${id}/${statusId}`,
+      {}
+    );
+  }
 
 
   addRelatedAsset(request: RelatedAsset): Observable<any> {
