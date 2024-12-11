@@ -19,6 +19,8 @@ export interface Asset {
     nameAr: string;
     model: string;
     assetId: number;
+    photo: any;
+    photoExtension: any;
  
   }
   
