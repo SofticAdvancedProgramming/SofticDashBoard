@@ -17,7 +17,7 @@
   <button *ngIf="page<totalPages"   class="btn" (click)="nextPage()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
   </div>
 </div>
-<div class="container mt-5" *ngFor="let asset of filteredAssets">
+<div class="container mt-5" *ngFor="let asset of filteredAssets" [routerLink]="['/dashboard/AssetsDetails',asset.id]">
   <div class="item">
     <img *ngIf="asset.photo" [src]="asset.photo" class="image">
     <img *ngIf="!asset.photo" src="https://via.placeholder.com/100" class="image">
