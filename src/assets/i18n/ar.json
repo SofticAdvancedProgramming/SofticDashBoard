@@ -279,7 +279,8 @@
     "HELP": "مساعدة",
     "ASSETS": "أصول",
     "LOGOUT": "تسجيل الخروج",
-    "COMPLAINSANDSUGGESTIONS": "الشكاوى والمقترحات"
+    "COMPLAINSANDSUGGESTIONS": "الشكاوى والمقترحات",
+    "TASKS":"المهام"
   },
   "Home": {
     "ActiveCompanies": "الشركات النشطة",

@@ -1,0 +1,145 @@
+<div class="container  py-5">
+  <div class="row action-section   align-items-center">
+    <div class="col-lg-2">
+      <div class="d-flex flex-row justify-content-start align-items-center">
+        <div style="width: 48px;height: 48px;" class="rounded-circle">
+          <img  class="mx-1" src="../../../../../assets/images/task.png">
+        </div>
+        <p class="lead">Task board</p>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="d-flex flex-row justify-content-start align-items-center">
+        <input placeholder="{{ 'viewEmployees.SEARCH' | translate }}" class="form-control custom-search" (input)="search()" />
+      </div>
+    </div>
+    <div class="col-lg-3 d-flex justify-content-between align-items-center archive-filter-container">
+      <span class="d-inline-flex justify-content-center align-items-center">
+        <img  src="../../../../../assets/images/filter-search.svg">
+      </span>
+      <button class="btn archive-btn" routerLink="../AddAssets"><img src="../../../../../assets/images/save-2.png">archive</button>
+    </div>
+    <div class="col-lg-3">
+      <button class="btn action-btn" routerLink='addnew'><img src="../../../../../assets/images/add-square.png">Add task</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="container py-3">
+  <div class="row">
+    <div class="col-lg-3 todo">
+      <div class="task-group task-group-todo d-flex justify-content-between">
+        <p class="task-group-title">todo</p>
+        <p class="task-group-count">2</p>
+      </div>
+
+      <div class="tasks mt-5">
+        <div class="task-card todo-card p-3 mb-3 ">
+          <h4 class="task-card-title">Copywriting of the app</h4>
+          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
+            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
+          </div>
+        </div>
+
+        <div class="task-card todo-card p-3 mb-3 ">
+          <h4 class="task-card-title">Copywriting of the app</h4>
+          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
+            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-3 inprograss">
+      <div class="task-group task-group-inprograss d-flex justify-content-between">
+        <p class="task-group-title">inprograss</p>
+        <p class="task-group-count">2</p>
+      </div>
+
+      <div class="tasks mt-5">
+        <div class="task-card inprograss-card p-3 mb-3 ">
+          <h4 class="task-card-title">Copywriting of the app</h4>
+          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
+            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
+          </div>
+        </div>
+
+        <div class="task-card inprograss-card p-3 mb-3 ">
+          <h4 class="task-card-title">Copywriting of the app</h4>
+          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
+            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-3 submitForReview">
+      <div class="task-group task-group-submitForReview d-flex justify-content-between">
+        <p class="task-group-title">submit For Review</p>
+        <p class="task-group-count">2</p>
+      </div>
+
+      <div class="tasks mt-5">
+        <div class="task-card submitForReview-card p-3 mb-3 ">
+          <h4 class="task-card-title">Copywriting of the app</h4>
+          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
+            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
+          </div>
+        </div>
+
+        <div class="task-card submitForReview-card p-3 mb-3 ">
+          <h4 class="task-card-title">Copywriting of the app</h4>
+          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
+            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-3 done">
+      <div class="task-group task-group-done d-flex justify-content-between">
+        <p class="task-group-title">done</p>
+        <p class="task-group-count">2</p>
+      </div>
+
+      <div class="tasks mt-5">
+        <div class="task-card done-card p-3 mb-3 ">
+          <h4 class="task-card-title">Copywriting of the app</h4>
+          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
+            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
+          </div>
+        </div>
+
+        <div class="task-card done-card p-3 mb-3 ">
+          <h4 class="task-card-title">Copywriting of the app</h4>
+          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
+            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+

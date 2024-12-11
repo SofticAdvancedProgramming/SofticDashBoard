@@ -42,6 +42,8 @@ import { AddAssetsComponent } from './core-component/dashboard/assets/add-assets
 import { ShowAssetsComponent } from './core-component/dashboard/assets/show-assets/show-assets.component';
 import { AssetsDetailsComponent } from './core-component/dashboard/assets/assets-details/assets-details.component';
 import { RelatedAssetsComponent } from './core-component/dashboard/setting/Lockups/relatedAssrts/related-assets/related-assets.component';
+import { TasksIndexComponent } from './core-component/dashboard/Tasks/task-index/tasks-index.component';
+import { AddTaskComponent } from './core-component/dashboard/Tasks/add-task/add-task.component';
 
 export const routes: Routes = [
   {
@@ -94,7 +96,9 @@ export const routes: Routes = [
       { path: 'ShowAssets', component: ShowAssetsComponent },
       { path: 'ShowAssets/:isAssined', component: ShowAssetsComponent },
       { path: 'AssetsDetails/:id', component: AssetsDetailsComponent },
-      { path: 'employee-locations/:id', component: AddLocationComponent }
+      { path: 'employee-locations/:id', component: AddLocationComponent },
+      { path: 'tasks', component: TasksIndexComponent},
+      { path: 'tasks/addnew', component: AddTaskComponent},
         ],
   },{
     path: 'no-permission',
