@@ -1,0 +1,24 @@
+<div class="filter-popup">
+  <div class="filter-popup-content">
+      <div class="filterHeader">
+          <p> <img class="filter" src="../../../../../assets/images/filter-search.svg">
+              Change Assets Status </p>
+      </div>
+      <form (ngSubmit)="Submit()">
+          <div class="form-group">
+              <label for="Name">status</label>
+              <app-drop-down
+              [placeholder]="'Select status'"
+              [items]="assetsStatus"
+              [itemsLength]="assetsStatus.length"
+              (onChange)="onStatusSelect($event)"
+            ></app-drop-down>
+          </div>
+
+          <div class="d-flex justify-content-center gap-2">
+              <button class="apply-btn" type="submit">Save</button>
+              <button class="cancel-btn" type="button" (click)="closePopup()">Close</button>
+          </div>
+      </form>
+  </div>
+</div>
