@@ -1,88 +1,126 @@
 <div class="container">
   <div class="col-lg-12 d-flex justify-content-between">
-    <p class="header"><img class="mx-1" src="../../../../../assets/images/chart.png">Assets Details</p>
-    <button class="btn assign-btn" (click)="toggleAssignPopup()">Assign Asset</button>
-    <button class="btn related-btn" (click)="toggleRelatedAssetsPopup()">Add Related Assets</button>
+    <p class="header">
+      <img class="mx-1" src="../../../../../assets/images/chart.png" />Assets
+      Details
+    </p>
+    <button
+      class="btn assign-btn"
+      *ngIf="!assets[0]?.employeeName"
+      (click)="toggleAssignPopup()"
+    >
+      Assign Asset
+    </button>
+    <button class="btn related-btn" (click)="toggleRelatedAssetsPopup()">
+      Add Related Assets
+    </button>
   </div>
   <div class="d-flex">
     <div class="col-lg-4">
       <div class="image">
-        <img [src]="assets[0]?.photo || '../../../../../assets/images/default.jpeg'" alt="Image"
-          *ngIf="assets.length > 0">
+        <img
+          [src]="
+            assets[0]?.photo || '../../../../../assets/images/default.jpeg'
+          "
+          alt="Image"
+          *ngIf="assets.length > 0"
+        />
       </div>
     </div>
     <div class="col-lg-8">
       <div class="map-container">
-        <app-map [lat]="selectedAssetLocation.lat" [long]="selectedAssetLocation.long"></app-map>
+        <app-map
+          [lat]="selectedAssetLocation.lat"
+          [long]="selectedAssetLocation.long"
+        ></app-map>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <div class="details">
-        <h3>Main Asset</h3>
-        <div *ngFor="let asset of assets">
-          <div *ngIf="asset" class="detail">
-            <div class="detail-title">Asset Name</div>
-            <div class="detail-description">{{ asset.name }}</div>
-          </div>
-          <div class="detail">
-            <div class="detail-title">Category</div>
-            <div class="detail-description">{{ asset.assetCategoryName }}</div>
-          </div>
-          <!-- <div class="detail">
-            <div class="detail-title">Technical description</div>
-            <div class="detail-description long-text">
-              {{ asset.model }} - {{ asset.name }}
+        <div class="bg-light relatedAssetContainer mb-4">
+          <div *ngFor="let asset of assets">
+            <div *ngIf="asset" class="detail">
+              <div class="detail-title">Asset Name</div>
+              <div class="detail-info">{{ asset.name }}</div>
             </div>
-          </div> -->
-          <!-- <div class="detail">
+            <div class="detail">
+              <div class="detail-title">Category</div>
+              <div class="detail-info">
+                {{ asset.assetCategoryName }}
+              </div>
+            </div>
+            <div class="detail">
+              <div class="detail-title">Technical description</div>
+              <div class="detail-info long-text">
+                {{ asset.model }} - {{ asset.name }}
+              </div>
+            </div>
+            <!-- <div class="detail">
             <div class="detail-title">Accessories</div>
             <div class="detail-description">keyboard & ...............</div>
-          </div> -->
-          <div class="detail">
-            <div class="detail-title">id Assets</div>
-            <div class="detail-description">{{ asset.model }}</div>
+           </div> -->
+            <div class="detail">
+              <div class="detail-title">id Assets</div>
+              <div class="detail-info">{{ asset.model }}</div>
+            </div>
+            <div class="detail">
+              <div class="detail-title">Address</div>
+              <div
+                class="detail-info long-text"
+                *ngIf="selectedAssetAddress; else noAddress"
+              >
+                {{ selectedAssetAddress }}
+              </div>
+              <ng-template #noAddress>
+                <div class="detail-info">Address not available</div>
+              </ng-template>
+            </div>
+            <div class="detail">
+              <div class="detail-title">Assigned To</div>
+              <div class="detail-info">{{ asset.employeeName }}</div>
+            </div>
           </div>
-          <div class="detail">
-            <div class="detail-title"> Address </div>
-            <div class="detail-description long-text" *ngIf="selectedAssetAddress; else noAddress">{{
-              selectedAssetAddress }}</div>
-            <ng-template #noAddress>
-              <div class="detail-description"> Address not available </div>
-            </ng-template>
-          </div>
-          <div class="detail">
-            <div class="detail-title">Takeover</div>
-            <div class="detail-description">{{ asset.employeeName }}</div>
-          </div>
-          <hr > 
+        </div>
+        <div class="bg-light relatedAssetContainer">
           <h3>Related Assets</h3>
-          <div *ngIf="relatedAssets.length > 0; else noRelatedAssets">
-            <div *ngFor="let relatedAsset of relatedAssets">
+          <div
+            *ngIf="relatedAssets.length > 0; else noRelatedAssets"
+            class="row relatedCards gap-2"
+          >
+            <div
+              *ngFor="let relatedAsset of relatedAssets"
+              class="col-12 col-md-6 col-lg-3">
               <div class="detail">
-                <div class="detail-title">Related Asset Name</div>
-                <div class="detail-description">{{ relatedAsset.name }}</div>
+                <img
+                [src]="relatedAsset?.photo || '../../../../../assets/images/default.jpeg'"
+                alt="relatedAssetPhoto"
+                class="w-100 relatedAssetImg"
+              />
+                <div
+                  class="d-flex justify-content-between align-items-center w-100"
+                >
+                  <p class="detail-description long-text-related">
+                    {{ relatedAsset.name }}
+                  </p>
+                  <p class="detail-description2 long-text-related">
+                    {{ relatedAsset.model }}
+                  </p>
+                </div>
               </div>
-              <div class="detail">
-                <div class="detail-title">Model</div>
-                <div class="detail-description">{{ relatedAsset.model }}</div>
-              </div>
-              <div class="w-75 d-flex justify-content-center"> 
-                <hr>
+              <div class="w-75 d-flex justify-content-center">
+                <hr />
               </div>
             </div>
-
           </div>
           <ng-template #noRelatedAssets>
             <div class="no-assets">No related assets available.</div>
           </ng-template>
-          
-
         </div>
       </div>
     </div>
-    <div class="col-lg-3">
+    <!-- <div class="col-lg-3">
       <div class="files-section" *ngIf="files.length > 0">
         <div *ngFor="let file of files" class="file-item">
           <div class="file-name">
@@ -97,13 +135,15 @@
       <div *ngIf="files.length === 0" class="no-files">
         No attachments available.
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
-
-
-<app-assign-asset-popup *ngIf="isAssignAssetVisible"
-  (closeAssignAssets)="onAssignAssetClose($event)"></app-assign-asset-popup>
-<app-related-assets-popup *ngIf="isRelatedAssetsVisible"
-  (closeRelatedAssets)="onRelatedAssetsClose($event)"></app-related-assets-popup>
+<app-assign-asset-popup
+  *ngIf="isAssignAssetVisible"
+  (closeAssignAssets)="onAssignAssetClose($event)"
+></app-assign-asset-popup>
+<app-related-assets-popup
+  *ngIf="isRelatedAssetsVisible"
+  (closeRelatedAssets)="onRelatedAssetsClose($event)"
+></app-related-assets-popup>

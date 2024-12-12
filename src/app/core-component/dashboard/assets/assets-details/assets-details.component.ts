@@ -80,9 +80,11 @@ export class AssetsDetailsComponent implements OnInit {
   }
   onRelatedAssetsClose(isVisible: boolean) {
     this.isRelatedAssetsVisible = isVisible;
+    this.ngOnInit();
   }
   onAssignAssetClose(isVisible: boolean) {
     this.isAssignAssetVisible = isVisible;
+    this.ngOnInit();
   }
 
 

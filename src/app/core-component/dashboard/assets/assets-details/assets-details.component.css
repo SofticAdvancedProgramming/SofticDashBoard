@@ -32,20 +32,11 @@
 
 .details {
     display: flex;
-    flex-direction: column;
     gap: 15px;
     flex-grow: 1;
     background: #f8fbfe;
     padding: 2em;
     width: 100%;
-}
-
-.detail {
-    display: flex;
-    gap: 10px;
-    padding: 10px 0;
-    align-items: flex-start;
-    flex-wrap: wrap;
 }
 
 .detail-title {
@@ -60,7 +51,7 @@
 }
 
 .detail-description {
-    color: #9C999F;
+    color: #09050E;
     font-family: 'Lama Sans', sans-serif;
     font-size: 16px;
     font-weight: 300;
@@ -68,11 +59,23 @@
     letter-spacing: 0.03em;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
     hyphens: auto;
     max-width: calc(100% - 160px);
     width: 100%;
+}
+.detail-description2{
+    color: #09050E;
+    font-family: 'Lama Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 26px;
+    letter-spacing: 0.03em;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    hyphens: auto;
+    max-width: calc(100% - 160px);
+    width: 100%;
+    text-align: end;
 }
 
 .detail-description.long-text {
@@ -227,7 +230,15 @@
     height: auto;
 
 }
-
+.relatedAssetContainer{
+    background-color: white !important;
+    padding: 20px;
+    border-radius: 10px;
+}
+.relatedCards{
+    margin: 0 !important;
+    padding: 0 !important;
+}
 .details {
     display: flex;
     flex-direction: column;
@@ -244,6 +255,14 @@
     padding: 10px 0;
     align-items: flex-start;
     flex-wrap: wrap;
+    border-radius: 10px;
+    flex-direction: column;
+}
+.relatedAssetImg{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 200px;
+    width: 200px;
 }
 
 .detail-title {
@@ -256,14 +275,33 @@
 }
 
 .detail-description {
+    color: #09050E;
+    font-family: 'Lama Sans', sans-serif;
+    font-size: 16px;
+    line-height: 26px;
+    width: calc(100% - 160px);
+    text-overflow: ellipsis;
+}
+.detail-info{
     color: #9C999F;
     font-family: 'Lama Sans', sans-serif;
     font-size: 16px;
     line-height: 26px;
-    overflow-wrap: break-word;
     width: calc(100% - 160px);
 }
+.long-text-related {
+    max-height: 100px;  
+    overflow-y: auto;  
+    padding-right: 10px;
+    text-overflow: ellipsis;
+}
 
+.detail-description.long-text-related,
+.detail-description2.long-text-related {
+    display: block;
+    max-height: 100px; 
+    overflow-y: auto;
+}
 .files-section h3 {
     font-size: 18px;
     font-weight: bold;
