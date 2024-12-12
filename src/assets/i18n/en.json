@@ -285,7 +285,8 @@
     "HELP": "Help",
     "LOGOUT": "Logout",
     "ASSETS": "Assets",
-    "COMPLAINSANDSUGGESTIONS": "Complaints & Suggetions"
+    "COMPLAINSANDSUGGESTIONS": "Complaints & Suggetions",
+    "TASKS":"tasks"
   },
   "Home": {
     "ActiveCompanies": "Active Companies",
