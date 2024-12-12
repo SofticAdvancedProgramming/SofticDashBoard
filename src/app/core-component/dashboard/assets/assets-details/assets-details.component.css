@@ -280,6 +280,7 @@
     font-size: 16px;
     line-height: 26px;
     width: calc(100% - 160px);
+    text-overflow: ellipsis;
 }
 .detail-info{
     color: #9C999F;
@@ -288,7 +289,19 @@
     line-height: 26px;
     width: calc(100% - 160px);
 }
+.long-text-related {
+    max-height: 100px;  
+    overflow-y: auto;  
+    padding-right: 10px;
+    text-overflow: ellipsis;
+}
 
+.detail-description.long-text-related,
+.detail-description2.long-text-related {
+    display: block;
+    max-height: 100px; 
+    overflow-y: auto;
+}
 .files-section h3 {
     font-size: 18px;
     font-weight: bold;

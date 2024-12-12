@@ -4,7 +4,11 @@
       <img class="mx-1" src="../../../../../assets/images/chart.png" />Assets
       Details
     </p>
-    <button class="btn assign-btn" (click)="toggleAssignPopup()">
+    <button
+      class="btn assign-btn"
+      *ngIf="!assets[0]?.employeeName"
+      (click)="toggleAssignPopup()"
+    >
       Assign Asset
     </button>
     <button class="btn related-btn" (click)="toggleRelatedAssetsPopup()">
@@ -74,7 +78,7 @@
               </ng-template>
             </div>
             <div class="detail">
-              <div class="detail-title">Takeover</div>
+              <div class="detail-title">Assigned To</div>
               <div class="detail-info">{{ asset.employeeName }}</div>
             </div>
           </div>
@@ -90,17 +94,17 @@
               class="col-12 col-md-6 col-lg-3">
               <div class="detail">
                 <img
-                  src="{{ relatedAsset.photo }}"
-                  alt="relatedAssetPhoto"
-                  class="w-100 relatedAssetImg"
-                />
+                [src]="relatedAsset?.photo || '../../../../../assets/images/default.jpeg'"
+                alt="relatedAssetPhoto"
+                class="w-100 relatedAssetImg"
+              />
                 <div
                   class="d-flex justify-content-between align-items-center w-100"
                 >
-                  <p class="detail-description">
+                  <p class="detail-description long-text-related">
                     {{ relatedAsset.name }}
                   </p>
-                  <p class="detail-description2">
+                  <p class="detail-description2 long-text-related">
                     {{ relatedAsset.model }}
                   </p>
                 </div>
