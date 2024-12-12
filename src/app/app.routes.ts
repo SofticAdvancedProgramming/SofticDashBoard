@@ -44,6 +44,7 @@ import { AssetsDetailsComponent } from './core-component/dashboard/assets/assets
 import { RelatedAssetsComponent } from './core-component/dashboard/setting/Lockups/relatedAssrts/related-assets/related-assets.component';
 import { TasksIndexComponent } from './core-component/dashboard/Tasks/task-index/tasks-index.component';
 import { AddTaskComponent } from './core-component/dashboard/Tasks/add-task/add-task.component';
+import { TaskDetailsComponent } from './core-component/dashboard/Tasks/task-details/task-details.component';
 
 export const routes: Routes = [
   {
@@ -99,6 +100,8 @@ export const routes: Routes = [
       { path: 'employee-locations/:id', component: AddLocationComponent },
       { path: 'tasks', component: TasksIndexComponent},
       { path: 'tasks/addnew', component: AddTaskComponent},
+      { path: 'tasks/details', component: TaskDetailsComponent},
+
         ],
   },{
     path: 'no-permission',
