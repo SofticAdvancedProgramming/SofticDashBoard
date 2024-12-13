@@ -813,5 +813,10 @@
     "no": "لا",
     "filter": "تصفية",
     "close": "إغلاق"
+  },
+  "Tasks": {
+    "validation":{
+      "nameRequired": "اسم المهمة مطلوب"
+    }
   }
 }

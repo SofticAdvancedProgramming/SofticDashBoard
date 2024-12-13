@@ -89,3 +89,18 @@ input:active ,textarea:active{
 .custom-input input {
   width: 100%;
 }
+
+.is-invalid {
+  outline: 1px solid red;
+}
+.invalid-feedback {
+  color: red;
+  /* width: 80%; */
+}
+.is-valid:focus {
+  outline: 1px solid blue;
+}
+.is-untouched {
+  outline: 1px solid lightgray;
+}
+
