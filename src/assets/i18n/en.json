@@ -809,6 +809,21 @@
     "no": "No",
     "filter": "Filter",
     "close": "Close"
+  },
+  "Tasks": {
+    "addTasks": {
+      "addTaskBtn":"Add Task"
+    },
+    "validation":{
+      "nameRequired": "Task Name Required",
+      "detailsRequired": "Task Details Required",
+      "detailsMinLength": "Task Details Min Length is 100 characters",
+      "detailsMaxLength": "Task Details Max Length is 300 characters",
+      "startDateRequired": "Start Date Required",
+      "durationRequired": "Duration Required",
+      "initialCostRequired": "Initial Cost Required"
+    }
   }
+
 }
 

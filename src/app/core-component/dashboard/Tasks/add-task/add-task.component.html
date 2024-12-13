@@ -1,37 +1,137 @@
 <div class="container px-5">
-  <div class="form py-2 ">
-
+  <div class="form py-2">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-group my-3">
         <label class="form-label">Task Name</label>
         <div class="row">
-          <div class="col-6">
-            <input type="text" class="form-control" placeholder="Please write your message no more than 300 words">
+          <div class="col-12">
+            <input
+              type="text"
+              formControlName="name"
+              class="form-control"
+              placeholder="Please write your message no more than 300 words"
+              [ngClass]="{
+                'is-invalid':
+                form.controls['name'].touched &&
+                form.controls['name'].errors,
+                'is-valid':
+                form.controls['name'].touched &&
+                form.controls['name'].errors == null ,
+                'is-touched':
+                form.controls['name'].untouched &&
+                form.controls['name'].errors == null,
+            }"
+            />
+            <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <small *ngIf="form.get('name')?.errors?.['required']">
+                {{ "Tasks.validation.nameRequired" | translate }}
+              </small>
+            </div>
           </div>
-          <div class="col-6">
-            <label for="file-upload" class="file-upload-label">Upload File</label>
-            <input type="file" id="file-upload" class="form-control type-file" placeholder="Please write your message no more than 300 words">
-          </div>
+          <!-- <div class="col-6">
+            <label for="file-upload" class="file-upload-label"
+              >Upload File</label
+            >
+            <input
+              type="file"
+              id="file-upload"
+              formControlName="taskFile"
+              class="form-control type-file"
+              placeholder="Please write your message no more than 300 words"
+            />
+          </div> -->
         </div>
       </div>
 
       <div class="row my-3">
         <div class="col-12 form-group">
           <label class="form-label">Task Details</label>
-          <textarea class="textarea form-control " placeholder="Please write your message no more than 300 words"></textarea>
+          <textarea
+            class="textarea form-control"
+            formControlName="taskDetails"
+            placeholder="Please write your message no more than 300 words"
+            [ngClass]="{
+              'is-invalid':
+              form.controls['taskDetails'].touched &&
+              form.controls['taskDetails'].errors,
+              'is-valid':
+              form.controls['taskDetails'].touched &&
+              form.controls['taskDetails'].errors == null ,
+              'is-touched':
+              form.controls['taskDetails'].untouched &&
+              form.controls['taskDetails'].errors == null,
+          }"
+          ></textarea>
+          <div *ngIf="isFieldInvalid('taskDetails')" class="text-danger">
+            <small *ngIf="form.get('taskDetails')?.errors?.['required']">
+              {{ "Tasks.validation.detailsRequired" | translate }}
+            </small>
+          </div>
+          <div *ngIf="isFieldInvalid('taskDetails')" class="text-danger">
+            <small *ngIf="form.get('taskDetails')?.errors?.['minlength']">
+              {{ "Tasks.validation.detailsMinLength" | translate }}
+            </small>
+          </div>
+          <div *ngIf="isFieldInvalid('taskDetails')" class="text-danger">
+            <small *ngIf="form.get('taskDetails')?.errors?.['maxlength']">
+              {{ "Tasks.validation.detailsMaxLength" | translate }}
+            </small>
+          </div>
         </div>
       </div>
 
       <div class="row my-3">
-        <div class="col-6 ">
+        <div class="col-6">
           <div class="form-group">
-            <label class="form-label">from (date)</label>
-            <input type="date" class="form-control" >
+            <label class="form-label">From (date)</label>
+            <input
+              type="date"
+              class="form-control"
+              formControlName="from"
+              [ngClass]="{
+              'is-invalid':
+              form.controls['from'].touched &&
+              form.controls['from'].errors,
+              'is-valid':
+              form.controls['from'].touched &&
+              form.controls['from'].errors == null ,
+              'is-touched':
+              form.controls['from'].untouched &&
+              form.controls['from'].errors == null,
+          }"
+            />
+            <div *ngIf="isFieldInvalid('from')" class="text-danger">
+              <small *ngIf="form.get('from')?.errors?.['required']">
+                {{ "Tasks.validation.startDateRequired" | translate }}
+              </small>
+            </div>
           </div>
         </div>
-        <div class="col-6 ">
+        <div class="col-6">
           <div class="form-group">
-            <label class="form-label">to (date)</label>
-            <input type="date" class="form-control" >
+            <label class="form-label">Duration</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="duration"
+              placeholder="Enter Your Duration"
+              [ngClass]="{
+              'is-invalid':
+              form.controls['duration'].touched &&
+              form.controls['duration'].errors,
+              'is-valid':
+              form.controls['duration'].touched &&
+              form.controls['duration'].errors == null ,
+              'is-touched':
+              form.controls['duration'].untouched &&
+              form.controls['duration'].errors == null,
+          }"
+            />
+            <div *ngIf="isFieldInvalid('duration')" class="text-danger">
+              <small *ngIf="form.get('duration')?.errors?.['required']">
+                {{ "Tasks.validation.durationRequired" | translate }}
+              </small>
+            </div>
           </div>
         </div>
       </div>
@@ -40,43 +140,119 @@
         <div class="col-12 form-group">
           <label class="form-label">Initial cost</label>
           <div class="custom-input">
-            <input type="text" class="textarea form-control " placeholder="Please write your message no more than 300 words"/>
-            <img src="../../../../../assets/images/dollar-circle.png" alt="Icon" class="input-icon" />
+            <input
+              type="number"
+              class="textarea form-control"
+              formControlName="initialCost"
+              placeholder="Please write your message no more than 300 words"
+              [ngClass]="{
+                'is-invalid':
+                form.controls['initialCost'].touched &&
+                form.controls['initialCost'].errors,
+                'is-valid':
+                form.controls['initialCost'].touched &&
+                form.controls['initialCost'].errors == null ,
+                'is-touched':
+                form.controls['initialCost'].untouched &&
+                form.controls['initialCost'].errors == null,
+            }"
+            />
+
+            <img
+              src="../../../../../assets/images/dollar-circle.png"
+              alt="Icon"
+              class="input-icon"
+            />
+          </div>
+          <div *ngIf="isFieldInvalid('initialCost')" class="text-danger">
+            <small *ngIf="form.get('initialCost')?.errors?.['required']">
+              {{ "Tasks.validation.initialCostRequired" | translate }}
+            </small>
           </div>
         </div>
       </div>
 
       <div class="row my-3">
-        <div class="col-6 ">
-          <div class="form-group">
-            <label class="form-label">Assign to</label>
-            <input type="text" class="form-control" placeholder="@Yomna Ashraf">
+        <div class="col-12 form-group">
+          <label class="form-label">Actual cost</label>
+          <div class="custom-input">
+            <input
+              type="number"
+              class="textarea form-control"
+              formControlName="actualCost"
+              placeholder="Please write your message no more than 300 words"
+              [ngClass]="{
+                'is-invalid':
+                form.controls['actualCost'].touched &&
+                form.controls['actualCost'].errors,
+                'is-valid':
+                form.controls['actualCost'].touched &&
+                form.controls['actualCost'].errors == null ,
+                'is-touched':
+                form.controls['actualCost'].untouched &&
+                form.controls['actualCost'].errors == null,
+            }"
+            />
+            <img
+              src="../../../../../assets/images/dollar-circle.png"
+              alt="Icon"
+              class="input-icon"
+            />
           </div>
-        </div>
-        <div class="col-6 ">
-          <div class="form-group">
-            <label class="form-label">Position</label>
-            <input type="text" class="form-control" placeholder="Ui/UX">
+          <div *ngIf="isFieldInvalid('actualCost')" class="text-danger">
+            <small *ngIf="form.get('actualCost')?.errors?.['required']">
+              {{ "Tasks.validation.nameRequired" | translate }}
+            </small>
           </div>
-        </div>
-
-        <div class="col-12  d-flex justify-content-center align-items-center py-4">
-          <button class="btn action-btn">add employee</button>
         </div>
       </div>
-  </div>
 
+      <div class="row my-3">
+        <!-- <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Assign to</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="assignTo"
+              placeholder="@Yomna Ashraf"
+            />
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Position</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="position"
+              placeholder="Ui/UX"
+            />
+          </div>
+        </div> -->
+
+        <div
+          class="col-12 d-flex justify-content-center align-items-center py-4"
+        >
+          <button class="btn action-btn" type="submit" [disabled]="!form.valid">
+            {{ 'Tasks.addTask.addTaskBtn' | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 <div class="container mt-3 py-5 px-5">
-  <div class="d-flex justify-content-between align-items-center  ">
+  <div class="d-flex justify-content-between align-items-center">
     <p class="lead">Task board</p>
-    <button class="btn action-btn" routerLink="../AddAssets">Add to do list</button>
+    <button class="btn action-btn" routerLink="../AddAssets">
+      Add to do list
+    </button>
   </div>
   <div class="row">
     <div class="single-todo-card">
       <p class="single-todo-card-details">1-1-1-1-1-1-1-1-</p>
-
     </div>
     <div class="single-todo-card">
       <p class="single-todo-card-details">1-1-1-1-1-1-1-1-</p>
@@ -88,5 +264,4 @@
       <p class="single-todo-card-details">1-1-1-1-1-1-1-1-</p>
     </div>
   </div>
-
 </div>
