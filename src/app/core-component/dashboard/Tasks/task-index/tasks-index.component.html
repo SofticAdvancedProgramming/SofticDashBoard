@@ -31,7 +31,7 @@
       <p class="task-group-title">{{status}}</p>
       <p class="task-group-count">{{tasksByStatus[status].length}}</p>
     </div>
-<br>
+    <br>
     <div
       cdkDropList
       [id]="status"
@@ -41,13 +41,15 @@
       class="task-list"
     >
       <!-- Tasks -->
-      <div *ngFor="let task of tasksByStatus[status]" cdkDrag class="task">
-        <div class="task-card done-card p-3 mb-3 ">
-          <h4 class="task-card-title">{{task.title}}</h4>
+      <div *ngFor="let task of tasksByStatus[status]" cdkDrag [cdkDragData]="task" class="task">
+        <div class="task-card done-card fixed-size-card p-3 mb-3 ">
+          <h4 class="task-card-title">{{task.name}}</h4>
           <p class="task-card-description">{{task.description}}</p>
           <div class="d-flex justify-content-between align-items-center">
-            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >{{task.dueDate}}</span>
-            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
+            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >{{task.startDate |date:'short'}}</span>
+            <span class="task-card-subscriber">
+              <img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;">
+            </span>
           </div>
         </div>
       </div>

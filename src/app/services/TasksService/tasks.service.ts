@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
 import { TasksController } from '../../apis/TasksController';
+import { Task } from '../../core-component/dashboard/models/Task';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class TasksService {
     return this.http.request('POST', TasksController.GetEvaluation, request);
   }
 
-  get(request:any):Observable<any>
+  get(request:any):Observable<Task[]>
   {
     return this.http.request('POST', TasksController.Get, request);
   }
