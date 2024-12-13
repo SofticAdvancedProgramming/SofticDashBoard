@@ -96,6 +96,111 @@
   border: .5px solid white;
 }
 
+.sidebar {
+  min-height: 100vh;
+}
 
+.sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+}
+
+/* Card */
+.card {
+  border-radius: 8px;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card p {
+  margin: 0;
+}
+
+.card .d-flex small {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.card {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-height: 200px;
+}
+
+.card h4 {
+  text-align: center;
+}
+
+.card p {
+  margin: 0;
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cdk-drag-placeholder {
+  background: #e9ecef;
+  border: dashed 2px #6c757d;
+  height: 60px;
+}
+
+.cdk-drag-animating {
+  transition: transform 0.2s cubic-bezier(0.35, 0, 0.25, 1);
+}
+.empty-placeholder {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+
+.task-list {
+  min-height: 200px;
+  padding: 10px;
+  border: 1px dashed #ddd;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  position: relative;
+}
+
+.task {
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: grab;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #aaa;
+  font-style: italic;
+  text-align: center;
+  background-color: #f0f2f5;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 
 

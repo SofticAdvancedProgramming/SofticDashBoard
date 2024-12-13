@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { getToken, Messaging, onMessage } from '@angular/fire/messaging';
  import { LocalStorageService } from '../local-storage-service/local-storage.service';
 import { UserService } from '../user/user-service';
+import { initializeApp } from 'firebase/app';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,9 @@ export class MessagingService {
     private localStorageService: LocalStorageService,
     private _messaging: Messaging,
     private userService: UserService,
-  ) { }
+  ) { 
+   
+  }
 
   async getFCMToken(): Promise<string | null> {
     if (this.localStorageService.isBrowser()) {

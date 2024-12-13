@@ -25,121 +25,37 @@
   </div>
 </div>
 
-
-<div class="container py-3">
-  <div class="row">
-    <div class="col-lg-3 todo">
-      <div class="task-group task-group-todo d-flex justify-content-between">
-        <p class="task-group-title">todo</p>
-        <p class="task-group-count">2</p>
-      </div>
-
-      <div class="tasks mt-5">
-        <div class="task-card todo-card p-3 mb-3 ">
-          <h4 class="task-card-title">Copywriting of the app</h4>
-          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
-            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
-          </div>
-        </div>
-
-        <div class="task-card todo-card p-3 mb-3 ">
-          <h4 class="task-card-title">Copywriting of the app</h4>
-          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
-            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
-          </div>
-        </div>
-      </div>
-
+<div class="row">
+  <div class="col" *ngFor="let status of statuses">
+    <div  [ngClass]="getClass(status)" class="task-group  d-flex justify-content-between">
+      <p class="task-group-title">{{status}}</p>
+      <p class="task-group-count">{{tasksByStatus[status].length}}</p>
     </div>
-
-    <div class="col-lg-3 inprograss">
-      <div class="task-group task-group-inprograss d-flex justify-content-between">
-        <p class="task-group-title">inprograss</p>
-        <p class="task-group-count">2</p>
-      </div>
-
-      <div class="tasks mt-5">
-        <div class="task-card inprograss-card p-3 mb-3 ">
-          <h4 class="task-card-title">Copywriting of the app</h4>
-          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
-            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
-          </div>
-        </div>
-
-        <div class="task-card inprograss-card p-3 mb-3 ">
-          <h4 class="task-card-title">Copywriting of the app</h4>
-          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
-            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="col-lg-3 submitForReview">
-      <div class="task-group task-group-submitForReview d-flex justify-content-between">
-        <p class="task-group-title">submit For Review</p>
-        <p class="task-group-count">2</p>
-      </div>
-
-      <div class="tasks mt-5">
-        <div class="task-card submitForReview-card p-3 mb-3 ">
-          <h4 class="task-card-title">Copywriting of the app</h4>
-          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
-            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
-          </div>
-        </div>
-
-        <div class="task-card submitForReview-card p-3 mb-3 ">
-          <h4 class="task-card-title">Copywriting of the app</h4>
-          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
-            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="col-lg-3 done">
-      <div class="task-group task-group-done d-flex justify-content-between">
-        <p class="task-group-title">done</p>
-        <p class="task-group-count">2</p>
-      </div>
-
-      <div class="tasks mt-5">
+<br>
+    <div
+      cdkDropList
+      [id]="status"
+      [cdkDropListData]="tasksByStatus[status]"
+      [cdkDropListConnectedTo]="connectedLists"
+      (cdkDropListDropped)="onDrop($event)"
+      class="task-list"
+    >
+      <!-- Tasks -->
+      <div *ngFor="let task of tasksByStatus[status]" cdkDrag class="task">
         <div class="task-card done-card p-3 mb-3 ">
-          <h4 class="task-card-title">Copywriting of the app</h4>
-          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
+          <h4 class="task-card-title">{{task.title}}</h4>
+          <p class="task-card-description">{{task.description}}</p>
           <div class="d-flex justify-content-between align-items-center">
-            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
-            <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
-          </div>
-        </div>
-
-        <div class="task-card done-card p-3 mb-3 ">
-          <h4 class="task-card-title">Copywriting of the app</h4>
-          <p class="task-card-description">Composing words to provide people with decision-making clarity when interacting with a product.</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >30nov</span>
+            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >{{task.dueDate}}</span>
             <span class="task-card-subscriber"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"><img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;"></span>
           </div>
         </div>
       </div>
 
+      <!-- Placeholder for empty lists -->
+      <div *ngIf="tasksByStatus[status].length === 0" class="placeholder">
+        Drop tasks here
+      </div>
     </div>
-
   </div>
 </div>
-
