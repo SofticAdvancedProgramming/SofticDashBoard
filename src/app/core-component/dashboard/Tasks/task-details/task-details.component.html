@@ -1,35 +1,62 @@
-<div class="container  py-5">
-  <div class="row action-section justify-content-between  align-items-center">
+<div class="container  py-3">
+  <div class="row action-section justify-content-between align-items-center">
     <div class="col-3">
       <p class="lead">Details</p>
     </div>
-    <div class="col-3">
+    <div class="col-3 d-flex justify-content-end">
       <button class="btn edit-btn" routerLink="../AddAssets"><img src="../../../../../assets/images/edit-2.png">edit</button>
     </div>
   </div>
-  <div class="row">
+  <div class="row pt-3">
     <div class="col-lg-7 col-md-12">
       <div class="task-details-card">
         <img src="../../../../../assets/images/Video Task.png" class="w-100">
         <div class="task-details-card-text  p-3">
           <h3 class="task-details-card-title">Creating Awesome Mobile Apps</h3>
-          <div class="task-details-card-details row">
+          <div class="task-details-card-details row ">
               <div class="col-6">
-                <div class="d-flex flex-row justify-content-between align-items-center w-75">
+                <div class="d-flex flex-row justify-content-between align-items-center w-85">
                   <img src="../../../../../assets/images/calendar-2.png">
                   <span class="date-description">From (Date)</span>
                   <span class="date">15/11/2024</span>
                 </div>
               </div>
               <div class="col-6">
-                <div class="d-flex flex-row justify-content-between align-items-center  w-75">
+                <div class="d-flex flex-row justify-content-between align-items-center w-85">
                   <img src="../../../../../assets/images/calendar-2.png">
-                  <span>From (Date)</span>
-                  <span>15/11/2024</span>
+                  <span class="date-description">to (Date)</span>
+                  <span class="date">15/11/2024</span>
                 </div>
               </div>
+              <div class="col-3">
+                <div class="d-flex flex-row justify-content-start align-items-center py-3 w-100">
+                  <img src="../../../../../assets/images/clock.png">
+                  <span class="date-description-time px-3">15 <span >Hours</span></span>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="d-flex flex-row justify-content-start align-items-center py-3 w-100">
+                  <img src="../../../../../assets/images/dollar-circle.png">
+                  <span class="date-description-currency px-3">500<span >$</span></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3">
+                  <div class="d-flex flex-row justify-content-start align-items-center w-100">
+                    <img src="../../../../../assets/images/Frame.png">
+                    <span class="date-description-time px-2">Yousef Adil</span>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="d-flex flex-row justify-content-start align-items-center w-100">
+                    <img src="../../../../../assets/images/Frame.png">
+                    <span class="date-description-time  px-2">George Sami</span>
+                  </div>
+                </div>
+              </div>
+
           </div>
-          <div class="task-details-card-description py-2">
+          <div class="task-details-card-description pt-3">
             <p class="task-details-card-description-title">Description</p>
             <p class="task-details-card-description-details">Follow the video tutorial above. Understand how to use each tool in the Figma application. Also learn how to make a good and correct design.</p>
           </div>
@@ -37,14 +64,116 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-5 col-md-12">
+    <div class="col-lg-5 col-md-12 task-status">
+      <div class="row py-5 mx-auto">
+        <div class="col-11 mx-auto state state-todo d-flex justify-content-around align-items-center">
+          <img src="../../../../../assets/images/todo.png">
+          <div class="state-text w-75 py-1">
+            <p>Todo</p>
+            <span>This is the first step.</span>
+          </div>
+        </div>
 
+        <div class="col-11 mx-auto state state-inpograss d-flex justify-content-around align-items-center active-inprograss">
+          <img src="../../../../../assets/images/inprograss.png">
+          <div class="state-text w-75 py-1">
+            <p>in prograss</p>
+            <span>This is the first step.</span>
+          </div>
+        </div>
+
+        <div class="col-11 mx-auto state state-review d-flex justify-content-around align-items-center">
+          <img src="../../../../../assets/images/review.png">
+          <div class="state-text w-75 py-1">
+            <p>review</p>
+            <span>This is the first step.</span>
+          </div>
+        </div>
+
+        <div class="col-11 mx-auto state state-done d-flex justify-content-around align-items-center">
+          <img src="../../../../../assets/images/review.png">
+          <div class="state-text w-75 py-1">
+            <p>done</p>
+            <span>This is the first step.</span>
+          </div>
+        </div>
+        <div class="col-11 px-1  mx-auto   d-flex justify-content-around align-items-center">
+          <div class="row btns  justify-content-between">
+            <button class="col-5 action-btn btn">rework</button>
+            <button class="col-5 save-btn btn ">done</button>
+            <button class="col-12 save-btn btn">Move to Archive</button>
+          </div>
+
+        </div>
+
+      </div>
     </div>
   </div>
 </div>
+<div class="container mt-3 ">
+  <div class="todo-container  p-3">
+    <div class="d-flex justify-content-between align-items-center  ">
+      <p class="lead">Task board</p>
+    </div>
+    <div class="row px-3">
+      <div class="single-todo-card col-12">
+        <p class="single-todo-card-details"><span>1-</span>Follow the video tutorial above. Understand how to use each tool in the Figma</p>
+      </div>
+      <div class="single-todo-card">
+        <p class="single-todo-card-details col-12"><span>1-</span>Follow the video tutorial above. Understand how to use each tool in the Figma</p>
+      </div>
+      <div class="single-todo-card">
+        <p class="single-todo-card-details col-12"><span>1-</span>Follow the video tutorial above. Understand how to use each tool in the Figma</p>
+      </div>
+      <div class="single-todo-card">
+        <p class="single-todo-card-details col-12"><span>1-</span>Follow the video tutorial above. Understand how to use each tool in the Figma</p>
+      </div>
+    </div>
 
-
-<div class="container py-3">
-
+  </div>
 </div>
+
+<div class="container  mt-3 ">
+  <div class="todo-container p-3">
+    <div class="form py-2 ">
+        <div class="row my-3">
+          <div class="col-6 form-group">
+            <label class="form-label">Labor Cost</label>
+            <div class="custom-input">
+              <input type="text" class="textarea form-control " placeholder="Labor Cost"/>
+              <img src="../../../../../assets/images/dollar-circle.png" alt="Icon" class="input-icon" />
+            </div>
+          </div>
+          <div class="col-6 form-group">
+            <label class="form-label">Martial Cost</label>
+            <div class="custom-input">
+              <input type="text" class="textarea form-control " placeholder="Martial Cost"/>
+              <img src="../../../../../assets/images/dollar-circle.png" alt="Icon" class="input-icon" />
+            </div>
+          </div>
+          <div class="col-6 form-group">
+            <label class="form-label">Service Cost</label>
+            <div class="custom-input">
+              <input type="text" class="textarea form-control " placeholder="Service Cost"/>
+              <img src="../../../../../assets/images/dollar-circle.png" alt="Icon" class="input-icon" />
+            </div>
+          </div>
+          <div class="col-6 form-group">
+            <label class="form-label">Additional Cost </label>
+            <div class="custom-input">
+              <input type="text" class="textarea form-control " placeholder="Additional Cost "/>
+              <img src="../../../../../assets/images/dollar-circle.png" alt="Icon" class="input-icon" />
+            </div>
+          </div>
+        </div>
+        <div class="col-12 my-5 row btns d-flex justify-content-center align-items-center">
+          <button class="col-4 action-btn btn mx-2">Cancel</button>
+          <button class="col-4 save-btn btn mx-2">Save</button>
+        </div>
+
+    </div>
+
+  </div>
+</div>
+
 
