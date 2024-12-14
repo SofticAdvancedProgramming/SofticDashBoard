@@ -44,10 +44,10 @@
     <p class="status">{{asset.assetCategoryName}} {{ 'employeeAssets.outofservice' | translate}}</p>
   </div>
   <div class="actions flex-column d-flex">
-    <button class="btn" (click)="toggleChangStatusPopup(asset.id)">
+    <button class="btn" (click)="toggleChangStatusPopup(asset.id); $event.stopPropagation()">
       <img class="icon" src="../../../../../assets/images/more-square.svg">
     </button>
-    <button class="btn" (click)="delete(asset.id)">
+    <button class="btn" (click)="delete(asset.id); $event.stopPropagation()">
       <img class="icon" src="../../../../../assets/images/trash 01.svg">
     </button>
     </div>
