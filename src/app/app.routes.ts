@@ -100,7 +100,7 @@ export const routes: Routes = [
       { path: 'employee-locations/:id', component: AddLocationComponent },
       { path: 'tasks', component: TasksIndexComponent},
       { path: 'tasks/addnew', component: AddTaskComponent},
-      { path: 'tasks/details', component: TaskDetailsComponent},
+      { path: 'tasks/details/:id', component: TaskDetailsComponent},
 
         ],
   },{

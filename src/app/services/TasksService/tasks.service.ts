@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
 import { Task } from '../../core-component/dashboard/models/Task';
-import { TaskController } from '../../apis/TasksController';
+import { TaskController } from '../../apis/tasksController';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,9 @@ export class TasksService {
 
   assignTaskStatus(request: any): Observable<any> {
     return this.http.request('POST', TaskController.AssignTaskStatus, request);
+  }
+  assignTask(request: any): Observable<any> {
+    return this.http.request('POST', TaskController.AssignTask, request);
   }
 
   assignCost(request:any) :Observable<any>
@@ -35,7 +39,7 @@ export class TasksService {
     return this.http.request('POST', TaskController.GetEvaluation, request);
   }
 
-  get(request:any):Observable<Task[]>
+  get(request:any):Observable<any>
   {
     return this.http.request('POST', TaskController.Get, request);
   }

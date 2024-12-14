@@ -130,11 +130,12 @@ export class TasksIndexComponent implements OnInit {
     const companyId = Number(localStorage.getItem("companyId"));
     this.tasksService.get({ companyId }).subscribe({
       next: (response: any) => {
-
+        console.log(response);
+        
         // Ensure Tasks is an array before iterating
 
         for (let item of response["data"].list) {
-          if (item.statusId === tasksStatus.TODO) {
+          if (item.statusId === tasksStatus.Todo) {
             this.tasksByStatus["TODO"].push(item);
           }
           else if (item.statusId == tasksStatus.InProgress) {

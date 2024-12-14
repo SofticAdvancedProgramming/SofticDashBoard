@@ -41,7 +41,7 @@
       class="task-list"
     >
       <!-- Tasks -->
-      <div *ngFor="let task of tasksByStatus[status]" cdkDrag [cdkDragData]="task" class="task">
+      <div *ngFor="let task of tasksByStatus[status]" cdkDrag [cdkDragData]="task" class="task" [routerLink]="['details',task.id]">
         <div class="task-card done-card fixed-size-card p-3 mb-3 ">
           <h4 class="task-card-title">{{task.name}}</h4>
           <p class="task-card-description">{{task.description}}</p>
