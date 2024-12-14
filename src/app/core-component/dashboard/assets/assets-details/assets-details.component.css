@@ -38,7 +38,9 @@
     padding: 2em;
     width: 100%;
 }
-
+.detail{
+    flex-direction: row !important;
+}
 .detail-title {
     font-family: 'Lama Sans', sans-serif;
     font-size: 16px;
@@ -321,6 +323,7 @@
     justify-content: center;
     align-items: center;
     gap: 1em;
+    width: 75%;
 }
 
 .file-name {
