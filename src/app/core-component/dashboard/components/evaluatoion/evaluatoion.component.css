@@ -1,0 +1,51 @@
+.Evaluation-popup{
+  background-color: #fff;
+  border-radius: 32px;
+}
+.Quality-num button{
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px 15px;
+  border: 1px solid #E7E6E8;
+  background-color:#FBFBFB;
+}
+.Quality-num-active button{
+  color: #8413F8;
+  border: 1px solid #8413F8;
+}
+
+.save-btn{
+  border: 1px solid #8413F8;
+  background-color:   #8413F8;
+  color: #ffffff;
+}
+.action-btn{
+  border: 1px solid #8413F8;
+  background-color: #FBFBFB;
+  color: #8413F8;
+}
+input{
+  height:48px ;
+}
+.form-group input,textarea{
+  background-color:#FBFBFB;
+  border-radius: 10px;
+  border: 1px solid #E7E6E8;
+}
+.form-group input,textarea{
+  background-color:#FBFBFB;
+  border-radius: 10px;
+  border: 1px solid #E7E6E8;
+}
+textarea{
+  height: 94px;
+}
+input::placeholder,textarea::placeholder{
+  color: #9C999F;
+}
+
+.cooment{
+  font-weight: 500;
+  font-size: 18px;
+  color: #36313C;
+}

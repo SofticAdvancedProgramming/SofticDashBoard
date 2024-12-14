@@ -7,11 +7,10 @@ import {
 } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { CommonModule } from '@angular/common';
+ import { CommonModule } from '@angular/common';
 import { TasksService } from '../../../../services/TasksService/tasks.service';
 
-
+ 
 @Component({
   selector: 'app-add-task',
   standalone: true,
