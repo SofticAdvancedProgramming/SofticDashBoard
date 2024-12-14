@@ -9,7 +9,7 @@
       *ngIf="!assets[0]?.employeeName"
       (click)="toggleAssignPopup()"
     >
-      Assign Asset
+      Assign To Employee
     </button>
     <button class="btn related-btn" (click)="toggleRelatedAssetsPopup()">
       Add Related Assets
@@ -37,7 +37,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-9">
       <div class="details">
         <div class="bg-light relatedAssetContainer mb-4">
           <div *ngFor="let asset of assets">
@@ -62,7 +62,7 @@
             <div class="detail-description">keyboard & ...............</div>
            </div> -->
             <div class="detail">
-              <div class="detail-title">id Assets</div>
+              <div class="detail-title">Model</div>
               <div class="detail-info">{{ asset.model }}</div>
             </div>
             <div class="detail">
@@ -96,7 +96,7 @@
                 <img
                 [src]="relatedAsset?.photo || '../../../../../assets/images/default.jpeg'"
                 alt="relatedAssetPhoto"
-                class="w-100 relatedAssetImg"
+                class=" relatedAssetImg"
               />
                 <div
                   class="d-flex justify-content-between align-items-center w-100"
@@ -120,8 +120,8 @@
         </div>
       </div>
     </div>
-    <!-- <div class="col-lg-3">
-      <div class="files-section" *ngIf="files.length > 0">
+    <div class="col-lg-3">
+      <div class="files-section justify-content-center d-flex flex-column" *ngIf="files.length > 0">
         <div *ngFor="let file of files" class="file-item">
           <div class="file-name">
             <i class="fas fa-file"></i>
@@ -135,7 +135,7 @@
       <div *ngIf="files.length === 0" class="no-files">
         No attachments available.
       </div>
-    </div> -->
+    </div>
   </div>
 </div>
 

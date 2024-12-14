@@ -7,8 +7,8 @@ import {
 } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { TasksService } from '../../../../services/TasksServices/tasks.service';
 import { CommonModule } from '@angular/common';
+import { TasksService } from '../../../../services/TasksService/tasks.service';
 
 @Component({
   selector: 'app-add-task',
@@ -64,7 +64,7 @@ export class AddTaskComponent implements OnInit {
     };
     console.log(this.form.value);
     if (this.form.value) {
-      this.tasksService.addTask(query).subscribe({
+      this.tasksService.add(query).subscribe({
         next: (res) => {
           console.log(res);
           this.ngOnInit();

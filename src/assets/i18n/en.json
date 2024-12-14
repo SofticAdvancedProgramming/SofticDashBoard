@@ -797,7 +797,8 @@
     "assetstatus": "Asset Status",
     "outofservice": "Out of service",
     "AssienedTo":"Assiened To",
-    "NotAssiened":"Not Assiened"
+    "NotAssiened":"Not Assiened",
+    "Model":"Model"
   },
   "FILTER_POPUP": {
     "name": "Name",

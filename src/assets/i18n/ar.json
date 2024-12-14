@@ -801,7 +801,8 @@
     "assetstatus": "حالة الأصل",
     "outofservice": "خارج الخدمة",
      "AssienedTo":"مسندة لـ",
-    "NotAssiened":"لم يتم الاسناد بعد"
+    "NotAssiened":"لم يتم الاسناد بعد",
+    "Model":"الموديل"
   },
   "FILTER_POPUP": {
     "name": "الاسم",

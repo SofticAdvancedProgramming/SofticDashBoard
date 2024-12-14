@@ -1,0 +1,46 @@
+.confirmation-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.btn-danger {
+    width: 150px;
+    height: 48px;
+    gap: 0px;
+    border-radius: 10px;
+    opacity: 0px;
+    background: #AE0D0D;
+    color: white;
+}
+
+.btn-secondary {
+    width: 150px;
+    height: 48px;
+    gap: 0px;
+    border-radius: 10px;
+    opacity: 0px;
+    border: 1px solid #9ACA3C;
+    color: #9ACA3C;
+background-color: transparent;
+}
