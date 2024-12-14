@@ -20,4 +20,5 @@ export interface Task
     startDate?:Date;
     statusId?:number;
     timeScore?:number;
+    taskAttachments:[];
 }

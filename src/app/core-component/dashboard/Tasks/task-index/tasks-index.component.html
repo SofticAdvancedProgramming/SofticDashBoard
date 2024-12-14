@@ -47,8 +47,8 @@
           <p class="task-card-description">{{task.description}}</p>
           <div class="d-flex justify-content-between align-items-center">
             <span><img src="../../../../../assets/images/calendar.png" class="px-1" >{{task.startDate |date:'short'}}</span>
-            <span class="task-card-subscriber">
-              <img src="../../../../../assets/images/Avatar (2).png"  style="width: 15px;height: 15px;">
+            <span class="task-card-subscriber" *ngFor="let task of task.taskAttachments">
+              <img [src]="[task['file']]"  style="width: 15px;height: 15px;">
             </span>
           </div>
         </div>
