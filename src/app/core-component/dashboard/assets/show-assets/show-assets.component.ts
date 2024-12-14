@@ -11,21 +11,24 @@ import { search } from '@tensorflow/tfjs-core/dist/io/composite_array_buffer';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { any } from '@tensorflow/tfjs-core';
 import { ChangStatusAssetsPopupComponent } from '../../../../common-component/chang-status-assets-popup/chang-status-assets-popup.component';
+import { ConfirmnDeleteDialogComponent } from "../../../../common-component/confirmn-delete-dialog/confirmn-delete-dialog.component";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-show-assets',
-  standalone: true,
-  imports: [
-    TranslateModule,
-    FilterPopupComponent,
-    CommonModule,
-    RouterLink,
-    FormsModule,
-    PaginationModule,
-    ChangStatusAssetsPopupComponent
-  ],
-  templateUrl: './show-assets.component.html',
-  styleUrl: './show-assets.component.css',
+    selector: 'app-show-assets',
+    standalone: true,
+    templateUrl: './show-assets.component.html',
+    styleUrl: './show-assets.component.css',
+    imports: [
+        TranslateModule,
+        FilterPopupComponent,
+        CommonModule,
+        RouterLink,
+        FormsModule,
+        PaginationModule,
+        ChangStatusAssetsPopupComponent,
+        ConfirmnDeleteDialogComponent
+    ]
 })
 export class ShowAssetsComponent implements OnInit {
   isFilterPopupVisible = false;
@@ -48,12 +51,14 @@ export class ShowAssetsComponent implements OnInit {
   totalRows: number = 0;
   activeButtonIndex: number | null = null;
   isAssined!: boolean;
-
+  isConfirmationDialogVisible: boolean = false;
+  assetToDeleteId!: number;
   constructor(
     private translate: TranslateService,
     private assetsService: AssetsService,
     private localStorageService: LocalStorageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService, 
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
     this.getAssetsCategory();
@@ -257,5 +262,24 @@ export class ShowAssetsComponent implements OnInit {
   isAssignAssetVisible = false;
   toggleAssignPopup() {
     this.isAssignAssetVisible = !this.isAssignAssetVisible;
+  }
+  showDeleteConfirmation(assetId: number) {
+    this.assetToDeleteId = assetId;
+    this.isConfirmationDialogVisible = true;
+  }
+
+  handleDeleteConfirm() {
+    this.delete(this.assetToDeleteId);
+    this.isConfirmationDialogVisible = false;
+  }
+
+  handleDeleteCancel() {
+    this.isConfirmationDialogVisible = false;
+  }
+  showCannotDeleteToast(employeeName: string) {
+    this.toastr.warning(
+      `This asset is assigned to ${employeeName}. You cannot delete it.`,
+      'Delete Not Allowed'
+    );
   }
 }
