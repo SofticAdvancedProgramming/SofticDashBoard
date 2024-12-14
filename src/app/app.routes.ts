@@ -45,6 +45,9 @@ import { RelatedAssetsComponent } from './core-component/dashboard/setting/Locku
 import { TasksIndexComponent } from './core-component/dashboard/Tasks/task-index/tasks-index.component';
 import { AddTaskComponent } from './core-component/dashboard/Tasks/add-task/add-task.component';
 import { TaskDetailsComponent } from './core-component/dashboard/Tasks/task-details/task-details.component';
+import { TaskAnalyticsComponent } from './core-component/dashboard/Tasks/task-analytics/task-analytics.component';
+import { RewarkDialogComponent } from './core-component/dashboard/components/rewark-dialog/rewark-dialog.component';
+import { EvaluatoionComponent } from './core-component/dashboard/components/evaluatoion/evaluatoion.component';
 
 export const routes: Routes = [
   {
@@ -101,6 +104,9 @@ export const routes: Routes = [
       { path: 'tasks', component: TasksIndexComponent},
       { path: 'tasks/addnew', component: AddTaskComponent},
       { path: 'tasks/details', component: TaskDetailsComponent},
+      { path: 'tasks/analytics', component: TaskAnalyticsComponent},
+      { path: 'tasks/evaluation', component: EvaluatoionComponent},
+      { path: 'tasks/rework', component: RewarkDialogComponent},
 
         ],
   },{
