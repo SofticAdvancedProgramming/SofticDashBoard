@@ -1,8 +1,8 @@
-import { TasksController } from './../../apis/tasksController';
-import { Injectable } from '@angular/core';
+ import { Injectable } from '@angular/core';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
 import { Task } from '../../core-component/dashboard/models/Task';
+import { TasksController } from '../../apis/TasksController';
  
 
 @Injectable({
