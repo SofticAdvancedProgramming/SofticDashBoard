@@ -1,8 +1,10 @@
+
 import { environment } from "../environment/environment";
 
-export const TaskController = {
+
+export const TasksController = {
+
     AssignTaskStatus: `${environment.apiBaseUrl}Tasks/AssignTaskStatus`,
-    AssignTask: `${environment.apiBaseUrl}TaskAssignment/Add`,
     AssignCost: `${environment.apiBaseUrl}Tasks/AssignCost`,
     GetCost: `${environment.apiBaseUrl}Tasks/GetCost`,
     AssignEvaluation: `${environment.apiBaseUrl}Tasks/AssignEvaluation`,
@@ -15,5 +17,4 @@ export const TaskController = {
     DeActivate: (id: number, companyId: number) => `${environment.apiBaseUrl}Tasks/DeActivate/${id}/${companyId}`,
     Count: `${environment.apiBaseUrl}Tasks/Count`,
 
- 
-}
+};
