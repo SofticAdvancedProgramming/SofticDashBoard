@@ -1,6 +1,7 @@
 export interface Task
 {
     id:number;
+    data:any;
     name: string;
     description: string;
     dueDate: string;
