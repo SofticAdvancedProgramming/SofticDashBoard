@@ -16,5 +16,4 @@ export const TasksController = {
     Activate: (id: number, companyId: number) => `${environment.apiBaseUrl}Tasks/Activate/${id}/${companyId}`,
     DeActivate: (id: number, companyId: number) => `${environment.apiBaseUrl}Tasks/DeActivate/${id}/${companyId}`,
     Count: `${environment.apiBaseUrl}Tasks/Count`,
-    
 };
