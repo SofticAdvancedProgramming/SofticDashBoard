@@ -92,7 +92,8 @@
             <div
               *ngFor="let relatedAsset of relatedAssets"
               class="col-12 col-md-6 col-lg-3">
-              <div class="relatedAsset-details">
+              <div class="relatedAsset-details"  [routerLink]="['/dashboard/AssetsDetails',relatedAsset.id]">
+                <button class="btn delete-related-asset-btn" (click)="deleteRelatedAsset($event,relatedAsset.id)">x</button>
                 <img
                 [src]="relatedAsset?.photo || '../../../../../assets/images/default.jpeg'"
                 alt="relatedAssetPhoto"
@@ -144,3 +145,12 @@
   *ngIf="isRelatedAssetsVisible"
   (closeRelatedAssets)="onRelatedAssetsClose($event)"
 ></app-related-assets-popup>
+
+
+<app-confirmn-delete-dialog
+  *ngIf="isConfirmationDialogVisible"
+  title="Delete related asset"
+  message="Are you sure you want to delete this related asset?"
+  (onConfirm)="handleDeleteConfirm()"
+  (onCancel)="handleDeleteCancel()"
+></app-confirmn-delete-dialog>

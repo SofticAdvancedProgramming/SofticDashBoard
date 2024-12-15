@@ -4,18 +4,20 @@ import { AssignAssetPopupComponent } from "../../../../common-component/assign-a
 import { TranslateService } from '@ngx-translate/core';
 import { AssetsService } from '../../../../services/AssetsService/assets.service';
 import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Asset } from '../../../../../models/assets';
 import { MapComponent } from '../../../../common-component/map/map.component';
 import { HttpClient } from '@angular/common/http';
 import { RelatedAssetsPopupComponent } from "../../../../common-component/related-assets-popup/related-assets-popup.component";
+import { ConfirmnDeleteDialogComponent } from '../../../../common-component/confirmn-delete-dialog/confirmn-delete-dialog.component';
 
 @Component({
   selector: 'app-assets-details',
   standalone: true,
   templateUrl: './assets-details.component.html',
   styleUrls: ['./assets-details.component.css'],
-  imports: [CommonModule, AssignAssetPopupComponent, MapComponent, RelatedAssetsPopupComponent]
+  imports: [CommonModule, AssignAssetPopupComponent, MapComponent, RelatedAssetsPopupComponent,RouterLink,
+    ConfirmnDeleteDialogComponent]
 })
 export class AssetsDetailsComponent implements OnInit {
   assets: Asset[] = [];
@@ -31,6 +33,8 @@ export class AssetsDetailsComponent implements OnInit {
   isAssignAssetVisible = false;
   isRelatedAssetsVisible = false;
   selectedAssetLocation: { lat: number, long: number } = { lat: 0, long: 0 };
+  deletedrelatedAssetsId!:number;
+  childAsset:any;
   private accessToken = 'pk.eyJ1IjoiYWRoYW1rYW1hbDIyMzQ1IiwiYSI6ImNtMHVvNjM1dDBpenUyaXFzb21tM2JiOWkifQ.wXQZpp_tsqdoiqZAl9PbpQ'
 
   constructor(
@@ -39,7 +43,6 @@ export class AssetsDetailsComponent implements OnInit {
     private assetsService: AssetsService,
     private http: HttpClient,
     private cdRef: ChangeDetectorRef,
-
     private localStorageService: LocalStorageService,
   ) { }
   selectedAssetAddress: string = '';
@@ -183,5 +186,48 @@ export class AssetsDetailsComponent implements OnInit {
       }
     });
   }
+  isConfirmationDialogVisible:boolean=false;
 
+  deleteRelatedAsset(event:Event,assetsid:number){
+    event.stopPropagation();
+    this.isConfirmationDialogVisible=true;
+    this.deletedrelatedAssetsId=assetsid;
+    this.getChild();
+  }
+
+  handleDeleteConfirm(){
+    if(this.childAsset){
+ //   console.log(this.deletedrelatedAssetsId);
+    this.edit();
+    }
+  }
+
+  handleDeleteCancel(){
+    this.isConfirmationDialogVisible=false;
+  }
+
+  getChild(){
+    console.log(this.deletedrelatedAssetsId)
+    let params={id:this.deletedrelatedAssetsId}
+    this.assetsService.getAsset(params).subscribe(
+      (res)=>{
+        this.childAsset=res.data.list[0];
+    //console.log(this.childAsset)
+    //  console.log(res)
+      },
+      (err)=>{console.log(err)}
+    )
+  }
+  edit(){
+    console.log(this.childAsset)
+    this.childAsset.parentAssetId=null;
+    console.log(this.childAsset);
+    this.assetsService.edit(this.childAsset).subscribe({
+      next:(res)=>{
+      //console.log(res);
+        this.isConfirmationDialogVisible=false;
+        this.ngOnInit();},
+      error:(res)=>{console.log(res);}
+    })
+  }
 }

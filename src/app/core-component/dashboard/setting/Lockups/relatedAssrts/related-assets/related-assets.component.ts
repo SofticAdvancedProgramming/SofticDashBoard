@@ -41,7 +41,7 @@ export class RelatedAssetsComponent implements OnInit{
   itemsPerPage: number = 10;
   modalId = 'RelatedAssets';
   deleteId: string = 'deleteAssetCategory';
-  columns: string[] = ['name' , 'nameAr','parent Asset'];
+  columns: string[] = ['name' , 'nameAr','parentAssetName','parentAssetNameAr']
   companyId = this.localStorageService.getItem('companyId');
   pageIndex: any = {};
   entityTypes: Record<
@@ -115,6 +115,8 @@ export class RelatedAssetsComponent implements OnInit{
       next: (res) => {
         this.assets = res.data.list
         this.relatedAssets= res.data.list
+        console.log(res.data.list)
+        console.log(this.relatedAssets)
 
         // this.relatedAssets=  this.relatedAssets.map((item:any)=>{
         //   this.getParentAsset(item.parentAssetId)
