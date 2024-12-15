@@ -50,6 +50,8 @@ export class AssignTaskPopupComponent {
         taskId: this.taskId,
         employeeId: this.selectedEmployee.id,
       };
+      console.log(this.selectedEmployee.id);
+      
 
       this.taskService.assignTask(assignAssetData).subscribe({
         next: (response) => {
