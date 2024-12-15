@@ -94,17 +94,13 @@ export class TaskDetailsComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.taskDetails = res.data.list[0];
-
         this.form = this.fb.group({
           laborCost: [this.taskDetails.laborCost, Validators.required],
           materialCost: [this.taskDetails.materialCost, Validators.required],
           serviceCost: [this.taskDetails.serviceCost, Validators.required],
           additionalCost: [this.taskDetails.additionalCost, Validators.required],
         });
-
-        if(this.taskDetails.taskAttachments[0].file){
-          this.taskImg = this.taskDetails.taskAttachments[0].file
-        }
+        
         if(this.taskDetails.toDoItems){
           this.todoItems = this.taskDetails.toDoItems;
         }
@@ -126,6 +122,11 @@ export class TaskDetailsComponent implements OnInit {
           this.inProgressImgScr = this.inProgressImg;
           this.ReviewImgScr = this.ReviewImg;
           this.DoneImgScr = this.DoneImg;
+        }
+
+        
+        if(this.taskDetails.taskAttachments[0].file){
+          this.taskImg = this.taskDetails.taskAttachments[0].file;
         }
       },
       error(err) {

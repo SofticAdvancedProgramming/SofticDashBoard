@@ -1,8 +1,8 @@
-import { TasksController } from './../../apis/tasksController';
 import { Injectable } from '@angular/core';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
 import { Task } from '../../core-component/dashboard/models/Task';
+import { taskController } from '../../apis/taskController';
  
 
 @Injectable({
@@ -13,63 +13,63 @@ export class TasksService {
   constructor(private http: ApiCall) { }
 
   assignTaskStatus(request: any): Observable<any> {
-    return this.http.request('POST', TasksController.AssignTaskStatus, request);
+    return this.http.request('POST', taskController.AssignTaskStatus, request);
   }
   assignTask(request: any): Observable<any> {
-    return this.http.request('POST', TasksController.AssignTask, request);
+    return this.http.request('POST', taskController.AssignTask, request);
   }
   assignEmployees(request: any): Observable<any> {
-    return this.http.request('POST', TasksController.GetAssignmentEmployees, request);
+    return this.http.request('POST', taskController.GetAssignmentEmployees, request);
   }
 
   assignCost(request:any) :Observable<any>
   {
-    return this.http.request('POST', TasksController.AssignCost, request);
+    return this.http.request('POST', taskController.AssignCost, request);
   }
 
   getCost(request:any) :Observable<any>
   {
-    return this.http.request('POST', TasksController.GetCost, request);
+    return this.http.request('POST', taskController.GetCost, request);
   }
 
   assignEvaluation(request:any):Observable<any>
   {
-    return this.http.request('POST', TasksController.AssignEvaluation, request);
+    return this.http.request('POST', taskController.AssignEvaluation, request);
   }
 
   getEvaluation(request:any):Observable<any>
   {
-    return this.http.request('POST', TasksController.GetEvaluation, request);
+    return this.http.request('POST', taskController.GetEvaluation, request);
   }
 
   get(request:any):Observable<any>
   {
-    return this.http.request('POST', TasksController.Get, request);
+    return this.http.request('POST', taskController.Get, request);
   }
 
   add(request:any):Observable<any>
   {
-    return this.http.request('POST', TasksController.Add, request);
+    return this.http.request('POST', taskController.Add, request);
   }
 
   edit(request:any):Observable<any>
   {
-    return this.http.request('POST', TasksController.Edit, request);
+    return this.http.request('POST', taskController.Edit, request);
   }
 
   delete(id: number, companyId: number): Observable<any> {
-    return this.http.request('POST', TasksController.Delete(id, companyId), {});
+    return this.http.request('POST', taskController.Delete(id, companyId), {});
   }
 
   activate(id: number, companyId: number): Observable<any> {
-    return this.http.request('POST', TasksController.Activate(id, companyId), {});
+    return this.http.request('POST', taskController.Activate(id, companyId), {});
   }
   deActivate(id: number, companyId: number): Observable<any> {
-    return this.http.request('POST', TasksController.DeActivate(id, companyId), {});
+    return this.http.request('POST', taskController.DeActivate(id, companyId), {});
   }
 
   count(request:any):Observable<any>
   {
-    return this.http.request('POST', TasksController.Count, request);
+    return this.http.request('POST', taskController.Count, request);
   }
 }
