@@ -45,15 +45,15 @@ export class AssetsDetailsComponent implements OnInit {
   selectedAssetAddress: string = '';
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const id = params['id'];  
+      const id = params['id'];
       if (id) {
-        console.log('Extracted assetId:', id);   
-        this.gettAssets(Number(id));    
-        this.getRelatedAssets(Number(id));   
+        console.log('Extracted assetId:', id);
+        this.gettAssets(Number(id));
+        this.getRelatedAssets(Number(id));
       }
     });
   }
-  
+
 
   downloadFile(fileUrl: string) {
     console.log('File URL:', fileUrl);
@@ -103,42 +103,42 @@ export class AssetsDetailsComponent implements OnInit {
   }
 
   gettAssets(id: number) {
-    const params = { id };   
-    console.log('Requesting asset with ID:', id);   
+    const params = { id };
+    console.log('Requesting asset with ID:', id);
     this.assetsService.getAsset(params).subscribe({
       next: (res) => {
         console.log('Assets Response:', res.data.list);
         this.assets = res.data.list.map((asset: any) => {
           const category = this.assetsCategory.find(cat => cat.id === asset.assetCategoryId);
           const assetCategoryName = category ? (this.translate.currentLang === 'ar' ? category.nameAr : category.name) : 'Unknown';
-    
+
           this.files = asset.assetAttachments ? asset.assetAttachments.map((attachment: any) => ({
             name: attachment.file.split('/').pop(),
             url: attachment.file
           })) : [];
-    
+
           if (asset.lat && asset.long) {
             this.selectedAssetLocation = { lat: asset.lat, long: asset.long };
             this.getAddressFromCoordinates(asset.lat, asset.long);
           } else {
             this.selectedAssetAddress = 'Address not available';
           }
-    
+
           return {
             ...asset,
             assetCategoryName: assetCategoryName
           };
         });
         console.log('Mapped Assets Array:', this.assets);
-    
-        this.getRelatedAssets(id);  
+
+        this.getRelatedAssets(id);
       },
       error: (err) => {
         console.error('Error fetching assets:', err);
       }
     });
   }
-  
+
 
 
   getAddressFromCoordinates(lat: number, long: number) {
@@ -147,7 +147,7 @@ export class AssetsDetailsComponent implements OnInit {
     this.http.get(url).subscribe({
       next: (response: any) => {
         if (response.features && response.features.length > 0) {
-          this.selectedAssetAddress = response.features[0]?.place_name; 
+          this.selectedAssetAddress = response.features[0]?.place_name;
           console.log('Fetched Address:', this.selectedAssetAddress);
         } else {
           this.selectedAssetAddress = 'Address not available';
@@ -163,17 +163,19 @@ export class AssetsDetailsComponent implements OnInit {
     });
   }
   getRelatedAssets(assetId: number) {
-    const params = { assetId };
+    //const params = { assetId };
+    const params = { parentAssetId:assetId };
     console.log('Requesting related assets for assetId:', assetId);
-    this.assetsService.getRelatedAssets(params).subscribe({
+   // this.assetsService.getRelatedAssets(params).subscribe({
+      this.assetsService.getAsset(params).subscribe({
       next: (res) => {
         console.log('Related Assets Response:', res);
         if (res.data && Array.isArray(res.data.list)) {
-          this.relatedAssets = res.data.list;  
+          this.relatedAssets = res.data.list;
         } else {
           this.relatedAssets = [];
         }
-        this.cdRef.detectChanges(); 
+        this.cdRef.detectChanges();
       },
       error: (err) => {
         console.error('Error fetching related assets:', err);
@@ -181,5 +183,5 @@ export class AssetsDetailsComponent implements OnInit {
       }
     });
   }
-  
+
 }

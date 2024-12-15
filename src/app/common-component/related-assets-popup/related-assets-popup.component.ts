@@ -16,6 +16,7 @@ import { RelatedAsset } from '../../../models/assets';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ImageUploadService } from '../../services/ImageUploadService/image-upload.service';
+import { LocalStorageService } from '../../services/local-storage-service/local-storage.service';
 @Component({
   selector: 'app-related-assets-popup',
   standalone: true,
@@ -32,6 +33,10 @@ export class RelatedAssetsPopupComponent {
   selectedFileName: string | null = null;
   PhotoExtension: any;
   uploadedImageBase64: any;
+  assets: any[] = [];
+  lang: string = this.localStorageService.getItem('lang')!;
+
+  childAsset:any;
   relatedAsset: RelatedAsset = {
     companyId: 0,
     name: '',
@@ -40,21 +45,25 @@ export class RelatedAssetsPopupComponent {
     assetId: 0,
     photoExtension: '',
     photo: '',
+    parentAssetId:0
   };;
+  childId:any;
   constructor(
     private assetService: AssetsService,
     private route: ActivatedRoute,
     private toastr: ToastrService,
     private translate: TranslateService,
     private imageUploadService: ImageUploadService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private localStorageService: LocalStorageService
+
   ) {}
   ngOnInit() {
     const assetIdFromRoute = Number(this.route.snapshot.paramMap.get('id'));
     this.assetId = assetIdFromRoute;
     this.relatedAsset.assetId = this.assetId;
     console.log('Asset ID:', this.assetId);
-
+    this. loadAssets();
     const companyIdFromStorage = localStorage.getItem('companyId');
     if (companyIdFromStorage) {
       this.relatedAsset.companyId = Number(companyIdFromStorage);
@@ -62,37 +71,72 @@ export class RelatedAssetsPopupComponent {
       console.error('Company ID not found in localStorage');
     }
   }
+  loadAssets(){
+    this.assetService.getAsset().subscribe({
+      next: (res) => {
+        this.assets = res.data.list.filter((item:any)=>
+        item.parentAssetId==null && item.id!= this.assetId
+      )
+      },
+      error: (err)=>{
+        console.log(err)
+      }
+    })
+  }
 
   closePopup() {
     this.closeRelatedAssets.emit(false);
   }
 
   Submit() {
-    this.relatedAsset.photoExtension = this.PhotoExtension;
-    this.relatedAsset.photo = this.uploadedImageBase64
-    if (
-      this.relatedAsset.name &&
-      this.relatedAsset.nameAr &&
-      this.relatedAsset.model && 
-      this.relatedAsset.photoExtension && 
-      this.relatedAsset.photo
-    ) {
-        console.log(this.relatedAsset);
-      this.assetService.addRelatedAsset(this.relatedAsset).subscribe({
-        next: (response) => {
-          console.log('Related asset added:', response);
+    // this.relatedAsset.photoExtension = this.PhotoExtension;
+    // this.relatedAsset.photo = this.uploadedImageBase64;
+    // this.relatedAsset.parentAssetId=this.assetId
+    // console.log(this.relatedAsset);
+    // console.log(this.childId);
+    this.childAsset.parentAssetId=this.assetId;
+    this.edit();
+    // if (
+    //   this.relatedAsset.name &&
+    //   this.relatedAsset.nameAr &&
+    //   this.relatedAsset.model &&
+    //   this.relatedAsset.photoExtension &&
+    //   this.relatedAsset.photo
+    // ) {
+    //     console.log(this.relatedAsset);
+    //   this.assetService.addRelatedAsset(this.relatedAsset).subscribe({
+    //     next: (response) => {
+    //       console.log('Related asset added:', response);
 
-          this.toastr.success('Related asset added successfully');
+    //       this.toastr.success('Related asset added successfully');
 
-          this.closePopup();
-        },
-      });
-    } else {
-        console.log(this.relatedAsset);
-      this.toastr.error('All fields are required!');
-    }
+    //       this.closePopup();
+    //     },
+    //   });
+    // } else {
+    //     console.log(this.relatedAsset);
+    //   this.toastr.error('All fields are required!');
+    // }
   }
-
+  getChild(){
+    console.log(this.childId)
+    let params={id:this.childId}
+    this.assetService.getAsset(params).subscribe(
+      (res)=>{
+        this.childAsset=res.data.list[0];
+        console.log(this.childAsset)
+        console.log(res)
+      },
+      (err)=>{console.log(err)}
+    )
+  }
+  edit(){
+    console.log(this.childAsset)
+    this.assetService.edit(this.childAsset).subscribe({
+      next:(res)=>{console.log(res);},
+      error:(res)=>{console.log(res);}
+    })
+  }
   onFileChange(event: any): void {
     console.log('onFileChange');
     const file = event.target.files[0];
