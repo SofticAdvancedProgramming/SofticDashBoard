@@ -260,6 +260,10 @@
     border-radius: 10px;
     flex-direction: column;
 }
+.relatedAsset-details{
+    box-shadow: 2px 2px 5px 0px #59595a2e;
+    border-radius: 10px;
+}
 .relatedAssetImg{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -276,6 +280,9 @@
     width: 150px;
 }
 
+.relatedAsset-details-text{
+  height: 60px;
+}
 .detail-description {
     color: #09050E;
     font-family: 'Lama Sans', sans-serif;
@@ -292,8 +299,8 @@
     width: calc(100% - 160px);
 }
 .long-text-related {
-    max-height: 100px;  
-    overflow-y: auto;  
+    max-height: 100px;
+    overflow-y: auto;
     padding-right: 10px;
     text-overflow: ellipsis;
 }
@@ -301,7 +308,7 @@
 .detail-description.long-text-related,
 .detail-description2.long-text-related {
     display: block;
-    max-height: 100px; 
+    max-height: 100px;
     overflow-y: auto;
 }
 .files-section h3 {

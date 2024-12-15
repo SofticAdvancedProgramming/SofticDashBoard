@@ -21,6 +21,6 @@ export interface Asset {
     assetId: number;
     photo: any;
     photoExtension: any;
- 
+    parentAssetId:number
+
   }
-  
