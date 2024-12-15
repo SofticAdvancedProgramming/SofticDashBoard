@@ -74,6 +74,7 @@ export class AddTaskComponent implements OnInit {
       actualCost: [''],
       duration: ['', Validators.required],
       taskToDoDescription: [''],
+      AssetAttachment:[''],
       todos: this.fb.array([]), // Initialize the FormArray
     });
   }

@@ -4,7 +4,7 @@
       <div class="form-group my-3">
         <label class="form-label">Task Name</label>
         <div class="row">
-          <div class="col-6">
+          <div class="col-12">
             <input
               type="text"
               formControlName="name"
@@ -26,56 +26,6 @@
               <small *ngIf="form.get('name')?.errors?.['required']">
                 {{ "Tasks.validation.nameRequired" | translate }}
               </small>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="d-flex gap-1 flex-wrap" style="grid-column: 1 / -1">
-              <div class="form-group">
-                <label for="photo">{{ "Assets.attachment" | translate }}</label>
-                <label for="attachmentfile">
-                  <div class="container-upload" for="attachmentfile">
-                    <div
-                      *ngIf="
-                        !attachmentfileType ||
-                        attachmentfileType.startsWith('image/')
-                      "
-                      class="header"
-                    >
-                      <p>{{ "ASSET_UPLOADER.BROWSE_FILE" | translate }}</p>
-                    </div>
-                    <!-- <label for="attachmentfile" class="footer">
-                    <p *ngIf="files.length === 0 && !attachmentUploadMessage">
-                      {{ "ASSET_UPLOADER.NO_FILE_SELECTED" | translate }}
-                    </p>
-  
-                    <p *ngIf="attachmentUploadMessage" class="upload-message">
-                      {{ attachmentUploadMessage }}
-                    </p>
-                  </label> -->
-
-                    <input
-                      id="attachmentfile"
-                      type="file"
-                      (change)="onAttachmentChange($event)"
-                      formControlName="AssetAttachment"
-                      class="form-control-file"
-                    />
-                  </div>
-                </label>
-              </div>
-              <div *ngFor="let file of files" class="file-info">
-                <div *ngIf="!file.fileType?.startsWith('image/')">
-                  <i class="fa fa-file" aria-hidden="true"></i>
-                  <span>{{ file.fileName }}</span>
-                </div>
-
-                <img
-                  *ngIf="file.previewUrl && file.fileType?.startsWith('image/')"
-                  [src]="file.previewUrl"
-                  alt="{{ file.fileName }}"
-                  class="img-preview"
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -241,6 +191,56 @@
             <small *ngIf="form.get('actualCost')?.errors?.['required']">
               {{ "Tasks.validation.nameRequired" | translate }}
             </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="d-flex gap-1 flex-wrap" style="grid-column: 1 / -1">
+          <div class="form-group">
+            <label for="photo">{{ "Assets.attachment" | translate }}</label>
+            <label for="attachmentfile">
+              <div class="container-upload" for="attachmentfile">
+                <div
+                  *ngIf="
+                    !attachmentfileType ||
+                    attachmentfileType.startsWith('image/')
+                  "
+                  class="header"
+                >
+                  <p>{{ "ASSET_UPLOADER.BROWSE_FILE" | translate }}</p>
+                </div>
+                <!-- <label for="attachmentfile" class="footer">
+                <p *ngIf="files.length === 0 && !attachmentUploadMessage">
+                  {{ "ASSET_UPLOADER.NO_FILE_SELECTED" | translate }}
+                </p>
+
+                <p *ngIf="attachmentUploadMessage" class="upload-message">
+                  {{ attachmentUploadMessage }}
+                </p>
+              </label> -->
+
+                <input
+                  id="attachmentfile"
+                  type="file"
+                  (change)="onAttachmentChange($event)"
+                  formControlName="AssetAttachment"
+                  class="form-control-file"
+                />
+              </div>
+            </label>
+          </div>
+          <div *ngFor="let file of files" class="file-info">
+            <div *ngIf="!file.fileType?.startsWith('image/')">
+              <i class="fa fa-file" aria-hidden="true"></i>
+              <span>{{ file.fileName }}</span>
+            </div>
+
+            <img
+              *ngIf="file.previewUrl && file.fileType?.startsWith('image/')"
+              [src]="file.previewUrl"
+              alt="{{ file.fileName }}"
+              class="img-preview"
+            />
           </div>
         </div>
       </div>
