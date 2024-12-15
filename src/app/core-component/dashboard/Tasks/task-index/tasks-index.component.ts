@@ -128,7 +128,7 @@ export class TasksIndexComponent implements OnInit {
 
   loadAllTasks(): void {
     const companyId = Number(localStorage.getItem("companyId"));
-    this.tasksService.get({ companyId }).subscribe({
+    this.tasksService.get({ companyId, pageSize: 100 }).subscribe({
       next: (response: any) => {
         console.log(response);
         

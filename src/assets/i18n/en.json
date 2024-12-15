@@ -813,12 +813,13 @@
   },
   "Tasks": {
     "addTasks": {
-      "addTaskBtn":"Add Task"
+      "addTaskBtn":"Add Task",
+      "cancel": "Cancel"
     },
     "validation":{
       "nameRequired": "Task Name Required",
       "detailsRequired": "Task Details Required",
-      "detailsMinLength": "Task Details Min Length is 100 characters",
+      "detailsMinLength": "Task Details Min Length is 50 characters",
       "detailsMaxLength": "Task Details Max Length is 300 characters",
       "startDateRequired": "Start Date Required",
       "durationRequired": "Duration Required",

@@ -8,6 +8,12 @@
 .w-85{
   width: 85%;
 }
+.taskImg{
+  width: 100%;
+  height: 300px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
 .edit-btn {
   background: white;
   width: Fixed (226px)px;
@@ -21,6 +27,9 @@
   gap: 0.2em;
   display: flex;
   justify-content: center;
+}
+.lead{
+  margin: 0 !important;
 }
 .task-details-card{
   background-color: #fff;
@@ -46,6 +55,9 @@
   font-weight: 700;
   font-size: 32px;
 }
+.task-details-card-description{
+  width: 100%;
+}
 .task-details-card-description-title
 {
   color:#141522;
@@ -56,6 +68,10 @@
   color:#736F77;
   font-weight: 300;
   font-size: 16px;
+  word-wrap: break-word; /* Break long words if necessary */
+  word-break: break-word; /* Ensure long words break properly */
+  white-space: normal; /* Allow text to wrap */
+  overflow-wrap: anywhere; /* Handle text overflow gracefully */
 }
 .date-description-currency{
   color:#8413F8;
@@ -245,5 +261,19 @@ input:active ,textarea:active{
 .active-review{
   border: 1px solid  #8613f83f;
   box-shadow: 2px 2px 20px 0 #ff88005b;
+}
+
+.is-invalid {
+  outline: 1px solid red;
+}
+.invalid-feedback {
+  color: red;
+  /* width: 80%; */
+}
+.is-valid:focus {
+  outline: 1px solid blue;
+}
+.is-untouched {
+  outline: 1px solid lightgray;
 }
 

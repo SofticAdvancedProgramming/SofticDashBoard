@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { AssignTaskPopupComponent } from '../../../../common-component/assign-task-popup/assign-task-popup/assign-task-popup.component';
 import { tasksStatus } from '../../../../core/enums/taskStatus';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-task-details',
@@ -32,6 +33,8 @@ export class TaskDetailsComponent implements OnInit {
   id!: number;
   companyId: number;
   taskDetails: any;
+  employees: any;
+  todoItems: any;
   form!: FormGroup;
   isAssignTaskVisible: boolean = false;
   isTodoStatus: boolean = false;
@@ -46,12 +49,14 @@ export class TaskDetailsComponent implements OnInit {
   isInProgressStatus: boolean = false;
   isReviewStatus: boolean = false;
   isDoneStatus: boolean = false;
+  taskImg = '../../../../../assets/images/Video Task.png';
 
   constructor(
     private tasksService: TasksService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private toast: ToastrService
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
@@ -72,16 +77,12 @@ export class TaskDetailsComponent implements OnInit {
     this.ReviewImgScr = '../../../../../assets/images/notDoneYet.png';
     this.DoneImgScr = '../../../../../assets/images/notDoneYet.png';
     this.getTaksDetails();
+    this.getEmployeesAssignments();
     this.initiation();
   }
 
   initiation() {
-    this.form = this.fb.group({
-      laborCost: ['', Validators.required],
-      materialCost: ['', Validators.required],
-      serviceCost: ['', Validators.required],
-      additionalCost: ['', Validators.required],
-    });
+    
   }
 
   getTaksDetails() {
@@ -93,6 +94,20 @@ export class TaskDetailsComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.taskDetails = res.data.list[0];
+
+        this.form = this.fb.group({
+          laborCost: [this.taskDetails.laborCost, Validators.required],
+          materialCost: [this.taskDetails.materialCost, Validators.required],
+          serviceCost: [this.taskDetails.serviceCost, Validators.required],
+          additionalCost: [this.taskDetails.additionalCost, Validators.required],
+        });
+
+        if(this.taskDetails.taskAttachments[0].file){
+          this.taskImg = this.taskDetails.taskAttachments[0].file
+        }
+        if(this.taskDetails.toDoItems){
+          this.todoItems = this.taskDetails.toDoItems;
+        }
         if (this.taskDetails.statusId == 1) {
           this.isTodoStatus = true;
           this.todoImgScr = this.todoImg;
@@ -118,6 +133,22 @@ export class TaskDetailsComponent implements OnInit {
       },
     });
   }
+  getEmployeesAssignments(){
+    let query = {
+      companyId: this.companyId,
+      taskId: this.id,
+    }
+    this.tasksService.assignEmployees(query).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.employees = res.data.list;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
   search() {}
   onSave() {
     let query = {
@@ -131,7 +162,9 @@ export class TaskDetailsComponent implements OnInit {
     console.log(query);
     this.tasksService.assignCost(query).subscribe({
       next: (res) => {
+        this.toast.success('Updated Successfully');
         console.log(res);
+        this.ngOnInit();
       },
       error: (err) => {
         console.log(err);

@@ -816,6 +816,10 @@
     "close": "إغلاق"
   },
   "Tasks": {
+    "addTasks": {
+      "addTaskBtn":"اضافة مهمة",
+      "cancel": "إلغاء"
+    },
     "validation":{
       "nameRequired": "اسم المهمة مطلوب"
     }
