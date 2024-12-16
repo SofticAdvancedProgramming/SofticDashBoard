@@ -130,15 +130,27 @@ export class RelatedAssetsComponent implements OnInit{
       }
     })
   }
-  loadEntities(entity: string, pageIndex: number, name?: string): void {
-    const query: any = {
+  loadEntities(entity: string, pageIndex: number, name?: string,isAssgined?:string): void {
+
+    let query: any = {
       companyId: this.companyId,
       isMain: false,
       pageIndex,
+
     };
     if (name) {
       query.name = name;
+      console.log(name)
     }
+    if (isAssgined!=undefined) {
+      if(isAssgined==='true'){
+        query.isAssgined=true
+        }else{
+          query.isAssgined=false
+        }
+      }
+
+      console.log(query)
 
     const methodName = this.entityTypes[entity].load as keyof AssetsService;
     (this.assetsService[methodName] as Function)(query).subscribe((response: any) => {

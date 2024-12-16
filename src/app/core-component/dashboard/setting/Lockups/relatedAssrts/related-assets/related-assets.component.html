@@ -16,6 +16,8 @@
              (deleteItem)="deleteEntity('RelatedAssets', $event.id)"
              [deleteId]="deleteId"
              (searchApi)="loadEntities('RelatedAssets', 1, $event)"
+             [filterDropDown]="true"
+             (FilteredApi)="loadEntities('RelatedAssets', 1,'',$event)"
            ></app-modern-table>
                 <!-- <div class="form-group toggle-group">
                   <label class="switch">

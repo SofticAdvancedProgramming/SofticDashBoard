@@ -11,7 +11,7 @@
     >
       Assign To Employee
     </button>
-    <button class="btn related-btn" (click)="toggleRelatedAssetsPopup()">
+    <button *ngIf="isMainAsset" class="btn related-btn" (click)="toggleRelatedAssetsPopup()">
       Add Related Assets
     </button>
   </div>
@@ -83,7 +83,7 @@
             </div>
           </div>
         </div>
-        <div class="bg-light relatedAssetContainer">
+        <div class="bg-light relatedAssetContainer"  *ngIf="isMainAsset" >
           <h3>Related Assets</h3>
           <div
             *ngIf="relatedAssets.length > 0; else noRelatedAssets"
