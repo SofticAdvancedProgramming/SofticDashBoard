@@ -2,6 +2,7 @@
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
 import { TasksBaseController } from '../../apis/TasksBaseController';
+import { taskController } from '../../apis/taskController';
  
 
 @Injectable({
@@ -13,11 +14,13 @@ export class TasksService {
 
   assignTaskStatus(request: any): Observable<any> {
     return this.http.request('POST', TasksBaseController.AssignTaskStatus, request);
-  }
+   }
   assignTask(request: any): Observable<any> {
     return this.http.request('POST', TasksBaseController.AssignTask, request);
   }
- 
+  assignEmployees(request: any): Observable<any> {
+    return this.http.request('POST', taskController.GetAssignmentEmployees, request);
+  }
 
   assignCost(request:any) :Observable<any>
   {
@@ -32,7 +35,7 @@ export class TasksService {
   assignEvaluation(request:any):Observable<any>
   {
     return this.http.request('POST', TasksBaseController.AssignEvaluation, request);
-  }
+   }
 
   getEvaluation(request:any):Observable<any>
   {
@@ -68,5 +71,5 @@ export class TasksService {
   count(request:any):Observable<any>
   {
     return this.http.request('POST', TasksBaseController.Count, request);
-  }
+   }
 }
