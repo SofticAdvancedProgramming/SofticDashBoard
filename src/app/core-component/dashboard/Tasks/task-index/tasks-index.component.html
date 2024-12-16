@@ -1,25 +1,21 @@
-<div class="container py-5">
-  <div class="row action-section align-items-center justify-content-between">
-    <div class="col-8 d-flex">
-      <div class="col-lg-4">
-        <div class="d-flex flex-row justify-content-start align-items-center">
-          <div style="width: 48px; height: 48px" class="rounded-circle">
-            <img class="mx-1" src="../../../../../assets/images/task.png" />
+<div class="container  py-5">
+  <div class="row action-section justify-content-between  align-items-center">
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg-4 d-flex flex-row justify-content-start align-items-center">
+          <div style="width: 48px;height: 48px;" class="rounded-circle">
+            <img  class="mx-1" src="../../../../../assets/images/task.png">
           </div>
           <p class="lead">Task board</p>
         </div>
-      </div>
-      <div class="col-lg-7">
-        <div class="d-flex flex-row justify-content-start align-items-center">
-          <input
-            placeholder="{{ 'viewEmployees.SEARCH' | translate }}"
-            class="form-control custom-search"
-            [(ngModel)]="searchText"
-            (ngModelChange)="searcWithDebounce(searchText)"
-          />
+
+        <div class="col-lg-8 d-flex flex-row justify-content-start align-items-center">
+          <input [(ngModel)]="searchResult" placeholder="{{ 'viewEmployees.SEARCH' | translate }}" class="form-control custom-search" (input)="search(searchResult)" />
         </div>
       </div>
+
     </div>
+    <!-- <div class="col-lg-3 d-flex justify-content-between align-items-center archive-filter-container">
     <!-- <div
       class="col-lg-3 d-flex justify-content-between align-items-center archive-filter-container"
     >
@@ -79,6 +75,9 @@
                 src="../../../../../assets/images/Avatar (2).png"
                 style="width: 15px; height: 15px"
               />
+            <span><img src="../../../../../assets/images/calendar.png" class="px-1" >{{task.startDate |date:'short'}}</span>
+            <span class="task-card-subscriber" *ngFor="let task of task.taskAttachments">
+              <img [src]="[task['file']]"  style="width: 15px;height: 15px;">
             </span>
           </div>
         </div>
@@ -90,4 +89,4 @@
       </div>
     </div>
   </div>
-</div>
+ 

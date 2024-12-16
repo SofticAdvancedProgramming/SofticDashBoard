@@ -41,7 +41,7 @@ export class RelatedAssetsComponent implements OnInit{
   itemsPerPage: number = 10;
   modalId = 'RelatedAssets';
   deleteId: string = 'deleteAssetCategory';
-  columns: string[] = ['name' , 'nameAr'];
+  columns: string[] = ['name' , 'nameAr','parentAssetName','parentAssetNameAr']
   companyId = this.localStorageService.getItem('companyId');
   pageIndex: any = {};
   entityTypes: Record<
@@ -49,7 +49,8 @@ export class RelatedAssetsComponent implements OnInit{
     { load: string; add: string; edit: string; delete: string; data: string }
   > = {
     RelatedAssets: {
-      load: 'getRelatedAssets',
+      //load: 'getRelatedAssets',
+      load:'getAsset',
       add: 'addRelatedAssets',
       edit: 'editRelatedAssets',
       delete: 'deleteRelatedAssets',
@@ -96,10 +97,33 @@ export class RelatedAssetsComponent implements OnInit{
   //     error: (err) => console.log(err),
   //   });
   // }
+  getParentAsset(id:number){
+    const params={id}
+    this.assetsService.getAsset(params).subscribe({
+      next: (res) => {
+        console.log(res)
+      },
+      error: (err)=>{
+        console.log(err)
+      }
+    })
+  }
   loadAssets(){
-    this.assetsService.getAsset().subscribe({
+    const params={"isMain": false}
+    this.assetsService.getAsset(params)
+    .subscribe({
       next: (res) => {
         this.assets = res.data.list
+        this.relatedAssets= res.data.list
+        console.log(res.data.list)
+        console.log(this.relatedAssets)
+
+        // this.relatedAssets=  this.relatedAssets.map((item:any)=>{
+        //   this.getParentAsset(item.parentAssetId)
+        // }
+        // )
+
+
       },
       error: (err)=>{
         console.log(err)
@@ -109,6 +133,7 @@ export class RelatedAssetsComponent implements OnInit{
   loadEntities(entity: string, pageIndex: number, name?: string): void {
     const query: any = {
       companyId: this.companyId,
+      isMain: false,
       pageIndex,
     };
     if (name) {
