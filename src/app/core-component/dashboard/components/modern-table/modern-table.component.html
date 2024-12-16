@@ -15,6 +15,12 @@
       />
       }
     </div>
+    <div class="col-lg-3" *ngIf="filterDropDown">
+    <select class="form-select" [(ngModel)]="selectedValue" (change)="filter()" id="exampleSelect">
+      <option value=true >{{"assiend assets"|translate}}</option>
+      <option value=false>{{"not assiend assets" |translate}}</option>
+    </select>
+    </div>
     <!-- <div class="col-lg-2 col-md-6 col-sm-6">
       @if(isThereSearchByDate){
       <input type="date" [(ngModel)]="fromDate" class="form-control custom-date-filter"

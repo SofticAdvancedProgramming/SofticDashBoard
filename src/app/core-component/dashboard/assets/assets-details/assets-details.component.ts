@@ -22,6 +22,7 @@ import { ConfirmnDeleteDialogComponent } from '../../../../common-component/conf
 export class AssetsDetailsComponent implements OnInit {
   assets: Asset[] = [];
   relatedAssets: Asset[] = [];
+  isMainAsset:boolean=true;
   assetsCategory: {
     name: string,
     nameAr: string,
@@ -126,6 +127,8 @@ export class AssetsDetailsComponent implements OnInit {
           } else {
             this.selectedAssetAddress = 'Address not available';
           }
+          if(asset.parentAssetId){
+            this.isMainAsset=false;}
 
           return {
             ...asset,

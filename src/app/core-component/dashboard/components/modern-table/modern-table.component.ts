@@ -42,6 +42,7 @@ export class ModernTableComponent implements OnInit {
   @Input() searchPlaceholder: string = 'Search...';
   @Input() tableTitle: string = 'Table Title';
   @Input() totalRows: number = 0;
+  @Input() filterDropDown: boolean = false;
   @Output() editItem = new EventEmitter<any>();
   @Output() deleteItem = new EventEmitter<any>();
   @Output() newReqByPage = new EventEmitter<any>();
@@ -49,6 +50,7 @@ export class ModernTableComponent implements OnInit {
   @Output() searchApi = new EventEmitter<any>();
   @Output() onCLickNewActionOutput = new EventEmitter<any>();
   @ViewChild('deletePopUp') deletePopUp!: DeletePopUpComponent;
+  @Output() FilteredApi = new EventEmitter<any>();
   deleteMethod!: (index: number) => void;
   searchText: string = '';
   currentPage: number = 1;
@@ -109,9 +111,17 @@ export class ModernTableComponent implements OnInit {
   public search(value: any): void {
     this.searchApi.emit(value.length > 0 ? value.trim() : '');
   }
+  selectedValue: string = '';
+  public filter(): void {
+    this.FilteredApi.emit(this.selectedValue);
+  }
 
   public onCLickNewAction(data: any) {
     this.onCLickNewActionOutput.emit(data);
+  }
+  onOptionSelected(event:any){
+   console.log(event)
+
   }
 
 
