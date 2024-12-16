@@ -124,8 +124,8 @@ export class RelatedAssetsPopupComponent {
     this.assetService.getAsset(params).subscribe(
       (res)=>{
         this.childAsset=res.data.list[0];
-        console.log(this.childAsset)
-        console.log(res)
+       // console.log(this.childAsset)
+       // console.log(res)
       },
       (err)=>{console.log(err)}
     )
@@ -133,7 +133,11 @@ export class RelatedAssetsPopupComponent {
   edit(){
     console.log(this.childAsset)
     this.assetService.edit(this.childAsset).subscribe({
-      next:(res)=>{console.log(res);},
+      next:(res)=>{
+      //  console.log(res);
+        this.closeRelatedAssets.emit(false);
+
+      },
       error:(res)=>{console.log(res);}
     })
   }

@@ -10,11 +10,12 @@ import { TasksService } from '../../../../services/TasksService/tasks.service';
 import { response } from 'express';
 import { MessageService } from 'primeng/api';
 import { tasksStatus } from '../../../../core/enums/taskStatus';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tasks-index',
   standalone: true,
-  imports: [TranslateModule, RouterLink, RouterLinkActive, DragDropModule, NgIf, NgFor, NgClass, DatePipe],
+  imports: [TranslateModule, RouterLink, RouterLinkActive, DragDropModule, NgIf, NgFor, NgClass, DatePipe,FormsModule],
   templateUrl: './tasks-index.component.html',
   styleUrl: './tasks-index.component.css'
 })
@@ -122,7 +123,45 @@ export class TasksIndexComponent implements OnInit {
       }
     })
   }
-  search() {
+  searchResult:any;
+  search(event: any) {
+    //console.log(event)
+    const companyId = Number(localStorage.getItem("companyId"));
+    let params={name:event, companyId }
+
+    this.tasksService.get(params).subscribe({
+      next: (response: any) => {
+      //  console.log(response);
+
+        // Ensure Tasks is an array before iterating
+        this.tasksByStatus["TODO"]=[]
+        this.tasksByStatus["In Progress"]=[]
+        this.tasksByStatus["Submit For Review"]=[]
+        this.tasksByStatus["Done"]=[]
+        this.tasksByStatus["Archived"]=[]
+        for (let item of response["data"].list) {
+          if (item.statusId === tasksStatus.Todo) {
+            this.tasksByStatus["TODO"].push(item);
+          }
+          else if (item.statusId == tasksStatus.InProgress) {
+            this.tasksByStatus["In Progress"].push(item);
+          }
+          else if (item.statusId == tasksStatus.SubmitForReview) {
+            this.tasksByStatus["Submit For Review"].push(item);
+          }
+          else if (item.statusId == tasksStatus.Done) {
+            this.tasksByStatus["Done"].push(item);
+          }
+          else if (item.statusId == tasksStatus.Archived) {
+            this.tasksByStatus["Archived"].push(item);
+          }
+        }
+
+      },
+      error: (err) => {
+        console.error("Error fetching tasks:", err);
+      },
+    });
 
   }
 
@@ -131,7 +170,7 @@ export class TasksIndexComponent implements OnInit {
     this.tasksService.get({ companyId }).subscribe({
       next: (response: any) => {
         console.log(response);
-        
+
         // Ensure Tasks is an array before iterating
 
         for (let item of response["data"].list) {
