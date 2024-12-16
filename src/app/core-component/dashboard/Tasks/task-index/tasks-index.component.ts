@@ -15,8 +15,7 @@ import { MessageService } from 'primeng/api';
 import { tasksStatus } from '../../../../core/enums/taskStatus';
 import { debounce } from 'lodash';
 import { FormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
-
+ 
 @Component({
   selector: 'app-tasks-index',
   standalone: true,
