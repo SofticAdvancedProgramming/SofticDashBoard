@@ -17,7 +17,7 @@ export class MapComponent implements OnInit, OnChanges {
   private roles = JSON.parse(localStorage.getItem('roles')!);
   private lang = localStorage.getItem('lang') || 'ar';
   // Access Token should be defined in a secure way (e.g., environment variables)
-  private accessToken = 'pk.eyJ1IjoiYWRoYW1rYW1hbDIyMzQ1IiwiYSI6ImNtMHVvNjM1dDBpenUyaXFzb21tM2JiOWkifQ.wXQZpp_tsqdoiqZAl9PbpQ'
+  private accessToken = 'pk.eyJ1IjoiYWRoYW1rYW1hbDIyMzQ1IiwiYSI6ImNtNHNmc3FpMjAwYXEya3NjdHRoZDJydjMifQ.j6UQc6XGw1hiAnEomOgqRw'
   public selectedAddress: string = '';
   zoom = 8;
   @Input() employee: any = {};
