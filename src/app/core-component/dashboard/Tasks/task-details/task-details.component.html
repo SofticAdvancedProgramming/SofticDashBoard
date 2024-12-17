@@ -7,11 +7,14 @@
       <p class="lead">View Task</p>
     </div>
     <div class="col-4 d-flex gap-2 justify-content-end">
-      <button class="btn edit-btn">
+      <button class="btn edit-btn" *ngIf="!isDoneStatus">
         <img src="../../../../../assets/images/edit-2.png" />edit
       </button>
-      <button class="btn edit-btn" (click)="toggleAssignTaskToPopup()">
+      <button class="btn edit-btn" (click)="toggleAssignTaskToPopup()" *ngIf="!isDoneStatus">
         <img src="../../../../../assets/images/edit-2.png" />Assign To
+      </button>
+      <button *ngIf="isDoneStatus" class="save-btn btn" [routerLink]="['../../analytics', id]">
+        analytics
       </button>
     </div>
   </div>

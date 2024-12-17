@@ -3,7 +3,7 @@ import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
 import { TasksBaseController } from '../../apis/TasksBaseController';
 import { taskController } from '../../apis/taskController';
- 
+
 
 @Injectable({
   providedIn: 'root'
@@ -37,9 +37,9 @@ export class TasksService {
     return this.http.request('POST', TasksBaseController.AssignEvaluation, request);
    }
 
-  getEvaluation(request:any):Observable<any>
+  getEvaluation(id:number,request:any):Observable<any>
   {
-    return this.http.request('POST', TasksBaseController.GetEvaluation, request);
+    return this.http.request('POST', TasksBaseController.GetEvaluation(id), request);
   }
 
   get(request:any):Observable<any>
