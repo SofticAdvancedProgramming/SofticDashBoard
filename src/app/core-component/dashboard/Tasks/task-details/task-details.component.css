@@ -241,16 +241,16 @@ textarea:active {
   box-shadow: 2px 2px 20px 0 #ff88005b;
 }
 .active-done {
-  border: 1px solid #ff8800;
-  box-shadow: 2px 2px 20px 0 #9aca3c4d;
+  border: 1px solid #9ACA3C;
+  box-shadow: 2px 2px 20px 0 #9bca3c3f;
 }
 .active-todo {
-  border: 1px solid #0898cd57;
-  box-shadow: 2px 2px 20px 0 #ff88005b;
+  border: 1px solid #0898cd;
+  box-shadow: 2px 2px 20px 0 #0898cd57;
 }
 .active-review {
-  border: 1px solid #8613f83f;
-  box-shadow: 2px 2px 20px 0 #ff88005b;
+  border: 1px solid #8613f8;
+  box-shadow: 2px 2px 20px 0 #8613f83f;
 }
 
 .is-invalid {

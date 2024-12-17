@@ -104,7 +104,7 @@ export const routes: Routes = [
       { path: 'tasks', component: TasksIndexComponent},
       { path: 'tasks/addnew', component: AddTaskComponent},
       { path: 'tasks/details/:id', component: TaskDetailsComponent},
-      { path: 'tasks/analytics', component: TaskAnalyticsComponent},
+      { path: 'tasks/analytics/:id', component: TaskAnalyticsComponent},
       { path: 'tasks/evaluation', component: EvaluatoionComponent},
       { path: 'tasks/rework', component: RewarkDialogComponent},
 

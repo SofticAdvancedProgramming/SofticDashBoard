@@ -7,7 +7,7 @@ export const TasksBaseController = {
     AssignCost: `${environment.apiBaseUrl}Tasks/AssignCost`,
     GetCost: `${environment.apiBaseUrl}Tasks/GetCost`,
     AssignEvaluation: `${environment.apiBaseUrl}Tasks/AssignEvaluation`,
-    GetEvaluation: `${environment.apiBaseUrl}Tasks/GetEvaluation`,
+    GetEvaluation:(id: number) => `${environment.apiBaseUrl}Tasks/GetEvaluation?taskId=${id}`,
     Get: `${environment.apiBaseUrl}Tasks/Get`,
     Add: `${environment.apiBaseUrl}Tasks/Add`,
     Edit: `${environment.apiBaseUrl}Tasks/Edit`,

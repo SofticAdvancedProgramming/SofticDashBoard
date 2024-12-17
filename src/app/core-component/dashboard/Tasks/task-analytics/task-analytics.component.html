@@ -6,49 +6,53 @@
 
   </div>
   <div class="row pt-3">
-    <div class="col-lg-7 col-md-12">
+    <div class="col-lg-7 col-md-12" >
       <div class=" row gy-3">
-        <div class="col-12 task-details-card">
+        <div class="col-12 task-details-card" *ngIf="taskDetails">
           <div class="task-details-card-text  p-3">
-            <h3 class="task-details-card-title">Creating Awesome Mobile Apps</h3>
+            <h3 class="task-details-card-title">{{ taskDetails.name }}</h3>
             <div class="task-details-card-details row ">
                 <div class="col-6">
                   <div class="d-flex flex-row justify-content-between align-items-center w-85">
                     <img src="../../../../../assets/images/calendar-2.png">
                     <span class="date-description">From (Date)</span>
-                    <span class="date">15/11/2024</span>
+                    <span class="date">{{ taskDetails.startDate | date }}</span>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="d-flex flex-row justify-content-between align-items-center w-85">
                     <img src="../../../../../assets/images/calendar-2.png">
                     <span class="date-description">to (Date)</span>
-                    <span class="date">15/11/2024</span>
+                    <span class="date">{{ taskDetails.endDate |date }}</span>
                   </div>
                 </div>
                 <div class="col-3">
                   <div class="d-flex flex-row justify-content-start align-items-center py-3 w-100">
                     <img src="../../../../../assets/images/clock.png">
-                    <span class="date-description-time px-3">15 <span >Hours</span></span>
+                    <span class="date-description-time px-3">{{ taskDetails.duration }} <span >Hours</span></span>
                   </div>
                 </div>
                 <div class="col-3">
                   <div class="d-flex flex-row justify-content-start align-items-center py-3 w-100">
                     <img src="../../../../../assets/images/dollar-circle.png">
-                    <span class="date-description-currency px-3">500<span >$</span></span>
+                    <span class="date-description-currency px-3">{{ taskDetails.actualCost }}<span >$</span></span>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-3">
-                    <div class="d-flex flex-row justify-content-start align-items-center w-100">
-                      <img src="../../../../../assets/images/Frame.png">
-                      <span class="date-description-time px-2">Yousef Adil</span>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="d-flex flex-row justify-content-start align-items-center w-100">
-                      <img src="../../../../../assets/images/Frame.png">
-                      <span class="date-description-time  px-2">George Sami</span>
+                  <div class="col-4" *ngFor="let employee of employees">
+                    <div
+                      class="d-flex flex-row justify-content-start align-items-center w-100"
+                    >
+                      <img
+                        [src]="
+                          employee.profileImage ||
+                          '../../../../../assets/images/profile-circle.png'
+                        "
+                        class="employeeImg"
+                      />
+                      <span class="date-description-time px-2">{{
+                        employee.employeeName
+                      }}</span>
                     </div>
                   </div>
                 </div>
@@ -56,27 +60,35 @@
             </div>
             <div class="task-details-card-description pt-3">
               <p class="task-details-card-description-title">Description</p>
-              <p class="task-details-card-description-details">Follow the video tutorial above. Understand how to use each tool in the Figma application. Also learn how to make a good and correct design.</p>
+              <p class="task-details-card-description-details"> {{ taskDetails.description }}.</p>
             </div>
 
           </div>
         </div>
-        <div class="col-12 task-details-card">
+        <div class="col-12 task-details-card" *ngIf=" _8DaysToShowInCalender">
           <div class="task-details-card-text  p-3">
             <div class="row action-section justify-content-between align-items-center">
               <div class="col-8">
                 <p class="date-container-title">Performance versus schedule</p>
               </div>
               <div class="col-4 d-flex justify-content-end">
-                <button class="btn date-container-btn" routerLink="../AddAssets">July 2022<img src="../../../../../assets/images/arrow-left.png"></button>
+                <p class="btn date-container-btn" routerLink="../AddAssets">{{actualEndDateObject.stringMonth}} {{actualEndDateObject.year}}</p>
+                <!-- <img src="../../../../../assets/images/arrow-left.png"> -->
               </div>
             </div>
             <div class="row pt-5">
-              <div class="col data-container d-flex flex-column justify-content-evenly align-items-center mx-2">
-                <p class="day">S</p>
-                <p class="date">10</p>
+              <div
+              [ngClass]="{
+                'active-date':endDateObject.day=== WeekDay.day
+                ,'danger-date':actualEndDateObject.day>endDateObject.day && actualEndDateObject.day=== WeekDay.day
+
+                }"
+              class="col data-container d-flex flex-column justify-content-evenly align-items-center mx-2"
+              *ngFor="let WeekDay of _8DaysToShowInCalender">
+                <p class="day">{{WeekDay.stringDay}}</p>
+                <p class="date">{{WeekDay.day}}</p>
               </div>
-              <div class="col data-container d-flex flex-column justify-content-evenly align-items-center mx-2">
+              <!-- <div class="col data-container d-flex flex-column justify-content-evenly align-items-center mx-2">
                 <p class="day">M</p>
                 <p class="date">11</p>
               </div>
@@ -103,71 +115,47 @@
               <div class="col data-container d-flex flex-column justify-content-evenly align-items-center  mx-2">
                 <p class="day">S</p>
                 <p class="date">17</p>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-5 col-md-12 task-status">
+    <div class="col-lg-5 col-md-12 task-status"  *ngIf="evaluation">
       <div class="row py-3 mx-auto">
         <div class="row  action-section justify-content-start align-items-stretch">
           <div class="col-12">
             <p class="date-container-title">Task Evaluation </p>
           </div>
+
+
           <div class="col-12">
             <p class="cooment">Quality</p>
           </div>
-          <div class="col Quality-num">
-            <p class="date-container-title">1</p>
+          <div  [ngClass]="{'Quality-num-active':_qualityScore===evaluation.qualityScore}"  class="col Quality-num" *ngFor="let _qualityScore of qualityScore">
+            <p class="date-container-title">{{_qualityScore}}</p>
           </div>
-          <div class="col Quality-num">
-            <p class="date-container-title">2</p>
-          </div>
-          <div class="col Quality-num">
-            <p class="date-container-title">3</p>
-          </div>
-          <div class="col Quality-num Quality-num-active">
-            <p class="date-container-title ">4</p>
-          </div>
-          <div class="col Quality-num">
-            <p class="date-container-title">5</p>
-          </div>
+
+
           <div class="col-12">
             <p class=" cooment">Duration</p>
           </div>
-          <div class="col Quality-num">
-            <p class="date-container-title">1</p>
+          <div  [ngClass]="{'Quality-num-active':_timeScore===evaluation.timeScore}"  class="col Quality-num" *ngFor="let _timeScore of timeScore">
+            <p class="date-container-title">{{_timeScore}}</p>
           </div>
-          <div class="col Quality-num">
-            <p class="date-container-title">2</p>
-          </div>
-          <div class="col Quality-num">
-            <p class="date-container-title">3</p>
-          </div>
-          <div class="col Quality-num Quality-num-active">
-            <p class="date-container-title">4</p>
-          </div>
-          <div class="col Quality-num">
-            <p class="date-container-title">5</p>
-          </div>
+
 
           <div class="col-12">
             <p class="cooment">cost</p>
           </div>
-          <div class="col Quality-num">
-            <p class="date-container-title">300$</p>
-          </div>
-          <div class="col Quality-num">
-            <p class="date-container-title">400$</p>
-          </div>
           <div class="col Quality-num Quality-num-active">
-            <p class="date-container-title">500$</p>
+            <p class="date-container-title">{{evaluation.costScore}}$</p>
           </div>
+
 
           <div class="task-details-card-description pt-3">
             <p class="task-details-card-description-title cooment ">coment</p>
-            <p class="task-details-card-description-details cooment-pargraph">Its A Greet Work! Its A Greet Work! Its A Greet Work! Its A Greet Work! Its A Greet Work! Its A Greet Work! Its A Greet Work! Its A Greet Work! Its A Greet Work! Its A Greet Work! Its A Greet Work!</p>
+            <p class="task-details-card-description-details cooment-pargraph">{{evaluation.evaluationComment}}</p>
           </div>
           </div>
 
@@ -177,11 +165,11 @@
 
 </div>
 
-<div class="container py3">
+<!-- <div class="container py3">
   <div class="row mt-3">
     <div class="col-lg-12">
       <app-line-chart   ></app-line-chart>
     </div>
   </div>
-</div>
+</div> -->
 
