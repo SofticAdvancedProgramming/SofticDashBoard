@@ -101,12 +101,13 @@ input :focus {
   font-weight: 700;
   line-height: 40px;
   letter-spacing: 0.03em;
-  border-bottom: 1px solid #e7e6e8;
+  margin-bottom: 5px;
 }
 .filterHeader p{
   font-size: 40px;
   font-weight: bold;
   text-align: center;
+  margin: 0;
 }
 .warningContainer{
   padding: 5px;
