@@ -17,5 +17,6 @@ export const taskController = {
     `${environment.apiBaseUrl}Tasks/DeActivate/${id}/${companyId}`,
   Count: `${environment.apiBaseUrl}Tasks/Count`,
   AssignTask: `${environment.apiBaseUrl}TaskAssignment/Add`,
+  ReAssignTask: `${environment.apiBaseUrl}TaskAssignment/ReAssign`,
   GetAssignmentEmployees: `${environment.apiBaseUrl}TaskAssignment/Get`,
 };

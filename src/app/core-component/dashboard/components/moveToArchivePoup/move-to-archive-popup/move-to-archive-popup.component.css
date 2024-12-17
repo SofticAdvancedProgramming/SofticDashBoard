@@ -1,0 +1,195 @@
+.filter-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .filter-popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 557px;
+    gap: 0px;
+    border-radius: 24px;
+    opacity: 0px;
+  }
+  
+  .filter {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+  }
+  
+  .apply-btn {
+    margin-top: 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    background: #8413f8;
+    width: Fixed (240px) px;
+    height: Fixed (48px) px;
+    padding: 16px 0px;
+    gap: 0px;
+    border-radius: 10px;
+    opacity: 0px;
+    width: 120px;
+  }
+  
+  .cancel-btn {
+    margin-top: 20px;
+    color: #ce2619;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    width: Fixed (240px) px;
+    height: Fixed (48px) px;
+    padding: 16px 0px;
+    gap: 0px;
+    border-radius: 10px;
+    opacity: 0px;
+    border: 1px solid #ce2619;
+    width: 120px;
+  }
+  
+  .form-group {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group select,
+  input {
+    height: 48px;
+    gap: 0px;
+    border-radius: 10px;
+    border: 1px;
+    opacity: 0px;
+    border: 1px solid #e7e6e8;
+    background: #fbfbfb;
+  }
+  
+  .form-group select :focus,
+  input :focus {
+    border: 1px solid #e7e6e8;
+    background: #fbfbfb;
+  }
+  
+  .filter {
+    border-radius: 50%;
+    background: #faf9fe;
+    padding: 0.2em;
+  }
+  
+  .filter img {
+    color: #736f77 !important;
+  }
+  
+  .filterHeader {
+    color: #36313c;
+    font-family: Lama Sans;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid #e7e6e8;
+  }
+  .filterHeader p{
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .warningContainer{
+    padding: 5px;
+    border-radius: 11px;
+    border: 1px solid #FF8800;
+  }
+  .warningContainer p{
+    color: #FF8800;
+    font-size: 16px;
+    margin: 0 !important;
+  }
+  .warningImg{
+    width: 24px;
+    height: 24px;
+  }
+  .form-group input[disabled] {
+    background-color: #f0f0f0;
+  }
+  
+  .toggle-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block ;
+    width: 40px;
+    height: 20px;
+    margin-right: 10px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.4s;
+    border-radius: 20px;
+    background-color: #ccc;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background: #663895;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+  
+  .icon-trash,
+  .icon-edit {
+    color: #663895; /* Set icon color to white */
+    cursor: pointer;
+  }
+  .toggle-label {
+    font-weight: normal;
+  }
+  
+  

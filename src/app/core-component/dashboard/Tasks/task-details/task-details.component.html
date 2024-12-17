@@ -61,9 +61,9 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-4" *ngFor="let employee of employees">
+              <div class="col-6" *ngFor="let employee of employees">
                 <div
-                  class="d-flex flex-row justify-content-start align-items-center w-100"
+                  class="d-flex flex-row justify-content-start align-items-center gap-2 w-100"
                 >
                   <img
                     [src]="
@@ -145,11 +145,39 @@
           class="col-11 px-1 mx-auto d-flex justify-content-around align-items-center"
         >
           <div class="row btns justify-content-between">
-            <button class="col-5 action-btn btn" (click)="reWork()">
+            <button
+              class="col-12 save-btn btn mt-2"
+              (click)="inProgressStaate()"
+              *ngIf="isTodoStatus"
+            >
+              In Progress
+            </button>
+            <button
+              class="col-12 save-btn btn mt-2"
+              (click)="submitForReview()"
+              *ngIf="isInProgressStatus"
+            >
+              Wait For Review
+            </button>
+            <button
+              class="col-5 action-btn btn"
+              (click)="reWork()"
+              *ngIf="isReviewStatus"
+            >
               rework
             </button>
-            <button class="col-5 save-btn btn" (click)="done()">done</button>
-            <button class="col-12 save-btn btn mt-2" (click)="moveToArchive()">
+            <button
+              class="col-5 save-btn btn"
+              (click)="done()"
+              *ngIf="isReviewStatus"
+            >
+              done
+            </button>
+            <button
+              class="col-12 save-btn btn mt-2"
+              (click)="moveToArchive()"
+              *ngIf="isDoneStatus"
+            >
               Move to Archive
             </button>
           </div>
@@ -322,3 +350,18 @@
   *ngIf="isAssignTaskVisible"
   (closeAssignTask)="onAssignTaskClose($event)"
 ></app-assign-task-popup>
+
+<app-evaluatoion
+  *ngIf="isEvaluationVisible"
+  (closeEvaluationPopup)="onEvaluationClose($event)"
+></app-evaluatoion>
+
+<app-re-assign-task-popup
+  *ngIf="isReAssignVisible"
+  (closeAssignTask)="onReAssignTaskClose($event)"
+></app-re-assign-task-popup>
+
+<app-move-to-archive-popup
+  *ngIf="isArchivedVisible"
+  (closeArchivePopup)="onArchivedClose($event)"
+></app-move-to-archive-popup>

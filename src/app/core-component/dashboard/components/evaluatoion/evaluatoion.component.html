@@ -1,76 +1,105 @@
-
-
-
-<div class="row">
-  <div class=" Evaluation-popup d-flex justify-content-center align-items-center col-3 py-3  mx-auto">
-
+<div class="row filter-popup">
+  <div
+    class="Evaluation-popup d-flex justify-content-center align-items-center col-3 py-3 mx-auto"
+  >
     <div class="row justify-content-center align-items-center">
-      <div class="col-12 text-center">
-       <img class="img-fluid" src="../../../../../assets/images/done.png">
-      </div>
-      <div class="col-12">
-        <p class="lead">Task Evaluation </p>
-      </div>
-      <div class="col-12 pt-2">
-        <label class="form-label">Quality </label>
-      </div>
-      <div class="col Quality-num">
-        <button class="quality-option">1</button>
-      </div>
-      <div class="col Quality-num">
-        <button class="quality-option">2</button>
-      </div>
-      <div class="col Quality-num">
-        <button class="dquality-option">3</button>
-      </div>
-      <div class="col Quality-num Quality-num-active">
-        <button class="quality-option">4</button>
-      </div>
-      <div class="col Quality-num">
-        <button class="quality-option">5</button>
-      </div>
-
-      <div class="col-12 pt-2">
-        <label class="form-label">Duration</label>
-      </div>
-      <div class="col Quality-num">
-        <button class="duration-option">1</button>
-      </div>
-      <div class="col Quality-num">
-        <button class="duration-option">2</button>
-      </div>
-      <div class="col Quality-num">
-        <button class="duration-option">3</button>
-      </div>
-      <div class="col Quality-num Quality-num-active">
-        <button class="duration-option">4</button>
-      </div>
-      <div class="col Quality-num">
-        <button class="duration-option">5</button>
-      </div>
-
-      <div class="col-12 pt-2">
-        <div class="form-group">
-          <label class="form-label">cost</label>
-          <input type="text" class="form-control">
+      <form [formGroup]="form" (ngSubmit)="Submit()">
+        <div class="col-12">
+          <h2 class="h2 text-center">Done</h2>
         </div>
-      </div>
-      <div class="col-12 pt-2">
-        <div class="form-group">
-          <label class="form-label">coment</label>
-          <textarea class="textarea form-control" placeholder="Add Your Comment Here"></textarea>
+        <div class="col-12 text-center">
+          <img
+            class="img-fluid"
+            src="../../../../../assets/images/imageDone.png"
+          />
         </div>
-      </div>
-      <div class="col-12  pt-2">
-        <div class="row btns  py-1  mx-auto   d-flex justify-content-around align-items-center">
-          <button class="col-5 action-btn btn">cancel</button>
-          <button class="col-5 save-btn btn ">submit</button>
+        <div class="col-12">
+          <p class="lead">Task Evaluation</p>
         </div>
+        <div class="col-12 pt-2">
+          <label class="form-label">Quality</label>
+        </div>
+        <div class="row gap-1">
+          <div class="col-2 " *ngFor="let value of numbers; index as i">
+            <input
+              type="button"
+              class="Quality-num"
+              [value]="value"
+              [ngClass]="{ 'Quality-num-active': selectedQuality === value }"
+              (click)="selectQuality(value)"
+            />
+          </div>
+        </div>
+        <!-- <div class="col Quality-num">
+          <button class="quality-option">2</button>
+        </div>
+        <div class="col Quality-num">
+          <button class="dquality-option">3</button>
+        </div>
+        <div class="col Quality-num Quality-num-active">
+          <button class="quality-option">4</button>
+        </div>
+        <div class="col Quality-num">
+          <button class="quality-option">5</button>
+        </div> -->
 
-      </div>
+        <div class="col-12 pt-2">
+          <label class="form-label">Duration</label>
+        </div>
+        <div class="row gap-1">
+          <div class="col-2 " *ngFor="let value of numbers; index as i">
+            <input
+              type="button"
+              class="Quality-num"
+              [value]="value"
+              [ngClass]="{ 'Quality-num-active': selectedDuration === value }"
+              (click)="selectDuration(value)"
+            />
+          </div>
+        </div>
+        <!-- <div class="col Quality-num">
+          <button class="duration-option">1</button>
+        </div>
+        <div class="col Quality-num">
+          <button class="duration-option">2</button>
+        </div>
+        <div class="col Quality-num">
+          <button class="duration-option">3</button>
+        </div>
+        <div class="col Quality-num Quality-num-active">
+          <button class="duration-option">4</button>
+        </div>
+        <div class="col Quality-num">
+          <button class="duration-option">5</button>
+        </div> -->
 
-      </div>
-
+        <div class="col-12 pt-2">
+          <div class="form-group">
+            <label class="form-label">Cost</label>
+            <input type="text" class="form-control" formControlName="cost" />
+          </div>
+        </div>
+        <div class="col-12 pt-2">
+          <div class="form-group">
+            <label class="form-label">Comment</label>
+            <textarea
+              class="textarea form-control"
+              placeholder="Add Your Comment Here"
+              formControlName="comment"
+            ></textarea>
+          </div>
+        </div>
+        <div class="col-12 pt-2">
+          <div
+            class="row btns py-1 mx-auto d-flex justify-content-around align-items-center"
+          >
+            <button class="col-5 action-btn btn" type="button" (click)="closePopup()">
+              cancel
+            </button>
+            <button class="col-5 save-btn btn" type="submit">submit</button>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
-

@@ -1,51 +1,87 @@
-.Evaluation-popup{
+.filter-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.filter-popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 557px;
+  gap: 0px;
+  border-radius: 24px;
+  opacity: 0px;
+}
+
+.Evaluation-popup {
   background-color: #fff;
   border-radius: 32px;
+  width: 350px;
 }
-.Quality-num button{
+.Quality-num {
   text-align: center;
-  border-radius: 10px;
-  padding: 10px 15px;
-  border: 1px solid #E7E6E8;
-  background-color:#FBFBFB;
+  height: 25px;
+  border-radius: 5px;
+  padding: 0px 7px;
+  border: 1px solid #e7e6e8;
+  background-color: #fbfbfb;
 }
-.Quality-num-active button{
-  color: #8413F8;
-  border: 1px solid #8413F8;
+.Quality-num-active {
+  color: #8413f8;
+  border: 1px solid #8413f8;
 }
-
-.save-btn{
-  border: 1px solid #8413F8;
-  background-color:   #8413F8;
+label{
+  margin: 0 !important;
+}
+.img-fluid {
+  width: 80%;
+}
+.save-btn {
+  border: 1px solid #8413f8;
+  background-color: #8413f8;
   color: #ffffff;
 }
-.action-btn{
-  border: 1px solid #8413F8;
-  background-color: #FBFBFB;
-  color: #8413F8;
+.action-btn {
+  border: 1px solid #8413f8;
+  background-color: #fbfbfb;
+  color: #8413f8;
 }
-input{
-  height:48px ;
+input {
+  height: 48px;
 }
-.form-group input,textarea{
-  background-color:#FBFBFB;
+.form-group input,
+textarea {
+  background-color: #fbfbfb;
   border-radius: 10px;
-  border: 1px solid #E7E6E8;
+  border: 1px solid #e7e6e8;
 }
-.form-group input,textarea{
-  background-color:#FBFBFB;
+.form-group input,
+textarea {
+  background-color: #fbfbfb;
   border-radius: 10px;
-  border: 1px solid #E7E6E8;
+  border: 1px solid #e7e6e8;
 }
-textarea{
+textarea {
   height: 94px;
 }
-input::placeholder,textarea::placeholder{
-  color: #9C999F;
+input::placeholder,
+textarea::placeholder {
+  color: #9c999f;
 }
 
-.cooment{
+.cooment {
   font-weight: 500;
   font-size: 18px;
-  color: #36313C;
+  color: #36313c;
 }

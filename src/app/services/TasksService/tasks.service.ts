@@ -18,6 +18,9 @@ export class TasksService {
   assignTask(request: any): Observable<any> {
     return this.http.request('POST', taskController.AssignTask, request);
   }
+  reAssignTask(request: any): Observable<any> {
+    return this.http.request('POST', taskController.ReAssignTask, request);
+  }
   assignEmployees(request: any): Observable<any> {
     return this.http.request('POST', taskController.GetAssignmentEmployees, request);
   }
@@ -25,6 +28,11 @@ export class TasksService {
   assignCost(request:any) :Observable<any>
   {
     return this.http.request('POST', taskController.AssignCost, request);
+  }
+
+  AssignEvaluation(request:any) :Observable<any>
+  {
+    return this.http.request('POST', taskController.AssignEvaluation, request);
   }
 
   getCost(request:any) :Observable<any>

@@ -310,7 +310,7 @@
     <button class="btn cancel-btn w-25" routerLink="/">
       {{ "Tasks.addTasks.cancel" | translate }}
     </button>
-    <button class="btn action-btn w-25" type="submit" >
+    <button class="btn action-btn w-25" type="submit" [disabled]="!form.valid">
       {{ "Tasks.addTasks.addTaskBtn" | translate }}
     </button>
   </div>

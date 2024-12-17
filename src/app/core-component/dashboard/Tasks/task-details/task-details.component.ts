@@ -13,6 +13,10 @@ import {
 import { AssignTaskPopupComponent } from '../../../../common-component/assign-task-popup/assign-task-popup/assign-task-popup.component';
 import { tasksStatus } from '../../../../core/enums/taskStatus';
 import { ToastrService } from 'ngx-toastr';
+import { EvaluatoionComponent } from '../../components/evaluatoion/evaluatoion.component';
+import { ReAssignTaskPopupComponent } from '../../components/reAssignTask/re-assign-task-popup/re-assign-task-popup.component';
+import { MoveToArchivePopupComponent } from '../../components/moveToArchivePoup/move-to-archive-popup/move-to-archive-popup.component';
+
 
 @Component({
   selector: 'app-task-details',
@@ -25,6 +29,9 @@ import { ToastrService } from 'ngx-toastr';
     ReactiveFormsModule,
     FormsModule,
     AssignTaskPopupComponent,
+    EvaluatoionComponent,
+    ReAssignTaskPopupComponent,
+    MoveToArchivePopupComponent
   ],
   templateUrl: './task-details.component.html',
   styleUrl: './task-details.component.css',
@@ -37,6 +44,9 @@ export class TaskDetailsComponent implements OnInit {
   todoItems: any;
   form!: FormGroup;
   isAssignTaskVisible: boolean = false;
+  isEvaluationVisible: boolean = false;
+  isReAssignVisible: boolean = false;
+  isArchivedVisible: boolean = false;
   isTodoStatus: boolean = false;
   todoImgScr!: string;
   inProgressImgScr!: string;
@@ -49,6 +59,7 @@ export class TaskDetailsComponent implements OnInit {
   isInProgressStatus: boolean = false;
   isReviewStatus: boolean = false;
   isDoneStatus: boolean = false;
+  isDonePopup: boolean = false;
   taskImg = '../../../../../assets/images/Video Task.png';
 
   constructor(
@@ -172,7 +183,7 @@ export class TaskDetailsComponent implements OnInit {
       },
     });
   }
-  reWork() {
+  inProgressStaate(){
     let query = {
       taskId: this.id,
       statusId: 2,
@@ -187,10 +198,10 @@ export class TaskDetailsComponent implements OnInit {
       },
     });
   }
-  done() {
+  submitForReview(){
     let query = {
       taskId: this.id,
-      statusId: 4,
+      statusId: 3,
     };
     this.tasksService.assignTaskStatus(query).subscribe({
       next: (res) => {
@@ -202,7 +213,43 @@ export class TaskDetailsComponent implements OnInit {
       },
     });
   }
+  reWork() {
+    this.isReAssignVisible = true;
+    console.log(this.isEvaluationVisible);
+    // let query = {
+    //   taskId: this.id,
+    //   statusId: 2,
+    // };
+    // this.tasksService.assignTaskStatus(query).subscribe({
+    //   next: (res) => {
+    //     console.log(res);
+    //     this.ngOnInit();
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    // });
+  }
+  done() {
+    this.isEvaluationVisible = true;
+    console.log(this.isEvaluationVisible);
+    
+    // let query = {
+    //   taskId: this.id,
+    //   statusId: 4,
+    // };
+    // this.tasksService.assignTaskStatus(query).subscribe({
+    //   next: (res) => {
+    //     console.log(res);
+    //     this.ngOnInit();
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    // });
+  }
   moveToArchive() {
+    this.isArchivedVisible = true;
     let query = {
       taskId: this.id,
       statusId: 5,
@@ -223,6 +270,19 @@ export class TaskDetailsComponent implements OnInit {
   }
   onAssignTaskClose(isVisible: boolean) {
     this.isAssignTaskVisible = isVisible;
+    this.ngOnInit();
+  }
+  onReAssignTaskClose(isVisible: boolean) {
+    this.isReAssignVisible = isVisible;
+    this.ngOnInit();
+  }
+  onEvaluationClose(isVisible: boolean) {
+    this.isEvaluationVisible = isVisible;
+    this.ngOnInit();
+  }
+
+  onArchivedClose(isVisible: boolean) {
+    this.isArchivedVisible = isVisible;
     this.ngOnInit();
   }
 
