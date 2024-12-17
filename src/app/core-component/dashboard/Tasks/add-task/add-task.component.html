@@ -194,6 +194,36 @@
           </div>
         </div>
       </div>
+
+      <div class="row my-3">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="Name">Assign to</label>
+            <app-drop-down
+              [placeholder]="'Select Employee'"
+              [placeholderSearch]="'Search by Name'"
+              [items]="employees"
+              [currentPage]="employeePage"
+              [itemsLength]="employees.length"
+              (getNextPageApi)="loadEmployees()"
+              (search)="loadEmployees()"
+              (onChange)="onEmployeeSelect($event)"
+            ></app-drop-down>
+          </div>
+        </div>
+        <!-- <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Position</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="position"
+              placeholder="Ui/UX"
+            />
+          </div>
+        </div> -->
+      </div>
+
       <div class="col-12">
         <div class="d-flex gap-1 flex-wrap" style="grid-column: 1 / -1">
           <div class="form-group">
@@ -244,31 +274,6 @@
           </div>
         </div>
       </div>
-
-      <div class="row my-3">
-        <!-- <div class="col-6">
-          <div class="form-group">
-            <label class="form-label">Assign to</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="assignTo"
-              placeholder="@Yomna Ashraf"
-            />
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label class="form-label">Position</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="position"
-              placeholder="Ui/UX"
-            />
-          </div>
-        </div> -->
-      </div>
     </div>
   </div>
 
@@ -280,7 +285,10 @@
       </button>
     </div>
     <div class="row" formArrayName="todos">
-      <div class="col-12 form-group" *ngFor="let todo of todos.controls; let i = index">
+      <div
+        class="col-12 form-group"
+        *ngFor="let todo of todos.controls; let i = index"
+      >
         <label class="form-label">To Do Description</label>
         <textarea
           class="textarea form-control"
@@ -298,9 +306,10 @@
           form.controls['taskToDoDescription'].errors == null,
       }"
         ></textarea>
-        <button class="btn" type="button" (click)="removeTodo(i)">Remove</button>
+        <button class="btn" type="button" (click)="removeTodo(i)">
+          Remove
+        </button>
       </div>
-      
     </div>
   </div>
 

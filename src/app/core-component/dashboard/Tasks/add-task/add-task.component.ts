@@ -12,6 +12,9 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { TasksService } from '../../../../services/TasksService/tasks.service';
 import { ImageUploadService } from '../../../../services/ImageUploadService/image-upload.service';
+import { DropDownComponent } from '../../components/drop-down/drop-down.component';
+import { employee } from '../../../../../models/employee';
+import { EmployeeService } from '../../../../services/employeeService/employee.service';
 
 @Component({
   selector: 'app-add-task',
@@ -23,6 +26,7 @@ import { ImageUploadService } from '../../../../services/ImageUploadService/imag
     ReactiveFormsModule,
     CommonModule,
     FormsModule,
+    DropDownComponent,
   ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.css',
@@ -45,17 +49,23 @@ export class AddTaskComponent implements OnInit {
     fileName?: string;
     fileType?: string;
   }[] = [];
+  employees: employee[] = [];
+  selectedEmployee: any;
+  loadingMoreEmployees = false;
+  employeePage = 1;
   constructor(
     private fb: FormBuilder,
     private tasksService: TasksService,
     private imageUploadService: ImageUploadService,
     private cdr: ChangeDetectorRef,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private employeeService: EmployeeService
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
   ngOnInit(): void {
     this.initiation();
+    this.loadEmployees();
   }
   initiation() {
     this.form = this.fb.group({
@@ -74,7 +84,7 @@ export class AddTaskComponent implements OnInit {
       actualCost: [''],
       duration: ['', Validators.required],
       taskToDoDescription: [''],
-      AssetAttachment:[''],
+      AssetAttachment: [''],
       todos: this.fb.array([]), // Initialize the FormArray
     });
   }
@@ -92,14 +102,14 @@ export class AddTaskComponent implements OnInit {
     const todoValues = this.form.value.todos; // Get all to-do values
     console.log('Submitting To-Dos:', todoValues);
     const toDoItems: any[] = [];
-    for(let i=0; i< todoValues.length ; i++){
+    for (let i = 0; i < todoValues.length; i++) {
       toDoItems.push({
         companyId: this.companyId,
         description: todoValues[i],
-      })
+      });
     }
     console.log(toDoItems);
-    
+
     let query;
     query = {
       companyId: this.companyId,
@@ -112,8 +122,14 @@ export class AddTaskComponent implements OnInit {
       statusId: 1,
       duration: this.form.controls['duration'].value,
       taskAttachments: this.attachments,
+      taskAssignments: [
+        {
+          companyId: this.companyId,
+          employeeId: this.selectedEmployee.id,
+        },
+      ],
     };
-    if(todoValues){
+    if (todoValues) {
       query = {
         companyId: this.companyId,
         name: this.form.controls['name'].value,
@@ -125,7 +141,13 @@ export class AddTaskComponent implements OnInit {
         statusId: 1,
         duration: this.form.controls['duration'].value,
         taskAttachments: this.attachments,
-        toDoItems: toDoItems
+        taskAssignments: [
+          {
+            companyId: this.companyId,
+            employeeId: this.selectedEmployee.id,
+          },
+        ],
+        toDoItems: toDoItems,
       };
     }
     console.log(this.form.value);
@@ -142,7 +164,7 @@ export class AddTaskComponent implements OnInit {
     }
   }
   addToDoFun() {
-    this.todos.push(this.fb.control('')); 
+    this.todos.push(this.fb.control(''));
   }
 
   isFieldInvalid(field: string): boolean {
@@ -218,6 +240,48 @@ export class AddTaskComponent implements OnInit {
       };
 
       reader.readAsDataURL(file);
+    }
+  }
+
+  loadEmployees() {
+    if (this.loadingMoreEmployees) return;
+    this.loadingMoreEmployees = true;
+
+    this.employeeService
+      .loadEmployees({
+        accountStatus: 1,
+        pageIndex: this.employeePage,
+        pageSize: 10,
+      })
+      .subscribe({
+        next: (response) => {
+          const newItems = response.data.list
+            .filter((item: any) => !this.employees.some((a) => a.id == item.id))
+            .map((employee: any) => ({
+              ...employee,
+              name: `${employee.firstName} ${employee.lastName}`,
+            }));
+
+          this.employees = [...this.employees, ...newItems];
+          this.employeePage++;
+          this.loadingMoreEmployees = false;
+        },
+        error: (err) => {
+          console.error('Error loading employees:', err);
+          this.loadingMoreEmployees = false;
+        },
+      });
+  }
+
+  onEmployeeSelect(employeeId: number) {
+    const employee = this.employees.find((emp) => emp.id === employeeId);
+
+    if (employee) {
+      console.log('Selected Employee:', employee);
+      this.selectedEmployee = employee;
+      console.log('Selected Employee ID:', this.selectedEmployee?.id);
+    } else {
+      console.log('Employee not found.');
     }
   }
 }
