@@ -13,7 +13,7 @@ export class ConfirmnDeleteDialogComponent {
   @Output() onConfirm = new EventEmitter<void>();
   @Output() onCancel = new EventEmitter<void>();
 
-  confirm() {
+  confirm() { 
     this.onConfirm.emit();
   }
 

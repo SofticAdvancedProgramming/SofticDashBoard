@@ -16,6 +16,11 @@
 }
 .action-btn{
   border: 1px solid #8413F8;
+  background-color: #8413F8;
+  color: #FBFBFB;
+}
+.cancel-btn{
+  border: 1px solid #8413F8;
   background-color: #FBFBFB;
   color: #8413F8;
 }
@@ -102,5 +107,121 @@ input:active ,textarea:active{
 }
 .is-untouched {
   outline: 1px solid lightgray;
+}
+.form-group{
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.container-upload {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  border: 2px dashed royalblue;
+  background-color: #f8f9fa;
+  overflow: hidden;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.header {
+  flex: 1;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 14px;
+  /* padding: 2em; */
+}
+
+.header svg {
+  height: 100px;
+}
+
+.header p {
+  text-align: center;
+  color: black;
+}
+
+.footer {
+  background-color: rgba(0, 110, 255, 0.075);
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: black;
+  border: none;
+}
+
+.footer svg {
+  height: 130%;
+  fill: royalblue;
+  background-color: rgba(70, 66, 66, 0.103);
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.205);
+}
+
+.footer p {
+  flex: 1;
+  text-align: center;
+}
+
+.file-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  /* width: 250px; */
+}
+
+.file-info i {
+  font-size: 24px;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.file-info span {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+.img-preview {
+  width: 100px;
+  height: 100px;
+  position: static;
+  object-fit: cover;
+  border-radius: 10px;
+  z-index: 1;
+}
+.upload-message {
+  margin-top: 10px;
+  font-size: 14px;
+  color: green;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+#file, #attachmentfile {
+  display: none;
+}
+.header,
+.footer,
+.upload-message {
+  order: 1;
 }
 

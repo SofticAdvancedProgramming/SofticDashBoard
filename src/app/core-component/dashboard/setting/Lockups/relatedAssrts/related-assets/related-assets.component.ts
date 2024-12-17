@@ -41,7 +41,7 @@ export class RelatedAssetsComponent implements OnInit{
   itemsPerPage: number = 10;
   modalId = 'RelatedAssets';
   deleteId: string = 'deleteAssetCategory';
-  columns: string[] = ['name' , 'nameAr'];
+  columns: string[] = ['name' , 'nameAr','parentAssetName','parentAssetNameAr']
   companyId = this.localStorageService.getItem('companyId');
   pageIndex: any = {};
   entityTypes: Record<
@@ -49,7 +49,8 @@ export class RelatedAssetsComponent implements OnInit{
     { load: string; add: string; edit: string; delete: string; data: string }
   > = {
     RelatedAssets: {
-      load: 'getRelatedAssets',
+      //load: 'getRelatedAssets',
+      load:'getAsset',
       add: 'addRelatedAssets',
       edit: 'editRelatedAssets',
       delete: 'deleteRelatedAssets',
@@ -96,24 +97,60 @@ export class RelatedAssetsComponent implements OnInit{
   //     error: (err) => console.log(err),
   //   });
   // }
-  loadAssets(){
-    this.assetsService.getAsset().subscribe({
+  getParentAsset(id:number){
+    const params={id}
+    this.assetsService.getAsset(params).subscribe({
       next: (res) => {
-        this.assets = res.data.list
+        console.log(res)
       },
       error: (err)=>{
         console.log(err)
       }
     })
   }
-  loadEntities(entity: string, pageIndex: number, name?: string): void {
-    const query: any = {
+  loadAssets(){
+    const params={"isMain": false}
+    this.assetsService.getAsset(params)
+    .subscribe({
+      next: (res) => {
+        this.assets = res.data.list
+        this.relatedAssets= res.data.list
+        console.log(res.data.list)
+        console.log(this.relatedAssets)
+
+        // this.relatedAssets=  this.relatedAssets.map((item:any)=>{
+        //   this.getParentAsset(item.parentAssetId)
+        // }
+        // )
+
+
+      },
+      error: (err)=>{
+        console.log(err)
+      }
+    })
+  }
+  loadEntities(entity: string, pageIndex: number, name?: string,isAssgined?:string): void {
+
+    let query: any = {
       companyId: this.companyId,
+      isMain: false,
       pageIndex,
+
     };
     if (name) {
       query.name = name;
+      console.log(name)
     }
+    if (isAssgined!=undefined) {
+      if(isAssgined==='true'){
+        query.isAssgined=true
+        }else{
+          query.isAssgined=false
+        }
+      }
+
+      console.log(query)
 
     const methodName = this.entityTypes[entity].load as keyof AssetsService;
     (this.assetsService[methodName] as Function)(query).subscribe((response: any) => {

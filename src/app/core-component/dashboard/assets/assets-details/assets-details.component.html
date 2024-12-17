@@ -11,7 +11,7 @@
     >
       Assign To Employee
     </button>
-    <button class="btn related-btn" (click)="toggleRelatedAssetsPopup()">
+    <button *ngIf="isMainAsset" class="btn related-btn" (click)="toggleRelatedAssetsPopup()">
       Add Related Assets
     </button>
   </div>
@@ -83,7 +83,7 @@
             </div>
           </div>
         </div>
-        <div class="bg-light relatedAssetContainer">
+        <div class="bg-light relatedAssetContainer"  *ngIf="isMainAsset" >
           <h3>Related Assets</h3>
           <div
             *ngIf="relatedAssets.length > 0; else noRelatedAssets"
@@ -92,25 +92,23 @@
             <div
               *ngFor="let relatedAsset of relatedAssets"
               class="col-12 col-md-6 col-lg-3">
-              <div class="detail">
+              <div class="relatedAsset-details"  [routerLink]="['/dashboard/AssetsDetails',relatedAsset.id]">
+                <button class="btn delete-related-asset-btn" (click)="deleteRelatedAsset($event,relatedAsset.id)">x</button>
                 <img
                 [src]="relatedAsset?.photo || '../../../../../assets/images/default.jpeg'"
                 alt="relatedAssetPhoto"
-                class=" relatedAssetImg"
+                class="img-fluid relatedAssetImg"
               />
                 <div
-                  class="d-flex justify-content-between align-items-center w-100"
+                  class="px-3 relatedAsset-details-text d-flex flex-column justify-content-center align-items-center"
                 >
-                  <p class="detail-description long-text-related">
+                  <p class="relatedAsset-name text-center">
                     {{ relatedAsset.name }}
                   </p>
-                  <p class="detail-description2 long-text-related">
+                  <!-- <p class="relatedAsset-name ">
                     {{ relatedAsset.model }}
-                  </p>
+                  </p> -->
                 </div>
-              </div>
-              <div class="w-75 d-flex justify-content-center">
-                <hr />
               </div>
             </div>
           </div>
@@ -147,3 +145,12 @@
   *ngIf="isRelatedAssetsVisible"
   (closeRelatedAssets)="onRelatedAssetsClose($event)"
 ></app-related-assets-popup>
+
+
+<app-confirmn-delete-dialog
+  *ngIf="isConfirmationDialogVisible"
+  title="Delete related asset"
+  message="Are you sure you want to delete this related asset?"
+  (onConfirm)="handleDeleteConfirm()"
+  (onCancel)="handleDeleteCancel()"
+></app-confirmn-delete-dialog>
