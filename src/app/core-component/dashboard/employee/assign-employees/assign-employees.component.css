@@ -1,3 +1,7 @@
+*{
+  font-family: Lama Sans;
+  text-transform: capitalize;
+}
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -56,7 +60,7 @@
   line-height: 30px;
   letter-spacing: 0.03em;
   text-align: left;
-  
+
 }
 
 .form-group {
@@ -91,4 +95,10 @@
   border-radius: 10px;
    opacity: 0px;
   color: white;
+}
+.already-assigned-popup-text span{
+  font-size: 18px;
+}
+.popup-content .assignBtn{
+  font-size: 16px;
 }

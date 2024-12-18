@@ -22,7 +22,7 @@
       <ng-template #defaultContent>
         <form (ngSubmit)="onSubmit()">
           <div class="form-group mt-3">
-            <label for="employeeName">Name</label>
+            <label for="employeeName">{{'Name'|translate}}</label>
             <app-drop-down
             [placeholder]="'Select Employee'"
             [placeholderSearch]="'Search by Name'"
@@ -35,7 +35,7 @@
           ></app-drop-down>
           </div>
           <div class="row d-flex justify-content-center">
-            <button class="assignBtn" type="submit" [disabled]="!selectedEmployeeId">Assign</button>
+            <button class="assignBtn" type="submit" [disabled]="!selectedEmployeeId">{{'Assign'|translate}}</button>
           </div>
         </form>
       </ng-template>
@@ -45,15 +45,14 @@
 
 <div *ngIf="isAssigned">
   <div class="popup-overlay" (click)="close.emit()">
-    <div class="popup-content" (click)="$event.stopPropagation()">
+    <div class="popup-content " (click)="$event.stopPropagation()">
       <button class="close-btn" (click)="close.emit()">&times;</button>
       <div class="header">
-        <div class="d-flex">
-         {{"AssignedToEmployee" |translate}}
-
-         <button class="btn" (click)="isAssigned=false">change employee</button>
+        <div class="py-2 d-flex flex-column justify-content-center align-items-center already-assigned-popup-text">
+        <span >{{"AssignedToEmployee" |translate}}</span>
       </div>
     </div>
+    <button class=" mt-3 btn assignBtn w-100" (click)="isAssigned=false">{{'change employee'|translate}}</button>
   </div>
 </div>
 

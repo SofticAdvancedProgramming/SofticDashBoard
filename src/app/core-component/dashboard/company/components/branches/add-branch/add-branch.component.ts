@@ -65,7 +65,11 @@ export class AddBranchComponent implements OnInit {
 
   onSave(): void {
     if (this.form.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
+      this.messageService.add({ 
+        severity: 'error', 
+        summary: 'Error', 
+        detail: this.translate.instant('addBranch.PLEASE_FILL_REQUIRED_FIELDS') 
+      });
       return;
     }
 
@@ -81,20 +85,37 @@ export class AddBranchComponent implements OnInit {
     this.branchService[this.isEdit ? 'editBranch' : 'addBranch'](branchData).subscribe({
       next: (response) => {
         console.log('Branch added successfully', response);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: this.isEdit ? 'Branch Edit successfully' : 'Branch added successfully' });
+        this.messageService.add({ 
+          severity: 'success', 
+          summary: 'Success', 
+          detail: this.isEdit ? 
+            this.translate.instant('addBranch.BRANCH_EDITED_SUCCESSFULLY') : 
+            this.translate.instant('addBranch.BRANCH_ADDED_SUCCESSFULLY') 
+        });
+
         if (this.isEdit) {
-          setTimeout(() => {
+           setTimeout(() => {
             this.branchAdded.emit();
             this.action.emit(false);
           }, 1000);
         } else {
-          this.form.reset()
+           this.form.reset();
+          this.action.emit(false);
+ 
         }
+      },
+      error: (err) => {
+        console.error('Error adding/editing branch:', err);
+        this.messageService.add({ 
+          severity: 'error', 
+          summary: 'Error', 
+          detail: this.translate.instant('addBranch.FAILED_TO_ADD_BRANCH') 
+        });
       }
     });
-    this.ngOnInit();
-    this.action.emit(false);
-  }
+
+   }
+
 
   onBack(): void {
     this.action.emit(false);

@@ -11,4 +11,8 @@ export class Department {
   long?: number;
   lat?: number;
   isActive?:boolean;
+  isHR?: boolean;
+  isFinancial?: boolean;
+  branchName?:string;
+  branchNameAr?:string;
 }

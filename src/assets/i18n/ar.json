@@ -178,7 +178,9 @@
     "SELECT_OPTION": "اختر خيار",
     "REQUIRED_FIELD": "مطلوب",
     "DESCRIPTION_CONSTRAINT": "يجب أن يكون بين 100 و 250 حرفًا.",
-    "CHARACTERS_COUNT": "  حرف"
+    "CHARACTERS_COUNT": "  حرف",
+    "HR":"موارد بشرية",
+    "FINANCIAL":"مالية"
   },
   "DEPARTMENTS": {
     "ADD_DEPARTMENT": "إضافة قسم",
@@ -198,6 +200,7 @@
     "DELETE_CONFIRMATION_TITLE": "تأكيد الحذف",
     "DELETE_SUCCESS": "تم حذف القسم بنجاح",
     "ACTION_CANCELLED": "تم إلغاء العملية",
+    "SELECT_BRANCH":"اختر الفرع",
     "YES": "نعم",
     "NO": "لا"
   },
@@ -779,6 +782,21 @@
       "uploadAnotherFile": "رفع ملف آخر"
     }
   },
+  "assetDetails":{
+    "Details":"التفاصيل",
+    "Assign To Employee":"اسناد لموظف",
+    "Add Related Assets":"اضافة متعلق",
+    "Asset Name":"الاسم",
+    "Category":"الفئة",
+    "Technical description":"الوصف",
+    "Model":"الموديل",
+    "Address":"العنوان",
+    "Address not available":"العنوان غير متاح",
+    "Assigned To":"اسناد لـ",
+    "Related Assets":"المتعلقات",
+    "No related assets available":"لا توجد متعلقات",
+    "No attachments available":"لا توجد ملفات أو صور"
+  },
   "ASSET_UPLOADER": {
     "BROWSE_FILE": "تصفح الملف",
     "NO_FILE_SELECTED": "لم يتم اختيار ملف",
@@ -794,6 +812,7 @@
   },
 
   "employeeAssets": {
+    "name":"الأصل",
     "category": "الفئة",
     "subcategory": "الفئة الفرعية",
     "subsubsategory": "الفئة الفرعية الثانية",
@@ -823,5 +842,7 @@
     "validation":{
       "nameRequired": "اسم المهمة مطلوب"
     }
-  }
+  },
+  "SELECT_DEPARTMENT":"اختر الفرع"
+
 }

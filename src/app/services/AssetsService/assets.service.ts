@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiCall } from '../../core/services/http-service/HttpService';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
  import { Assets , assignAsset } from '../../../models/assetsModel';
 import { request } from 'http';
 import { RelatedAsset } from '../../../models/assets';
@@ -35,6 +35,21 @@ export class AssetsService {
     );
   }
 
+  getAssetsAfterChange(request: any = {}): Observable<any> {
+    return this.apiCall.request(
+      'POST',
+      assetsCategoryController.getAsset,
+      request
+    ).pipe(
+      map((items)=>
+        items.map((item:any)=>{
+          item.parentAssetName='nnnnn';
+          return item;
+        })
+      )
+    )
+    ;
+  }
   getAsset(request: any = {}): Observable<any> {
     return this.apiCall.request(
       'POST',
@@ -70,6 +85,9 @@ export class AssetsService {
   }
   assignAsset(assignAsset: assignAsset): Observable<any> {
     return this.apiCall.request("POST", assetsController.assignAsset, assignAsset)
+  }
+  edit(Asset: any): Observable<any> {
+    return this.apiCall.request("POST", assetsController.editAsset, Asset)
   }
 
   deleteAsset(id: number, companyId: number): Observable<any> {

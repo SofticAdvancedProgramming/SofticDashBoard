@@ -93,7 +93,7 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   initiation() {
-    
+
   }
 
   getTaksDetails() {
@@ -111,7 +111,7 @@ export class TaskDetailsComponent implements OnInit {
           serviceCost: [this.taskDetails.serviceCost, Validators.required],
           additionalCost: [this.taskDetails.additionalCost, Validators.required],
         });
-        
+
         if(this.taskDetails.toDoItems){
           this.todoItems = this.taskDetails.toDoItems;
         }
@@ -134,8 +134,6 @@ export class TaskDetailsComponent implements OnInit {
           this.ReviewImgScr = this.ReviewImg;
           this.DoneImgScr = this.DoneImg;
         }
-
-        
         if(this.taskDetails.taskAttachments[0].file){
           this.taskImg = this.taskDetails.taskAttachments[0].file;
         }
