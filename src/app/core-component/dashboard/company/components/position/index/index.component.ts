@@ -44,6 +44,8 @@ export class IndexComponent implements OnInit {
   totalItems: number = 0;
   isArabic: boolean = false;
   searchText!:string;
+  selectedDepartmentId: number | null = null;  
+  filteredDepartments: Department[] = [];
   totalEmployees: number = 0;
   entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: string } } = {
     PositionType: {
@@ -68,26 +70,59 @@ export class IndexComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadPositions();
-    this.loadDepartments();
-
     this.isArabic = this.translate.currentLang === 'ar';
+    this.loadDepartments();
+    this.loadPositions();
+    this.loadAllDepartments(); // Load all departments for the filter
 
     this.translate.onLangChange.subscribe((event) => {
       this.isArabic = event.lang === 'ar';
     });
   }
-
+  loadAllDepartments(): void {
+    if (this.companyId) {
+      this.departmentService.getDepartment({ companyId: parseInt(this.companyId) }).subscribe({
+        next: (response) => {
+          this.departments = response.data.list;
+         },
+ 
+      });
+    }
+  }
+  private getCompanyId(): number | null {
+    return this.companyId ? Number(this.companyId) : null;
+  }
+  
   loadPositions(page: number = this.currentPage): void {
-    this.positionService.getPosition({ companyId: this.companyId, pageSize: this.itemsPerPage, pageIndex: page }).subscribe({
+    const companyId = this.getCompanyId();
+    if (!companyId) return;
+
+     const payload: any = {
+      companyId: companyId,
+      pageIndex: page,
+      pageSize: this.itemsPerPage,
+    };
+
+    if (this.selectedDepartmentId !== null) {
+      payload.departmentId = this.selectedDepartmentId;
+    }
+
+    console.log('Sending payload:', payload); // Debugging line
+
+    this.positionService.getPosition(payload).subscribe({
       next: (response) => {
         this.positions = response.data.list;
-
         this.totalItems = response.data.totalRows;
-         this.getPositionEmployee();
-       }
+        this.getPositionEmployee();
+      },
+ 
     });
-  } 
+  }
+  filterPositionsByDepartment(): void {
+    this.currentPage = 1;  
+    this.loadPositions();
+  }
+
   async getPositionEmployee(): Promise<void> {
     for (let item of this.positions) {
       const response: any = await firstValueFrom(this.employeeService.getEmployees({ positionId: item.id }));

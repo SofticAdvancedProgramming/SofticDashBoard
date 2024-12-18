@@ -198,6 +198,7 @@
     "DELETE_CONFIRMATION_TITLE": "تأكيد الحذف",
     "DELETE_SUCCESS": "تم حذف القسم بنجاح",
     "ACTION_CANCELLED": "تم إلغاء العملية",
+    "SELECT_BRANCH":"اختر الفرع",
     "YES": "نعم",
     "NO": "لا"
   },
@@ -823,5 +824,7 @@
     "validation":{
       "nameRequired": "اسم المهمة مطلوب"
     }
-  }
+  },
+  "SELECT_DEPARTMENT":"اختر الفرع"
+
 }

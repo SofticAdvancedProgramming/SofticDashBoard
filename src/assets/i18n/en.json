@@ -201,6 +201,7 @@
     "DELETE_CONFIRMATION_TITLE": "Delete Confirmation",
     "DELETE_SUCCESS": "Department deleted successfully",
     "ACTION_CANCELLED": "Action cancelled",
+    "SELECT_BRANCH":"Select Branch",
     "YES": "Yes",
     "NO": "No"
   },
@@ -825,7 +826,8 @@
       "durationRequired": "Duration Required",
       "initialCostRequired": "Initial Cost Required"
     }
-  }
+  },
+  "SELECT_DEPARTMENT":"Select Department"
 
 }
 
