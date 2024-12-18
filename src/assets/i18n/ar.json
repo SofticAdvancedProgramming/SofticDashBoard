@@ -178,7 +178,9 @@
     "SELECT_OPTION": "اختر خيار",
     "REQUIRED_FIELD": "مطلوب",
     "DESCRIPTION_CONSTRAINT": "يجب أن يكون بين 100 و 250 حرفًا.",
-    "CHARACTERS_COUNT": "  حرف"
+    "CHARACTERS_COUNT": "  حرف",
+    "HR":"موارد بشرية",
+    "FINANCIAL":"مالية"
   },
   "DEPARTMENTS": {
     "ADD_DEPARTMENT": "إضافة قسم",

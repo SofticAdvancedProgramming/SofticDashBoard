@@ -223,6 +223,9 @@ input:checked+.slider:before {
 .icon-trash,
 .icon-edit {
   color: #663895;
-  /* Set icon color to white */
-  cursor: pointer;
+   cursor: pointer;
+}
+.form-check-input{
+  width: 6px !important;
+  height: 6px !important;
 }

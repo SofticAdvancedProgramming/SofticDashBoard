@@ -181,7 +181,9 @@
     "SELECT_OPTION": "Select Option",
     "REQUIRED_FIELD": "is required",
     "DESCRIPTION_CONSTRAINT": "must be between 100 and 250 characters.",
-    "CHARACTERS_COUNT": "  characters"
+    "CHARACTERS_COUNT": "  characters",
+    "HR": "HR",
+    "FINANCIAL": "FINANCIAL"
   },
   "DEPARTMENTS": {
     "ADD_DEPARTMENT": "Add Department",
@@ -201,7 +203,7 @@
     "DELETE_CONFIRMATION_TITLE": "Delete Confirmation",
     "DELETE_SUCCESS": "Department deleted successfully",
     "ACTION_CANCELLED": "Action cancelled",
-    "SELECT_BRANCH":"Select Branch",
+    "SELECT_BRANCH": "Select Branch",
     "YES": "Yes",
     "NO": "No"
   },
@@ -287,7 +289,7 @@
     "LOGOUT": "Logout",
     "ASSETS": "Assets",
     "COMPLAINSANDSUGGESTIONS": "Complaints & Suggetions",
-    "TASKS":"tasks"
+    "TASKS": "tasks"
   },
   "Home": {
     "ActiveCompanies": "Active Companies",
@@ -299,7 +301,15 @@
     "ThisYear": "This Year",
     "LastYear": "Last Year"
   },
-  "MONTHS": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+  "MONTHS": [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul"
+  ],
   "generalLookups": {
     "SUBSCRIPTION_PLAN_MANAGEMENT": "Subscription Plan Management",
     "SUBSCRIPTION_PLAN_DESCRIPTION": "Create and manage subscription plans to meet diverse user needs.",
@@ -775,11 +785,11 @@
     "BROWSE_IMG": "Browse Img",
     "BROWSE_PHOTO": "Browse Photo",
     "NO_FILE_SELECTED": "No file selected",
-    "NO_IMG_SELECTED":"NO IMG SELECTED",
+    "NO_IMG_SELECTED": "NO IMG SELECTED",
     "NO_PHOTO_SELECTED": "No Photo selected",
     "SELECTED_FILE": "Selected File",
-    "uploadAnotherImage":"upload Another Image",
-    "uploadAnotherFile":"upload Another File",
+    "uploadAnotherImage": "upload Another Image",
+    "uploadAnotherFile": "upload Another File",
     "IMAGE_UPLOADED": "Image uploaded successfully.",
     "FILE_UPLOADED": "File uploaded successfully.",
     "SEND": "Send"
@@ -797,9 +807,9 @@
     "assetsId": "Asset Id",
     "assetstatus": "Asset Status",
     "outofservice": "Out of service",
-    "AssienedTo":"Assiened To",
-    "NotAssiened":"Not Assiened",
-    "Model":"Model"
+    "AssienedTo": "Assiened To",
+    "NotAssiened": "Not Assiened",
+    "Model": "Model"
   },
   "FILTER_POPUP": {
     "name": "Name",
@@ -814,10 +824,10 @@
   },
   "Tasks": {
     "addTasks": {
-      "addTaskBtn":"Add Task",
+      "addTaskBtn": "Add Task",
       "cancel": "Cancel"
     },
-    "validation":{
+    "validation": {
       "nameRequired": "Task Name Required",
       "detailsRequired": "Task Details Required",
       "detailsMinLength": "Task Details Min Length is 50 characters",
@@ -827,7 +837,5 @@
       "initialCostRequired": "Initial Cost Required"
     }
   },
-  "SELECT_DEPARTMENT":"Select Department"
-
+  "SELECT_DEPARTMENT": "Select Department"
 }
-
