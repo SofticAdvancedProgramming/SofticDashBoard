@@ -6,8 +6,21 @@
       </button>
     </div>
   </div>
+  <div class="row mb-3">
+    <label for="branchSelect" class="form-label">{{ 'DEPARTMENTS.SELECT_BRANCH' | translate }}</label>
+    <select
+  id="branchSelect"
+  class="form-select"
+  [(ngModel)]="selectedBranchId"
+  (change)="filterDepartmentsByBranch()"
+>
+  <option *ngFor="let branch of branches" [value]="branch.id">
+    {{ isArabic ? branch.nameAr : branch.name }}
+  </option>
+</select>
+  </div>
   <div class="row">
-    <div *ngFor="let department of departments" class="col-lg-4 col-md-6 col-sm-12">
+    <div *ngFor="let department of filteredDepartments" class="col-lg-4 col-md-6 col-sm-12">
       <div class="card">
         <div class="card-header">
           <h3>{{ department.name }}</h3>
@@ -15,12 +28,12 @@
         </div>
         <div class="card-body">
           <button class="btn btn-add" (click)="assignEntity(department.id.toString())">
-            <i class="fas fa-plus"></i> {{ 'DEPARTMENTS.ADD_EMPLOYEE' | translate }}</button>
+            <i class="fas fa-plus"></i> {{ 'DEPARTMENTS.ADD_EMPLOYEE' | translate }}
+          </button>
         </div>
         <div class="card-footer">
           <label class="toggle-label">
-            <span>{{ department.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' |
-              translate) }}</span>
+            <span>{{ department.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' | translate) }}</span>
             <label class="switch">
               <input type="checkbox" [checked]="department.isActive" (change)="toggleActivation(department)">
               <span class="slider"></span>
@@ -28,22 +41,18 @@
           </label>
           <i class="fas fa-trash-alt icon-trash" (click)="deleteDepartment(department.id)"></i>
           <i class="fas fa-edit icon-edit" (click)="editDepartment(department)"></i>
-          <!-- <button class="btn" (click)="showDetails(department.id)">
-              <span class="details">{{ 'DEPARTMENTS.SHOW_DETAILS' | translate }} <i [ngClass]="{'rotate-arrow': isArabic}"
-                class="fa-solid fa-arrow-right"></i>
-            </span>
-            </button> -->
         </div>
       </div>
     </div>
   </div>
+</div>
+
   <div class="d-flex justify-content-center mt-3">
     <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
       (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;">
     </pagination>
   </div>
-</div>
-
+ 
 <!-- Entity Assignment Popup -->
 <app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedEntityId" [entityType]="entityType" [entities]="employees"
   [department]="selectedDepartment" (close)="goBack()" (submitForm)="handleEntityAssigned($event)">
