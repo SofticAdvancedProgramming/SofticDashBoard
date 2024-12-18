@@ -33,10 +33,14 @@
       </div>
       <div class="form-buttons row ">
         <div class="col-lg-6 col-md-6 col-sm-6 mt-3 justify-content-center d-flex">
-          <button type="submit" class="btn btn-primary">{{( isEdit ? 'addBranch.EDIT' : 'addBranch.SAVE') | translate  }}</button>
+          <button type="submit" class="btn btn-primary">
+            {{ isEdit ? ('addBranch.EDIT' | translate) : ('addBranch.SAVE' | translate) }}
+          </button>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6  mt-3 justify-content-center d-flex">
-          <button type="button" class="btn btn-secondary" (click)="onBack()">{{ 'addBranch.BACK' | translate }}</button>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-3 justify-content-center d-flex">
+          <button type="button" class="btn btn-secondary" (click)="onBack()">
+            {{ 'addBranch.BACK' | translate }}
+          </button>
         </div>
 
       </div>

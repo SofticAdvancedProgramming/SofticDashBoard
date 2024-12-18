@@ -17,14 +17,20 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
-
+import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
+interface DepartmentPayload {
+  companyId: number;
+  pageIndex: number;
+  pageSize: number;
+  branchId?: number; 
+}
 
 @Component({
   selector: 'app-departments',
   standalone: true,
   templateUrl: './departments.component.html',
   styleUrls: ['./departments.component.css'],
-  providers: [DepartmentService, EmployeeService, MessageService,ConfirmationService],
+  providers: [DepartmentService, EmployeeService, MessageService, ConfirmationService],
   imports: [
     CommonModule,
     FormsModule,
@@ -35,23 +41,24 @@ import { ConfirmationService } from 'primeng/api';
     ToastModule,
     AssignEntityComponent,
     PaginationModule,
-    TranslateModule,ConfirmDialogModule
+    TranslateModule, ConfirmDialogModule
 
   ]
 })
+
 export class DepartmentsComponent implements OnInit {
   @Input() companyId?: number;
   @Output() departmentAdded = new EventEmitter<void>();
-
+  selectedBranchId: number | null = null;
   showOverView: boolean = false;
   isAdd: boolean = false;
   isEdit: boolean = false;
   isAssignEntity: boolean = false;
-
+  branches: any[] = [];
   departments: Department[] = [];
   department!: Department;
   employees: employee[] = [];
-
+  filteredDepartments: Department[] = [];
   selectedDepartment: Department | null = null;
   selectedEntityId: string | undefined = undefined;
   entityType: string = 'Employee';
@@ -67,12 +74,14 @@ export class DepartmentsComponent implements OnInit {
     private employeeService: EmployeeService,
     private messageService: MessageService,
     private translate: TranslateService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private branchService: BranchService
   ) { }
   private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.isArabic = this.translate.currentLang === 'ar';
+    this.loadBranches();
     this.loadDepartments();
     this.subscription.add(this.translate.onLangChange.subscribe(() => {
       this.checkLanguage();
@@ -83,16 +92,35 @@ export class DepartmentsComponent implements OnInit {
   }
   loadDepartments(page: number = this.currentPage): void {
     const companyId = this.getCompanyId();
-    if (companyId) {
-      this.departmentService.getDepartment({ companyId, pageIndex: page, pageSize: this.itemsPerPage }).subscribe({
-        next: (response) => {
-          this.departments = response.data.list;
-          this.totalItems = response.data.totalRows;
-          this.loadEmployees();
-        }
-      });
+    if (!companyId) return;
+
+    const payload: DepartmentPayload = {
+      companyId,
+      pageIndex: page,
+      pageSize: this.itemsPerPage,
+    };
+
+    if (this.selectedBranchId !== null) {
+      payload.branchId = this.selectedBranchId;
     }
+
+    console.log('Sending payload:', payload); // Debugging line
+
+    this.departmentService.getDepartment(payload).subscribe({
+      next: (response) => {
+        this.departments = response.data.list;
+        this.filteredDepartments = [...this.departments];
+        this.totalItems = response.data.totalRows;
+      },
+       
+    });
   }
+
+  filterDepartmentsByBranch(): void {
+    this.currentPage = 1;
+    this.loadDepartments();
+  }
+
 
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
@@ -143,12 +171,13 @@ export class DepartmentsComponent implements OnInit {
     this.showOverView = this.isAdd = this.isAssignEntity = false;
   }
 
-  handleAction(isAdd: boolean): void {
-    this.isAdd = isAdd;
-    this.isEdit = isAdd;
-    this.loadDepartments();
+  handleAction(action: boolean): void {
+    if (action === false) {
+      this.isAdd = false;
+      this.isEdit = false;
+      this.loadDepartments();  
+    }
   }
-
 
 
   toggleActivation(department: Department): void {
@@ -213,5 +242,14 @@ export class DepartmentsComponent implements OnInit {
       }
     });
   }
+  loadBranches(): void {
+    this.branchService.getBranch().subscribe({
+      next: (response) => {
+        this.branches = [{ id: null, name: 'All Branches', nameAr: 'كل الفروع' }, ...response.data.list];
+        this.selectedBranchId = null;
+        this.filterDepartmentsByBranch();
+      },
 
+    });
+  }
 }

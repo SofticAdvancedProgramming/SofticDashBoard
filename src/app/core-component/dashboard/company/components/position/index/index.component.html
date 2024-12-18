@@ -2,20 +2,33 @@
   <!-- Add Position Form -->
   <ng-container *ngIf="!showDetails"> <!-- Modify this line -->
     <ng-container *ngIf="isAdd || isEdit; else positionList">
-      <app-add-position [companyId]="companyId" (action)="handleAction($event)" [positionData]="positionData" [isEdit]="isEdit">
+      <app-add-position [companyId]="companyId" (action)="handleAction($event)" [positionData]="positionData"
+        [isEdit]="isEdit">
       </app-add-position>
     </ng-container>
 
-    <!-- Position List -->
+
+
     <ng-template #positionList>
       <div class="row justify-content-between">
         <div class="col-5">
           <label class="form-label ">{{'COMPANY_DETAILS.search_position'|translate}}</label>
-          <input [(ngModel)]="searchText" placeholder="{{'COMPANY_DETAILS.search_position'|translate}}" (input)="loadEntities('PositionType', 1)" placeholder="translate" class="form-control custom-search "/>
+          <input [(ngModel)]="searchText" placeholder="{{'COMPANY_DETAILS.search_position'|translate}}"
+            (input)="loadEntities('PositionType', 1)" placeholder="translate" class="form-control custom-search " />
         </div>
         <button class="col-3  btn addPositionBtn" (click)="addPosition()">
           <i class="fas fa-plus"></i> {{ 'INDEX_POSITION.ADD_POSITION' | translate }}
         </button>
+        <div class="col-5 mt-2">
+          <label for="branchSelect" class="form-label">{{ 'SELECT_DEPARTMENT' | translate }}</label>
+        <select id="departmentSelect" class="form-select" [(ngModel)]="selectedDepartmentId"
+        (change)="filterPositionsByDepartment()">
+        <option [ngValue]="null">All Departments</option>
+        <option *ngFor="let department of departments" [ngValue]="department.id">
+          {{ isArabic ? department.nameAr : department.name }}
+        </option>
+      </select>
+    </div>
       </div>
       <div class="row">
         <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let position of positions">
@@ -30,7 +43,7 @@
               </button>
             </div>
             <div class="card-header" *ngIf="position.isAssigned">
-                   {{position.employeeName}}
+              {{position.employeeName}}
             </div>
             <div class="card-footer">
               <!-- <label class="toggle-label">
@@ -74,21 +87,16 @@
     </app-modern-table>
   </div>
 
-   <ng-container *ngIf="isAddEmployee">
-    <app-assign-employees 
-    [positionId]="selectedPositionId" 
-    [Position]="'INDEX_POSITION.POSITION' | translate"
-    [PositionDescription]="selectedPositionData?.name || ''"
-    [Department]="'INDEX_POSITION.DEPARTMENT_DESCRIPTION' | translate"
-    [DepartmentDescription]="getDepartmentName(selectedPositionData?.departmentId) || ''"
-    [DirectManager]="'INDEX_POSITION.DIRECT_MANAGER' | translate"
-    [DirectManagerDescription]="directManger?.fullName || ''"
-    
-    (close)="closePopup()"
-    (submitForm)="handleFormSubmit($event)"
-    (getNextPage)="loadMoreEmployees($event)"
-    (search)="searchUnassignedEmployees($event)">
-  </app-assign-employees>
+  <ng-container *ngIf="isAddEmployee">
+    <app-assign-employees [positionId]="selectedPositionId" [Position]="'INDEX_POSITION.POSITION' | translate"
+      [PositionDescription]="selectedPositionData?.name || ''"
+      [Department]="'INDEX_POSITION.DEPARTMENT_DESCRIPTION' | translate"
+      [DepartmentDescription]="getDepartmentName(selectedPositionData?.departmentId) || ''"
+      [DirectManager]="'INDEX_POSITION.DIRECT_MANAGER' | translate"
+      [DirectManagerDescription]="directManger?.fullName || ''" (close)="closePopup()"
+      (submitForm)="handleFormSubmit($event)" (getNextPage)="loadMoreEmployees($event)"
+      (search)="searchUnassignedEmployees($event)">
+    </app-assign-employees>
   </ng-container>
 </div>
 

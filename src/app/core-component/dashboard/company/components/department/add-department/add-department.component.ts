@@ -1,3 +1,4 @@
+// add-department.component.ts
 import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -17,10 +18,18 @@ import { MapComponent } from '../../../../../../common-component/map/map.compone
   templateUrl: './add-department.component.html',
   styleUrls: ['./add-department.component.css'],
   providers: [MessageService],
-  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, InputRestrictionDirective]
+  imports: [
+    CommonModule,
+    TranslateModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ToastModule,
+    MapComponent,
+    InputRestrictionDirective
+  ]
 })
 export class AddDepartmentComponent implements OnInit {
-  @Input() department!: Department
+  @Input() department!: Department;
   @Input() isEdit: boolean = false;
   @Output() action = new EventEmitter<boolean>();
   form: FormGroup;
@@ -37,6 +46,7 @@ export class AddDepartmentComponent implements OnInit {
     private messageService: MessageService,
     private translate: TranslateService
   ) {
+    // Initialize the form group with departmentType
     this.form = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
@@ -46,8 +56,8 @@ export class AddDepartmentComponent implements OnInit {
       manager: [''],
       branchId: [null, Validators.required],
       description: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(250)]],
-      descriptionAr: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(250)]]
-    });
+      descriptionAr: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(250)]],
+      departmentType: [null]    });
   }
 
   ngOnInit(): void {
@@ -72,62 +82,99 @@ export class AddDepartmentComponent implements OnInit {
       lat: this.department?.lat,
       branchId: this.department?.branchId,
       description: this.department?.description,
-      descriptionAr: this.department?.descriptionAr
-    })
-  }
-
-
-  loadBranches(): void {
-    this.branchService.getBranch({ companyId: this.companyId }).subscribe({
-      next: (response) => {
-        this.branches = response.data.list;
-      }
+      descriptionAr: this.department?.descriptionAr,
+      departmentType: this.department?.isHR ? 'HR' : this.department?.isFinancial ? 'Financial' : null
     });
   }
 
-  onSave(): void {
-    if (this.form.invalid) {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
+  loadBranches(): void {
+    if (this.companyId === undefined) {
+      this.showError('Company ID is missing.');
       return;
     }
 
-    const departmentData: Department = {
-      id:   0,
-      companyId: this.companyId || 0,
-      name: this.form.value.name,
-      shortName: this.form.value.shortName,
-      nameAr: this.form.value.nameAr,
-      description: this.form.value.description,
-      descriptionAr: this.form.value.descriptionAr,
-      branchId: this.form.value.branchId,
-      long: this.form.value.long,
-      lat: this.form.value.lat
-    };
-
-    this.departmentService[this.isEdit ? 'editDepartment' : 'addDepartment'](departmentData).subscribe({
+    this.branchService.getBranch({ companyId: this.companyId }).subscribe({
       next: (response) => {
-        console.log('Department added successfully', response);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Department added successfully' });
-        if (this.isEdit) {
-          setTimeout(() => {
-            this.action.emit(false);
-          }, 1000);
-        } else {
-          this.form.reset()
-        }
-
+        this.branches = response.data.list;
+      },
+      error: (err) => {
+        console.error('Error loading branches:', err);
+        this.showError('Failed to load branches. Please try again later.');
       }
     });
-    this.ngOnInit();
-    this.action.emit(false);
-
   }
+
+ onSave(): void {
+  if (this.form.invalid) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'Please fill all required fields'
+    });
+    return;
+  }
+
+  const selectedType = this.form.value.departmentType;
+
+  const departmentData: Department = {
+    id: this.isEdit && this.department ? this.department.id : 0,
+    companyId: this.companyId || 0,
+    name: this.form.value.name,
+    shortName: this.form.value.shortName,
+    nameAr: this.form.value.nameAr,
+    description: this.form.value.description,
+    descriptionAr: this.form.value.descriptionAr,
+    branchId: this.form.value.branchId,
+    long: this.form.value.long,
+    lat: this.form.value.lat,
+    isHR: selectedType === 'HR',
+    isFinancial: selectedType === 'Financial'
+  };
+
+  this.departmentService[this.isEdit ? 'editDepartment' : 'addDepartment'](departmentData).subscribe({
+    next: (response) => {
+      console.log('Department saved successfully', response);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Department saved successfully'
+      });
+
+      if (this.isEdit) {
+        setTimeout(() => {
+          this.action.emit(false); // Hide AddDepartmentComponent after editing
+        }, 1000);
+      } else {
+        // Emit event to hide AddDepartmentComponent after adding
+        this.action.emit(false);
+
+        // Optionally, reset the form with default values
+        this.form.reset({
+          departmentType: null,
+          long: 0,
+          lat: 0
+        });
+        this.descriptionCharacterCount = 0;
+        this.descriptionArCharacterCount = 0;
+      }
+    },
+    error: (err) => {
+      console.error('Error saving department:', err);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Error saving department'
+      });
+    }
+  });
+}
+
 
   onBack(): void {
     this.action.emit(false);
   }
 
-  onLocationSelected(location: { lat: number, lng: number }): void {
+  onLocationSelected(location: { lat: number; lng: number }): void {
     this.form.patchValue({ lat: location.lat, long: location.lng });
   }
 
@@ -141,5 +188,9 @@ export class AddDepartmentComponent implements OnInit {
         this.descriptionArCharacterCount = valueLength;
       }
     }
+  }
+
+  private showError(detail: string): void {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail });
   }
 }
