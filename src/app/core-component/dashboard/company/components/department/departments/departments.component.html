@@ -45,13 +45,14 @@
       </div>
     </div>
   </div>
-</div>
-
   <div class="d-flex justify-content-center mt-3">
     <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
       (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;">
     </pagination>
   </div>
+</div>
+
+
  
 <!-- Entity Assignment Popup -->
 <app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedEntityId" [entityType]="entityType" [entities]="employees"

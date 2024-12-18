@@ -171,12 +171,13 @@ export class DepartmentsComponent implements OnInit {
     this.showOverView = this.isAdd = this.isAssignEntity = false;
   }
 
-  handleAction(isAdd: boolean): void {
-    this.isAdd = isAdd;
-    this.isEdit = isAdd;
-    this.loadDepartments();
+  handleAction(action: boolean): void {
+    if (action === false) {
+      this.isAdd = false;
+      this.isEdit = false;
+      this.loadDepartments();  
+    }
   }
-
 
 
   toggleActivation(department: Department): void {
