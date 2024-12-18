@@ -9,15 +9,15 @@
   <div class="row mb-3">
     <label for="branchSelect" class="form-label">{{ 'DEPARTMENTS.SELECT_BRANCH' | translate }}</label>
     <select
-  id="branchSelect"
-  class="form-select"
-  [(ngModel)]="selectedBranchId"
-  (change)="filterDepartmentsByBranch()"
->
-  <option *ngFor="let branch of branches" [value]="branch.id">
-    {{ isArabic ? branch.nameAr : branch.name }}
-  </option>
-</select>
+      id="branchSelect"
+      class="form-select"
+      [(ngModel)]="selectedBranchId"
+      (change)="filterDepartmentsByBranch()"
+    >
+      <option *ngFor="let branch of branches" [ngValue]="branch.id">
+        {{ isArabic ? branch.nameAr : branch.name }}
+      </option>
+    </select>
   </div>
   <div class="row">
     <div *ngFor="let department of filteredDepartments" class="col-lg-4 col-md-6 col-sm-12">

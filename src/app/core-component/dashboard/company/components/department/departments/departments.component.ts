@@ -18,7 +18,12 @@ import { Subscription } from 'rxjs';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
-
+interface DepartmentPayload {
+  companyId: number;
+  pageIndex: number;
+  pageSize: number;
+  branchId?: number; 
+}
 
 @Component({
   selector: 'app-departments',
@@ -40,6 +45,7 @@ import { BranchService } from '../../../../../../services/lockupsServices/branch
 
   ]
 })
+
 export class DepartmentsComponent implements OnInit {
   @Input() companyId?: number;
   @Output() departmentAdded = new EventEmitter<void>();
@@ -75,7 +81,7 @@ export class DepartmentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.isArabic = this.translate.currentLang === 'ar';
-    this.loadBranches(); 
+    this.loadBranches();
     this.loadDepartments();
     this.subscription.add(this.translate.onLangChange.subscribe(() => {
       this.checkLanguage();
@@ -87,46 +93,35 @@ export class DepartmentsComponent implements OnInit {
   loadDepartments(page: number = this.currentPage): void {
     const companyId = this.getCompanyId();
     if (!companyId) return;
-  
-    this.departmentService.getDepartment({
+
+    const payload: DepartmentPayload = {
       companyId,
-      branchId: this.selectedBranchId, // Pass selectedBranchId for filtering
       pageIndex: page,
-      pageSize: this.itemsPerPage
-    }).subscribe({
+      pageSize: this.itemsPerPage,
+    };
+
+    if (this.selectedBranchId !== null) {
+      payload.branchId = this.selectedBranchId;
+    }
+
+    console.log('Sending payload:', payload); // Debugging line
+
+    this.departmentService.getDepartment(payload).subscribe({
       next: (response) => {
-        this.departments = response.data.list; // Load departments
-        this.filteredDepartments = [...this.departments]; // Sync filtered departments
-        this.totalItems = response.data.totalRows; // Update total items for pagination
-      },
-      error: (error) => {
-        console.error('Error loading departments:', error);
-      }
-    });
-  }
-  
-  filterDepartmentsByBranch(): void {
-    const companyId = this.getCompanyId();
-    if (!companyId) return;
-  
-    // Reload departments based on the selected branch
-    this.departmentService.getDepartment({
-      companyId,
-      branchId: this.selectedBranchId,
-      pageIndex: this.currentPage,
-      pageSize: this.itemsPerPage
-    }).subscribe({
-      next: (response) => {
-        this.departments = response.data.list; // Update departments list
-        this.filteredDepartments = [...this.departments]; // Update filtered list
+        this.departments = response.data.list;
+        this.filteredDepartments = [...this.departments];
         this.totalItems = response.data.totalRows;
       },
-      error: (error) => {
-        console.error('Error loading filtered departments:', error);
-      }
+       
     });
   }
-  
+
+  filterDepartmentsByBranch(): void {
+    this.currentPage = 1;
+    this.loadDepartments();
+  }
+
+
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
     this.loadDepartments(this.currentPage);
@@ -250,14 +245,10 @@ export class DepartmentsComponent implements OnInit {
     this.branchService.getBranch().subscribe({
       next: (response) => {
         this.branches = [{ id: null, name: 'All Branches', nameAr: 'كل الفروع' }, ...response.data.list];
-        this.selectedBranchId = null; // Default to "All Branches"
+        this.selectedBranchId = null;
         this.filterDepartmentsByBranch();
       },
-      error: (error) => {
-        console.error('Error loading branches:', error);
-      }
+
     });
   }
-  
-  
 }
