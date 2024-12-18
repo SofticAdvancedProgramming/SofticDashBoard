@@ -17,6 +17,8 @@ import { BasicLineChartComponent } from "../../../../common-component/basic-line
 import { BasicDonutChartComponent } from "../../../../common-component/basic-donut-chart/basic-donut-chart.component";
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AssetsService } from '../../../../services/AssetsService/assets.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { DatePipe } from '@angular/common';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -36,14 +38,17 @@ export type ChartOptions = {
   standalone: true,
   templateUrl: './assets-index.component.html',
   styleUrls: ['./assets-index.component.css'],
-  imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent, RouterLink]
+  imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent, RouterLink,TranslateModule,DatePipe],
 })
 export class AssetsIndexComponent{
-  constructor(private assetsService: AssetsService){
+  constructor(
+      private assetsService: AssetsService,
+      private translate: TranslateService){
+
     this.getAssetsCount();
     this.getAssetsPerCategoriesCount();
   }
-
+  date :Date =new Date()
   assetsCount!:{
     companyId: number,
     totalAssetsCount: number,
