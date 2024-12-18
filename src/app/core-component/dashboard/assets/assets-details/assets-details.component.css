@@ -414,7 +414,8 @@
     border: 1px;
     opacity: 0px;
     border: 1px solid #B876FB;
-    width: 2000px;
+    width: 200px;
+    /* width: 2000px; */
 }
 h3{
     font-family: "Lama Sans", sans-serif;
