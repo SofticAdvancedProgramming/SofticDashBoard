@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AssignAssetPopupComponent } from "../../../../common-component/assign-asset-popup/assign-asset-popup.component";
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AssetsService } from '../../../../services/AssetsService/assets.service';
 import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -16,8 +16,12 @@ import { ConfirmnDeleteDialogComponent } from '../../../../common-component/conf
   standalone: true,
   templateUrl: './assets-details.component.html',
   styleUrls: ['./assets-details.component.css'],
-  imports: [CommonModule, AssignAssetPopupComponent, MapComponent, RelatedAssetsPopupComponent,RouterLink,
-    ConfirmnDeleteDialogComponent]
+  imports: [CommonModule,
+            AssignAssetPopupComponent,
+            MapComponent,
+            RelatedAssetsPopupComponent,RouterLink,
+            ConfirmnDeleteDialogComponent,
+            TranslateModule]
 })
 export class AssetsDetailsComponent implements OnInit {
   assets: Asset[] = [];
@@ -113,8 +117,8 @@ export class AssetsDetailsComponent implements OnInit {
       next: (res) => {
         console.log('Assets Response:', res.data.list);
         this.assets = res.data.list.map((asset: any) => {
-          const category = this.assetsCategory.find(cat => cat.id === asset.assetCategoryId);
-          const assetCategoryName = category ? (this.translate.currentLang === 'ar' ? category.nameAr : category.name) : 'Unknown';
+          // const category = this.assetsCategory.find(cat => cat.id === asset.assetCategoryId);
+          // const assetCategoryName = category ? (this.translate.currentLang === 'ar' ? category.nameAr : category.name) : 'Unknown';
 
           this.files = asset.assetAttachments ? asset.assetAttachments.map((attachment: any) => ({
             name: attachment.file.split('/').pop(),
@@ -132,7 +136,7 @@ export class AssetsDetailsComponent implements OnInit {
 
           return {
             ...asset,
-            assetCategoryName: assetCategoryName
+          //  assetCategoryName: assetCategoryName
           };
         });
         console.log('Mapped Assets Array:', this.assets);

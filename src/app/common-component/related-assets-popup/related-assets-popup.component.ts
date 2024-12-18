@@ -26,6 +26,7 @@ import { LocalStorageService } from '../../services/local-storage-service/local-
 })
 export class RelatedAssetsPopupComponent {
   @Input() assetId: number = 0;
+  @Input() employeeId: number = 0;
   @Output() closeRelatedAssets = new EventEmitter<boolean>();
   fileType: string | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
@@ -95,6 +96,7 @@ export class RelatedAssetsPopupComponent {
     // console.log(this.relatedAsset);
     // console.log(this.childId);
     this.childAsset.parentAssetId=this.assetId;
+    this.childAsset.employeeId=this.employeeId;
     this.edit();
     // if (
     //   this.relatedAsset.name &&

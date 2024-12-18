@@ -47,7 +47,7 @@ export class AssetsIndexComponent{
   assetsCount!:{
     companyId: number,
     totalAssetsCount: number,
-    notInServiceAssetsCount: number,
+    outOfServiceDepreciationCount: number,
     assignedAssetsCount: number,
     unassignedAssetsCount: number
   }
@@ -70,7 +70,7 @@ export class AssetsIndexComponent{
           this.assetsCount={
             companyId:res.companyId,
             totalAssetsCount:res.totalAssetsCount,
-            notInServiceAssetsCount:res.notInServiceAssetsCount,
+            outOfServiceDepreciationCount:res.outOfServiceDepreciationCount,
             assignedAssetsCount: res.assignedAssetsCount,
             unassignedAssetsCount: res.unassignedAssetsCount
           }

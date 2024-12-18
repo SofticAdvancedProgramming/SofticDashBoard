@@ -50,7 +50,8 @@ export class ShowAssetsComponent implements OnInit {
   currentPage: number = 1;
   totalRows: number = 0;
   activeButtonIndex: number | null = null;
-  isAssined!: boolean;
+  isAssined!: any;
+  status!:number;
   isConfirmationDialogVisible: boolean = false;
   assetToDeleteId!: number;
   constructor(
@@ -58,7 +59,7 @@ export class ShowAssetsComponent implements OnInit {
     private assetsService: AssetsService,
     private localStorageService: LocalStorageService,
     private route: ActivatedRoute,
-    private toastr: ToastrService, 
+    private toastr: ToastrService,
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
     this.getAssetsCategory();
@@ -69,6 +70,10 @@ export class ShowAssetsComponent implements OnInit {
     this.route.params.subscribe(res => {
       if (res['isAssined'] != undefined) {
         this.isAssined = res['isAssined'];
+      }
+      if (res['status']) {
+        this.status = res['status'];
+        console.log(this.status)
       }
     });
     this.gettAssets();
@@ -93,14 +98,16 @@ export class ShowAssetsComponent implements OnInit {
     if(i!=null){
       this.setActiveButton(i);
     }
-    query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:this.isAssined }
-    if(this.isAssined!=undefined){
-      query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:this.isAssined }
-    }
+    query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page}
+     if(this.isAssined!=undefined && this.isAssined!=3){
+       query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:this.isAssined }
+     }else if(this.isAssined==3){
+      query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,assetStatusId:3 }
+     }
     console.log(query)
     this.assetsService.getAsset(query).subscribe({
       next:(res=>{
-       // console.log(res.data.list);
+        console.log(res.data.list);
         this.assets=res.data.list;
         this.filteredAssets= this.assets
         this.totalRows = res.data.totalRows;
@@ -268,6 +275,7 @@ export class ShowAssetsComponent implements OnInit {
     this.isConfirmationDialogVisible = true;
   }
 
+
   handleDeleteConfirm() {
     this.delete(this.assetToDeleteId);
     this.isConfirmationDialogVisible = false;
@@ -282,4 +290,12 @@ export class ShowAssetsComponent implements OnInit {
       'Delete Not Allowed'
     );
   }
+  showCannotChangeStatusToast(employeeName: string) {
+    this.toastr.warning(
+      `This asset is assigned to ${employeeName}. You cannot change its status.`,
+      'change status Not Allowed'
+    );
+  }
+
+
 }
