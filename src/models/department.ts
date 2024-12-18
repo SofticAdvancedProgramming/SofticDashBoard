@@ -13,4 +13,6 @@ export class Department {
   isActive?:boolean;
   isHR?: boolean;
   isFinancial?: boolean;
+  branchName?:string;
+  branchNameAr?:string;
 }

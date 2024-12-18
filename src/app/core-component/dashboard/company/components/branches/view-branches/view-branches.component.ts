@@ -98,14 +98,13 @@ export class ViewBranchesComponent implements OnInit {
     this.isEdit = true;
     this.branch = branch
   }
-
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
     this.isEdit = isAdd;
-    this.loadBranches();
+    this.currentPage = 1; 
+    this.loadBranches(this.currentPage);
     this.loadEmployees();
   }
-
   showDetails(branchId: number): void {
     this.selectedBranch = this.branches.find(branch => branch.id === branchId);
     if (this.selectedBranch) {
@@ -124,8 +123,9 @@ export class ViewBranchesComponent implements OnInit {
 
   goBack(): void {
     this.showOverView = false;
+    this.loadBranches(this.currentPage);  
+    this.loadEmployees();
   }
-
   assignEntity(branchId: number): void {
     this.selectedBranch = this.branches.find(branch => branch.id === branchId);
     this.isAssignEntity = true;

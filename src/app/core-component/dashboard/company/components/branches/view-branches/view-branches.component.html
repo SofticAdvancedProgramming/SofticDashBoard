@@ -52,7 +52,8 @@
 </div>
 
 <ng-container *ngIf="isAdd || isEdit">
-  <app-add-branch [companyId]="companyId" (action)="handleAction($event)" [isEdit]="isEdit" [branch]="branch"></app-add-branch>
+  <app-add-branch [companyId]="companyId" (action)="handleAction($event)" [isEdit]="isEdit" [branch]="branch">
+  </app-add-branch>
 </ng-container>
 
 <app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedBranch?.id?.toString()" [entityType]="'Employee'"

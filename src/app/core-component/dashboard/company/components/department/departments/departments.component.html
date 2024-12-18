@@ -25,6 +25,7 @@
         <div class="card-header">
           <h3>{{ department.name }}</h3>
           <p>{{ department.shortName }}</p>
+          <p>Branch: {{department.branchName}}</p>
         </div>
         <div class="card-body">
           <button class="btn btn-add" (click)="assignEntity(department.id.toString())">
