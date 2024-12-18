@@ -27,7 +27,7 @@
           <p>{{ department.shortName }}</p>
           <p>Branch: {{department.branchName}}</p>
         </div>
-        <div class="card-body">
+        <div class="card-body" *ngIf="department.isActive">
           <button class="btn btn-add" (click)="assignEntity(department.id.toString())">
             <i class="fas fa-plus"></i> {{ 'DEPARTMENTS.ADD_EMPLOYEE' | translate }}
           </button>
