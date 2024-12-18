@@ -769,6 +769,21 @@
       "uploadAnotherFile": "Upload Another File"
     }
   },
+  "assetDetails":{
+    "Details":"Details",
+    "Assign To Employee":"Assign To Employee",
+    "Add Related Assets":"Add Related Assets",
+    "Asset Name":"Asset Name",
+    "Category":"Category",
+    "Technical description":"Technical description",
+    "Model":"Model",
+    "Address":"Address",
+    "Address not available":"Address not available",
+    "Assigned To":"Assigned To",
+    "Related Assets":"Related Assets",
+    "No related assets available":"No related assets available",
+    "No attachments available":"No attachments available"
+  },
   "ASSET_UPLOADER": {
     "BROWSE_FILE": "Browse File",
     "BROWSE_IMG": "Browse Img",
@@ -790,6 +805,7 @@
   "PendingEmployees": "Pending Employees ",
   "RejectedEmployees": "Rejected Employees",
   "employeeAssets": {
+    "name":"asset",
     "category": "Category",
     "subcategory": "Sub Category",
     "subsubsategory": "Sub Sub Category",

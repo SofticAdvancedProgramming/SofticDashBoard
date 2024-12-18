@@ -1,4 +1,8 @@
 /* Custom styles for the GoJS nodes */
+*{
+  text-transform: capitalize;
+  font-family: Lama Sans;
+}
 .gojs-node {
     background-color: #FAF9FE;
     width: 366px;
@@ -8,25 +12,25 @@
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
+
   .gojs-node .name {
     font-size: 18px;
     font-weight: bold;
     margin-top: 10px;
   }
-  
+
   .gojs-node .department {
     font-size: 16px;
     color: #666;
     margin-top: 10px;
   }
-  
+
   .gojs-node .title {
     font-size: 14px;
     color: #999;
     margin-top: 10px;
   }
-  
+
   .gojs-node .id {
     font-size: 12px;
     color: #fff;
@@ -36,4 +40,3 @@
     display: inline-block;
     margin-top: 10px;
   }
-  
