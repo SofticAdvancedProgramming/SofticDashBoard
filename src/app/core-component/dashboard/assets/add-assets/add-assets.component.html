@@ -96,6 +96,21 @@
           <label for="AssetCategory">{{
             "Assets.AssetCategory" | translate
           }}</label>
+          <app-drop-down
+            [placeholder]="'Select Asset Category'"
+            [placeholderSearch]="'Search by Name'"
+            [items]="mainAssets"
+            [currentPage]="assetsPage"
+            [itemsLength]="mainAssets.length"
+            (getNextPageApi)="getAssetsCategories()"
+            (search)="getAssetsCategories()"
+            (onChange)="onAssetCategorySelect($event)"
+          ></app-drop-down>
+        </div>
+        <!-- <div class="form-group">
+          <label for="AssetCategory">{{
+            "Assets.AssetCategory" | translate
+          }}</label>
           <select
             id="AssetCategory"
             formControlName="AssetCategory"
@@ -127,7 +142,58 @@
               {{ "Assets.validation.AssetCategoryRequired" | translate }}
             </small>
           </div>
-        </div>
+        </div> -->
+      </div>
+      <div class="col-lg-6" *ngIf="isMainAsset">
+        <label for="AssetCategory">{{
+          "Assets.SubAssetCategory" | translate
+        }}</label>
+        <app-drop-down
+            [placeholder]="'Select Sub Asset Category'"
+            [placeholderSearch]="'Search by Name'"
+            [items]="subAssetsCategories"
+            [currentPage]="assetsPage"
+            [itemsLength]="subAssetsCategories.length"
+            (getNextPageApi)="getSubAssetsCategories(selectedAsset.id)"
+            (search)="getSubAssetsCategories(selectedAsset.id)"
+            (onChange)="onSubAssetCategorySelect($event)"
+          ></app-drop-down>
+        <!-- <div class="form-group">
+          <label for="AssetCategory">{{
+            "Assets.SubAssetCategory" | translate
+          }}</label>
+          <select
+            id="subAssetCategory"
+            formControlName="subAssetCategory"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+              form.controls['subAssetCategory'].touched &&
+              form.controls['subAssetCategory'].errors,
+              'is-valid':
+              form.controls['subAssetCategory'].touched &&
+              form.controls['subAssetCategory'].errors == null ,
+              'is-touched':
+              form.controls['subAssetCategory'].untouched &&
+              form.controls['subAssetCategory'].errors == null,
+          }"
+          >
+            <option value="" disabled>
+              {{ "Assets.subAssetCategoryPlaceholder" | translate }}
+            </option>
+            <option *ngFor="let item of assetsCategories" [value]="item.id">
+              @if (lang == 'en') {
+              {{ item.name }}} @else{
+              {{ item.nameAr }}
+              }
+            </option>
+          </select>
+          <div *ngIf="isFieldInvalid('subAssetCategory')" class="text-danger">
+            <small *ngIf="form.get('subAssetCategory')?.errors?.['required']">
+              {{ "Assets.validation.subAssetCategoryRequired" | translate }}
+            </small>
+          </div>
+        </div> -->
       </div>
       <!-- <div class="col-lg-6">
         <div class="form-group">

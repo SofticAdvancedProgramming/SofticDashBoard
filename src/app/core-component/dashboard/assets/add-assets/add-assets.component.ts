@@ -13,6 +13,8 @@ import { LocalStorageService } from '../../../../services/local-storage-service/
 import { AssetsService } from '../../../../services/AssetsService/assets.service';
 import { ImageUploadService } from '../../../../services/ImageUploadService/image-upload.service';
 import { MapComponent } from '../../../../common-component/map/map.component';
+import { DropDownComponent } from '../../components/drop-down/drop-down.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-assets',
@@ -23,6 +25,7 @@ import { MapComponent } from '../../../../common-component/map/map.component';
     ReactiveFormsModule,
     FormsModule,
     MapComponent,
+    DropDownComponent,
   ],
   templateUrl: './add-assets.component.html',
   styleUrl: './add-assets.component.css',
@@ -36,14 +39,26 @@ export class AddAssetsComponent implements OnInit {
   attachmentfileType: string | null = null;
   uploadMessage: string | null = null;
   attachmentUploadMessage: string | null = null;
-  attachments:any[]=[];
+  attachments: any[] = [];
   companyId = this.localStorageService.getItem('companyId');
   employeeId = this.localStorageService.getItem('userId');
   uploadedImageBase64: any;
   lang: string = this.localStorageService.getItem('lang')!;
   assetsCategories: any;
+  mainAssets: any;
+  subAssetsCategories: any;
   PhotoExtension: any;
-  files: { companyId: number; fileExtension: string; previewUrl: string; file?: string, fileName?:string, fileType?:string }[] = [];
+  isMainAsset: boolean = false;
+  assetsPage = 1;
+  selectedAsset: any;
+  files: {
+    companyId: number;
+    fileExtension: string;
+    previewUrl: string;
+    file?: string;
+    fileName?: string;
+    fileType?: string;
+  }[] = [];
 
   constructor(
     private translate: TranslateService,
@@ -52,7 +67,8 @@ export class AddAssetsComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private assetsService: AssetsService,
     private imageUploadService: ImageUploadService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toast: ToastrService
   ) {}
   ngOnInit(): void {
     this.initiation();
@@ -64,6 +80,7 @@ export class AddAssetsComponent implements OnInit {
       AssetNameAr: ['', Validators.required],
       Model: ['', Validators.required],
       AssetCategory: ['', Validators.required],
+      subAssetCategory: [''],
       AssetReason: ['', Validators.required],
       AssetAttachment: ['', Validators.required],
       AssetPhoto: ['', Validators.required],
@@ -72,16 +89,60 @@ export class AddAssetsComponent implements OnInit {
     });
   }
   getAssetsCategories(name?: string) {
+    if (this.form.controls['AssetCategory'].value) {
+    }
     this.assetsService.getMainAssetsCategory().subscribe({
       next: (res) => {
         this.assetsCategories = res.data.list;
+        console.log(res);
+        this.mainAssets = this.assetsCategories.filter(
+          (mainAsset: any) => mainAsset.mainAssetId == null
+        );
+        console.log(this.mainAssets);
       },
       error: (err) => console.log(err),
     });
   }
+  onAssetCategorySelect(assetId: number) {
+    const asset = this.mainAssets.find((asset: any) => asset.id === assetId);
+
+    if (asset) {
+      console.log('Selected Asset:', asset);
+      this.selectedAsset = asset;
+      this.getSubAssetsCategories(this.selectedAsset.id);
+      console.log('Selected Main Asset ID:', this.selectedAsset?.id);
+    } else {
+      console.log('Asset not found.');
+    }
+  }
+  getSubAssetsCategories(id: number) {
+    this.assetsService.getMainAssetsCategory({ mainAssetId: id }).subscribe({
+      next: (res) => {
+        this.subAssetsCategories = res.data.list;
+        if (this.subAssetsCategories.length > 0) {
+          this.isMainAsset = true;
+        }
+        console.log(res);
+      },
+      error: (err) => console.log(err),
+    });
+  }
+  onSubAssetCategorySelect(assetId: number) {
+    const asset = this.subAssetsCategories.find(
+      (asset: any) => asset.id === assetId
+    );
+
+    if (asset) {
+      console.log('Selected Sub Asset:', asset);
+      this.selectedAsset = asset;
+      console.log('Selected Asset ID:', this.selectedAsset?.id);
+    } else {
+      console.log('Asset not found.');
+    }
+  }
 
   onFileChange(event: any): void {
-    console.log("onFileChange");
+    console.log('onFileChange');
     const file = event.target.files[0];
     if (file) {
       const fileName = file.name;
@@ -120,16 +181,14 @@ export class AddAssetsComponent implements OnInit {
         if (this.fileType?.startsWith('image/')) {
           this.imagePreviewUrl = result;
           console.log(this.imagePreviewUrl);
-
         }
       }
     };
     reader.readAsDataURL(file);
   }
 
-
   onAttachmentChange(event: any): void {
-    console.log("onAttachmentChange");
+    console.log('onAttachmentChange');
 
     const file = event.target.files[0];
     if (file) {
@@ -141,19 +200,38 @@ export class AddAssetsComponent implements OnInit {
         const result = reader.result as string | null;
         if (result) {
           const base64String = result.split(',')[1];
-          const companyId = Number(this.localStorageService.getItem('companyId'));
+          const companyId = Number(
+            this.localStorageService.getItem('companyId')
+          );
           const extension = fileName.split('.').pop();
-          const fileDetails: { companyId: number; fileExtension: string; previewUrl: string; file?: string, fileName?:string, fileType?:string } = {
+          const fileDetails: {
+            companyId: number;
+            fileExtension: string;
+            previewUrl: string;
+            file?: string;
+            fileName?: string;
+            fileType?: string;
+          } = {
             companyId: companyId,
-            fileExtension:extension,
+            fileExtension: extension,
             file: base64String,
             fileName: fileName,
             fileType: attachmentfileType,
-            previewUrl: result
+            previewUrl: result,
           };
-          const dataFile:{ companyId: number; fileExtension: string; file: string, id:number, assetId:number } = {
-            companyId: companyId, fileExtension: extension, file: base64String , id:0 , assetId:0
-          }
+          const dataFile: {
+            companyId: number;
+            fileExtension: string;
+            file: string;
+            id: number;
+            assetId: number;
+          } = {
+            companyId: companyId,
+            fileExtension: extension,
+            file: base64String,
+            id: 0,
+            assetId: 0,
+          };
           this.attachments.push(dataFile);
 
           // If the file is an image, add a preview URL
@@ -167,10 +245,11 @@ export class AddAssetsComponent implements OnInit {
           console.log(fileDetails);
           console.log(this.attachments);
 
-
           // Update message
           this.attachmentUploadMessage = this.translate.instant(
-            attachmentfileType.startsWith('image/') ? 'ASSET_UPLOADER.uploadAnotherImage' : 'ASSET_UPLOADER.uploadAnotherFile'
+            attachmentfileType.startsWith('image/')
+              ? 'ASSET_UPLOADER.uploadAnotherImage'
+              : 'ASSET_UPLOADER.uploadAnotherFile'
           );
         }
       };
@@ -189,7 +268,9 @@ export class AddAssetsComponent implements OnInit {
   }
   isFieldInvalid(field: string): boolean {
     const control = this.form.get(field);
-    return control ? control.invalid && (control.dirty || control.touched) : false;
+    return control
+      ? control.invalid && (control.dirty || control.touched)
+      : false;
   }
 
   onSubmit() {
@@ -198,18 +279,22 @@ export class AddAssetsComponent implements OnInit {
       name: this.form.value.AssetName,
       nameAr: this.form.value.AssetNameAr,
       model: this.form.controls['Model'].value,
-      assetCategoryId: Number(this.form.controls['AssetCategory'].value),
+      assetCategoryId: this.selectedAsset.id,
       photo: this.uploadedImageBase64,
       photoExtension: this.PhotoExtension,
       long: this.form.controls['long'].value,
       lat: this.form.controls['lat'].value,
-      assetAttachments: this.attachments
+      assetAttachments: this.attachments,
     };
     this.assetsService.addAsset(params).subscribe({
       next: (res) => {
+        this.toast.success('Added Successfully');
         this.router.navigateByUrl('/dashboard/AssetsIndex');
       },
-      error: (err) => console.log(err),
+      error: (err) => {
+        this.toast.error('Error');
+        console.log(err);
+      },
     });
   }
 

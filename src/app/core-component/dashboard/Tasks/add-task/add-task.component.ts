@@ -15,6 +15,7 @@ import { ImageUploadService } from '../../../../services/ImageUploadService/imag
 import { DropDownComponent } from '../../components/drop-down/drop-down.component';
 import { employee } from '../../../../../models/employee';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-task',
@@ -59,7 +60,8 @@ export class AddTaskComponent implements OnInit {
     private imageUploadService: ImageUploadService,
     private cdr: ChangeDetectorRef,
     private translate: TranslateService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private toast: ToastrService
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
@@ -155,6 +157,7 @@ export class AddTaskComponent implements OnInit {
       this.tasksService.add(query).subscribe({
         next: (res) => {
           console.log(res);
+          this.toast.success('Added Successfully');
           this.ngOnInit();
         },
         error(err) {

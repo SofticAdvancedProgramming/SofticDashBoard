@@ -17,6 +17,7 @@ import { ModernTableComponent } from '../../../components/modern-table/modern-ta
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DynamicFormComponent } from '../../../../../common-component/form/dynamic-form/dynamic-form.component';
 import { DynamicModalComponent } from "../../../components/dynamic-modal/dynamic-modal.component";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-assets-category',
@@ -70,7 +71,8 @@ export class AssetsCategoryComponent implements OnInit {
     private fb: FormBuilder,
     private assetsService: AssetsService,
     private messageService: MessageService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private toast: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -115,6 +117,7 @@ export class AssetsCategoryComponent implements OnInit {
         this.totalRows[entity] = response.data.totalRows;
         this.assets = response.data.list;
         // this.totalRows = response.data.totalRows;
+        console.log(this.assets);
       }
     });
   }
@@ -165,6 +168,8 @@ export class AssetsCategoryComponent implements OnInit {
     this.assetsService.addAssetCategory(this.AssetsData).subscribe({
       next: (res) => {
         console.log(res);
+        this.toast.success('Added Successfully');
+        this.ngOnInit();
       },
       error: (err) => console.log(err),
     });
