@@ -44,7 +44,7 @@ export class IndexComponent implements OnInit {
   totalItems: number = 0;
   isArabic: boolean = false;
   searchText!:string;
-  selectedDepartmentId: number | null = null;  
+  selectedDepartmentId: number | null = null;
   filteredDepartments: Department[] = [];
   totalEmployees: number = 0;
   entityTypes: { [key: string]: { load: string, add: string, edit: string, delete: string, data: string } } = {
@@ -85,14 +85,14 @@ export class IndexComponent implements OnInit {
         next: (response) => {
           this.departments = response.data.list;
          },
- 
+
       });
     }
   }
   private getCompanyId(): number | null {
     return this.companyId ? Number(this.companyId) : null;
   }
-  
+
   loadPositions(page: number = this.currentPage): void {
     const companyId = this.getCompanyId();
     if (!companyId) return;
@@ -111,15 +111,16 @@ export class IndexComponent implements OnInit {
 
     this.positionService.getPosition(payload).subscribe({
       next: (response) => {
+        console.log( response.data.list)
         this.positions = response.data.list;
         this.totalItems = response.data.totalRows;
         this.getPositionEmployee();
       },
- 
+
     });
   }
   filterPositionsByDepartment(): void {
-    this.currentPage = 1;  
+    this.currentPage = 1;
     this.loadPositions();
   }
 
@@ -250,6 +251,7 @@ export class IndexComponent implements OnInit {
               summary: this.translate.instant('INDEX_POSITION.DELETE_SUCCESS')
             });
             this.loadPositions();
+            this.ngOnInit();
           },
           error: () => {
             this.messageService.add({

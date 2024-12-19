@@ -96,9 +96,26 @@
    opacity: 0px;
   color: white;
 }
+.changeBtn{
+  background: #ffffff;
+  width: Fixed (385px)px;
+  height: Fixed (48px)px;
+  top: 307px;
+  left: 19px;
+  padding: 16px 0px 16px 0px;
+  gap: 0px;
+  border-radius: 10px;
+   opacity: 0px;
+  color: #663895;
+  border:1px solid #663895;
+}
 .already-assigned-popup-text span{
   font-size: 18px;
 }
 .popup-content .assignBtn{
   font-size: 16px;
+}
+
+.popup-content .changeBtn,.assignBtn{
+  width: 45%;
 }

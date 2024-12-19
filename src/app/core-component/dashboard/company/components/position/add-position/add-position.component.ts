@@ -43,7 +43,7 @@ export class AddPositionComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       positionType: ['', Validators.required],
-      department: [''],
+      department: ['', Validators.required],
       position: [{ value: '', disabled: true }, Validators.required],
       isDirectManager: [false]
     });
@@ -89,7 +89,7 @@ export class AddPositionComponent implements OnInit {
     this.positionService.getPosition({ companyId: this.companyId }).subscribe({
       next: async (response) => {
         console.log("response.data.list", response.data.list);
-  
+
         // Use Promise.all to resolve all employee names
         const positionsWithEmployeeNames = await Promise.all(
           response.data.list.map(async (position: any) => {
@@ -101,7 +101,7 @@ export class AddPositionComponent implements OnInit {
             };
           })
         );
-  
+
         this.positions = positionsWithEmployeeNames;
         this.checkLoadingState();
       }
