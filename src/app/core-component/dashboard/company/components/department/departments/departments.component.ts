@@ -22,7 +22,7 @@ interface DepartmentPayload {
   companyId: number;
   pageIndex: number;
   pageSize: number;
-  branchId?: number; 
+  branchId?: number;
 }
 
 @Component({
@@ -112,7 +112,7 @@ export class DepartmentsComponent implements OnInit {
         this.filteredDepartments = [...this.departments];
         this.totalItems = response.data.totalRows;
       },
-       
+
     });
   }
 
@@ -175,7 +175,7 @@ export class DepartmentsComponent implements OnInit {
     if (action === false) {
       this.isAdd = false;
       this.isEdit = false;
-      this.loadDepartments();  
+      this.loadDepartments();
     }
   }
 
@@ -234,6 +234,7 @@ export class DepartmentsComponent implements OnInit {
             next: () => {
               this.showSuccess(this.translate.instant('DEPARTMENTS.DELETE_SUCCESS'));
               this.loadDepartments();
+              this.ngOnInit();
             }
           });
         }

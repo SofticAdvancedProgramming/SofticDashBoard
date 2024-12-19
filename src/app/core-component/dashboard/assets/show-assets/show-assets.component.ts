@@ -98,12 +98,19 @@ export class ShowAssetsComponent implements OnInit {
     if(i!=null){
       this.setActiveButton(i);
     }
+
     query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page}
      if(this.isAssined!=undefined && this.isAssined!=3){
        query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:this.isAssined }
      }else if(this.isAssined==3){
       query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,assetStatusId:3 }
      }
+     if(this.isMain!=undefined){
+      query={
+        ...query,
+        isMain:this.isMain
+      }
+    }
     console.log(query)
     this.assetsService.getAsset(query).subscribe({
       next:(res=>{
@@ -296,6 +303,10 @@ export class ShowAssetsComponent implements OnInit {
       'change status Not Allowed'
     );
   }
-
+  isMain!:boolean;
+  filterByMainAsset(){
+    console.log(this.isMain);
+    this.gettAssets();
+  }
 
 }
