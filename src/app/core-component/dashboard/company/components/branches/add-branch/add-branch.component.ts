@@ -9,6 +9,7 @@ import { ToastModule } from 'primeng/toast';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { MapComponent } from '../../../../../../common-component/map/map.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { InputRestrictionDirective } from '../../../../../../common-component/directives/lang-directive/input-restriction.directive';
 
 @Component({
   selector: 'app-add-branch',
@@ -16,7 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './add-branch.component.html',
   styleUrls: ['./add-branch.component.css'],
   providers: [MessageService],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, TranslateModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ToastModule, MapComponent, TranslateModule,InputRestrictionDirective]
 })
 export class AddBranchComponent implements OnInit {
   @Input() isEdit: boolean = false;

@@ -39,7 +39,7 @@
         <label for="description">{{ 'ADD_DEPARTMENT.DESCRIPTION_EN' | translate }}</label>
         <textarea id="description" formControlName="description"
           placeholder="{{ 'ADD_DEPARTMENT.DESCRIPTION_EN' | translate }}" class="form-control"
-          (input)="updateCharacterCount('description')" maxlength="250" minlength="100"
+          (input)="updateCharacterCount('description')" maxlength="250" minlength="5"
           [appInputRestriction]="'arabic'"></textarea>
         <div *ngIf="form.get('description')?.invalid && form.get('description')?.touched" class="text-danger">
           {{ 'ADD_DEPARTMENT.DESCRIPTION_EN' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }} {{
@@ -54,7 +54,7 @@
         <label for="descriptionAr">{{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }}</label>
         <textarea id="descriptionAr" formControlName="descriptionAr"
           placeholder="{{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }}" class="form-control"
-          (input)="updateCharacterCount('descriptionAr')" maxlength="250" minlength="100"
+          (input)="updateCharacterCount('descriptionAr')" maxlength="250" minlength="5"
           [appInputRestriction]="'english'"></textarea>
         <div *ngIf="form.get('descriptionAr')?.invalid && form.get('descriptionAr')?.touched" class="text-danger">
           {{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }} {{

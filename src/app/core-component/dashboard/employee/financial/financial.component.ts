@@ -214,6 +214,8 @@ export class FinancialComponent {
       id: 0,
     };
 
+    console.log("payload ",payload)
+
     this.employeeService.addEmployeeSalary(payload).subscribe({
       next: (res) => {
         if (res.status === 200) {

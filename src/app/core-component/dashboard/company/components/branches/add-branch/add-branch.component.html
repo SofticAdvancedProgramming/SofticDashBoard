@@ -3,14 +3,14 @@
     <form [formGroup]="form" (ngSubmit)="onSave()">
       <div class="form-group">
         <label for="name">{{ 'addBranch.BRANCH_NAME_EN' | translate }}</label>
-        <input id="name" formControlName="name" placeholder="{{ 'addBranch.ENTER_BRANCH_NAME' | translate }}"
+        <input id="name" formControlName="name" [appInputRestriction]="'arabic'" placeholder="{{ 'addBranch.ENTER_BRANCH_NAME' | translate }}"
           class="form-control" />
         <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-danger">{{
           'addBranch.NAME_REQUIRED' | translate }}</div>
       </div>
       <div class="form-group">
         <label for="nameAr">{{ 'addBranch.BRANCH_NAME_AR' | translate }}</label>
-        <input id="nameAr" formControlName="nameAr" placeholder="{{ 'addBranch.ENTER_BRANCH_NAME_AR' | translate }}"
+        <input id="nameAr" formControlName="nameAr" [appInputRestriction]="'english'" placeholder="{{ 'addBranch.ENTER_BRANCH_NAME_AR' | translate }}"
           class="form-control" />
         <div *ngIf="form.get('nameAr')?.invalid && form.get('nameAr')?.touched" class="text-danger">{{
           'addBranch.AR_NAME_REQUIRED' | translate }}</div>

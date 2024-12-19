@@ -180,7 +180,7 @@
     "EDIT": "Save",
     "SELECT_OPTION": "Select Option",
     "REQUIRED_FIELD": "is required",
-    "DESCRIPTION_CONSTRAINT": "must be between 100 and 250 characters.",
+    "DESCRIPTION_CONSTRAINT": "must be between 5 and 250 characters.",
     "CHARACTERS_COUNT": "  characters",
     "HR": "HR",
     "FINANCIAL": "FINANCIAL"
@@ -858,5 +858,8 @@
   "SELECT_DEPARTMENT": "Select Department",
   "SELECT_ASSET_TYPE":"Select asset type",
   "assetName":"Asset Name",
-  "assetNameInArabic":"Asset Name In Arabic"
+  "assetNameInArabic":"Asset Name In Arabic",
+  "employeeFirstName":"Employee Name",
+  "attendanceType":"Attendance Type",
+  "attendanceDate":"Attendance Date "
 }
