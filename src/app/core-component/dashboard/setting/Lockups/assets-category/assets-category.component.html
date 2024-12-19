@@ -48,8 +48,8 @@
                   </option>
                   <option *ngFor="let item of assets" [value]="item.id">
                     @if (lang == 'en') {
-                    {{ item.name }}} @else{
-                    {{ item.nameAr }}
+                    {{ item.assetName }}} @else{
+                    {{ item.assetNameInArabic }}
                     }
                   </option>
                 </select>

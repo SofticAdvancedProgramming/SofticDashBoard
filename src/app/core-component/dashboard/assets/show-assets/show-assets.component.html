@@ -20,10 +20,10 @@
 <div class="container">
   <div class="row ">
     <div class="col-3 ">
-      <!-- <label for="branchSelect" class="form-label">{{ 'SELECT_DEPARTMENT' | translate }}</label> -->
+      <label for="departmentSelect" class="form-label">{{ 'SELECT_ASSET_TYPE' | translate }}</label>
     <select id="departmentSelect" class="form-select" [(ngModel)]="isMain"
     (change)="filterByMainAsset()">
-      <option [ngValue]="true">{{ 'main asset'|translate }}main asset</option>
+      <option [ngValue]="true">{{ 'main asset'|translate }}</option>
       <option [ngValue]="false">{{ 'related asset'|translate  }}</option>
     </select>
     </div>

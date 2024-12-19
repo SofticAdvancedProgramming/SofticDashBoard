@@ -32,7 +32,7 @@
       </app-dashboard-card>
     </div>
     <div class="col-lg-auto col-md-6 col-sm-12 mb-3">
-      <app-dashboard-card  [title]="lang === 'ar'?'المساعدين' : 'Assets'" [value]="adminCounts.assetCount"
+      <app-dashboard-card [routerLink]="['/dashboard/AssetsIndex']"  [title]="lang === 'ar'?'المساعدين' : 'Assets'" [value]="adminCounts.assetCount"
          [icon]="'assets/images/profile/workdays.png'">
       </app-dashboard-card>
     </div>
