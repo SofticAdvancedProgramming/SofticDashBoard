@@ -118,7 +118,18 @@ export class AssetsCategoryComponent implements OnInit {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
           this.pageIndex[entity] = response.data.pageIndex;
           this.totalRows[entity] = response.data.totalRows;
-          this.assets = response.data.list;
+          for(let item of response.data.list)
+          {
+            let asset:AssetExportData =
+            {
+              assetName:item.name,
+              id:item.id,
+              assetNameInArabic:item.nameAr,
+              mainAssetName:item.mainAssetName,
+              mainAssetNameInArabic:item.mainAssetNameAr
+            } 
+            this.assets.push(asset);
+          }
           // this.totalRows = response.data.totalRows;
           this.newAssets = this.assets.filter((item) =>
             item.mainAssetName != null
