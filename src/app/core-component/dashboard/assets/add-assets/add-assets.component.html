@@ -63,50 +63,19 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="form-group">
-          <label for="Model">{{ "Assets.Model" | translate }}</label>
-          <input
-            type="text"
-            id="Model"
-            name="Model"
-            class="form-control"
-            formControlName="Model"
-            placeholder="{{ 'Assets.AssetIDPlaceholder' | translate }}"
-            [ngClass]="{
-              'is-invalid':
-              form.controls['Model'].touched &&
-              form.controls['Model'].errors,
-              'is-valid':
-              form.controls['Model'].touched &&
-              form.controls['Model'].errors == null ,
-              'is-touched':
-              form.controls['Model'].untouched &&
-              form.controls['Model'].errors == null,
-          }"
-          />
-          <div *ngIf="isFieldInvalid('Model')" class="text-danger">
-            <small *ngIf="form.get('Model')?.errors?.['required']">
-              {{ "Assets.validation.ModelRequired" | translate }}
-            </small>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="AssetCategory">{{
-            "Assets.AssetCategory" | translate
-          }}</label>
-          <app-drop-down
-            [placeholder]="'Select Asset Category'"
-            [placeholderSearch]="'Search by Name'"
-            [items]="mainAssets"
-            [currentPage]="assetsPage"
-            [itemsLength]="mainAssets.length"
-            (getNextPageApi)="getAssetsCategories()"
-            (search)="getAssetsCategories()"
-            (onChange)="onAssetCategorySelect($event)"
-          ></app-drop-down>
-        </div>
+        <label for="AssetCategory">{{
+          "Assets.AssetCategory" | translate
+        }}</label>
+        <app-drop-down
+          [placeholder]="'Select Asset Category'"
+          [placeholderSearch]="'Search by Name'"
+          [items]="mainAssets"
+          [currentPage]="assetsPage"
+          [itemsLength]="mainAssets.length"
+          (getNextPageApi)="getAssetsCategories()"
+          (search)="getAssetsCategories()"
+          (onChange)="onAssetCategorySelect($event)"
+        ></app-drop-down>
         <!-- <div class="form-group">
           <label for="AssetCategory">{{
             "Assets.AssetCategory" | translate
@@ -149,51 +118,86 @@
           "Assets.SubAssetCategory" | translate
         }}</label>
         <app-drop-down
-            [placeholder]="'Select Sub Asset Category'"
-            [placeholderSearch]="'Search by Name'"
-            [items]="subAssetsCategories"
-            [currentPage]="assetsPage"
-            [itemsLength]="subAssetsCategories.length"
-            (getNextPageApi)="getSubAssetsCategories(selectedAsset.id)"
-            (search)="getSubAssetsCategories(selectedAsset.id)"
-            (onChange)="onSubAssetCategorySelect($event)"
-          ></app-drop-down>
-        <!-- <div class="form-group">
-          <label for="AssetCategory">{{
-            "Assets.SubAssetCategory" | translate
-          }}</label>
-          <select
-            id="subAssetCategory"
-            formControlName="subAssetCategory"
+          [placeholder]="'Select Sub Asset Category'"
+          [placeholderSearch]="'Search by Name'"
+          [items]="subAssetsCategories"
+          [currentPage]="assetsPage"
+          [itemsLength]="subAssetsCategories.length"
+          (getNextPageApi)="getSubAssetsCategories(selectedAsset.id)"
+          (search)="getSubAssetsCategories(selectedAsset.id)"
+          (onChange)="onSubAssetCategorySelect($event)"
+        ></app-drop-down>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="Model">{{ "Assets.Model" | translate }}</label>
+          <input
+            type="text"
+            id="Model"
+            name="Model"
             class="form-control"
+            formControlName="Model"
+            placeholder="{{ 'Assets.AssetIDPlaceholder' | translate }}"
             [ngClass]="{
               'is-invalid':
-              form.controls['subAssetCategory'].touched &&
-              form.controls['subAssetCategory'].errors,
+              form.controls['Model'].touched &&
+              form.controls['Model'].errors,
               'is-valid':
-              form.controls['subAssetCategory'].touched &&
-              form.controls['subAssetCategory'].errors == null ,
+              form.controls['Model'].touched &&
+              form.controls['Model'].errors == null ,
               'is-touched':
-              form.controls['subAssetCategory'].untouched &&
-              form.controls['subAssetCategory'].errors == null,
+              form.controls['Model'].untouched &&
+              form.controls['Model'].errors == null,
           }"
-          >
-            <option value="" disabled>
-              {{ "Assets.subAssetCategoryPlaceholder" | translate }}
-            </option>
-            <option *ngFor="let item of assetsCategories" [value]="item.id">
-              @if (lang == 'en') {
-              {{ item.name }}} @else{
-              {{ item.nameAr }}
-              }
-            </option>
-          </select>
-          <div *ngIf="isFieldInvalid('subAssetCategory')" class="text-danger">
-            <small *ngIf="form.get('subAssetCategory')?.errors?.['required']">
-              {{ "Assets.validation.subAssetCategoryRequired" | translate }}
+          />
+          <div *ngIf="isFieldInvalid('Model')" class="text-danger">
+            <small *ngIf="form.get('Model')?.errors?.['required']">
+              {{ "Assets.validation.ModelRequired" | translate }}
             </small>
           </div>
-        </div> -->
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="serialNum">{{ "Assets.SerialNum" | translate }}</label>
+          <input
+            type="text"
+            id="serialNum"
+            name="serialNum"
+            class="form-control"
+            formControlName="serialNum"
+            placeholder="{{ 'Assets.AssetSerialPlaceholder' | translate }}"
+            [ngClass]="{
+              'is-invalid':
+              form.controls['serialNum'].touched &&
+              form.controls['serialNum'].errors,
+              'is-valid':
+              form.controls['serialNum'].touched &&
+              form.controls['serialNum'].errors == null ,
+              'is-touched':
+              form.controls['serialNum'].untouched &&
+              form.controls['serialNum'].errors == null,
+          }"
+          />
+          <div *ngIf="isFieldInvalid('serialNum')" class="text-danger">
+            <small *ngIf="form.get('serialNum')?.errors?.['required']">
+              {{ "Assets.validation.ModelRequired" | translate }}
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="plateNum">{{ "Assets.PlateNum" | translate }}</label>
+          <input
+            type="text"
+            id="plateNum"
+            name="plateNum"
+            class="form-control"
+            formControlName="plateNum"
+            placeholder="{{ 'Assets.AssetPlatePlaceholder' | translate }}"
+          />
+        </div>
       </div>
       <!-- <div class="col-lg-6">
         <div class="form-group">
@@ -407,6 +411,7 @@
           type="submit"
           class="btn btn-primary w-100"
           [ngClass]="{ inValidForm: form.invalid }"
+          [disabled]="!form.valid"
         >
           {{ "ASSET_UPLOADER.SEND" | translate }}
         </button>

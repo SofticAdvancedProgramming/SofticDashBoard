@@ -179,8 +179,8 @@
     "REQUIRED_FIELD": "مطلوب",
     "DESCRIPTION_CONSTRAINT": "يجب أن يكون بين 100 و 250 حرفًا.",
     "CHARACTERS_COUNT": "  حرف",
-    "HR":"موارد بشرية",
-    "FINANCIAL":"مالية"
+    "HR": "موارد بشرية",
+    "FINANCIAL": "مالية"
   },
   "DEPARTMENTS": {
     "ADD_DEPARTMENT": "إضافة قسم",
@@ -200,7 +200,7 @@
     "DELETE_CONFIRMATION_TITLE": "تأكيد الحذف",
     "DELETE_SUCCESS": "تم حذف القسم بنجاح",
     "ACTION_CANCELLED": "تم إلغاء العملية",
-    "SELECT_BRANCH":"اختر الفرع",
+    "SELECT_BRANCH": "اختر الفرع",
     "YES": "نعم",
     "NO": "لا"
   },
@@ -283,7 +283,7 @@
     "ASSETS": "أصول",
     "LOGOUT": "تسجيل الخروج",
     "COMPLAINSANDSUGGESTIONS": "الشكاوى والمقترحات",
-    "TASKS":"المهام"
+    "TASKS": "المهام"
   },
   "Home": {
     "ActiveCompanies": "الشركات النشطة",
@@ -344,20 +344,20 @@
     "reasonForRejection": "سبب الرفض",
     "writeComment": "من فضلك اكتب تعليقاً لا يزيد عن 300 كلمة"
   },
-  "assetDetails":{
-    "Details":"التفاصيل",
-    "Assign To Employee":"اسناد لموظف",
-    "Add Related Assets":"اضافة متعلق",
-    "Asset Name":"الاسم",
-    "Category":"الفئة",
-    "Technical description":"الوصف",
-    "Model":"الموديل",
-    "Address":"العنوان",
-    "Address not available":"العنوان غير متاح",
-    "Assigned To":"اسناد لـ",
-    "Related Assets":"المتعلقات",
-    "No related assets available":"لا توجد متعلقات",
-    "No attachments available":"لا توجد ملفات أو صور"
+  "assetDetails": {
+    "Details": "التفاصيل",
+    "Assign To Employee": "اسناد لموظف",
+    "Add Related Assets": "اضافة متعلق",
+    "Asset Name": "الاسم",
+    "Category": "الفئة",
+    "Technical description": "الوصف",
+    "Model": "الموديل",
+    "Address": "العنوان",
+    "Address not available": "العنوان غير متاح",
+    "Assigned To": "اسناد لـ",
+    "Related Assets": "المتعلقات",
+    "No related assets available": "لا توجد متعلقات",
+    "No attachments available": "لا توجد ملفات أو صور"
   },
   "personalInfo": {
     "PROFILE_INFORMATION": "معلومات الملف الشخصي",
@@ -768,6 +768,8 @@
     "AssetName": "اسم الأصل",
     "AssetNameAr": "اسم الأصل بالعربية",
     "Model": "الموديل",
+    "SerialNum": "الرقم التسلسلي",
+    "PlateNum": "رقم اللوحة",
     "AssetCategory": "فئة الأصل",
     "AssetSup-Category": "فئة مورد الأصل",
     "TechnicalDescription": "الوصف الفني",
@@ -776,6 +778,8 @@
     "AssetNamePlaceholder": "أدخل اسم الأصل",
     "AssetNamePlaceholderAr": "أدخل اسم الأصل بالعربية",
     "AssetIDPlaceholder": "أدخل معرف الأصل",
+    "AssetSerialPlaceholder": "أدخل الرقم التسلسلي للأصل",
+    "AssetPlatePlaceholder": "أدخل رقم لوحة الأصل",
     "AssetCategoryPlaceholder": "أدخل فئة الأصل",
     "AssetSupCategoryPlaceholder": "أدخل الفئة الفرعية للأصل",
     "AssetAccessoriesPlaceholder": "أدخل الملحقات",
@@ -807,22 +811,22 @@
     "FILE_UPLOADED": "تم تحميل الملف بنجاح.",
     "SEND": "إرسال",
     "BROWSE_IMG": "تصفح الصور",
-    "NO_IMG_SELECTED":"لم يتم اختيار صورة",
-    "uploadAnotherImage":"تحميل صورة اخرى",
-    "uploadAnotherFile":"تحميل ملف اخر"
+    "NO_IMG_SELECTED": "لم يتم اختيار صورة",
+    "uploadAnotherImage": "تحميل صورة اخرى",
+    "uploadAnotherFile": "تحميل ملف اخر"
   },
 
   "employeeAssets": {
-    "name":"الأصل",
+    "name": "الأصل",
     "category": "الفئة",
     "subcategory": "الفئة الفرعية",
     "subsubsategory": "الفئة الفرعية الثانية",
     "assetsId": "معرف الأصل",
     "assetstatus": "حالة الأصل",
     "outofservice": "خارج الخدمة",
-     "AssienedTo":"مسندة لـ",
-    "NotAssiened":"لم يتم الاسناد بعد",
-    "Model":"الموديل"
+    "AssienedTo": "مسندة لـ",
+    "NotAssiened": "لم يتم الاسناد بعد",
+    "Model": "الموديل"
   },
   "FILTER_POPUP": {
     "name": "الاسم",
@@ -837,13 +841,12 @@
   },
   "Tasks": {
     "addTasks": {
-      "addTaskBtn":"اضافة مهمة",
+      "addTaskBtn": "اضافة مهمة",
       "cancel": "إلغاء"
     },
-    "validation":{
+    "validation": {
       "nameRequired": "اسم المهمة مطلوب"
     }
   },
-  "SELECT_DEPARTMENT":"اختر الفرع"
-
+  "SELECT_DEPARTMENT": "اختر الفرع"
 }

@@ -16,7 +16,7 @@ import { LocalStorageService } from '../../../../../services/local-storage-servi
 import { ModernTableComponent } from '../../../components/modern-table/modern-table.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DynamicFormComponent } from '../../../../../common-component/form/dynamic-form/dynamic-form.component';
-import { DynamicModalComponent } from "../../../components/dynamic-modal/dynamic-modal.component";
+import { DynamicModalComponent } from '../../../components/dynamic-modal/dynamic-modal.component';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -31,8 +31,8 @@ import { ToastrService } from 'ngx-toastr';
     ModernTableComponent,
     PaginationModule,
     DynamicFormComponent,
-    DynamicModalComponent
-],
+    DynamicModalComponent,
+  ],
   templateUrl: './assets-category.component.html',
   styleUrl: './assets-category.component.css',
 })
@@ -47,7 +47,7 @@ export class AssetsCategoryComponent implements OnInit {
   itemsPerPage: number = 10;
   modalId = 'AssetsCategories';
   deleteId: string = 'deleteAssetCategory';
-  columns: string[] = ['name' , 'nameAr'];
+  columns: string[] = ['name', 'nameAr', 'mainAssetName'];
   companyId = this.localStorageService.getItem('companyId');
   pageIndex: any = {};
   entityTypes: Record<
@@ -59,7 +59,7 @@ export class AssetsCategoryComponent implements OnInit {
       add: 'addAssetCategory',
       edit: 'editAssetCategory',
       delete: 'deleteAssetCategory',
-      data: 'getMainAssetsCategory'
+      data: 'getMainAssetsCategory',
     },
   };
   isEdit: boolean = false;
@@ -67,6 +67,7 @@ export class AssetsCategoryComponent implements OnInit {
     { name: 'name', label: 'Name In Arabic', type: 'text', required: true },
     { name: 'nameAr', label: 'Name In English', type: 'text', required: true },
   ];
+  newAssets: any[] = [];
   constructor(
     private fb: FormBuilder,
     private assetsService: AssetsService,
@@ -110,34 +111,45 @@ export class AssetsCategoryComponent implements OnInit {
     }
 
     const methodName = this.entityTypes[entity].load as keyof AssetsService;
-    (this.assetsService[methodName] as Function)(query).subscribe((response: any) => {
-      if (response.status === 200) {
-        (this as any)[this.entityTypes[entity].data] = response.data.list;
-        this.pageIndex[entity] = response.data.pageIndex;
-        this.totalRows[entity] = response.data.totalRows;
-        this.assets = response.data.list;
-        // this.totalRows = response.data.totalRows;
-        console.log(this.assets);
+    (this.assetsService[methodName] as Function)(query).subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          (this as any)[this.entityTypes[entity].data] = response.data.list;
+          this.pageIndex[entity] = response.data.pageIndex;
+          this.totalRows[entity] = response.data.totalRows;
+          this.assets = response.data.list;
+          // this.totalRows = response.data.totalRows;
+          this.newAssets = this.assets.filter((item) =>
+            item.mainAssetName != null
+              ? item.mainAssetName
+              : (item.mainAssetName = 'Main Category')
+          );
+          console.log(this.newAssets);
+        }
       }
-    });
+    );
   }
 
   editEntity(entity: string, updatedEntity: any): void {
     const methodName = this.entityTypes[entity].edit as keyof AssetsService;
-    (this.assetsService[methodName] as Function)(updatedEntity).subscribe((response: any) => {
-      if (response.status === 200) {
-        this.loadEntities(entity, this.pageIndex[entity]);
+    (this.assetsService[methodName] as Function)(updatedEntity).subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          this.loadEntities(entity, this.pageIndex[entity]);
+        }
       }
-    });
+    );
   }
 
   deleteEntity(entity: string, id: number): void {
     const methodName = this.entityTypes[entity].delete as keyof AssetsService;
-    (this.assetsService[methodName] as Function)(id, this.companyId).subscribe((response: any) => {
-      if (response.status === 200) {
-        this.loadEntities(entity, this.pageIndex[entity]);
+    (this.assetsService[methodName] as Function)(id, this.companyId).subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          this.loadEntities(entity, this.pageIndex[entity]);
+        }
       }
-    });
+    );
   }
 
   onSave(): void {
@@ -151,17 +163,17 @@ export class AssetsCategoryComponent implements OnInit {
       return;
     }
     if (this.form.controls['isHasMainCategory'].value) {
-      this.AssetsData  = {
+      this.AssetsData = {
         companyId: Number(this.localStorageService.getItem('companyId')),
         name: this.form.controls['name'].value,
         nameAr: this.form.controls['nameAr'].value,
         mainAssetId: Number(this.form.controls['mainAssetId'].value),
       };
-    }else{
-      this.AssetsData  = {
+    } else {
+      this.AssetsData = {
         companyId: Number(this.localStorageService.getItem('companyId')),
         name: this.form.controls['name'].value,
-        nameAr: this.form.controls['nameAr'].value
+        nameAr: this.form.controls['nameAr'].value,
       };
     }
 
@@ -183,7 +195,7 @@ export class AssetsCategoryComponent implements OnInit {
     this.formData = { ...item, companyId: this.companyId };
   }
 
-   onTypeChange(): void {
+  onTypeChange(): void {
     this.loadEntities('AssetsCategories', 1);
   }
 
