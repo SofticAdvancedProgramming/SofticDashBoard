@@ -3,6 +3,7 @@ import { environment } from "../environment/environment";
 
 export const employeeController = {
   loadEmployees: `${environment.apiBaseUrl}Employee/Get`,
+  EditEmployee: `${environment.apiBaseUrl}Employee/Edit`,
   addEmployee: `${environment.apiBaseUrl}Employee/Add`,
   assignToPosition: `${environment.apiBaseUrl}Employee/AssginPosition`,
   assignToDepartment: `${environment.apiBaseUrl}Employee/AssginDepartment`,

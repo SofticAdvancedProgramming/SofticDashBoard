@@ -4,7 +4,7 @@
       <h2 class="section-title">
         <i class="fas fa-user"></i> {{ getEmployeeStatusLabel() | translate }}
       </h2>
-      <button class="btn btn-new-employee" (click)="toggleEmployeeStatus()">
+      <button class="btn btn-new-employee" (click)="toggleEmployeeStatus()" *ngIf="!postionId">
         <i class="fas fa-bell"></i>
         {{ getEmployeeStatusLabelButton() | translate }}
       </button>
@@ -12,11 +12,11 @@
 
 
   </div>
-<div class="row">
-  <div class="col-8 mt-4">
+<div class="row" >
+  <div class="col-8 mt-4" [ngClass]="{'col-12':!postionId}">
     <input [(ngModel)]="searchText" placeholder="{{ 'viewEmployees.SEARCH' | translate }}" class="form-control custom-search" (input)="applyFilter()" />
   </div>
-  <div class="mb-4 col-3">
+  <div class="mb-4 col-3" *ngIf="!postionId">
     <label for="employeeStatus" class="form-label">{{"employeeFilteration" |translate}}</label>
     <select class="form-select" (change)="onOptionSelected($event)" id="exampleSelect">
       <option value="0">{{"AllEmployee"|translate}}</option>
@@ -48,14 +48,18 @@
           <td ><span *ngIf="employee.accountStatus==1">{{ employee.department?.name }}</span></td>
           <td>{{ employee.position?.name }}</td>
           <td>
-            <button class="btn btn-sm" (click)="viewDetails(employee)">
+            <button class="btn btn-sm" *ngIf="!postionId" (click)="viewDetails(employee)">
               <i class="fas fa-eye"></i>
             </button>
 
-            <button class="btn btn-sm btn-danger" (click)="openDeleteModal(employee)">
+            <button  *ngIf="!postionId" class="btn btn-sm btn-danger" (click)="openDeleteModal(employee)">
               <i class="fas fa-trash-alt"></i>
             </button>
-            <button class="btn  " (click)="viewLocations(employee)">
+            <button  *ngIf="postionId" class="btn btn-sm" (click)="openDeleteEmployeeFromPositionModal(employee)">
+              <!-- <i class="fas fa-trash-alt"></i> -->
+              <img src="../../../../../assets/images/trash 01.png">
+            </button>
+            <button class="btn  " *ngIf="!postionId" (click)="viewLocations(employee)">
               <img [src]="'assets/images/location.png'" alt="Profile Image" class="img-fluid"
                />
             </button>
@@ -96,6 +100,23 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'viewEmployees.CANCEL' | translate }}</button>
         <button type="button" class="btn btn-danger"  data-bs-dismiss="modal" (click)="confirmDelete()">{{ 'viewEmployees.DELETE' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteEmployeeFromPositionConfirmationModal" tabindex="-1" aria-labelledby="deleteEmployeeFromPositionConfirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ 'viewEmployees.DELETEEmployeeFromPosITON_CONFIRMATION' | translate }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'viewEmployees.CANCEL' | translate }}</button>
+        <button type="button" class="btn btn-danger"  data-bs-dismiss="modal" (click)="confirmDeleteEmployeeFromPositon()">{{ 'viewEmployees.DELETE' | translate }}</button>
       </div>
     </div>
   </div>

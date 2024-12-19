@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ModernTableComponent } from '../../components/modern-table/modern-table.component';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
 import { employee } from '../../../../../models/employee';
 import { CommonModule } from '@angular/common';
@@ -38,16 +38,26 @@ export class ViewEmployeesComponent implements OnInit {
   totalRows: number = 0;
   isShowingPending: boolean = false;
   employeeToDelete: employee | null = null;
+  employeeToDeleteFromPositon: employee | null = null;
 
   constructor(
     private employeeService: EmployeeService,
     private translate: TranslateService,
     private cdr: ChangeDetectorRef,
     private router: Router,
+    private route: ActivatedRoute,
     private localStorageService: LocalStorageService
   ) {}
+  postionId!:number;
 
   ngOnInit() {
+    //postionId
+    this.route.params.subscribe(res => {
+      if (res['postionId'] != undefined) {
+        this.postionId = res['postionId'];
+        console.log(this.postionId)
+      }
+    });
     this.loadEmployees();
     this.isShowingPending = false;
     this.localStorageService.setItem(
@@ -65,14 +75,30 @@ export class ViewEmployeesComponent implements OnInit {
 
   loadEmployeesByCompany(status: accountStatus) {
     this.companyId = Number(localStorage.getItem('companyId'));
+    let query;
+    query={
+      companyId: this.companyId,
+      pageSize: this.itemsPerPage,
+      pageIndex: this.currentPage,
+      accountStatus: status!=0?status:'',}
+      if(this.postionId!=undefined){
+        query={
+          ...query,
+          positionId:this.postionId
+        }
+      }
+      console.log(query)
     if (this.companyId) {
       this.employeeService
-        .loadEmployees({
-          companyId: this.companyId,
-          pageSize: this.itemsPerPage,
-          pageIndex: this.currentPage,
-          accountStatus: status!=0?status:'',
-        })
+        .loadEmployees(query
+        //   {
+        //   companyId: this.companyId,
+        //   pageSize: this.itemsPerPage,
+        //   pageIndex: this.currentPage,
+        //   accountStatus: status!=0?status:'',
+
+        // }
+      )
         .pipe(
           tap((response: any) => {
             console.log(response.data.list);
@@ -144,6 +170,12 @@ export class ViewEmployeesComponent implements OnInit {
     const modal = new bootstrap.Modal(modalElement);
     modal.show();
   }
+  openDeleteEmployeeFromPositionModal(employee: employee) {
+    this.employeeToDeleteFromPositon = employee;
+    const modalElement = document.getElementById('deleteEmployeeFromPositionConfirmationModal');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  }
 
   confirmDelete() {
     if (this.employeeToDelete && this.companyId) {
@@ -159,6 +191,32 @@ export class ViewEmployeesComponent implements OnInit {
           })
         )
         .subscribe();
+    }
+  }
+
+
+  confirmDeleteEmployeeFromPositon() {
+    if (this.employeeToDeleteFromPositon && this.companyId && this.postionId) {
+      this.employeeToDeleteFromPositon.positionId=null;
+      console.log( this.employeeToDeleteFromPositon)
+      this.employeeService
+        .editEmployee(this.employeeToDeleteFromPositon)
+        // .pipe(
+        //   tap(() => {
+        //     console.log(
+        //       `Employee ${this.employeeToDelete?.id} deleted successfully.`
+        //     );
+        //     this.loadEmployees();
+        //     this.employeeToDelete = null;
+        //   })
+        // )
+        .subscribe({
+          next:(res)=>{
+            console.log(res);
+            this.loadEmployees();},
+            error:(res)=>{
+              console.log(res);}
+        });
     }
   }
 
