@@ -86,10 +86,10 @@
     "INVALID_PHONE": "رقم الهاتف غير صحيح",
     "INVALID_MOBILE": "رقم الجوال غير صحيح",
     "DESCRIPTION_REQUIRED": "الوصف مطلوب.",
-    "DESCRIPTION_MIN": "يجب أن يكون الوصف 100 حرف على الأقل.",
+    "DESCRIPTION_MIN": "يجب أن يكون الوصف 5 حرف على الأقل.",
     "DESCRIPTION_MAX": "لا يمكن أن يتجاوز الوصف 250 حرفًا.",
     "DESCRIPTION_REQUIRED_AR": "الوصف بالعربية مطلوب.",
-    "DESCRIPTION_MIN_AR": "يجب أن يكون الوصف بالعربية 100 حرف على الأقل.",
+    "DESCRIPTION_MIN_AR": "يجب أن يكون الوصف بالعربية 5 حرف على الأقل.",
     "DESCRIPTION_MAX_AR": "لا يمكن أن يتجاوز الوصف بالعربية 250 حرفًا.",
     "FAX": "فاكس",
     "currency": "العملة",
@@ -164,7 +164,7 @@
   "ADD_DEPARTMENT": {
     "DEPARTMENT_NAME_EN": "اسم القسم (بالإنجليزية)",
     "DEPARTMENT_NAME_AR": "اسم القسم (بالعربية)",
-    "DEPARTMENT_SHORT_NAME": "اسم القسم المختصر",
+    "DEPARTMENT_abbreviation": "اسم القسم المختصر",
     "DEPARTMENT_MANAGER": "مدير القسم",
     "BRANCH": "الفرع",
     "DESCRIPTION_EN": "الوصف (بالإنجليزية)",
@@ -177,7 +177,7 @@
     "SAVE": "حفظ",
     "SELECT_OPTION": "اختر خيار",
     "REQUIRED_FIELD": "مطلوب",
-    "DESCRIPTION_CONSTRAINT": "يجب أن يكون بين 100 و 250 حرفًا.",
+    "DESCRIPTION_CONSTRAINT": "يجب أن يكون بين 5 و 250 حرفًا.",
     "CHARACTERS_COUNT": "  حرف",
     "HR": "موارد بشرية",
     "FINANCIAL": "مالية"
@@ -793,7 +793,7 @@
       "ModelRequired": "نموذج الأصل مطلوب",
       "AssetCategoryRequired": "فئة الأصل مطلوبة",
       "AssetReasonRequired": "الوصف مطلوب",
-      "AssetReasonMinLength": "الحد الأدنى لعدد أحرف الوصف هو 100",
+      "AssetReasonMinLength": "الحد الأدنى لعدد أحرف الوصف هو 5",
       "AssetReasonMaxLength": "الحد الأقصى لعدد أحرف الوصف هو 300"
     },
     "messages": {
@@ -848,5 +848,12 @@
       "nameRequired": "اسم المهمة مطلوب"
     }
   },
-  "SELECT_DEPARTMENT": "اختر الفرع"
+  "SELECT_DEPARTMENT":"اختر الفرع",
+  "SELECT_ASSET_TYPE":"اختار النوع ",
+  "assetName":"اسم الاصل",
+  "assetNameInArabic":"اسم الاصل باللغة العربية",
+  "employeeFirstName":"اسم الموظف",
+  "attendanceType":"نوع الغياب",
+  "attendanceDate":"تاريح الغياب"
+
 }

@@ -205,8 +205,8 @@ input {
 }
 
 .find-btn {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
+  background-color:#663895;
+  color: white;
   border-radius: 10px;
   margin-right: 8px;
   border: none;
@@ -223,3 +223,4 @@ input {
 .mat-datepicker-toggle {
   color: #666;
 }
+

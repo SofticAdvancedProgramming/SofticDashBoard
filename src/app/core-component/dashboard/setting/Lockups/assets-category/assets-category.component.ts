@@ -18,6 +18,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DynamicFormComponent } from '../../../../../common-component/form/dynamic-form/dynamic-form.component';
 import { DynamicModalComponent } from '../../../components/dynamic-modal/dynamic-modal.component';
 import { ToastrService } from 'ngx-toastr';
+import { AssetExportData } from '../../../../../core/models/AssetExport';
 
 @Component({
   selector: 'app-assets-category',
@@ -39,7 +40,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AssetsCategoryComponent implements OnInit {
   form!: FormGroup;
   formData: any = {};
-  assets: any[] = [];
+  assets: AssetExportData[] = [];
   AssetsData!: Assets;
   lang: string = this.localStorageService.getItem('lang')!;
   totalRows: any = { AssetsCategories: 0 };
@@ -64,8 +65,8 @@ export class AssetsCategoryComponent implements OnInit {
   };
   isEdit: boolean = false;
   structure = [
-    { name: 'name', label: 'Name In Arabic', type: 'text', required: true },
-    { name: 'nameAr', label: 'Name In English', type: 'text', required: true },
+    { name: 'assetName', label: 'Name In Arabic', type: 'text', required: true },
+    { name: 'assetNameInArabic', label: 'Name In English', type: 'text', required: true },
   ];
   newAssets: any[] = [];
   constructor(

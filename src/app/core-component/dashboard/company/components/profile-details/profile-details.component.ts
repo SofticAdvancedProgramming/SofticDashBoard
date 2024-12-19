@@ -107,8 +107,8 @@ export class ProfileDetailsComponent implements OnInit {
       currency: [''],
       webSite: ['', [Validators.pattern(urlRegex)]],
       logo: [''],
-      description: ['', [Validators.minLength(100), Validators.maxLength(250)]],
-      descriptionAr: ['', [Validators.minLength(100), Validators.maxLength(250)]],
+      description: ['', [Validators.minLength(5), Validators.maxLength(250)]],
+      descriptionAr: ['', [Validators.minLength(5), Validators.maxLength(250)]],
       subscriptionPlanId: [''],
       companyExtention: ['']
     });

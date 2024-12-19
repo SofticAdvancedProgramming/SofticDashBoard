@@ -145,3 +145,7 @@ input {
   border: 1px solid #e7e6e8;
   background: #fbfbfb;
 }
+.formatedDate
+{
+  text-transform: uppercase !important;
+}

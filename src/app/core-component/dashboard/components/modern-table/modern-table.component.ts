@@ -72,13 +72,69 @@ export class ModernTableComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
   exportToExcel(): void {
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.tableData);
+    const keysToExclude = ['id'];
+  
+    // Transform the data by excluding specific keys and formatting headers
+    const formattedData = this.tableData.map(item => {
+      const transformedItem: any = {};
+      for (const key in item) {
+        if (!keysToExclude.includes(key)) {
+          const formattedKey = key
+            .replace(/([a-z])([A-Z])/g, '$1 $2') // Insert space between camel case
+            .replace(/^./, str => str.toUpperCase()); // Capitalize the first letter
+          transformedItem[formattedKey] = item[key];
+        }
+      }
+      return transformedItem;
+    });
+  
+    // Create a worksheet with the transformed data
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(formattedData);
+  
+    // Get headers
+    const headers = Object.keys(formattedData[0] || {});
+  
+    // Calculate column widths based on the largest content
+    const columnWidths = headers.map(header => {
+      // Include header width
+      let maxWidth = header.length;
+  
+      // Check the length of data in each row for this column
+      for (const row of formattedData) {
+        const cellValue = row[header];
+        const cellLength = cellValue ? cellValue.toString().length : 0;
+        if (cellLength > maxWidth) {
+          maxWidth = cellLength;
+        }
+      }
+  
+      return { width: maxWidth + 2 }; // Add padding
+    });
+  
+    // Apply column widths
+    worksheet['!cols'] = columnWidths;
+  
+    // Style the headers
+    const range = XLSX.utils.decode_range(worksheet['!ref'] || 'A1');
+    for (let col = range.s.c; col <= range.e.c; col++) {
+      const cellAddress = XLSX.utils.encode_cell({ r: 0, c: col }); // First row (header)
+      if (worksheet[cellAddress]) {
+        worksheet[cellAddress].s = {
+          font: { bold: true }, // Bold text
+          fill: { fgColor: { rgb: 'FFFF00' } }, // Yellow background
+          alignment: { horizontal: 'center', vertical: 'center' }, // Center alignment
+        };
+      }
+    }
+  
+    // Create a workbook and add the worksheet
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+  
+    // Write the workbook to a file
     XLSX.writeFile(workbook, 'table_data.xlsx');
   }
+  
 
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
