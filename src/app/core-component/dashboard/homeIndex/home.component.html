@@ -1,7 +1,7 @@
 <div class="container-fluid  ">
   <div class="row ">
     <div class="date-range-picker d-flex justify-content-end">
-      <mat-form-field appearance="fill" class="date-input">
+      <mat-form-field appearance="outline" class="date-input">
         <mat-date-range-input [rangePicker]="picker" [formGroup]="form">
           <input matStartDate formControlName="from" placeholder="Start date" />
           <input matEndDate formControlName="to" placeholder="End date" />
@@ -32,7 +32,7 @@
       </app-dashboard-card>
     </div>
     <div class="col-lg-auto col-md-6 col-sm-12 mb-3">
-      <app-dashboard-card  [title]="lang === 'ar'?'المساعدين' : 'Assets'" [value]="adminCounts.assetCount"
+      <app-dashboard-card [routerLink]="['/dashboard/AssetsIndex']"  [title]="lang === 'ar'?'المساعدين' : 'Assets'" [value]="adminCounts.assetCount"
          [icon]="'assets/images/profile/workdays.png'">
       </app-dashboard-card>
     </div>

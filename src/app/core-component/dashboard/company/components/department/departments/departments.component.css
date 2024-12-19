@@ -124,7 +124,7 @@ input:checked+.slider:before {
 }
 
 .addPositionBtn {
-    background: #9ACA3C;
+    background: #663895;
     color: white;
     border: none;
     border-radius: 10px;
@@ -132,7 +132,9 @@ input:checked+.slider:before {
     font-size: 14px;
     cursor: pointer;
     margin-bottom: 1em;
-    width: 25%;
+    width: 45% !important;
+    height: 40px;
+    margin-top:31px
 }
 
 @media (max-width: 992px) {

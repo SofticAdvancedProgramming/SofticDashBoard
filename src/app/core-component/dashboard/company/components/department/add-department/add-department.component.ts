@@ -55,8 +55,8 @@ export class AddDepartmentComponent implements OnInit {
       lat: [0, Validators.required],
       manager: [''],
       branchId: [null, Validators.required],
-      description: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(250)]],
-      descriptionAr: ['', [Validators.required, Validators.minLength(100), Validators.maxLength(250)]],
+      description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
+      descriptionAr: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
       departmentType: [null]    });
   }
 

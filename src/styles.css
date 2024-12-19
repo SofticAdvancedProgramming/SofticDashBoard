@@ -116,3 +116,10 @@ body{
 .p-dialog .p-button-secondary:hover {
   background-color: #663895;
 }
+
+
+.active > .page-link, .page-link.active
+{
+  background-color: #663895 !important;
+  color: white;
+}

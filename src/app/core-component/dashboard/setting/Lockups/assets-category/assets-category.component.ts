@@ -18,6 +18,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DynamicFormComponent } from '../../../../../common-component/form/dynamic-form/dynamic-form.component';
 import { DynamicModalComponent } from "../../../components/dynamic-modal/dynamic-modal.component";
 import { ToastrService } from 'ngx-toastr';
+import { AssetExportData } from '../../../../../core/models/AssetExport';
 
 @Component({
   selector: 'app-assets-category',
@@ -39,7 +40,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AssetsCategoryComponent implements OnInit {
   form!: FormGroup;
   formData: any = {};
-  assets: any[] = [];
+  assets: AssetExportData[] = [];
   AssetsData!: Assets;
   lang: string = this.localStorageService.getItem('lang')!;
   totalRows: any = { AssetsCategories: 0 };
@@ -47,7 +48,7 @@ export class AssetsCategoryComponent implements OnInit {
   itemsPerPage: number = 10;
   modalId = 'AssetsCategories';
   deleteId: string = 'deleteAssetCategory';
-  columns: string[] = ['name' , 'nameAr'];
+  columns: string[] = ['assetName' , 'assetNameInArabic'];
   companyId = this.localStorageService.getItem('companyId');
   pageIndex: any = {};
   entityTypes: Record<
@@ -64,8 +65,8 @@ export class AssetsCategoryComponent implements OnInit {
   };
   isEdit: boolean = false;
   structure = [
-    { name: 'name', label: 'Name In Arabic', type: 'text', required: true },
-    { name: 'nameAr', label: 'Name In English', type: 'text', required: true },
+    { name: 'assetName', label: 'Name In Arabic', type: 'text', required: true },
+    { name: 'assetNameInArabic', label: 'Name In English', type: 'text', required: true },
   ];
   constructor(
     private fb: FormBuilder,
@@ -115,9 +116,20 @@ export class AssetsCategoryComponent implements OnInit {
         (this as any)[this.entityTypes[entity].data] = response.data.list;
         this.pageIndex[entity] = response.data.pageIndex;
         this.totalRows[entity] = response.data.totalRows;
-        this.assets = response.data.list;
+        for(let item of response.data.list)
+        {
+          let asset:AssetExportData ={
+            id:item.id,
+            assetName:item.name,
+            assetNameInArabic:item.nameAr,
+            mainAssetName:item.mainAssetName,
+            mainAssetNameInArabic:item.mainAssetNameAr,
+            
+          }
+          this.assets.push(asset);
+        }
         // this.totalRows = response.data.totalRows;
-        console.log(this.assets);
+        console.log("this.assets",this.assets);
       }
     });
   }
