@@ -77,7 +77,7 @@ export class AddTaskComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(50),
+          Validators.minLength(5),
           Validators.maxLength(300),
         ],
       ],

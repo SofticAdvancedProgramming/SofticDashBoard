@@ -18,7 +18,7 @@ export class MapComponent implements OnInit, OnChanges {
   private lang = localStorage.getItem('lang') || 'ar';
   // Access Token should be defined in a secure way (e.g., environment variables)
 
-  private accessToken = 'pk.eyJ1IjoiYWRoYW1rYW1hbDIyMzQ1IiwiYSI6ImNtNHNqemIxaTAxZjMyanNnNmozZmZ0dXcifQ.fCiyrKSd-SYfa41vrMIDcg'
+  private accessToken = 'pk.eyJ1IjoiYWJhbm91Ym1hbnNvdXIiLCJhIjoiY200c2o4d29mMDFlYTJsc2cweWZmZjM0ZiJ9.JAYvHu8gHH7VPrHpuStn9A'
 
  
   public selectedAddress: string = '';

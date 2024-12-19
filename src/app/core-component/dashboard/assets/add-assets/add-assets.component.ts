@@ -79,7 +79,8 @@ export class AddAssetsComponent implements OnInit {
       AssetName: ['', Validators.required],
       AssetNameAr: ['', Validators.required],
       Model: ['', Validators.required],
-      AssetCategory: ['', Validators.required],
+      serialNum: ['', Validators.required],
+      plateNum: [''],
       subAssetCategory: [''],
       AssetReason: ['', Validators.required],
       AssetAttachment: ['', Validators.required],
@@ -89,8 +90,6 @@ export class AddAssetsComponent implements OnInit {
     });
   }
   getAssetsCategories(name?: string) {
-    if (this.form.controls['AssetCategory'].value) {
-    }
     this.assetsService.getMainAssetsCategory().subscribe({
       next: (res) => {
         this.assetsCategories = res.data.list;
@@ -274,6 +273,7 @@ export class AddAssetsComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.form.value);    
     const params = {
       companyId: Number(this.companyId),
       name: this.form.value.AssetName,
@@ -286,6 +286,7 @@ export class AddAssetsComponent implements OnInit {
       lat: this.form.controls['lat'].value,
       assetAttachments: this.attachments,
     };
+    console.log(params);
     this.assetsService.addAsset(params).subscribe({
       next: (res) => {
         this.toast.success('Added Successfully');

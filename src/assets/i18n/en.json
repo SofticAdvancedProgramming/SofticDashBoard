@@ -167,7 +167,7 @@
   "ADD_DEPARTMENT": {
     "DEPARTMENT_NAME_EN": "Department Name (English)",
     "DEPARTMENT_NAME_AR": "Department Name (Arabic)",
-    "DEPARTMENT_SHORT_NAME": "Department Short Name",
+    "DEPARTMENT_abbreviation": "Department Abbreviation",
     "DEPARTMENT_MANAGER": "Department Manager",
     "BRANCH": "Branch",
     "DESCRIPTION_EN": "Description (English)",
@@ -180,7 +180,7 @@
     "EDIT": "Save",
     "SELECT_OPTION": "Select Option",
     "REQUIRED_FIELD": "is required",
-    "DESCRIPTION_CONSTRAINT": "must be between 100 and 250 characters.",
+    "DESCRIPTION_CONSTRAINT": "must be between 5 and 250 characters.",
     "CHARACTERS_COUNT": "  characters",
     "HR": "HR",
     "FINANCIAL": "FINANCIAL"
@@ -209,7 +209,7 @@
   },
   "ASSIGN_ENTITY": {
     "DEPARTMENT": "Department:",
-    "SHORT_NAME": "Short Name:",
+    "SHORT_NAME": " Abbreviation Name:",
     "MANAGER": "Manager:",
     "SELECT_ENTITY": "Select ",
     "NAME": "Name",
@@ -728,6 +728,7 @@
   },
   "name": "Name",
   "nameAr": "Name (Arabic)",
+  "mainAssetName": "Main Asset Category Name",
   "Export to Excel": "Export to Excel",
   "Add Currency": "Add Currency",
   "Currency Types": "Currency Types",
@@ -752,6 +753,8 @@
     "AssetName": "Asset Name",
     "AssetNameAr": "Asset Name (Arabic)",
     "Model": "Model",
+    "SerialNum": "Serial Number",
+    "PlateNum": "Plate Number",
     "AssetCategory": "Asset Category",
     "SubAssetCategory": "Sub Asset Category",
     "AssetSup-Category": "Asset Supplier Category",
@@ -761,6 +764,8 @@
     "AssetNamePlaceholder": "Enter the asset name",
     "AssetNamePlaceholderAr": "Enter the asset name (Arabic)",
     "AssetIDPlaceholder": "Enter the asset ID",
+    "AssetSerialPlaceholder": "Enter the Asset Serial Number",
+    "AssetPlatePlaceholder": "Enter the Asset Plate Number",
     "AssetCategoryPlaceholder": "Enter the asset category",
     "subAssetCategoryPlaceholder": "Enter the Sub Asset category",
     "AssetSupCategoryPlaceholder": "Enter the asset sub-category",
@@ -773,6 +778,7 @@
       "assetNameRequired": "Asset Name Required",
       "assetNameArRequired": "Asset Name (Arabic) Required",
       "ModelRequired": "Asset Model Required",
+      "SerialRequired": "Asset Serial Number Required",
       "AssetCategoryRequired": "Asset Category Required",
       "AssetReasonRequired": "Description Required",
       "AssetReasonMinLength": "Description Min Characters is 100",
@@ -856,5 +862,11 @@
       "initialCostRequired": "Initial Cost Required"
     }
   },
-  "SELECT_DEPARTMENT": "Select Department"
+  "SELECT_DEPARTMENT": "Select Department",
+  "SELECT_ASSET_TYPE":"Select asset type",
+  "assetName":"Asset Name",
+  "assetNameInArabic":"Asset Name In Arabic",
+  "employeeFirstName":"Employee Name",
+  "attendanceType":"Attendance Type",
+  "attendanceDate":"Attendance Date "
 }
