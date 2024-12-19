@@ -11,15 +11,12 @@
 
     <ng-template #positionList>
       <div class="row justify-content-between">
-        <div class="col-5">
+        <div class="col-4">
           <label class="form-label ">{{'COMPANY_DETAILS.search_position'|translate}}</label>
           <input [(ngModel)]="searchText" placeholder="{{'COMPANY_DETAILS.search_position'|translate}}"
             (input)="loadEntities('PositionType', 1)" placeholder="translate" class="form-control custom-search " />
         </div>
-        <button class="col-3  btn addPositionBtn" (click)="addPosition()">
-          <i class="fas fa-plus"></i> {{ 'INDEX_POSITION.ADD_POSITION' | translate }}
-        </button>
-        <div class="col-5 mt-2">
+        <div class="col-4">
           <label for="branchSelect" class="form-label">{{ 'SELECT_DEPARTMENT' | translate }}</label>
         <select id="departmentSelect" class="form-select" [(ngModel)]="selectedDepartmentId"
         (change)="filterPositionsByDepartment()">
@@ -29,6 +26,10 @@
         </option>
       </select>
     </div>
+        <button class="col-2  btn addPositionBtn" (click)="addPosition()">
+          <i class="fas fa-plus"></i> {{ 'INDEX_POSITION.ADD_POSITION' | translate }}
+        </button>
+     
       </div>
       <div class="row">
         <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let position of positions">

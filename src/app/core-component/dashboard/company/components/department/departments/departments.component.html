@@ -1,24 +1,22 @@
 <div class="container my-5" *ngIf="!isAdd && !isEdit && !showOverView && !isAssignEntity">
   <div class="row">
-    <div class="justify-content-end d-flex">
+
+    <div class="col-6">
+      <label for="branchSelect" class="form-label">{{ 'DEPARTMENTS.SELECT_BRANCH' | translate }}</label>
+      <select id="branchSelect" class="form-select" [(ngModel)]="selectedBranchId"
+        (change)="filterDepartmentsByBranch()">
+        <option *ngFor="let branch of branches" [ngValue]="branch.id">
+          {{ isArabic ? branch.nameAr : branch.name }}
+        </option>
+      </select>
+    </div>
+    <div class=" col-6 justify-content-end d-flex">
       <button class="btn addPositionBtn w-25" (click)="addDepartment()">
         <i class="fas fa-plus"></i> {{ 'DEPARTMENTS.ADD_DEPARTMENT' | translate }}
       </button>
     </div>
   </div>
-  <div class="row mb-3 w-50">
-    <label for="branchSelect" class="form-label">{{ 'DEPARTMENTS.SELECT_BRANCH' | translate }}</label>
-    <select
-      id="branchSelect"
-      class="form-select"
-      [(ngModel)]="selectedBranchId"
-      (change)="filterDepartmentsByBranch()"
-    >
-      <option *ngFor="let branch of branches" [ngValue]="branch.id">
-        {{ isArabic ? branch.nameAr : branch.name }}
-      </option>
-    </select>
-  </div>
+
   <div class="row">
     <div *ngFor="let department of filteredDepartments" class="col-lg-4 col-md-6 col-sm-12">
       <div class="card">
@@ -34,7 +32,8 @@
         </div>
         <div class="card-footer">
           <label class="toggle-label">
-            <span>{{ department.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' | translate) }}</span>
+            <span>{{ department.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' |
+              translate) }}</span>
             <label class="switch">
               <input type="checkbox" [checked]="department.isActive" (change)="toggleActivation(department)">
               <span class="slider"></span>
@@ -54,14 +53,15 @@
 </div>
 
 
- 
+
 <!-- Entity Assignment Popup -->
 <app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedEntityId" [entityType]="entityType" [entities]="employees"
   [department]="selectedDepartment" (close)="goBack()" (submitForm)="handleEntityAssigned($event)">
 </app-assign-entity>
 
 <ng-container *ngIf="isAdd || isEdit">
-  <app-add-department [companyId]="companyId" (action)="handleAction($event)" [isEdit]="isEdit" [department]="department"></app-add-department>
+  <app-add-department [companyId]="companyId" (action)="handleAction($event)" [isEdit]="isEdit"
+    [department]="department"></app-add-department>
 </ng-container>
 
 <!-- Department Overview -->
