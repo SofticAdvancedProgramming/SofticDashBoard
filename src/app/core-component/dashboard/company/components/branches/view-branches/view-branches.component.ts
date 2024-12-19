@@ -101,7 +101,7 @@ export class ViewBranchesComponent implements OnInit {
   handleAction(isAdd: boolean): void {
     this.isAdd = isAdd;
     this.isEdit = isAdd;
-    this.currentPage = 1; 
+    this.currentPage = 1;
     this.loadBranches(this.currentPage);
     this.loadEmployees();
   }
@@ -123,7 +123,7 @@ export class ViewBranchesComponent implements OnInit {
 
   goBack(): void {
     this.showOverView = false;
-    this.loadBranches(this.currentPage);  
+    this.loadBranches(this.currentPage);
     this.loadEmployees();
   }
   assignEntity(branchId: number): void {
@@ -219,6 +219,7 @@ export class ViewBranchesComponent implements OnInit {
             next: () => {
               this.messageService.add({ severity: 'success', summary: 'Success', detail: this.translate.instant('viewBranches.BRANCH_DELETED') });
               this.loadBranches();
+              this.ngOnInit();
             }
           });
       }

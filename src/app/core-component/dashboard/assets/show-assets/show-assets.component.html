@@ -9,15 +9,28 @@
 <div class="tab-container justify-content-center">
   <div class="categories tabs">
     <button *ngIf="page>1" class="btn" (click)="prevPage()"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
-
     <button *ngFor="let category of assetsCategory;let i =index" class="tab-button" (click)="gettAssets(category.id,i)" [class.active]="activeButtonIndex === i" >
       {{isArabic? category.nameAr:category.name}}
-  </button>
-  <button *ngIf="assetsCategory.length>1" class="btn" (click)="clear()"><i class="fa fa-filter" aria-hidden="true"></i></button>
-  <button *ngIf="page<totalPages"   class="btn" (click)="nextPage()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+    </button>
+    <button *ngIf="assetsCategory.length>1" class="btn" (click)="clear()"><i class="fa fa-filter" aria-hidden="true"></i></button>
+    <button *ngIf="page<totalPages"   class="btn" (click)="nextPage()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
   </div>
 </div>
-<div class="container mt-5" *ngFor="let asset of filteredAssets" [routerLink]="['/dashboard/AssetsDetails',asset.id]">
+
+<div class="container">
+  <div class="row ">
+    <div class="col-3 ">
+      <!-- <label for="branchSelect" class="form-label">{{ 'SELECT_DEPARTMENT' | translate }}</label> -->
+    <select id="departmentSelect" class="form-select" [(ngModel)]="isMain"
+    (change)="filterByMainAsset()">
+      <option [ngValue]="true">{{ 'main asset'|translate }}main asset</option>
+      <option [ngValue]="false">{{ 'related asset'|translate  }}</option>
+    </select>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3" *ngFor="let asset of filteredAssets" [routerLink]="['/dashboard/AssetsDetails',asset.id]">
   <div class="item">
     <img *ngIf="asset.photo" [src]="asset.photo" class="image">
     <img *ngIf="!asset.photo" src="https://via.placeholder.com/100" class="image">
