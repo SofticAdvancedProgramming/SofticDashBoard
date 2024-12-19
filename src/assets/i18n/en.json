@@ -338,6 +338,7 @@
     "NO_LOCATION_FOUND": "No Location found",
     "NO_EMPLOYEES_FOUND": "No employees found",
     "DELETE_CONFIRMATION": "Are you sure you want to delete this employee?",
+    "DELETEEmployeeFromPosITON_CONFIRMATION": "Are you sure you want to delete this employee from this postion?",
     "CANCEL": "Cancel",
     "DELETE": "Delete",
     "SAVE": "Save",

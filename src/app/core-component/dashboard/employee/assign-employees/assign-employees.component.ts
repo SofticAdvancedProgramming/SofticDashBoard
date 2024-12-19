@@ -6,13 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
 import { firstValueFrom } from 'rxjs';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-assign-employees',
     standalone: true,
     templateUrl: './assign-employees.component.html',
     styleUrls: ['./assign-employees.component.css'],
-    imports: [DropDownComponent,FormsModule,CommonModule,TranslateModule]
+    imports: [DropDownComponent,FormsModule,CommonModule,TranslateModule,RouterLink]
 })
 export class AssignEmployeesComponent  implements OnInit{
   @Input() positionId?: string;
