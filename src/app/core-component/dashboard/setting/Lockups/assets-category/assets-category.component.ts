@@ -48,7 +48,7 @@ export class AssetsCategoryComponent implements OnInit {
   itemsPerPage: number = 10;
   modalId = 'AssetsCategories';
   deleteId: string = 'deleteAssetCategory';
-  columns: string[] = ['name', 'nameAr', 'mainAssetName'];
+  columns: string[] = ['assetName', 'assetNameInArabic', 'mainAssetName'];
   companyId = this.localStorageService.getItem('companyId');
   pageIndex: any = {};
   entityTypes: Record<
