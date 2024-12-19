@@ -48,7 +48,7 @@ export class AssetsCategoryComponent implements OnInit {
   itemsPerPage: number = 10;
   modalId = 'AssetsCategories';
   deleteId: string = 'deleteAssetCategory';
-  columns: string[] = ['name' , 'nameAr'];
+  columns: string[] = ['assetName' , 'assetNameInArabic'];
   companyId = this.localStorageService.getItem('companyId');
   pageIndex: any = {};
   entityTypes: Record<
@@ -65,8 +65,8 @@ export class AssetsCategoryComponent implements OnInit {
   };
   isEdit: boolean = false;
   structure = [
-    { name: 'name', label: 'Name In Arabic', type: 'text', required: true },
-    { name: 'nameAr', label: 'Name In English', type: 'text', required: true },
+    { name: 'assetName', label: 'Name In Arabic', type: 'text', required: true },
+    { name: 'assetNameInArabic', label: 'Name In English', type: 'text', required: true },
   ];
   constructor(
     private fb: FormBuilder,

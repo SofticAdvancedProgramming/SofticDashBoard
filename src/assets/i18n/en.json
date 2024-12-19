@@ -856,5 +856,7 @@
     }
   },
   "SELECT_DEPARTMENT": "Select Department",
-  "SELECT_ASSET_TYPE":"Select asset type"
+  "SELECT_ASSET_TYPE":"Select asset type",
+  "assetName":"Asset Name",
+  "assetNameInArabic":"Asset Name In Arabic"
 }

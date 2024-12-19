@@ -845,6 +845,8 @@
     }
   },
   "SELECT_DEPARTMENT":"اختر الفرع",
-  "SELECT_ASSET_TYPE":"اختار النوع "
+  "SELECT_ASSET_TYPE":"اختار النوع ",
+  "assetName":"اسم الاصل",
+  "assetNameInArabic":"اسم الاصل باللغة العربية"
 
 }
