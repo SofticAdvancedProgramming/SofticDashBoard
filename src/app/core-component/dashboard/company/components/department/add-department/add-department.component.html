@@ -18,9 +18,9 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="shortName">{{ 'ADD_DEPARTMENT.DEPARTMENT_SHORT_NAME' | translate }}</label>
+        <label for="shortName">{{ 'ADD_DEPARTMENT.DEPARTMENT_abbreviation' | translate }}</label>
         <input id="shortName" formControlName="shortName"
-          placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_SHORT_NAME' | translate }}" class="form-control" />
+          placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_abbreviation' | translate }}" class="form-control" />
         <div *ngIf="form.get('shortName')?.invalid && form.get('shortName')?.touched" class="text-danger">
           {{ 'ADD_DEPARTMENT.DEPARTMENT_SHORT_NAME' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
         </div>

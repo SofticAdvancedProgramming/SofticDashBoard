@@ -164,7 +164,7 @@
   "ADD_DEPARTMENT": {
     "DEPARTMENT_NAME_EN": "اسم القسم (بالإنجليزية)",
     "DEPARTMENT_NAME_AR": "اسم القسم (بالعربية)",
-    "DEPARTMENT_SHORT_NAME": "اسم القسم المختصر",
+    "DEPARTMENT_abbreviation": "اسم القسم المختصر",
     "DEPARTMENT_MANAGER": "مدير القسم",
     "BRANCH": "الفرع",
     "DESCRIPTION_EN": "الوصف (بالإنجليزية)",

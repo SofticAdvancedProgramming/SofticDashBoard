@@ -167,7 +167,7 @@
   "ADD_DEPARTMENT": {
     "DEPARTMENT_NAME_EN": "Department Name (English)",
     "DEPARTMENT_NAME_AR": "Department Name (Arabic)",
-    "DEPARTMENT_SHORT_NAME": "Department Short Name",
+    "DEPARTMENT_abbreviation": "Department Abbreviation",
     "DEPARTMENT_MANAGER": "Department Manager",
     "BRANCH": "Branch",
     "DESCRIPTION_EN": "Description (English)",
@@ -209,7 +209,7 @@
   },
   "ASSIGN_ENTITY": {
     "DEPARTMENT": "Department:",
-    "SHORT_NAME": "Short Name:",
+    "SHORT_NAME": " Abbreviation Name:",
     "MANAGER": "Manager:",
     "SELECT_ENTITY": "Select ",
     "NAME": "Name",

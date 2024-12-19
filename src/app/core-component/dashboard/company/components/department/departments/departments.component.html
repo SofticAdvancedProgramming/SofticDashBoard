@@ -27,11 +27,11 @@
           <p>{{ department.shortName }}</p>
           <p>Branch: {{department.branchName}}</p>
         </div>
-        <div class="card-body" *ngIf="department.isActive">
+        <!-- <div class="card-body" *ngIf="department.isActive">
           <button class="btn btn-add" (click)="assignEntity(department.id.toString())">
             <i class="fas fa-plus"></i> {{ 'DEPARTMENTS.ADD_EMPLOYEE' | translate }}
           </button>
-        </div>
+        </div> -->
         <div class="card-footer">
           <label class="toggle-label">
             <span>{{ department.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' | translate) }}</span>
