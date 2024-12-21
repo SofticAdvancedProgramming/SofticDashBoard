@@ -5,18 +5,20 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { UserAttachmentsService } from '../../../../../../services/userAttachmentsService/user-attachments.service';
 import { Attachments } from '../../../../../../../models/advancedIfomation';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-attachments',
   standalone: true,
-  imports: [RouterModule, TranslateModule],
+  imports: [RouterModule, TranslateModule, CommonModule, FormsModule],
   templateUrl: './user-attachments.component.html',
   styleUrl: './user-attachments.component.css'
 })
 export class UserAttachmentsComponent {
   private unsubscribe$ = new Subject<void>();
   id: number = 0;
-  userAttachments?:Attachments;
+  userAttachments?:Attachments[];
 
   constructor(private userAttachmentsService: UserAttachmentsService,private localStorageService: LocalStorageService,private route:ActivatedRoute) {}
 
@@ -35,7 +37,7 @@ export class UserAttachmentsComponent {
       .getAttachments({userId: this.id})
       .pipe(
         tap((res) => {
-          this.userAttachments = res.data.list[0];
+          this.userAttachments = res.data.list;
           console.log(res);
           
         }),
@@ -44,12 +46,23 @@ export class UserAttachmentsComponent {
       .subscribe();
   }
 
-  downloadFile() {
-    const fileUrl = this.userAttachments?.file; // Path to your file
-    const link = document.createElement('a');
-    link.href = fileUrl;
-    link.download = this.userAttachments?.file; // Name of the file to be downloaded
-    link.click();
+  // downloadFile() {
+  //   const fileUrl = this.userAttachments?.file; // Path to your file
+  //   const link = document.createElement('a');
+  //   link.href = fileUrl;
+  //   link.download = this.userAttachments?.file; // Name of the file to be downloaded
+  //   link.click();
+  // }
+  isImage(file: string): boolean {
+    return /\.(jpg|jpeg|png|gif)$/i.test(file);
+  }
+  
+  isPDF(file: string): boolean {
+    return /\.pdf$/i.test(file);
+  }
+  
+  isText(file: string): boolean {
+    return /\.(txt|log)$/i.test(file);
   }
 
   ngOnDestroy(): void {

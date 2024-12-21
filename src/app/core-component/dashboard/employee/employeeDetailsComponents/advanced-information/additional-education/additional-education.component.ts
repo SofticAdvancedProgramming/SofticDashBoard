@@ -6,11 +6,12 @@ import { AdditionalEducationService } from '../../../../../../services/additiona
 import { CommonModule } from '@angular/common';
 import { Certificates } from '../../../../../../../models/advancedIfomation';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-additional-education',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, FormsModule],
   templateUrl: './additional-education.component.html',
   styleUrl: './additional-education.component.css',
 })
@@ -30,7 +31,8 @@ export class AdditionalEducationComponent implements OnInit, OnDestroy {
   }
   private unsubscribe$ = new Subject<void>();
   id: number = 0;
-  userEducation?: Certificates;
+  userEducation?: Certificates[];
+  fileUrl: string | ArrayBuffer | null = null;
 
   constructor(
     private additionalEducationService: AdditionalEducationService,
@@ -52,12 +54,23 @@ export class AdditionalEducationComponent implements OnInit, OnDestroy {
       .getAditionalEducation({ employeeId: this.id })
       .pipe(
         tap((res) => {
-          this.userEducation = res.data.list[0];
+          this.userEducation = res.data.list;
           console.log(res);
         }),
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
+  }
+  isImage(file: string): boolean {
+    return /\.(jpg|jpeg|png|gif)$/i.test(file);
+  }
+  
+  isPDF(file: string): boolean {
+    return /\.pdf$/i.test(file);
+  }
+  
+  isText(file: string): boolean {
+    return /\.(txt|log)$/i.test(file);
   }
 
   ngOnDestroy(): void {
