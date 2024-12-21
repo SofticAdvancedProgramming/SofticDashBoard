@@ -27,6 +27,8 @@ export interface Education{
   school: string;
   educationalEnd: string;
   degree: string;
+  file:any;
+  description: string;
 }
 
 export interface WorkHistory{
