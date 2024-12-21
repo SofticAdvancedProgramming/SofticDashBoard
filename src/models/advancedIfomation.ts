@@ -18,7 +18,12 @@ export interface Address{
   fullAddress: string;
   countryName:string;
   cityName:string;
-  isOrginalAddress:boolean
+  isOrginalAddress:boolean;
+  nearBy:string;
+  unit:string;
+  floor:string;
+  zoneId:number;
+  zone:string;
 }
 export interface ContryName{
   name: string;

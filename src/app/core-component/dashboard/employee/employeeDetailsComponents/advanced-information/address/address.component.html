@@ -4,11 +4,15 @@
   <div class="row gy-3" >
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'address.Country' | translate }}</label>
-      <div class="text-muted">{{ ContryName?.name ? ContryName?.name : ('address.No_Data' | translate) }}</div>
+      <div class="text-muted">{{ userAddress?.countryName ?  userAddress?.countryName: ('address.No_Data' | translate) }}</div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'address.City' | translate }}</label>
-      <div class="text-muted">{{ city?.name ? city?.name : ('address.No_Data' | translate) }}</div>
+      <div class="text-muted">{{ userAddress?.cityName ?userAddress?.cityName : ('address.No_Data' | translate) }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.Country' | translate }}</label>
+      <div class="text-muted">{{ userAddress?.zone ?userAddress?.zone : ('address.No_Data' | translate) }}</div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'address.Street_Name' | translate }}</label>
@@ -17,6 +21,18 @@
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'address.Building_Number' | translate }}</label>
       <div class="text-muted">{{ userAddress?.buildingNo ? userAddress?.buildingNo : ('address.No_Data' | translate) }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.City' | translate }}</label>
+      <div class="text-muted">{{ userAddress?.nearBy ? userAddress?.nearBy : ('address.No_Data' | translate) }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.Street_Name' | translate }}</label>
+      <div class="text-muted">{{ userAddress?.unit ? userAddress?.unit : ('address.No_Data' | translate) }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.Building_Number' | translate }}</label>
+      <div class="text-muted">{{ userAddress?.floor ? userAddress?.floor : ('address.No_Data' | translate) }}</div>
     </div>
     <div class="col-12">
       <label class="d-block fw-semibold text-dark">{{ 'address.Full_Address' | translate }}</label>

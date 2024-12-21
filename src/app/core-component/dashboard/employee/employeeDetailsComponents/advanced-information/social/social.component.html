@@ -88,69 +88,30 @@
         }}
       </a>
     </div>
-    <!-- <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">
-        {{ "socialMediaContact.progressSocialTitle" | translate }}
-      </label>
-      <div
-        style="
-          position: relative;
-          display: inline-block;
-          text-align: center;
-          width: 105px;
-        "
-      >
-        <mat-progress-spinner
-          mode="determinate"
-          [value]="progressBarValue"
-          diameter="100"
-          strokeWidth="8"
-        >
-        </mat-progress-spinner>
-        <div
-          style="
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 18px;
-            font-weight: bold;
-          "
-        >
-          {{ progressBarValue }}%
-        </div>
+      <div class="col-12 col-md-6 border-bottom-custom"  *ngIf="userSocial?.userEmails!.length>=1" >
+          <label class="d-block fw-semibold text-dark" *ngIf="userSocial?.userEmails!.length>=1">
+            {{ 'socialMediaContact.email' | translate }}
+          </label>
+          <p *ngFor="let email of userSocial?.userEmails;let i =index"
+            class="text-muted"
+          >
+            {{ email?.email ? email?.email : ('socialMediaContact.No_Data' | translate) }}
+          </p>
       </div>
 
-      <div class="col-12 col-md-6 border-bottom-custom"  *ngIf="userSocial?.userEmails!.length>1" >
-        <label class="d-block fw-semibold text-dark">
-          {{ 'socialMediaContact.email' | translate }}
-        </label>
-        <p *ngFor="let email of userSocial?.userEmails;let i =index"
-
-          class="text-muted"
-        >
-          {{ email?.email ? email?.email : ('socialMediaContact.No_Data' | translate) }}
-          <!-- <br *ngIf="i+1< userSocial?.userEmails!.length && userSocial?.userEmails!.length>1"> -->
-        </p>
-      </div>
-
-      <div class="col-12 col-md-6 border-bottom-custom"  *ngIf="userSocial?.userRefernces!.length>1" >
-        <label class="d-block fw-semibold text-dark">
+      <div class="col-12 col-md-6 border-bottom-custom"  *ngIf="userSocial?.userRefernces!.length>=1" >
+        <label class="d-block fw-semibold text-dark" *ngIf="userSocial?.userRefernces!.length>=1">
           {{ 'socialMediaContact.referance' | translate }}
         </label>
-
         <p *ngFor="let referance of userSocial?.userRefernces;let i =index"
-
-
           class="text-muted"
         >
           {{ referance?.email ? referance?.email : ('socialMediaContact.No_Data' | translate) }}
-          <!-- <br *ngIf="i+1< userSocial?.userRefernces!.length && userSocial?.userRefernces!.length>1"> -->
       </p>
       </div>
 
-      <div class="col-12 col-md-6 border-bottom-custom"  *ngIf="userSocial?.userTelephones!.length>1" >
-        <label class="d-block fw-semibold text-dark">
+      <div class="col-12 col-md-6 border-bottom-custom"  *ngIf="userSocial?.userTelephones!.length>=1" >
+        <label class="d-block fw-semibold text-dark" *ngIf="userSocial?.userTelephones!.length>=1">
           {{ 'socialMediaContact.userTelephone' | translate }}
         </label>
         <p *ngFor="let userTelephone of userSocial?.userTelephones;let i =index"
@@ -160,19 +121,9 @@
           {{ userTelephone?.telephone ? userTelephone?.telephone : ('socialMediaContact.No_Data' | translate) }}
           <span *ngIf="userTelephone.isFavourit"> - {{'socialMediaContact.isFavourit' | translate}}</span>
           <span *ngIf="userTelephone.isWhatsApp  "> - {{'socialMediaContact.isWhatsApp' | translate}}</span>
-          <!-- <br *ngIf="i+1< userSocial?.userTelephones!.length && userSocial?.userTelephones!.length>1"> -->
-           <!-- isFavourit
-:
-true
-isMobile
-:
-true
-isWhatsApp
-:
-true -->
+
       </p>
       </div>
-    </div>
   </div>
 </div>
 

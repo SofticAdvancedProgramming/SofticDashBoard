@@ -21,7 +21,7 @@ export class AddressComponent implements OnInit, OnDestroy {
   ContryName?: ContryName;
   currentLang: string = 'en';
   city?: CityName;
-
+  zone?: any;
   constructor(
     private userAddressService: UserAddressService,
     private localStorageService: LocalStorageService,
@@ -46,7 +46,9 @@ export class AddressComponent implements OnInit, OnDestroy {
           this.userAddress = res.data.list.map((item:Address)=>({
             ...item,
             countryName:this.getCountry(item.countryId),
-            cityName:this.getCity(item.cityId)
+            cityName:this.getCity(item.cityId),
+            zone:this.getZone(item.zoneId)
+
           }
           // this.getCountry(this.userAddress?.countryId);
           // this.getCity(this.userAddress?.cityId);
@@ -83,6 +85,26 @@ export class AddressComponent implements OnInit, OnDestroy {
       .pipe(
         tap((response: any) => {
           this.city = response.data.list[0];
+          // .map((type: any) => ({
+          //   id: type.id,
+          //   name: this.currentLang === 'ar' ? type.nameAr : type.name,
+          // }));
+          console.log(response);
+        })
+      )
+      .subscribe({
+        error: (err) => {
+          console.error('Error fetching request types:', err);
+        },
+      });
+  }
+  getZone(zoneId?: number) {
+    const requestPayload = { zoneId };
+    this.userAddressService
+      .getZone(requestPayload)
+      .pipe(
+        tap((response: any) => {
+          this.zone = response.data.list[0];
           // .map((type: any) => ({
           //   id: type.id,
           //   name: this.currentLang === 'ar' ? type.nameAr : type.name,
