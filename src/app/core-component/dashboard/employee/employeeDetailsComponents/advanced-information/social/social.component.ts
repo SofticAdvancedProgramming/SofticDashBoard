@@ -5,13 +5,12 @@ import { UserSocialService } from '../../../../../../services/userSocialService/
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Social } from '../../../../../../../models/advancedIfomation';
 import { TranslateModule } from '@ngx-translate/core';
-import {MatProgressSpinner} from '@angular/material/progress-spinner';
-
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-social',
   standalone: true,
-  imports: [RouterModule, TranslateModule, MatProgressSpinner],
+  imports: [RouterModule, TranslateModule,CommonModule],
   templateUrl: './social.component.html',
   styleUrl: './social.component.css'
 })

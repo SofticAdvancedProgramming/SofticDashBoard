@@ -459,7 +459,14 @@
     "Weight": "الوزن (كجم)",
     "Height": "الطول (سم)",
     "Chronic_Disease": "ما نوع المرض المزمن؟",
-    "No_Data": "لا توجد بيانات"
+    "No_Data": "لا توجد بيانات",
+    "chronicdiseaseName": "المرض",
+    "insuranceCompany": "شركة التامين",
+    "medicalInsuranceNumber": "الرقم التاميني",
+    "expiryon": "ينتهي في",
+    "healthCondition": "الحالة الصحية",
+    "allergy":"allergy",
+    "ischronicdisease":"is chronic disease"
   },
   "socialMediaContact": {
     "Title": "التواصل عبر وسائل التواصل الاجتماعي",

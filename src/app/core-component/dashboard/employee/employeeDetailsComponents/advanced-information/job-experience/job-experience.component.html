@@ -1,14 +1,14 @@
-<div class="container py-4 bgColor">
-  <h3 class="text-center fw-bold customHeader mb-4">
+<div class="container py-4 bgColor mt-3"  *ngFor="let _userJobExperience of userJobExperience;let i =index">
+  <h3 class="text-center fw-bold customHeader mb-4" *ngIf="i<=0">
     {{ 'jobExperience.Title' | translate }}
   </h3>
   <div class="row gy-3">
-    <div class="col-12 col-md-6 border-bottom-custom">
+    <div class="col-12 col-md-6 border-bottom-custom" >
       <label class="d-block fw-semibold text-dark">
         {{ 'jobExperience.Job_Title' | translate }}
       </label>
       <div class="text-muted">
-        {{ userJobExperience?.jobTitle ? userJobExperience?.jobTitle : ('jobExperience.No_Data' | translate) }}
+        {{ _userJobExperience?.jobTitle ? _userJobExperience?.jobTitle : ('jobExperience.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -16,25 +16,25 @@
         {{ 'jobExperience.Company_Name' | translate }}
       </label>
       <div class="text-muted">
-        {{ userJobExperience?.companyName ? userJobExperience?.companyName : ('jobExperience.No_Data' | translate) }}
+        {{ _userJobExperience.companyName ? _userJobExperience?.companyName : ('jobExperience.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-    
+      <label class="d-block fw-semibold text-dark">{{ 'jobExperience.Start_Date' | translate }}</label>
       <div class="text-muted">
-        {{ userJobExperience?.startFrom ? userJobExperience?.startFrom  : ('jobExperience.No_Data' | translate) | date:"mediumDate" }}
+        {{ _userJobExperience?.startFrom ?( _userJobExperience?.startFrom | date ) : ('jobExperience.No_Data' | translate ) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'jobExperience.End_Date' | translate }}</label>
-      <div class="text-muted">{{ userJobExperience?.endAt ? userJobExperience?.endAt : ('jobExperience.No_Data' | translate) }}</div>
+      <div class="text-muted">{{ _userJobExperience?.endAt ? (_userJobExperience?.endAt| date ) : ('jobExperience.No_Data' | translate) | date }}</div>
     </div>
     <div class="col-12 col-md-12 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
         {{ 'jobExperience.Job_Responsibilities' | translate }}
       </label>
       <div class="text-muted">
-        {{ userJobExperience?.jobDescription ? userJobExperience?.jobDescription : ('jobExperience.No_Data' | translate) }}
+        {{ _userJobExperience?.jobDescription ? _userJobExperience?.jobDescription : ('jobExperience.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -42,8 +42,52 @@
         {{ 'jobExperience.Supervisor_Number' | translate }}
       </label>
       <div class="text-muted">
-        {{ userJobExperience?.firstReferencTelephone ? userJobExperience?.firstReferencTelephone : ('jobExperience.No_Data' | translate) }}
+        {{ _userJobExperience?.firstReferencTelephone ? _userJobExperience?.firstReferencTelephone : ('jobExperience.No_Data' | translate) }}
       </div>
     </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ 'jobExperience.Supervisor_Number' | translate }}
+      </label>
+      <div class="text-muted">
+        {{ _userJobExperience?.firstReferencTelephone ? _userJobExperience?.firstReferencTelephone : ('jobExperience.No_Data' | translate) }}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "attachments.File" | translate
+      }}</label>
+      <div class="text-muted">
+        <!-- Image Files -->
+        <img
+          *ngIf="isImage(_userJobExperience.file)"
+          [src]="_userJobExperience.file"
+          alt="CertificateImage"
+          style="width: 300px; height: 300px"
+        />
+
+        <!-- PDF Files -->
+        <div *ngIf="isPDF(_userJobExperience.file)" class="d-flex gap-2 align-items-center">
+          <img
+            src="../../../../../../../assets/images/fileIcon2.png"
+            style="width: 100px; height: 100px"
+            alt=""
+          />
+          <p>{{_userJobExperience.fileDescription.description}}</p>
+        </div>
+
+        <a *ngIf="isPDF(_userJobExperience.file)" [href]="_userJobExperience.file" target="_blank" download
+          >Download PDF</a
+        >
+
+        <!-- Text Files -->
+        <a *ngIf="isText(_userJobExperience.file)" [href]="_userJobExperience.file" target="_blank" download
+          >Download Text File</a
+        >
+      </div>
+    </div>
+
   </div>
 </div>

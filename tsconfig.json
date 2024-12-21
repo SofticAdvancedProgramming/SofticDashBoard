@@ -1,3 +1,4 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -16,10 +17,6 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-    "typeRoots": [
-      "node_modules/@types",
-      "src/typings"
-    ],
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",

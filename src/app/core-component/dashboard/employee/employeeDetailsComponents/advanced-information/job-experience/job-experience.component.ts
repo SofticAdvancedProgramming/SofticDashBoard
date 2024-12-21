@@ -3,20 +3,20 @@ import { LocalStorageService } from '../../../../../../services/local-storage-se
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { UserJobExperienceService } from '../../../../../../services/JobExperienceService/user-job-experience.service';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { WorkHistory } from '../../../../../../../models/advancedIfomation';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-job-experience',
   standalone: true,
-  imports: [TranslateModule,DatePipe],
+  imports: [TranslateModule,DatePipe,CommonModule],
   templateUrl: './job-experience.component.html',
   styleUrl: './job-experience.component.css'
 })
 export class JobExperienceComponent implements OnInit, OnDestroy {
   id: any;
-  userJobExperience?: WorkHistory;
+  userJobExperience!: WorkHistory[];
   private unsubscribe$ = new Subject<void>();
   constructor(private userJobExperienceService: UserJobExperienceService,private localStorageService: LocalStorageService,private route:ActivatedRoute) {}
 
@@ -25,16 +25,16 @@ export class JobExperienceComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribe$)
     ).subscribe(params => {
       this.id = Number(params.get('id'));
-      this.getEducation();
+      this.getWorkExperinece();
     })
   }
 
-  getEducation() {
+  getWorkExperinece() {
     this.userJobExperienceService
       .getJobExperience({employeeId: this.id})
       .pipe(
         tap((res) => {
-          this.userJobExperience = res.data.list[0];
+          this.userJobExperience = res.data.list;
           console.log(res);
         }),
         takeUntil(this.unsubscribe$)
@@ -46,4 +46,17 @@ export class JobExperienceComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+
+  isImage(file: string): boolean {
+    return /\.(jpg|jpeg|png|gif)$/i.test(file);
+  }
+
+  isPDF(file: string): boolean {
+    return /\.pdf$/i.test(file);
+  }
+
+  isText(file: string): boolean {
+    return /\.(txt|log)$/i.test(file);
+  }
+  
 }
