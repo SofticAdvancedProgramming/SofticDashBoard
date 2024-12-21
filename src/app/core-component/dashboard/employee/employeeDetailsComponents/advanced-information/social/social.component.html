@@ -73,15 +73,13 @@
         <label class="d-block fw-semibold text-dark">
           {{ 'socialMediaContact.email' | translate }}
         </label>
-        <a *ngFor="let email of userSocial?.userEmails;let i =index"
-          [href]="userSocial?.twitterX"
-          target="_blank"
-          rel="noopener noreferrer"
+        <p *ngFor="let email of userSocial?.userEmails;let i =index"
+
           class="text-muted"
         >
           {{ email?.email ? email?.email : ('socialMediaContact.No_Data' | translate) }}
-          <span *ngIf="i+1< userSocial?.userEmails!.length && userSocial?.userEmails!.length>1">-</span>
-        </a>
+          <!-- <br *ngIf="i+1< userSocial?.userEmails!.length && userSocial?.userEmails!.length>1"> -->
+        </p>
       </div>
 
       <div class="col-12 col-md-6 border-bottom-custom"  *ngIf="userSocial?.userRefernces!.length>1" >
@@ -89,30 +87,38 @@
           {{ 'socialMediaContact.referance' | translate }}
         </label>
 
-        <a *ngFor="let referance of userSocial?.userRefernces;let i =index"
+        <p *ngFor="let referance of userSocial?.userRefernces;let i =index"
 
-          target="_blank"
-          rel="noopener noreferrer"
+
           class="text-muted"
         >
           {{ referance?.email ? referance?.email : ('socialMediaContact.No_Data' | translate) }}
-          <span *ngIf="i+1< userSocial?.userRefernces!.length && userSocial?.userRefernces!.length>1">-</span>
-        </a>
+          <!-- <br *ngIf="i+1< userSocial?.userRefernces!.length && userSocial?.userRefernces!.length>1"> -->
+      </p>
       </div>
 
       <div class="col-12 col-md-6 border-bottom-custom"  *ngIf="userSocial?.userTelephones!.length>1" >
         <label class="d-block fw-semibold text-dark">
           {{ 'socialMediaContact.userTelephone' | translate }}
         </label>
-        <a *ngFor="let userTelephone of userSocial?.userTelephones;let i =index"
+        <p *ngFor="let userTelephone of userSocial?.userTelephones;let i =index"
 
-          target="_blank"
-          rel="noopener noreferrer"
           class="text-muted"
         >
           {{ userTelephone?.telephone ? userTelephone?.telephone : ('socialMediaContact.No_Data' | translate) }}
-          <span *ngIf="i+1< userSocial?.userTelephones!.length && userSocial?.userTelephones!.length>1">-</span>
-        </a>
+          <span *ngIf="userTelephone.isFavourit"> - {{'socialMediaContact.isFavourit' | translate}}</span>
+          <span *ngIf="userTelephone.isWhatsApp  "> - {{'socialMediaContact.isWhatsApp' | translate}}</span>
+          <!-- <br *ngIf="i+1< userSocial?.userTelephones!.length && userSocial?.userTelephones!.length>1"> -->
+           <!-- isFavourit
+:
+true
+isMobile
+:
+true
+isWhatsApp
+:
+true -->
+      </p>
       </div>
     </div>
   </div>

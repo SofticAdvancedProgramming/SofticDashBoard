@@ -46,4 +46,17 @@ export class JobExperienceComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+
+  isImage(file: string): boolean {
+    return /\.(jpg|jpeg|png|gif)$/i.test(file);
+  }
+
+  isPDF(file: string): boolean {
+    return /\.pdf$/i.test(file);
+  }
+
+  isText(file: string): boolean {
+    return /\.(txt|log)$/i.test(file);
+  }
+  
 }

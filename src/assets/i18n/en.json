@@ -465,7 +465,7 @@
     "ischronicdisease":"is chronic disease"
   },
   "socialMediaContact": {
-    "Title": "Social Media Contact",
+    "Title": "Communication",
     "Facebook": "Facebook",
     "Instagram": "Instagram",
     "LinkedIn": "LinkedIn",
@@ -474,7 +474,9 @@
     "No_Data": "No Data",
     "referance":"referance",
     "email":"email",
-    "userTelephone":"telephone"
+    "userTelephone":"telephone",
+    "isWhatsApp":"whatsApp",
+    "isFavourit":"main"
   },
   "attachments": {
     "Title": "Attachments",

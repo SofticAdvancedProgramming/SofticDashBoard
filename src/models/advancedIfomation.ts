@@ -12,6 +12,9 @@ export interface Address{
   street: string;
   buildingNo: string;
   fullAddress: string;
+  countryName:string;
+  cityName:string;
+  isOrginalAddress:boolean
 }
 export interface ContryName{
   name: string;
@@ -38,6 +41,9 @@ export interface WorkHistory{
   endAt: string;
   jobDescription: string;
   firstReferencTelephone: string;
+  fileDescription:any;
+  file:any
+
 }
 
 export interface Medical{

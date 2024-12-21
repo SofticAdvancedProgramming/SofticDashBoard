@@ -5,18 +5,19 @@ import { ActivatedRoute } from '@angular/router';
 import { UserAddressService } from '../../../../../../services/userAddressService/user-address.service';
 import { Address, CityName, ContryName } from '../../../../../../../models/advancedIfomation';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-address',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule,CommonModule],
   templateUrl: './address.component.html',
   styleUrl: './address.component.css',
 })
 export class AddressComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   id: number = 0;
-  userAddress?: Address;
+  userAddress?: Address[]=[];
   ContryName?: ContryName;
   currentLang: string = 'en';
   city?: CityName;
@@ -42,13 +43,16 @@ export class AddressComponent implements OnInit, OnDestroy {
       .getAddress({ userId: this.id })
       .pipe(
         tap((res) => {
-          this.userAddress = res.data.list[0];
-          console.log(res);
-          this.getCountry(this.userAddress?.countryId);
-          this.getCity(this.userAddress?.cityId);
-        }),
-        takeUntil(this.unsubscribe$)
-      )
+          this.userAddress = res.data.list.map((item:Address)=>({
+            ...item,
+            countryName:this.getCountry(item.countryId),
+            cityName:this.getCity(item.cityId)
+          }
+          // this.getCountry(this.userAddress?.countryId);
+          // this.getCity(this.userAddress?.cityId);
+        ))}),
+        takeUntil(this.unsubscribe$))
+
       .subscribe();
   }
   getCountry(countryId?: number) {

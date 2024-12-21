@@ -51,4 +51,5 @@ export class MedicalInsuranceComponent {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+ 
 }
