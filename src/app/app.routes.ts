@@ -48,7 +48,6 @@ import { TaskDetailsComponent } from './core-component/dashboard/Tasks/task-deta
 import { TaskAnalyticsComponent } from './core-component/dashboard/Tasks/task-analytics/task-analytics.component';
 import { RewarkDialogComponent } from './core-component/dashboard/components/rewark-dialog/rewark-dialog.component';
 import { EvaluatoionComponent } from './core-component/dashboard/components/evaluatoion/evaluatoion.component';
-import { EnhancedOrganizationChartComponent } from './core-component/dashboard/enhanced-organization-chart/enhanced-organization-chart.component';
 
 export const routes: Routes = [
   {
@@ -89,7 +88,7 @@ export const routes: Routes = [
       { path: 'ViewEmployees', component: ViewEmployeesComponent ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},
       { path: 'ViewEmployees/:postionId', component: ViewEmployeesComponent ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},
       { path: 'AddEmployee', component: AddEmployeeComponent  },
-      { path: 'OrganizationCharts', component: EnhancedOrganizationChartComponent  },
+      { path: 'OrganizationCharts', component: OrganizationChartsComponent  },
       { path: 'BenefitType', component: BenefitTypeComponent  },
       { path: 'ComplaintsSuggestions', component: ComplaintsSuggestionsComponent  },
       { path: 'ComplainSuggestionDetails/:id', component: ComplainSuggestionDetailsComponent },
