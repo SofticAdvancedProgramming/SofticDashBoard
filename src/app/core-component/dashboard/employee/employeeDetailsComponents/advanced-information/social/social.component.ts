@@ -18,6 +18,7 @@ export class SocialComponent {
 
   private unsubscribe$ = new Subject<void>();
   id: number = 0;
+  progressBarValue: number = 0;
   userSocial?:Social;
 
   constructor(private userSocialService: UserSocialService,private localStorageService: LocalStorageService,private route:ActivatedRoute) {}
@@ -38,6 +39,22 @@ export class SocialComponent {
         tap((res) => {
           this.userSocial = res.list[0];
           console.log(res);
+          if(this.userSocial?.facebook != null){
+            this.progressBarValue +=20;
+          }
+          if(this.userSocial?.instgram != null){
+            this.progressBarValue +=20;
+          }
+          if(this.userSocial?.linkedIn != null){
+            this.progressBarValue +=20;
+          }
+          if(this.userSocial?.snapShot != null){
+            this.progressBarValue +=20;
+          }
+          if(this.userSocial?.twitterX != null){
+            this.progressBarValue +=20;
+          }
+          console.log(this.progressBarValue);
         }),
         takeUntil(this.unsubscribe$)
       )

@@ -4,6 +4,10 @@ export interface Certificates {
   issuer: string;
   from: string;
   to: string;
+  file:any;
+  fileDescription: {
+    description: string;
+  };
 }
 
 export interface Address{
@@ -74,6 +78,9 @@ export interface Social{
 export interface Attachments{
   name: string;
   file: any;
+  fileDescription: {
+    description: string;
+  };
 }
 
 export interface Skills{

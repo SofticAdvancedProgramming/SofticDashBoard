@@ -356,6 +356,7 @@
     "reasonForRejection": "reason for rejection",
     "writeComment": "please write your comment no more than 300 words"
   },
+  "progressBarTitle":"completeness percentage",
   "personalInfo": {
     "PROFILE_INFORMATION": "Profile Information",
     "GREETING": "Hi, I'm",
@@ -373,7 +374,8 @@
     "PASSPORT_NUMBER": "Passport Number",
     "REFERENCE_PHOTO": "Reference Photo",
     "PASSPORT_PHOTO": "Passport Photo",
-    "LOADING": "Loading..."
+    "LOADING": "Loading...",
+    "progressInfoTitle": "Personal Information completeness"
   },
   "employeeDetails": {
     "SALARY_ASSIGN_SUCCESS": "Salary assigned successfully",
@@ -416,16 +418,20 @@
     "Issuing_Organization": "Issuing Organization",
     "Issue_Date": "Issue Date",
     "Expiry_Date": "Expiry Date (if applicable)",
-    "No_Data": "No Data"
+    "No_Data": "No Data",
+    "progressCertificateTitle": "Certificate completeness",
+    "certificateFile": "Certificate File"
   },
   "address": {
-    "Title": "Address",
+    "PlaceOfResidenceTitle": "Address / Place of residence",
+    "PlaceCountryOfOriginTitle": "Address / Country of Origin",
     "Country": "Country",
     "City": "City",
     "Street_Name": "Street name",
     "Building_Number": "Building number",
     "Full_Address": "Address",
-    "No_Data": "No Data"
+    "No_Data": "No Data",
+    "progressAddressTitle": "Address completeness"
   },
   "education": {
     "Title": "Education",
@@ -437,7 +443,8 @@
     "GPA_Grade": "GPA/Grade",
     "No_Data": "No Data",
     "Description": "Description",
-    "certificateImg": "Certificate Image"
+    "certificateImg": "Certificate Image",
+    "progressEducationTitle": "Education completeness"
   },
   "jobExperience": {
     "Title": "Employment history",
@@ -447,7 +454,8 @@
     "End_Date": "End Date",
     "Job_Responsibilities": "Job Responsibilities",
     "Supervisor_Number": "Supervisor/Manager Number",
-    "No_Data": "No Data"
+    "No_Data": "No Data",
+    "progressJobExperienceTitle": "Employment history completeness"
   },
   "medicalInsurance": {
     "Title": "Medical Insurance",
@@ -462,7 +470,8 @@
     "Chronic_Disease": "Chronic Disease",
     "allergy":"allergy",
     "No_Data": "No Data",
-    "ischronicdisease":"is chronic disease"
+    "ischronicdisease":"is chronic disease",
+    "progressMedicalTitle": "Medical Insurance completeness"
   },
   "socialMediaContact": {
     "Title": "Communication",
@@ -472,6 +481,7 @@
     "Snapchat": "Snapchat",
     "Twitter": "Twitter",
     "No_Data": "No Data",
+    "progressSocialTitle": "Social Media completeness",
     "referance":"referance",
     "email":"email",
     "userTelephone":"telephone",

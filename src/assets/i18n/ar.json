@@ -359,6 +359,7 @@
     "No related assets available": "لا توجد متعلقات",
     "No attachments available": "لا توجد ملفات أو صور"
   },
+  "progressBarTitle":"نسبة الاكتمال",
   "personalInfo": {
     "PROFILE_INFORMATION": "معلومات الملف الشخصي",
     "GREETING": "مرحبًا، أنا",

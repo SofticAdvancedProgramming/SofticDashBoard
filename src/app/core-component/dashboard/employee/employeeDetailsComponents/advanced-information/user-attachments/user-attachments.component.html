@@ -1,26 +1,62 @@
 <div class="container py-4 bgColor">
   <h3 class="text-center fw-bold customHeader mb-4">{{ 'attachments.Title' | translate }}</h3>
+  @for (item of userAttachments; track item) {
   <div class="row gy-3">
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'attachments.Name' | translate }}</label>
       <div class="text-muted">
-        {{ userAttachments?.name ? userAttachments?.name : ('attachments.No_Data' | translate) }}
+        {{ item?.name ? item?.name : ('attachments.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "attachments.File" | translate
+      }}</label>
+      <div class="text-muted">
+        <!-- Image Files -->
+        <img
+          *ngIf="isImage(item.file)"
+          [src]="item.file"
+          alt="CertificateImage"
+          style="width: 300px; height: 300px"
+        />
+
+        <!-- PDF Files -->
+        <div *ngIf="isPDF(item.file)" class="d-flex gap-2 align-items-center">
+          <img
+            src="../../../../../../../assets/images/fileIcon2.png"
+            style="width: 100px; height: 100px"
+            alt=""
+          />
+          <p>{{item.fileDescription.description}}</p>
+        </div>
+
+        <a *ngIf="isPDF(item.file)" [href]="item.file" target="_blank" download
+          >Download PDF</a
+        >
+
+        <!-- Text Files -->
+        <a *ngIf="isText(item.file)" [href]="item.file" target="_blank" download
+          >Download Text File</a
+        >
+      </div>
+    </div>
+    <hr />
+    <!-- <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'attachments.File' | translate }}</label>
       <div class="text-muted">
-        @if (userAttachments?.file) {
-        <a [routerLink]=" userAttachments?.file " download>
-          <img [src]=" userAttachments?.file " alt="image" /></a
+        @if (item?.file) {
+        <a [routerLink]=" item?.file " download>
+          <img [src]=" item?.file " alt="image" /></a
         >}
         @else {
           <div class="text-muted">{{ 'attachments.No_Data' | translate }}</div>
         }
       </div>
-      @if(userAttachments?.file){
+      @if(item?.file){
       <button (click)="downloadFile()">{{"attachments.Download_PDF" | translate}}</button>
       }
-    </div>
+    </div> -->
   </div>
+}
 </div>
