@@ -62,13 +62,14 @@
       style="color: black"
     ></i> -->
   </div>
-  <div class="row gy-3 mt-3" *ngIf="isCertificateOpen" [@slideToggle]>
+  @for (item of userEducation; track item) {
+  <div class="row gy-3 mt-3" *ngIf="isCertificateOpen">
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{
         "certificate.Certificate_Name" | translate
       }}</label>
       <div class="text-muted">
-        {{ userEducation?.name ? userEducation?.name : ('certificate.No_Data' | translate) }}
+        {{ item?.name ? item?.name : ("certificate.No_Data" | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -76,7 +77,11 @@
         "certificate.Specialist" | translate
       }}</label>
       <div class="text-muted">
-        {{ userEducation?.specialist ? userEducation?.specialist : ('certificate.No_Data' | translate) }}
+        {{
+          item?.specialist
+            ? item?.specialist
+            : ("certificate.No_Data" | translate)
+        }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -84,7 +89,7 @@
         "certificate.Issuing_Organization" | translate
       }}</label>
       <div class="text-muted">
-        {{ userEducation?.issuer ? userEducation?.issuer : ('certificate.No_Data' | translate) }}
+        {{ item?.issuer ? item?.issuer : ("certificate.No_Data" | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -92,7 +97,7 @@
         "certificate.Issue_Date" | translate
       }}</label>
       <div class="text-muted">
-        {{ userEducation?.from ? userEducation?.from : ('certificate.No_Data' | translate) }}
+        {{ item?.from ? (item?.from| date: 'dd/mm/yyyy')  : ("certificate.No_Data" | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -100,9 +105,50 @@
         "certificate.Expiry_Date" | translate
       }}</label>
       <div class="text-muted">
-        {{ userEducation?.to ? userEducation?.to : ('certificate.No_Data' | translate) }}
+        {{ item?.to ? (item?.to | date: 'dd/MM/yyyy') : ("certificate.No_Data" | translate) }}
       </div>
     </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.certificateFile" | translate
+      }}</label>
+      <div class="text-muted">
+        <!-- Image Files -->
+        <img
+          *ngIf="isImage(item.file)"
+          [src]="item.file"
+          alt="CertificateImage"
+          style="width: 300px; height: 300px"
+        />
+
+        <!-- PDF Files -->
+        <div *ngIf="isPDF(item.file)" class="d-flex gap-2 align-items-center">
+          <img
+            src="../../../../../../../assets/images/fileIcon2.png"
+            style="width: 100px; height: 100px"
+            alt=""
+          />
+          <p>{{item.fileDescription.description}}</p>
+        </div>
+
+        <!-- <iframe
+          *ngIf="isPDF(item.file)"
+          [src]="item.file"
+          style="width: 300px; height: 300px"
+          frameborder="0"
+        >
+        </iframe> -->
+        <a *ngIf="isPDF(item.file)" [href]="item.file" target="_blank" download
+          >Download PDF</a
+        >
+
+        <!-- Text Files -->
+        <a *ngIf="isText(item.file)" [href]="item.file" target="_blank" download
+          >Download Text File</a
+        >
+      </div>
+    </div>
+    <hr />
     <!-- <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark"
         >GPA/Grade (if applicable)</label
@@ -116,6 +162,7 @@
       <div class="text-muted">650</div>
     </div> -->
   </div>
+  }
 </div>
 
 <!-- <div class="container py-4 mb-4 bgColor">
