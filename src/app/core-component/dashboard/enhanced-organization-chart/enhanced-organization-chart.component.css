@@ -1,17 +1,16 @@
-.node circle {
-  stroke: #fff;
-  stroke-width: 3px;
+::ng-deep [data-n-id] rect:nth-child(1) {
+  fill: #663895;
 }
 
-.link {
-  stroke-width: 2px;
+::ng-deep [data-n-id] rect:nth-child(2) {
+  fill: white
 }
 
-.node text {
-  fill: #fff;
-  font-weight: bold;
+::ng-deep g text {
+  fill: white;;
 }
 
-.node text + text {
-  fill: #ccc;
+::ng-deep g g circle
+{
+  fill: black;
 }
