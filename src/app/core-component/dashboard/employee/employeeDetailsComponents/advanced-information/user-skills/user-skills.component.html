@@ -1,23 +1,40 @@
 <div class="container py-4 bgColor">
-  <h3 class="text-center fw-bold customHeader mb-4">{{ 'skills.Title' | translate }}</h3>
-  <div class="row gy-3">
+  <h3 class="text-center fw-bold customHeader mb-4">
+    {{ "skills.Title" | translate }}
+  </h3>
+  @for (item of userSkills; track item) {
+  <div class="row gy-3 mb-3">
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'skills.Name' | translate }}</label>
+      <label class="d-block fw-semibold text-dark">{{
+        "skills.Name" | translate
+      }}</label>
       <div class="text-muted">
-        {{ userSkills?.name ? userSkills?.name : ('skills.NoData' | translate) }}
+        {{ item?.name ? item?.name : ("skills.NoData" | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'skills.Type' | translate }}</label>
+      <label class="d-block fw-semibold text-dark">{{
+        "skills.Type" | translate
+      }}</label>
       <div class="text-muted">
-        {{ userSkills?.skillTypeName ? userSkills?.skillTypeName : ('skills.NoData' | translate) }}
+        {{
+          item?.skillTypeName
+            ? item?.skillTypeName
+            : ("skills.NoData" | translate)
+        }}
       </div>
     </div>
     <div class="col-12 col-md-12 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'skills.Description' | translate }}</label>
+      <label class="d-block fw-semibold text-dark">{{
+        "skills.Description" | translate
+      }}</label>
       <div class="text-muted">
-        {{ userSkills?.description ? userSkills?.description : ('skills.NoData' | translate) }}
+        {{
+          item?.description ? item?.description : ("skills.NoData" | translate)
+        }}
       </div>
     </div>
   </div>
+  <hr />
+  }
 </div>

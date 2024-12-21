@@ -5,18 +5,20 @@ import { ActivatedRoute } from '@angular/router';
 import { UserSkillsService } from '../../../../../../services/userSkillsService/user-skills.service';
 import { Skills } from '../../../../../../../models/advancedIfomation';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-skills',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule, CommonModule, FormsModule],
   templateUrl: './user-skills.component.html',
   styleUrl: './user-skills.component.css'
 })
 export class UserSkillsComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   id: number = 0;
-  userSkills?:Skills;
+  userSkills?:Skills[];
 
   constructor(private userSkillsService: UserSkillsService,private localStorageService: LocalStorageService,private route:ActivatedRoute) {}
 
@@ -35,7 +37,7 @@ export class UserSkillsComponent implements OnInit, OnDestroy {
       .getSkills({userId: this.id})
       .pipe(
         tap((res) => {
-          this.userSkills = res.data.list[0];
+          this.userSkills = res.data.list;
           console.log(res);
           
         }),
