@@ -5,11 +5,12 @@ import { UserSocialService } from '../../../../../../services/userSocialService/
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Social } from '../../../../../../../models/advancedIfomation';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-social',
   standalone: true,
-  imports: [RouterModule, TranslateModule],
+  imports: [RouterModule, TranslateModule,CommonModule],
   templateUrl: './social.component.html',
   styleUrl: './social.component.css'
 })

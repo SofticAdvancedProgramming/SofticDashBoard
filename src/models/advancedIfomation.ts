@@ -45,6 +45,12 @@ export interface Medical{
   weight: string;
   hight: string;
   ischronicdisease: string;
+  allergy?: string;
+  chronicdiseaseName?:string;
+  expiryon?:string;
+  healthCondition?:string;
+  insuranceCompany?:string;
+  medicalInsuranceNumber?:string;
 }
 
 export interface Social{
@@ -53,6 +59,10 @@ export interface Social{
   linkedIn: string;
   snapShot: string;
   twitterX: string;
+  userEmails?:any[];
+  userRefernces?:any[];
+  userTelephones?:any[];
+
 }
 
 export interface Attachments{

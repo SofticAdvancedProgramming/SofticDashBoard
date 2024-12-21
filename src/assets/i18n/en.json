@@ -454,8 +454,15 @@
     "Blood_Type": "Blood Type",
     "Weight": "Weight (kg)",
     "Height": "Height (cm)",
-    "Chronic_Disease": "What type of chronic disease?",
-    "No_Data": "No Data"
+    "chronicdiseaseName": "chronic disease Name",
+    "insuranceCompany": "insurance Company",
+    "medicalInsuranceNumber": "medical Insurance Number",
+    "expiryon": "expiry on",
+    "healthCondition": "health Condition",
+    "Chronic_Disease": "Chronic Disease",
+    "allergy":"allergy",
+    "No_Data": "No Data",
+    "ischronicdisease":"is chronic disease"
   },
   "socialMediaContact": {
     "Title": "Social Media Contact",
@@ -464,7 +471,10 @@
     "LinkedIn": "LinkedIn",
     "Snapchat": "Snapchat",
     "Twitter": "Twitter",
-    "No_Data": "No Data"
+    "No_Data": "No Data",
+    "referance":"referance",
+    "email":"email",
+    "userTelephone":"telephone"
   },
   "attachments": {
     "Title": "Attachments",
