@@ -428,17 +428,19 @@
     "No_Data": "No Data"
   },
   "education": {
-    "Title": "Last Educational Certificate",
-    "College": "College",
-    "Institution_Name": "Institution Name",
+    "Title": "Education",
+    "Specialization": "Specialization",
+    "University": "University",
     "Degree_Type": "Degree Type",
     "Field_Of_Study": "Field of Study",
     "Graduation_Year": "Graduation Year",
     "GPA_Grade": "GPA/Grade",
-    "No_Data": "No Data"
+    "No_Data": "No Data",
+    "Description": "Description",
+    "certificateImg": "Certificate Image"
   },
   "jobExperience": {
-    "Title": "Job Experience",
+    "Title": "Employment history",
     "Job_Title": "Job Title",
     "Company_Name": "Company Name",
     "Start_Date": "Start Date",

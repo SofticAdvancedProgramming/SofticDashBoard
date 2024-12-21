@@ -52,33 +52,27 @@
   </div>
   <div class="row gy-3 mt-3" *ngIf="isBachelorDegreeOpen" [@slideToggle]>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'education.College' | translate }}</label>
-      <div class="text-muted">
-        {{ userEducation?.specialist ? userEducation?.specialist : ('education.No_Data' | translate) }}
-      </div>
-    </div>
-    <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'education.Institution_Name' | translate }}</label>
-      <div class="text-muted">
-        {{ userEducation?.school ? userEducation?.school : ('education.No_Data' | translate) }}
-      </div>
-    </div>
-    <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'education.Degree_Type' | translate }}</label>
       <div class="text-muted">
         {{ userEducation?.name ? userEducation?.name : ('education.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'education.Field_Of_Study' | translate }}</label>
+      <label class="d-block fw-semibold text-dark">{{ 'education.Specialization' | translate }}</label>
       <div class="text-muted">
         {{ userEducation?.specialist ? userEducation?.specialist : ('education.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'education.University' | translate }}</label>
+      <div class="text-muted">
+        {{ userEducation?.school ? userEducation?.school : ('education.No_Data' | translate) }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'education.Graduation_Year' | translate }}</label>
       <div class="text-muted">
-        {{ userEducation?.educationalEnd ? userEducation?.educationalEnd : ('education.No_Data' | translate) }}
+        {{ userEducation?.educationalEnd ? (userEducation?.educationalEnd | date: 'yyyy') : ('education.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -87,10 +81,22 @@
         {{ userEducation?.degree ? userEducation?.degree : ('education.No_Data' | translate) }}
       </div>
     </div>
+    <div class="col-12 col-md-12 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'education.Description' | translate }}</label>
+      <div class="text-muted">
+        {{ userEducation?.description ? userEducation?.description : ('education.No_Data' | translate) }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'education.certificateImg' | translate }}</label>
+      <div class="text-muted">
+        <img src="{{userEducation?.file ? userEducation?.file : ('education.No_Data' | translate)}}" alt="CertificateImg" class="CertificateImg">
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- <div class="container py-4 mb-4 bgColor">
+<!-- <div class="container py-4 mb-4 bgColor"> 
   <div
     class="d-flex justify-content-between align-items-center"
     (click)="toggleMasterDegree()"
