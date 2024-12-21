@@ -356,6 +356,7 @@
     "reasonForRejection": "reason for rejection",
     "writeComment": "please write your comment no more than 300 words"
   },
+  "progressBarTitle":"completeness percentage",
   "personalInfo": {
     "PROFILE_INFORMATION": "Profile Information",
     "GREETING": "Hi, I'm",
@@ -373,7 +374,8 @@
     "PASSPORT_NUMBER": "Passport Number",
     "REFERENCE_PHOTO": "Reference Photo",
     "PASSPORT_PHOTO": "Passport Photo",
-    "LOADING": "Loading..."
+    "LOADING": "Loading...",
+    "progressInfoTitle": "Personal Information completeness"
   },
   "employeeDetails": {
     "SALARY_ASSIGN_SUCCESS": "Salary assigned successfully",
@@ -416,36 +418,44 @@
     "Issuing_Organization": "Issuing Organization",
     "Issue_Date": "Issue Date",
     "Expiry_Date": "Expiry Date (if applicable)",
-    "No_Data": "No Data"
+    "No_Data": "No Data",
+    "progressCertificateTitle": "Certificate completeness",
+    "certificateFile": "Certificate File"
   },
   "address": {
-    "Title": "Address",
+    "PlaceOfResidenceTitle": "Address / Place of residence",
+    "PlaceCountryOfOriginTitle": "Address / Country of Origin",
     "Country": "Country",
     "City": "City",
     "Street_Name": "Street name",
     "Building_Number": "Building number",
     "Full_Address": "Address",
-    "No_Data": "No Data"
+    "No_Data": "No Data",
+    "progressAddressTitle": "Address completeness"
   },
   "education": {
-    "Title": "Last Educational Certificate",
-    "College": "College",
-    "Institution_Name": "Institution Name",
+    "Title": "Education",
+    "Specialization": "Specialization",
+    "University": "University",
     "Degree_Type": "Degree Type",
     "Field_Of_Study": "Field of Study",
     "Graduation_Year": "Graduation Year",
     "GPA_Grade": "GPA/Grade",
-    "No_Data": "No Data"
+    "No_Data": "No Data",
+    "Description": "Description",
+    "certificateImg": "Certificate Image",
+    "progressEducationTitle": "Education completeness"
   },
   "jobExperience": {
-    "Title": "Job Experience",
+    "Title": "Employment history",
     "Job_Title": "Job Title",
     "Company_Name": "Company Name",
     "Start_Date": "Start Date",
     "End_Date": "End Date",
     "Job_Responsibilities": "Job Responsibilities",
     "Supervisor_Number": "Supervisor/Manager Number",
-    "No_Data": "No Data"
+    "No_Data": "No Data",
+    "progressJobExperienceTitle": "Employment history completeness"
   },
   "medicalInsurance": {
     "Title": "Medical Insurance",
@@ -453,7 +463,8 @@
     "Weight": "Weight (kg)",
     "Height": "Height (cm)",
     "Chronic_Disease": "What type of chronic disease?",
-    "No_Data": "No Data"
+    "No_Data": "No Data",
+    "progressMedicalTitle": "Medical Insurance completeness"
   },
   "socialMediaContact": {
     "Title": "Social Media Contact",
@@ -462,7 +473,8 @@
     "LinkedIn": "LinkedIn",
     "Snapchat": "Snapchat",
     "Twitter": "Twitter",
-    "No_Data": "No Data"
+    "No_Data": "No Data",
+    "progressSocialTitle": "Social Media completeness"
   },
   "attachments": {
     "Title": "Attachments",

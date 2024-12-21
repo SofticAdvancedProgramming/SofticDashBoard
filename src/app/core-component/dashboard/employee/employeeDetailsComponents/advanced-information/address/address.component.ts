@@ -43,7 +43,7 @@ export class AddressComponent implements OnInit, OnDestroy {
       .pipe(
         tap((res) => {
           this.userAddress = res.data.list[0];
-          console.log(res);
+          console.log(res.data.list);
           this.getCountry(this.userAddress?.countryId);
           this.getCity(this.userAddress?.cityId);
         }),

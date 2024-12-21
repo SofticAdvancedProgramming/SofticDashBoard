@@ -359,6 +359,7 @@
     "No related assets available": "لا توجد متعلقات",
     "No attachments available": "لا توجد ملفات أو صور"
   },
+  "progressBarTitle":"نسبة الاكتمال",
   "personalInfo": {
     "PROFILE_INFORMATION": "معلومات الملف الشخصي",
     "GREETING": "مرحبًا، أنا",
@@ -431,17 +432,19 @@
     "No_Data": "لا توجد بيانات"
   },
   "education": {
-    "Title": "آخر شهادة تعليمية",
-    "College": "الكلية",
-    "Institution_Name": "اسم المؤسسة",
+    "Title": "التعليم",
+    "Specialization": "التخصص",
+    "University": "اسم الجامعة",
     "Degree_Type": "نوع الدرجة",
     "Field_Of_Study": "مجال الدراسة",
     "Graduation_Year": "سنة التخرج",
     "GPA_Grade": "المعدل/الدرجة",
-    "No_Data": "لا توجد بيانات"
+    "No_Data": "لا توجد بيانات",
+    "Description": "الوصف",
+    "certificateImg": "صورة الشهادة"
   },
   "jobExperience": {
-    "Title": "خبرة العمل",
+    "Title": "تاريخ التوظيف",
     "Job_Title": "المسمى الوظيفي",
     "Company_Name": "اسم الشركة",
     "Start_Date": "تاريخ البدء",
