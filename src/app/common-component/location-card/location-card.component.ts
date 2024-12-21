@@ -19,7 +19,7 @@ export class LocationCardComponent implements OnInit{
   lat  ?: number;
   long : number|undefined;
   @Input () Company!:Company;
-  private accessToken = 'pk.eyJ1IjoiYWRoYW1rYW1hbDIyMzQ1IiwiYSI6ImNtNHNqemIxaTAxZjMyanNnNmozZmZ0dXcifQ.fCiyrKSd-SYfa41vrMIDcg'
+  private accessToken = 'pk.eyJ1IjoiYWJhbm91Ym1hbnNvdXIiLCJhIjoiY200c2o4d29mMDFlYTJsc2cweWZmZjM0ZiJ9.JAYvHu8gHH7VPrHpuStn9A'
   address: string = '';
   addressArr!:string[];
   private map!: mapboxgl.Map;

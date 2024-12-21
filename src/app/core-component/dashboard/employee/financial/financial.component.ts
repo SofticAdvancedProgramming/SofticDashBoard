@@ -85,7 +85,7 @@ export class FinancialComponent {
   }
   setActiveTab(tab: string): void {
     this.activeTab = tab;
-    this.isDeduction = tab === 'Deductions';
+    this.isDeduction = tab === 'Deductions' ? true :false ;
     this.loadEntitie('employeeSalary', 1);
     this.loadEntitiesDropDown('SalaryType', 1, this.isDeduction);
     console.log(tab);
@@ -214,6 +214,8 @@ export class FinancialComponent {
       id: 0,
     };
 
+    console.log("payload ",payload)
+
     this.employeeService.addEmployeeSalary(payload).subscribe({
       next: (res) => {
         if (res.status === 200) {
@@ -233,6 +235,7 @@ export class FinancialComponent {
         );
       },
     });
+    this.ngOnInit();
   }
 
   convertToTransactionDate(date: Date) {

@@ -235,7 +235,7 @@
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('description')}">
               <label for="description">{{ 'companyFormPage.fields.descriptionEn.label' | translate }}</label>
-              <textarea id="description" formControlName="description" class="form-control" minlength="100"
+              <textarea id="description" formControlName="description" class="form-control" minlength="5"
                 maxlength="250"
                 [placeholder]="('companyFormPage.fields.descriptionEn.placeholder' | translate)"></textarea>
               <p class="char-counter">{{ addCompanyForm.get('description')?.value?.length || 0 }} / 250</p>
@@ -251,7 +251,7 @@
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('descriptionAr')}">
               <label for="descriptionAr">{{ 'companyFormPage.fields.descriptionAr.label' | translate }}</label>
-              <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control" minlength="100"
+              <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control" minlength="5"
                 maxlength="250"
                 [placeholder]="('companyFormPage.fields.descriptionAr.placeholder' | translate)"></textarea>
               <p class="char-counter">{{ addCompanyForm.get('descriptionAr')?.value?.length || 0 }} / 250</p>

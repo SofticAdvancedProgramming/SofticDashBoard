@@ -3,7 +3,7 @@
     <form [formGroup]="form" (ngSubmit)="onSave()">
       <div class="form-group">
         <label for="name">{{ 'addBranch.BRANCH_NAME_EN' | translate }}</label>
-        <input id="name" formControlName="name" placeholder="{{ 'addBranch.ENTER_BRANCH_NAME' | translate }}"
+        <input [appInputRestriction]="'arabic'" id="name" formControlName="name" [appInputRestriction]="'arabic'" placeholder="{{ 'addBranch.ENTER_BRANCH_NAME' | translate }}"
           class="form-control" />
         <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-danger">{{
           'addBranch.NAME_REQUIRED' | translate }}</div>
