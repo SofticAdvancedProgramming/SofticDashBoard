@@ -5,22 +5,23 @@ import { ActivatedRoute } from '@angular/router';
 import { UserAddressService } from '../../../../../../services/userAddressService/user-address.service';
 import { Address, CityName, ContryName } from '../../../../../../../models/advancedIfomation';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-address',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule,CommonModule],
   templateUrl: './address.component.html',
   styleUrl: './address.component.css',
 })
 export class AddressComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   id: number = 0;
-  userAddress?: Address;
+  userAddress?: Address[]=[];
   ContryName?: ContryName;
   currentLang: string = 'en';
   city?: CityName;
-
+  zone?: any;
   constructor(
     private userAddressService: UserAddressService,
     private localStorageService: LocalStorageService,
@@ -42,13 +43,18 @@ export class AddressComponent implements OnInit, OnDestroy {
       .getAddress({ userId: this.id })
       .pipe(
         tap((res) => {
-          this.userAddress = res.data.list[0];
-          console.log(res.data.list);
-          this.getCountry(this.userAddress?.countryId);
-          this.getCity(this.userAddress?.cityId);
-        }),
-        takeUntil(this.unsubscribe$)
-      )
+          this.userAddress = res.data.list.map((item:Address)=>({
+            ...item,
+            countryName:this.getCountry(item.countryId),
+            cityName:this.getCity(item.cityId),
+            zone:this.getZone(item.zoneId)
+
+          }
+          // this.getCountry(this.userAddress?.countryId);
+          // this.getCity(this.userAddress?.cityId);
+        ))}),
+        takeUntil(this.unsubscribe$))
+
       .subscribe();
   }
   getCountry(countryId?: number) {
@@ -79,6 +85,26 @@ export class AddressComponent implements OnInit, OnDestroy {
       .pipe(
         tap((response: any) => {
           this.city = response.data.list[0];
+          // .map((type: any) => ({
+          //   id: type.id,
+          //   name: this.currentLang === 'ar' ? type.nameAr : type.name,
+          // }));
+          console.log(response);
+        })
+      )
+      .subscribe({
+        error: (err) => {
+          console.error('Error fetching request types:', err);
+        },
+      });
+  }
+  getZone(zoneId?: number) {
+    const requestPayload = { zoneId };
+    this.userAddressService
+      .getZone(requestPayload)
+      .pipe(
+        tap((response: any) => {
+          this.zone = response.data.list[0];
           // .map((type: any) => ({
           //   id: type.id,
           //   name: this.currentLang === 'ar' ? type.nameAr : type.name,

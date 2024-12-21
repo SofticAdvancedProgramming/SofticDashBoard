@@ -11,6 +11,6 @@ export class UserJobExperienceService {
   constructor(private apiCall:ApiCall) { }
 
   getJobExperience(request: any): Observable<any> {
-    return this.apiCall.request('POST', userJobExperienceController.loadAddresses, request);
+    return this.apiCall.request('POST', userJobExperienceController.EmployeeWorkHistory, request);
   }
 }

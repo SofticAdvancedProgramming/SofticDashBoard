@@ -16,6 +16,14 @@ export interface Address{
   street: string;
   buildingNo: string;
   fullAddress: string;
+  countryName:string;
+  cityName:string;
+  isOrginalAddress:boolean;
+  nearBy:string;
+  unit:string;
+  floor:string;
+  zoneId:number;
+  zone:string;
 }
 export interface ContryName{
   name: string;
@@ -42,6 +50,9 @@ export interface WorkHistory{
   endAt: string;
   jobDescription: string;
   firstReferencTelephone: string;
+  fileDescription:any;
+  file:any
+
 }
 
 export interface Medical{
@@ -49,6 +60,12 @@ export interface Medical{
   weight: string;
   hight: string;
   ischronicdisease: string;
+  allergy?: string;
+  chronicdiseaseName?:string;
+  expiryon?:string;
+  healthCondition?:string;
+  insuranceCompany?:string;
+  medicalInsuranceNumber?:string;
 }
 
 export interface Social{
@@ -57,6 +74,10 @@ export interface Social{
   linkedIn: string;
   snapShot: string;
   twitterX: string;
+  userEmails?:any[];
+  userRefernces?:any[];
+  userTelephones?:any[];
+
 }
 
 export interface Attachments{

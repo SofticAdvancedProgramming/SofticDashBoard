@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { userAddressController } from '../../apis/userAddressController';
 import { countryController } from '../../apis/countryController';
-import { cityController } from '../../apis/cityController';
+import { cityController, zoneController } from '../../apis/cityController';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +20,8 @@ export class UserAddressService {
   }
   getCity(request:any):Observable<any>{
     return this.apiCall.request('POST', cityController.loadCity, request)
+  }
+  getZone(request:any):Observable<any>{
+    return this.apiCall.request('POST', zoneController.loadzone, request)
   }
 }
