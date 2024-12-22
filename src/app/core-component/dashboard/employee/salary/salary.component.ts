@@ -119,30 +119,27 @@ export class SalaryComponent implements OnInit {
   }
 
   submitSalary() {
-    if (!this.isSalaryAssigned) { // Use 'this.isSalaryAssigned'
-      this.isSalaryAssigned = true; // Use 'this.isSalaryAssigned'
+    if (!this.isSalaryAssigned) {
+      this.isSalaryAssigned = true;
+
       const salaryData = {
         employeeId: this.employeeId,
         netSalary: this.form.value.netSalary,
         grossSalary: this.form.value.netSalary,
       };
-  
+
       this.employeeService.assginEmployeeSalary(salaryData).subscribe(
         (res) => {
-          this.isSalaryAssigned = false; // Use 'this.isSalaryAssigned'
-          console.log('Salary assigned successfully');
-          this.toast.success(this.translate.instant('employeeDetails.SALARY_ASSIGN_SUCCESS'));
+          this.isSalaryAssigned = false;
+          this.toast.success(
+            this.translate.instant('employeeDetails.SALARY_ASSIGN_SUCCESS')
+          );
           this.getSalary();
         },
-        (error) => {
-          this.isSalaryAssigned = false; // Use 'this.isSalaryAssigned'
-          console.error('Error assigning salary:', error);
-          this.toast.error('Error assigning salary');
-        }
       );
     }
   }
-  
+
 
 
   initFormWithSalary(salary: Salary) {
@@ -150,10 +147,8 @@ export class SalaryComponent implements OnInit {
   }
 
   getSalary() {
-    console.log('Fetching salary...');
     this.employeeService.loadEmployees({ id: this.employeeId }).subscribe(
       (res: EmployeeResponse) => {
-        console.log('Salary response:', res);
         const { grossSalary, netSalary } = res.data.list[0];
         this.updatedGrossSalary = Number(grossSalary);
         this.initFormWithSalary({ grossSalary, netSalary });
@@ -172,16 +167,17 @@ export class SalaryComponent implements OnInit {
       },
     );
   }
-
   submitAddBenefit(): void {
     if (this.benefitForm.invalid) {
       this.benefitForm.markAllAsTouched();
       return;
     }
 
-    const benefitData = this.benefitForm.value;
-    benefitData.employeeId = this.employeeId;
-    benefitData.benefitTypeId = Number(benefitData.benefitTypeId);
+    const benefitData = {
+      ...this.benefitForm.value,
+      employeeId: this.employeeId,
+      benefitTypeId: Number(this.benefitForm.value.benefitTypeId),
+    };
 
     this.benefitService.addEmployeeBenefit(benefitData).subscribe(
       (response) => {
@@ -191,20 +187,19 @@ export class SalaryComponent implements OnInit {
           const newBenefit = response.data;
 
           this.financial.push({
+            id: newBenefit.id,
             amount: newBenefit.amount,
+            benefitTypeId: newBenefit.benefitTypeId,
             benefitTypeName: newBenefit.benefitTypeName,
           });
 
           this.totalRows['employeeSalary'] = this.financial.length;
 
           this.updateGrossSalary();
-
+          this.loadEmployeeBenefits();
           this.resetForm();
         }
       },
-      (error) => {
-        this.toast.error('Error adding benefit');
-      }
     );
   }
 
@@ -218,9 +213,8 @@ export class SalaryComponent implements OnInit {
       ...this.benefitForm.value,
       id: this.formData.id,
       employeeId: this.employeeId,
-      companyId: this.companyId
+      companyId: this.companyId,
     };
-
 
     this.benefitService.editBenefit(benefitData).subscribe(
       (response) => {
@@ -229,36 +223,28 @@ export class SalaryComponent implements OnInit {
           this.closeModal();
           this.loadEmployeeBenefits();
         }
-        console.log(response, "edit hereeeee")
       },
-      (error) => {
-        this.toast.error('Error updating benefit');
-      }
     );
   }
 
   updateGrossSalary() {
-    const totalBenefitAmount = this.financial.reduce((sum, benefit) => sum + benefit.amount, 0);
-    const currentNetSalary = this.form.value.netSalary;
-
+    const totalBenefitAmount = this.financial.reduce(
+      (sum, benefit) => sum + benefit.amount,
+      0
+    );
+    const currentNetSalary = Number(this.form.value.netSalary || 0);
     const calculatedGrossSalary = currentNetSalary + totalBenefitAmount;
-
     if (calculatedGrossSalary !== this.updatedGrossSalary) {
       this.updatedGrossSalary = calculatedGrossSalary;
-
       const updatedSalaryData = {
         employeeId: this.employeeId,
         netSalary: currentNetSalary,
         grossSalary: this.updatedGrossSalary,
       };
-
-      console.log('Updating gross salary:', updatedSalaryData);
-
       this.employeeService.assginEmployeeSalary(updatedSalaryData).subscribe(
         (res) => {
-          console.log('Gross salary updated:', res);
           this.getSalary();
-        }
+        },
       );
     }
   }
@@ -279,7 +265,6 @@ export class SalaryComponent implements OnInit {
       page,
       pageSize,
     };
-
     this.benefitService.GetEmployeeBenefit(request).subscribe(
       (res: any) => {
         if (res.status === 200) {
@@ -288,20 +273,13 @@ export class SalaryComponent implements OnInit {
             benefitTypeName: benefit.benefitTypeName,
           }));
           this.totalRows['employeeSalary'] = res.data.total;
-
           const totalBenefitAmount = this.financial.reduce(
             (sum, benefit) => sum + benefit.amount,
             0
           );
           this.updateGrossSalary();
-        } else {
-          this.toast.error('Failed to load employee benefits');
         }
       },
-      (error) => {
-        this.toast.error('An error occurred while loading employee benefits.');
-        console.error('Error loading employee benefits:', error);
-      }
     );
   }
 
@@ -349,20 +327,8 @@ export class SalaryComponent implements OnInit {
         if (response.status === 200) {
           this.loadEmployeeBenefits();
           this.toast.success('Benefit deleted successfully');
-        } else {
-          this.toast.error('Failed to delete benefit');
         }
       },
-      (error) => {
-        console.error('Error deleting benefit:', error);
-        this.toast.error('Error deleting benefit');
-      }
     );
   }
-
-
-
-
-
-
 }
