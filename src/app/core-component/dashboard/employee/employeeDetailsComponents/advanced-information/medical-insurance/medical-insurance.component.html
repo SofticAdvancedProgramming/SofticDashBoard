@@ -49,7 +49,7 @@
         {{ 'medicalInsurance.insuranceCompany' | translate }}
       </label>
       <div class="text-muted">
-        {{ userMedical?.insuranceCompany ? userMedical?.ischronicdisease : ('medicalInsurance.No_Data' | translate) }}
+        {{ userMedical?.insuranceCompany ? userMedical?.insuranceCompany : ('medicalInsurance.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom" *ngIf=" userMedical?.medicalInsuranceNumber">
@@ -57,7 +57,7 @@
         {{ 'medicalInsurance.medicalInsuranceNumber' | translate }}
       </label>
       <div class="text-muted">
-        {{ userMedical?.medicalInsuranceNumber ? userMedical?.ischronicdisease : ('medicalInsurance.No_Data' | translate) }}
+        {{ userMedical?.medicalInsuranceNumber ? userMedical?.medicalInsuranceNumber : ('medicalInsurance.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom" *ngIf=" userMedical?.expiryon">

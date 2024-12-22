@@ -1,9 +1,10 @@
 <div class="cardContainer p-4 mb-4" *ngIf="personalInfo; else loading">
-  <div class="card-body p-5">
+  <div class="card-body p-5 ">
     <h3 class="card-title mb-3 text-center ">{{ 'personalInfo.PROFILE_INFORMATION' | translate }}</h3>
 
-
-    <div class="row">
+<div class="row d-flex justify-content-start flex-row align-items-start">
+  <div class="col-lg-6" [ngClass]=" {'col-lg-12':!personalInfo.passportPhoto  &&  !personalInfo.nationalIdPhoto}">
+    <div class="row ">
       <div class="col-lg-4 col-md-6 mb-3">
         <strong>{{ 'personalInfo.FULL_NAME' | translate }}:</strong>
       </div>
@@ -21,7 +22,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row ">
       <div class="col-lg-4 col-md-6 mb-3">
         <strong>{{ 'personalInfo.PHONE_NUMBER' | translate }}:</strong>
       </div>
@@ -84,6 +85,73 @@
         <p>{{ personalInfo.passport || 'N/A' }}</p>
       </div>
     </div>
+  </div>
+  <div class="col-lg-6" *ngIf="personalInfo.nationalIdPhoto || personalInfo.passportPhoto">
+
+    <div class="row pb-3 d-flex flex-row align-items-start" *ngIf="personalInfo.nationalIdPhoto">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>{{"personalInfo.nationalIdPhoto" | translate }}:</strong>
+      </div>
+      <div class="col-lg-5">
+        <img
+          *ngIf="isImage(personalInfo.nationalIdPhoto)"
+          [src]="personalInfo.nationalIdPhoto"
+          alt="nationalIdPhoto"
+           style="width: 150px; height: 150px"
+        />
+      </div>
+    </div>
+
+    <div class="row  d-flex flex-row align-items-start" *ngIf="personalInfo.passportPhoto">
+      <div class="col-lg-4 col-md-6 mb-3">
+        <strong>{{"personalInfo.passportPhoto" | translate }}:</strong>
+      </div>
+      <div class="col-lg-5">
+        <img
+        *ngIf="isImage(personalInfo.passportPhoto)"
+        [src]="personalInfo.passportPhoto"
+        alt="passportPhoto"
+        style="width: 150px; height: 150px"
+      />
+      </div>
+    </div>
+
+    <!-- <div class="col-12 col-md-6 border-bottom-custom"*ngIf="personalInfo.nationalIdPhoto">
+      <label class="d-block fw-semibold text-dark">{{
+        "personalInfo.nationalIdPhoto" | translate
+      }}</label>
+      <div class="text-muted">
+        <img
+          *ngIf="isImage(personalInfo.nationalIdPhoto)"
+          [src]="personalInfo.nationalIdPhoto"
+          alt="nationalIdPhoto"
+          style="width: 100px; height: 100px"
+        />
+
+
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom"*ngIf="personalInfo.passportPhoto">
+      <label class="d-block fw-semibold text-dark">{{
+        "personalInfo.passportPhoto" | translate
+      }}</label>
+      <div class="text-muted">
+        <img
+          *ngIf="isImage(personalInfo.passportPhoto)"
+          [src]="personalInfo.passportPhoto"
+          alt="passportPhoto"
+          style="width: 100px; height: 100px"
+        />
+
+
+
+      </div>
+    </div> -->
+
+  </div>
+</div>
+
 
 
     <!-- <div class="row">

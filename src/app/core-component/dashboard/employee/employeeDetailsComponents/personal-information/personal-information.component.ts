@@ -43,7 +43,7 @@ export class PersonalInformationComponent implements OnInit {
   ngOnInit(): void {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
     console.log(this.employeeId);
-    
+
     if (this.employeeId) {
       this.loadPersonalInformation();
     } else {
@@ -189,7 +189,9 @@ export class PersonalInformationComponent implements OnInit {
       ? 'personalInfo.MALE'
       : 'personalInfo.FEMALE';
   }
-
+  isImage(file: string): boolean {
+    return /\.(jpg|jpeg|png|gif)$/i.test(file);
+  }
   private showSuccess(message: string, details: string): void {
     this.messageService.add({
       severity: 'success',
