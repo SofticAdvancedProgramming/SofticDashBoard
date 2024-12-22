@@ -377,7 +377,9 @@
     "PASSPORT_NUMBER": "رقم جواز السفر",
     "REFERENCE_PHOTO": "صورة مرجعية",
     "PASSPORT_PHOTO": "صورة جواز السفر",
-    "LOADING": "جارٍ التحميل..."
+    "LOADING": "جارٍ التحميل...",
+    "passportPhoto": "صورة جواز السفر",
+    "nationalIdPhoto": "صورة الهوية الشخصية"
   },
   "employeeDetails": {
     "SALARY_ASSIGN_SUCCESS": "تم تخصيص الراتب بنجاح",
@@ -451,7 +453,16 @@
     "End_Date": "تاريخ الانتهاء",
     "Job_Responsibilities": "المسؤوليات الوظيفية",
     "Supervisor_Number": "رقم المشرف/المدير",
-    "No_Data": "لا توجد بيانات"
+    "No_Data": "لا توجد بيانات",
+    "First Reference Name": "First Reference Name",
+    "progressJobExperienceTitle": "Employment history completeness",
+    "First Referenc Job": "First Referenc Job",
+    "First Reference Telephone": "First Reference Telephone",
+    "Second Reference Name": "Second Reference Name",
+    "Second Referenc Job": "Second Referenc Job",
+    "Second Reference Telephone": "Second Reference Telephone",
+    "Bussiness Size": "Bussiness Size",
+    "Bussiness Type": "Bussiness Type"
   },
   "medicalInsurance": {
     "Title": "التأمين الطبي",
