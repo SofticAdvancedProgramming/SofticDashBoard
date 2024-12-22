@@ -488,6 +488,9 @@
     "isWhatsApp":"whatsApp",
     "isFavourit":"main"
   },
+  "type": {
+    "Title": "Employment Type"
+  },
   "attachments": {
     "Title": "Attachments",
     "Name": "Attachment Name",
