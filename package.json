@@ -26,6 +26,7 @@
     "@angular/router": "^18.0.0",
     "@angular/ssr": "^18.0.2",
     "@auth0/angular-jwt": "^5.2.0",
+    "@balkangraph/orgchart.js": "^8.14.62",
     "@mapbox/mapbox-gl-geocoder": "^5.0.2",
     "@mapbox/mapbox-gl-language": "^1.0.1",
     "@mapbox/mapbox-sdk": "^0.16.0",
