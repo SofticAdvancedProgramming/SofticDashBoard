@@ -473,6 +473,10 @@
     "Bussiness Size": "Bussiness Size",
     "Bussiness Type": "Bussiness Type"
   },
+  "employeeTypes":{
+    "Title": "Employment Type",
+    "No_Data": "No Data"
+  },
   "medicalInsurance": {
     "Title": "Medical Insurance",
     "Blood_Type": "Blood Type",
