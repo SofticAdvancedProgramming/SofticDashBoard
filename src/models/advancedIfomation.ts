@@ -41,6 +41,7 @@ export interface Education{
   degree: string;
   file:any;
   description: string;
+  educationalStart: string;
 }
 
 export interface WorkHistory{
@@ -51,7 +52,16 @@ export interface WorkHistory{
   jobDescription: string;
   firstReferencTelephone: string;
   fileDescription:any;
-  file:any
+  firstReferencJob: string;
+  firstReferenceName: string;
+  secondReferencJob:any;
+  secondReferenceName: string;
+  secondReferencTelephone: string;
+  businessTypeId:number;
+  businessSizeId:number;
+  businessType:string;
+  businessSize:string;
+  file:any;
 
 }
 
