@@ -5,7 +5,7 @@ export interface OrganizationChartModel
     id:number;
     pid:number;
     name:string;
-    nameAr:string;
+    nameArabic:string;
     title:string;
 
 }

@@ -3,14 +3,14 @@
 }
 
 ::ng-deep [data-n-id] rect:nth-child(2) {
-  fill: white
+  fill: #E7E6E8
 }
 
-::ng-deep g text {
-  fill: white;;
+::ng-deep g text:nth-child(2) {
+  fill: black;;
 }
 
 ::ng-deep g g circle
 {
-  fill: black;
+  fill: white;
 }

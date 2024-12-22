@@ -30,7 +30,7 @@ export class EnhancedOrganizationChartComponent implements OnInit {
             id: item.entityId,
             pid: item.partentId,
             name: item.title,
-            nameAr: item.titleAr,
+            nameArabic: item.titleAr,
             title: item.type,
           });
         }
@@ -60,7 +60,7 @@ export class EnhancedOrganizationChartComponent implements OnInit {
           field_0: "name",
           field_1: "title",
         },
-        template: 'mery',
+        template: 'mila',
         showXScroll:true,
         showYScroll:true
       });
