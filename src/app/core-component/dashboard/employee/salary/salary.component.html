@@ -72,7 +72,7 @@
   <app-modern-table [isThereSearch]="false" (newReqByPage)="loadEmployeeBenefits()" (searchApi)="loadEmployeeBenefits()"
     [totalRows]="totalRows['employeeSalary']" [tableTitle]="activeTab" [tableData]="financial" [columns]="columns"
     searchPlaceholder="Search data..." (editItem)="openEditModal($event)"
-    (deleteItem)="deleteBenefit($event.id, $event.companyId)">
+    (deleteItem)="openDeleteModal($event)">
   </app-modern-table>
 
 
@@ -104,5 +104,20 @@
         <button type="button" class="btn btn-secondary" (click)="closeModal()">{{ 'Cancel' | translate }}</button>
       </div>
     </form>
+  </div>
+</div>
+<div *ngIf="showDeleteModal" class="modal" id="delete-modal" [ngClass]="{'show': showDeleteModal}">
+  <div class="modal-content">
+    <h2>Delete  </h2>
+
+ 
+
+  
+
+      <div class="form-group text-center d-flex justify-content-center gap-3">
+        <button type="submit" class="btn btn-primary">{{ 'Save' | translate }}</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">{{ 'Cancel' | translate }}</button>
+      </div>
+ 
   </div>
 </div>

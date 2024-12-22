@@ -13,6 +13,7 @@ import { BenefitService } from '../../../../services/benefitService/benefit.serv
 import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
 import { DeletePopUpComponent } from "../../components/delete-pop-up/delete-pop-up.component";
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmnDeleteDialogComponent } from '../../../../common-component/confirmn-delete-dialog/confirmn-delete-dialog.component';
 interface Salary {
   grossSalary: string;
   netSalary: string;
@@ -48,12 +49,11 @@ interface BenefitType {
   templateUrl: './salary.component.html',
   styleUrls: ['./salary.component.css'],
   providers: [DatePipe],
-  imports: [TranslateModule, ReactiveFormsModule, ModernTableComponent, CommonModule, DatePipe, DynamicModalComponent, DeletePopUpComponent]
+  imports: [TranslateModule, ReactiveFormsModule,ConfirmnDeleteDialogComponent, ModernTableComponent, CommonModule, DatePipe, DynamicModalComponent, DeletePopUpComponent]
 })
 
 export class SalaryComponent implements OnInit {
-  showDeleteModal: boolean = false;
-  employeeId: number = 0;
+   employeeId: number = 0;
   activeTab: string = 'Entitlements';
   todayDate: string = "";
   isEdit = false;
@@ -67,9 +67,9 @@ export class SalaryComponent implements OnInit {
   benefitTypes: any[] = [];
   benefitForm!: FormGroup;
   formData: any = {};
-  benefitToDelete: { id: number, companyId: number } | null = null;
-  isSalaryAssigned: boolean = false;
-
+   isSalaryAssigned: boolean = false;
+  benefitToDelete: { id: number; companyId: number } | null = null;
+  showDeleteModal: boolean = false;
   pageIndex: any = {
     employeeSalary: 1,
   };
@@ -289,13 +289,7 @@ export class SalaryComponent implements OnInit {
     this.benefitToDelete = { id: benefitId, companyId };
   }
 
-  confirmDelete(): void {
-    if (this.benefitToDelete) {
-      this.deleteBenefit(this.benefitToDelete.id, this.benefitToDelete.companyId);
-      this.benefitToDelete = null;
-    }
-  }
-
+ 
 
 
   openEditModal(benefit: any): void {
@@ -317,18 +311,36 @@ export class SalaryComponent implements OnInit {
     this.showModal = false;
     this.resetForm();
   }
-  openDeleteModal(item: { id: number, companyId: number }): void {
+ 
+  openDeleteModal(item: { id: number; companyId: number }): void {
     this.benefitToDelete = item;
     this.showDeleteModal = true;
   }
-  deleteBenefit(id: number, companyId: number): void {
-    this.benefitService.deleteBenefit(id, companyId).subscribe(
-      (response: any) => {
-        if (response.status === 200) {
-          this.loadEmployeeBenefits();
-          this.toast.success('Benefit deleted successfully');
+
+  confirmDelete(): void {
+    if (this.benefitToDelete) {
+      const { id, companyId } = this.benefitToDelete;
+      this.benefitService.deleteBenefit(id, companyId).subscribe(
+        (response: any) => {
+          if (response.status === 200) {
+            this.toast.success('Benefit deleted successfully');
+            this.loadEmployeeBenefits();
+          } else {
+            this.toast.error('Failed to delete benefit');
+          }
+        },
+        (error) => {
+          this.toast.error('Error deleting benefit');
         }
-      },
-    );
+      );
+
+      this.benefitToDelete = null;
+      this.showDeleteModal = false;
+    }
+  }
+
+  cancelDelete(): void {
+    this.benefitToDelete = null;
+    this.showDeleteModal = false;
   }
 }

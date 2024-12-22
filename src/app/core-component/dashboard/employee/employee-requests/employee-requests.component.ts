@@ -71,28 +71,55 @@ dateError: string = '';
       employeeId: this.employeeId,
       pageIndex: page,
       pageSize: this.itemsPerPage,
-      requestStatusId: this.selectedStatus === RequestStatus.ALL ? undefined : this.selectedStatus,
-      createdOnFrom: this.createdOnFrom ? new Date(this.createdOnFrom).toISOString() : undefined,
-      createdOnTo: this.createdOnTo ? new Date(this.createdOnTo).toISOString() : undefined,
+      // If you have a case for "ALL" in the dropdown, you can still pass `undefined` here 
+      // so the backend returns all statuses, and then filter them in the front-end.
+      requestStatusId:
+        this.selectedStatus === RequestStatus.ALL
+          ? undefined
+          : this.selectedStatus,
+      createdOnFrom: this.createdOnFrom
+        ? new Date(this.createdOnFrom).toISOString()
+        : undefined,
+      createdOnTo: this.createdOnTo
+        ? new Date(this.createdOnTo).toISOString()
+        : undefined,
     };
   
-    console.log('Request Payload:', requestPayload); // Debug payload
-    this.requestService.getRequests(requestPayload).pipe(
-      tap((response: any) => {
-        console.log('API Response:', response);
-        if (response.status === 200) {
-          this.requests = response.data.list || [];
-          this.totalRequests = response.data.totalRows || 0;
-          this.filteredRequests = [...this.requests]; // Default: Show all requests
-        } else {
-          console.error('Unexpected response status:', response.status);
-        }
-      }),
-      catchError((error) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load requests.' });
-        return of([]);
-      })
-    ).subscribe();
+    this.requestService
+      .getRequests(requestPayload)
+      .pipe(
+        tap((response: any) => {
+          if (response.status === 200) {
+            // 1) Get all requests from the response
+            let fetchedRequests = response.data.list || [];
+  
+            // 2) Filter out any request that is Pending
+            fetchedRequests = fetchedRequests.filter(
+              (request: ReceivedRequest) => request.requestStatusId !== RequestStatus.Pending
+            );
+  
+            // 3) Use the filtered list
+            this.requests = fetchedRequests;
+            this.filteredRequests = [...this.requests];
+            
+            // If your backend `totalRows` includes pending, you might want to use the length of filtered data instead
+            // to accurately reflect the total requests being shown in the UI:
+            this.totalRequests = fetchedRequests.length;
+  
+          } else {
+            console.error('Unexpected response status:', response.status);
+          }
+        }),
+        catchError((error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to load requests.',
+          });
+          return of([]);
+        })
+      )
+      .subscribe();
   }
   
   
@@ -122,6 +149,7 @@ dateError: string = '';
     this.requestsService.getRequestStatus().pipe(
       tap((response: any) => {
         if (response.status === 200) {
+          // This removes the 'Pending' status from the filter options
           this.requestStatuses = response.data.list.filter(
             (status: any) => status.id !== RequestStatus.Pending
           );
@@ -133,6 +161,7 @@ dateError: string = '';
       })
     ).subscribe();
   }
+  
   
   getRequestTypeName(id: number): string {
     const type = this.requestTypes.find((rt) => rt.id === id);
