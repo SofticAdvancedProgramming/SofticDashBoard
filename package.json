@@ -59,7 +59,7 @@
     "install": "^0.13.0",
     "intl-tel-input": "^17.0.8",
     "lodash": "^4.17.21",
-    "mapbox-gl": "^3.6.0",
+    "mapbox-gl": "^2.0.0",
     "ng-apexcharts": "^1.15.0",
     "ng-mat-select-infinite-scroll": "^4.0.0",
     "ng-otp-input": "^1.9.3",
