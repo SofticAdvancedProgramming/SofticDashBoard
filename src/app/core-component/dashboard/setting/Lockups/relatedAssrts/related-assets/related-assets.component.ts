@@ -44,10 +44,7 @@ export class RelatedAssetsComponent implements OnInit{
   columns: string[] = ['name' , 'nameAr','parentAssetName','parentAssetNameAr']
   companyId = this.localStorageService.getItem('companyId');
   pageIndex: any = {};
-  entityTypes: Record<
-    string,
-    { load: string; add: string; edit: string; delete: string; data: string }
-  > = {
+  entityTypes: Record< string,{ load: string; add: string; edit: string; delete: string; data: string }> = {
     RelatedAssets: {
       //load: 'getRelatedAssets',
       load:'getAsset',

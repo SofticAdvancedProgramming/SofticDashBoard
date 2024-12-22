@@ -49,14 +49,13 @@ interface BenefitType {
   templateUrl: './salary.component.html',
   styleUrls: ['./salary.component.css'],
   providers: [DatePipe],
-  imports: [TranslateModule, ReactiveFormsModule,ConfirmnDeleteDialogComponent, ModernTableComponent, CommonModule, DatePipe, DynamicModalComponent, DeletePopUpComponent]
+  imports: [TranslateModule, ReactiveFormsModule, ConfirmnDeleteDialogComponent, ModernTableComponent, CommonModule, DatePipe, DynamicModalComponent, DeletePopUpComponent]
 })
 
 export class SalaryComponent implements OnInit {
-   employeeId: number = 0;
+  employeeId: number = 0;
   activeTab: string = 'Entitlements';
   todayDate: string = "";
-  isEdit = false;
   currentPageDropDown = 1;
   updatedGrossSalary: number = 0;
   dropDownData: any[] = [];
@@ -66,10 +65,11 @@ export class SalaryComponent implements OnInit {
   salaryTypeId!: number;
   benefitTypes: any[] = [];
   benefitForm!: FormGroup;
-  formData: any = {};
-   isSalaryAssigned: boolean = false;
+  isSalaryAssigned: boolean = false;
   benefitToDelete: { id: number; companyId: number } | null = null;
   showDeleteModal: boolean = false;
+  showEditModal: boolean = false;
+  formData: any = {};
   pageIndex: any = {
     employeeSalary: 1,
   };
@@ -77,9 +77,22 @@ export class SalaryComponent implements OnInit {
     employeeSalary: 0,
   };
   showModal: boolean = false;
-
+  structure = [
+    { name: 'name', label: 'Name In Arabic', type: 'text', required: true },
+    { name: 'nameAr', label: 'Name In English', type: 'text', required: true },
+    { name: 'model', label: 'Model', type: 'text', required: true },
+    { name: 'mainAssetId', label: 'Asset', type: 'text', required: true },
+  ];
   form!: FormGroup;
-
+  modalId = 'salary-modal'; // Unique ID for the dynamic modal
+  deleteId = 'delete-salary-benefit'; // Unique ID for delete modal
+  isEdit = false; // Track if the modal is for edit or add
+  entityTypes: Record<string, { delete: string; load?: string }> = {
+    employeeSalary: {
+      delete: 'deleteBenefit', // Maps to the delete method in BenefitTypeService
+      load: 'getEmployeeBenefits', // Optional: if you want to use it for loading
+    },
+  };
   constructor(
     private toast: ToastrService,
     private translate: TranslateService,
@@ -259,88 +272,126 @@ export class SalaryComponent implements OnInit {
     });
   }
 
-  loadEmployeeBenefits(page: number = 1, pageSize: number = 10) {
-    const request = {
+  // loadEmployeeBenefits(page: number = 1, pageSize: number = 10) {
+  //   const request = {
+  //     employeeId: this.employeeId,
+  //     page,
+  //     pageSize,
+  //   };
+  //   this.benefitService.GetEmployeeBenefit(request).subscribe(
+  //     (res: any) => {
+  //       if (res.status === 200) {
+  //         this.financial = res.data.list.map((benefit: Benefit) => ({
+  //           ...benefit,
+  //           benefitTypeName: benefit.benefitTypeName,
+  //         }));
+  //         this.totalRows['employeeSalary'] = res.data.total;
+  //         const totalBenefitAmount = this.financial.reduce(
+  //           (sum, benefit) => sum + benefit.amount,
+  //           0
+  //         );
+  //         this.updateGrossSalary();
+  //       }
+  //     },
+  //   );
+  // }
+
+  loadEmployeeBenefits(page: number = 1, pageSize: number = 10, search?: string): void {
+    const params = {
       employeeId: this.employeeId,
       page,
       pageSize,
+      search,
     };
-    this.benefitService.GetEmployeeBenefit(request).subscribe(
-      (res: any) => {
-        if (res.status === 200) {
-          this.financial = res.data.list.map((benefit: Benefit) => ({
-            ...benefit,
-            benefitTypeName: benefit.benefitTypeName,
-          }));
-          this.totalRows['employeeSalary'] = res.data.total;
-          const totalBenefitAmount = this.financial.reduce(
-            (sum, benefit) => sum + benefit.amount,
-            0
-          );
-          this.updateGrossSalary();
-        }
-      },
-    );
+
+    this.benefitService.GetEmployeeBenefit(params).subscribe((response: any) => {
+      if (response.status === 200) {
+        this.financial = response.data.list;
+        this.totalRows['employeeSalary'] = response.data.total;
+      }
+    });
   }
-
-
 
   openDeleteConfirmation(benefitId: number, companyId: number): void {
     this.benefitToDelete = { id: benefitId, companyId };
   }
 
- 
-
-
-  openEditModal(benefit: any): void {
-    this.isEdit = true;
-    this.formData = { ...benefit };
-    this.benefitForm.patchValue({
-      benefitTypeId: benefit.benefitTypeId,
-      amount: benefit.amount
-    });
-    this.showModal = true;
-  }
 
 
   resetForm(): void {
     this.benefitForm.reset();
     this.isEdit = false;
   }
-  closeModal(): void {
-    this.showModal = false;
-    this.resetForm();
+
+
+  deleteEntity(entity: string, id: number): void {
+    const methodName = this.entityTypes[entity]?.delete as keyof BenefitTypeService;
+
+    if (methodName) {
+      (this.benefitTypeService[methodName] as Function)(id, this.companyId).subscribe(
+        (response: any) => {
+          // Reload the table data after deletion
+          this.loadEmployeeBenefits(this.pageIndex['employeeSalary']);
+        },
+
+      );
+    } else {
+      console.error(`No delete method defined for entity: ${entity}`);
+    }
   }
- 
-  openDeleteModal(item: { id: number; companyId: number }): void {
+
+  openEditModal(item: any): void {
+    this.formData = { ...item }; // Populate form data for editing
+    this.showEditModal = true; // Show the edit modal
+  }
+  // Handle add modal opening
+  openAddModal(): void {
+    this.isEdit = false;
+    this.formData = {};
+  }
+
+  closeEditModal(): void {
+    this.showEditModal = false;
+    this.formData = {};
+  }
+  openDeleteModal(item: { id: number; companyId: number }) {
     this.benefitToDelete = item;
     this.showDeleteModal = true;
   }
 
+
+
+  closeModal(): void {
+    this.showModal = false;
+    this.isEdit = false;
+    this.formData = {};
+  }
+  closeDeleteModal(): void {
+    this.showDeleteModal = false;
+    this.benefitToDelete = null;
+  }
   confirmDelete(): void {
     if (this.benefitToDelete) {
-      const { id, companyId } = this.benefitToDelete;
-      this.benefitService.deleteBenefit(id, companyId).subscribe(
-        (response: any) => {
-          if (response.status === 200) {
-            this.toast.success('Benefit deleted successfully');
-            this.loadEmployeeBenefits();
-          } else {
-            this.toast.error('Failed to delete benefit');
-          }
-        },
-        (error) => {
-          this.toast.error('Error deleting benefit');
-        }
-      );
-
-      this.benefitToDelete = null;
-      this.showDeleteModal = false;
+      this.benefitService.deleteBenefit(this.benefitToDelete.id, this.benefitToDelete.companyId).subscribe(() => {
+        this.loadEmployeeBenefits();
+        this.closeDeleteModal();
+      });
     }
   }
-
-  cancelDelete(): void {
-    this.benefitToDelete = null;
-    this.showDeleteModal = false;
+  handleFormSubmission(data: any): void {
+    if (this.isEdit) {
+      this.benefitService.editBenefit(data).subscribe(() => {
+        this.loadEmployeeBenefits();
+        this.closeModal();
+      });
+    } else {
+      this.benefitService.addEmployeeBenefit(data).subscribe(() => {
+        this.loadEmployeeBenefits();
+        this.closeModal();
+      });
+    }
+  }
+  cancelDelete() {
+    this.closeDeleteModal();
   }
 }
