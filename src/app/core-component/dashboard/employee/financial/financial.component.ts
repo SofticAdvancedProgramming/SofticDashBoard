@@ -47,6 +47,7 @@ export class FinancialComponent {
   companyId = localStorage.getItem('companyId');
   employeeId!: number;
   salaryTypeId!: number;
+  deleteId: string = 'deleteAssetCategory';
   formData: any = {};
   pageIndex: any = {
     employeeSalary: 1,
@@ -297,4 +298,17 @@ export class FinancialComponent {
       ? 'employeeDetails.Add_Deduction'
       : 'employeeDetails.Add_Bonus';
   }
+
+  deleteEntity(entity: string, id: number): void {
+    const methodName = this.entityTypes[entity].delete as keyof EmployeeService;
+    (this.employeeService[methodName] as Function)(id, this.companyId).subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          this.loadEntitie(entity, this.pageIndex[entity]);
+        }
+      }
+    );
+  }
+
+
 }
