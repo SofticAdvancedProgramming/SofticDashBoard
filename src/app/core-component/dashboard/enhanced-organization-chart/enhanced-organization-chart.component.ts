@@ -20,7 +20,7 @@ export class EnhancedOrganizationChartComponent implements OnInit {
     const companyId = Number(localStorage.getItem("companyId"));
     let orgChartData: OrganizationChartModel[] = [];
 
-    this.organizationChartService.getAllOrganizationChart({ companyId }).subscribe({
+    this.organizationChartService.getAllOrganizationChart({ companyId,pageSize:10000 }).subscribe({
       next: (orgData) => {
         console.log("orgData.data.list",orgData.data.list)
         for (let item of orgData.data.list) {
@@ -61,6 +61,8 @@ export class EnhancedOrganizationChartComponent implements OnInit {
           field_1: "title",
         },
         template: 'mery',
+        showXScroll:true,
+        showYScroll:true
       });
 
       // Load chart with data

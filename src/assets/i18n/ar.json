@@ -359,7 +359,7 @@
     "No related assets available": "لا توجد متعلقات",
     "No attachments available": "لا توجد ملفات أو صور"
   },
-  "progressBarTitle":"نسبة الاكتمال",
+  "progressBarTitle": "نسبة الاكتمال",
   "personalInfo": {
     "PROFILE_INFORMATION": "معلومات الملف الشخصي",
     "GREETING": "مرحبًا، أنا",
@@ -454,15 +454,19 @@
     "Job_Responsibilities": "المسؤوليات الوظيفية",
     "Supervisor_Number": "رقم المشرف/المدير",
     "No_Data": "لا توجد بيانات",
-    "First Reference Name": "First Reference Name",
-    "progressJobExperienceTitle": "Employment history completeness",
-    "First Referenc Job": "First Referenc Job",
-    "First Reference Telephone": "First Reference Telephone",
-    "Second Reference Name": "Second Reference Name",
-    "Second Referenc Job": "Second Referenc Job",
-    "Second Reference Telephone": "Second Reference Telephone",
-    "Bussiness Size": "Bussiness Size",
-    "Bussiness Type": "Bussiness Type"
+    "First Reference Name": "اسم المرجع الأول",
+    "progressJobExperienceTitle": "اكتمال تاريخ التوظيف",
+    "First Referenc Job": "وظيفة المرجع الأول",
+    "First Reference Telephone": "هاتف المرجع الأول",
+    "Second Reference Name": "اسم المرجع الثاني",
+    "Second Referenc Job": "وظيفة المرجع الثاني",
+    "Second Reference Telephone": "هاتف المرجع الثاني",
+    "Bussiness Size": "حجم العمل",
+    "Bussiness Type": "نوع العمل"
+  },
+  "employeeTypes": {
+    "Title": "Employment Type",
+    "No_Data": "No Data"
   },
   "medicalInsurance": {
     "Title": "التأمين الطبي",
@@ -476,8 +480,8 @@
     "medicalInsuranceNumber": "الرقم التاميني",
     "expiryon": "ينتهي في",
     "healthCondition": "الحالة الصحية",
-    "allergy":"allergy",
-    "ischronicdisease":"is chronic disease"
+    "allergy": "allergy",
+    "ischronicdisease": "is chronic disease"
   },
   "socialMediaContact": {
     "Title": "التواصل عبر وسائل التواصل الاجتماعي",
@@ -872,12 +876,11 @@
       "nameRequired": "اسم المهمة مطلوب"
     }
   },
-  "SELECT_DEPARTMENT":"اختر الفرع",
-  "SELECT_ASSET_TYPE":"اختار النوع ",
-  "assetName":"اسم الاصل",
-  "assetNameInArabic":"اسم الاصل باللغة العربية",
-  "employeeFirstName":"اسم الموظف",
-  "attendanceType":"نوع الغياب",
-  "attendanceDate":"تاريح الغياب"
-
+  "SELECT_DEPARTMENT": "اختر الفرع",
+  "SELECT_ASSET_TYPE": "اختار النوع ",
+  "assetName": "اسم الاصل",
+  "assetNameInArabic": "اسم الاصل باللغة العربية",
+  "employeeFirstName": "اسم الموظف",
+  "attendanceType": "نوع الغياب",
+  "attendanceDate": "تاريح الغياب"
 }

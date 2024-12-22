@@ -43,6 +43,88 @@
     </div>
   </div>
 </div> -->
+
+
+<div class="container py-4 mb-4 bgColor" *ngIf="!userEducation?.length">
+  <div
+    class="d-flex justify-content-between align-items-center"
+    (click)="toggleCertificate()"
+    style="cursor: pointer"
+  >
+    <h3 class="text-center fw-bold customHeader w-100 mb-0">
+      {{ "certificate.Certificates" | translate }}
+    </h3>
+    <!-- <i
+      [ngClass]="{
+        'bi-chevron-down': !isCertificateOpen,
+        'bi-chevron-up': isCertificateOpen
+      }"
+      class="bi"
+      style="color: black"
+    ></i> -->
+  </div>
+  
+  <div class="row gy-3 mt-3">
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Certificate_Name" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ "certificate.No_Data" | translate }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Specialist" | translate
+      }}</label>
+      <div class="text-muted">
+        {{
+          "certificate.No_Data" | translate
+        }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Issuing_Organization" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ "certificate.No_Data" | translate }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Issue_Date" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ "certificate.No_Data" | translate }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Expiry_Date" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ "certificate.No_Data" | translate }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.certificateFile" | translate
+      }}</label>
+      <div class="text-muted">
+        <!-- Image Files -->
+        <img
+          [src]=""
+          alt="CertificateImage"
+          style="width: 300px; height: 300px"
+        />
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
 @for (item of userEducation; track $index) {
 <div class="container py-4 mb-4 bgColor">
   <div

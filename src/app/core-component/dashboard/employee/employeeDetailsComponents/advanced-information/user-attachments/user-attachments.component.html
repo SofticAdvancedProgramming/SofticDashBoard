@@ -1,11 +1,48 @@
-<div class="container py-4 bgColor">
-  <h3 class="text-center fw-bold customHeader mb-4">{{ 'attachments.Title' | translate }}</h3>
-  @for (item of userAttachments; track item) {
+<div class="container py-4 mb-4 bgColor" *ngIf="!userAttachments?.length">
+  <h3 class="text-center fw-bold customHeader mb-4">
+    {{ "attachments.Title" | translate }}
+  </h3>
+
   <div class="row gy-3">
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'attachments.Name' | translate }}</label>
+      <label class="d-block fw-semibold text-dark">{{
+        "attachments.Name" | translate
+      }}</label>
       <div class="text-muted">
-        {{ item?.name ? item?.name : ('attachments.No_Data' | translate) }}
+        {{ "attachments.No_Data" | translate }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "attachments.File" | translate
+      }}</label>
+      <div class="text-muted">
+        <!-- Image Files -->
+        <img
+          [src]=""
+          alt="CertificateImage"
+          style="width: 150px; height: 150px"
+        />     
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>
+
+
+@for (item of userAttachments; track $index) {
+<div class="container py-4 mb-4 bgColor" >
+  <h3 class="text-center fw-bold customHeader mb-4" *ngIf="$index <= 0">
+    {{ "attachments.Title" | translate }}
+  </h3>
+
+  <div class="row gy-3">
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "attachments.Name" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ item?.name ? item?.name : ("attachments.No_Data" | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -28,7 +65,7 @@
             style="width: 100px; height: 100px"
             alt=""
           />
-          <p>{{item.fileDescription.description}}</p>
+          <p>{{ item.fileDescription.description }}</p>
         </div>
 
         <a *ngIf="isPDF(item.file)" [href]="item.file" target="_blank" download
@@ -41,7 +78,6 @@
         >
       </div>
     </div>
-    <hr />
     <!-- <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'attachments.File' | translate }}</label>
       <div class="text-muted">
@@ -58,5 +94,5 @@
       }
     </div> -->
   </div>
-}
 </div>
+}
