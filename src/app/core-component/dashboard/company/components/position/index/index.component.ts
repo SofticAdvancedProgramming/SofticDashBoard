@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PositionService } from '../../../../../../services/positionService/position.service';
@@ -66,7 +66,8 @@ export class IndexComponent implements OnInit {
     private departmentService: DepartmentService,
     private translate: TranslateService,
     private confirmationService: ConfirmationService,
-    private positionTypeService: PositionTypeService
+    private positionTypeService: PositionTypeService,
+     private cdr: ChangeDetectorRef 
   ) { }
 
   ngOnInit(): void {
@@ -118,6 +119,7 @@ export class IndexComponent implements OnInit {
       },
 
     });
+    
   }
   filterPositionsByDepartment(): void {
     this.currentPage = 1;
@@ -209,6 +211,8 @@ export class IndexComponent implements OnInit {
     this.isAdd = isAdd;
     this.isEdit = isAdd;
     this.loadPositions();
+    this.ngOnInit();
+    this.cdr.detectChanges();
   }
 
   closePopup(): void {
@@ -252,6 +256,7 @@ export class IndexComponent implements OnInit {
             });
             this.loadPositions();
             this.ngOnInit();
+            this.cdr.detectChanges();
           },
           error: () => {
             this.messageService.add({

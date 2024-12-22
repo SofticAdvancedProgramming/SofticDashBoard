@@ -129,8 +129,8 @@ export class MapComponent implements OnInit, OnChanges {
 
     this.map.addControl(geolocate);
 
-    geolocate.on('geolocate', (event) => {
-      const lngLat: [number, number] = [event.coords.longitude, event.coords.latitude];
+    geolocate.on('geolocate', (event:any) => {
+      const lngLat: [number, number] = [event?.coords.longitude, event.coords.latitude];
       this.addEmployeeMarkers(event.coords.longitude, event.coords.latitude)
       this.map.setCenter(lngLat);
       this.map.setZoom(this.zoom);

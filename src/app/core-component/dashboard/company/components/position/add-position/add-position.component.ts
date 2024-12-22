@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PositionTypeService } from '../../../../../../services/lockupsServices/positionTypeService/position-type.service';
@@ -39,7 +39,8 @@ export class AddPositionComponent implements OnInit {
     private positionService: PositionService,
     private messageService: MessageService,
     private translate: TranslateService,
-    private employeeService:EmployeeService
+    private employeeService:EmployeeService,
+    private cd:ChangeDetectorRef
   ) {
     this.form = this.fb.group({
       positionType: ['', Validators.required],
@@ -154,6 +155,7 @@ export class AddPositionComponent implements OnInit {
     this.createOrEdit(positionData);
     this.ngOnInit();
     this.action.emit(false);
+    this.cd.detectChanges();
   }
 
   createOrEdit(positionData: Position) {
