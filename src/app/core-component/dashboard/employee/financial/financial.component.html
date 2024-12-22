@@ -11,7 +11,11 @@
       </div>
     </div>
 
-    <app-dynamic-modal [structure]="structure" [isEdit]="isEdit" [formData]="formData" [modalId]="modalId"
+    <app-dynamic-modal
+      [structure]="structure"
+      [isEdit]="isEdit"
+      [formData]="formData"
+      [modalId]="modalId"
       (submitForm)="handleFormSubmission($event)">
     </app-dynamic-modal>
 
@@ -50,9 +54,20 @@
             </div>
           </div>
           <hr>
-          <app-modern-table [isThereSearch]="false" (newReqByPage)="loadEntitie('employeeSalary',$event)"
-            (searchApi)="loadEntitie('employeeSalary', 1 ,$event )" [totalRows]="totalRows['employeeSalary']"
-            [tableTitle]="activeTab" [tableData]="financial" [columns]="columns" searchPlaceholder="Search data...">
+          <app-modern-table
+            [isThereSearch]="false"
+            (newReqByPage)="loadEntitie('employeeSalary',$event)"
+            (editItem)="openEditModal($event)"
+            (searchApi)="loadEntitie('employeeSalary', 1 ,$event )"
+            [totalRows]="totalRows['employeeSalary']"
+            [tableTitle]="activeTab"
+            [tableData]="financial"
+            [columns]="columns"
+            searchPlaceholder="Search data..."
+            [modalId]="modalId"
+            (deleteItem)="deleteEntity('employeeSalary', $event.id)"
+            [deleteId]="deleteId"
+            >
           </app-modern-table>
         </div>
       </div>
@@ -92,7 +107,7 @@
           <hr>
           <app-modern-table
             [isThereSearch]="false"
-            (newReqByPage)="loadEntitie('employeeSalary',$event)"
+            (newReqByPage)="loadEntitie('employeeSalary',1,$event)"
             (editItem)="openEditModal($event)"
             (searchApi)="loadEntitie('employeeSalary', 1 ,$event )"
             [totalRows]="totalRows['employeeSalary']"
@@ -100,11 +115,8 @@
             [tableData]="financial"
             [columns]="columns"
             searchPlaceholder="Search data..."
-
-
             [modalId]="modalId"
-            (editItem)="openEditModal($event)"
-            (deleteItem)="deleteEntity('AssetsCategories', $event.id)"
+            (deleteItem)="deleteEntity('employeeSalary', $event.id)"
             [deleteId]="deleteId"
             >
           </app-modern-table>
