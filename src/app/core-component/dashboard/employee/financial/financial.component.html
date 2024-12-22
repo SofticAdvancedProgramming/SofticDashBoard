@@ -90,10 +90,23 @@
             </div>
           </div>
           <hr>
-          <app-modern-table [isThereSearch]="false" (newReqByPage)="loadEntitie('employeeSalary',$event)"
-            (editItem)="openEditModal($event)" (searchApi)="loadEntitie('employeeSalary', 1 ,$event )"
-            [totalRows]="totalRows['employeeSalary']" [tableTitle]="activeTab" [tableData]="financial"
-            [columns]="columns" searchPlaceholder="Search data...">
+          <app-modern-table
+            [isThereSearch]="false"
+            (newReqByPage)="loadEntitie('employeeSalary',$event)"
+            (editItem)="openEditModal($event)"
+            (searchApi)="loadEntitie('employeeSalary', 1 ,$event )"
+            [totalRows]="totalRows['employeeSalary']"
+            [tableTitle]="activeTab"
+            [tableData]="financial"
+            [columns]="columns"
+            searchPlaceholder="Search data..."
+
+
+            [modalId]="modalId"
+            (editItem)="openEditModal($event)"
+            (deleteItem)="deleteEntity('AssetsCategories', $event.id)"
+            [deleteId]="deleteId"
+            >
           </app-modern-table>
         </div>
       </div>
