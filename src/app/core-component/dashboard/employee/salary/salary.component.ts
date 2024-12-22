@@ -1,17 +1,22 @@
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
-import { ModernTableComponent } from "../../components/modern-table/modern-table.component";
+import { ModernTableComponent } from '../../components/modern-table/modern-table.component';
 import { SalaryTypeService } from '../../../../services/lockupsServices/SalaryService/salary.service';
 import { ToastersService } from '../../../../core/services/toast-service/toast.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BenefitTypeService } from '../../../../services/benefitTypeService/benefit-type.service';
 import { BenefitService } from '../../../../services/benefitService/benefit.service';
-import { DynamicModalComponent } from "../../components/dynamic-modal/dynamic-modal.component";
-import { DeletePopUpComponent } from "../../components/delete-pop-up/delete-pop-up.component";
+import { DynamicModalComponent } from '../../components/dynamic-modal/dynamic-modal.component';
+import { DeletePopUpComponent } from '../../components/delete-pop-up/delete-pop-up.component';
 import { MatDialog } from '@angular/material/dialog';
 interface Salary {
   grossSalary: string;
@@ -29,7 +34,7 @@ interface EmployeeResponse {
 }
 interface Benefit {
   amount: number;
-  benefitTypeName: string
+  benefitTypeName: string;
   transactionDate: string;
   benefitType?: {
     name: string;
@@ -48,18 +53,26 @@ interface BenefitType {
   templateUrl: './salary.component.html',
   styleUrls: ['./salary.component.css'],
   providers: [DatePipe],
-  imports: [TranslateModule, ReactiveFormsModule, ModernTableComponent, CommonModule, DatePipe, DynamicModalComponent, DeletePopUpComponent]
+  imports: [
+    TranslateModule,
+    ReactiveFormsModule,
+    ModernTableComponent,
+    CommonModule,
+    DatePipe,
+    DynamicModalComponent,
+    DeletePopUpComponent,
+  ],
 })
-
 export class SalaryComponent implements OnInit {
   showDeleteModal: boolean = false;
   employeeId: number = 0;
   activeTab: string = 'Entitlements';
-  todayDate: string = "";
+  todayDate: string = '';
   isEdit = false;
   currentPageDropDown = 1;
   updatedGrossSalary: number = 0;
   dropDownData: any[] = [];
+  deleteId: string = 'deleteSalaryBenefit';
   financial: any[] = [];
   columns: string[] = ['amount', 'benefitTypeName'];
   companyId = Number(localStorage.getItem('companyId'));
@@ -67,7 +80,7 @@ export class SalaryComponent implements OnInit {
   benefitTypes: any[] = [];
   benefitForm!: FormGroup;
   formData: any = {};
-  benefitToDelete: { id: number, companyId: number } | null = null;
+  benefitToDelete: { id: number; companyId: number } | null = null;
   isSalaryAssigned: boolean = false;
 
   pageIndex: any = {
@@ -91,7 +104,7 @@ export class SalaryComponent implements OnInit {
     private datePipe: DatePipe,
     private benefitTypeService: BenefitTypeService,
     private benefitService: BenefitService,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -102,14 +115,13 @@ export class SalaryComponent implements OnInit {
     this.getSalary();
     this.loadBenefitTypes();
     this.loadEmployeeBenefits();
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const employeeId = params.get('id');
       if (employeeId) {
         this.employeeId = Number(employeeId);
       }
     });
   }
-
 
   initForm(): void {
     this.form = this.fb.group({
@@ -119,19 +131,22 @@ export class SalaryComponent implements OnInit {
   }
 
   submitSalary() {
-    if (!this.isSalaryAssigned) { // Use 'this.isSalaryAssigned'
+    if (!this.isSalaryAssigned) {
+      // Use 'this.isSalaryAssigned'
       this.isSalaryAssigned = true; // Use 'this.isSalaryAssigned'
       const salaryData = {
         employeeId: this.employeeId,
         netSalary: this.form.value.netSalary,
         grossSalary: this.form.value.netSalary,
       };
-  
+
       this.employeeService.assginEmployeeSalary(salaryData).subscribe(
         (res) => {
           this.isSalaryAssigned = false; // Use 'this.isSalaryAssigned'
           console.log('Salary assigned successfully');
-          this.toast.success(this.translate.instant('employeeDetails.SALARY_ASSIGN_SUCCESS'));
+          this.toast.success(
+            this.translate.instant('employeeDetails.SALARY_ASSIGN_SUCCESS')
+          );
           this.getSalary();
         },
         (error) => {
@@ -142,8 +157,6 @@ export class SalaryComponent implements OnInit {
       );
     }
   }
-  
-
 
   initFormWithSalary(salary: Salary) {
     this.form.patchValue(salary);
@@ -151,26 +164,22 @@ export class SalaryComponent implements OnInit {
 
   getSalary() {
     console.log('Fetching salary...');
-    this.employeeService.loadEmployees({ id: this.employeeId }).subscribe(
-      (res: EmployeeResponse) => {
+    this.employeeService
+      .loadEmployees({ id: this.employeeId })
+      .subscribe((res: EmployeeResponse) => {
         console.log('Salary response:', res);
         const { grossSalary, netSalary } = res.data.list[0];
         this.updatedGrossSalary = Number(grossSalary);
         this.initFormWithSalary({ grossSalary, netSalary });
-      }
-    );
+      });
   }
 
-
-
   loadBenefitTypes() {
-    this.benefitTypeService.getBenefitsType().subscribe(
-      (response) => {
-        if (response.status === 200) {
-          this.benefitTypes = response.data.list;
-        }
-      },
-    );
+    this.benefitTypeService.getBenefitsType().subscribe((response) => {
+      if (response.status === 200) {
+        this.benefitTypes = response.data.list;
+      }
+    });
   }
 
   submitAddBenefit(): void {
@@ -183,29 +192,25 @@ export class SalaryComponent implements OnInit {
     benefitData.employeeId = this.employeeId;
     benefitData.benefitTypeId = Number(benefitData.benefitTypeId);
 
-    this.benefitService.addEmployeeBenefit(benefitData).subscribe(
-      (response) => {
+    this.benefitService.addEmployeeBenefit(benefitData).subscribe({
+      next: (response) => {
         if (response.status === 200) {
           this.toast.success('Benefit added successfully');
-
           const newBenefit = response.data;
-
           this.financial.push({
             amount: newBenefit.amount,
             benefitTypeName: newBenefit.benefitTypeName,
           });
-
           this.totalRows['employeeSalary'] = this.financial.length;
-
           this.updateGrossSalary();
-
           this.resetForm();
+          this.ngOnInit();
         }
       },
-      (error) => {
+      error: (error) => {
         this.toast.error('Error adding benefit');
-      }
-    );
+      },
+    });
   }
 
   submitBenefit(): void {
@@ -218,9 +223,8 @@ export class SalaryComponent implements OnInit {
       ...this.benefitForm.value,
       id: this.formData.id,
       employeeId: this.employeeId,
-      companyId: this.companyId
+      companyId: this.companyId,
     };
-
 
     this.benefitService.editBenefit(benefitData).subscribe(
       (response) => {
@@ -229,7 +233,7 @@ export class SalaryComponent implements OnInit {
           this.closeModal();
           this.loadEmployeeBenefits();
         }
-        console.log(response, "edit hereeeee")
+        console.log(response, 'edit hereeeee');
       },
       (error) => {
         this.toast.error('Error updating benefit');
@@ -238,7 +242,10 @@ export class SalaryComponent implements OnInit {
   }
 
   updateGrossSalary() {
-    const totalBenefitAmount = this.financial.reduce((sum, benefit) => sum + benefit.amount, 0);
+    const totalBenefitAmount = this.financial.reduce(
+      (sum, benefit) => sum + benefit.amount,
+      0
+    );
     const currentNetSalary = this.form.value.netSalary;
 
     const calculatedGrossSalary = currentNetSalary + totalBenefitAmount;
@@ -254,22 +261,21 @@ export class SalaryComponent implements OnInit {
 
       console.log('Updating gross salary:', updatedSalaryData);
 
-      this.employeeService.assginEmployeeSalary(updatedSalaryData).subscribe(
-        (res) => {
+      this.employeeService
+        .assginEmployeeSalary(updatedSalaryData)
+        .subscribe((res) => {
           console.log('Gross salary updated:', res);
           this.getSalary();
-        }
-      );
+        });
     }
   }
-
 
   initBenefitForm(): void {
     this.benefitForm = this.fb.group({
       employeeId: [this.employeeId],
       benefitTypeId: [null, [Validators.required]],
       amount: [null, [Validators.required, Validators.min(0)]],
-      companyId: [this.companyId]
+      companyId: [this.companyId],
     });
   }
 
@@ -305,31 +311,29 @@ export class SalaryComponent implements OnInit {
     );
   }
 
-
-
   openDeleteConfirmation(benefitId: number, companyId: number): void {
     this.benefitToDelete = { id: benefitId, companyId };
   }
 
   confirmDelete(): void {
     if (this.benefitToDelete) {
-      this.deleteBenefit(this.benefitToDelete.id, this.benefitToDelete.companyId);
+      this.deleteBenefit(
+        this.benefitToDelete.id,
+        this.benefitToDelete.companyId
+      );
       this.benefitToDelete = null;
     }
   }
-
-
 
   openEditModal(benefit: any): void {
     this.isEdit = true;
     this.formData = { ...benefit };
     this.benefitForm.patchValue({
       benefitTypeId: benefit.benefitTypeId,
-      amount: benefit.amount
+      amount: benefit.amount,
     });
     this.showModal = true;
   }
-
 
   resetForm(): void {
     this.benefitForm.reset();
@@ -339,13 +343,13 @@ export class SalaryComponent implements OnInit {
     this.showModal = false;
     this.resetForm();
   }
-  openDeleteModal(item: { id: number, companyId: number }): void {
+  openDeleteModal(item: { id: number; companyId: number }): void {
     this.benefitToDelete = item;
     this.showDeleteModal = true;
   }
   deleteBenefit(id: number, companyId: number): void {
-    this.benefitService.deleteBenefit(id, companyId).subscribe(
-      (response: any) => {
+    this.benefitService.deleteBenefit(id, companyId).subscribe({
+      next: (response: any) => {
         if (response.status === 200) {
           this.loadEmployeeBenefits();
           this.toast.success('Benefit deleted successfully');
@@ -353,16 +357,10 @@ export class SalaryComponent implements OnInit {
           this.toast.error('Failed to delete benefit');
         }
       },
-      (error) => {
+      error: (error) => {
         console.error('Error deleting benefit:', error);
         this.toast.error('Error deleting benefit');
-      }
-    );
+      },
+    });
   }
-
-
-
-
-
-
 }
