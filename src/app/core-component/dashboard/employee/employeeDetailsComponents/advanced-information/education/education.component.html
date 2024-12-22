@@ -70,6 +70,12 @@
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'education.Starting_Year' | translate }}</label>
+      <div class="text-muted">
+        {{ userEducation?.educationalStart ? (userEducation?.educationalStart | date: 'yyyy') : ('education.No_Data' | translate) }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'education.Graduation_Year' | translate }}</label>
       <div class="text-muted">
         {{ userEducation?.educationalEnd ? (userEducation?.educationalEnd | date: 'yyyy') : ('education.No_Data' | translate) }}
@@ -96,7 +102,7 @@
   </div>
 </div>
 
-<!-- <div class="container py-4 mb-4 bgColor"> 
+<!-- <div class="container py-4 mb-4 bgColor">
   <div
     class="d-flex justify-content-between align-items-center"
     (click)="toggleMasterDegree()"

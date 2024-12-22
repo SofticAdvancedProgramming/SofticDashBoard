@@ -375,6 +375,8 @@
     "REFERENCE_PHOTO": "Reference Photo",
     "PASSPORT_PHOTO": "Passport Photo",
     "LOADING": "Loading...",
+    "passportPhoto": "passport Photo",
+    "nationalIdPhoto": "nationalId Photo",
     "progressInfoTitle": "Personal Information completeness"
   },
   "employeeDetails": {
@@ -431,7 +433,11 @@
     "Building_Number": "Building number",
     "Full_Address": "Address",
     "No_Data": "No Data",
-    "progressAddressTitle": "Address completeness"
+    "progressAddressTitle": "Address completeness",
+    "nearBy":"nearBy",
+    "unit":"unit",
+    "floor":"floor",
+    "zone":"zone"
   },
   "education": {
     "Title": "Education",
@@ -439,12 +445,14 @@
     "University": "University",
     "Degree_Type": "Degree Type",
     "Field_Of_Study": "Field of Study",
-    "Graduation_Year": "Graduation Year",
+    "Starting_Year": "Starting Year",
     "GPA_Grade": "GPA/Grade",
     "No_Data": "No Data",
     "Description": "Description",
     "certificateImg": "Certificate Image",
-    "progressEducationTitle": "Education completeness"
+    "progressEducationTitle": "Education completeness",
+    "Graduation_Year": "Graduation Year"
+
   },
   "jobExperience": {
     "Title": "Employment history",
@@ -455,26 +463,49 @@
     "Job_Responsibilities": "Job Responsibilities",
     "Supervisor_Number": "Supervisor/Manager Number",
     "No_Data": "No Data",
-    "progressJobExperienceTitle": "Employment history completeness"
+    "First Reference Name": "First Reference Name",
+    "progressJobExperienceTitle": "Employment history completeness",
+    "First Referenc Job": "First Referenc Job",
+    "First Reference Telephone": "First Reference Telephone",
+    "Second Reference Name": "Second Reference Name",
+    "Second Referenc Job": "Second Referenc Job",
+    "Second Reference Telephone": "Second Reference Telephone",
+    "Bussiness Size": "Bussiness Size",
+    "Bussiness Type": "Bussiness Type"
   },
   "medicalInsurance": {
     "Title": "Medical Insurance",
     "Blood_Type": "Blood Type",
     "Weight": "Weight (kg)",
     "Height": "Height (cm)",
-    "Chronic_Disease": "What type of chronic disease?",
+    "chronicdiseaseName": "chronic disease Name",
+    "insuranceCompany": "insurance Company",
+    "medicalInsuranceNumber": "medical Insurance Number",
+    "expiryon": "expiry on",
+    "healthCondition": "health Condition",
+    "Chronic_Disease": "Chronic Disease",
+    "allergy":"allergy",
     "No_Data": "No Data",
+    "ischronicdisease":"is chronic disease",
     "progressMedicalTitle": "Medical Insurance completeness"
   },
   "socialMediaContact": {
-    "Title": "Social Media Contact",
+    "Title": "Communication",
     "Facebook": "Facebook",
     "Instagram": "Instagram",
     "LinkedIn": "LinkedIn",
     "Snapchat": "Snapchat",
     "Twitter": "Twitter",
     "No_Data": "No Data",
-    "progressSocialTitle": "Social Media completeness"
+    "progressSocialTitle": "Social Media completeness",
+    "referance":"referance",
+    "email":"email",
+    "userTelephone":"telephone",
+    "isWhatsApp":"whatsApp",
+    "isFavourit":"main"
+  },
+  "type": {
+    "Title": "Employment Type"
   },
   "attachments": {
     "Title": "Attachments",

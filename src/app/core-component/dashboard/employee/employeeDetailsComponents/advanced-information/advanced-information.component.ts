@@ -10,6 +10,7 @@ import { AdditionalEducationComponent } from './additional-education/additional-
 import { UserSkillsComponent } from './user-skills/user-skills.component';
 import { UserAttachmentsComponent } from './user-attachments/user-attachments.component';
 import { UserContractComponent } from './user-contract/user-contract.component';
+import { EmployeeTypeComponent } from "./type/employee-type/employee-type.component";
 
 @Component({
   selector: 'app-advanced-information',
@@ -26,14 +27,15 @@ import { UserContractComponent } from './user-contract/user-contract.component';
     AdditionalEducationComponent,
     UserSkillsComponent,
     UserAttachmentsComponent,
-    UserContractComponent
-  ]
+    UserContractComponent,
+    EmployeeTypeComponent
+]
 })
 export class AdvancedInformationComponent {
   constructor(private router: Router) {}
 
   currentSlide = 0;
-  slides = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  slides = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   prevSlide() {
     if (this.currentSlide > 0) {

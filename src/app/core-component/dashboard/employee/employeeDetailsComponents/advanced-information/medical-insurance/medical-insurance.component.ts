@@ -5,11 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { UserMedicalInsuranceService } from '../../../../../../services/userMedicalInsuranceService/user-medical-insurance.service';
 import { Medical } from '../../../../../../../models/advancedIfomation';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-medical-insurance',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [TranslateModule,CommonModule,DatePipe],
   templateUrl: './medical-insurance.component.html',
   styleUrl: './medical-insurance.component.css',
 })
@@ -50,4 +51,5 @@ export class MedicalInsuranceComponent {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+ 
 }

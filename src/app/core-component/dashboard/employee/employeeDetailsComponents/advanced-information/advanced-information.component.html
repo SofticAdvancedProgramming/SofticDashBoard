@@ -1,41 +1,47 @@
 <div class="container py-4">
-    <div class="row" *ngIf="currentSlide === 0">
-        <app-address></app-address>
-    </div>
-    <div class="row" *ngIf="currentSlide === 1">
-        <app-social></app-social>
-    </div>
-    <div class="row" *ngIf="currentSlide === 2">
-        <app-medical-insurance></app-medical-insurance>
-    </div>
-    <div class="row" *ngIf="currentSlide === 3">
-        <app-education></app-education>
-    </div>
-    <div class="row" *ngIf="currentSlide === 4">
-        <app-job-experience></app-job-experience>
-    </div>
-    <div class="row" *ngIf="currentSlide === 5">
-        <app-additional-education></app-additional-education>
-    </div>
-    <div class="row" *ngIf="currentSlide === 6">
-        <app-user-skills></app-user-skills>
-    </div>
-    <div class="row" *ngIf="currentSlide === 7">
-        <app-user-attachments></app-user-attachments>
-    </div>
-    <div class="row" *ngIf="currentSlide === 8">
-        <app-user-contract></app-user-contract>
-    </div>
+  <div class="row" *ngIf="currentSlide === 0">
+    <app-address></app-address>
+  </div>
+  <div class="row" *ngIf="currentSlide === 1">
+    <app-social></app-social>
+  </div>
+  <div class="row" *ngIf="currentSlide === 2">
+    <app-medical-insurance></app-medical-insurance>
+  </div>
+  <div class="row" *ngIf="currentSlide === 3">
+    <app-education></app-education>
+  </div>
+  <div class="row" *ngIf="currentSlide === 4">
+    <app-job-experience></app-job-experience>
+  </div>
+  <div class="row" *ngIf="currentSlide === 5">
+    <app-additional-education></app-additional-education>
+  </div>
+  <div class="row" *ngIf="currentSlide === 6">
+    <app-user-skills></app-user-skills>
+  </div>
+  <div class="row" *ngIf="currentSlide === 7">
+    <app-employee-type></app-employee-type>
+  </div>
+  <div class="row" *ngIf="currentSlide === 8">
+    <app-user-attachments></app-user-attachments>
+  </div>
+  <div class="row" *ngIf="currentSlide === 9">
+    <app-user-contract></app-user-contract>
+  </div>
 </div>
 
 <div class="carousel">
-    <div class="d-flex justify-content-center align-items-center"> 
+  <div class="d-flex justify-content-center align-items-center">
     <button class="arrow left-arrow" (click)="prevSlide()">&#8249;</button>
     <div class="dots">
-        <span *ngFor="let dot of slides; let i = index" class="dot" [class.active]="i === currentSlide">
-        </span>
+      <span
+        *ngFor="let dot of slides; let i = index"
+        class="dot"
+        [class.active]="i === currentSlide"
+      >
+      </span>
     </div>
     <button class="arrow right-arrow" (click)="nextSlide()">&#8250;</button>
+  </div>
 </div>
-</div>
- 

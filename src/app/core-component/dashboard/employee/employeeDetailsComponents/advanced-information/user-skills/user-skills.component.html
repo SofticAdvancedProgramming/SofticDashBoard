@@ -1,8 +1,9 @@
-<div class="container py-4 bgColor">
-  <h3 class="text-center fw-bold customHeader mb-4">
+@for (item of userSkills; track $index) {
+<div class="container py-4 mb-4 bgColor">
+  <h3 class="text-center fw-bold customHeader mb-4" *ngIf="$index <= 0">
     {{ "skills.Title" | translate }}
   </h3>
-  @for (item of userSkills; track item) {
+  
   <div class="row gy-3 mb-3">
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{
@@ -35,6 +36,5 @@
       </div>
     </div>
   </div>
-  <hr />
-  }
 </div>
+}
