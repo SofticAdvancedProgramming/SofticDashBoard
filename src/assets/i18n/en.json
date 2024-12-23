@@ -240,6 +240,7 @@
     "NAME": "Name",
     "NAME_AR": "Name (Arabic)",
     "DIRECT_PARENT": "Direct Parent",
+    "DIRECT_ASSET_PARENT": "Parent Asset",
     "ASSETS": "Assets",
     "SELECT_ASSET": "Select Asset",
     "REQUIRED_FIELD": "This field is required",
@@ -720,7 +721,8 @@
       "type": "Complaint Type",
       "againstName": "Against Name",
       "details": "Complaint Details",
-      "attachments": "Attachments"
+      "attachments": "Attachments",
+      "status": "Complain Status"
     }
   },
   "CONFIRM_DELETE": {

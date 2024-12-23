@@ -123,8 +123,8 @@
           [items]="subAssetsCategories"
           [currentPage]="assetsPage"
           [itemsLength]="subAssetsCategories.length"
-          (getNextPageApi)="getSubAssetsCategories(selectedAsset.id)"
-          (search)="getSubAssetsCategories(selectedAsset.id)"
+          (getNextPageApi)="getSubAssetsCategories(selectedAssetCategory.id)"
+          (search)="getSubAssetsCategories(selectedAssetCategory.id)"
           (onChange)="onSubAssetCategorySelect($event)"
         ></app-drop-down>
       </div>
@@ -258,6 +258,33 @@
           </div>
         </div>
       </div>
+      <div class="col-12">
+        <div class="form-group toggle-group" (click)="getAssets()">
+          <label class="switch">
+            <input type="checkbox" formControlName="isHasMainAsset"/>
+            <span class="slider"></span>
+          </label>
+          <label for="direct-manager" class="toggle-label">{{
+            "ADD_ASSETS.DIRECT_ASSET_PARENT" | translate
+          }}</label>
+        </div>
+        <div class="col-lg-6" *ngIf="form.get('isHasMainAsset')?.value">
+          <label>{{
+            "Assets.MainAsset" | translate
+          }}</label>
+          <app-drop-down
+            [placeholder]="'Select Sub Asset Category'"
+            [placeholderSearch]="'Search by Name'"
+            [items]="assets"
+            [currentPage]="assetsPage"
+            [itemsLength]="assets?.length"
+            (getNextPageApi)="getAssets(selectedAsset.id)"
+            (search)="getAssets(selectedAsset.id)"
+            (onChange)="onAssetSelect($event)"
+          ></app-drop-down>
+        </div>
+      </div>
+
       <!-- <div class="col-lg-12">
         <div class="form-group">
           <label for="AssetAccessories">{{

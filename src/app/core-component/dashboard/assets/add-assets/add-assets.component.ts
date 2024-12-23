@@ -45,11 +45,13 @@ export class AddAssetsComponent implements OnInit {
   uploadedImageBase64: any;
   lang: string = this.localStorageService.getItem('lang')!;
   assetsCategories: any;
+  assets: any;
   mainAssets: any;
   subAssetsCategories: any;
   PhotoExtension: any;
   isMainAsset: boolean = false;
   assetsPage = 1;
+  selectedAssetCategory: any;
   selectedAsset: any;
   files: {
     companyId: number;
@@ -87,8 +89,41 @@ export class AddAssetsComponent implements OnInit {
       AssetPhoto: ['', Validators.required],
       long: [0, Validators.required],
       lat: [0, Validators.required],
+      isHasMainAsset: [false],
     });
   }
+
+  getAssets(name?: string, pageSize?: number) {
+    let query: any;
+
+    query = {
+      pageSize: 1000,
+    };
+    if(name){
+      query.name = name;
+    }
+
+    this.assetsService.getAsset(query).subscribe({
+      next: (res) => {
+        this.assets = res.data.list;
+        console.log(res);
+      },
+      error: (err) => console.log(err),
+    });
+  }
+  onAssetSelect(assetId: number) {
+    const asset = this.assets.find((asset: any) => asset.id === assetId);
+
+    if (asset) {
+      console.log('Selected Asset:', asset);
+      this.selectedAsset = asset;
+      this.getSubAssetsCategories(this.selectedAsset.id);
+      console.log('Selected Main Asset ID:', this.selectedAsset?.id);
+    } else {
+      console.log('Asset not found.');
+    }
+  }
+
   getAssetsCategories(name?: string) {
     this.assetsService.getMainAssetsCategory().subscribe({
       next: (res) => {
@@ -107,9 +142,9 @@ export class AddAssetsComponent implements OnInit {
 
     if (asset) {
       console.log('Selected Asset:', asset);
-      this.selectedAsset = asset;
-      this.getSubAssetsCategories(this.selectedAsset.id);
-      console.log('Selected Main Asset ID:', this.selectedAsset?.id);
+      this.selectedAssetCategory = asset;
+      this.getSubAssetsCategories(this.selectedAssetCategory.id);
+      console.log('Selected Main Asset ID:', this.selectedAssetCategory?.id);
     } else {
       console.log('Asset not found.');
     }
@@ -133,8 +168,8 @@ export class AddAssetsComponent implements OnInit {
 
     if (asset) {
       console.log('Selected Sub Asset:', asset);
-      this.selectedAsset = asset;
-      console.log('Selected Asset ID:', this.selectedAsset?.id);
+      this.selectedAssetCategory = asset;
+      console.log('Selected Asset ID:', this.selectedAssetCategory?.id);
     } else {
       console.log('Asset not found.');
     }
@@ -273,19 +308,39 @@ export class AddAssetsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);    
-    const params = {
+    console.log(this.form.value);
+    let params = {
       companyId: Number(this.companyId),
       name: this.form.value.AssetName,
       nameAr: this.form.value.AssetNameAr,
       model: this.form.controls['Model'].value,
-      assetCategoryId: this.selectedAsset.id,
+      assetCategoryId: this.selectedAssetCategory.id,
+      parentAssetId: null,
       photo: this.uploadedImageBase64,
       photoExtension: this.PhotoExtension,
       long: this.form.controls['long'].value,
       lat: this.form.controls['lat'].value,
       assetAttachments: this.attachments,
+      serialNumber: this.form.controls['serialNum'].value,
+      plateNumber: this.form.controls['plateNum'].value,
     };
+    if(this.selectedAsset){
+      params = {
+        companyId: Number(this.companyId),
+        name: this.form.value.AssetName,
+        nameAr: this.form.value.AssetNameAr,
+        model: this.form.controls['Model'].value,
+        assetCategoryId: this.selectedAssetCategory.id,
+        parentAssetId: this.selectedAsset.id,
+        photo: this.uploadedImageBase64,
+        photoExtension: this.PhotoExtension,
+        long: this.form.controls['long'].value,
+        lat: this.form.controls['lat'].value,
+        assetAttachments: this.attachments,
+        serialNumber: this.form.controls['serialNum'].value,
+        plateNumber: this.form.controls['plateNum'].value,
+      };
+    }
     console.log(params);
     this.assetsService.addAsset(params).subscribe({
       next: (res) => {
