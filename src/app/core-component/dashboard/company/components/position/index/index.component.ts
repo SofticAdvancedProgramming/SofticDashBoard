@@ -18,7 +18,9 @@ import { Position } from '../../../../../../../models/postion';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { EventEmitter } from 'stream';import { PositionTypeService } from '../../../../../../services/lockupsServices/positionTypeService/position-type.service';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { branch } from '../../../../../../../models/branch';
+import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
 @Component({
   selector: 'app-index',
   standalone: true,
@@ -59,15 +61,18 @@ export class IndexComponent implements OnInit {
 
 
   positionData!: Position;
+  branchId:number=0;
   constructor(
     private positionService: PositionService,
     private employeeService: EmployeeService,
     private messageService: MessageService,
     private departmentService: DepartmentService,
+    private branchService: BranchService,
+
     private translate: TranslateService,
     private confirmationService: ConfirmationService,
     private positionTypeService: PositionTypeService,
-     private cdr: ChangeDetectorRef 
+     private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -119,7 +124,7 @@ export class IndexComponent implements OnInit {
       },
 
     });
-    
+
   }
   filterPositionsByDepartment(): void {
     this.currentPage = 1;
@@ -153,7 +158,6 @@ export class IndexComponent implements OnInit {
        },
      });
   }
-
 
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
@@ -190,10 +194,15 @@ export class IndexComponent implements OnInit {
   addPosition(): void {
     this.isAdd = true;
   }
-
+  
   editPosition(position: Position): void {
     this.isEdit = true;
     this.positionData = position;
+    const department = this.departments.find(dep => dep.id === position.departmentId);
+    if(department?.branchId){
+      this.branchId=department.branchId
+     }
+
   }
 
 
