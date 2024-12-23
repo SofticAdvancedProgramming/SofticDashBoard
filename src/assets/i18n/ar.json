@@ -217,6 +217,8 @@
     "POSITION_TYPE": "نوع الوظيفة",
     "SELECT_POSITION_TYPE": "اختر نوع الوظيفة",
     "DEPARTMENT": "القسم",
+    "Branch":"الفرع",
+    "SELECT_Branch":"اختر الفرع",
     "SELECT_DEPARTMENT": "اختر القسم",
     "DIRECT_MANAGER": "مدير مباشر",
     "POSITION": "الوظيفة",
