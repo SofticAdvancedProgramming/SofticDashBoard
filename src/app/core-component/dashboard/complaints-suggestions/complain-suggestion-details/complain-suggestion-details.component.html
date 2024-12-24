@@ -29,24 +29,24 @@
                 @if(complaintDetails.issueTypeId==1)
                 {
                  <div class="info-item">
+                    <span class="label">{{ 'complainDetails.complaint.status' | translate }}</span>
                      <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">{{ getComplaintStatusName(1) }}</span>
                  </div>
                 }
                @else if(complaintDetails.issueStatusId===issueStatus.Submitted )
                {
                 <div class="info-item">
+                    <span class="label">{{ 'complainDetails.complaint.status' | translate }}</span>
                     <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">{{ getComplaintStatusName(2) }}</span>
                 </div>
                }
                @else {
                 <div class="info-item">
+                    <span class="label">{{ 'complainDetails.complaint.status' | translate }}</span>
                     <span class="label" [ngClass]="getStatusStyles(complaintDetails.issueStatusId)"> {{ getComplaintStatusName(complaintDetails.issueStatusId) }}</span>
                 </div>
                }
                <!-- {{complaintDetails.issueStatusId | enumToString:issueStatus}}  -->
-
-
-
             </div>
         </div>
 

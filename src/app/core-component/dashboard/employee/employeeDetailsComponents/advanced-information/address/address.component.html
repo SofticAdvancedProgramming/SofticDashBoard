@@ -1,3 +1,46 @@
+<div class="container py-4 bgColor mb-3" *ngIf="!userAddress?.length">
+  <h3 class="text-center fw-bold customHeader mb-4" >{{ 'address.Title' | translate }}</h3>
+  <div class="row gy-3" >
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.Country' | translate }}</label>
+      <div class="text-muted">{{ 'address.No_Data' | translate }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.City' | translate }}</label>
+      <div class="text-muted">{{ 'address.No_Data' | translate }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.zone' | translate }}</label>
+      <div class="text-muted">{{ 'address.No_Data' | translate }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.Street_Name' | translate }}</label>
+      <div class="text-muted">{{ 'address.No_Data' | translate }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.Building_Number' | translate }}</label>
+      <div class="text-muted">{{ 'address.No_Data' | translate }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.nearBy' | translate }}</label>
+      <div class="text-muted">{{ 'address.No_Data' | translate }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.unit' | translate }}</label>
+      <div class="text-muted">{{ 'address.No_Data' | translate }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'address.floor' | translate }}</label>
+      <div class="text-muted">{{ 'address.No_Data' | translate }}</div>
+    </div>
+    <div class="col-12">
+      <label class="d-block fw-semibold text-dark">{{ 'address.Full_Address' | translate }}</label>
+      <div class="text-muted">{{ 'address.No_Data' | translate }}</div>
+    </div>
+  </div>
+</div>
+
+
 <div class="container py-4 bgColor mb-3" *ngFor="let userAddress of userAddress;let i=index">
   <h3 class="text-center fw-bold customHeader mb-4" *ngIf="!userAddress.isOrginalAddress" >{{ 'address.PlaceOfResidenceTitle' | translate }}</h3>
   <h3 class="text-center fw-bold customHeader mb-4" *ngIf="userAddress.isOrginalAddress" >{{ 'address.PlaceCountryOfOriginTitle' | translate }}</h3>

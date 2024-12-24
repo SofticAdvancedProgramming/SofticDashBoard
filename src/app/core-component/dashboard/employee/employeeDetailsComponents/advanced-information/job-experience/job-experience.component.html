@@ -1,111 +1,296 @@
-<div class="container py-4 bgColor mt-3"  *ngFor="let _userJobExperience of userJobExperience;let i =index">
-  <h3 class="text-center fw-bold customHeader mb-4" *ngIf="i<=0">
-    {{ 'jobExperience.Title' | translate }}
+<div class="container py-4 bgColor mt-3" *ngIf="!userJobExperience?.length">
+  <h3 class="text-center fw-bold customHeader mb-4">
+    {{ "jobExperience.Title" | translate }}
   </h3>
   <div class="row gy-3">
-    <div class="col-12 col-md-6 border-bottom-custom" >
+    <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.Job_Title' | translate }}
+        {{ "jobExperience.Job_Title" | translate }}
       </label>
       <div class="text-muted">
-        {{ _userJobExperience?.jobTitle ? _userJobExperience?.jobTitle : ('jobExperience.No_Data' | translate) }}
+        {{ "jobExperience.No_Data" | translate }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.Company_Name' | translate }}
+        {{ "jobExperience.Company_Name" | translate }}
       </label>
       <div class="text-muted">
-        {{ _userJobExperience.companyName ? _userJobExperience?.companyName : ('jobExperience.No_Data' | translate) }}
+        {{ "jobExperience.No_Data" | translate }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'jobExperience.Start_Date' | translate }}</label>
+      <label class="d-block fw-semibold text-dark">{{
+        "jobExperience.Start_Date" | translate
+      }}</label>
       <div class="text-muted">
-        {{ _userJobExperience?.startFrom ?( _userJobExperience?.startFrom | date ) : ('jobExperience.No_Data' | translate ) }}
+        {{ "jobExperience.No_Data" | translate }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'jobExperience.End_Date' | translate }}</label>
-      <div class="text-muted">{{ _userJobExperience?.endAt ? (_userJobExperience?.endAt| date ) : ('jobExperience.No_Data' | translate) | date }}</div>
+      <label class="d-block fw-semibold text-dark">{{
+        "jobExperience.End_Date" | translate
+      }}</label>
+      <div class="text-muted">{{ "jobExperience.No_Data" | translate }}</div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.First Reference Name' | translate }}
+        {{ "jobExperience.First Reference Name" | translate }}
       </label>
       <div class="text-muted">
-        {{ _userJobExperience?.firstReferenceName ? _userJobExperience?.firstReferenceName : ('jobExperience.No_Data' | translate) }}
-      </div>
-    </div>
-
-    <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.First Referenc Job' | translate }}
-      </label>
-      <div class="text-muted">
-        {{ _userJobExperience?.firstReferencJob ? _userJobExperience?.firstReferencJob : ('jobExperience.No_Data' | translate) }}
+        {{ "jobExperience.No_Data" | translate }}
       </div>
     </div>
 
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.First Reference Telephone' | translate }}
+        {{ "jobExperience.First Referenc Job" | translate }}
       </label>
       <div class="text-muted">
-        {{ _userJobExperience?.firstReferencTelephone ? _userJobExperience?.firstReferencTelephone : ('jobExperience.No_Data' | translate) }}
+        {{ "jobExperience.No_Data" | translate }}
       </div>
     </div>
 
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.Second Reference Name' | translate }}
+        {{ "jobExperience.First Reference Telephone" | translate }}
       </label>
       <div class="text-muted">
-        {{ _userJobExperience?.secondReferenceName ? _userJobExperience?.secondReferenceName : ('jobExperience.No_Data' | translate) }}
+        {{ "jobExperience.No_Data" | translate }}
       </div>
     </div>
 
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.Second Referenc Job' | translate }}
+        {{ "jobExperience.Second Reference Name" | translate }}
       </label>
       <div class="text-muted">
-        {{ _userJobExperience?.secondReferencJob ? _userJobExperience?.secondReferencJob : ('jobExperience.No_Data' | translate) }}
+        {{ "jobExperience.No_Data" | translate }}
       </div>
     </div>
 
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.Second Reference Telephone' | translate }}
+        {{ "jobExperience.Second Referenc Job" | translate }}
       </label>
       <div class="text-muted">
-        {{ _userJobExperience?.secondReferencTelephone ? _userJobExperience?.secondReferencTelephone : ('jobExperience.No_Data' | translate) }}
+        {{ "jobExperience.No_Data" | translate }}
       </div>
     </div>
 
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.Bussiness Size' | translate }}
+        {{ "jobExperience.Second Reference Telephone" | translate }}
       </label>
       <div class="text-muted">
-        {{ _userJobExperience?.businessSize ? _userJobExperience?.firstReferencTelephone : ('jobExperience.No_Data' | translate) }}
+        {{ "jobExperience.No_Data" | translate }}
       </div>
     </div>
 
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.Bussiness Type' | translate }}
+        {{ "jobExperience.Bussiness Size" | translate }}
       </label>
       <div class="text-muted">
-        {{ _userJobExperience?.businessType ? _userJobExperience?.firstReferencTelephone : ('jobExperience.No_Data' | translate) }}
+        {{ "jobExperience.No_Data" | translate }}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.Bussiness Type" | translate }}
+      </label>
+      <div class="text-muted">
+        {{ "jobExperience.No_Data" | translate }}
       </div>
     </div>
     <div class="col-12 col-md-12 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">
-        {{ 'jobExperience.Job_Responsibilities' | translate }}
+        {{ "jobExperience.Job_Responsibilities" | translate }}
       </label>
       <div class="text-muted">
-        {{ _userJobExperience?.jobDescription ? _userJobExperience?.jobDescription : ('jobExperience.No_Data' | translate) }}
+        {{ "jobExperience.No_Data" | translate }}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "attachments.File" | translate
+      }}</label>
+      <div class="text-muted">
+          {{ "jobExperience.No_Data" | translate }}
+      </div>
+    </div>
+  </div>
+</div>
+
+@for (_userJobExperience of userJobExperience; track $index) {
+<div class="container py-4 bgColor mt-3">
+  <h3 class="text-center fw-bold customHeader mb-4" *ngIf="$index <= 0">
+    {{ "jobExperience.Title" | translate }}
+  </h3>
+  <div class="row gy-3">
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.Job_Title" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.jobTitle
+            ? _userJobExperience?.jobTitle
+            : ("jobExperience.No_Data" | translate)
+        }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.Company_Name" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+          _userJobExperience.companyName
+            ? _userJobExperience?.companyName
+            : ("jobExperience.No_Data" | translate)
+        }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "jobExperience.Start_Date" | translate
+      }}</label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.startFrom
+            ? (_userJobExperience?.startFrom | date)
+            : ("jobExperience.No_Data" | translate)
+        }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "jobExperience.End_Date" | translate
+      }}</label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.endAt
+            ? (_userJobExperience?.endAt | date)
+            : ("jobExperience.No_Data" | translate | date)
+        }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.First Reference Name" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.firstReferenceName
+            ? _userJobExperience?.firstReferenceName
+            : ("jobExperience.No_Data" | translate)
+        }}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.First Referenc Job" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.firstReferencJob
+            ? _userJobExperience?.firstReferencJob
+            : ("jobExperience.No_Data" | translate)
+        }}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.First Reference Telephone" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.firstReferencTelephone
+            ? _userJobExperience?.firstReferencTelephone
+            : ("jobExperience.No_Data" | translate)
+        }}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.Second Reference Name" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.secondReferenceName
+            ? _userJobExperience?.secondReferenceName
+            : ("jobExperience.No_Data" | translate)
+        }}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.Second Referenc Job" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.secondReferencJob
+            ? _userJobExperience?.secondReferencJob
+            : ("jobExperience.No_Data" | translate)
+        }}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.Second Reference Telephone" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.secondReferencTelephone
+            ? _userJobExperience?.secondReferencTelephone
+            : ("jobExperience.No_Data" | translate)
+        }}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.Bussiness Size" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.businessSize
+            ? _userJobExperience?.firstReferencTelephone
+            : ("jobExperience.No_Data" | translate)
+        }}
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.Bussiness Type" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.businessType
+            ? _userJobExperience?.firstReferencTelephone
+            : ("jobExperience.No_Data" | translate)
+        }}
+      </div>
+    </div>
+    <div class="col-12 col-md-12 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "jobExperience.Job_Responsibilities" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+          _userJobExperience?.jobDescription
+            ? _userJobExperience?.jobDescription
+            : ("jobExperience.No_Data" | translate)
+        }}
       </div>
     </div>
 
@@ -119,29 +304,40 @@
           *ngIf="isImage(_userJobExperience.file)"
           [src]="_userJobExperience.file"
           alt="CertificateImage"
-          style="width: 300px; height: 300px"
+          style="width: 150px; height: 150px"
         />
 
         <!-- PDF Files -->
-        <div *ngIf="isPDF(_userJobExperience.file)" class="d-flex gap-2 align-items-center">
+        <div
+          *ngIf="isPDF(_userJobExperience.file)"
+          class="d-flex gap-2 align-items-center"
+        >
           <img
             src="../../../../../../../assets/images/fileIcon2.png"
             style="width: 100px; height: 100px"
             alt=""
           />
-          <p>{{_userJobExperience.fileDescription.description}}</p>
+          <p>{{ _userJobExperience.fileDescription.description }}</p>
         </div>
 
-        <a *ngIf="isPDF(_userJobExperience.file)" [href]="_userJobExperience.file" target="_blank" download
+        <a
+          *ngIf="isPDF(_userJobExperience.file)"
+          [href]="_userJobExperience.file"
+          target="_blank"
+          download
           >Download PDF</a
         >
 
         <!-- Text Files -->
-        <a *ngIf="isText(_userJobExperience.file)" [href]="_userJobExperience.file" target="_blank" download
+        <a
+          *ngIf="isText(_userJobExperience.file)"
+          [href]="_userJobExperience.file"
+          target="_blank"
+          download
           >Download Text File</a
         >
       </div>
     </div>
-
   </div>
 </div>
+}

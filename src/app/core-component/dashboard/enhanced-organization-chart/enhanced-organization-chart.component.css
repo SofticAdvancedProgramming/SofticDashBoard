@@ -1,16 +1,92 @@
+
+*{
+  font-family: 'Lama Sans';
+}
 ::ng-deep [data-n-id] rect:nth-child(1) {
-  fill: #663895;
+  fill: #FFFFFF;
+  
 }
-
+::ng-deep g
+{
+  border-radius: 8px !important
+}
 ::ng-deep [data-n-id] rect:nth-child(2) {
-  fill: white
+  fill: #E7E6E8;
+  stroke: none;
+  transform: translateY(16px);
+  rx: 14;
+  width: 250px;
+  x: 0;
+  y: 56;
+}
+::ng-deep [data-n-id="1"] rect:nth-child(2) {
+  fill: #00938B;
 }
 
-::ng-deep g text {
-  fill: white;;
+::ng-deep g text:nth-child(2) {
+  fill: black;
 }
+
 
 ::ng-deep g g circle
 {
-  fill: black;
+  fill: white;
+  y:10
 }
+
+
+
+
+::ng-deep g text:nth-child(1) 
+{
+  fill:white
+}
+
+::ng-deep g text
+{
+  fill:black
+}
+
+::ng-deep g text
+{
+  fill:black
+}
+
+
+::ng-deep [data-n-id] rect{
+ rx: 20;
+ ry:20;
+ y:-20
+  
+}
+
+::ng-deep g[data-n-id] rect:nth-child(1)
+{
+  height: 80px;
+  y:20 !important
+}
+
+::ng-deep [data-n-id]text[data-width]:nth-child(2) tspan
+{
+  fill:blue;
+  y:100
+}
+
+/* ::ng-deep tspan[x="230"][y="30"] {
+  fill: black; 
+  transform: translate(-80px, 20px); 
+  font-weight: 500px;
+  
+
+} */
+
+::ng-deep line:nth-child(3) ,::ng-deep line:nth-child(4) 
+{
+  stroke: white;
+}
+
+::ng-deep path{
+  stroke:#0A3A9669;
+}
+
+

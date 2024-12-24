@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PositionTypeService } from '../../../../../../services/lockupsServices/positionTypeService/position-type.service';
@@ -12,6 +12,8 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Position } from '../../../../../../../models/positionModel';
 import { EmployeeService } from '../../../../../../services/employeeService/employee.service';
 import { firstValueFrom, map, Observable } from 'rxjs';
+import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
+import { branch } from '../../../../../../../models/branch';
 
 @Component({
   selector: 'app-add-position',
@@ -24,9 +26,11 @@ import { firstValueFrom, map, Observable } from 'rxjs';
 export class AddPositionComponent implements OnInit {
   @Input() isEdit: boolean = false;
   @Input() positionData: Position | any;
+  @Input() _branchId: number | any;
   @Output() action = new EventEmitter<boolean>();
   @Input() companyId?: string = '';
   positionType: any[] = [];
+  branches:branch[]=[];
   departments: Department[] = [];
   positions: any[] = [];
   form: FormGroup;
@@ -36,13 +40,17 @@ export class AddPositionComponent implements OnInit {
     private fb: FormBuilder,
     private positionTypeService: PositionTypeService,
     private departmentsService: DepartmentService,
+    private branchsService: BranchService,
     private positionService: PositionService,
     private messageService: MessageService,
     private translate: TranslateService,
-    private employeeService:EmployeeService
+    private employeeService:EmployeeService,
+    private cd:ChangeDetectorRef
   ) {
+    this.branchId=0;
     this.form = this.fb.group({
       positionType: ['', Validators.required],
+      branch: ['', Validators.required],
       department: ['', Validators.required],
       position: [{ value: '', disabled: true }, Validators.required],
       isDirectManager: [false]
@@ -51,7 +59,8 @@ export class AddPositionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPositionTypes();
-    this.loadDepartmentsAndPositions();
+    this.loadBranches();
+
     this.togglePositionField();
     if (this.isEdit) {
       this.initForm();
@@ -59,12 +68,15 @@ export class AddPositionComponent implements OnInit {
   }
 
   initForm() {
+    this.branchId=this._branchId;
     this.form.patchValue({
       positionType: this.positionData.positionTypeId,
       department: this.positionData.departmentId,
       position: this.positionData.positionManagerId,
-      isDirectManager: this.positionData.positionManagerId !== null
+      isDirectManager: this.positionData.positionManagerId !== null,
+      branch:this._branchId
     })
+    console.log(this._branchId);
   }
 
   loadPositionTypes(): void {
@@ -76,8 +88,16 @@ export class AddPositionComponent implements OnInit {
     });
   }
 
+  loadBranches(): void {
+    this.branchsService.getBranch({ companyId: this.companyId }).subscribe({
+      next: (response) => {
+        this.branches = response.data.list;
+        this.loadDepartmentsAndPositions(); // Ensure positions are loaded after departments
+      }
+    });
+  }
   loadDepartmentsAndPositions(): void {
-    this.departmentsService.getDepartment({ companyId: this.companyId }).subscribe({
+    this.departmentsService.getDepartment({ companyId: this.companyId,branchId:+this.branchId }).subscribe({
       next: (response) => {
         this.departments = response.data.list;
         this.loadPositions(); // Ensure positions are loaded after departments
@@ -154,6 +174,7 @@ export class AddPositionComponent implements OnInit {
     this.createOrEdit(positionData);
     this.ngOnInit();
     this.action.emit(false);
+    this.cd.detectChanges();
   }
 
   createOrEdit(positionData: Position) {
@@ -181,5 +202,16 @@ export class AddPositionComponent implements OnInit {
 
   trackByDepartmentId(index: number, item: Department): number {
     return item.id!;
+  }
+
+  trackByBranchId(index: number, item: branch): number {
+   // console.log(item.id)
+    return item.id;
+  }
+  branchId!:number
+  GetBranch(event:any){
+    this.loadDepartmentsAndPositions();
+    // console.log(event.target);
+    // console.log(this.branchId);
   }
 }

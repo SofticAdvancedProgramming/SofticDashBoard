@@ -76,7 +76,7 @@ export class ShowAssetsComponent implements OnInit {
         console.log(this.status)
       }
     });
-    this.gettAssets();
+    this.getAssets();
   }
 
 
@@ -93,7 +93,7 @@ export class ShowAssetsComponent implements OnInit {
 
     });
   }
-  gettAssets(event?:any,i?:number,page=this.currentPage){
+  getAssets(event?:any,i?:number,page=this.currentPage){
     let query;
     if(i!=null){
       this.setActiveButton(i);
@@ -137,7 +137,7 @@ export class ShowAssetsComponent implements OnInit {
       console.log(id)
       this.assetsService.deleteAsset(id,this.companyId).subscribe({
         next:(res)=>{console.log(res);
-          this.gettAssets();}
+          this.getAssets();}
       })
     }
    onFilterPopupClose(isVisible: boolean) {
@@ -257,7 +257,7 @@ export class ShowAssetsComponent implements OnInit {
   clear(){
     this.page=1
     this.getAssetsCategory(this.page);
-    this.gettAssets();
+    this.getAssets();
   }
 
   nextPage() {
@@ -268,7 +268,7 @@ export class ShowAssetsComponent implements OnInit {
 
   handlePageChange(event: { page: number }) {
     this.currentPage = event.page;
-    this.gettAssets( );
+    this.getAssets( );
   }
   setActiveButton(index: number): void {
     this.activeButtonIndex = index;
@@ -306,7 +306,7 @@ export class ShowAssetsComponent implements OnInit {
   isMain!:boolean;
   filterByMainAsset(){
     console.log(this.isMain);
-    this.gettAssets();
+    this.getAssets();
   }
 
 }

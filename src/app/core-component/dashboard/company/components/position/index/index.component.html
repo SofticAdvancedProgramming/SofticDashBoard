@@ -2,7 +2,7 @@
   <!-- Add Position Form -->
   <ng-container *ngIf="!showDetails"> <!-- Modify this line -->
     <ng-container *ngIf="isAdd || isEdit; else positionList">
-      <app-add-position [companyId]="companyId" (action)="handleAction($event)" [positionData]="positionData"
+      <app-add-position [companyId]="companyId" (action)="handleAction($event)" [positionData]="positionData" [_branchId]="branchId"
         [isEdit]="isEdit">
       </app-add-position>
     </ng-container>
@@ -29,23 +29,27 @@
         <button class="col-2  btn addPositionBtn" (click)="addPosition()">
           <i class="fas fa-plus"></i> {{ 'INDEX_POSITION.ADD_POSITION' | translate }}
         </button>
-     
+
       </div>
       <div class="row">
         <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let position of positions">
-          <div class="card">
+          <div class="card"  >
             <div class="card-header">
               <h3>{{ isArabic ?position.nameAr:position.name }}</h3>
               <p>{{ 'INDEX_POSITION.DEPARTMENT' | translate }}: {{ getDepartmentName(position.departmentId) }}</p>
             </div>
-            <div class="card-body" *ngIf="!position.isAssigned">
-              <button class="btn btn-add" (click)="addEmployee(position.id?.toString()||'0')">
+            <!-- *ngIf="!position.isAssigned" -->
+            <div class="card-body">
+              <!-- <button class=" mt-3 btn changeBtn " [routerLink]="['../../ViewEmployees',position.id]">{{'view employees'|translate}}</button> -->
+              <!-- <button class="btn btn-add" (click)="addEmployee(position.id?.toString()||'0');$event.stopPropagation()"  *ngIf="!position.isAssigned">
                 <i class="fas fa-plus"></i> {{ 'INDEX_POSITION.ADD_EMPLOYEE' | translate }}
-              </button>
+              </button> -->
+              <p *ngIf="position.isAssigned">{{position.employeeName}}</p>
+              <!-- <div class="card-header" *ngIf="position.isAssigned">
+                {{position.employeeName}}
+              </div> -->
             </div>
-            <div class="card-header" *ngIf="position.isAssigned">
-              {{position.employeeName}}
-            </div>
+
             <div class="card-footer">
               <!-- <label class="toggle-label">
                 <span>{{ position.isActive ? ('INDEX_POSITION.DEACTIVATE' | translate) : ('INDEX_POSITION.ACTIVATE' |
@@ -55,8 +59,26 @@
                   <span class="slider"></span>
                 </label>
               </label> -->
-              <i class="fas fa-trash-alt icon-trash" (click)="deletePosition(position.id||0)"></i>
-              <i class="fas fa-edit icon-edit" (click)="editPosition(position)"></i>
+              <i class="fas fa-trash-alt icon-trash" (click)="deletePosition(position.id||0);$event.stopPropagation()"></i>
+              <i class="fas fa-edit icon-edit" (click)="editPosition(position);$event.stopPropagation()"></i>
+              <!-- -->
+              <div class="dropdown">
+                <!-- Icon Button -->
+                <div id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img class="icon" src="../../../../../assets/images/more-square.svg" alt="More Options">
+                </div>
+            
+                <!-- Dropdown Menu -->
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li>
+                        <a class="dropdown-item" (click)="addEmployee(position.id?.toString() || '0'); $event.stopPropagation()">Assign New Employee</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" [routerLink]="['../../ViewEmployees', position.id]">View Assigned Employee List</a>
+                    </li>
+                </ul>
+            </div>
+
               <!-- <button class="btn" (click)="showDetailsPage(position.id?.toString()||'0')">
                 <span class="details">{{ 'INDEX_POSITION.SHOW_DETAILS' | translate }}
                   <i [ngClass]="{'rotate-arrow': isArabic}" class="fa-solid fa-arrow-right"></i>

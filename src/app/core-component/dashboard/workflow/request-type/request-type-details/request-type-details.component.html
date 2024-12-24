@@ -1,0 +1,194 @@
+
+
+<div class="col-lg-12 d-flex justify-content-between mb-3" >
+  <div class="d-flex col-8 gap-3 align-items-start flex-row">
+    <img src="../../../../../assets/images/send-1.png" alt="taskImg" />
+    <p class="lead">{{"Work flow managment" | translate}}</p>
+    <img src="../../../../../assets/images/arrow-left2.png" alt="arrow" />
+    <p class="lead">{{"Request type Details" | translate}}</p>
+  </div>
+  <button class="btn edit-btn">
+    {{'edit'|translate}}
+  </button>
+</div>
+
+<div class="add-type-request-sm-container py-3 px-4 ">
+  <div class="row gy-3 " >
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'Title EN' | translate }}</label>
+      <div class="text-muted">{{ 'Title EN' | translate }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'Title AR' | translate }}</label>
+      <div class="text-muted">{{ 'Title AR' | translate }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'Request category' | translate }}</label>
+      <div class="text-muted">{{ 'Request category' | translate }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'Maximum Dates' | translate }}</label>
+      <div class="text-muted">{{ 'Maximum Dates' | translate }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "attachments.File" | translate
+      }}</label>
+      <div class="text-muted">
+        <!-- Image Files -->
+        <img
+         
+          
+          alt="CertificateImage"
+          style="width: 150px; height: 150px"
+        />
+
+        <!-- PDF Files  *ngIf="isPDF(requestType.file)"-->
+        <div
+
+          class="d-flex gap-2 align-items-center"
+        >
+          <img
+            src="../../../../../../../assets/images/fileIcon2.png"
+            style="width: 100px; height: 100px"
+            alt=""
+          />
+          <!-- <p>{{ requestType.fileDescription.description }}</p> -->
+        </div>
+
+        <a
+         
+        
+          target="_blank"
+          download
+          >Download PDF</a
+        >
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- <form class="form p-2">
+    <div class="form-content container p-3 my-3">
+      <div class="row gy-3">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-label">{{'Title EN' | translate}}</label>
+            <input type="text" class="form-control" id="">
+            <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <small *ngIf="form.get('name')?.errors?.['required']">
+                {{ "addRequestType.validation.nameRequired" | translate }}
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-label">{{'Title Ar' | translate}}</label>
+            <input type="text" class="form-control" id="">
+            <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <small *ngIf="form.get('name')?.errors?.['required']">
+                {{ "addRequestType.validation.nameRequired" | translate }}
+              </small>
+            </div>
+          </div>
+        </div><div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-label">{{'Request category' | translate}}</label>
+            <input type="text" class="form-control" id="">
+            <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <small *ngIf="form.get('name')?.errors?.['required']">
+                {{ "addRequestType.validation.nameRequired" | translate }}
+              </small>
+            </div>
+          </div>
+        </div><div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-label">{{'Maximum Dates' | translate}}</label>
+            <input type="text" class="form-control" id="">
+            <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <small *ngIf="form.get('name')?.errors?.['required']">
+                {{ "addRequestType.validation.nameRequired" | translate }}
+              </small>
+            </div>
+          </div>
+        </div><div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-label">{{'Title EN' | translate}}</label>
+            <input type="text" class="form-control" id="">
+            <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <small *ngIf="form.get('name')?.errors?.['required']">
+                {{ "addRequestType.validation.nameRequired" | translate }}
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-content container p-3 my-3">
+      <div class="row gy-3">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-label">{{'Branch' | translate}}</label>
+            <app-drop-down
+            placeholder="{{'Select Branch'| translate}}"
+            placeholderSearch="{{'Search by Name'| translate}}"
+            [items]="Branchs"
+            [currentPage]="BranchPage"
+            [itemsLength]="Branchs.length"
+            (getNextPageApi)="loadBranchs()"
+            (search)="loadBranchs()"
+            (onChange)="onBranchSelect($event)"
+          ></app-drop-down>
+            <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <small *ngIf="form.get('name')?.errors?.['required']">
+                {{ "addRequestType.validation.nameRequired" | translate }}
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-label">{{'Department' | translate}}</label>
+            <app-drop-down
+            placeholder="{{'Select Department'| translate}}"
+            placeholderSearch="{{'Search by Name'| translate}}"
+            [items]="Departments"
+            [currentPage]="DepartmentPage"
+            [itemsLength]="Departments.length"
+            (getNextPageApi)="loadDepartments()"
+            (search)="loadDepartments()"
+            (onChange)="onDepartmentSelect($event)"
+          ></app-drop-down>
+            <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <small *ngIf="form.get('name')?.errors?.['required']">
+                {{ "addRequestType.validation.nameRequired" | translate }}
+              </small>
+            </div>
+          </div>
+        </div><div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-label">{{'Position' | translate}}</label>
+            <input type="text" class="form-control" id="">
+            <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <small *ngIf="form.get('name')?.errors?.['required']">
+                {{ "addRequestType.validation.nameRequired" | translate }}
+              </small>
+            </div>
+          </div>
+        </div><div class="col-lg-6">
+          <div class="form-group">
+            <label class="form-label">{{'Maximum Dates' | translate}}</label>
+            <input type="text" class="form-control" id="">
+            <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <small *ngIf="form.get('name')?.errors?.['required']">
+                {{ "addRequestType.validation.nameRequired" | translate }}
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form> -->
+</div>

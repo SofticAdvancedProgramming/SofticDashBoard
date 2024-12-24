@@ -2,32 +2,50 @@
   <form [formGroup]="form">
     <div class="row d-flex align-items-center justify-content-center">
       <div class="col-lg-5">
-        <div class="form-group ">
-          <label for="netSalary">{{ 'employeeDetails.netSalary' | translate }}</label>
-          <input type="number" id="netSalary" formControlName="netSalary" class="form-control">
+        <div class="form-group">
+          <label for="netSalary">{{
+            "employeeDetails.netSalary" | translate
+          }}</label>
+          <input
+            type="number"
+            id="netSalary"
+            formControlName="netSalary"
+            class="form-control"
+          />
           @if(form.get('netSalary')?.invalid && form.get('netSalary')?.touched){
           <div>
-            <small class="text-danger">{{ 'FIELD_REQUIRED' | translate}}</small>
+            <small class="text-danger">{{
+              "FIELD_REQUIRED" | translate
+            }}</small>
           </div>
           }
         </div>
       </div>
       <div class="col-lg-1 justify-content-center d-flex">
-        <img class="img" src="../../../../../assets/images/link.png">
+        <img class="img" src="../../../../../assets/images/link.png" />
       </div>
       <div class="col-lg-5">
         <div class="form-group">
-          <label for="grossSalary">{{ 'employeeDetails.grossSalary' | translate }}</label>
-          <input type="number" id="grossSalary" class="form-control" [value]="updatedGrossSalary" readonly>
+          <label for="grossSalary">{{
+            "employeeDetails.grossSalary" | translate
+          }}</label>
+          <input
+            type="number"
+            id="grossSalary"
+            class="form-control"
+            [value]="updatedGrossSalary"
+            readonly
+          />
         </div>
       </div>
     </div>
-
   </form>
 
-  <div class="row justify-content-center ">
+  <div class="row justify-content-center">
     <div class="col-lg-6">
-      <button class="btn-save" (click)="submitSalary()">{{ 'employeeDetails.Save' | translate }}</button>
+      <button class="btn-save" (click)="submitSalary()">
+        {{ "employeeDetails.Save" | translate }}
+      </button>
     </div>
   </div>
 </div>
@@ -38,23 +56,41 @@
       <!-- Salary Type in English -->
       <div class="col-lg-5">
         <div class="form-group">
-          <label for="salaryType">{{ 'Salary Type In English' | translate }}</label>
-          <select id="salaryType" formControlName="benefitTypeId" class="form-control">
-            <option *ngFor="let benefit of benefitTypes" [value]="benefit.id">{{ benefit.name }}</option>
+          <label for="salaryType">{{
+            "Salary Type In English" | translate
+          }}</label>
+          <select
+            id="salaryType"
+            formControlName="benefitTypeId"
+            class="form-control"
+          >
+            <option *ngFor="let benefit of benefitTypes" [value]="benefit.id">
+              {{ benefit.name }}
+            </option>
           </select>
         </div>
       </div>
 
       <!-- Image between inputs -->
       <div class="col-lg-1 justify-content-center d-flex">
-        <img class="img" src="../../../../../assets/images/link.png" alt="Linked Icon">
+        <img
+          class="img"
+          src="../../../../../assets/images/link.png"
+          alt="Linked Icon"
+        />
       </div>
 
       <!-- Amount -->
       <div class="col-lg-5">
         <div class="form-group">
-          <label for="amount">{{ 'Amount' }}</label>
-          <input type="number" id="amount" formControlName="amount" class="form-control" placeholder="Enter amount">
+          <label for="amount">{{ "Amount" }}</label>
+          <input
+            type="number"
+            id="amount"
+            formControlName="amount"
+            class="form-control"
+            placeholder="Enter amount"
+          />
         </div>
       </div>
     </div>
@@ -62,46 +98,74 @@
     <!-- Save Button -->
     <div class="row justify-content-center align-items-center mt-3">
       <div class="col-lg-6 d-flex">
-        <button type="button" class="btn-save" (click)="submitAddBenefit()">{{ 'Save' | translate }}</button>
+        <button type="button" class="btn-save" (click)="submitAddBenefit()">
+          {{ "Save" | translate }}
+        </button>
       </div>
     </div>
   </form>
-
 </div>
 <div class="container mt-4">
-  <app-modern-table [isThereSearch]="false" (newReqByPage)="loadEmployeeBenefits()" (searchApi)="loadEmployeeBenefits()"
-    [totalRows]="totalRows['employeeSalary']" [tableTitle]="activeTab" [tableData]="financial" [columns]="columns"
-    searchPlaceholder="Search data..." (editItem)="openEditModal($event)"
-    (deleteItem)="deleteBenefit($event.id, $event.companyId)">
+  <app-modern-table
+    [isThereSearch]="false"
+    (newReqByPage)="loadEmployeeBenefits()"
+    (searchApi)="loadEmployeeBenefits()"
+    [totalRows]="totalRows['employeeSalary']"
+    [tableTitle]="activeTab"
+    [tableData]="financial"
+    [columns]="columns"
+    searchPlaceholder="Search data..."
+    (editItem)="openEditModal($event)"
+    (deleteItem)="deleteBenefit($event.id, $event.companyId)"
+    [deleteId]="deleteId"
+  >
   </app-modern-table>
-
-
 </div>
 
-
-<div *ngIf="showModal" class="modal" id="benefit-modal" [ngClass]="{'show': showModal}">
+<div
+  *ngIf="showModal"
+  class="modal"
+  id="benefit-modal"
+  [ngClass]="{ show: showModal }"
+>
   <div class="modal-content">
     <h2>Edit Benefit</h2>
 
     <form [formGroup]="benefitForm" (ngSubmit)="submitBenefit()">
       <div class="form-group">
-        <label for="benefitTypeId">{{ 'Benefit Type' | translate }}</label>
-        <select id="benefitTypeId" formControlName="benefitTypeId" class="form-control">
-          <option *ngFor="let benefitType of benefitTypes" [value]="benefitType.id">
+        <label for="benefitTypeId">{{ "Benefit Type" | translate }}</label>
+        <select
+          id="benefitTypeId"
+          formControlName="benefitTypeId"
+          class="form-control"
+        >
+          <option
+            *ngFor="let benefitType of benefitTypes"
+            [value]="benefitType.id"
+          >
             {{ benefitType.name }}
           </option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="amount">{{ 'Amount' | translate }}</label>
-        <input type="number" id="amount" formControlName="amount" class="form-control"
-          placeholder="{{ 'Enter benefit amount' | translate }}" />
+        <label for="amount">{{ "Amount" | translate }}</label>
+        <input
+          type="number"
+          id="amount"
+          formControlName="amount"
+          class="form-control"
+          placeholder="{{ 'Enter benefit amount' | translate }}"
+        />
       </div>
 
       <div class="form-group text-center d-flex justify-content-center gap-3">
-        <button type="submit" class="btn btn-primary">{{ 'Save' | translate }}</button>
-        <button type="button" class="btn btn-secondary" (click)="closeModal()">{{ 'Cancel' | translate }}</button>
+        <button type="submit" class="btn btn-primary">
+          {{ "Save" | translate }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          {{ "Cancel" | translate }}
+        </button>
       </div>
     </form>
   </div>

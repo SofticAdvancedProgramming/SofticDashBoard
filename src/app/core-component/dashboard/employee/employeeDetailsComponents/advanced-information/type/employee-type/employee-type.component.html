@@ -1,5 +1,35 @@
-<div class="container py-4 bgColor">
-  <h3 class="text-center fw-bold customHeader mb-4">
+<div class="container py-4 bgColor" *ngIf="!employeeType?.length">
+    <h3 class="text-center fw-bold customHeader mb-4" >
+      {{ "type.Title" | translate }}
+    </h3>
+    <div class="col-12 col-md-12 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">
+        {{ "employeeTypes.Title" | translate }}
+      </label>
+      <div class="text-muted">
+        {{
+            "jobExperience.No_Data" | translate
+        }}
+      </div>
+    </div>
+  </div>
+
+@for (item of employeeType; track $index) {
+<div class="container mb-4 py-4 bgColor">
+  <h3 class="text-center fw-bold customHeader mb-4" *ngIf="$index <=0 ">
     {{ "type.Title" | translate }}
   </h3>
+  <div class="col-12 col-md-12 border-bottom-custom">
+    <label class="d-block fw-semibold text-dark">
+      {{ "employeeTypes.Title" | translate }}
+    </label>
+    <div class="text-muted">
+      {{
+        item.lifeStyleTypeName
+          ? item?.lifeStyleTypeName
+          : ("jobExperience.No_Data" | translate)
+      }}
+    </div>
+  </div>
 </div>
+}

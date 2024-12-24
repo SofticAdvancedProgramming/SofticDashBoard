@@ -220,11 +220,14 @@
     "POSITION_TYPE": "Position Type",
     "SELECT_POSITION_TYPE": "Select Position Type",
     "DEPARTMENT": "Department",
+    "Branch":"Branch",
     "SELECT_DEPARTMENT": "Select Department",
+    "SELECT_BRANCH":"Select Branch",
     "DIRECT_MANAGER": "Direct Manager",
     "POSITION": "Position",
     "SELECT_POSITION": "Select Position",
     "REQUIRED_FIELD": "This field is required",
+
     "SAVE": "Save",
     "BACK": "Back",
     "ERROR_LOADING_POSITION_TYPES": "Error loading position types",
@@ -240,6 +243,7 @@
     "NAME": "Name",
     "NAME_AR": "Name (Arabic)",
     "DIRECT_PARENT": "Direct Parent",
+    "DIRECT_ASSET_PARENT": "Parent Asset",
     "ASSETS": "Assets",
     "SELECT_ASSET": "Select Asset",
     "REQUIRED_FIELD": "This field is required",
@@ -425,6 +429,7 @@
     "certificateFile": "Certificate File"
   },
   "address": {
+    "Title": "Address",
     "PlaceOfResidenceTitle": "Address / Place of residence",
     "PlaceCountryOfOriginTitle": "Address / Country of Origin",
     "Country": "Country",
@@ -472,6 +477,10 @@
     "Second Reference Telephone": "Second Reference Telephone",
     "Bussiness Size": "Bussiness Size",
     "Bussiness Type": "Bussiness Type"
+  },
+  "employeeTypes":{
+    "Title": "Employment Type",
+    "No_Data": "No Data"
   },
   "medicalInsurance": {
     "Title": "Medical Insurance",
@@ -715,7 +724,8 @@
       "type": "Complaint Type",
       "againstName": "Against Name",
       "details": "Complaint Details",
-      "attachments": "Attachments"
+      "attachments": "Attachments",
+      "status": "Complain Status"
     }
   },
   "CONFIRM_DELETE": {
