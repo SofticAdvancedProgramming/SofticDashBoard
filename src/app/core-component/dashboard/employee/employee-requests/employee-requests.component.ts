@@ -1,12 +1,13 @@
+// src/app/components/employee-requests/employee-requests.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { tap, catchError, of } from 'rxjs';
 import { MessageService } from 'primeng/api';
-import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute for URL access
 
 import { ReceivedRequest, ReciverRequestSC, RequestStatus } from '../../../../common-component/interfaces/requests';
 import { RequestService } from '../../../../services/requestService/request.service';
@@ -30,17 +31,16 @@ export class EmployeeRequestsComponent implements OnInit {
   filteredRequests: ReceivedRequest[] = [];
   requestTypes: any[] = [];
   requestStatuses: any[] = [];
-  selectedStatus: RequestStatus = RequestStatus.ALL;
+  selectedStatus: RequestStatus | null = null; // Removed ALL option
   public RequestStatus = RequestStatus;
-  startDate:string='';
-  endDate:string='';
+  createdOnFrom: string = '';
+  createdOnTo: string = '';
+  dateError: string = ''; 
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalRequests: number = 0;
   employeeId!: number;
-  createdOnFrom: string = '';
-createdOnTo: string = '';
-dateError: string = ''; 
+
   constructor(
     private requestService: RequestService,
     private requestsService: RequestLockupService,
@@ -49,7 +49,6 @@ dateError: string = '';
     private messageService: MessageService,
     private route: ActivatedRoute,
   ) { }
-
 
   ngOnInit(): void {
     // Get employee ID from the URL
@@ -65,25 +64,24 @@ dateError: string = '';
     this.loadRequests();
   }
 
-
   loadRequests(page: number = this.currentPage): void {
     const requestPayload: Partial<ReciverRequestSC> = {
       employeeId: this.employeeId,
       pageIndex: page,
       pageSize: this.itemsPerPage,
-      requestStatusId: this.selectedStatus === RequestStatus.ALL ? undefined : this.selectedStatus,
+ 
       createdOnFrom: this.createdOnFrom ? new Date(this.createdOnFrom).toISOString() : undefined,
       createdOnTo: this.createdOnTo ? new Date(this.createdOnTo).toISOString() : undefined,
     };
   
-    console.log('Request Payload:', requestPayload); // Debug payload
+    console.log('Request Payload:', requestPayload); 
     this.requestService.getRequests(requestPayload).pipe(
       tap((response: any) => {
         console.log('API Response:', response);
         if (response.status === 200) {
           this.requests = response.data.list || [];
           this.totalRequests = response.data.totalRows || 0;
-          this.filteredRequests = [...this.requests]; // Default: Show all requests
+          this.filterRequests(); 
         } else {
           console.error('Unexpected response status:', response.status);
         }
@@ -95,8 +93,6 @@ dateError: string = '';
     ).subscribe();
   }
   
-  
-
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
     this.loadRequests(this.currentPage);
@@ -108,8 +104,7 @@ dateError: string = '';
         if (response.status === 200) {
           this.requestTypes = response.data.list || [];
         }
-              console.log("pppppppppppp",response)
-
+        console.log("Request Types Response:", response)
       }),
       catchError((error) => {
         console.error('Error loading request types:', error);
@@ -122,8 +117,9 @@ dateError: string = '';
     this.requestsService.getRequestStatus().pipe(
       tap((response: any) => {
         if (response.status === 200) {
+          // Include only Accepted and Rejected statuses
           this.requestStatuses = response.data.list.filter(
-            (status: any) => status.id !== RequestStatus.Pending
+            (status: any) => status.id === RequestStatus.Accepted || status.id === RequestStatus.Rejected
           );
         }
       }),
@@ -147,20 +143,23 @@ dateError: string = '';
   }
 
   filterRequests(): void {
-    if (this.selectedStatus === RequestStatus.ALL) {
-      this.filteredRequests = [...this.requests];  
-    } else {
-      this.filteredRequests = this.requests.filter(
+    // First, filter out only Accepted and Rejected requests
+    this.filteredRequests = this.requests.filter(
+      (request) => request.requestStatusId === RequestStatus.Accepted || request.requestStatusId === RequestStatus.Rejected
+    );
+
+    // If a specific status is selected, apply additional filtering
+    if (this.selectedStatus) {
+      this.filteredRequests = this.filteredRequests.filter(
         (request) => request.requestStatusId === this.selectedStatus
       );
     }
   }
-  
-  
 
   onStatusChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
-    this.selectedStatus = parseInt(selectElement.value, 10) as RequestStatus;
+    const selectedValue = parseInt(selectElement.value, 10);
+    this.selectedStatus = isNaN(selectedValue) ? null : (selectedValue as RequestStatus);
     this.currentPage = 1;
     this.loadRequests(this.currentPage);
   }
@@ -172,6 +171,7 @@ dateError: string = '';
   isArabicLanguage(): boolean {
     return localStorage.getItem('lang') === 'ar';
   }
+
   deleteRequest(id: number, companyId: number): void {
     this.requestService.deleteRequest(id, companyId).subscribe(
       (response) => {
@@ -183,9 +183,11 @@ dateError: string = '';
       },
       (error) => {
         console.error('Error deleting request:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete request.' });
       }
     );
   }
+
   onDateChange(): void {
     this.validateDates();  
     if (!this.dateError) {
@@ -193,6 +195,7 @@ dateError: string = '';
       this.loadRequests(this.currentPage);
     }
   }
+
   showDatePicker(event: Event, inputId: string): void {
     event.stopPropagation();  
     const inputElement = document.getElementById(inputId) as HTMLInputElement;
@@ -200,6 +203,7 @@ dateError: string = '';
       inputElement.click();  
     }
   }
+
   validateDates(): void {
     if (this.createdOnFrom && this.createdOnTo) {
       const startDate = new Date(this.createdOnFrom);
@@ -212,5 +216,4 @@ dateError: string = '';
       }
     }
   }
-  
 }
