@@ -49,6 +49,9 @@ import { TaskAnalyticsComponent } from './core-component/dashboard/Tasks/task-an
 import { RewarkDialogComponent } from './core-component/dashboard/components/rewark-dialog/rewark-dialog.component';
 import { EvaluatoionComponent } from './core-component/dashboard/components/evaluatoion/evaluatoion.component';
 import { EnhancedOrganizationChartComponent } from './core-component/dashboard/enhanced-organization-chart/enhanced-organization-chart.component';
+import { AddRequestTypeComponent } from './core-component/dashboard/workflow/request-type/add-request-type/add-request-type.component';
+import { RequestTypeIndexComponent } from './core-component/dashboard/workflow/request-type/request-type-index/request-type-index.component';
+import { RequestTypeDetailsComponent } from './core-component/dashboard/workflow/request-type/request-type-details/request-type-details.component';
 
 export const routes: Routes = [
   {
@@ -109,6 +112,9 @@ export const routes: Routes = [
       { path: 'tasks/analytics/:id', component: TaskAnalyticsComponent},
       { path: 'tasks/evaluation', component: EvaluatoionComponent},
       { path: 'tasks/rework', component: RewarkDialogComponent},
+      { path: 'workflow/Request-type', component:  RequestTypeIndexComponent},
+      { path: 'workflow/Request-type/addRequest-type', component: AddRequestTypeComponent},
+      { path: 'workflow/Request-type/details', component: RequestTypeDetailsComponent},
 
         ],
   },{

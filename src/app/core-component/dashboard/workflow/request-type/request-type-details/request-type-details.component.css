@@ -1,0 +1,26 @@
+.add-type-request-sm-container
+{
+  background-color: white;
+  border-radius: 14px;
+}
+.form{
+  background: #FAF9FE;
+  border-radius: 14px;
+}
+.form-content{
+  background-color: white;
+  border-radius: 14px;
+}
+
+.edit-btn {
+  top: 98px;
+  left: 1138px;
+  padding: 14px;
+  gap: 0px;
+  border-radius: 10px;
+  opacity: 0px;
+  background: white;
+  color: #8413F8;
+  border: 1px solid #8413F8;
+  width: 200px;
+}
