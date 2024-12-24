@@ -239,6 +239,7 @@
     "NAME": "الاسم (بالانجليزية)",
     "NAME_AR": "الاسم (بالعربية)",
     "DIRECT_PARENT": "الأصل المباشر",
+    "DIRECT_ASSET_PARENT": "الأصل الاب",
     "ASSETS": "الأصول",
     "SELECT_ASSET": "اختر الأصل",
     "REQUIRED_FIELD": "هذا الحقل مطلوب",

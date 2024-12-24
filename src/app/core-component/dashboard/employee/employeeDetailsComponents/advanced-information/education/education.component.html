@@ -95,8 +95,8 @@
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'education.certificateImg' | translate }}</label>
-      <div class="text-muted">
-        <img src="{{userEducation?.file ? userEducation?.file : ('education.No_Data' | translate)}}" alt="CertificateImg" class="CertificateImg">
+      <div class="text-muted backdrop" (click)="showImgFull()" [ngClass]="{'active': isShow}">
+        <img src="{{userEducation?.file ? userEducation?.file : ('education.No_Data' | translate)}}" alt="CertificateImg" class="thumbnail" [ngClass]="{'fullscreen': isShow}">
       </div>
     </div>
   </div>

@@ -7,11 +7,12 @@ import { ActivatedRoute } from '@angular/router';
 import { UserEducationService } from '../../../../../../services/userEducation/user-education.service';
 import { Education } from '../../../../../../../models/advancedIfomation';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-education',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, FormsModule],
   templateUrl: './education.component.html',
   styleUrl: './education.component.css',
   animations: [
@@ -34,6 +35,7 @@ export class HighSchoolComponent implements OnInit, OnDestroy {
   isBachelorDegreeOpen = true;
   isMasterDegreeOpen = false;
   isDoctorate = false;
+  isShow: boolean = false;
   toggleHighSchool() {
     this.isHighSchoolOpen = !this.isHighSchoolOpen;
   }
@@ -73,6 +75,9 @@ export class HighSchoolComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
+  }
+  showImgFull(){
+    this.isShow = !this.isShow
   }
 
   ngOnDestroy(): void {
