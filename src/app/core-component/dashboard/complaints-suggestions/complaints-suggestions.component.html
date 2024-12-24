@@ -34,9 +34,10 @@
                     <div class="complaint-card">
                         <div class="user-info">
                             <img [src]="userImageUrl" alt="User Avatar" class="avatar" (error)="onImageError($event)">
-                            <div class="user-details d-flex">
-                                <h3 class="mx-1">{{ complaint.issue.firstName }}</h3>
-                                <h3>{{ complaint.issue.lastName }}</h3>
+                            <div class="user-details">
+                                <ng-container *ngFor="let executor of complaint.issue.issueExcuters">
+                                    <h3  class="mx-1">{{ executor.employeeName }}</h3>
+                                </ng-container>
                                 <h3 class="title">{{ userPosition }}</h3>
                             </div>
                         </div>

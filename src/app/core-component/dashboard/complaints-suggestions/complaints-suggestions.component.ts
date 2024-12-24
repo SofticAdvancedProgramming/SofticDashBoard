@@ -4,7 +4,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { LocalStorageService } from '../../../services/local-storage-service/local-storage.service';
 import { CompliantsAndSuggestionsService } from '../../../services/ComplaintsSuggestionsService/compliants-and-suggestions.service';
 import { IssueService } from '../../../services/issueService/issue.service';
-import { Complaint, ComplaintStatus } from '../../../../models/complain';
+import { Complaint, ComplaintStatus ,IssueExcuter } from '../../../../models/complain';
 import { RouterLink, Router } from '@angular/router';
 import { IssueExcuterService } from '../../../services/IssueExcuter/issue-excuter.service';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
