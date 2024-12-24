@@ -44,6 +44,12 @@ export class EmployeeService {
   addEmployeeSalary(request: any): Observable<any> {
     return this.apiCall.request('POST', employeeController.employeeSalary + '/Add', request);
   }
+  deleteEmployeeSalary(companyId: number, id: number): Observable<any> {
+    return this.apiCall.request('POST', employeeController.deleteemployeeSalary(id,companyId), {});
+  }
+  editEmployeeSalary(request: any): Observable<any> {
+    return this.apiCall.request('POST', employeeController.editemployeeSalary , request);
+  }
 
   assginEmployeeSalary(request: any): Observable<any> {
     return this.apiCall.request('POST', employeeController.assginSalary, request);
