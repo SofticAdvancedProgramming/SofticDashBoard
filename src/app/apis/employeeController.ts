@@ -10,6 +10,10 @@ export const employeeController = {
   assignToBranch: `${environment.apiBaseUrl}Employee/AssginBranch`,
   employeeSalary:`${environment.apiBaseUrl}EmployeeSalary`,
   assginSalary:`${environment.apiBaseUrl}Employee/AssginSalary`,
+
+  editemployeeSalary:`${environment.apiBaseUrl}EmployeeSalary/Edit`,
+  deleteemployeeSalary: (id: number, companyId: number) => `${environment.apiBaseUrl}EmployeeSalary/Delete/${id}/${companyId}`,
+
   assignShift: `${environment.apiBaseUrl}Employee/AssginShift`,
   deleteEmployee: (id: number, companyId: number) => `${environment.apiBaseUrl}Employee/Delete/${id}/${companyId}`,
   loadEmployeeById: `${environment.apiBaseUrl}Employee/Get`,

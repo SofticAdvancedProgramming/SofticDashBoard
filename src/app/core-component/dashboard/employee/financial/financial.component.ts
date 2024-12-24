@@ -47,6 +47,7 @@ export class FinancialComponent {
   companyId = localStorage.getItem('companyId');
   employeeId!: number;
   salaryTypeId!: number;
+  deleteId: string = 'deleteAssetCategory';
   formData: any = {};
   pageIndex: any = {
     employeeSalary: 1,
@@ -55,14 +56,16 @@ export class FinancialComponent {
     employeeSalary: 0,
   };
   structure = [
-    { name: 'name', label: 'Name', type: 'text', required: true },
-    { name: 'nameAr', label: 'NameAr', type: 'text', required: true },
-    {
-      name: 'isDeduction',
-      label: 'Deduction',
-      type: 'checkbox',
-      required: true,
-    },
+    { name: 'amount', label: 'amount', type: 'number', required: true },
+    { name: 'transactionDate', label: 'Due (Date)', type: 'date', required: true },
+    { name: 'salaryTypeId', label: 'salary Type', type: 'hidden', required: true },
+    { name: 'comment', label: 'comment', type: 'text', required: true },
+    // {
+    //   name: 'isDeduction',
+    //   label: 'Deduction',
+    //   type: 'checkbox',
+    //   required: true,
+    // },
   ];
   constructor(
     private route: ActivatedRoute,
@@ -89,6 +92,7 @@ export class FinancialComponent {
     this.loadEntitie('employeeSalary', 1);
     this.loadEntitiesDropDown('SalaryType', 1, this.isDeduction);
     console.log(tab);
+    console.log(this.isDeduction);
   }
 
   ngOnInit(): void {
@@ -127,6 +131,7 @@ export class FinancialComponent {
       companyId: this.companyId,
       isDeduction: this.isDeduction,
       pageIndex,
+      employeeId:this.employeeId,
       ...this.getCurrentMonthDates(),
     };
     if (name) {
@@ -251,19 +256,31 @@ export class FinancialComponent {
     if (this.isEdit) {
       data.companyId = this.companyId;
       data.id = this.formData.id;
+      data.employeeId=this.employeeId;
       this.editEntity('SalaryType', data);
     }
   }
 
   editEntity(entity: string, updatedEntity: any): void {
-    const methodName = this.entityTypes[entity].edit as keyof EmployeeService;
-    (this.employeeService[methodName] as Function)(updatedEntity).subscribe(
-      (response: any) => {
-        if (response.status === 200) {
-          this.loadEntitie(entity, this.pageIndex[entity]);
-        }
+    let query=updatedEntity;
+    console.log(query)
+    this.employeeService.editEmployeeSalary(query).subscribe(
+      {
+        next:(res)=>{
+          this.loadEntitie('employeeSalary',1)},
+        error:(res)=>{console.log(res)}
       }
-    );
+    )
+
+
+    // const methodName = this.entityTypes[entity].edit as keyof EmployeeService;
+    // (this.employeeService[methodName] as Function)(updatedEntity).subscribe(
+    //   (response: any) => {
+    //     if (response.status === 200) {
+    //       this.loadEntitie(entity, this.pageIndex[entity]);
+    //     }
+    //   }
+    // );
   }
 
   openEditModal(item: any): void {
@@ -297,4 +314,25 @@ export class FinancialComponent {
       ? 'employeeDetails.Add_Deduction'
       : 'employeeDetails.Add_Bonus';
   }
+
+  deleteEntity(entity: string, id: number): void {
+
+    console.log('entity',entity,'id',id)
+    // this.employeeService.
+    const methodName = this.entityTypes[entity].delete as keyof EmployeeService;
+
+    console.log(methodName);
+    if(this.companyId){
+      this.employeeService.deleteEmployeeSalary(+this.companyId,id).subscribe(
+        {
+          next:(res)=>{
+            this.loadEntitie('employeeSalary',1)},
+          error:(res)=>{console.log(res)}
+        }
+      )
+    }
+
+  }
+
+
 }
