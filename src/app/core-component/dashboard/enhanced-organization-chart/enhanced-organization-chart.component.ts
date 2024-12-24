@@ -11,7 +11,7 @@ import { OrganizationChartModel } from '../../../core/models/OrganizationChart';
   
 })
 export class EnhancedOrganizationChartComponent implements OnInit ,AfterViewInit{
-  private updatedX = 180;  // Store the updated x value
+  private updatedX = 125;  // Store the updated x value
   private updatedY = 50;   // Store the updated y value
   constructor(
     private organizationChartService: OrganizationChartService,
@@ -45,6 +45,8 @@ export class EnhancedOrganizationChartComponent implements OnInit ,AfterViewInit
         this.renderer.setAttribute(tspanElements[i], 'x', this.updatedX.toString());
         this.renderer.setAttribute(tspanElements[i], 'y', this.updatedY.toString());
         this.renderer.setAttribute(tspanElements[i],'font-size', '20px');
+        this.renderer.setAttribute(tspanElements[i],"text-anchor","middle")
+        this.renderer.setAttribute(tspanElements[i],"font-weight","bold")
       }
      
     }

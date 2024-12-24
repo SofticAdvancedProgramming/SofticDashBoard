@@ -47,6 +47,12 @@
   fill:black
 }
 
+::ng-deep g text
+{
+  fill:black
+}
+
+
 ::ng-deep [data-n-id] rect{
  rx: 20;
  ry:20;
@@ -73,5 +79,14 @@
   
 
 } */
+
+::ng-deep line:nth-child(3) ,::ng-deep line:nth-child(4) 
+{
+  stroke: white;
+}
+
+::ng-deep path{
+  stroke:#0A3A9669;
+}
 
 

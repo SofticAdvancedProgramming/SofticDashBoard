@@ -37,8 +37,8 @@
       <div class="text-muted">
         <!-- Image Files -->
         <img
-          *ngIf="isImage(requestType.file)"
-          [src]="requestType.file"
+         
+          
           alt="CertificateImage"
           style="width: 150px; height: 150px"
         />
@@ -53,12 +53,12 @@
             style="width: 100px; height: 100px"
             alt=""
           />
-          <p>{{ requestType.fileDescription.description }}</p>
+          <!-- <p>{{ requestType.fileDescription.description }}</p> -->
         </div>
 
         <a
-          *ngIf="isPDF(requestType.file)"
-          [href]="requestType.file"
+         
+        
           target="_blank"
           download
           >Download PDF</a
