@@ -45,6 +45,7 @@ export interface Complaint {
     excuterId: number;
     issueStatusId: number | null;
     issue: Partial<Complaint>;  
+    employeeName: string;
   }
   
   export enum ComplaintStatus {
@@ -71,6 +72,8 @@ export interface Complaint {
     issueExcuters: IssueExcuter[];
     id: number;
     companyId: number;
+    employeeName: string;
+    phoneNumber: string; 
   }
   export interface IssueAttachment {
     issueId: number;
