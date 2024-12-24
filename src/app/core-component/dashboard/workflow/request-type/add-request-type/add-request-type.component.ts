@@ -35,7 +35,9 @@ export class AddRequestTypeComponent {
 
   }
   onBranchSelect(event:any){}
-  loadBranchs(){}
+  loadBranchs(){
+    
+  }
   loadDepartments(){}
   onDepartmentSelect(event:any){}
   onAttachmentChange(event:any){}
