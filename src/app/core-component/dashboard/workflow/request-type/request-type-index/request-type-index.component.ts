@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { AddRequestTypeComponent } from "../add-request-type/add-request-type.component";
+import { AddRequestTypeComponent } from '../add-request-type/add-request-type.component';
 import { RequestTypeDetailsComponent } from '../request-type-details/request-type-details.component';
+import { RequestTypeService } from '../../../../../services/requestTypeService/request-type.service';
 
 @Component({
   selector: 'app-request-type-index',
@@ -17,20 +18,35 @@ import { RequestTypeDetailsComponent } from '../request-type-details/request-typ
     CommonModule,
     FormsModule,
     AddRequestTypeComponent,
-    RequestTypeDetailsComponent
-],
+    RequestTypeDetailsComponent,
+  ],
   templateUrl: './request-type-index.component.html',
-  styleUrl: './request-type-index.component.css'
+  styleUrl: './request-type-index.component.css',
 })
-export class RequestTypeIndexComponent {
+export class RequestTypeIndexComponent implements OnInit {
   activeTab: string = 'add-request';
 
-  requestTypeId!:any;
-  requestTypes:any[]=[];
+  requestTypeId!: any;
+  requestTypes: any[] = [];
+  constructor(private requestTypeService:RequestTypeService) {}
+  ngOnInit(): void {
+    this.getRequestTypes();
+  }
 
-  up(requestType:any){}
-  down(requestType:any){}
-  deleterequestType(requestType:any){}
+  getRequestTypes() {
+    this.requestTypeService.getRequestType({pageSize:1000}).subscribe({
+      next: (res) => {
+        this.requestTypes = res.data.list;
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+  up(requestType: any) {}
+  down(requestType: any) {}
+  deleterequestType(requestType: any) {}
 
   setActiveTab(tab: string): void {
     this.activeTab = tab;
