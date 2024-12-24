@@ -1,0 +1,10 @@
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+  background-color: blue;
+}
+nav li {
+  cursor: pointer;
+}

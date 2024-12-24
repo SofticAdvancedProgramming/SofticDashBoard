@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { EvaluatoionComponent } from '../../components/evaluatoion/evaluatoion.component';
 import { ReAssignTaskPopupComponent } from '../../components/reAssignTask/re-assign-task-popup/re-assign-task-popup.component';
 import { MoveToArchivePopupComponent } from '../../components/moveToArchivePoup/move-to-archive-popup/move-to-archive-popup.component';
+import { BreadcrumbService } from '../../../../services/breadcrumbService/breadcrumb.service';
 
 
 @Component({
@@ -67,11 +68,13 @@ export class TaskDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private translate: TranslateService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private breadcrumbService: BreadcrumbService
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
   ngOnInit(): void {
+   // this.breadcrumbService.setBreadcrumbs(['Home', 'Example']);
     this.route.params.subscribe((params) => {
       const id = params['id'];
       this.id = params['id'];
@@ -231,7 +234,7 @@ export class TaskDetailsComponent implements OnInit {
   done() {
     this.isEvaluationVisible = true;
     console.log(this.isEvaluationVisible);
-    
+
     // let query = {
     //   taskId: this.id,
     //   statusId: 4,

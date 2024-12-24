@@ -66,9 +66,10 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardLayoutComponent,
     canActivate: [AuthGuard],
+    data: { breadcrumb: 'dashboard' },
     children: [
       { path: '', redirectTo: 'HomeIndex', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
+      { path: 'home', component: HomeComponent , data: { breadcrumb: 'home' }},
       { path: 'indexCompany', component: IndexComponent },
       { path: 'addCompany', component: AddCompanyComponent },
       { path: 'add-admin', component: AddAdminComponent },
@@ -89,8 +90,11 @@ export const routes: Routes = [
       { path: 'currency-type', component: CurrencyTypeComponent  },
       { path: 'departmentManagment', component: DepartmentManagmentComponent  },
       { path: 'branchManagment', component: BranchManagmentComponent  },
-      { path: 'ViewEmployees', component: ViewEmployeesComponent ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},
-      { path: 'ViewEmployees/:postionId', component: ViewEmployeesComponent ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},
+      { path: 'ViewEmployees', component: ViewEmployeesComponent ,canActivate: [ngxPermissionsGuard], data: {breadcrumb: 'home' ,permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }},
+        children:[
+          { path: ':postionId', component: ViewEmployeesComponent ,canActivate: [ngxPermissionsGuard], data: { permissions: { only: ["Admin","SuperAdmin"], redirectTo: 'no-permission' }}},
+
+        ]},
       { path: 'AddEmployee', component: AddEmployeeComponent  },
       { path: 'OrganizationCharts', component: EnhancedOrganizationChartComponent  },
       { path: 'BenefitType', component: BenefitTypeComponent  },
@@ -102,20 +106,28 @@ export const routes: Routes = [
       { path: 'assetsCategory', component: AssetsCategoryComponent},
       { path: 'relatedAssets', component: RelatedAssetsComponent},
       { path: 'AddAssets', component: AddAssetsComponent },
-      { path: 'ShowAssets', component: ShowAssetsComponent },
-      { path: 'ShowAssets/:isAssined', component: ShowAssetsComponent },
+      { path: 'ShowAssets', component: ShowAssetsComponent  , data: { breadcrumb: 'Assets' },
+        children:[
+          { path: ':isAssined', component: ShowAssetsComponent, data: { breadcrumb: 'details' }},
+        ]},
+
       { path: 'AssetsDetails/:id', component: AssetsDetailsComponent },
       { path: 'employee-locations/:id', component: AddLocationComponent },
-      { path: 'tasks', component: TasksIndexComponent},
-      { path: 'tasks/addnew', component: AddTaskComponent},
-      { path: 'tasks/details/:id', component: TaskDetailsComponent},
-      { path: 'tasks/analytics/:id', component: TaskAnalyticsComponent},
-      { path: 'tasks/evaluation', component: EvaluatoionComponent},
-      { path: 'tasks/rework', component: RewarkDialogComponent},
-      { path: 'workflow/Request-type', component:  RequestTypeIndexComponent},
-      { path: 'workflow/Request-type/addRequest-type', component: AddRequestTypeComponent},
-      { path: 'workflow/Request-type/details', component: RequestTypeDetailsComponent},
+      { path: 'tasks', component: TasksIndexComponent, data: { breadcrumb: 'tasks' },
+        children:[
+        { path: 'addnew', component: AddTaskComponent, data: { breadcrumb: 'addnew' }},
+        { path: 'details/:id', component: TaskDetailsComponent, data: { breadcrumb: 'details/:id' }},
+        { path: 'analytics/:id', component: TaskAnalyticsComponent, data: { breadcrumb: 'analytics/:id' }},
+        { path: 'evaluation', component: EvaluatoionComponent},
+        { path: 'rework', component: RewarkDialogComponent},
+        ]},
 
+      { path: 'workflow/Request-type', component:  RequestTypeIndexComponent, data: { breadcrumb: 'Request-type' },
+        children:[
+        { path: 'addRequest-type', component: AddRequestTypeComponent, data: { breadcrumb: 'addRequest-type' }},
+        { path: 'details', component: RequestTypeDetailsComponent, data: { breadcrumb: 'details' }},
+
+        ]},
         ],
   },{
     path: 'no-permission',

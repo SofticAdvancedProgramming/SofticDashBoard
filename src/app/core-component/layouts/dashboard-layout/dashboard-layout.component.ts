@@ -6,11 +6,12 @@ import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BreadcrumbComponent } from "../../../common-component/breadcrumb/breadcrumb.component";
 
 @Component({
   selector: 'app-dashboard-layout',
   standalone: true,
-  imports: [SidebarComponent,NavbarComponent,FooterComponent,RouterOutlet, FormsModule , CommonModule],
+  imports: [SidebarComponent, NavbarComponent, FooterComponent, RouterOutlet, FormsModule, CommonModule, BreadcrumbComponent],
   templateUrl: './dashboard-layout.component.html',
   styleUrl: './dashboard-layout.component.css'
 })
