@@ -39,7 +39,7 @@ export class MedicalInsuranceComponent {
       .getMedicalInsurance({ employeeId: this.id })
       .pipe(
         tap((res) => {
-          this.userMedical = res.data.list[0];
+          this.userMedical = res.data.list[res.data.totalRows-1];
           console.log(res);
         }),
         takeUntil(this.unsubscribe$)
@@ -51,5 +51,5 @@ export class MedicalInsuranceComponent {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
- 
+
 }
