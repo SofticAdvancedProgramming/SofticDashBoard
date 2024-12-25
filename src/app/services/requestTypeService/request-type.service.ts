@@ -39,5 +39,8 @@ export class RequestTypeService {
     const payload = { id };  
     return this.http.request('POST', requestTypeController.Get, payload);  
   }
-  
+  editRequestType(payload: any): Observable<any> {
+    return this.http.request('POST', requestTypeController.Edit, payload);  
+
+  }
 }
