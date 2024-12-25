@@ -22,7 +22,7 @@
         (change)="filterPositionsByDepartment()">
         <option [ngValue]="null">All Departments</option>
         <option *ngFor="let department of departments" [ngValue]="department.id">
-          {{ isArabic ? department.nameAr : department.name }}
+          {{ isArabic ? department.nameAr : department.name }} - {{ isArabic ? department.branchNameAr : department.branchName }}
         </option>
       </select>
     </div>
