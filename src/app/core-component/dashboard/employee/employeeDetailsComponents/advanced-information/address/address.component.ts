@@ -43,11 +43,9 @@ export class AddressComponent implements OnInit, OnDestroy {
       .getAddress({ userId: this.id })
       .pipe(
         tap((res) => {
+          console.log(res)
           this.userAddress = res.data.list.map((item:Address)=>({
             ...item,
-            countryName:this.getCountry(item.countryId),
-            cityName:this.getCity(item.cityId),
-            zone:this.getZone(item.zoneId)
 
           }
           // this.getCountry(this.userAddress?.countryId);
