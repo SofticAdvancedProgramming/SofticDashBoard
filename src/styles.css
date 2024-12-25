@@ -3,6 +3,9 @@
 *{
   text-transform: capitalize ;
 }
+input,textarea{
+  text-transform: lowercase !important ;
+}
 .CustomIcon{
   width: 30px;
   height: 30px;

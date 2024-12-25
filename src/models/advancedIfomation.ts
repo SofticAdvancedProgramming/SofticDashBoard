@@ -17,13 +17,16 @@ export interface Address{
   buildingNo: string;
   fullAddress: string;
   countryName:string;
+  countryNameAr:string;
   cityName:string;
+  cityNameAr:string;
   isOrginalAddress:boolean;
   nearBy:string;
   unit:string;
   floor:string;
   zoneId:number;
-  zone:string;
+  zoneName:string;
+  zoneNameAr:string;
 }
 export interface ContryName{
   name: string;

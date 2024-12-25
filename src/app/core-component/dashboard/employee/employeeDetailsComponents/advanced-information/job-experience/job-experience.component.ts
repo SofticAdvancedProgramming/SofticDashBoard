@@ -30,6 +30,7 @@ export class JobExperienceComponent implements OnInit, OnDestroy {
   }
 
   getWorkExperinece() {
+    console.log(this.id);
     this.userJobExperienceService
       .getJobExperience({employeeId: this.id})
       .pipe(

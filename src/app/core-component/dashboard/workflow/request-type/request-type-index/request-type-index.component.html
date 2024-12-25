@@ -1,67 +1,171 @@
 <div class="container">
-  <app-add-request-type *ngIf="activeTab === 'add-request'"></app-add-request-type>
-  <app-request-type-details *ngIf="activeTab === 'details'"></app-request-type-details>
+  <app-add-request-type
+    *ngIf="activeTab === 'add-request'"
+    (RequestAdded)="ngOnInit()"
+  ></app-add-request-type>
+  <app-request-type-details
+    *ngIf="activeTab === 'details'"
+  ></app-request-type-details>
 
-  <div class="add-type-request-sm-container container  py-3 px-4 my-3">
-    <div class="col-lg-12 d-flex justify-content-end mb-3" >
-      <button class="btn action-btn" (click)="setActiveTab('add-request')" *ngIf="activeTab === 'details'">
-        <img src="../../../../../assets/images/add-square.png" />Add request type
+  <div class="add-type-request-sm-container container py-3 px-4 my-3">
+    <div class="col-lg-12 d-flex justify-content-end mb-3">
+      <button
+        class="btn action-btn"
+        (click)="setActiveTab('add-request')"
+        *ngIf="activeTab === 'details'"
+      >
+        <img src="../../../../../assets/images/add-square.png" />Add request
+        type
       </button>
     </div>
     <table class="table custom-table">
       <thead>
-        <tr >
-          <th >{{ 'Title EN' | translate }}</th>
-          <th >{{ 'Title AR' | translate }}</th>
-          <th >{{ 'Position' | translate }}</th>
-          <th >{{ 'Rank' | translate }}</th>
-          <th >{{ 'Action' | translate }}</th>
+        <tr>
+          <th>{{ "Title EN" | translate }}</th>
+          <th>{{ "Title AR" | translate }}</th>
+          <th>{{ "Position" | translate }}</th>
+          <th>{{ "Rank" | translate }}</th>
+          <th>{{ "Action" | translate }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr  (click)="setActiveTab('details')" >
-          <td>
-            Title EN
-          </td>
+        <!-- <tr (click)="setActiveTab('details')">
+          <td>Title EN</td>
           <td>Title AR</td>
-          <td >Position</td>
+          <td>Position</td>
           <td>Rank</td>
           <td>
-            <button class="btn btn-sm" *ngIf="!requestTypeId" (click)="up(1);$event.stopPropagation;">
-              <img src="../../../../../../assets/images/arrow-square-down.png"alt="up">
+            <button
+              class="btn btn-sm"
+              *ngIf="!requestTypeId"
+              (click)="up(1); ($event.stopPropagation)"
+            >
+              <img
+                src="../../../../../../assets/images/arrow-square-down.png"
+                alt="up"
+              />
             </button>
 
-            <button  *ngIf="!requestTypeId" class="btn btn-sm" (click)="down(1);$event.stopPropagation;">
-             <img src="../../../../../../assets/images/arrow-square-up.png"alt="down">
+            <button
+              *ngIf="!requestTypeId"
+              class="btn btn-sm"
+              (click)="down(1); ($event.stopPropagation)"
+            >
+              <img
+                src="../../../../../../assets/images/arrow-square-up.png"
+                alt="down"
+              />
             </button>
-            <button class="btn btn-sm " *ngIf="!requestTypeId" (click)="deleterequestType(1);$event.stopPropagation;">
-              <img src="../../../../../../assets/images/trash 01.png" alt="trash"/>
+            <button
+              class="btn btn-sm"
+              *ngIf="!requestTypeId"
+              (click)="deleterequestType(1); ($event.stopPropagation)"
+            >
+              <img
+                src="../../../../../../assets/images/trash 01.png"
+                alt="trash"
+              />
             </button>
-
           </td>
-        </tr>
-        <tr *ngFor="let requestType of requestTypes">
-          <td>
-            {{ requestType.fullName }}
-          </td>
-          <td>{{ requestType.id }}</td>
-          <td ><span *ngIf="requestType.accountStatus==1">{{ requestType.department?.name }}</span></td>
-          <td>{{ requestType.position?.name }}</td>
-          <td>
-            <button class="btn btn-sm" *ngIf="!requestTypeId" (click)="up(requestType)">
-              <img src="../../../../../../assets/images/arrow-square-down.png"alt="up">
-            </button>
+        </tr> -->
 
-            <button  *ngIf="!requestTypeId" class="btn btn-sm " (click)="down(requestType)">
-             <img src="../../../../../../assets/images/arrow-square-up.png"alt="down">
-            </button>
-            <button class="btn btn-sm" *ngIf="!requestTypeId" (click)="deleterequestType(requestType)">
-              <img src="../../../../../../assets/images/trash 01.png" alt="trash"
-               />
-            </button>
+        <ng-container
+          *ngFor="let requestType of requestTypes; let requestTypeIndex = index"
+        >
+          <ng-container
+            *ngIf="
+              requestType.requestTypeConfigs &&
+                requestType.requestTypeConfigs.length > 0;
+              else noConfigTemplate
+            "
+          >
+            <tr *ngFor="let config of requestType.requestTypeConfigs; let configIndex = index">
+              <td>
+                {{ requestType.name }}
+              </td>
+              <td>{{ requestType.nameAr }}</td>
 
-          </td>
-        </tr>
+              <td>
+                {{ config.positionName }}
+              </td>
+              <td>{{ config.rank }}</td>
+              <td>
+                <button
+                  class="btn btn-sm"
+                  *ngIf="!requestTypeId"
+                  (click)="up(requestType)"
+                >
+                  <img
+                    src="../../../../../../assets/images/arrow-square-down.png"
+                    alt="up"
+                  />
+                </button>
+
+                <button
+                  *ngIf="!requestTypeId"
+                  class="btn btn-sm"
+                  (click)="down(requestType)"
+                >
+                  <img
+                    src="../../../../../../assets/images/arrow-square-up.png"
+                    alt="down"
+                  />
+                </button>
+                <button
+                  class="btn btn-sm"
+                  *ngIf="!requestTypeId"
+                  (click)="deleteRequestType(requestType.id)"
+                >
+                  <img
+                    src="../../../../../../assets/images/trash 01.png"
+                    alt="trash"
+                  />
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-template #noConfigTemplate>
+            <tr>
+              <td>{{ requestType.name }}</td>
+              <td>{{ requestType.nameAr }}</td>
+              <td></td>
+              <td></td>
+              <td>
+                <button
+                  class="btn btn-sm"
+                  *ngIf="!requestTypeId"
+                  (click)="up(requestType)"
+                >
+                  <img
+                    src="../../../../../../assets/images/arrow-square-down.png"
+                    alt="up"
+                  />
+                </button>
+
+                <button
+                  *ngIf="!requestTypeId"
+                  class="btn btn-sm"
+                  (click)="down(requestType)"
+                >
+                  <img
+                    src="../../../../../../assets/images/arrow-square-up.png"
+                    alt="down"
+                  />
+                </button>
+                <button
+                  class="btn btn-sm"
+                  *ngIf="!requestTypeId"
+                  (click)="deleteRequestType(requestType.id)"
+                >
+                  <img
+                    src="../../../../../../assets/images/trash 01.png"
+                    alt="trash"
+                  />
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </ng-container>
       </tbody>
     </table>
   </div>

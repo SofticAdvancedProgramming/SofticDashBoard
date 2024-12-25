@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { AddRequestTypeComponent } from "../add-request-type/add-request-type.component";
+import { AddRequestTypeComponent } from '../add-request-type/add-request-type.component';
 import { RequestTypeDetailsComponent } from '../request-type-details/request-type-details.component';
+import { RequestTypeService } from '../../../../../services/requestTypeService/request-type.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-request-type-index',
@@ -17,20 +19,50 @@ import { RequestTypeDetailsComponent } from '../request-type-details/request-typ
     CommonModule,
     FormsModule,
     AddRequestTypeComponent,
-    RequestTypeDetailsComponent
-],
+    RequestTypeDetailsComponent,
+  ],
   templateUrl: './request-type-index.component.html',
-  styleUrl: './request-type-index.component.css'
+  styleUrl: './request-type-index.component.css',
 })
-export class RequestTypeIndexComponent {
+export class RequestTypeIndexComponent implements OnInit {
+[x: string]: any;
   activeTab: string = 'add-request';
+  companyId!: number;
+  requestTypeId!: any;
+  requestTypes: any[] = [];
+  constructor(private requestTypeService:RequestTypeService, private cdr: ChangeDetectorRef,private toast: ToastrService) {}
+  ngOnInit(): void {
+    this.companyId = Number(localStorage.getItem("companyId"));
+    this.getRequestTypes(); 
+  }
 
-  requestTypeId!:any;
-  requestTypes:any[]=[];
-
-  up(requestType:any){}
-  down(requestType:any){}
-  deleterequestType(requestType:any){}
+  getRequestTypes() {
+    this.requestTypeService.getRequestType({pageSize:1000}).subscribe({
+      next: (res) => {
+        this.requestTypes = res.data.list;
+        console.log(res);
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+  deleteRequestType(id:number){
+    this.requestTypeService.deleteRequestType(id, this.companyId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.toast.success('Request Type Deleted Successfully');
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+  up(requestType: any) {}
+  down(requestType: any) {}
+  deleterequestType(requestType: any) {}
 
   setActiveTab(tab: string): void {
     this.activeTab = tab;
