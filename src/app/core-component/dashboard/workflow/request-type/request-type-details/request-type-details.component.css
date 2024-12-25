@@ -24,3 +24,20 @@
   border: 1px solid #8413F8;
   width: 200px;
 }
+.table {
+  width: 100%;
+   margin: 20px 0;
+  font-size: 1em;
+ }
+
+.table th,
+.table td {
+  padding: 12px 15px; 
+ }
+
+ 
+
+.table-container {
+  overflow-x: auto; 
+}
+
