@@ -54,17 +54,30 @@ export class RequestTypeDetailsComponent {
   }
   moveUp(index: number): void {
     if (index > 0) {
+      // Swap the positions
       [this.requestTypes[index], this.requestTypes[index - 1]] = 
         [this.requestTypes[index - 1], this.requestTypes[index]];
+  
+      // Reassign ranks
+      this.updateRanks();
     }
   }
-
-  // Move a configuration down
+  
   moveDown(index: number): void {
     if (index < this.requestTypes.length - 1) {
+      // Swap the positions
       [this.requestTypes[index], this.requestTypes[index + 1]] = 
         [this.requestTypes[index + 1], this.requestTypes[index]];
+  
+      // Reassign ranks
+      this.updateRanks();
     }
+  }
+  
+  updateRanks(): void {
+    this.requestTypes.forEach((config, index) => {
+      config.rank = index + 1; // Assign a 1-based rank based on the current index
+    });
   }
   
 }

@@ -43,46 +43,45 @@
   </div>
 
 </div>
-    <div class="row">
-      <div class="table-responsive">
-        <table class="table custom-table">
-          <thead>
-            <tr>
-              <th>{{ "Title EN" | translate }}</th>
-              <th>{{ "Title AR" | translate }}</th>
-              <th>{{ "Position" | translate }}</th>
-              <th>{{ "Rank" | translate }}</th>
-              <th>{{ "Action" | translate }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngIf="requestTypes.length > 0; else noConfig">
-              <tr *ngFor="let config of requestTypes; let i = index">
-                <td>{{ requestTypeDetails?.name }}</td>
-                <td>{{ requestTypeDetails?.nameAr }}</td>
-                <td>{{ config.positionName || 'N/A' }}</td>
-                <td>{{ config.rank || 'N/A' }}</td>
-                <td>
-                  <button class="btn btn-sm" (click)="moveUp(i)" [disabled]="i === 0">
-                    <img src="../../../../../../assets/images/arrow-square-up.png" alt="up" />
-                  </button>
-                  <button class="btn btn-sm" (click)="moveDown(i)" [disabled]="i === requestTypes.length - 1">
-                    <img src="../../../../../../assets/images/arrow-square-down.png" alt="down" />
-                  </button>
-                  <button class="btn btn-sm">
-                    <img src="../../../../../../assets/images/trash 01.png" alt="trash" />
-                  </button>
-                </td>
-              </tr>
-            </ng-container>
-            <ng-template #noConfig>
-              <tr>
-                <td colspan="5" class="text-center">{{ "No Configurations Available" | translate }}</td>
-              </tr>
-            </ng-template>
-          </tbody>
-        </table>
-      </div>
+<div class="row">
+  <div class="table-responsive">
+    <table class="table custom-table">
+      <thead>
+        <tr>
+          <th>{{ "Title EN" | translate }}</th>
+          <th>{{ "Title AR" | translate }}</th>
+          <th>{{ "Position" | translate }}</th>
+          <th>{{ "Rank" | translate }}</th>
+          <th>{{ "Action" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="requestTypes.length > 0; else noConfig">
+          <tr *ngFor="let config of requestTypes; let i = index">
+            <td>{{ requestTypeDetails?.name }}</td>
+            <td>{{ requestTypeDetails?.nameAr }}</td>
+            <td>{{ config.positionName || 'N/A' }}</td>
+            <td>{{ config.rank || 'N/A' }}</td>
+            <td>
+              <button class="btn btn-sm" (click)="moveUp(i)" [disabled]="i === 0">
+                <img src="../../../../../../assets/images/arrow-square-up.png" alt="up" />
+              </button>
+              <button class="btn btn-sm" (click)="moveDown(i)" [disabled]="i === requestTypes.length - 1">
+                <img src="../../../../../../assets/images/arrow-square-down.png" alt="down" />
+              </button>
+              <button class="btn btn-sm">
+                <img src="../../../../../../assets/images/trash 01.png" alt="trash" />
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-template #noConfig>
+          <tr>
+            <td colspan="5" class="text-center">{{ "No Configurations Available" | translate }}</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
 
-    </div>
- 
+</div>
