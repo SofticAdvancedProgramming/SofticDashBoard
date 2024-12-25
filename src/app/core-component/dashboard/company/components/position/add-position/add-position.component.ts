@@ -119,7 +119,7 @@ export class AddPositionComponent implements OnInit {
           console.log(this.departmentId)
           filteredPositions = positionList.filter((item:any)=>item.id!=this.positionData.id)
         }
-        console.log(filteredPositions)
+        console.log("filteredPositions",filteredPositions)
         // Use Promise.all to resolve all employee names
         const positionsWithEmployeeNames = await Promise.all(
           filteredPositions.map(async (position: any) => {
@@ -221,6 +221,7 @@ export class AddPositionComponent implements OnInit {
   branchId!:number
   departmentId!:number;
   GetBranch(event:any){
+    this.departmentId=0;
     if(this.isEdit){
       this.form.patchValue({
         positionType: this.positionData.positionTypeId,

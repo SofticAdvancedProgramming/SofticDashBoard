@@ -62,8 +62,8 @@ export class EnhancedOrganizationChartComponent implements OnInit ,AfterViewInit
         console.log("orgData.data.list",orgData.data.list)
         for (let item of orgData.data.list) {
           orgChartData.push({
-            companyId: item.companyId,
-            entityId: item.entityId,
+            // companyId: item.companyId,
+            //entityId: item.entityId,
             id: item.entityId,
             pid: item.partentId,
             name: item.title,
