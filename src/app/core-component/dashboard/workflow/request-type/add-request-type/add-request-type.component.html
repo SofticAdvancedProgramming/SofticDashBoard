@@ -63,9 +63,20 @@
         </div>
         <div class="col-lg-6">
           <div class="form-group">
-            <label for="maxDays" class="form-label">{{
+            <!-- <label for="maxDays" class="form-label" *ngIf="!selectedRequestCategory">{{
               "Maximum Days" | translate
-            }}</label>
+            }}</label
+            > -->
+
+            @if(selectedRequestCategory?.id == 2){
+              <label for="maxDays" class="form-label">{{
+                "Maximum Amount" | translate
+              }}</label>
+              }@else {
+              <label for="maxDays" class="form-label">{{
+                "Maximum Days" | translate
+              }}</label
+              >}
             <input
               type="text"
               class="form-control"
@@ -191,14 +202,26 @@
         </div>
         <div class="col-lg-6">
           <div class="form-group h-100 justify-content-end">
-            <button type="button" class="btn w-100 addNewBtn" (click)="addNew()">Add New</button>
+            <button
+              type="button"
+              class="btn w-100 addNewBtn"
+              (click)="addNew()"
+            >
+              Add New
+            </button>
           </div>
         </div>
       </div>
     </div>
     }
     <div>
-      <button class="btn btn-primary w-100" type="submit">Add Request Type</button>
+      <button
+        class="btn btn-primary w-100"
+        type="submit"
+        [disabled]="!form.valid"
+      >
+        Add Request Type
+      </button>
     </div>
   </form>
 </div>

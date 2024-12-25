@@ -1,6 +1,7 @@
 <div class="container">
   <app-add-request-type
     *ngIf="activeTab === 'add-request'"
+    (RequestAdded)="ngOnInit()"
   ></app-add-request-type>
   <app-request-type-details
     *ngIf="activeTab === 'details'"
@@ -113,7 +114,7 @@
                 <button
                   class="btn btn-sm"
                   *ngIf="!requestTypeId"
-                  (click)="deleterequestType(requestType)"
+                  (click)="deleteRequestType(requestType.id)"
                 >
                   <img
                     src="../../../../../../assets/images/trash 01.png"

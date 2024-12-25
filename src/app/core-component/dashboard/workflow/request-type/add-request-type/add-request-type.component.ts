@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormsModule,
@@ -12,6 +12,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DropDownComponent } from '../../../components/drop-down/drop-down.component';
 import { RequestTypeService } from '../../../../../services/requestTypeService/request-type.service';
 import { ImageUploadService } from '../../../../../services/ImageUploadService/image-upload.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-request-type',
@@ -57,13 +58,14 @@ export class AddRequestTypeComponent implements OnInit {
   requestTypeConfigs: any[] = [];
   newPosition: number[] = [1];
   rankNum: number = 0;
-
+  @Output() RequestAdded = new EventEmitter<void>();
   constructor(
     private requestTypeService: RequestTypeService,
     private fb: FormBuilder,
     private translate: TranslateService,
     private cdr: ChangeDetectorRef,
-    private imageUploadService: ImageUploadService
+    private imageUploadService: ImageUploadService,
+    private toast: ToastrService
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
@@ -293,7 +295,11 @@ export class AddRequestTypeComponent implements OnInit {
     this.requestTypeService.addRequestType(query).subscribe({
       next: (res) => {
         console.log(res);
+        this.toast.success('Request Type Added Successfully');
         this.ngOnInit();
+        this.cdr.detectChanges();
+        this.RequestAdded.emit();
+        this.form.reset();
       },
       error: (err) => {
         console.log(err);

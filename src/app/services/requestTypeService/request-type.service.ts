@@ -32,5 +32,8 @@ export class RequestTypeService {
   getRequestType(request: any): Observable<any> {
     return this.http.request('POST', requestTypeController.Get, request);
   }
+  deleteRequestType(id: number, companyId:number): Observable<any> {
+    return this.http.request('POST', requestTypeController.Delete(id, companyId), {});
+  }
   
 }
