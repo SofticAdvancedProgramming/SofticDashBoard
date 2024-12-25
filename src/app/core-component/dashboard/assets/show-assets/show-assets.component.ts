@@ -15,24 +15,25 @@ import { ConfirmnDeleteDialogComponent } from "../../../../common-component/conf
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'app-show-assets',
-    standalone: true,
-    templateUrl: './show-assets.component.html',
-    styleUrl: './show-assets.component.css',
-    imports: [
-        TranslateModule,
-        FilterPopupComponent,
-        CommonModule,
-        RouterLink,
-        FormsModule,
-        PaginationModule,
-        ChangStatusAssetsPopupComponent,
-        ConfirmnDeleteDialogComponent
-    ]
+  selector: 'app-show-assets',
+  standalone: true,
+  templateUrl: './show-assets.component.html',
+  styleUrl: './show-assets.component.css',
+  imports: [
+    TranslateModule,
+    FilterPopupComponent,
+    CommonModule,
+    RouterLink,
+    FormsModule,
+    PaginationModule,
+    ChangStatusAssetsPopupComponent,
+    ConfirmnDeleteDialogComponent
+  ]
 })
 export class ShowAssetsComponent implements OnInit {
+  isMain!: boolean | null;
   isFilterPopupVisible = false;
-  isChangeStatusPopupVisible=false;
+  isChangeStatusPopupVisible = false;
   companyId: number = 0;
   assets: any[] = [];
   filteredAssets: any[] = [];
@@ -51,7 +52,7 @@ export class ShowAssetsComponent implements OnInit {
   totalRows: number = 0;
   activeButtonIndex: number | null = null;
   isAssined!: any;
-  status!:number;
+  status!: number;
   isConfirmationDialogVisible: boolean = false;
   assetToDeleteId!: number;
   constructor(
@@ -67,6 +68,7 @@ export class ShowAssetsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isMain = null;
     this.route.params.subscribe(res => {
       if (res['isAssined'] != undefined) {
         this.isAssined = res['isAssined'];
@@ -93,54 +95,70 @@ export class ShowAssetsComponent implements OnInit {
 
     });
   }
-  getAssets(event?:any,i?:number,page=this.currentPage){
-    let query;
-    if(i!=null){
-      this.setActiveButton(i);
+  getAssets(event?: any, i?: number, page: number = this.currentPage): void {
+    let query: any = {
+      companyId: this.companyId,
+      pageIndex: page,
+      pageSize: this.itemsPerPage,
+    };
+  
+     if (event && typeof event === 'number') {
+      query.assetCategoryId = event;
+      this.setActiveButton(i!); 
     }
-
-    query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page}
-     if(this.isAssined!=undefined && this.isAssined!=3){
-       query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,isAssgined:this.isAssined }
-     }else if(this.isAssined==3){
-      query={"assetCategoryId":event, pageSize: this.itemsPerPage, pageIndex: page,assetStatusId:3 }
-     }
-     if(this.isMain!=undefined){
-      query={
-        ...query,
-        isMain:this.isMain
-      }
+  
+    // Add assigned/unassigned filter logic
+    if (this.isAssined !== undefined && this.isAssined !== 3) {
+      query.isAssgined = this.isAssined;
+    } else if (this.isAssined === 3) {
+      query.assetStatusId = 3; // Filter for a specific asset status (example)
     }
-    console.log(query)
+  
+    // Include isMain filter if selected
+    if (this.isMain !== undefined && this.isMain !== null) {
+      query.isMain = this.isMain;
+    }
+  
+    // Include search filter if searchText is provided
+    if (this.searchText.trim()) {
+      query.name = this.searchText.trim();
+    }
+  
+    console.log('Query:', query); // Debugging the query parameters
+  
     this.assetsService.getAsset(query).subscribe({
-      next:(res=>{
-        console.log(res.data.list);
-        this.assets=res.data.list;
-        this.filteredAssets= this.assets
-        this.totalRows = res.data.totalRows;
-      }
-    ),
-      error:(err=>{ console.log(err)})
-    })
+      next: (res) => {
+        console.log('Assets Response:', res.data.list); // Debugging the response
+        this.assets = res.data.list; // Update the assets list
+        this.filteredAssets = this.assets; // Apply the filters directly to the view
+        this.totalRows = res.data.totalRows; // Update total rows for pagination
+      },
+      error: (err) => {
+        console.error('Error fetching assets:', err); // Debugging errors
+      },
+    });
   }
+  
 
-   toggleFilterPopup() {
+  toggleFilterPopup() {
     this.isFilterPopupVisible = !this.isFilterPopupVisible;
   }
-  editedAssetsId!:number;
-  toggleChangStatusPopup(assetId:number){
-    this.editedAssetsId=assetId;
-    this.isChangeStatusPopupVisible=!this.isChangeStatusPopupVisible
+  editedAssetsId!: number;
+  toggleChangStatusPopup(assetId: number) {
+    this.editedAssetsId = assetId;
+    this.isChangeStatusPopupVisible = !this.isChangeStatusPopupVisible
   }
 
-    delete(id:number){
-      console.log(id)
-      this.assetsService.deleteAsset(id,this.companyId).subscribe({
-        next:(res)=>{console.log(res);
-          this.getAssets();}
-      })
-    }
-   onFilterPopupClose(isVisible: boolean) {
+  delete(id: number) {
+    console.log(id)
+    this.assetsService.deleteAsset(id, this.companyId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.getAssets();
+      }
+    })
+  }
+  onFilterPopupClose(isVisible: boolean) {
     this.isFilterPopupVisible = isVisible;
   }
   onChangeStatusPopupClose(isVisible: boolean) {
@@ -149,7 +167,7 @@ export class ShowAssetsComponent implements OnInit {
   applyFilterPopup(event: any) {
     console.log('Received Data:', event);
 
-     const assetName = event.name;
+    const assetName = event.name;
     const isAssigned: boolean = event.isAssigned;
     console.log(isAssigned)
     const assetCategoryId = event.AssetCategory;
@@ -254,8 +272,8 @@ export class ShowAssetsComponent implements OnInit {
     if (this.page > 1) this.getAssetsCategory(this.page--);
   }
 
-  clear(){
-    this.page=1
+  clear() {
+    this.page = 1
     this.getAssetsCategory(this.page);
     this.getAssets();
   }
@@ -268,7 +286,7 @@ export class ShowAssetsComponent implements OnInit {
 
   handlePageChange(event: { page: number }) {
     this.currentPage = event.page;
-    this.getAssets( );
+    this.getAssets();
   }
   setActiveButton(index: number): void {
     this.activeButtonIndex = index;
@@ -303,10 +321,14 @@ export class ShowAssetsComponent implements OnInit {
       'change status Not Allowed'
     );
   }
-  isMain!:boolean;
-  filterByMainAsset(){
+  filterByMainAsset() {
     console.log(this.isMain);
     this.getAssets();
+  }
+  clearFilters(): void {
+    this.isMain = null; // Reset the isMain filter to null
+    this.searchText = ''; // Clear the search text
+    this.getAssets(); // Refresh the asset list
   }
 
 }

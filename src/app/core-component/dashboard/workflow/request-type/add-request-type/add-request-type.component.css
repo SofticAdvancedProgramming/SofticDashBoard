@@ -152,3 +152,166 @@ input:active ,textarea:active{
 #file, #attachmentfile {
   display: none;
 }
+
+
+.form-group input[disabled] {
+  background-color: #f0f0f0;
+}
+
+.toggle-group {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.4s;
+  border-radius: 20px;
+  background-color: #ccc;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background: #663895;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.icon-trash,
+.icon-edit {
+  color: #663895; /* Set icon color to white */
+  cursor: pointer;
+}
+.toggle-label {
+  font-weight: normal;
+}
+
+
+.container-upload {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  position: relative;
+  border: 2px dashed royalblue;
+  background-color: #f8f9fa;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.imgContainer{
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img-preview {
+  width: 100%;
+  height: auto;
+  object-fit: cover;    
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+  z-index: 1;
+}
+.header {
+  flex: 1;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+.header svg {
+  height: 100px;
+}
+
+.header p {
+  text-align: center;
+  color: black;
+}
+
+.footer {
+  background-color: rgba(0, 110, 255, 0.075);
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: black;
+  border: none;
+}
+
+.footer svg {
+  height: 130%;
+  fill: royalblue;
+  background-color: rgba(70, 66, 66, 0.103);
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.205);
+}
+
+.footer p {
+  flex: 1;
+  text-align: center;
+}
+
+#file, #attachmentfile {
+  display: none;
+}
+.addNewBtn{
+  border: 1px solid #993BF9;
+  border-radius: 10px;
+  height: 50px;
+}
+
+

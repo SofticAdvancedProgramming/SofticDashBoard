@@ -8,3 +8,9 @@ h3 {
   color: #6a0dad;
   font-size: 20px;
 }
+.description{
+  word-wrap: break-word; /* Break long words if necessary */
+  word-break: break-word; /* Ensure long words break properly */
+  white-space: normal; /* Allow text to wrap */
+  overflow-wrap: anywhere; /* Handle text overflow gracefully */
+}

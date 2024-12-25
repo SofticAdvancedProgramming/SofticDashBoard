@@ -8,20 +8,28 @@
 .form-group {
   margin-bottom: 20px;
   margin-top: 20px;
+  
 }
 
 .form-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #0d0714;
+  font-family: Lama Sans;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.03em;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
 }
 
 .form-group select,
 .form-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #e7e6e8;
+  background-color: #FBFBFB;
   border-radius: 10px;
+  border: 1px solid #E7E6E8;
 }
 
 .form-group input[disabled] {
