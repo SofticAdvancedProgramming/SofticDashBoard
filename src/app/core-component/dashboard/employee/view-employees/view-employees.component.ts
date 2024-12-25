@@ -197,19 +197,8 @@ export class ViewEmployeesComponent implements OnInit {
 
   confirmDeleteEmployeeFromPositon() {
     if (this.employeeToDeleteFromPositon && this.companyId && this.postionId) {
-      this.employeeToDeleteFromPositon.positionId=null;
-      console.log( this.employeeToDeleteFromPositon)
       this.employeeService
-        .editEmployee(this.employeeToDeleteFromPositon)
-        // .pipe(
-        //   tap(() => {
-        //     console.log(
-        //       `Employee ${this.employeeToDelete?.id} deleted successfully.`
-        //     );
-        //     this.loadEmployees();
-        //     this.employeeToDelete = null;
-        //   })
-        // )
+        .assginEmployeeToPosition({employeeId:this.employeeToDeleteFromPositon.id,positionId:0})
         .subscribe({
           next:(res)=>{
             console.log(res);

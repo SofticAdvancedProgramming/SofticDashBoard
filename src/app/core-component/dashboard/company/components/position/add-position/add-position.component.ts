@@ -48,6 +48,7 @@ export class AddPositionComponent implements OnInit {
     private cd:ChangeDetectorRef
   ) {
     this.branchId=0;
+    this.departmentId=0;
     this.form = this.fb.group({
       positionType: ['', Validators.required],
       branch: ['', Validators.required],
@@ -69,14 +70,14 @@ export class AddPositionComponent implements OnInit {
 
   initForm() {
     this.branchId=this._branchId;
+    this.departmentId=this.positionData.departmentId
     this.form.patchValue({
       positionType: this.positionData.positionTypeId,
       department: this.positionData.departmentId,
-      position: this.positionData.positionManagerId,
+      position:!this.positionData.positionManagerId?'': this.positionData.positionManagerId,
       isDirectManager: this.positionData.positionManagerId !== null,
       branch:this._branchId
     })
-    console.log(this._branchId);
   }
 
   loadPositionTypes(): void {
@@ -100,19 +101,28 @@ export class AddPositionComponent implements OnInit {
     this.departmentsService.getDepartment({ companyId: this.companyId,branchId:+this.branchId }).subscribe({
       next: (response) => {
         this.departments = response.data.list;
-        this.loadPositions(); // Ensure positions are loaded after departments
+        console.log(this.departments)
+       // Ensure positions are loaded after departments
       }
     });
   }
 
   async loadPositions(): Promise<void> {
-    this.positionService.getPosition({ companyId: this.companyId }).subscribe({
-      next: async (response) => {
-        console.log("response.data.list", response.data.list);
 
+    this.positionService.getPosition({ companyId: this.companyId,departmentId:this.departmentId }).subscribe({
+      next: async (response) => {
+
+        const positionList = response.data.list || [];
+        let filteredPositions = positionList;
+        console.log(filteredPositions)
+        if(this.isEdit){
+          console.log(this.departmentId)
+          filteredPositions = positionList.filter((item:any)=>item.id!=this.positionData.id)
+        }
+        console.log(filteredPositions)
         // Use Promise.all to resolve all employee names
         const positionsWithEmployeeNames = await Promise.all(
-          response.data.list.map(async (position: any) => {
+          filteredPositions.map(async (position: any) => {
             const employeeName = await this.getPositionEmployee(position.id); // Resolve the employee name
             return {
               ...position,
@@ -152,6 +162,7 @@ export class AddPositionComponent implements OnInit {
     this.form.get('isDirectManager')?.valueChanges.subscribe(isDirectManager => {
       if (isDirectManager) {
         this.form.get('position')?.enable();
+        this.loadPositions();
       } else {
         this.form.get('position')?.disable();
       }
@@ -205,13 +216,26 @@ export class AddPositionComponent implements OnInit {
   }
 
   trackByBranchId(index: number, item: branch): number {
-   // console.log(item.id)
     return item.id;
   }
   branchId!:number
+  departmentId!:number;
   GetBranch(event:any){
-    this.loadDepartmentsAndPositions();
-    // console.log(event.target);
-    // console.log(this.branchId);
+    if(this.isEdit){
+      this.form.patchValue({
+        positionType: this.positionData.positionTypeId,
+        department: 0,
+        isDirectManager: false
+      })
+      this.loadDepartmentsAndPositions();
+    }else{
+
+      this.loadDepartmentsAndPositions();
+    }
+  }
+  GetDepartment(event:any){
+
+    console.log(this.departmentId);
+    this.loadPositions();
   }
 }
