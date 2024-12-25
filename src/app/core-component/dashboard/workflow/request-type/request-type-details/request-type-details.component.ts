@@ -52,6 +52,19 @@ export class RequestTypeDetailsComponent {
       },
     });
   }
-  
+  moveUp(index: number): void {
+    if (index > 0) {
+      [this.requestTypes[index], this.requestTypes[index - 1]] = 
+        [this.requestTypes[index - 1], this.requestTypes[index]];
+    }
+  }
+
+  // Move a configuration down
+  moveDown(index: number): void {
+    if (index < this.requestTypes.length - 1) {
+      [this.requestTypes[index], this.requestTypes[index + 1]] = 
+        [this.requestTypes[index + 1], this.requestTypes[index]];
+    }
+  }
   
 }

@@ -57,17 +57,17 @@
           </thead>
           <tbody>
             <ng-container *ngIf="requestTypes.length > 0; else noConfig">
-              <tr *ngFor="let config of requestTypes">
+              <tr *ngFor="let config of requestTypes; let i = index">
                 <td>{{ requestTypeDetails?.name }}</td>
                 <td>{{ requestTypeDetails?.nameAr }}</td>
                 <td>{{ config.positionName || 'N/A' }}</td>
                 <td>{{ config.rank || 'N/A' }}</td>
                 <td>
-                  <button class="btn btn-sm">
-                    <img src="../../../../../../assets/images/arrow-square-down.png" alt="down" />
-                  </button>
-                  <button class="btn btn-sm">
+                  <button class="btn btn-sm" (click)="moveUp(i)" [disabled]="i === 0">
                     <img src="../../../../../../assets/images/arrow-square-up.png" alt="up" />
+                  </button>
+                  <button class="btn btn-sm" (click)="moveDown(i)" [disabled]="i === requestTypes.length - 1">
+                    <img src="../../../../../../assets/images/arrow-square-down.png" alt="down" />
                   </button>
                   <button class="btn btn-sm">
                     <img src="../../../../../../assets/images/trash 01.png" alt="trash" />
