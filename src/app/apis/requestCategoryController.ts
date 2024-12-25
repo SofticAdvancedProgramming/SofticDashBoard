@@ -1,3 +1,5 @@
+import { environment } from "../environment/environment";
+
 export const requestCategoryController = {
-    Get: 'RequestCategory/Get',
+    Get: `${environment.apiBaseUrl}RequestCategory/Get`,
 };
