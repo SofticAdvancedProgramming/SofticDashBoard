@@ -23,6 +23,7 @@
       <label for="departmentSelect" class="form-label">{{ 'SELECT_ASSET_TYPE' | translate }}</label>
     <select id="departmentSelect" class="form-select" [(ngModel)]="isMain"
     (change)="filterByMainAsset()">
+    <option [ngValue]="null">{{ 'All Assets' | translate }}</option>
       <option [ngValue]="true">{{ 'main asset'|translate }}</option>
       <option [ngValue]="false">{{ 'related asset'|translate  }}</option>
     </select>
