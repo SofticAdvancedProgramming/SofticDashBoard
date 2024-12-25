@@ -52,7 +52,7 @@ export class RequestTypeIndexComponent implements OnInit {
     this.requestTypeService.deleteRequestType(id, this.companyId).subscribe({
       next: (res) => {
         console.log(res);
-        this.toast.success('Request Type Added Successfully');
+        this.toast.success('Request Type Deleted Successfully');
         this.ngOnInit();
       },
       error: (err) => {
