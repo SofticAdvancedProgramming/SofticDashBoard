@@ -126,7 +126,6 @@ export class TasksIndexComponent implements OnInit {
 
     this.changeTaskStatus(droppedTask.id, newStatus);
   }
-
   changeTaskStatus(taskId: number, statusId: number) {
     this.tasksService
       .assignTaskStatus({ taskId: taskId, statusId: statusId })
@@ -139,14 +138,15 @@ export class TasksIndexComponent implements OnInit {
             detail: response.message,
           });
         },
+        error: (err) => {
+          console.error('Error assigning task status:', err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to update task status.',
+          });
+        },
       });
-    this.tasksService.assignTaskStatus({ taskId: taskId, statusId: statusId }).subscribe({
-      next: response => {
-        console.log("assign task response", response)
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: response.message });
-
-      }
-    })
   }
   
 
