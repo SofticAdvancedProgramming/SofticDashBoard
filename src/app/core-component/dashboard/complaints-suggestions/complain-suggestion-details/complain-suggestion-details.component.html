@@ -9,46 +9,53 @@
     <app-progressbar [complaintDetails]="complaintDetails"></app-progressbar>
     <div *ngIf="!loading && complaintDetails && !errorMessage">
         <div class="user-info">
-            <div class="info-row">
-                <div class="info-item">
-                    <span class="label">{{ 'complainDetails.user.name' | translate }}</span>
-                    <span class="value">
-                        {{ complaintDetails.firstName }} {{ complaintDetails.lastName }}
-                    </span>
+            <div class="user-info">
+                <div *ngFor="let executor of complaintDetails.issueExcuters" class="executor-info">
+                    <div class="info-row">
+                        <div class="info-item">
+                            <span class="label">{{ 'complainDetails.user.name' | translate }}</span>
+                            <span class="value">{{ executor.employeeName }}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">{{ 'complainDetails.user.email' | translate }}</span>
+                            <span class="value">{{ executor.email }}</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-item">
+                            <span class="label">{{ 'complainDetails.user.phone' | translate }}</span>
+                            <span class="value">{{ executor.phoneNumber }}</span>
+                        </div>
+
+
+                             @if(complaintDetails.issueTypeId==1)
+                            {
+                            <div class="info-item">
+                                <span class="label">{{ 'complainDetails.complaint.status' | translate }}</span>
+                                <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">{{
+                                    getComplaintStatusName(1) }}</span>
+                            </div>
+                            }
+                            @else if(complaintDetails.issueStatusId===issueStatus.Submitted )
+                            {
+                            <div class="info-item">
+                                <span class="label">{{ 'complainDetails.complaint.status' | translate }}</span>
+                                <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">{{
+                                    getComplaintStatusName(2) }}</span>
+                            </div>
+                            }
+                            @else {
+                            <div class="info-item">
+                                <span class="label">{{ 'complainDetails.complaint.status' | translate }}</span>
+                                <span class="label" [ngClass]="getStatusStyles(complaintDetails.issueStatusId)"> {{
+                                    getComplaintStatusName(complaintDetails.issueStatusId) }}</span>
+                            </div>
+                            }
+                            <!-- {{complaintDetails.issueStatusId | enumToString:issueStatus}}  -->
+                        </div>
+                    </div>
                 </div>
-                <div class="info-item">
-                    <span class="label">{{ 'complainDetails.user.phone' | translate }}</span>
-                    <span class="value">{{ complaintDetails.mobile }}</span>
-                </div>
-            </div>
-            <div class="info-row">
-                <div class="info-item">
-                    <span class="label">{{ 'complainDetails.user.email' | translate }}</span>
-                    <span class="value">{{ complaintDetails.email }}</span>
-                </div>
-                @if(complaintDetails.issueTypeId==1)
-                {
-                 <div class="info-item">
-                    <span class="label">{{ 'complainDetails.complaint.status' | translate }}</span>
-                     <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">{{ getComplaintStatusName(1) }}</span>
-                 </div>
-                }
-               @else if(complaintDetails.issueStatusId===issueStatus.Submitted )
-               {
-                <div class="info-item">
-                    <span class="label">{{ 'complainDetails.complaint.status' | translate }}</span>
-                    <span class="label" [ngClass]="getStatusStyles(issueStatus.Opened)">{{ getComplaintStatusName(2) }}</span>
-                </div>
-               }
-               @else {
-                <div class="info-item">
-                    <span class="label">{{ 'complainDetails.complaint.status' | translate }}</span>
-                    <span class="label" [ngClass]="getStatusStyles(complaintDetails.issueStatusId)"> {{ getComplaintStatusName(complaintDetails.issueStatusId) }}</span>
-                </div>
-               }
-               <!-- {{complaintDetails.issueStatusId | enumToString:issueStatus}}  -->
-            </div>
-        </div>
+         </div>
 
         <div class="complaint-details attachments">
             <div class="info-row">
@@ -73,8 +80,9 @@
                     <div class="info-item">
                         <span class="label">{{ 'complainDetails.complaint.attachments' | translate }}</span>
                         <div class="attachment-list">
-                            <img *ngFor="let attachment of complaintDetails.issueAttachments"
-                                [src]="attachment.file" (click)="openImage(attachment.file)" alt="{{ 'complainDetails.complaint.attachments' | translate }}"
+                            <img *ngFor="let attachment of complaintDetails.issueAttachments" [src]="attachment.file"
+                                (click)="openImage(attachment.file)"
+                                alt="{{ 'complainDetails.complaint.attachments' | translate }}"
                                 class="attachment-image" />
                         </div>
                     </div>
@@ -84,33 +92,44 @@
         <div class="replay-section">
 
             <div class=" info-row comments row" *ngIf="comments.length>=1">
-              <p class="lead">{{"complainDetails.comments"|translate}}</p>
-              <div class="col-12"  *ngFor="let _commet of comments;index as i">
-                <div *ngIf="_commet.isAdmin" class=" py-1 w-75 rounded my-1 d-flex justify-content-start flex-row align-items-end"  > <!-- [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"  [ngStyle]="{'direction: rtl;':_commet.isAdmin==false}"-->
-                  <img src="../../../../../assets/images/default.jpeg" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
-                  <p>{{_commet.comment}} </p>
+                <p class="lead">{{"complainDetails.comments"|translate}}</p>
+                <div class="col-12" *ngFor="let _commet of comments;index as i">
+                    <div *ngIf="_commet.isAdmin"
+                        class=" py-1 w-75 rounded my-1 d-flex justify-content-start flex-row align-items-end">
+                        <!-- [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"  [ngStyle]="{'direction: rtl;':_commet.isAdmin==false}"-->
+                        <img src="../../../../../assets/images/default.jpeg" class="rounded-circle"
+                            style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
+                        <p>{{_commet.comment}} </p>
+                    </div>
+                    <div *ngIf="!_commet.isAdmin"
+                        class="py-1 w-75 rounded my-1 d-flex justify-content-end flex-row align-items-end"
+                        [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}">
+                        <!-- [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"    [ngStyle]="{'direction: rtl;':_commet.isAdmin==false}"-->
+                        <p>{{_commet.comment}} </p>
+                        <img src="../../../../../assets/images/default.jpeg" class="rounded-circle"
+                            style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
+                    </div>
                 </div>
-                <div *ngIf="!_commet.isAdmin" class="py-1 w-75 rounded my-1 d-flex justify-content-end flex-row align-items-end" [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"> <!-- [ngClass]="{'ms-auto text-end':_commet.isAdmin==false}"    [ngStyle]="{'direction: rtl;':_commet.isAdmin==false}"-->
-                  <p>{{_commet.comment}} </p>
-                  <img src="../../../../../assets/images/default.jpeg" class="rounded-circle" style="height:20px; width:20px;margin-left: 5px;margin-right: 5px;">
-                </div>
-              </div>
 
             </div>
-            <div class="row info-row"  *ngIf="complaintDetails.issueStatusId!=6 &&complaintDetails.issueTypeId==2 ">
+            <div class="row info-row" *ngIf="complaintDetails.issueStatusId!=6 &&complaintDetails.issueTypeId==2 ">
                 <div class="info-item">
-                    <span class="label"><img src="../../../../../assets/images/bill.png">{{"complainDetails.Type your reply"|translate}}</span>
+                    <span class="label"><img src="../../../../../assets/images/bill.png">{{"complainDetails.Type your
+                        reply"|translate}}</span>
                     <textarea class="textarea" #comment placeholder="Type your replay......">  </textarea>
                 </div>
             </div>
-            <div class="row justify-content-center d-flex" *ngIf="complaintDetails.issueStatusId!=6 &&complaintDetails.issueTypeId==2">
-              <div class="col-lg-3"*ngIf="comments.length>=1 &&complaintDetails.issueTypeId==2 &&complaintDetails.issueStatusId!=4">
-                <button class="btn w-100 wait-btn" (click)="wait()">{{"complainDetails.wait"|translate}}</button>
-              </div>
-                <div class="col-lg-3">
-                    <button class="btn w-100 submit-btn" (click)="submitReply(complaintDetails.companyId,complaintDetails.issueExcuters[0].excuterId,complaintDetails.issueExcuters[0].issueId)">{{"complainDetails.submit"|translate}}</button>
+            <div class="row justify-content-center d-flex"
+                *ngIf="complaintDetails.issueStatusId!=6 &&complaintDetails.issueTypeId==2">
+                <div class="col-lg-3"
+                    *ngIf="comments.length>=1 &&complaintDetails.issueTypeId==2 &&complaintDetails.issueStatusId!=4">
+                    <button class="btn w-100 wait-btn" (click)="wait()">{{"complainDetails.wait"|translate}}</button>
                 </div>
-                
+                <div class="col-lg-3">
+                    <button class="btn w-100 submit-btn"
+                        (click)="submitReply(complaintDetails.companyId,complaintDetails.issueExcuters[0].excuterId,complaintDetails.issueExcuters[0].issueId)">{{"complainDetails.submit"|translate}}</button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -118,20 +137,22 @@
 
 <!--finish modal-->
 <div class="modal fade" id="closeIssue" tabindex="-1" aria-labelledby="closeIssueModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
 
-        <h3 style="font-size:32px;font-weight: 700;color: #00A475;">{{ 'complainDetails.congratulations' | translate }}</h3>
-        <img src="../../../../../assets/images/congrats.png">
-      </div>
-      <div class="modal-body">
-        <p class="lead">{{ 'complainDetails.congratulationsParagraph' | translate }}</p>
+                <h3 style="font-size:32px;font-weight: 700;color: #00A475;">{{ 'complainDetails.congratulations' |
+                    translate }}</h3>
+                <img src="../../../../../assets/images/congrats.png">
+            </div>
+            <div class="modal-body">
+                <p class="lead">{{ 'complainDetails.congratulationsParagraph' | translate }}</p>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"(click)="congrats()" >{{ 'complainDetails.congratulations' | translate }}</button>
-         </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="congrats()">{{
+                    'complainDetails.congratulations' | translate }}</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
