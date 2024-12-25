@@ -7,13 +7,13 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DropDownComponent } from '../../../components/drop-down/drop-down.component';
 import { RequestTypeService } from '../../../../../services/requestTypeService/request-type.service';
 import { ImageUploadService } from '../../../../../services/ImageUploadService/image-upload.service';
 import { ToastrService } from 'ngx-toastr';
-
+ 
 @Component({
   selector: 'app-add-request-type',
   standalone: true,
@@ -24,12 +24,13 @@ import { ToastrService } from 'ngx-toastr';
     ReactiveFormsModule,
     CommonModule,
     FormsModule,
-    DropDownComponent,
+    DropDownComponent, RouterLink
   ],
   templateUrl: './add-request-type.component.html',
   styleUrl: './add-request-type.component.css',
 })
 export class AddRequestTypeComponent implements OnInit {
+
   form!: FormGroup;
   files: any[] = [];
   attachmentfileType: any;
@@ -57,6 +58,7 @@ export class AddRequestTypeComponent implements OnInit {
   PhotoExtension: any;
   requestTypeConfigs: any[] = [];
   newPosition: number[] = [1];
+  isSubmitting = false;
   rankNum: number = 0;
   @Output() RequestAdded = new EventEmitter<void>();
   constructor(
@@ -65,7 +67,8 @@ export class AddRequestTypeComponent implements OnInit {
     private translate: TranslateService,
     private cdr: ChangeDetectorRef,
     private imageUploadService: ImageUploadService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private router: Router
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
@@ -73,6 +76,8 @@ export class AddRequestTypeComponent implements OnInit {
     this.loadBranchs();
     this.loadRequestCategory();
     this.initiation();
+    this.loadRequestTypes();
+
   }
   initiation() {
     this.form = this.fb.group({
@@ -87,9 +92,8 @@ export class AddRequestTypeComponent implements OnInit {
     this.newPosition.push(1);
   }
   valuesArray: any[] = []; // Array to store added values
-  // Add the current form's values to the array
-  addValue() {
-    this.rankNum+=1;
+   addValue() {
+    this.rankNum += 1;
     if (this.form.get('isCustomize')?.value) {
       this.valuesArray.push({
         companyId: null,
@@ -260,37 +264,32 @@ export class AddRequestTypeComponent implements OnInit {
     }
   }
 
-  onAttachmentChange(event: any) {}
-  up(requestType: any) {}
-  down(requestType: any) {}
-  deleterequestType(requestType: any) {}
+  onAttachmentChange(event: any) { }
+  up(requestType: any) { }
+  down(requestType: any) { }
+  deleterequestType(requestType: any) { }
 
   onSubmit() {
-    let query: any;
-    query = {
-      companyId: null,
+    if (this.isSubmitting) return;
+
+    const query: any = {
+      companyId: this.companyId,
       name: this.form.value.titleEn,
       nameAr: this.form.value.titleAr,
       icon: this.uploadedImageBase64,
       iconExtension: this.PhotoExtension,
       maxDays: this.form.value.maxDays,
-      isCustomized: false,
-      requestCategoryId: this.selectedRequestCategory.id,
+      isCustomized: this.form.value.isCustomize,
+      requestCategoryId: this.selectedRequestCategory?.id,
     };
+
     if (this.form.get('isCustomize')?.value) {
-      query = {
-        companyId: null,
-        name: this.form.value.titleEn,
-        nameAr: this.form.value.titleAr,
-        icon: this.uploadedImageBase64,
-        iconExtension: this.PhotoExtension,
-        maxDays: this.form.value.maxDays,
-        isCustomized: this.form.value.isCustomize,
-        requestCategoryId: this.selectedRequestCategory.id,
-        requestTypeConfigs: this.valuesArray
-      };
+      query.requestTypeConfigs = this.valuesArray;
     }
-    console.log(query);
+
+    console.log('Submission Query:', query);
+
+    this.isSubmitting = true;
 
     this.requestTypeService.addRequestType(query).subscribe({
       next: (res) => {
@@ -300,10 +299,63 @@ export class AddRequestTypeComponent implements OnInit {
         this.cdr.detectChanges();
         this.RequestAdded.emit();
         this.form.reset();
+
+        const newRequestType = {
+          id: res.data.id,
+          fullName: this.form.value.titleEn,
+          titleAr: this.form.value.titleAr,
+          position: this.selectedPosition?.name,
+          rank: this.rankNum,
+        };
+
+        // Add the new request type to the array
+        this.requestTypes = [...this.requestTypes, newRequestType]; // Create a new array reference
+
+        // Trigger Angular change detection
+        this.cdr.detectChanges();
+
+        this.toast.success(this.translate.instant('Request Type Added Successfully'));
+
+        // Reset the form
+        this.form.reset();
+        this.imagePreviewUrl = null;
+        this.fileType = null;
+        this.uploadedImageBase64 = null;
+        this.rankNum = 0;
+        this.valuesArray = [];
+        this.isSubmitting = false;
+      },
+      error: (err) => {
+        console.error('Error:', err);
+        this.toast.error(this.translate.instant('Failed to add request type.'));
+        this.isSubmitting = false;
+      },
+    });
+  }
+  deleteRequestType(id: number) {
+    this.requestTypeService.deleteRequestType(id, this.companyId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.toast.success('Request Type Deleted Successfully');
+        this.ngOnInit();
       },
       error: (err) => {
         console.log(err);
+      }
+    })
+  }
+  loadRequestTypes() {
+    this.requestTypeService.getRequestType({ pageSize: 1000 }).subscribe({
+      next: (res) => {
+        this.requestTypes = res.data.list;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error(err);
       },
     });
+  }
+  navigateToDetails(id: number): void {
+    this.router.navigate(['/dashboard/workflow/Request-type/details', id]);
   }
 }

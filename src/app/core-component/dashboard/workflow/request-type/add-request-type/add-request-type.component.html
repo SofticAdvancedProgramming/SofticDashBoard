@@ -1,289 +1,194 @@
-<div class="d-flex col-4 gap-3 align-items-start flex-row">
-  <img src="../../../../../assets/images/send-1.png" alt="taskImg" />
-  <p class="lead">{{ "Work flow managment" | translate }}</p>
-  <img src="../../../../../assets/images/arrow-left2.png" alt="arrow" />
-  <p class="lead">{{ "Add Request" | translate }}</p>
-</div>
-<div class="add-type-request-sm-container py-3 px-4">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" lass="form p-2">
-    <div class="form-content container p-3 my-3">
-      <div class="row gy-3">
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label for="titleEn" class="form-label">{{
-              "Title (English)" | translate
-            }}</label>
-            <input
-              type="text"
-              class="form-control"
-              id="titleEn"
-              formControlName="titleEn"
-            />
-            <div *ngIf="isFieldInvalid('name')" class="text-danger">
-              <small *ngIf="form.get('name')?.errors?.['required']">
-                {{ "addRequestType.validation.nameRequired" | translate }}
-              </small>
+<div class="container">
+  <div class="d-flex col-4 gap-3 align-items-start flex-row">
+    <img src="../../../../../assets/images/send-1.png" alt="taskImg" />
+    <p class="lead">{{ "Work flow managment" | translate }}</p>
+    <img src="../../../../../assets/images/arrow-left2.png" alt="arrow" />
+    <p class="lead">{{ "Add Request" | translate }}</p>
+  </div>
+  <div class="add-type-request-sm-container py-3 px-4">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" lass="form p-2">
+      <div class="form-content container p-3 my-3">
+        <div class="row gy-3 d-flex align-items-center">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="titleEn" class="form-label">{{
+                "Title (English)" | translate
+                }}</label>
+              <input type="text" class="form-control" id="titleEn" formControlName="titleEn" />
+              <div *ngIf="isFieldInvalid('name')" class="text-danger">
+                <small *ngIf="form.get('name')?.errors?.['required']">
+                  {{ "addRequestType.validation.nameRequired" | translate }}
+                </small>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label for="titleAr" class="form-label">{{
-              "Title (Arabic)" | translate
-            }}</label>
-            <input
-              type="text"
-              class="form-control"
-              id="titleAr"
-              formControlName="titleAr"
-            />
-            <div *ngIf="isFieldInvalid('name')" class="text-danger">
-              <small *ngIf="form.get('name')?.errors?.['required']">
-                {{ "addRequestType.validation.nameRequired" | translate }}
-              </small>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="titleAr" class="form-label">{{
+                "Title (Arabic)" | translate
+                }}</label>
+              <input type="text" class="form-control" id="titleAr" formControlName="titleAr" />
+              <div *ngIf="isFieldInvalid('name')" class="text-danger">
+                <small *ngIf="form.get('name')?.errors?.['required']">
+                  {{ "addRequestType.validation.nameRequired" | translate }}
+                </small>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label class="form-label">{{
-              "Request category" | translate
-            }}</label>
-            <app-drop-down
-              placeholder="{{ 'Select Request category' | translate }}"
-              placeholderSearch="{{ 'Search by Name' | translate }}"
-              [items]="RequestCategories"
-              [currentPage]="RequestCategoryPage"
-              [itemsLength]="RequestCategories.length"
-              (getNextPageApi)="loadRequestCategory()"
-              (search)="loadRequestCategory()"
-              (onChange)="onRequestCategorySelect($event)"
-            ></app-drop-down>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="form-label">{{
+                "Request category" | translate
+                }}</label>
+              <app-drop-down placeholder="{{ 'Select Request category' | translate }}"
+                placeholderSearch="{{ 'Search by Name' | translate }}" [items]="RequestCategories"
+                [currentPage]="RequestCategoryPage" [itemsLength]="RequestCategories.length"
+                (getNextPageApi)="loadRequestCategory()" (search)="loadRequestCategory()"
+                (onChange)="onRequestCategorySelect($event)"></app-drop-down>
+            </div>
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-            <!-- <label for="maxDays" class="form-label" *ngIf="!selectedRequestCategory">{{
+          <div class="col-lg-6 align-items-center d-flex">
+            <div class="form-group w-100">
+              <!-- <label for="maxDays" class="form-label" *ngIf="!selectedRequestCategory">{{
               "Maximum Days" | translate
             }}</label
             > -->
 
-            @if(selectedRequestCategory?.id == 2){
+              @if(selectedRequestCategory?.id == 2){
               <label for="maxDays" class="form-label">{{
                 "Maximum Amount" | translate
-              }}</label>
+                }}</label>
               }@else {
               <label for="maxDays" class="form-label">{{
                 "Maximum Days" | translate
-              }}</label
-              >}
-            <input
-              type="text"
-              class="form-control"
-              id=""
-              formControlName="maxDays"
-            />
-            <div *ngIf="isFieldInvalid('maxDays')" class="text-danger">
-              <small *ngIf="form.get('maxDays')?.errors?.['required']">
-                {{ "addRequestType.validation.nameRequired" | translate }}
-              </small>
+                }}</label>}
+              <input type="number" class="form-control" id="" formControlName="maxDays" />
+              <div *ngIf="isFieldInvalid('maxDays')" class="text-danger">
+                <small *ngIf="form.get('maxDays')?.errors?.['required']">
+                  {{ "addRequestType.validation.nameRequired" | translate }}
+                </small>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row d-grid gap-3">
-          <div class="d-flex gap-1 flex-wrap" style="grid-column: 1 / -1">
-            <div class="form-group">
-              <label for="file">
-                <label for="photo">{{ "Assets.photo" | translate }}</label>
-                <div class="container-upload">
-                  <div
-                    *ngIf="!fileType || fileType.startsWith('image/')"
-                    class="header"
-                  >
-                    <p>{{ "ASSET_UPLOADER.BROWSE_IMG" | translate }}</p>
+          <div class="row d-grid gap-3">
+            <div class="d-flex gap-1 flex-wrap" style="grid-column: 1 / -1">
+              <div class="form-group">
+                <label for="file">
+                  <label for="photo">{{ "Assets.photo" | translate }}</label>
+                  <div class="container-upload">
+                    <div *ngIf="!fileType || fileType.startsWith('image/')" class="header">
+                      <p>{{ "ASSET_UPLOADER.BROWSE_IMG" | translate }}</p>
+                    </div>
+                    <input id="file" type="file" accept="image/*" (change)="onFileChange($event)"
+                      formControlName="RequestTypePhoto" class="form-control-file" />
                   </div>
-                  <input
-                    id="file"
-                    type="file"
-                    accept="image/*"
-                    (change)="onFileChange($event)"
-                    formControlName="RequestTypePhoto"
-                    class="form-control-file"
-                  />
-                </div>
-              </label>
-            </div>
-            <div class="imgContainer">
-              <img
-                *ngIf="imagePreviewUrl && fileType?.startsWith('image/')"
-                [src]="imagePreviewUrl"
-                alt="{{ 'ASSET_UPLOADER.SELECTED_FILE' | translate }}"
-                class="img-preview"
-              />
+                </label>
+              </div>
+              <div class="imgContainer">
+                <img *ngIf="imagePreviewUrl && fileType?.startsWith('image/')" [src]="imagePreviewUrl"
+                  alt="{{ 'ASSET_UPLOADER.SELECTED_FILE' | translate }}" class="img-preview" />
+              </div>
             </div>
           </div>
-        </div>
-        <div class="form-group toggle-group">
-          <label class="switch">
-            <input type="checkbox" formControlName="isCustomize" />
-            <span class="slider"></span>
-          </label>
-          <label for="direct-manager" class="toggle-label">{{
-            "Is Customize" | translate
-          }}</label>
-        </div>
-      </div>
-    </div>
-    @for (item of newPosition; track $index) {
-    <div
-      class="form-content container p-3 my-3"
-      *ngIf="form.get('isCustomize')?.value"
-    >
-      <div class="row gy-3">
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label class="form-label">{{ "Branch" | translate }}</label>
-            <app-drop-down
-              placeholder="{{ 'Select Branch' | translate }}"
-              placeholderSearch="{{ 'Search by Name' | translate }}"
-              [items]="Branches"
-              [currentPage]="BranchPage"
-              [itemsLength]="Branches.length"
-              (getNextPageApi)="loadBranchs()"
-              (search)="loadBranchs()"
-              (onChange)="onBranchSelect($event)"
-            ></app-drop-down>
-            <div *ngIf="isFieldInvalid('name')" class="text-danger">
-              <small *ngIf="form.get('name')?.errors?.['required']">
-                {{ "addRequestType.validation.nameRequired" | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label class="form-label">{{ "Department" | translate }}</label>
-            <app-drop-down
-              placeholder="{{ 'Select Department' | translate }}"
-              placeholderSearch="{{ 'Search by Name' | translate }}"
-              [items]="Departments"
-              [currentPage]="DepartmentPage"
-              [itemsLength]="Departments.length"
-              (getNextPageApi)="loadDepartments(selectedBranch.id)"
-              (search)="loadDepartments(selectedBranch.id)"
-              (onChange)="onDepartmentSelect($event)"
-            ></app-drop-down>
-            <div *ngIf="isFieldInvalid('name')" class="text-danger">
-              <small *ngIf="form.get('name')?.errors?.['required']">
-                {{ "addRequestType.validation.nameRequired" | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label class="form-label">{{ "Position" | translate }}</label>
-            <app-drop-down
-              placeholder="{{ 'Select Department' | translate }}"
-              placeholderSearch="{{ 'Search by Name' | translate }}"
-              [items]="Positions"
-              [currentPage]="PositionPage"
-              [itemsLength]="Positions.length"
-              (getNextPageApi)="loadPositions(selectedDepartment.id)"
-              (search)="loadPositions(selectedDepartment.id)"
-              (onChange)="onPositionSelect($event)"
-            ></app-drop-down>
-            <div *ngIf="isFieldInvalid('name')" class="text-danger">
-              <small *ngIf="form.get('name')?.errors?.['required']">
-                {{ "addRequestType.validation.nameRequired" | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group h-100 justify-content-end">
-            <button
-              type="button"
-              class="btn w-100 addNewBtn"
-              (click)="addNew()"
-            >
-              Add New
-            </button>
+          <div class="form-group toggle-group">
+            <label class="switch">
+              <input type="checkbox" formControlName="isCustomize" />
+              <span class="slider"></span>
+            </label>
+            <label for="direct-manager" class="toggle-label">{{
+              "Is Customize" | translate
+              }}</label>
           </div>
         </div>
       </div>
-    </div>
-    }
-    <div>
-      <button
-        class="btn btn-primary w-100"
-        type="submit"
-        [disabled]="!form.valid"
-      >
-        Add Request Type
-      </button>
-    </div>
-  </form>
-</div>
-<!-- <div class="container">
+      @for (item of newPosition; track $index) {
+      <div class="form-content container p-3 my-3" *ngIf="form.get('isCustomize')?.value">
+        <div class="row gy-3">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="form-label">{{ "Branch" | translate }}</label>
+              <app-drop-down placeholder="{{ 'Select Branch' | translate }}"
+                placeholderSearch="{{ 'Search by Name' | translate }}" [items]="Branches" [currentPage]="BranchPage"
+                [itemsLength]="Branches.length" (getNextPageApi)="loadBranchs()" (search)="loadBranchs()"
+                (onChange)="onBranchSelect($event)"></app-drop-down>
+              <div *ngIf="isFieldInvalid('name')" class="text-danger">
+                <small *ngIf="form.get('name')?.errors?.['required']">
+                  {{ "addRequestType.validation.nameRequired" | translate }}
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="form-label">{{ "Department" | translate }}</label>
+              <app-drop-down placeholder="{{ 'Select Department' | translate }}"
+                placeholderSearch="{{ 'Search by Name' | translate }}" [items]="Departments"
+                [currentPage]="DepartmentPage" [itemsLength]="Departments.length"
+                (getNextPageApi)="loadDepartments(selectedBranch.id)" (search)="loadDepartments(selectedBranch.id)"
+                (onChange)="onDepartmentSelect($event)"></app-drop-down>
+              <div *ngIf="isFieldInvalid('name')" class="text-danger">
+                <small *ngIf="form.get('name')?.errors?.['required']">
+                  {{ "addRequestType.validation.nameRequired" | translate }}
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="form-label">{{ "Position" | translate }}</label>
+              <app-drop-down placeholder="{{ 'Select Department' | translate }}"
+                placeholderSearch="{{ 'Search by Name' | translate }}" [items]="Positions" [currentPage]="PositionPage"
+                [itemsLength]="Positions.length" (getNextPageApi)="loadPositions(selectedDepartment.id)"
+                (search)="loadPositions(selectedDepartment.id)" (onChange)="onPositionSelect($event)"></app-drop-down>
+              <div *ngIf="isFieldInvalid('name')" class="text-danger">
+                <small *ngIf="form.get('name')?.errors?.['required']">
+                  {{ "addRequestType.validation.nameRequired" | translate }}
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 d-flex align-items-center">
+            <div class="form-group w-100">
+              <label class="form-label" hidden>{{ "Position" | translate }}</label>
 
-
-  <div class="add-type-request-sm-container container  py-3 px-4 my-3">
-    <table class="table custom-table">
+              <button type="button" class="btn w-100 addNewBtn" (click)="addNew()">
+                Add New
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+      <div>
+        <button class="btn btn-primary w-100" type="submit" [disabled]="!form.valid || isSubmitting">
+          Add Request Type
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="table">
+    <table class="table  mt-4">
       <thead>
         <tr>
           <th>{{ 'Title EN' | translate }}</th>
           <th>{{ 'Title AR' | translate }}</th>
-          <th>{{ 'Position' | translate }}</th>
-          <th>{{ 'Rank' | translate }}</th>
           <th>{{ 'Action' | translate }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr >
+        <tr *ngFor="let requestType of requestTypes" (click)="navigateToDetails(requestType.id)" style="cursor: pointer;">
+          <td>{{ requestType.name }}</td>
+          <td>{{ requestType.nameAr }}</td>
           <td>
-            Title EN
-          </td>
-          <td>Title AR</td>
-          <td >Position</td>
-          <td>Rank</td>
-          <td>
-            <button class="btn btn-sm" *ngIf="!requestTypeId" (click)="up(1)">
-              <img src="../../../../../../assets/images/arrow-square-down.png"alt="up">
-            </button>
-
-            <button  *ngIf="!requestTypeId" class="btn btn-sm" (click)="down(1)">
-             <img src="../../../../../../assets/images/arrow-square-up.png"alt="down">
-            </button>
-            <button class="btn btn-sm " *ngIf="!requestTypeId" (click)="deleterequestType(1)">
-              <img src="../../../../../../assets/images/trash 01.png" alt="trash"/>
-            </button>
-
-          </td>
-        </tr>
-        <tr *ngFor="let requestType of requestTypes">
-          <td>
-            {{ requestType.fullName }}
-          </td>
-          <td>{{ requestType.id }}</td>
-          <td ><span *ngIf="requestType.accountStatus==1">{{ requestType.department?.name }}</span></td>
-          <td>{{ requestType.position?.name }}</td>
-          <td>
-            <button class="btn btn-sm" *ngIf="!requestTypeId" (click)="up(requestType)">
-              <img src="../../../../../../assets/images/arrow-square-down.png"alt="up">
-            </button>
-
-            <button  *ngIf="!requestTypeId" class="btn btn-sm " (click)="down(requestType)">
-             <img src="../../../../../../assets/images/arrow-square-up.png"alt="down">
-            </button>
-            <button class="btn btn-sm" *ngIf="!requestTypeId" (click)="deleterequestType(requestType)">
-              <img src="../../../../../../assets/images/trash 01.png" alt="trash"
-               />
-            </button>
-
+            <button
+            class="btn btn-sm"
+            (click)="deleteRequestType(requestType.id); $event.stopPropagation()"
+          >
+            <img src="../../../../../../assets/images/trash 01.png" alt="trash" />
+          </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-</div> -->
+</div>

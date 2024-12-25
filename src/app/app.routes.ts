@@ -114,7 +114,7 @@ export const routes: Routes = [
       { path: 'tasks/rework', component: RewarkDialogComponent},
       { path: 'workflow/Request-type', component:  RequestTypeIndexComponent},
       { path: 'workflow/Request-type/addRequest-type', component: AddRequestTypeComponent},
-      { path: 'workflow/Request-type/details', component: RequestTypeDetailsComponent},
+      { path: 'workflow/Request-type/details/:id', component: RequestTypeDetailsComponent },
 
         ],
   },{
