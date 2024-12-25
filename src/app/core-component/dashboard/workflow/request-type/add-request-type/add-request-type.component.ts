@@ -54,8 +54,9 @@ export class AddRequestTypeComponent implements OnInit {
   selectedFileName: string | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
   PhotoExtension: any;
-  requestTypeConfigs: any[]=[];
-  newPosition : number[] = [1];
+  requestTypeConfigs: any[] = [];
+  newPosition: number[] = [1];
+  rankNum: number = 0;
 
   constructor(
     private requestTypeService: RequestTypeService,
@@ -80,10 +81,27 @@ export class AddRequestTypeComponent implements OnInit {
       isCustomize: [false],
     });
   }
-  addNew(){
+  addNew() {
     this.newPosition.push(1);
   }
-  
+  valuesArray: any[] = []; // Array to store added values
+  // Add the current form's values to the array
+  addValue() {
+    this.rankNum+=1;
+    if (this.form.get('isCustomize')?.value) {
+      this.valuesArray.push({
+        companyId: null,
+        positionId: this.selectedPosition.id,
+        id: 0,
+        rank: this.rankNum,
+        requestTypeId: 0,
+      }); // Add values to the array
+      // this.dynamicForm.reset(); // Reset form for new input
+    } else {
+      alert('Please fill all fields correctly!');
+    }
+    console.log(this.valuesArray);
+  }
 
   isFieldInvalid(field: string): boolean {
     const control = this.form.get(field);
@@ -232,6 +250,7 @@ export class AddRequestTypeComponent implements OnInit {
     if (position) {
       console.log('Selected Position:', position);
       this.selectedPosition = position;
+      this.addValue();
       // this.getSubAssetsCategories(this.selectedAsset.id);
       console.log('Selected Position ID:', this.selectedPosition?.id);
     } else {
@@ -266,15 +285,7 @@ export class AddRequestTypeComponent implements OnInit {
         maxDays: this.form.value.maxDays,
         isCustomized: this.form.value.isCustomize,
         requestCategoryId: this.selectedRequestCategory.id,
-        requestTypeConfigs: [
-          {
-            companyId: null,
-            positionId: this.selectedPosition.id,
-            id: 0,
-            rank: 1,
-            requestTypeId: 0
-          },
-        ],
+        requestTypeConfigs: this.valuesArray
       };
     }
     console.log(query);

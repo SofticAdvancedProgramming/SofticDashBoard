@@ -118,7 +118,7 @@
             <span class="slider"></span>
           </label>
           <label for="direct-manager" class="toggle-label">{{
-            "ADD_ASSETS.DIRECT_PARENT" | translate
+            "Is Customize" | translate
           }}</label>
         </div>
       </div>
@@ -127,7 +127,6 @@
     <div
       class="form-content container p-3 my-3"
       *ngIf="form.get('isCustomize')?.value"
-      (click)="addNew()"
     >
       <div class="row gy-3">
         <div class="col-lg-6">
@@ -192,14 +191,14 @@
         </div>
         <div class="col-lg-6">
           <div class="form-group h-100 justify-content-end">
-            <button type="submit" class="btn w-100 addNewBtn">Add New</button>
+            <button type="button" class="btn w-100 addNewBtn" (click)="addNew()">Add New</button>
           </div>
         </div>
       </div>
     </div>
     }
     <div>
-      <button class="btn btn-primary w-100" type="submit">Add New</button>
+      <button class="btn btn-primary w-100" type="submit">Add Request Type</button>
     </div>
   </form>
 </div>

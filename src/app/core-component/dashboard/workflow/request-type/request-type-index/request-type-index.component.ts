@@ -24,6 +24,7 @@ import { RequestTypeService } from '../../../../../services/requestTypeService/r
   styleUrl: './request-type-index.component.css',
 })
 export class RequestTypeIndexComponent implements OnInit {
+[x: string]: any;
   activeTab: string = 'add-request';
 
   requestTypeId!: any;
