@@ -6,7 +6,7 @@
           <h2>{{ "ADD_ASSETS.TITLE" | translate }}</h2>
           <form [formGroup]="form" (ngSubmit)="onSave()">
             <div class="row">
-              <div class="col-12">
+              <div class="col-6">
                 <label>{{ "ADD_ASSETS.NAME" | translate }}</label>
                 <input
                   type="text"
@@ -14,7 +14,7 @@
                   formControlName="name"
                 />
               </div>
-              <div class="col-12">
+              <div class="col-6">
                 <label>{{ "ADD_ASSETS.NAME_AR" | translate }}</label>
                 <input
                   type="text"
