@@ -71,6 +71,7 @@ export class ViewEmployeesComponent implements OnInit {
       ? accountStatus.Pending
       : accountStatus.Active;
     this.loadEmployeesByCompany(status);
+    console.log(status)
   }
 
   loadEmployeesByCompany(status: accountStatus) {
@@ -170,6 +171,12 @@ export class ViewEmployeesComponent implements OnInit {
     const modal = new bootstrap.Modal(modalElement);
     modal.show();
   }
+  openDeactiveModal(employee: employee) {
+    this.employeeToDelete = employee;
+    const modalElement = document.getElementById('deactiveConfirmationModal');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+  }
   openDeleteEmployeeFromPositionModal(employee: employee) {
     this.employeeToDeleteFromPositon = employee;
     const modalElement = document.getElementById('deleteEmployeeFromPositionConfirmationModal');
@@ -185,6 +192,22 @@ export class ViewEmployeesComponent implements OnInit {
           tap(() => {
             console.log(
               `Employee ${this.employeeToDelete?.id} deleted successfully.`
+            );
+            this.loadEmployees();
+            this.employeeToDelete = null;
+          })
+        )
+        .subscribe();
+    }
+  }
+  confirmDeactive() {
+    if (this.employeeToDelete && this.companyId) {
+      this.employeeService
+        .deactiveEmployee(this.companyId, this.employeeToDelete.id)
+        .pipe(
+          tap(() => {
+            console.log(
+              `Employee ${this.employeeToDelete?.id} deactivated successfully.`
             );
             this.loadEmployees();
             this.employeeToDelete = null;
@@ -229,5 +252,8 @@ export class ViewEmployeesComponent implements OnInit {
   }
   viewLocations(employee: employee) {
     this.router.navigate(['dashboard/employee-locations', employee.id]);
+  }
+  getJoinDate(id:number){
+
   }
 }

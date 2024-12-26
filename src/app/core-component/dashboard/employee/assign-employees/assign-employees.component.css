@@ -119,3 +119,7 @@
 .popup-content .changeBtn,.assignBtn{
   width: 45%;
 }
+
+:host{
+  z-index: 100 !important;
+}

@@ -3,6 +3,17 @@
     <form [formGroup]="form" (ngSubmit)="onSave()">
       <div class="form-group">
         <label for="positionType">{{ 'ADD_POSITION.POSITION_TYPE' | translate }}</label>
+        <!-- <app-drop-down
+        [placeholder]="'Select Employee'"
+        [placeholderSearch]="'Search by Name'"
+        [currentPage]="positionTypePage"
+        [items]="positionType"
+        [itemsLength]="positionType.length"
+        (getNextPageApi)="loadPositionTypes()"
+        (search)="loadPositionTypes()"
+      ></app-drop-down> -->
+
+      <!-- (onChange)="onEmployeeSelect($event)" -->
         <select id="positionType" formControlName="positionType" class="form-control">
           <option value="" disabled>{{ 'ADD_POSITION.SELECT_POSITION_TYPE' | translate }}</option>
           <option *ngFor="let item of positionType; trackBy: trackByPositionId" [value]="item.id">{{ item.name }}

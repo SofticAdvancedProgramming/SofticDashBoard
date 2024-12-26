@@ -73,6 +73,7 @@
           <div class="form-group">
             <label class="form-label">From (date)</label>
             <input
+              [min]="todayDate"
               type="date"
               style="text-transform: lowercase;"
               class="form-control"
@@ -162,7 +163,7 @@
       </div>
 
       <div class="row my-3">
-        <div class="col-12 form-group">
+        <!-- <div class="col-12 form-group">
           <label class="form-label">Actual cost</label>
           <div class="custom-input">
             <input
@@ -193,7 +194,7 @@
               {{ "Tasks.validation.nameRequired" | translate }}
             </small>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="row my-3">

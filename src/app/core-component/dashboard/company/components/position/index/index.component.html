@@ -71,10 +71,10 @@
                 <!-- Dropdown Menu -->
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li>
-                        <a class="dropdown-item" (click)="addEmployee(position.id?.toString() || '0'); $event.stopPropagation()">Assign New Employee</a>
+                        <a class="dropdown-item" (click)="addEmployee(position.id?.toString() || '0'); $event.stopPropagation()">Assign new employee</a>
                     </li>
                     <li>
-                        <a class="dropdown-item" [routerLink]="['../../ViewEmployees', position.id]">View Assigned Employee List</a>
+                        <a class="dropdown-item" [routerLink]="['../../ViewEmployees', position.id]">View assigned employee List</a>
                     </li>
                 </ul>
             </div>

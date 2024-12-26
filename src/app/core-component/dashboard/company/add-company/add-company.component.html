@@ -147,22 +147,8 @@
 
       <hr>
       <div class="row">
-        <div class="col-lg-6">
-          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
-            <label for="phoneNumber">{{ 'companyFormPage.fields.mobile.label' | translate }}</label>
-            <ngx-intl-tel-input [cssClass]="'custom w-100'" [preferredCountries]="preferredCountries"
-              [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
-              [searchCountryField]="searchCountryFields" [selectFirstCountry]="false"
-              [selectedCountryISO]="CountryISO.SaudiArabia" [maxLength]="15" [phoneValidation]="true"
-              formControlName="phone">
-            </ngx-intl-tel-input>
-            <div *ngIf="addCompanyForm.get('phone')?.touched && addCompanyForm.get('phone')?.errors" class="text-danger">
-              <small *ngIf="addCompanyForm.get('phone')?.errors?.['required']">{{ 'companyFormPage.fields.mobile.required' | translate }}</small>
-              <small *ngIf="addCompanyForm.get('phone')?.errors?.['validatePhoneNumber']">{{ 'companyFormPage.fields.phoneNumber.validatePhoneNumber' | translate }}</small>
-            </div>
-          </div>
-        </div>
-        
+
+
         <div class="col-lg-6">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phone')}">
             <label for="phone">{{ 'companyFormPage.fields.phoneNumber.label' | translate }}</label>
@@ -179,6 +165,22 @@
           </div>
         </div>
         
+        <div class="col-lg-6">
+          <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
+            <label for="phoneNumber">{{ 'companyFormPage.fields.phone.label' | translate }}</label>
+            <ngx-intl-tel-input [cssClass]="'custom w-100'" [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+              [searchCountryField]="searchCountryFields" [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.SaudiArabia" [maxLength]="15" [phoneValidation]="true"
+              formControlName="phone">
+            </ngx-intl-tel-input>
+            <div *ngIf="addCompanyForm.get('phone')?.touched && addCompanyForm.get('phone')?.errors" class="text-danger">
+              <small *ngIf="addCompanyForm.get('phone')?.errors?.['required']">{{ 'companyFormPage.fields.mobile.required' | translate }}</small>
+              <small *ngIf="addCompanyForm.get('phone')?.errors?.['validatePhoneNumber']">{{ 'companyFormPage.fields.phoneNumber.validatePhoneNumber' | translate }}</small>
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           <!-- Website -->
           <div class="col-lg-6 col-md-6 col-sm-12">

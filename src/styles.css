@@ -4,7 +4,7 @@
   text-transform: capitalize ;
 }
 input,textarea{
-  text-transform: lowercase !important ;
+  text-transform: none !important ;
 }
 .CustomIcon{
   width: 30px;

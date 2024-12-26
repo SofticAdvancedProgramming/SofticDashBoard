@@ -330,6 +330,7 @@
     "RelatedAssets_DESCRIPTION": "Manage Related Assets."
   },
   "viewEmployees": {
+    "Join Date":"Join Date",
     "CURRENT_EMPLOYEES": "Current Employees",
     "NEW_EMPLOYEE_REQUESTS": "New Employee Requests",
     "SEARCH": "Search...",
@@ -391,8 +392,8 @@
     "comment": "comment",
     "PERSONAL_INFORMATION": "Personal Information",
     "ADVANCED_INFORMATION": "Advanced Information",
-    "REJECTED": "Rejected",
-    "ACCEPTED": "Accepted",
+    "REJECTED": "Reject",
+    "ACCEPTED": "Accept",
     "FINANCIAL_INFORMATION": "Financial",
     "REQUEST": "Requests",
     "ASSETS": "Assets",
@@ -586,7 +587,7 @@
         "label": "Mobile Number"
       },
       "phone": {
-        "label": "Phone"
+        "label": "LandLine"
       },
       "website": {
         "label": "Website",
