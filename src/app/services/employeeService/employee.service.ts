@@ -62,6 +62,9 @@ export class EmployeeService {
   deleteEmployee(companyId: number, id: number): Observable<any> {
     return this.apiCall.request('POST', employeeController.deleteEmployee(id, companyId));
   }
+  deactiveEmployee(companyId: number, id: number): Observable<any> {
+    return this.apiCall.request('POST', employeeController.deactiveEmployee(id, companyId));
+  }
 
   loadEmployeeById(request: { id: number }): Observable<any> {
     return this.apiCall.request('POST', employeeController.loadEmployeeById, request);

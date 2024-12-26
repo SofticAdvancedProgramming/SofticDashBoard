@@ -7,14 +7,14 @@
       <p class="lead">View Task</p>
     </div>
     <div class="col-4 d-flex gap-2 justify-content-end">
-      <button class="btn edit-btn" *ngIf="!isDoneStatus">
-        <img src="../../../../../assets/images/edit-2.png" />edit
-      </button>
+      <!-- <button class="btn edit-btn" *ngIf="!isDoneStatus">
+        <img src="../../../../../assets/images/edit-2.png" />Edit
+      </button> -->
       <button class="btn edit-btn" (click)="toggleAssignTaskToPopup()" *ngIf="!isDoneStatus">
         <img src="../../../../../assets/images/edit-2.png" />Assign To
       </button>
       <button *ngIf="isDoneStatus" class="save-btn btn" [routerLink]="['../../analytics', id]">
-        analytics
+        Analytics
       </button>
     </div>
   </div>
@@ -49,12 +49,12 @@
               >
                 <img src="../../../../../assets/images/clock.png" />
                 <span class="date-description-time px-3"
-                  >{{ taskDetails.duration }} <span>Hours</span></span
+                  >{{ taskDetails.duration }} <span>Days</span></span
                 >
               </div>
             </div>
             <div class="col-4">
-              <div
+              <div  *ngIf="taskDetails.actualCost"
                 class="d-flex flex-row justify-content-start align-items-center py-3 w-100"
               >
                 <img src="../../../../../assets/images/dollar-circle.png" />

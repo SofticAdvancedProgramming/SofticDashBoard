@@ -22,7 +22,7 @@
       <div class="card">
         <div class="card-header">
           <h3>{{ department.name }}</h3>
-          <p>{{ department.shortName }}</p>
+          <p>{{ department.shortName?.toUpperCase() }}</p>
           <p>Branch: {{department.branchName}}</p>
         </div>
         <!-- <div class="card-body" *ngIf="department.isActive">

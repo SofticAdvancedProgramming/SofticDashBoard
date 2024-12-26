@@ -45,12 +45,13 @@ export class EvaluatoionComponent implements OnInit {
   Submit() {
     if (this.form.value && this.taskId) {
       console.log(this.form.value);
-      
+
       const query = {
         companyId: this.companyId,
         id: this.taskId,
         qualityScore: this.selectedQuality,
         timeScore: this.selectedDuration,
+        costScore: +this.form.controls['cost'].value,
         evaluationComment: this.form.controls['comment'].value
       };
 

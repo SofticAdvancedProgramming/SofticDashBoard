@@ -15,11 +15,12 @@ import { MessageService } from 'primeng/api';
 import { tasksStatus } from '../../../../core/enums/taskStatus';
 import { debounce } from 'lodash';
 import { FormsModule } from '@angular/forms';
- 
+import { ShortenPipe } from '../../../../core/pipes/shorten.pipe';
+
 @Component({
   selector: 'app-tasks-index',
   standalone: true,
-  imports: [TranslateModule, RouterLink, RouterLinkActive, DragDropModule, NgIf, NgFor, NgClass, DatePipe,FormsModule],
+  imports: [ShortenPipe,TranslateModule, RouterLink, RouterLinkActive, DragDropModule, NgIf, NgFor, NgClass, DatePipe,FormsModule],
   templateUrl: './tasks-index.component.html',
   styleUrl: './tasks-index.component.css',
 })
@@ -148,7 +149,7 @@ export class TasksIndexComponent implements OnInit {
         },
       });
   }
-  
+
 
   loadAllTasks(name?: string): void {
     const companyId = Number(localStorage.getItem('companyId'));
@@ -189,5 +190,5 @@ export class TasksIndexComponent implements OnInit {
       },
     });
   }
-  
+
 }

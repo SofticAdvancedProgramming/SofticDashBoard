@@ -11,6 +11,7 @@ import { AdminService } from '../../../../services/adminService/admin.service';
 import { PasswordValidator } from '../../../../../Modules/passwordValidator';
 import { Company } from '../../../../../models/company';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { CountryISO, NgxIntlTelInputModule, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-add-admin',
@@ -18,7 +19,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./add-admin.component.css'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, ToastModule, RouterLink, TranslateModule],
+  imports: [CommonModule, ReactiveFormsModule, ToastModule, RouterLink, TranslateModule,NgxIntlTelInputModule],
   providers: [MessageService, AdminService],
 })
 export class AddAdminComponent implements OnInit, OnDestroy {
@@ -29,6 +30,12 @@ export class AddAdminComponent implements OnInit, OnDestroy {
   confirmPasswordFieldType: string = 'password';
   companyId: number = Number(localStorage.getItem('companyId'));
   formValue: Company = {} as Company;
+    preferredCountries = [CountryISO.Egypt, CountryISO.SaudiArabia];
+    searchCountryFields = [SearchCountryField.Name, SearchCountryField.DialCode, SearchCountryField.Iso2];
+    selectedCountryISO = CountryISO.Egypt;
+    CountryISO = CountryISO;
+    PhoneNumberFormat = PhoneNumberFormat;
+
   constructor(
     private fb: FormBuilder,
     private toastersService: ToastersService,
@@ -92,7 +99,7 @@ export class AddAdminComponent implements OnInit, OnDestroy {
         console.log('AddAdmin request completed');
       }
     });
-  }    
+  }
 
 
   togglePasswordVisibility(): void {

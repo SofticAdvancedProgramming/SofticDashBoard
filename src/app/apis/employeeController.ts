@@ -16,6 +16,7 @@ export const employeeController = {
 
   assignShift: `${environment.apiBaseUrl}Employee/AssginShift`,
   deleteEmployee: (id: number, companyId: number) => `${environment.apiBaseUrl}Employee/Delete/${id}/${companyId}`,
+  deactiveEmployee: (id: number, companyId: number)=>`${environment.apiBaseUrl}Employee/DeActivate/${id}/${companyId}`,
   loadEmployeeById: `${environment.apiBaseUrl}Employee/Get`,
   loadEmployeeAttendanceLocation:`${environment.apiBaseUrl}EmployeeAttendanceLocation/Get`,
   assignEmployeeLocation:`${environment.apiBaseUrl}EmployeeAttendanceLocation/Add`,

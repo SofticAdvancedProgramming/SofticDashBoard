@@ -14,11 +14,12 @@ import { EmployeeService } from '../../../../../../services/employeeService/empl
 import { firstValueFrom, map, Observable } from 'rxjs';
 import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
 import { branch } from '../../../../../../../models/branch';
+import { DropDownComponent } from '../../../../components/drop-down/drop-down.component';
 
 @Component({
   selector: 'app-add-position',
   standalone: true,
-  imports: [CommonModule, FormsModule, ToastModule, ReactiveFormsModule, RouterLink, TranslateModule],
+  imports: [CommonModule, FormsModule, ToastModule, ReactiveFormsModule, RouterLink, TranslateModule,DropDownComponent],
   templateUrl: './add-position.component.html',
   styleUrls: ['./add-position.component.css'],
   providers: [MessageService],
@@ -35,6 +36,7 @@ export class AddPositionComponent implements OnInit {
   positions: any[] = [];
   form: FormGroup;
   loading: boolean = true;
+  positionTypePage:number=1
 
   constructor(
     private fb: FormBuilder,
@@ -81,16 +83,24 @@ export class AddPositionComponent implements OnInit {
   }
 
   loadPositionTypes(): void {
-    this.positionTypeService.getPositionTypes({ companyId: this.companyId }).subscribe({
+    this.positionTypeService.getPositionTypes({ companyId: this.companyId,pageSize:20 }).subscribe({
       next: (response) => {
-        this.positionType = response.data.list;
+        this.positionType = response.data.list
+        // const newItems = response.data.list
+        // this.positionType = newItems;
+        // console.log(response.data.totalRows)
+        // if(response.data.totalRows>this.positionTypePage*10){
+        //   this.positionTypePage++
+        //   this.positionType=[...this.positionType,...newItems]
+        // }
+
         this.checkLoadingState();
       }
     });
   }
 
   loadBranches(): void {
-    this.branchsService.getBranch({ companyId: this.companyId }).subscribe({
+    this.branchsService.getBranch({ companyId: this.companyId,pageSize:20  }).subscribe({
       next: (response) => {
         this.branches = response.data.list;
         this.loadDepartmentsAndPositions(); // Ensure positions are loaded after departments
@@ -98,7 +108,7 @@ export class AddPositionComponent implements OnInit {
     });
   }
   loadDepartmentsAndPositions(): void {
-    this.departmentsService.getDepartment({ companyId: this.companyId,branchId:+this.branchId }).subscribe({
+    this.departmentsService.getDepartment({ companyId: this.companyId,branchId:+this.branchId ,pageSize:20 }).subscribe({
       next: (response) => {
         this.departments = response.data.list;
         console.log(this.departments)
@@ -109,7 +119,7 @@ export class AddPositionComponent implements OnInit {
 
   async loadPositions(): Promise<void> {
 
-    this.positionService.getPosition({ companyId: this.companyId,departmentId:this.departmentId }).subscribe({
+    this.positionService.getPosition({ companyId: this.companyId,departmentId:this.departmentId ,pageSize:20 }).subscribe({
       next: async (response) => {
 
         const positionList = response.data.list || [];

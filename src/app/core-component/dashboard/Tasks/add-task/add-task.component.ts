@@ -53,6 +53,7 @@ export class AddTaskComponent implements OnInit {
   employees: employee[] = [];
   selectedEmployee: any;
   loadingMoreEmployees = false;
+  todayDate: string="";
   employeePage = 1;
   constructor(
     private fb: FormBuilder,
@@ -68,6 +69,7 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {
     this.initiation();
     this.loadEmployees();
+    this.todayDate = new Date().toISOString().split('T')[0];
   }
   initiation() {
     this.form = this.fb.group({

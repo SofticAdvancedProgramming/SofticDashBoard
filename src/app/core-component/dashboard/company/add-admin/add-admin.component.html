@@ -16,7 +16,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Last Name Field -->
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('lastName')}">
@@ -28,7 +28,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Full Name Field -->
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('fullName')}">
@@ -40,19 +40,30 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Mobile Number Field -->
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
             <label for="phoneNumber">{{ 'addAdminPage.fields.phoneNumber.label' | translate }}</label>
-            <input required type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control"
-              [placeholder]="('addAdminPage.fields.phoneNumber.placeholder' | translate)">
+            <ngx-intl-tel-input
+              [cssClass]="'custom w-100'"
+              [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [searchCountryField]="searchCountryFields"
+              [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.SaudiArabia"
+              [maxLength]="15" [phoneValidation]="true"
+              formControlName="phone">
+            </ngx-intl-tel-input>
             <div *ngIf="isFieldInvalid('phoneNumber')" class="invalid-feedback">
               {{ 'addAdminPage.fields.phoneNumber.required' | translate }}
             </div>
           </div>
         </div>
-        
+
+
         <!-- Email Field -->
         <div class="col-lg-12 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('email')}">
@@ -85,7 +96,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Confirm Password Field -->
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('confirmPassword')}">

@@ -47,7 +47,9 @@ export interface employee {
   department: Department | null;
   branchId: number | null;
   branch: string | null;
-  startShift?: { hour: number; minute: number } | null;  
-  endShift?: { hour: number; minute: number } | null; 
+  startShift?: { hour: number; minute: number } | null;
+  endShift?: { hour: number; minute: number } | null;
+  dateOfJoined: Date | null;
+  isActive:boolean
 }
 

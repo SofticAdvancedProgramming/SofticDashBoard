@@ -324,3 +324,7 @@ input:checked+.slider:before {
   color: #663895;
   border:1px solid #663895;
 }
+
+ul.dropdown-menu{
+  z-index: 10 !important;
+}

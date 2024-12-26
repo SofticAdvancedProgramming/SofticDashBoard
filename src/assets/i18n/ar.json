@@ -318,6 +318,7 @@
     "SEARCH": "بحث..."
   },
   "viewEmployees": {
+    "Join Date":"تاريخ الالتحاق",
     "CURRENT_EMPLOYEES": "الموظفون الحاليون",
     "NEW_EMPLOYEE_REQUESTS": "طلبات الموظفين الجدد",
     "SEARCH": "بحث...",
