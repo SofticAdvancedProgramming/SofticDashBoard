@@ -62,6 +62,8 @@ export interface WorkHistory{
   secondReferencTelephone: string;
   businessTypeId:number;
   businessSizeId:number;
+  businessTypeName: string;
+  businessSizeName: string;
   businessType:string;
   businessSize:string;
   file:any;

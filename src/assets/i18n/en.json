@@ -480,7 +480,7 @@
     "Bussiness Type": "Bussiness Type"
   },
   "employeeTypes":{
-    "Title": "Employment Type",
+    "Title": "Employee Type",
     "No_Data": "No Data"
   },
   "medicalInsurance": {
@@ -515,7 +515,7 @@
     "isFavourit":"main"
   },
   "type": {
-    "Title": "Employment Type"
+    "Title": "Employee Type"
   },
   "attachments": {
     "Title": "Attachments",
