@@ -24,3 +24,32 @@
   border: 1px solid #8413F8;
   width: 200px;
 }
+.table {
+  width: 100%;
+   margin: 20px 0;
+  font-size: 1em;
+ }
+
+.table th,
+.table td {
+  padding: 12px 15px; 
+ }
+
+ 
+
+.table-container {
+  overflow-x: auto; 
+}
+
+.save-btn{
+  top: 98px;
+  left: 1138px;
+  padding: 14px;
+  gap: 0px;
+  border-radius: 10px;
+  opacity: 0px;
+  background: white;
+  color: #5bbbde;
+  border: 1px solid #5bbbde;
+  width: 200px;
+}
