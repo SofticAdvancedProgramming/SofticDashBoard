@@ -1,3 +1,4 @@
+import { Position } from './../../../../../../models/positionModel';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup } from '@angular/forms';
@@ -6,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DropDownComponent } from '../../../components/drop-down/drop-down.component';
 import { RequestTypeService } from '../../../../../services/requestTypeService/request-type.service';
 import { ToastrService } from 'ngx-toastr';
+import { pad } from 'lodash';
 
 @Component({
   selector: 'app-request-type-details',
@@ -57,20 +59,37 @@ export class RequestTypeDetailsComponent {
 
   moveUp(index: number): void {
     if (index > 0) {
-      [this.requestTypes[index], this.requestTypes[index - 1]] = [
-        this.requestTypes[index - 1],
-        this.requestTypes[index],
-      ];
+      let x=this.requestTypes[index-1].positionId;
+      this.requestTypes[index-1].positionId = this.requestTypes[index].positionId;
+      this.requestTypes[index].positionId = x;
+
+
+      let y=this.requestTypes[index - 1].positionName;
+      this.requestTypes[index - 1].positionName = this.requestTypes[index].positionName;
+      this.requestTypes[index].positionName = y;
+      // [this.requestTypes[index], this.requestTypes[index - 1]] = [
+      //   this.requestTypes[index - 1],
+      //   this.requestTypes[index],
+      // ];
       this.updateRanks();
     }
   }
 
   moveDown(index: number): void {
     if (index < this.requestTypes.length - 1) {
-      [this.requestTypes[index], this.requestTypes[index + 1]] = [
-        this.requestTypes[index + 1],
-        this.requestTypes[index],
-      ];
+      let x=this.requestTypes[index + 1].positionId;
+      this.requestTypes[index + 1].positionId = this.requestTypes[index].positionId;
+      this.requestTypes[index].positionId = x;
+
+
+      let y=this.requestTypes[index + 1].positionName;
+      this.requestTypes[index + 1].positionName = this.requestTypes[index].positionName;
+      this.requestTypes[index].positionName = y;
+
+      // [this.requestTypes[index], this.requestTypes[index + 1]] = [
+      //   this.requestTypes[index + 1],
+      //   this.requestTypes[index],
+      // ];
       this.updateRanks();
     }
   }
@@ -87,13 +106,13 @@ export class RequestTypeDetailsComponent {
       companyId: this.requestTypeDetails.companyId,
       name: this.requestTypeDetails.name,
       nameAr: this.requestTypeDetails.nameAr,
-      icon: this.requestTypeDetails.icon,
+     // icon: this.requestTypeDetails.icon,
       maxDays: this.requestTypeDetails.maxDays,
       isCustomized: this.requestTypeDetails.isCustomized,
       requestCategoryId: this.requestTypeDetails.requestCategoryId,
       requestTypeConfigs: this.requestTypes,
     };
-
+console.log(payload,"hhhhhhhhhhhhhhhhhh")
     this.requestTypeService.editRequestType(payload).subscribe({
       next: () => {
         this.toastr.success('Changes saved successfully!');
