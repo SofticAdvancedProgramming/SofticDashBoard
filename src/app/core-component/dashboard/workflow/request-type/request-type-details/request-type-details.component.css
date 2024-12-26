@@ -41,3 +41,15 @@
   overflow-x: auto; 
 }
 
+.save-btn{
+  top: 98px;
+  left: 1138px;
+  padding: 14px;
+  gap: 0px;
+  border-radius: 10px;
+  opacity: 0px;
+  background: white;
+  color: #5bbbde;
+  border: 1px solid #5bbbde;
+  width: 200px;
+}
