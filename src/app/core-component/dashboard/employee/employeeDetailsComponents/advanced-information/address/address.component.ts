@@ -44,6 +44,7 @@ export class AddressComponent implements OnInit, OnDestroy {
       .pipe(
         tap((res) => {
           console.log(res)
+
           this.userAddress = res.data.list.map((item:Address)=>({
             ...item,
 
@@ -52,8 +53,16 @@ export class AddressComponent implements OnInit, OnDestroy {
           // this.getCity(this.userAddress?.cityId);
         ))}),
         takeUntil(this.unsubscribe$))
-
-      .subscribe();
+      .subscribe(
+        // {
+        //   next:(res)=>
+        //     {
+        //       this.userAddress=res.data.list[0];
+        //       if(res.data.list.length>1){
+        //       this.userAddress?.push(res.data.list[res.data.totalRows-1])
+        //     }}
+        // }
+      );
   }
   getCountry(countryId?: number) {
     const requestPayload = { countryId };
