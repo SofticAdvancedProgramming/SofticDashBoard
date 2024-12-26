@@ -51,6 +51,7 @@ export class AddBranchComponent implements OnInit {
       this.companyId = Number(storedCompanyId);
     }
     if (this.isEdit) {
+      console.log("branch",this.branch)
       this.initoForm();
     }
   }

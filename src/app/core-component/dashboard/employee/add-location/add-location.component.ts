@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -22,6 +22,8 @@ declare var bootstrap: any;
   styleUrl: './add-location.component.css'
 })
 export class AddLocationComponent implements OnInit{
+
+  @ViewChild('appMap') appMap: MapComponent | undefined;
   companyId: number = 0;
   id: number = 0;
   locations: Location[] = [];
@@ -50,6 +52,7 @@ export class AddLocationComponent implements OnInit{
     }
 
   ngOnInit(): void {
+    
     this.companyId = Number(localStorage.getItem('companyId'));
     this.route.paramMap.pipe(
       takeUntil(this.unsubscribe$)
@@ -118,12 +121,14 @@ export class AddLocationComponent implements OnInit{
     this.editMode=false;
   }
   onLocationSelected(location: { lat: number, lng: number }): void {
+    console.log("executed",location)
     console.log(location)
     this.form.patchValue({ lat: location.lat, long: location.lng });
   }
   openAddLocationModal() {
     const modalElement = document.getElementById('addLocationModal');
     const modal = new bootstrap.Modal(modalElement);
+    this.appMap?.ngOnInit();
     modal.show();
   }
 
@@ -131,17 +136,31 @@ export class AddLocationComponent implements OnInit{
     this.location=_location;
     this.editMode=true;
     console.log(_location);
+
+    this.form.patchValue({
+      attendanceDateFrom: this.formatDate(_location.attendanceDateFrom || ''),
+      attendanceDateTo: this.formatDate(_location.attendanceDateTo || ''),
+      long: _location.long,
+      lat: _location.lat
+    });
     const modalElement = document.getElementById('addLocationModal');
     const modal = new bootstrap.Modal(modalElement);
     modal.show();
   }
+  private formatDate(date: string): string {
+    const d = new Date(date);
+    return d.toISOString().split('T')[0]; // Returns YYYY-MM-DD
+  }
+
+  
   onUpdate()
   {
     if(this.editMode){
+      console.log("this.location",this.location)
     const locaton:Location= {
       id: this.location.id,
-      attendanceDateFrom:  this.form.value.attendanceDateFrom,
-      attendanceDateTo: this.form.value.attendanceDateTo,
+      attendanceDateFrom: this.formatDate(this.location.attendanceDateFrom || ''),
+      attendanceDateTo: this.formatDate(this.location.attendanceDateFrom || ''),
       companyId:this.companyId,
       long: this.form.value.long,
       lat: this.form.value.lat,

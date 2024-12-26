@@ -111,8 +111,8 @@
       <div class="form-group">
         <label for="map">{{ 'ADD_DEPARTMENT.DEPARTMENT_LOCATION' | translate }}</label>
         <app-map (locationSelected)="onLocationSelected($event)"
-          [long]="isEdit ? department!.long|| 46.738586 : 46.738586"
-          [lat]="isEdit ?  department!.lat||24.774265 : 24.774265"></app-map>
+          [long]="isEdit ? department!.long|| undefined : undefined"
+          [lat]="isEdit ?  department!.lat||undefined : undefined"></app-map>
       </div>
       <div class="form-buttons row">
         <div class="col-lg-6  mt-3 justify-content-center d-flex">

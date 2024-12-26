@@ -24,14 +24,21 @@ export class MapComponent implements OnInit, OnChanges {
   public selectedAddress: string = '';
   zoom = 8;
   @Input() employee: any = {};
-  @Input() lat: number = 24.774265;
-  @Input() long: number = 46.738586;
+  @Input() lat!: any; 
+  @Input() long!: any;
   @Output() locationSelected = new EventEmitter<{ lat: number, lng: number }>();
+  userMarker!: mapboxgl.Marker; // Marker for user's location
   constructor(
     private http: HttpClient,
     private translateService: TranslationService,
   ) {
-    this.getAddressFromCoordinates(this.long, this.lat);
+    
+    if(this.long!=undefined && this.lat!=undefined)
+    {
+      console.log("lat",this.lat)
+      this.getAddressFromCoordinates(this.long, this.lat);
+    }
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -45,6 +52,13 @@ export class MapComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.initializeMap();
+    console.log("lattttttttttttttttttttttt",this.lat)
+    if(this.lat==undefined && this.long==undefined)
+    {
+      console.log("here")
+      this.detectMyLocation();
+    }
+    
   }
 
   ngAfterViewInit(): void {
@@ -58,23 +72,85 @@ export class MapComponent implements OnInit, OnChanges {
 
   initializeMap(): void {
     // Initialize Mapbox map
-    this.map = new mapboxgl.Map({
-      accessToken: this.accessToken,
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: [this.long, this.lat],
-      zoom: this.zoom,
-    });
+    
 
+    if(this.lat==undefined && this.long==undefined)
+    {
+      this.map = new mapboxgl.Map({
+        accessToken: this.accessToken,
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [46.738586, 24.774265],
+        zoom: this.zoom,
+      });
+      this.map.on('load', () => {
+        this.setLanguage(this.lang);
+        this.addControls();
+        this.search();
+        this.currentLocation();
+       // this.addEmployeeMarkers(46.738586, 24.774265);
+      });
+    }
+    else
+    {
+      this.map = new mapboxgl.Map({
+        accessToken: this.accessToken,
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [this.long,this.lat],
+        zoom: this.zoom,
+      });
+  
+      this.map.on('load', () => {
+        this.setLanguage(this.lang);
+        this.addControls();
+        this.search();
+        this.currentLocation();
+        this.addEmployeeMarkers(this.long,this.lat);
+        
+      });
+    }
 
-    this.map.on('load', () => {
-      this.setLanguage(this.lang);
-      this.addControls();
-      this.search();
-      this.currentLocation();
-      this.addEmployeeMarkers(this.long, this.lat);
-    });
+   
 
+  }
+
+  detectMyLocation(): void {
+    if ('geolocation' in navigator) {
+      console.log("hereeee")
+      // Use browser's geolocation API
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const userCoordinates: [number, number] = [position.coords.longitude, position.coords.latitude];
+          console.log("userCoordinates",userCoordinates)
+          this.locationSelected.emit({ lat: position.coords.longitude, lng: position.coords.latitude });
+  
+          // Fly to user's location on the map
+          this.map.flyTo({
+            center: userCoordinates, // Correct type: [longitude, latitude]
+            zoom: 14, // Zoom level
+            essential: true, // Ensures smooth animation
+          });
+  
+          // Add or update a marker for the user's location
+          if (this.userMarker) {
+            this.userMarker.setLngLat(userCoordinates);
+            this.getAddressFromCoordinates(position.coords.longitude,position.coords.latitude);
+          } else {
+            this.userMarker = new mapboxgl.Marker({ color: 'red' })
+              .setLngLat(userCoordinates)
+              .addTo(this.map);
+              this.getAddressFromCoordinates(position.coords.longitude,position.coords.latitude);
+          }
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+        
+        }
+      );
+    } else {
+      console.log('Geolocation is not supported by your browser.');
+    }
   }
 
   updateMapLocation(): void {
@@ -188,7 +264,7 @@ export class MapComponent implements OnInit, OnChanges {
       this.markers.push(marker);
     } else {
       // Add a default marker if no profile image is available
-      this.addInitialMarker(lng, lat);
+      this.addInitialMarker(46.738586, 24.774265);
     }
   }
 
@@ -203,6 +279,7 @@ export class MapComponent implements OnInit, OnChanges {
       next: (response) => {
         if (response.features && response.features.length > 0) {
           this.selectedAddress = this.lang === 'en' ? response.features[0]?.place_name_en : response.features[0]?.place_name;
+          console.log("selectedAddress",this.selectedAddress)
         }
       },
       error: (error) => {
