@@ -49,22 +49,37 @@
           </div>
           <div class="col-lg-6 align-items-center d-flex">
             <div class="form-group w-100">
-              <!-- <label for="maxDays" class="form-label" *ngIf="!selectedRequestCategory">{{
-              "Maximum Days" | translate
-            }}</label
-            > -->
-
               @if(selectedRequestCategory?.id == 2){
               <label for="maxDays" class="form-label">{{
                 "Maximum Amount" | translate
                 }}</label>
               }@else {
-              <label for="maxDays" class="form-label">{{
+              <label for="max" class="form-label">{{
                 "Maximum Days" | translate
-                }}</label>}
-              <input type="number" class="form-control" id="" formControlName="maxDays" />
-              <div *ngIf="isFieldInvalid('maxDays')" class="text-danger">
+                }}</label>
+                }
+              <input type="number" class="form-control" id="" formControlName="max" />
+              <div *ngIf="isFieldInvalid('max')" class="text-danger">
                 <small *ngIf="form.get('maxDays')?.errors?.['required']">
+                  {{ "addRequestType.validation.nameRequired" | translate }}
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 align-items-center d-flex">
+            <div class="form-group w-100">
+              @if(selectedRequestCategory?.id == 2){
+              <label for="maxDays" class="form-label">{{
+                "minimun Amount" | translate
+                }}</label>
+              }@else {
+              <label for="min" class="form-label">{{
+                "minimun Days" | translate
+                }}</label>
+                }
+              <input type="number" class="form-control" id="" formControlName="min" />
+              <div *ngIf="isFieldInvalid('min')" class="text-danger">
+                <small *ngIf="form.get('min')?.errors?.['required']">
                   {{ "addRequestType.validation.nameRequired" | translate }}
                 </small>
               </div>

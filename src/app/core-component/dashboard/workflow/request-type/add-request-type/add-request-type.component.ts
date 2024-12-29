@@ -94,7 +94,8 @@ export class AddRequestTypeComponent implements OnInit {
     this.form = this.fb.group({
       titleEn: ['', Validators.required],
       titleAr: ['', Validators.required],
-      maxDays: ['', Validators.required],
+      min: ['', Validators.required],
+      max: ['', Validators.required],
       RequestTypePhoto: [],
       isCustomize: [false],
     });
@@ -146,27 +147,19 @@ export class AddRequestTypeComponent implements OnInit {
       console.log('Selected Request Category:', requestCategory);
       this.selectedRequestCategory = requestCategory;
 
-      // Load Departments for this request category if needed
-      // (if your API call indeed depends on requestCategory.id)
+ 
       this.loadDepartments(this.selectedRequestCategory.id);
 
-      // ---- 1) Reset your 'isCustomize' toggle ----
-      this.form.get('isCustomize')?.setValue(false);
+       this.form.get('isCustomize')?.setValue(false);
 
-      // ---- 2) Clear arrays and counters ----
-      this.valuesArray = [];
+       this.valuesArray = [];
       this.rankNum = 0;
 
-      // ---- 3) Clear selected Branch, Department, Position ----
-      this.selectedBranch = null;
+       this.selectedBranch = null;
       this.selectedDepartment = null;
       this.selectedPosition = null;
 
-      // If you want the dropdowns to show empty upon switching category,
-      // you can optionally clear the arrays:
-      // this.Branches = [];
-      // this.Departments = [];
-      // this.Positions = [];
+ 
 
       console.log('Selected Request Category ID:', this.selectedRequestCategory?.id);
     } else {
@@ -311,8 +304,9 @@ export class AddRequestTypeComponent implements OnInit {
       nameAr: this.form.value.titleAr,
       icon: this.uploadedImageBase64,
       iconExtension: this.PhotoExtension,
-      maxDays: this.form.value.maxDays,
-      isCustomized: this.form.value.isCustomize,
+      max: this.form.value.max,
+      min: this.form.value.min,
+            isCustomized: this.form.value.isCustomize,
       requestCategoryId: this.selectedRequestCategory?.id,
     };
 
