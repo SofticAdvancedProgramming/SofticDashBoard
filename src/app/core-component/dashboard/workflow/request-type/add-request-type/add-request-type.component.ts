@@ -147,19 +147,19 @@ export class AddRequestTypeComponent implements OnInit {
       console.log('Selected Request Category:', requestCategory);
       this.selectedRequestCategory = requestCategory;
 
- 
+
       this.loadDepartments(this.selectedRequestCategory.id);
 
-       this.form.get('isCustomize')?.setValue(false);
+      this.form.get('isCustomize')?.setValue(false);
 
-       this.valuesArray = [];
+      this.valuesArray = [];
       this.rankNum = 0;
 
-       this.selectedBranch = null;
+      this.selectedBranch = null;
       this.selectedDepartment = null;
       this.selectedPosition = null;
 
- 
+
 
       console.log('Selected Request Category ID:', this.selectedRequestCategory?.id);
     } else {
@@ -306,7 +306,7 @@ export class AddRequestTypeComponent implements OnInit {
       iconExtension: this.PhotoExtension,
       max: this.form.value.max,
       min: this.form.value.min,
-            isCustomized: this.form.value.isCustomize,
+      isCustomized: this.form.value.isCustomize,
       requestCategoryId: this.selectedRequestCategory?.id,
     };
 
@@ -372,7 +372,7 @@ export class AddRequestTypeComponent implements OnInit {
     })
   }
   loadRequestTypes() {
-    this.requestTypeService.getRequestType({ pageSize: 1000 }).subscribe({
+    this.requestTypeService.getRequestType({ pageSize: 1000 ,  companyId: this.companyId }).subscribe({
       next: (res) => {
         this.requestTypes = res.data.list;
         this.cdr.detectChanges();
