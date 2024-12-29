@@ -14,60 +14,67 @@
   </div>
 <div class="row" >
   <div class="col-8 mt-4" [ngClass]="{'col-12':!postionId}">
-    <input [(ngModel)]="searchText" placeholder="{{ 'viewEmployees.SEARCH' | translate }}" class="form-control custom-search" (input)="applyFilter()" />
+    <input [(ngModel)]="searchText" placeholder="{{ 'viewEmployees.SEARCH' | translate }}" class="form-control custom-search" (input)="loadEmployees()" />
   </div>
-  <div class="mb-4 col-3" *ngIf="!postionId">
+  <div class="mb-4 col-3" *ngIf="!postionId" >
     <label for="employeeStatus" class="form-label">{{"employeeFilteration" |translate}}</label>
-    <select class="form-select" (change)="onOptionSelected($event)" id="exampleSelect">
+    <select class="form-select" (change)="onOptionSelected($event)" id="exampleSelect"  >
       <option value="0">{{"AllEmployee"|translate}}</option>
       <option value="1">{{"ActiveEmployees" |translate}}</option>
       <option value="2">{{"PendingEmployees"|translate}}</option>
       <option value="3">{{"RejectedEmployees"|translate}}</option>
+      <!-- <option value="4" >{{"ActivEmployees"|translate}}</option>
+      <option value="5" >{{"DeactiveEmployees"|translate}}</option> -->
     </select>
   </div>
+
 </div>
   <div class="table-responsive mt-4" *ngIf="filteredEmployees.length > 0; else noData">
     <table class="table custom-table">
       <thead>
-        <tr>
+        <tr  [ngClass]="{'arabic': isArabic }">
           <th>{{ 'viewEmployees.EMPLOYEE_NAME' | translate }}</th>
           <th>{{ 'viewEmployees.EMPLOYEE_ID' | translate }}</th>
-          <th>{{ 'viewEmployees.DEPARTMENT' | translate }}</th>
-           <th>{{ 'viewEmployees.POSITION' | translate }}</th>
-          <th>{{ 'viewEmployees.Join Date' | translate }}</th>
+          <th >{{ 'viewEmployees.DEPARTMENT' | translate }}</th>
+          <th>{{ 'viewEmployees.POSITION' | translate }}</th>
+          <th>{{ 'viewEmployees.HIRINDATE' | translate }}</th>
+          <th>{{ 'viewEmployees.JOINDATE' | translate }}</th>
+          <th>{{ 'viewEmployees.STATUS' | translate }}</th>
           <th>{{ 'viewEmployees.ACTION' | translate }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let employee of filteredEmployees">
-          <ng-container  *ngIf="employee.isActive">
-          </ng-container>
+        <tr *ngFor="let employee of filteredEmployees"   [ngClass]="{'arabic': isArabic }">
           <td>
             <img [src]="employee.referancePhoto || 'assets/images/default-user.png'" alt="Profile Image" class="profile-img"
                  (error)="onImageError($event)" />
             {{ employee.fullName }}
           </td>
           <td>{{ employee.id }}</td>
-          <td ><span *ngIf="employee.accountStatus==1">{{ employee.department?.name }}</span></td>
-          <td>{{ employee.position?.name }}</td>
-          <td>{{ employee.dateOfJoined|date }}</td>
+          <td ><span *ngIf="employee.accountStatus==1">{{isArabic? employee.department?.nameAr:employee.department?.name}}</span></td>
+          <td><span *ngIf="employee.accountStatus==1">{{isArabic? employee.position?.nameAr:employee.position?.name}}</span></td>
+          <td>{{ employee.hiringDate| date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</td>
+          <td><span *ngIf="employee.accountStatus==1">{{employee.dateOfJoined | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</span></td>
+
           <td>
-            <button class="btn btn-sm" *ngIf="!postionId" (click)="viewDetails(employee)">
-              <i class="fas fa-eye"></i>
+            <span *ngIf="employee.isActive && employee.accountStatus==1">{{"viewEmployees.ACTIVE"|translate}}</span>
+            <span *ngIf="!employee.isActive && employee.accountStatus==1">{{"viewEmployees.DEACTIVTE"|translate}}</span>
+          </td>
+          <td>
+            <button class="btn btn-sm"  (click)="viewDetails(employee)">
+              <img src="../../../../../assets/images/view.png">
             </button>
-            <!-- <button  *ngIf="!postionId" class="btn btn-sm btn-danger" (click)="openDeleteModal(employee)">
-              <i class="fas fa-trash-alt"></i>
-            </button> -->
-            <button  *ngIf="!postionId" class="btn btn-sm " (click)="openDeactiveModal(employee)">
-              <!-- <i class="fas fa-trash-alt"></i> -->
-              <img src="../../../../../assets/images/archive-book.png">
+            <button  *ngIf="!postionId && !employee.isActive && employee.accountStatus==1" class="btn btn-sm " (click)="openActiveModal(employee)">
+              <img src="../../../../../assets/images/edit-green-icon.png" >
+            </button>
+            <button  *ngIf="!postionId && employee.isActive && employee.accountStatus==1" class="btn btn-sm " (click)="openDeactiveModal(employee)">
+              <img src="../../../../../assets/images/save-remove.png">
             </button>
             <button  *ngIf="postionId" class="btn btn-sm" (click)="openDeleteEmployeeFromPositionModal(employee)">
-              <!-- <i class="fas fa-trash-alt"></i> -->
               <img src="../../../../../assets/images/trash 01.png">
             </button>
-            <button class="btn  " *ngIf="!postionId" (click)="viewLocations(employee)">
-              <img [src]="'assets/images/location.png'" alt="Profile Image" class="img-fluid"
+            <button class="btn  " *ngIf="!postionId && employee.accountStatus==1" (click)="viewLocations(employee)">
+              <img src='assets/images/Location_.png' alt="Profile Image" class="img-fluid"
                />
             </button>
 
@@ -128,6 +135,26 @@
     </div>
   </div>
 </div>
+
+<!-- Active Confirmation Modal -->
+<div class="modal fade" id="ActiveConfirmationModal" tabindex="-1" aria-labelledby="ActiveConfirmationModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ 'viewEmployees.ACTIVE_CONFIRMATION' | translate }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'viewEmployees.CANCEL' | translate }}</button>
+        <button type="button" class="btn btn-danger"  data-bs-dismiss="modal" (click)="confirmActive()">{{ 'viewEmployees.ACTIVTE' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
 <div class="modal fade" id="deleteEmployeeFromPositionConfirmationModal" tabindex="-1" aria-labelledby="deleteEmployeeFromPositionConfirmationModalLabel" aria-hidden="true">
