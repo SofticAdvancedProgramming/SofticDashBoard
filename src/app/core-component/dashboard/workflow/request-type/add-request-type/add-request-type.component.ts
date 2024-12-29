@@ -131,16 +131,22 @@ export class AddRequestTypeComponent implements OnInit {
     const requestCategory = this.RequestCategories.find(
       (requestCategory: any) => requestCategory.id === requestCategoryId
     );
-
+  
     if (requestCategory) {
-      console.log('Selected Branch:', requestCategory);
+      console.log('Selected Request Category:', requestCategory);
       this.selectedRequestCategory = requestCategory;
       this.loadDepartments(this.selectedRequestCategory.id);
-      console.log('Selected Branch ID:', this.selectedRequestCategory?.id);
+  
+      // Clear the valuesArray when the request category changes
+      this.valuesArray = [];
+      this.rankNum = 0; // Reset rank if needed
+  
+      console.log('Selected Request Category ID:', this.selectedRequestCategory?.id);
     } else {
-      console.log('Branch not found.');
+      console.log('Request Category not found.');
     }
   }
+  
 
   onFileChange(event: any): void {
     console.log('onFileChange');
