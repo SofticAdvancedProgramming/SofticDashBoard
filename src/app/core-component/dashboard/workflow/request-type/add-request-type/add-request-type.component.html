@@ -101,9 +101,17 @@
           </div>
         </div>
       </div>
-      @for (item of newPosition; track $index) {
-        <div class="form-content container p-3 my-3" *ngIf="form.get('isCustomize')?.value">
-          <div class="row gy-3">
+       <div class="form-content container p-3 my-3" *ngIf="form.get('isCustomize')?.value">
+
+         <div class="d-flex justify-content-end mb-3">
+          <button type="button" class="btn   addNewBtn" (click)="addNew()">
+            Add New
+          </button>
+        </div>
+
+         <div class="row gy-3" *ngFor="let item of newPosition; let i = index">
+
+          <!-- Branch -->
           <div class="col-lg-6">
             <div class="form-group">
               <label class="form-label">{{ "Branch" | translate }}</label>
@@ -111,54 +119,44 @@
                 placeholderSearch="{{ 'Search by Name' | translate }}" [items]="Branches" [currentPage]="BranchPage"
                 [itemsLength]="Branches.length" (getNextPageApi)="loadBranchs()" (search)="loadBranchs()"
                 (onChange)="onBranchSelect($event)"></app-drop-down>
-              <div *ngIf="isFieldInvalid('name')" class="text-danger">
-                <small *ngIf="form.get('name')?.errors?.['required']">
-                  {{ "addRequestType.validation.nameRequired" | translate }}
-                </small>
-              </div>
             </div>
           </div>
+
+          <!-- Department -->
           <div class="col-lg-6">
             <div class="form-group">
               <label class="form-label">{{ "Department" | translate }}</label>
               <app-drop-down placeholder="{{ 'Select Department' | translate }}"
                 placeholderSearch="{{ 'Search by Name' | translate }}" [items]="Departments"
                 [currentPage]="DepartmentPage" [itemsLength]="Departments.length"
-                (getNextPageApi)="loadDepartments(selectedBranch.id)" (search)="loadDepartments(selectedBranch.id)"
+                (getNextPageApi)="loadDepartments(selectedBranch?.id)" (search)="loadDepartments(selectedBranch?.id)"
                 (onChange)="onDepartmentSelect($event)"></app-drop-down>
-              <div *ngIf="isFieldInvalid('name')" class="text-danger">
-                <small *ngIf="form.get('name')?.errors?.['required']">
-                  {{ "addRequestType.validation.nameRequired" | translate }}
-                </small>
-              </div>
             </div>
           </div>
+
+          <!-- Position -->
           <div class="col-lg-6">
             <div class="form-group">
               <label class="form-label">{{ "Position" | translate }}</label>
-              <app-drop-down placeholder="{{ 'Select Department' | translate }}"
+              <app-drop-down placeholder="{{ 'Select Position' | translate }}"
                 placeholderSearch="{{ 'Search by Name' | translate }}" [items]="Positions" [currentPage]="PositionPage"
-                [itemsLength]="Positions.length" (getNextPageApi)="loadPositions(selectedDepartment.id)"
-                (search)="loadPositions(selectedDepartment.id)" (onChange)="onPositionSelect($event)"></app-drop-down>
-              <div *ngIf="isFieldInvalid('name')" class="text-danger">
-                <small *ngIf="form.get('name')?.errors?.['required']">
-                  {{ "addRequestType.validation.nameRequired" | translate }}
-                </small>
-              </div>
+                [itemsLength]="Positions.length" (getNextPageApi)="loadPositions(selectedDepartment?.id)"
+                (search)="loadPositions(selectedDepartment?.id)" (onChange)="onPositionSelect($event)"></app-drop-down>
             </div>
           </div>
-          <div class="col-lg-6 d-flex align-items-center">
-            <div class="form-group w-100">
-              <label class="form-label" hidden>{{ "Position" | translate }}</label>
+          <div class="col-lg-6 d-flex justify-content-center align-items-center ">
+            <label class="form-label"  > </label>
+            <label class="form-label"  > </label>
 
-              <button type="button" class="btn w-100 addNewBtn" (click)="addNew()">
-                Add New
-              </button>
-            </div>
+            <button type="button" class="btn RemoveBtn" (click)="remove(i)">
+              Remove
+            </button>
           </div>
-        </div>
-      </div>
-      }
+          <hr class="custom-divider" />
+
+        </div> 
+      </div>  
+
       <div>
         <button class="btn btn-primary w-100" type="submit" [disabled]="!form.valid || isSubmitting">
           Add Request Type
@@ -176,16 +174,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let requestType of requestTypes" (click)="navigateToDetails(requestType.id)" style="cursor: pointer;">
+        <tr *ngFor="let requestType of requestTypes" (click)="navigateToDetails(requestType.id)"
+          style="cursor: pointer;">
           <td>{{ requestType.name }}</td>
           <td>{{ requestType.nameAr }}</td>
           <td>
-            <button
-            class="btn btn-sm"
-            (click)="deleteRequestType(requestType.id); $event.stopPropagation()"
-          >
-            <img src="../../../../../../assets/images/trash 01.png" alt="trash" />
-          </button>
+            <button class="btn btn-sm" (click)="deleteRequestType(requestType.id); $event.stopPropagation()">
+              <img src="../../../../../../assets/images/trash 01.png" alt="trash" />
+            </button>
           </td>
         </tr>
       </tbody>

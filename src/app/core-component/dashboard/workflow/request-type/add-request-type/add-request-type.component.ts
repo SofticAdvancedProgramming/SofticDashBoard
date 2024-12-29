@@ -13,7 +13,7 @@ import { DropDownComponent } from '../../../components/drop-down/drop-down.compo
 import { RequestTypeService } from '../../../../../services/requestTypeService/request-type.service';
 import { ImageUploadService } from '../../../../../services/ImageUploadService/image-upload.service';
 import { ToastrService } from 'ngx-toastr';
- 
+
 @Component({
   selector: 'app-add-request-type',
   standalone: true,
@@ -77,7 +77,7 @@ export class AddRequestTypeComponent implements OnInit {
     this.loadRequestCategory();
     this.initiation();
     this.loadRequestTypes();
-  
+
     // Whenever isCustomize is turned off, clear data
     this.form.get('isCustomize')?.valueChanges.subscribe((value: boolean) => {
       if (!value) {
@@ -89,7 +89,7 @@ export class AddRequestTypeComponent implements OnInit {
       }
     });
   }
-  
+
   initiation() {
     this.form = this.fb.group({
       titleEn: ['', Validators.required],
@@ -102,8 +102,8 @@ export class AddRequestTypeComponent implements OnInit {
   addNew() {
     this.newPosition.push(1);
   }
-  valuesArray: any[] = []; // Array to store added values
-   addValue() {
+  valuesArray: any[] = [];
+  addValue() {
     this.rankNum += 1;
     if (this.form.get('isCustomize')?.value) {
       this.valuesArray.push({
@@ -112,8 +112,7 @@ export class AddRequestTypeComponent implements OnInit {
         id: 0,
         rank: this.rankNum,
         requestTypeId: 0,
-      }); // Add values to the array
-      // this.dynamicForm.reset(); // Reset form for new input
+      });
     } else {
       alert('Please fill all fields correctly!');
     }
@@ -142,39 +141,39 @@ export class AddRequestTypeComponent implements OnInit {
     const requestCategory = this.RequestCategories.find(
       (requestCategory: any) => requestCategory.id === requestCategoryId
     );
-  
+
     if (requestCategory) {
       console.log('Selected Request Category:', requestCategory);
       this.selectedRequestCategory = requestCategory;
-  
+
       // Load Departments for this request category if needed
       // (if your API call indeed depends on requestCategory.id)
       this.loadDepartments(this.selectedRequestCategory.id);
-  
+
       // ---- 1) Reset your 'isCustomize' toggle ----
       this.form.get('isCustomize')?.setValue(false);
-  
+
       // ---- 2) Clear arrays and counters ----
       this.valuesArray = [];
       this.rankNum = 0;
-  
+
       // ---- 3) Clear selected Branch, Department, Position ----
       this.selectedBranch = null;
       this.selectedDepartment = null;
       this.selectedPosition = null;
-  
+
       // If you want the dropdowns to show empty upon switching category,
       // you can optionally clear the arrays:
       // this.Branches = [];
       // this.Departments = [];
       // this.Positions = [];
-      
+
       console.log('Selected Request Category ID:', this.selectedRequestCategory?.id);
     } else {
       console.log('Request Category not found.');
     }
   }
-  
+
 
   onFileChange(event: any): void {
     console.log('onFileChange');
@@ -391,5 +390,8 @@ export class AddRequestTypeComponent implements OnInit {
   }
   navigateToDetails(id: number): void {
     this.router.navigate(['/dashboard/workflow/Request-type/details', id]);
+  }
+  remove(index: number): void {
+    this.newPosition.splice(index, 1);
   }
 }
