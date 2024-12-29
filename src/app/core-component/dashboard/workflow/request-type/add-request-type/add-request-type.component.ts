@@ -77,8 +77,19 @@ export class AddRequestTypeComponent implements OnInit {
     this.loadRequestCategory();
     this.initiation();
     this.loadRequestTypes();
-
+  
+    // Whenever isCustomize is turned off, clear data
+    this.form.get('isCustomize')?.valueChanges.subscribe((value: boolean) => {
+      if (!value) {
+        this.selectedBranch = null;
+        this.selectedDepartment = null;
+        this.selectedPosition = null;
+        this.valuesArray = [];
+        this.rankNum = 0;
+      }
+    });
   }
+  
   initiation() {
     this.form = this.fb.group({
       titleEn: ['', Validators.required],
@@ -135,12 +146,29 @@ export class AddRequestTypeComponent implements OnInit {
     if (requestCategory) {
       console.log('Selected Request Category:', requestCategory);
       this.selectedRequestCategory = requestCategory;
+  
+      // Load Departments for this request category if needed
+      // (if your API call indeed depends on requestCategory.id)
       this.loadDepartments(this.selectedRequestCategory.id);
   
-      // Clear the valuesArray when the request category changes
-      this.valuesArray = [];
-      this.rankNum = 0; // Reset rank if needed
+      // ---- 1) Reset your 'isCustomize' toggle ----
+      this.form.get('isCustomize')?.setValue(false);
   
+      // ---- 2) Clear arrays and counters ----
+      this.valuesArray = [];
+      this.rankNum = 0;
+  
+      // ---- 3) Clear selected Branch, Department, Position ----
+      this.selectedBranch = null;
+      this.selectedDepartment = null;
+      this.selectedPosition = null;
+  
+      // If you want the dropdowns to show empty upon switching category,
+      // you can optionally clear the arrays:
+      // this.Branches = [];
+      // this.Departments = [];
+      // this.Positions = [];
+      
       console.log('Selected Request Category ID:', this.selectedRequestCategory?.id);
     } else {
       console.log('Request Category not found.');
