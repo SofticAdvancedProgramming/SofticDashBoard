@@ -48,6 +48,24 @@
           <div class="col-lg-6 align-items-center d-flex" *ngIf="selectedRequestCategory?.id !== 3">
             <div class="form-group w-100">
               <label *ngIf="selectedRequestCategory?.id === 2" class="form-label">
+                {{ "minimun Amount" | translate }}
+              </label>
+              <label *ngIf="selectedRequestCategory?.id !== 2" class="form-label">
+                {{ "minimun Days" | translate }}
+              </label>
+
+              <input type="number" class="form-control" formControlName="min" />
+              <div *ngIf="isFieldInvalid('min')" class="text-danger">
+                <small *ngIf="form.get('min')?.errors?.['required']">
+                  {{ "addRequestType.validation.nameRequired" | translate }}
+                </small>
+              </div>
+            </div>
+            
+          </div>
+          <div class="col-lg-6 align-items-center d-flex" *ngIf="selectedRequestCategory?.id !== 3">
+            <div class="form-group w-100">
+              <label *ngIf="selectedRequestCategory?.id === 2" class="form-label">
                 {{ "Maximum Amount" | translate }}
               </label>
               <label *ngIf="selectedRequestCategory?.id !== 2" class="form-label">
@@ -62,24 +80,12 @@
               </div>
             </div>
           </div>
-
-          <div class="col-lg-6 align-items-center d-flex" *ngIf="selectedRequestCategory?.id !== 3">
-            <div class="form-group w-100">
-              <label *ngIf="selectedRequestCategory?.id === 2" class="form-label">
-                {{ "minimun Amount" | translate }}
-              </label>
-              <label *ngIf="selectedRequestCategory?.id !== 2" class="form-label">
-                {{ "minimun Days" | translate }}
-              </label>
-
-              <input type="number" class="form-control" formControlName="min" />
-              <div *ngIf="isFieldInvalid('min')" class="text-danger">
-                <small *ngIf="form.get('min')?.errors?.['required']">
-                  {{ "addRequestType.validation.nameRequired" | translate }}
-                </small>
-              </div>
+          <div class="row">
+            <div class="text-danger" *ngIf="form.errors?.['minGreaterThanMax']">
+              <small>Minimum value must be less than the maximum value.</small>
             </div>
-          </div>
+        </div>
+ 
 
 
           <div class="row d-grid gap-3">

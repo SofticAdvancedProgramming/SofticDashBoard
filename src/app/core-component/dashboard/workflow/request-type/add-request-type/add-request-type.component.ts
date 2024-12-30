@@ -23,6 +23,7 @@ import { RequestTypeService } from '../../../../../services/requestTypeService/r
 import { ImageUploadService } from '../../../../../services/ImageUploadService/image-upload.service';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmnDeleteDialogComponent } from "../../../../../common-component/confirmn-delete-dialog/confirmn-delete-dialog.component";
+ import { minLessThanMaxValidator } from '../../../../../../validator/minLessThanMaxValidator';
 
  
 interface RequestConfigForm {
@@ -108,8 +109,18 @@ export class AddRequestTypeComponent implements OnInit {
     this.loadBranchs();
     this.loadRequestCategory();
     this.loadRequestTypes();
-
-     this.form.controls.isCustomize.valueChanges.subscribe((value) => {
+  
+     this.form.statusChanges.subscribe(() => {
+      if (this.form.errors?.['minGreaterThanMax']) {
+        console.log('Validation error: Minimum must be less than Maximum');
+      }
+    });
+  
+    this.form.valueChanges.subscribe(() => {
+      this.cdr.detectChanges(); // Ensure UI updates for error messages
+    });
+  
+    this.form.controls.isCustomize.valueChanges.subscribe((value) => {
       if (!value) {
         this.requestTypeConfigs.clear();
         this.departmentOptions = [];
@@ -117,20 +128,25 @@ export class AddRequestTypeComponent implements OnInit {
       }
     });
   }
+  
 
 
   private buildForm(): void {
-    this.form = this.fb.group<AddRequestTypeForm>({
-      name: this.fb.control<string | null>('', [Validators.required]),
-      nameAr: this.fb.control<string | null>('', [Validators.required]),
-      min: this.fb.control<number | null>(null, [Validators.required]),
-      max: this.fb.control<number | null>(null, [Validators.required]),
-      RequestTypePhoto: this.fb.control<string | null>(null),
-      isCustomize: this.fb.control<boolean>(false, { nonNullable: true }),
-       containAsset: this.fb.control<boolean>(false, { nonNullable: true }),
-      requestTypeConfigs: this.requestTypeConfigs,
-    });
+    this.form = this.fb.group<AddRequestTypeForm>(
+      {
+        name: this.fb.control<string | null>('', [Validators.required]),
+        nameAr: this.fb.control<string | null>('', [Validators.required]),
+        min: this.fb.control<number | null>(null, [Validators.required]),
+        max: this.fb.control<number | null>(null, [Validators.required]),
+        RequestTypePhoto: this.fb.control<string | null>(null),
+        isCustomize: this.fb.control<boolean>(false, { nonNullable: true }),
+        containAsset: this.fb.control<boolean>(false, { nonNullable: true }),
+        requestTypeConfigs: this.requestTypeConfigs,
+      },
+      { validators: [minLessThanMaxValidator] }  
+    );
   }
+  
   
 
   private createConfigGroup(): RequestConfigFormGroup {
