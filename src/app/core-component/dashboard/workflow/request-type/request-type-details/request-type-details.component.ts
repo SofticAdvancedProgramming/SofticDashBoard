@@ -168,18 +168,27 @@ export class RequestTypeDetailsComponent {
   }
 
   editRequestType(): void {
-    const payload = {
+     const payload = {
       id: this.requestTypeDetails.id,
       companyId: this.requestTypeDetails.companyId,
-      name: this.requestTypeDetails.name,
-      nameAr: this.requestTypeDetails.nameAr,
-     // icon: this.requestTypeDetails.icon,
-      maxDays: this.requestTypeDetails.maxDays,
+      name: this.editForm.value.name,
+      nameAr: this.editForm.value.nameAr,
+      //icon: this.editForm.value.icon,
+      max: this.editForm.value.max,
+      min: this.editForm.value.min,
+      containAsset: this.editForm.value.containAsset,
       isCustomized: this.requestTypeDetails.isCustomized,
       requestCategoryId: this.requestTypeDetails.requestCategoryId,
-      requestTypeConfigs: this.requestTypes,
+      requestTypeConfigs: this.requestTypes.map((config: any) => ({
+        id: config.id,
+        companyId: config.companyId,
+        positionId: config.positionId,
+        rank: config.rank,
+        requestTypeId: config.requestTypeId,
+      })),
     };
-console.log(payload,"hhhhhhhhhhhhhhhhhh")
+  
+    // API call to save the changes
     this.requestTypeService.editRequestType(payload).subscribe({
       next: () => {
         this.toastr.success('Changes saved successfully!');
@@ -191,6 +200,7 @@ console.log(payload,"hhhhhhhhhhhhhhhhhh")
       },
     });
   }
+  
   saveChanges(): void {
     const payload = {
       id: this.requestTypeDetails.id,
