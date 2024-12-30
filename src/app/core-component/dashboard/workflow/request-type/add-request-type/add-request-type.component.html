@@ -15,11 +15,6 @@
                 "Title (English)" | translate
                 }}</label>
               <input type="text" class="form-control" formControlName="name" />
-              <!-- <div *ngIf="isFieldInvalid('name')" class="text-danger">
-                <small *ngIf="form.get('name')?.errors?.['required']">
-                  {{ "addRequestType.validation.nameRequired" | translate }}
-                </small>
-              </div> -->
             </div>
           </div>
           <div class="col-lg-6">
@@ -28,51 +23,56 @@
                 "Title (Arabic)" | translate
                 }}</label>
               <input type="text" class="form-control" formControlName="nameAr" />
-
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
-              <label class="form-label">{{
-                "Request category" | translate
-                }}</label>
-              <app-drop-down placeholder="{{ 'Select Request category' | translate }}"
-                placeholderSearch="{{ 'Search by Name' | translate }}" [items]="RequestCategories"
+              <label class="form-label">
+                {{ "Request category" | translate }}
+              </label>
+              <app-drop-down [placeholder]="'Select Request category' | translate"
+                [placeholderSearch]="'Search by Name' | translate" [items]="RequestCategories"
                 [itemsLength]="RequestCategories.length" (getNextPageApi)="loadRequestCategory()"
-                (search)="loadRequestCategory()" (onChange)="onRequestCategorySelect($event)"></app-drop-down>
+                (search)="loadRequestCategory()" (onChange)="onRequestCategorySelect($event)">
+              </app-drop-down>
             </div>
           </div>
-          <div class="col-lg-6 align-items-center d-flex">
+          <div class="col-lg-6">
+            <div class="form-group" *ngIf="selectedRequestCategory?.id === 3">
+              <label class="d-flex align-items-center gap-2">
+                <input type="checkbox" formControlName="containAsset" />
+                {{ 'Contains Asset?' | translate }}
+              </label>
+            </div>
+          </div>
+          <div class="col-lg-6 align-items-center d-flex" *ngIf="selectedRequestCategory?.id !== 3">
             <div class="form-group w-100">
-              @if(selectedRequestCategory?.id == 2){
-              <label for="maxDays" class="form-label">{{
-                "Maximum Amount" | translate
-                }}</label>
-              }@else {
-              <label for="max" class="form-label">{{
-                "Maximum Days" | translate
-                }}</label>
-              }
-              <input type="number" class="form-control" id="" formControlName="max" />
+              <label *ngIf="selectedRequestCategory?.id === 2" class="form-label">
+                {{ "Maximum Amount" | translate }}
+              </label>
+              <label *ngIf="selectedRequestCategory?.id !== 2" class="form-label">
+                {{ "Maximum Days" | translate }}
+              </label>
+
+              <input type="number" class="form-control" formControlName="max" />
               <div *ngIf="isFieldInvalid('max')" class="text-danger">
-                <small *ngIf="form.get('maxDays')?.errors?.['required']">
+                <small *ngIf="form.get('max')?.errors?.['required']">
                   {{ "addRequestType.validation.nameRequired" | translate }}
                 </small>
               </div>
             </div>
           </div>
-          <div class="col-lg-6 align-items-center d-flex">
+
+          <div class="col-lg-6 align-items-center d-flex" *ngIf="selectedRequestCategory?.id !== 3">
             <div class="form-group w-100">
-              @if(selectedRequestCategory?.id == 2){
-              <label for="maxDays" class="form-label">{{
-                "minimun Amount" | translate
-                }}</label>
-              }@else {
-              <label for="min" class="form-label">{{
-                "minimun Days" | translate
-                }}</label>
-              }
-              <input type="number" class="form-control" id="" formControlName="min" />
+              <label *ngIf="selectedRequestCategory?.id === 2" class="form-label">
+                {{ "minimun Amount" | translate }}
+              </label>
+              <label *ngIf="selectedRequestCategory?.id !== 2" class="form-label">
+                {{ "minimun Days" | translate }}
+              </label>
+
+              <input type="number" class="form-control" formControlName="min" />
               <div *ngIf="isFieldInvalid('min')" class="text-danger">
                 <small *ngIf="form.get('min')?.errors?.['required']">
                   {{ "addRequestType.validation.nameRequired" | translate }}
@@ -80,6 +80,8 @@
               </div>
             </div>
           </div>
+
+
           <div class="row d-grid gap-3">
             <div class="d-flex gap-1 flex-wrap" style="grid-column: 1 / -1">
               <div class="form-group">
@@ -119,7 +121,6 @@
 
         <div class="row gy-3" *ngFor="let configGroup of requestTypeConfigs.controls; let i = index"
           [formGroup]="configGroup">
-          <!-- Branch -->
           <div class="col-lg-6">
             <div class="form-group">
               <label class="form-label">{{ "Branch" | translate }}</label>
@@ -130,7 +131,6 @@
             </div>
           </div>
 
-          <!-- Department -->
           <div class="col-lg-6">
             <div class="form-group">
               <label class="form-label">{{ "Department" | translate }}</label>
@@ -143,7 +143,6 @@
             </div>
           </div>
 
-          <!-- Position -->
           <div class="col-lg-6">
             <div class="form-group">
               <label class="form-label">{{ "Position" | translate }}</label>

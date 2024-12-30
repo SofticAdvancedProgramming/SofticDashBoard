@@ -31,19 +31,20 @@ interface RequestConfigForm {
   departmentId: FormControl<number | null>;
   positionId: FormControl<number | null>;
   rank: FormControl<number | null>;
- 
+
 }
 
 type RequestConfigFormGroup = FormGroup<RequestConfigForm>;
 
- 
+
 interface AddRequestTypeForm {
   name: FormControl<string | null>;
-  nameAr: FormControl<string  | null>;
+  nameAr: FormControl<string | null>;
   min: FormControl<number | null>;
   max: FormControl<number | null>;
-   RequestTypePhoto: FormControl<string | null>;
+  RequestTypePhoto: FormControl<string | null>;
   isCustomize: FormControl<boolean>;
+  containAsset: FormControl<boolean>;
   requestTypeConfigs: FormArray<RequestConfigFormGroup>;
 }
 @Component({
@@ -62,39 +63,29 @@ interface AddRequestTypeForm {
   styleUrls: ['./add-request-type.component.css'],
 })
 export class AddRequestTypeComponent implements OnInit {
-  /**
-   * The main form, typed according to AddRequestTypeForm.
-   */
+ 
   form!: FormGroup<AddRequestTypeForm>;
 
-  /**
-   * A typed FormArray for branch/department/position rows.
-   * Each item is a RequestConfigFormGroup.
-   */
+ 
   requestTypeConfigs = this.fb.array<RequestConfigFormGroup>([]);
 
-  // Data from APIs
-  RequestCategories: any[] = [];
+   RequestCategories: any[] = [];
   Branches: any[] = [];
   departmentOptions: any[][] = [];
   positionOptions: any[][] = [];
 
-  // Table data
-  requestTypes: any[] = [];
+   requestTypes: any[] = [];
 
-  // File upload / preview
-  fileType: string | null = null;
+   fileType: string | null = null;
   uploadMessage: string | null = null;
   uploadedImageBase64: string | null = null;
   selectedFileName: string | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
   PhotoExtension: string | null = null;
 
-  // Submission state
-  isSubmitting = false;
+   isSubmitting = false;
 
-  // Additional state
-  selectedRequestCategory: any;
+   selectedRequestCategory: any;
   companyId!: number;
 
   @Output() RequestAdded = new EventEmitter<void>();
@@ -117,8 +108,7 @@ export class AddRequestTypeComponent implements OnInit {
     this.loadRequestCategory();
     this.loadRequestTypes();
 
-    // If isCustomize is turned off, clear the FormArray.
-    this.form.controls.isCustomize.valueChanges.subscribe((value) => {
+     this.form.controls.isCustomize.valueChanges.subscribe((value) => {
       if (!value) {
         this.requestTypeConfigs.clear();
         this.departmentOptions = [];
@@ -127,27 +117,21 @@ export class AddRequestTypeComponent implements OnInit {
     });
   }
 
-  /**
-   * Build the main form. 
-   * Notice we match 'name' and 'nameAr' exactly with our interface.
-   */
+
   private buildForm(): void {
     this.form = this.fb.group<AddRequestTypeForm>({
-      name: this.fb.control<string | null>('', { validators: [Validators.required] }),
-      nameAr: this.fb.control<string | null>('', { validators: [Validators.required] }),
-      min: this.fb.control<number | null>(null, { validators: [Validators.required] }),
-      max: this.fb.control<number | null>(null, { validators: [Validators.required] }),
- 
+      name: this.fb.control<string | null>('', [Validators.required]),
+      nameAr: this.fb.control<string | null>('', [Validators.required]),
+      min: this.fb.control<number | null>(null, [Validators.required]),
+      max: this.fb.control<number | null>(null, [Validators.required]),
       RequestTypePhoto: this.fb.control<string | null>(null),
-  
       isCustomize: this.fb.control<boolean>(false, { nonNullable: true }),
+       containAsset: this.fb.control<boolean>(false, { nonNullable: true }),
       requestTypeConfigs: this.requestTypeConfigs,
     });
   }
   
-  /**
-   * Create a typed FormGroup for branch/department/position row.
-   */
+
   private createConfigGroup(): RequestConfigFormGroup {
     return this.fb.group<RequestConfigForm>({
       branchId: this.fb.control<number | null>(null, { validators: [Validators.required] }),
@@ -157,25 +141,20 @@ export class AddRequestTypeComponent implements OnInit {
     });
   }
 
-  /** Add a row to the requestTypeConfigs FormArray. */
-  addRow(): void {
+   addRow(): void {
     this.requestTypeConfigs.push(this.createConfigGroup());
     const rowIndex = this.requestTypeConfigs.length - 1;
-    // prepare arrays for that row
-    this.departmentOptions[rowIndex] = [];
+     this.departmentOptions[rowIndex] = [];
     this.positionOptions[rowIndex] = [];
   }
 
-  /** Remove a row from the FormArray. */
-  removeRow(index: number): void {
+   removeRow(index: number): void {
     this.requestTypeConfigs.removeAt(index);
     this.departmentOptions.splice(index, 1);
     this.positionOptions.splice(index, 1);
   }
 
-  // ==========================
-  //      API CALLS
-  // ==========================
+
   loadBranchs(): void {
     this.requestTypeService.getBranches({}).subscribe({
       next: (res) => {
@@ -224,17 +203,29 @@ export class AddRequestTypeComponent implements OnInit {
       });
   }
 
-  // ==========================
-  //      DROPDOWN EVENTS
-  // ==========================
+
   onRequestCategorySelect(requestCategoryId: any): void {
     const requestCategory = this.RequestCategories.find((cat) => cat.id === requestCategoryId);
-    if (requestCategory) {
-      this.selectedRequestCategory = requestCategory;
-      // Optionally reset isCustomize
-      this.form.controls.isCustomize.setValue(false);
+    if (!requestCategory) return;
+
+    this.selectedRequestCategory = requestCategory;
+
+    if (this.selectedRequestCategory.id === 3) {
+      this.form.controls.min.clearValidators();
+      this.form.controls.min.updateValueAndValidity();
+
+      this.form.controls.max.clearValidators();
+      this.form.controls.max.updateValueAndValidity();
+    }
+    else {
+      this.form.controls.min.setValidators([Validators.required]);
+      this.form.controls.min.updateValueAndValidity();
+
+      this.form.controls.max.setValidators([Validators.required]);
+      this.form.controls.max.updateValueAndValidity();
     }
   }
+
 
   onBranchSelect(branchId: any, rowIndex: number): void {
     const branch = this.Branches.find((b) => b.id === branchId);
@@ -261,9 +252,7 @@ export class AddRequestTypeComponent implements OnInit {
     }
   }
 
-  // ==========================
-  //      FILE UPLOAD
-  // ==========================
+
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
@@ -272,7 +261,6 @@ export class AddRequestTypeComponent implements OnInit {
       this.fileType = file.type;
       this.selectedFileName = file.name;
 
-      // Convert to Base64
       this.readFile(file);
       this.imageUploadService
         .convertFileToBase64(file)
@@ -305,12 +293,12 @@ export class AddRequestTypeComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
- 
+
   isFieldInvalid(field: keyof AddRequestTypeForm): boolean {
     const control = this.form.controls[field];
     return control.invalid && (control.dirty || control.touched);
   }
- 
+
   onSubmit(): void {
     if (this.isSubmitting) return;
     if (!this.form.valid) return;
@@ -318,7 +306,7 @@ export class AddRequestTypeComponent implements OnInit {
     this.isSubmitting = true;
     const f = this.form.value;
   
-     const payload: any = {
+    const payload: any = {
       companyId: this.companyId,
       name: f.name,
       nameAr: f.nameAr,
@@ -326,19 +314,19 @@ export class AddRequestTypeComponent implements OnInit {
       iconExtension: this.PhotoExtension || null,
       max: f.max,
       min: f.min,
-  
-       containAsset: true,
-  
- 
+       containAsset: f.containAsset,
       isCustomized: f.isCustomize,
-  
-       requestCategoryId: this.selectedRequestCategory?.id,
-  
+      requestCategoryId: this.selectedRequestCategory?.id,
       requestTypeConfigs: [],
     };
   
-    if (f.isCustomize) {
-       this.requestTypeConfigs.controls.forEach((group, index) => {
+     if (this.selectedRequestCategory?.id === 3) {
+      delete payload.min;
+      delete payload.max;
+    }
+  
+     if (f.isCustomize) {
+      this.requestTypeConfigs.controls.forEach((group, index) => {
         const g = group.value;
         payload.requestTypeConfigs.push({
           companyId: this.companyId,
@@ -369,20 +357,17 @@ export class AddRequestTypeComponent implements OnInit {
         this.PhotoExtension = null;
         this.isSubmitting = false;
       },
-      error: (err) => {
-        console.error('Error:', err);
-        this.toast.error(this.translate.instant('Failed to add request type.'));
-        this.isSubmitting = false;
-      },
     });
   }
+  
+
   deleteRequestType(id: number): void {
     this.requestTypeService.deleteRequestType(id, this.companyId).subscribe({
       next: (res) => {
         this.toast.success('Request Type Deleted Successfully');
         this.loadRequestTypes();
       },
-      error: (err) => console.error(err),
+
     });
   }
 
