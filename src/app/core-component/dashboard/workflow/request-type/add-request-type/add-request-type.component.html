@@ -14,12 +14,12 @@
               <label for="titleEn" class="form-label">{{
                 "Title (English)" | translate
                 }}</label>
-              <input type="text" class="form-control" id="titleEn" formControlName="titleEn" />
-              <div *ngIf="isFieldInvalid('name')" class="text-danger">
+              <input type="text" class="form-control" formControlName="name" />
+              <!-- <div *ngIf="isFieldInvalid('name')" class="text-danger">
                 <small *ngIf="form.get('name')?.errors?.['required']">
                   {{ "addRequestType.validation.nameRequired" | translate }}
                 </small>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="col-lg-6">
@@ -27,12 +27,8 @@
               <label for="titleAr" class="form-label">{{
                 "Title (Arabic)" | translate
                 }}</label>
-              <input type="text" class="form-control" id="titleAr" formControlName="titleAr" />
-              <div *ngIf="isFieldInvalid('name')" class="text-danger">
-                <small *ngIf="form.get('name')?.errors?.['required']">
-                  {{ "addRequestType.validation.nameRequired" | translate }}
-                </small>
-              </div>
+              <input type="text" class="form-control" formControlName="nameAr" />
+
             </div>
           </div>
           <div class="col-lg-6">
@@ -42,9 +38,8 @@
                 }}</label>
               <app-drop-down placeholder="{{ 'Select Request category' | translate }}"
                 placeholderSearch="{{ 'Search by Name' | translate }}" [items]="RequestCategories"
-                [currentPage]="RequestCategoryPage" [itemsLength]="RequestCategories.length"
-                (getNextPageApi)="loadRequestCategory()" (search)="loadRequestCategory()"
-                (onChange)="onRequestCategorySelect($event)"></app-drop-down>
+                [itemsLength]="RequestCategories.length" (getNextPageApi)="loadRequestCategory()"
+                (search)="loadRequestCategory()" (onChange)="onRequestCategorySelect($event)"></app-drop-down>
             </div>
           </div>
           <div class="col-lg-6 align-items-center d-flex">
@@ -57,7 +52,7 @@
               <label for="max" class="form-label">{{
                 "Maximum Days" | translate
                 }}</label>
-                }
+              }
               <input type="number" class="form-control" id="" formControlName="max" />
               <div *ngIf="isFieldInvalid('max')" class="text-danger">
                 <small *ngIf="form.get('maxDays')?.errors?.['required']">
@@ -76,7 +71,7 @@
               <label for="min" class="form-label">{{
                 "minimun Days" | translate
                 }}</label>
-                }
+              }
               <input type="number" class="form-control" id="" formControlName="min" />
               <div *ngIf="isFieldInvalid('min')" class="text-danger">
                 <small *ngIf="form.get('min')?.errors?.['required']">
@@ -116,24 +111,22 @@
           </div>
         </div>
       </div>
-       <div class="form-content container p-3 my-3" *ngIf="form.get('isCustomize')?.value">
+      <div class="form-content container p-3 my-3" *ngIf="form.get('isCustomize')?.value">
 
-         <div class="d-flex justify-content-end mb-3">
-          <button type="button" class="btn   addNewBtn" (click)="addNew()">
-            Add New
-          </button>
+        <div class="d-flex justify-content-end mb-3">
+          <button type="button" class="btn addNewBtn" (click)="addRow()">Add New</button>
         </div>
 
-         <div class="row gy-3" *ngFor="let item of newPosition; let i = index">
-
+        <div class="row gy-3" *ngFor="let configGroup of requestTypeConfigs.controls; let i = index"
+          [formGroup]="configGroup">
           <!-- Branch -->
           <div class="col-lg-6">
             <div class="form-group">
               <label class="form-label">{{ "Branch" | translate }}</label>
-              <app-drop-down placeholder="{{ 'Select Branch' | translate }}"
-                placeholderSearch="{{ 'Search by Name' | translate }}" [items]="Branches" [currentPage]="BranchPage"
-                [itemsLength]="Branches.length" (getNextPageApi)="loadBranchs()" (search)="loadBranchs()"
-                (onChange)="onBranchSelect($event)"></app-drop-down>
+              <app-drop-down [items]="Branches" [placeholder]="'Select Branch' | translate"
+                [placeholderSearch]="'Search by Name' | translate" [itemsLength]="Branches.length"
+                (onChange)="onBranchSelect($event, i)" (getNextPageApi)="loadBranchs()" (search)="loadBranchs()">
+              </app-drop-down>
             </div>
           </div>
 
@@ -141,11 +134,12 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label class="form-label">{{ "Department" | translate }}</label>
-              <app-drop-down placeholder="{{ 'Select Department' | translate }}"
-                placeholderSearch="{{ 'Search by Name' | translate }}" [items]="Departments"
-                [currentPage]="DepartmentPage" [itemsLength]="Departments.length"
-                (getNextPageApi)="loadDepartments(selectedBranch?.id)" (search)="loadDepartments(selectedBranch?.id)"
-                (onChange)="onDepartmentSelect($event)"></app-drop-down>
+              <app-drop-down [items]="departmentOptions[i]" [placeholder]="'Select Department' | translate"
+                [placeholderSearch]="'Search by Name' | translate" [itemsLength]="departmentOptions[i]?.length || 0"
+                (onChange)="onDepartmentSelect($event, i)"
+                (getNextPageApi)="loadDepartments(configGroup.value.branchId!, i)"
+                (search)="loadDepartments(configGroup.value.branchId!, i)">
+              </app-drop-down>
             </div>
           </div>
 
@@ -153,24 +147,28 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label class="form-label">{{ "Position" | translate }}</label>
-              <app-drop-down placeholder="{{ 'Select Position' | translate }}"
-                placeholderSearch="{{ 'Search by Name' | translate }}" [items]="Positions" [currentPage]="PositionPage"
-                [itemsLength]="Positions.length" (getNextPageApi)="loadPositions(selectedDepartment?.id)"
-                (search)="loadPositions(selectedDepartment?.id)" (onChange)="onPositionSelect($event)"></app-drop-down>
+              <app-drop-down [items]="positionOptions[i]" [placeholder]="'Select Position' | translate"
+                [placeholderSearch]="'Search by Name' | translate" [itemsLength]="positionOptions[i]?.length || 0"
+                (onChange)="onPositionSelect($event, i)"
+                (getNextPageApi)="loadPositions(configGroup.value.departmentId!, i)"
+                (search)="loadPositions(configGroup.value.departmentId!, i)">
+              </app-drop-down>
             </div>
           </div>
           <div class="col-lg-6 d-flex justify-content-center align-items-center ">
-            <label class="form-label"  > </label>
-            <label class="form-label"  > </label>
+            <label class="form-label"> </label>
+            <label class="form-label"> </label>
 
-            <button type="button" class="btn RemoveBtn" (click)="remove(i)">
-              Remove
-            </button>
+            <div class="col-lg-6 d-flex align-items-center">
+              <button type="button" class="btn RemoveBtn" (click)="removeRow(i)">
+                Remove
+              </button>
+            </div>
           </div>
           <hr class="custom-divider" />
 
-        </div> 
-      </div>  
+        </div>
+      </div>
 
       <div>
         <button class="btn btn-primary w-100" type="submit" [disabled]="!form.valid || isSubmitting">

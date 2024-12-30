@@ -1,66 +1,104 @@
+import { string } from '@tensorflow/tfjs-core';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output
+} from '@angular/core';
 import {
   ReactiveFormsModule,
   FormsModule,
   FormGroup,
+  FormControl,
   FormBuilder,
   Validators,
+  FormArray
 } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { DropDownComponent } from '../../../components/drop-down/drop-down.component';
 import { RequestTypeService } from '../../../../../services/requestTypeService/request-type.service';
 import { ImageUploadService } from '../../../../../services/ImageUploadService/image-upload.service';
 import { ToastrService } from 'ngx-toastr';
 
+/** 
+ * Interface for each dynamic row (branch/department/position).
+ */
+interface RequestConfigForm {
+  branchId: FormControl<number | null>;
+  departmentId: FormControl<number | null>;
+  positionId: FormControl<number | null>;
+  rank: FormControl<number | null>;
+ 
+}
+
+type RequestConfigFormGroup = FormGroup<RequestConfigForm>;
+
+ 
+interface AddRequestTypeForm {
+  name: FormControl<string | null>;
+  nameAr: FormControl<string  | null>;
+  min: FormControl<number | null>;
+  max: FormControl<number | null>;
+   RequestTypePhoto: FormControl<string | null>;
+  isCustomize: FormControl<boolean>;
+  requestTypeConfigs: FormArray<RequestConfigFormGroup>;
+}
 @Component({
   selector: 'app-add-request-type',
   standalone: true,
   imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     TranslateModule,
     RouterLink,
     RouterLinkActive,
-    ReactiveFormsModule,
-    CommonModule,
-    FormsModule,
-    DropDownComponent, RouterLink
+    DropDownComponent,
   ],
   templateUrl: './add-request-type.component.html',
-  styleUrl: './add-request-type.component.css',
+  styleUrls: ['./add-request-type.component.css'],
 })
 export class AddRequestTypeComponent implements OnInit {
+  /**
+   * The main form, typed according to AddRequestTypeForm.
+   */
+  form!: FormGroup<AddRequestTypeForm>;
 
-  form!: FormGroup;
-  files: any[] = [];
-  attachmentfileType: any;
-  RequestTypes: any[] = [];
+  /**
+   * A typed FormArray for branch/department/position rows.
+   * Each item is a RequestConfigFormGroup.
+   */
+  requestTypeConfigs = this.fb.array<RequestConfigFormGroup>([]);
+
+  // Data from APIs
   RequestCategories: any[] = [];
   Branches: any[] = [];
-  Departments: any[] = [];
-  Positions: any[] = [];
-  DepartmentPage: any;
-  RequestCategoryPage: any;
-  BranchPage: any;
-  PositionPage: any;
+  departmentOptions: any[][] = [];
+  positionOptions: any[][] = [];
+
+  // Table data
   requestTypes: any[] = [];
-  requestTypeId!: any;
-  selectedBranch: any;
-  selectedDepartment: any;
-  selectedPosition: any;
-  selectedRequestCategory: any;
-  companyId!: number;
+
+  // File upload / preview
   fileType: string | null = null;
   uploadMessage: string | null = null;
-  uploadedImageBase64: any;
+  uploadedImageBase64: string | null = null;
   selectedFileName: string | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
-  PhotoExtension: any;
-  requestTypeConfigs: any[] = [];
-  newPosition: number[] = [1];
+  PhotoExtension: string | null = null;
+
+  // Submission state
   isSubmitting = false;
-  rankNum: number = 0;
+
+  // Additional state
+  selectedRequestCategory: any;
+  companyId!: number;
+
   @Output() RequestAdded = new EventEmitter<void>();
+
   constructor(
     private requestTypeService: RequestTypeService,
     private fb: FormBuilder,
@@ -72,112 +110,175 @@ export class AddRequestTypeComponent implements OnInit {
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
+
   ngOnInit(): void {
+    this.buildForm();
     this.loadBranchs();
     this.loadRequestCategory();
-    this.initiation();
     this.loadRequestTypes();
 
-    // Whenever isCustomize is turned off, clear data
-    this.form.get('isCustomize')?.valueChanges.subscribe((value: boolean) => {
+    // If isCustomize is turned off, clear the FormArray.
+    this.form.controls.isCustomize.valueChanges.subscribe((value) => {
       if (!value) {
-        this.selectedBranch = null;
-        this.selectedDepartment = null;
-        this.selectedPosition = null;
-        this.valuesArray = [];
-        this.rankNum = 0;
+        this.requestTypeConfigs.clear();
+        this.departmentOptions = [];
+        this.positionOptions = [];
       }
     });
   }
 
-  initiation() {
-    this.form = this.fb.group({
-      titleEn: ['', Validators.required],
-      titleAr: ['', Validators.required],
-      min: ['', Validators.required],
-      max: ['', Validators.required],
-      RequestTypePhoto: [],
-      isCustomize: [false],
+  /**
+   * Build the main form. 
+   * Notice we match 'name' and 'nameAr' exactly with our interface.
+   */
+  private buildForm(): void {
+    this.form = this.fb.group<AddRequestTypeForm>({
+      name: this.fb.control<string | null>('', { validators: [Validators.required] }),
+      nameAr: this.fb.control<string | null>('', { validators: [Validators.required] }),
+      min: this.fb.control<number | null>(null, { validators: [Validators.required] }),
+      max: this.fb.control<number | null>(null, { validators: [Validators.required] }),
+ 
+      RequestTypePhoto: this.fb.control<string | null>(null),
+  
+      isCustomize: this.fb.control<boolean>(false, { nonNullable: true }),
+      requestTypeConfigs: this.requestTypeConfigs,
     });
   }
-  addNew() {
-    this.newPosition.push(1);
-  }
-  valuesArray: any[] = [];
-  addValue() {
-    this.rankNum += 1;
-    if (this.form.get('isCustomize')?.value) {
-      this.valuesArray.push({
-        companyId: null,
-        positionId: this.selectedPosition.id,
-        id: 0,
-        rank: this.rankNum,
-        requestTypeId: 0,
-      });
-    } else {
-      alert('Please fill all fields correctly!');
-    }
-    console.log(this.valuesArray);
+  
+  /**
+   * Create a typed FormGroup for branch/department/position row.
+   */
+  private createConfigGroup(): RequestConfigFormGroup {
+    return this.fb.group<RequestConfigForm>({
+      branchId: this.fb.control<number | null>(null, { validators: [Validators.required] }),
+      departmentId: this.fb.control<number | null>(null, { validators: [Validators.required] }),
+      positionId: this.fb.control<number | null>(null, { validators: [Validators.required] }),
+      rank: this.fb.control<number | null>(0, { validators: [Validators.required] }),
+    });
   }
 
-  isFieldInvalid(field: string): boolean {
-    const control = this.form.get(field);
-    return control
-      ? control.invalid && (control.dirty || control.touched)
-      : false;
+  /** Add a row to the requestTypeConfigs FormArray. */
+  addRow(): void {
+    this.requestTypeConfigs.push(this.createConfigGroup());
+    const rowIndex = this.requestTypeConfigs.length - 1;
+    // prepare arrays for that row
+    this.departmentOptions[rowIndex] = [];
+    this.positionOptions[rowIndex] = [];
   }
 
-  loadRequestCategory() {
+  /** Remove a row from the FormArray. */
+  removeRow(index: number): void {
+    this.requestTypeConfigs.removeAt(index);
+    this.departmentOptions.splice(index, 1);
+    this.positionOptions.splice(index, 1);
+  }
+
+  // ==========================
+  //      API CALLS
+  // ==========================
+  loadBranchs(): void {
+    this.requestTypeService.getBranches({}).subscribe({
+      next: (res) => {
+        this.Branches = res.data.list || [];
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  loadRequestCategory(): void {
     this.requestTypeService.getRequestCategory({}).subscribe({
       next: (res) => {
-        this.RequestCategories = res.data.list;
-        console.log(res);
+        this.RequestCategories = res.data.list || [];
       },
-      error: (err) => {
-        console.log(err);
-      },
+      error: (err) => console.error(err),
     });
   }
-  onRequestCategorySelect(requestCategoryId: any) {
-    this.valuesArray=[]
-    const requestCategory = this.RequestCategories.find(
-      (requestCategory: any) => requestCategory.id === requestCategoryId
-    );
+
+  loadDepartments(branchId: number, rowIndex: number): void {
+    this.requestTypeService.getDepartments({ branchId }).subscribe({
+      next: (res) => {
+        this.departmentOptions[rowIndex] = res.data.list || [];
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  loadPositions(departmentId: number, rowIndex: number): void {
+    this.requestTypeService.getPositions({ departmentId }).subscribe({
+      next: (res) => {
+        this.positionOptions[rowIndex] = res.data.list || [];
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  loadRequestTypes(): void {
+    this.requestTypeService
+      .getRequestType({ pageSize: 1000, companyId: this.companyId })
+      .subscribe({
+        next: (res) => {
+          this.requestTypes = res.data.list || [];
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error(err),
+      });
+  }
+
+  // ==========================
+  //      DROPDOWN EVENTS
+  // ==========================
+  onRequestCategorySelect(requestCategoryId: any): void {
+    const requestCategory = this.RequestCategories.find((cat) => cat.id === requestCategoryId);
     if (requestCategory) {
-      console.log('Selected Request Category:', requestCategory);
       this.selectedRequestCategory = requestCategory;
-      this.loadDepartments(this.selectedRequestCategory.id);
-      this.form.get('isCustomize')?.setValue(false);
-      this.valuesArray = [];
-     this.rankNum = 0;
-      this.selectedBranch = null;
-      this.selectedDepartment = null;
-      this.selectedPosition = null;
-      console.log('Selected Request Category ID:', this.selectedRequestCategory?.id);
-    } else {
-      console.log('Request Category not found.');
+      // Optionally reset isCustomize
+      this.form.controls.isCustomize.setValue(false);
     }
   }
 
+  onBranchSelect(branchId: any, rowIndex: number): void {
+    const branch = this.Branches.find((b) => b.id === branchId);
+    if (branch) {
+      this.requestTypeConfigs.at(rowIndex).controls.branchId.setValue(branch.id);
+      this.loadDepartments(branch.id, rowIndex);
+    }
+  }
 
+  onDepartmentSelect(departmentId: any, rowIndex: number): void {
+    const depArray = this.departmentOptions[rowIndex] || [];
+    const department = depArray.find((d: any) => d.id === departmentId);
+    if (department) {
+      this.requestTypeConfigs.at(rowIndex).controls.departmentId.setValue(department.id);
+      this.loadPositions(department.id, rowIndex);
+    }
+  }
+
+  onPositionSelect(positionId: any, rowIndex: number): void {
+    const posArray = this.positionOptions[rowIndex] || [];
+    const position = posArray.find((p: any) => p.id === positionId);
+    if (position) {
+      this.requestTypeConfigs.at(rowIndex).controls.positionId.setValue(position.id);
+    }
+  }
+
+  // ==========================
+  //      FILE UPLOAD
+  // ==========================
   onFileChange(event: any): void {
-    console.log('onFileChange');
     const file = event.target.files[0];
     if (file) {
       const fileName = file.name;
       this.PhotoExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
       this.fileType = file.type;
       this.selectedFileName = file.name;
+
+      // Convert to Base64
       this.readFile(file);
       this.imageUploadService
         .convertFileToBase64(file)
         .then((base64) => {
-          this.uploadedImageBase64 = base64;
-          this.uploadedImageBase64 = base64.replace(
-            /^data:image\/[a-z]+;base64,/,
-            ''
-          );
-          this.form.patchValue({ photo: this.uploadedImageBase64 });
+          this.uploadedImageBase64 = base64.replace(/^data:image\/[a-z]+;base64,/, '');
+          this.form.controls.RequestTypePhoto.setValue(this.uploadedImageBase64);
           this.cdr.detectChanges();
         })
         .catch((error) => {
@@ -185,12 +286,12 @@ export class AddRequestTypeComponent implements OnInit {
         });
     }
   }
-  readFile(file: File): void {
+
+  private readFile(file: File): void {
     const reader = new FileReader();
     reader.onload = () => {
-      const result = reader.result as string | null;
+      const result = reader.result as string;
       if (result) {
-        const base64String = result.split(',')[1];
         this.uploadMessage = this.translate.instant(
           this.fileType?.startsWith('image/')
             ? 'ASSET_UPLOADER.IMAGE_UPLOADED'
@@ -198,150 +299,74 @@ export class AddRequestTypeComponent implements OnInit {
         );
         if (this.fileType?.startsWith('image/')) {
           this.imagePreviewUrl = result;
-          console.log(this.imagePreviewUrl);
         }
       }
     };
     reader.readAsDataURL(file);
   }
 
-  loadBranchs() {
-    this.requestTypeService.getBranches({}).subscribe({
-      next: (res) => {
-        this.Branches = res.data.list;
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+ 
+  isFieldInvalid(field: keyof AddRequestTypeForm): boolean {
+    const control = this.form.controls[field];
+    return control.invalid && (control.dirty || control.touched);
   }
-  onBranchSelect(branchId: any) {
-    const branch = this.Branches.find((branch: any) => branch.id === branchId);
-
-    if (branch) {
-      console.log('Selected Branch:', branch);
-      this.selectedBranch = branch;
-      this.loadDepartments(this.selectedBranch.id);
-      console.log('Selected Branch ID:', this.selectedBranch?.id);
-    } else {
-      console.log('Branch not found.');
-    }
-  }
-
-  loadDepartments(id: any) {
-    this.requestTypeService.getDepartments({ branchId: id }).subscribe({
-      next: (res) => {
-        this.Departments = res.data.list;
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
-  onDepartmentSelect(departmentId: any) {
-    const department = this.Departments.find(
-      (department: any) => department.id === departmentId
-    );
-
-    if (department) {
-      console.log('Selected department:', department);
-      this.selectedDepartment = department;
-      this.loadPositions(this.selectedDepartment.id);
-      console.log('Selected department ID:', this.selectedDepartment?.id);
-    } else {
-      console.log('department not found.');
-    }
-  }
-
-  loadPositions(id: any) {
-    this.requestTypeService.getPositions({ departmentId: id }).subscribe({
-      next: (res) => {
-        this.Positions = res.data.list;
-        console.log(res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
-  onPositionSelect(positionId: any) {
-    const position = this.Positions.find(
-      (position: any) => position.id === positionId
-    );
-
-    if (position) {
-      console.log('Selected Position:', position);
-      this.selectedPosition = position;
-      this.addValue();
-      // this.getSubAssetsCategories(this.selectedAsset.id);
-      console.log('Selected Position ID:', this.selectedPosition?.id);
-    } else {
-      console.log('Position not found.');
-    }
-  }
-
-  onAttachmentChange(event: any) { }
-  up(requestType: any) { }
-  down(requestType: any) { }
-  deleterequestType(requestType: any) { }
-
-  onSubmit() {
+ 
+  onSubmit(): void {
     if (this.isSubmitting) return;
-
-    const query: any = {
-      companyId: this.companyId,
-      name: this.form.value.titleEn,
-      nameAr: this.form.value.titleAr,
-      icon: this.uploadedImageBase64,
-      iconExtension: this.PhotoExtension,
-      max: this.form.value.max,
-      min: this.form.value.min,
-      isCustomized: this.form.value.isCustomize,
-      requestCategoryId: this.selectedRequestCategory?.id,
-    };
-
-    if (this.form.get('isCustomize')?.value) {
-      query.requestTypeConfigs = this.valuesArray;
-    }
-
-    console.log('Submission Query:', query);
-
+    if (!this.form.valid) return;
+  
     this.isSubmitting = true;
-
-    this.requestTypeService.addRequestType(query).subscribe({
+    const f = this.form.value;
+  
+     const payload: any = {
+      companyId: this.companyId,
+      name: f.name,
+      nameAr: f.nameAr,
+      icon: this.uploadedImageBase64 || null,
+      iconExtension: this.PhotoExtension || null,
+      max: f.max,
+      min: f.min,
+  
+       containAsset: true,
+  
+ 
+      isCustomized: f.isCustomize,
+  
+       requestCategoryId: this.selectedRequestCategory?.id,
+  
+      requestTypeConfigs: [],
+    };
+  
+    if (f.isCustomize) {
+       this.requestTypeConfigs.controls.forEach((group, index) => {
+        const g = group.value;
+        payload.requestTypeConfigs.push({
+          companyId: this.companyId,
+          positionId: g.positionId,
+          id: 0,
+          rank: index + 1,
+          requestTypeId: 0,
+        });
+      });
+    }
+  
+    console.log('Submission Payload:', payload);
+  
+    this.requestTypeService.addRequestType(payload).subscribe({
       next: (res) => {
-        console.log(res);
         this.toast.success('Request Type Added Successfully');
-        this.ngOnInit();
-        this.cdr.detectChanges();
+        console.log('Server response:', res);
+  
+         this.loadRequestTypes();
         this.RequestAdded.emit();
         this.form.reset();
-
-        const newRequestType = {
-          id: res.data.id,
-          fullName: this.form.value.titleEn,
-          titleAr: this.form.value.titleAr,
-          position: this.selectedPosition?.name,
-          rank: this.rankNum,
-        };
-
-        // Add the new request type to the array
-        this.requestTypes = [...this.requestTypes, newRequestType]; // Create a new array reference
-
-        // Trigger Angular change detection
-        this.cdr.detectChanges();
-
-        this.toast.success(this.translate.instant('Request Type Added Successfully'));
-
-        // Reset the form
-        this.form.reset();
+        this.requestTypeConfigs.clear();
+        this.departmentOptions = [];
+        this.positionOptions = [];
         this.imagePreviewUrl = null;
         this.fileType = null;
         this.uploadedImageBase64 = null;
-        this.rankNum = 0;
-        this.valuesArray = [];
+        this.PhotoExtension = null;
         this.isSubmitting = false;
       },
       error: (err) => {
@@ -351,33 +376,17 @@ export class AddRequestTypeComponent implements OnInit {
       },
     });
   }
-  deleteRequestType(id: number) {
+  deleteRequestType(id: number): void {
     this.requestTypeService.deleteRequestType(id, this.companyId).subscribe({
       next: (res) => {
-        console.log(res);
         this.toast.success('Request Type Deleted Successfully');
-        this.ngOnInit();
+        this.loadRequestTypes();
       },
-      error: (err) => {
-        console.log(err);
-      }
-    })
-  }
-  loadRequestTypes() {
-    this.requestTypeService.getRequestType({ pageSize: 1000 ,  companyId: this.companyId }).subscribe({
-      next: (res) => {
-        this.requestTypes = res.data.list;
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error(err);
-      },
+      error: (err) => console.error(err),
     });
   }
+
   navigateToDetails(id: number): void {
     this.router.navigate(['/dashboard/workflow/Request-type/details', id]);
-  }
-  remove(index: number): void {
-    this.newPosition.splice(index, 1);
   }
 }
