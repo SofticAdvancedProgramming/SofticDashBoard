@@ -212,7 +212,7 @@
 }
 
 .fixed-size-card {
-  width: 210px; /* Consistent width */
+  width: 215px; /* Consistent width */
   min-height: 150px; /* Minimum height for uniformity */
   max-height: auto; /* Optional: restrict max height */
   overflow: hidden; /* Prevent overflow beyond max height */

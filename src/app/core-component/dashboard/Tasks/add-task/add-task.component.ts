@@ -7,7 +7,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TasksService } from '../../../../services/TasksService/tasks.service';
@@ -118,15 +123,71 @@ export class AddTaskComponent implements OnInit {
     return this.form.get('todos') as FormArray;
   }
   addToDoFun() {
-    this.todoGroup = this.fb.group({
-      description: ['', Validators.required],
-      employeeId: [null, Validators.required], // Dropdown selection
-    });
-    this.todos.push(this.todoGroup);
+    this.todos.push(
+      this.fb.group({
+        description: ['', Validators.required],
+        employeeId: [null, Validators.required], // Dropdown selection
+      })
+    );
+
+    // Clear the existing FormArray
+    // this.todos.clear();
+
+    // Populate the FormArray with backend data
+    //   if(this.id){
+    //   this.taskDetails.toDoItems.forEach((item: any) => {
+    //     const todoGroup = this.fb.group({
+    //       description: [item.description, Validators.required],
+    //       assignEmployee: [item.assignEmployee, Validators.required],
+    //     });
+    //     this.todos.push(todoGroup);
+    //   });
+    // }else{
+    //     const todoGroup = this.fb.group({
+    //       description: ['', Validators.required],
+    //       assignEmployee: ['', Validators.required],
+    //     });
+    //     this.todos.push(todoGroup);
+    // }
   }
   // Remove a specific todo field
   removeTodo(index: number): void {
     this.todos.removeAt(index);
+  }
+
+  populateForm() {
+    console.log("this.taskDetails,",this.taskDetails);
+
+    const formattedDate = this.datePipe.transform(
+      this.taskDetails?.startDate,
+      'yyyy-MM-dd'
+    );
+    // Populate static fields
+    this.form.patchValue({
+      name: this.taskDetails?.name,
+      taskDetails: this.taskDetails?.description,
+      from: formattedDate || '', // Provide default if missing
+      initialCost: this.taskDetails?.initialBudget,
+      taskToDoDescription: [''],
+      AssetAttachment: [''],
+      duration: this.taskDetails?.duration,
+    });
+    console.log(this.form.value);
+
+    // Clear existing todos
+    this.form.setControl('todos', this.fb.array([]));
+    console.log("todos",this.todos)
+
+    // Populate todos FormArray
+    this.taskDetails?.toDoItems.forEach((todo: any) => {
+      const todoGroup: any = this.fb.group({
+        description: [todo.description, Validators.required],
+        employeeId: [todo.employeeId, Validators.required],
+        id:[todo.id]
+      });
+      // this.form.setControl('todos', todoGroup);
+      this.todos.push(todoGroup);
+    });
   }
 
   onSubmit() {
@@ -136,7 +197,8 @@ export class AddTaskComponent implements OnInit {
     for (let i = 0; i < this.todoValues.length; i++) {
       toDoItems.push({
         companyId: this.companyId,
-        ...this.todoValues[i],
+        id:this.todoValues[i].id,
+        ...this.todoValues[i]
       });
     }
     console.log(toDoItems);
@@ -160,7 +222,7 @@ export class AddTaskComponent implements OnInit {
           },
         ],
       };
-
+  
       if (this.todoValues) {
         query = {
           companyId: this.companyId,
@@ -193,26 +255,12 @@ export class AddTaskComponent implements OnInit {
         duration: this.form.controls['duration'].value,
         taskAttachments: this.attachments,
         taskAssignments: [],
+        toDoItems: toDoItems,
       };
-
-      if (this.todoValues) {
-        query = {
-          companyId: this.companyId,
-          name: this.form.controls['name'].value,
-          // taskFile: this.form.controls['taskFile'].value,
-          description: this.form.controls['taskDetails'].value,
-          startDate: this.form.controls['from'].value,
-          initialBudget: this.form.controls['initialCost'].value,
-          statusId: 1,
-          duration: this.form.controls['duration'].value,
-          taskAttachments: this.attachments,
-          taskAssignments: [],
-          toDoItems: toDoItems,
-        };
-      }
     }
     console.log(this.form.value);
     if (this.id) {
+      console.log("edit mode",this.id)
       query.id = this.id;
     }
     if (this.form.value) {
@@ -362,11 +410,11 @@ export class AddTaskComponent implements OnInit {
       console.log('Employee not found.');
     }
   }
-  getEmployeesAssignments(){
+  getEmployeesAssignments() {
     let query = {
       companyId: this.companyId,
       taskId: this.id,
-    }
+    };
     this.tasksService.assignEmployees(query).subscribe({
       next: (res) => {
         console.log(res);
@@ -374,8 +422,8 @@ export class AddTaskComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-      }
-    })
+      },
+    });
   }
   getTaksDetails() {
     let query = {
@@ -386,49 +434,55 @@ export class AddTaskComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.taskDetails = res.data.list[0];
-        const formattedDate = this.datePipe.transform(
-          this.taskDetails.startDate,
-          'yyyy-MM-dd'
-        );
-        this.form = this.fb.group({
-          // laborCost: [this.taskDetails.laborCost, Validators.required],
-          // materialCost: [this.taskDetails.materialCost, Validators.required],
-          // serviceCost: [this.taskDetails.serviceCost, Validators.required],
-          // additionalCost: [this.taskDetails.additionalCost, Validators.required],
-          name: [this.taskDetails.name, Validators.required],
-          // taskFile: ['', Validators.required],
-          taskDetails: [
-            this.taskDetails.description,
-            [
-              Validators.required,
-              Validators.minLength(5),
-              Validators.maxLength(300),
-            ],
-          ],
-          from: [formattedDate, Validators.required],
-          initialCost: [this.taskDetails.initialBudget],
-          actualCost: [''],
-          duration: [this.taskDetails.duration, Validators.required],
-          taskToDoDescription: [''],
-          AssetAttachment: [''],
-          todos: this.fb.array([]), // Initialize the FormArray
-        });
+        this.populateForm();
+        // this.form = this.fb.group({
+        //   // laborCost: [this.taskDetails.laborCost, Validators.required],
+        //   // materialCost: [this.taskDetails.materialCost, Validators.required],
+        //   // serviceCost: [this.taskDetails.serviceCost, Validators.required],
+        //   // additionalCost: [this.taskDetails.additionalCost, Validators.required],
+        //   name: [this.taskDetails.name, Validators.required],
+        //   // taskFile: ['', Validators.required],
+        //   taskDetails: [
+        //     this.taskDetails.description,
+        //     [
+        //       Validators.required,
+        //       Validators.minLength(5),
+        //       Validators.maxLength(300),
+        //     ],
+        //   ],
+        //   from: [formattedDate, Validators.required],
+        //   initialCost: [this.taskDetails.initialBudget],
+        //   actualCost: [''],
+        //   duration: [this.taskDetails.duration, Validators.required],
+        //   taskToDoDescription: [''],
+        //   AssetAttachment: [''],
+        //   todos: this.fb.array([]), // Initialize the FormArray
+        // });
         // this.selectedEmployee = this.assignedEmployees[0]?.employeeId;
         // console.log(this.selectedEmployee);
-        for (let i = 0; i <= this.taskDetails.toDoItems.length; i++) {
-          this.todoGroup = this.fb.group({
-            description: [
-              this.taskDetails.toDoItems[i].description,
-              Validators.required,
-            ],
-            employeeId: [
-              this.taskDetails.toDoItems[i].employeeId,
-              Validators.required,
-            ], // Dropdown selection
-          });
-          this.todos.push(this.todoGroup);
-        }
-        
+        // for (let i = 0; i <= this.taskDetails.toDoItems.length; i++) {
+        //   this.todoGroup = this.fb.group({
+        //     description: [
+        //       this.taskDetails.toDoItems[i].description,
+        //       Validators.required,
+        //     ],
+        //     employeeId: [
+        //       this.taskDetails.toDoItems[i].employeeId,
+        //       Validators.required,
+        //     ], // Dropdown selection
+        //   });
+
+        // if(this.id){
+        //   // this.todos.push(this.todoGroup);
+        //   // this.todos.patchValue(this.todoGroup);
+        //   // this.form.setControl('todos', this.todoGroup);
+        // }
+        // else{
+        //   // this.todos.push(this.todoGroup);
+        // }
+        // console.log(this.todoGroup);
+        // console.log(this.todos);
+        // }
       },
       error(err) {
         console.log(err);
