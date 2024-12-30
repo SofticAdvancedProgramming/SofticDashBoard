@@ -74,9 +74,14 @@ export class RequestTypeDetailsComponent {
         console.log('Request Type Details:', this.requestTypeDetails);
   
         if (this.requestTypeDetails) {
-          this.requestTypes = this.requestTypeDetails.requestTypeConfigs || [];
+          // Merge name and nameAr with requestTypeConfigs if present
+          this.requestTypes = this.requestTypeDetails.requestTypeConfigs.map((config: any) => ({
+            ...config,
+            name: this.requestTypeDetails.name,
+            nameAr: this.requestTypeDetails.nameAr,
+          })) || [];
           console.log('Request Types:', this.requestTypes);
-          
+  
           this.editForm.patchValue({
             name: this.requestTypeDetails.name,
             nameAr: this.requestTypeDetails.nameAr,
@@ -84,7 +89,7 @@ export class RequestTypeDetailsComponent {
             max: this.requestTypeDetails.max,
             min: this.requestTypeDetails.min,
             containAsset: this.requestTypeDetails.containAsset,
-            requestCategory: this.requestTypeDetails.requestCategoryId,  
+            requestCategory: this.requestTypeDetails.requestCategoryId,
           });
         }
       },
@@ -93,6 +98,7 @@ export class RequestTypeDetailsComponent {
       },
     });
   }
+  
  
   
   onCategoryChange(selectedCategoryId: number): void {

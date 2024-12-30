@@ -105,8 +105,8 @@
       <tbody>
         <ng-container *ngIf="requestTypes.length > 0; else noConfig">
           <tr *ngFor="let config of requestTypes; let i = index">
-            <td>{{ config.titleEn || 'N/A' }}</td>
-            <td>{{ config.titleAr || 'N/A' }}</td>
+            <td>{{ config.name || 'N/A' }}</td>
+            <td>{{ config.nameAr || 'N/A' }}</td>
             <td>{{ config.positionName || 'N/A' }}</td>
             <td>{{ config.rank || 'N/A' }}</td>
             <td>
