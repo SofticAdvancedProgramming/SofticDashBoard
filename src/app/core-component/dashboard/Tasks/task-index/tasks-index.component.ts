@@ -173,7 +173,7 @@ export class TasksIndexComponent implements OnInit {
         for (let item of response['data'].list) {
           if (item.statusId === tasksStatus.Todo) {
             this.tasksByStatus['TODO'].push(item);
-            console.log(item);
+            // console.log(item);
           } else if (item.statusId == tasksStatus.InProgress) {
             this.tasksByStatus['In Progress'].push(item);
           } else if (item.statusId == tasksStatus.SubmitForReview) {

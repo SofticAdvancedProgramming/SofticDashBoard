@@ -904,6 +904,7 @@
   "Tasks": {
     "addTasks": {
       "addTaskBtn": "Add Task",
+      "save": "Save",
       "cancel": "Cancel"
     },
     "validation": {

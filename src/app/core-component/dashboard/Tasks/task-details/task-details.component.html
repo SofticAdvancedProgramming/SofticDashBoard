@@ -10,6 +10,9 @@
       <!-- <button class="btn edit-btn" *ngIf="!isDoneStatus">
         <img src="../../../../../assets/images/edit-2.png" />Edit
       </button> -->
+      <button class="btn edit-btn" *ngIf="!isDoneStatus" [routerLink]="['../../addnew', id]">
+        <img src="../../../../../assets/images/edit-2.png" />Edit
+      </button>
       <button class="btn edit-btn" (click)="toggleAssignTaskToPopup()" *ngIf="!isDoneStatus">
         <img src="../../../../../assets/images/edit-2.png" />Assign To
       </button>
@@ -199,6 +202,9 @@
       <div class="single-todo-card col-12">
         <p class="single-todo-card-details">
           <span>{{ $index + 1 }}- </span>{{ todo.description }}
+          @if(todo.employeeId){
+            Assigned to {{todo.employeeId}}
+          }
         </p>
       </div>
       }

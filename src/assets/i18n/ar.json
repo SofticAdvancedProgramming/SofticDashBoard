@@ -874,6 +874,7 @@
   "Tasks": {
     "addTasks": {
       "addTaskBtn": "اضافة مهمة",
+      "save": "حفظ",
       "cancel": "إلغاء"
     },
     "validation": {

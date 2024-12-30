@@ -75,7 +75,7 @@
             <input
               [min]="todayDate"
               type="date"
-              style="text-transform: lowercase;"
+              style="text-transform: lowercase"
               class="form-control"
               formControlName="from"
               [ngClass]="{
@@ -211,6 +211,12 @@
               (search)="loadEmployees()"
               (onChange)="onEmployeeSelect($event)"
             ></app-drop-down>
+            <!-- <mat-select class="custom-select" [placeholder]="'Select Employee'" formControlName="assignEmployee">
+              <mat-option [value]="null" disabled>Select Employee</mat-option>
+              <mat-option *ngFor="let emp of employees" [value]="emp.id">
+                {{ emp.firstName }} {{ emp.lastName }}
+              </mat-option>
+            </mat-select> -->
           </div>
         </div>
         <!-- <div class="col-6">
@@ -274,6 +280,13 @@
               class="img-preview"
             />
           </div>
+          @if(id){
+          <img
+            *ngFor="let imgFile of taskDetails.taskAttachments"
+            [src]="imgFile.file"
+            alt="taskImage"
+            class="img-preview"
+          />}
         </div>
       </div>
     </div>
@@ -281,7 +294,7 @@
 
   <div class="container mt-3 py-5 px-5">
     <div class="d-flex justify-content-between align-items-center">
-      <p class="lead">To Do List</p>
+      <p class="lead">To-Do List</p>
       <button class="btn action-btn" type="button" (click)="addToDoFun()">
         Add to do list
       </button>
@@ -290,11 +303,12 @@
       <div
         class="col-12 form-group"
         *ngFor="let todo of todos.controls; let i = index"
+        [formGroupName]="i"
       >
-        <label class="form-label">To Do Description</label>
+        <label class="form-label">To-Do Description</label>
         <textarea
           class="textarea form-control"
-          [formControlName]="i"
+          formControlName="description"
           placeholder="Please write your message no more than 300 words"
           [ngClass]="{
           'is-invalid':
@@ -308,9 +322,39 @@
           form.controls['taskToDoDescription'].errors == null,
       }"
         ></textarea>
-        <button class="btn" type="button" (click)="removeTodo(i)">
-          Remove
-        </button>
+        <div class="d-flex">
+          <div class="d-flex col-6 justify-content-center align-items-center">
+            <button
+              class="btn btn-danger"
+              type="button"
+              (click)="removeTodo(i)"
+            >
+              Remove
+            </button>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="Name">Assign to</label>
+              <mat-select class="custom-select" [placeholder]="'Select Employee'" formControlName="employeeId">
+                <mat-option [value]="null" disabled>Select Employee</mat-option>
+                <mat-option *ngFor="let emp of employees" [value]="emp.id">
+                  {{ emp.firstName }} {{ emp.lastName }}
+                </mat-option>
+              </mat-select>
+              <!-- @else{
+              <mat-select formControlName="employeeId">
+                <mat-option [value]="null" disabled>Select Employee</mat-option>
+                <mat-option
+                  *ngFor="let emp of employees"
+                  [value]="emp.id"
+                >
+                  {{ emp.firstName }} {{ emp.lastName }}
+                </mat-option>
+              </mat-select>
+            } -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -321,8 +365,12 @@
     <button class="btn cancel-btn w-25" routerLink="/">
       {{ "Tasks.addTasks.cancel" | translate }}
     </button>
-    <button class="btn action-btn w-25" type="submit" [disabled]="!form.valid">
+    <button class="btn action-btn w-25" type="submit">
+      @if(id){
+        {{ "Tasks.addTasks.save" | translate }}
+      }@else{
       {{ "Tasks.addTasks.addTaskBtn" | translate }}
+      }
     </button>
   </div>
 </form>
