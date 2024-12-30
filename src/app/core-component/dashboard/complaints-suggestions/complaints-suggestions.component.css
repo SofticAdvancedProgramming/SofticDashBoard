@@ -376,8 +376,8 @@
   padding: 10px;
   border-radius: 10px;
   opacity: 0px;
-  background: lightblue;
-color: black;
+  background-color: #663895 !important;
+  color: white;
 display: block;  /* Makes the button a block-level element */
 margin: 0 auto;  /* Horizontally centers the element */
 }
