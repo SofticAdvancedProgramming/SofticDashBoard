@@ -898,5 +898,9 @@
   "assetNameInArabic": "اسم الاصل باللغة العربية",
   "employeeFirstName": "اسم الموظف",
   "attendanceType": "نوع الغياب",
-  "attendanceDate": "تاريح الغياب"
+  "attendanceDate": "تاريح الغياب",
+  "Minimum":"اقل قيمة",
+  "Maximum":"اكثر قيمة",
+  "MinmumAndMax":"اقل قيمة يجب ان تكون اقل من او تساوى اكبر قيمة",
+  "AddNewPosition":"اضافه منصب جديد"
 }

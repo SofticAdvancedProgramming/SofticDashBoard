@@ -82,7 +82,7 @@
           </div>
           <div class="row">
             <div class="text-danger" *ngIf="form.errors?.['minGreaterThanMax']">
-              <small>Minimum value must be less than the maximum value.</small>
+              <small>{{"MinmumAndMax"|translate}}</small>
             </div>
         </div>
  
@@ -121,12 +121,15 @@
       </div>
       <div class="form-content container p-3 my-3" *ngIf="form.get('isCustomize')?.value">
 
-        <div class="d-flex justify-content-end mb-3">
-          <button type="button" class="btn addNewBtn" (click)="addRow()">Add New</button>
+        <div class="d-flex justify-content-end mb-3" *ngIf="requestTypeConfigs.length==0">
+          <button type="button" class="btn addNewBtn" (click)="addRow()">{{"AddNewPosition"|translate}}</button>
         </div>
 
         <div class="row gy-3" *ngFor="let configGroup of requestTypeConfigs.controls; let i = index"
           [formGroup]="configGroup">
+          <div class="d-flex justify-content-end mb-3" *ngIf="i==requestTypeConfigs.length-1">
+            <button type="button" class="btn addNewBtn" (click)="addRow()">{{"AddNewPosition"|translate}}</button>
+          </div>
           <div class="col-lg-6">
             <div class="form-group">
               <label class="form-label">{{ "Branch" | translate }}</label>
