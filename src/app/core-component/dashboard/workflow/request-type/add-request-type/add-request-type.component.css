@@ -18,9 +18,10 @@
   font-size: 18px;
   font-weight: 500;
   line-height: 30px;
-
 }
-
+input::placeholder{
+  font-family: 'Lama Sans';
+}
 input {
   height: 48px;
 }

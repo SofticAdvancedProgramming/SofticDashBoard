@@ -11,6 +11,7 @@ export interface Asset {
     lat: string;
     employeeId: number;
     assetCategoryName: string;
+    assetCategoryNameAr:string;
     employeeName:string;
   }
   export interface RelatedAsset {

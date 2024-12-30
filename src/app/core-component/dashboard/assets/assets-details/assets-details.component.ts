@@ -62,7 +62,9 @@ export class AssetsDetailsComponent implements OnInit {
     });
   }
 
-
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+  }
   downloadFile(fileUrl: string) {
     console.log('File URL:', fileUrl);
 

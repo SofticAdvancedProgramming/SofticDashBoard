@@ -9,7 +9,7 @@
     </mat-option>
     @for ( i of items; track i.id) {
     <mat-option [value]="i.id">
-      {{i.name}}
+      {{isArabic?i.nameAr:i.name}}
     </mat-option>
     } @empty {
     <option>{{'There are no items.' | translate }}</option>
