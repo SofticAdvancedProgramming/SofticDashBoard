@@ -194,7 +194,7 @@ export class IndexComponent implements OnInit {
   addPosition(): void {
     this.isAdd = true;
   }
-  
+
   editPosition(position: Position): void {
     this.isEdit = true;
     this.positionData = position;
@@ -372,5 +372,8 @@ export class IndexComponent implements OnInit {
       },
      });
   }
-
+  closeDropdown(event: Event) {
+    const dropdownMenu = (event.target as HTMLElement).closest('.dropdown-menu');
+    dropdownMenu?.classList.remove('show');
+}
 }

@@ -50,6 +50,7 @@ export interface employee {
   startShift?: { hour: number; minute: number } | null;
   endShift?: { hour: number; minute: number } | null;
   dateOfJoined: Date | null;
+  hiringDate:Date | null;
   isActive:boolean
 }
 
