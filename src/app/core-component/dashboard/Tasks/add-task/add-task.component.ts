@@ -413,8 +413,8 @@ export class AddTaskComponent implements OnInit {
           AssetAttachment: [''],
           todos: this.fb.array([]), // Initialize the FormArray
         });
-        this.selectedEmployee = this.assignedEmployees[0]?.employeeId;
-        console.log(this.selectedEmployee);
+        // this.selectedEmployee = this.assignedEmployees[0]?.employeeId;
+        // console.log(this.selectedEmployee);
         for (let i = 0; i <= this.taskDetails.toDoItems.length; i++) {
           this.todoGroup = this.fb.group({
             description: [
