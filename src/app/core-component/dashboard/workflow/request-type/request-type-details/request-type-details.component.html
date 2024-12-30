@@ -48,14 +48,9 @@
         <input type="text" class="form-control" formControlName="nameAr" placeholder="Enter Title AR" />
       </div>
       <div class="col-12 col-md-6 border-bottom-custom">
-        <div *ngIf="requestCategories.length && requestTypeDetails" class="col-12 col-md-6 border-bottom-custom">
-          <label class="d-block fw-semibold text-dark">{{ 'Request Category' | translate }}</label>
-          <app-drop-down
-          [items]="requestCategories"
-          [placeholder]="'Select Request Category' | translate"
-          formControlName="requestCategory"
-          (onChange)="onCategoryChange($event)"
-        ></app-drop-down>
+        <div class="col-12 col-md-6 border-bottom-custom">
+          <label class="d-block fw-semibold text-dark">{{ 'Request category' | translate }}</label>
+          <div class="text-muted"> {{ requestCategoryName }} </div>
         </div>
         
       </div>
@@ -99,8 +94,8 @@
       <tbody>
         <ng-container *ngIf="requestTypes.length > 0; else noConfig">
           <tr *ngFor="let config of requestTypes; let i = index">
-            <td>{{ requestTypeDetails?.name }}</td>
-            <td>{{ requestTypeDetails?.nameAr }}</td>
+            <td>{{ config.titleEn || 'N/A' }}</td>
+            <td>{{ config.titleAr || 'N/A' }}</td>
             <td>{{ config.positionName || 'N/A' }}</td>
             <td>{{ config.rank || 'N/A' }}</td>
             <td>
@@ -109,11 +104,7 @@
               </button>
               <button class="btn btn-sm" (click)="moveDown(i)" [disabled]="i === requestTypes.length - 1">
                 <img src="../../../../../../assets/images/arrow-square-up.png" alt="up" />
-
               </button>
-              <!-- <button class="btn btn-sm">
-                <img src="../../../../../../assets/images/trash 01.png" alt="trash" />
-              </button> -->
             </td>
           </tr>
         </ng-container>

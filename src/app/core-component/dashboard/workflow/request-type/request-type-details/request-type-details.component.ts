@@ -71,23 +71,22 @@ export class RequestTypeDetailsComponent {
   loadRequestTypeDetails(id: number): void {
     this.requestTypeService.getRequestTypeById(id).subscribe({
       next: (res) => {
-        this.requestTypeDetails =
-          res.data.list.find((item: any) => item.id === id) || null;
+        this.requestTypeDetails = res.data.list.find((item: any) => item.id === id) || null;
         console.log('Request Type Details:', this.requestTypeDetails);
   
         if (this.requestTypeDetails) {
-          if (this.requestTypeDetails) {
-            this.editForm.patchValue({
-              name: this.requestTypeDetails.name,
-              nameAr: this.requestTypeDetails.nameAr,
-              icon: this.requestTypeDetails.icon,
-              max: this.requestTypeDetails.max,
-              min: this.requestTypeDetails.min,
-              containAsset: this.requestTypeDetails.containAsset,
-              requestCategory: this.requestTypeDetails.requestCategoryId,  
-            });
-          }
+          this.requestTypes = this.requestTypeDetails.requestTypeConfigs || [];
+          console.log('Request Types:', this.requestTypes);
           
+          this.editForm.patchValue({
+            name: this.requestTypeDetails.name,
+            nameAr: this.requestTypeDetails.nameAr,
+            icon: this.requestTypeDetails.icon,
+            max: this.requestTypeDetails.max,
+            min: this.requestTypeDetails.min,
+            containAsset: this.requestTypeDetails.containAsset,
+            requestCategory: this.requestTypeDetails.requestCategoryId,  
+          });
         }
       },
       error: (err) => {
@@ -95,6 +94,7 @@ export class RequestTypeDetailsComponent {
       },
     });
   }
+ 
   
   onCategoryChange(selectedCategoryId: number): void {
     const selectedCategory = this.requestCategories.find(cat => cat.id === selectedCategoryId);
