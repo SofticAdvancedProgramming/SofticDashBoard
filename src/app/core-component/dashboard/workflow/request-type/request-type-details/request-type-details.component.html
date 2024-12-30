@@ -6,71 +6,71 @@
     <p class="lead">{{"Request type Details" | translate}}</p>
   </div>
   <button class="btn edit-btn" (click)="toggleEdit()">
-    <!-- Switch label based on mode -->
-    {{ isEditMode ? ('Cancel' | translate) : ('edit' | translate) }}
+     {{ isEditMode ? ('Cancel' | translate) : ('edit' | translate) }}
   </button>
 </div>
 <div *ngIf="!isEditMode" class="add-type-request-sm-container py-3 px-4 ">
   <div class="row gy-3 ">
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'Title EN' | translate }}</label>
+      <label class="d-block fw-semibold text-dark">{{ 'Title In English' | translate }}</label>
       <div class="text-muted">{{ requestTypeDetails?.name || 'N/A' }}</div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'Title AR' | translate }}</label>
-      <div class="text-muted">{{ requestTypeDetails?.nameAr || 'N/A' }}</div>
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">{{ 'Title In Arabic' | translate }}</label>
+        <div class="text-muted">{{ requestTypeDetails?.nameAr || 'N/A' }}</div>
+      </div>   
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'Request category' | translate }}</label>
-      <div class="text-muted">{{ requestTypeDetails?.requestCategory || 'N/A' }}</div>
+      <div class="text-muted"> {{ requestCategoryName }} </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'Maximum Dates' | translate }}</label>
-      <div class="text-muted">{{ requestTypeDetails?.maxDays || 'N/A' }}</div>
+      <label class="d-block fw-semibold text-dark">{{ 'Minimum' | translate }}</label>
+      <div class="text-muted">{{ requestTypeDetails.min || 'N/A' }}</div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'Maximum' | translate }}</label>
+      <div class="text-muted">{{ requestTypeDetails.max || 'N/A' }}</div>
     </div>
   </div>
 </div>
 
-<!-- Edit Mode View (shown when isEditMode) -->
 <div *ngIf="isEditMode" class="add-type-request-sm-container py-3 px-4 ">
-  <!-- Use Reactive Form -->
   <form [formGroup]="editForm">
     <div class="row gy-3 ">
       <div class="col-12 col-md-6 border-bottom-custom">
         <label class="d-block fw-semibold text-dark">{{ 'Title EN' | translate }}</label>
-        <input 
-          type="text"
-          class="form-control"
-          formControlName="name"
-          placeholder="Enter Title EN"
-        />
+        <input type="text" class="form-control" formControlName="name" placeholder="Enter Title EN" />
       </div>
       <div class="col-12 col-md-6 border-bottom-custom">
         <label class="d-block fw-semibold text-dark">{{ 'Title AR' | translate }}</label>
-        <input 
-          type="text"
-          class="form-control"
-          formControlName="nameAr"
-          placeholder="Enter Title AR"
-        />
+        <input type="text" class="form-control" formControlName="nameAr" placeholder="Enter Title AR" />
       </div>
       <div class="col-12 col-md-6 border-bottom-custom">
-        <label class="d-block fw-semibold text-dark">{{ 'Request category' | translate }}</label>
-        <input 
-          type="text"
-          class="form-control"
+        <div *ngIf="requestCategories.length && requestTypeDetails" class="col-12 col-md-6 border-bottom-custom">
+          <label class="d-block fw-semibold text-dark">{{ 'Request Category' | translate }}</label>
+          <app-drop-down
+          [items]="requestCategories"
+          [placeholder]="'Select Request Category' | translate"
           formControlName="requestCategory"
-          placeholder="Enter Request Category"
-        />
+          (onChange)="onCategoryChange($event)"
+        ></app-drop-down>
+        </div>
+        
       </div>
+      <div *ngIf="editForm.value.requestCategory === 3" class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">{{ 'Contains Asset?' | translate }}</label>
+        <input type="checkbox" formControlName="containAsset" />
+      </div>
+      
       <div class="col-12 col-md-6 border-bottom-custom">
         <label class="d-block fw-semibold text-dark">{{ 'Maximum Dates' | translate }}</label>
-        <input 
-          type="number"
-          class="form-control"
-          formControlName="maxDays"
-          placeholder="Enter Maximum Dates"
-        />
+        <input type="number" class="form-control" formControlName="max" placeholder="Enter Maximum Dates" />
+      </div>
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">{{ 'Minimum Dates' | translate }}</label>
+        <input type="number" class="form-control" formControlName="min" placeholder="Enter Minimum Dates" />
       </div>
     </div>
   </form>

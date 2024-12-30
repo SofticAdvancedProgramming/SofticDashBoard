@@ -25,19 +25,12 @@ import { pad } from 'lodash';
   styleUrl: './request-type-details.component.css'
 })
 export class RequestTypeDetailsComponent {
+  requestCategories: any[] = [];
   requestId!: number;
   requestTypeDetails: any = null;
   requestTypes: any[] = [];
   isEditMode = false;
-  editForm: FormGroup = this.fb.group({
-    name: [''],
-    nameAr: [''],
-    icon: [''],
-    max: [0],
-    min: [0],
-    containAsset: [false],
-    // more fields if needed...
-  });
+ 
     constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -46,56 +39,88 @@ export class RequestTypeDetailsComponent {
   ) {
 
   }
-
+  editForm: FormGroup = this.fb.group({
+    name: [''],
+    nameAr: [''],
+    icon: [''],
+    max: [null],
+    min: [null],
+    containAsset: [false],
+    requestCategory: [null],
+  });
+  
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.requestId = +params['id'];
       this.loadRequestTypeDetails(this.requestId);
     });
+    this.loadRequestCategories(); 
   }
+  loadRequestCategories(): void {
+    this.requestTypeService.getRequestCategory({}).subscribe({
+      next: (res) => {
+        this.requestCategories = res.data.list || [];
+        console.log('Request Categories:', this.requestCategories);
+      },
+      error: (err) => {
+        console.error('Error fetching request categories:', err);
+      },
+    });
+  }
+  
   loadRequestTypeDetails(id: number): void {
     this.requestTypeService.getRequestTypeById(id).subscribe({
       next: (res) => {
-        // Suppose res.data.list is an array of request types
         this.requestTypeDetails =
           res.data.list.find((item: any) => item.id === id) || null;
-        this.requestTypes = this.requestTypeDetails?.requestTypeConfigs || [];
-
-        // Patch the form with fetched data
-        if (this.requestTypeDetails) {
-          this.editForm.patchValue({
-            name: this.requestTypeDetails.name,
-            nameAr: this.requestTypeDetails.nameAr,
-            icon: this.requestTypeDetails.icon,
-            max: this.requestTypeDetails.max,
-            min: this.requestTypeDetails.min,
-            containAsset: this.requestTypeDetails.containAsset,
-          });
-        }
-
-        // optionally update ranks or do any other logic
-        this.updateRanks();
-
         console.log('Request Type Details:', this.requestTypeDetails);
+  
+        if (this.requestTypeDetails) {
+          if (this.requestTypeDetails) {
+            this.editForm.patchValue({
+              name: this.requestTypeDetails.name,
+              nameAr: this.requestTypeDetails.nameAr,
+              icon: this.requestTypeDetails.icon,
+              max: this.requestTypeDetails.max,
+              min: this.requestTypeDetails.min,
+              containAsset: this.requestTypeDetails.containAsset,
+              requestCategory: this.requestTypeDetails.requestCategoryId,  
+            });
+          }
+          
+        }
       },
       error: (err) => {
         console.error('Error fetching request type details:', err);
       },
     });
   }
+  
+  onCategoryChange(selectedCategoryId: number): void {
+    const selectedCategory = this.requestCategories.find(cat => cat.id === selectedCategoryId);
+    if (selectedCategory?.id === 3) {
+      this.editForm.patchValue({ containAsset: true });
+    } else {
+      this.editForm.patchValue({ containAsset: false });
+    }
+  }
+  
 
   toggleEdit(): void {
     this.isEditMode = !this.isEditMode;
-    // If entering edit mode, ensure form is up to date
     if (this.isEditMode && this.requestTypeDetails) {
-      this.editForm.patchValue({
-        name: this.requestTypeDetails.name,
-        nameAr: this.requestTypeDetails.nameAr,
-        icon: this.requestTypeDetails.icon,
-        max: this.requestTypeDetails.max,
-        min: this.requestTypeDetails.min,
-        containAsset: this.requestTypeDetails.containAsset,
-      });
+      if (this.requestTypeDetails) {
+        this.editForm.patchValue({
+          name: this.requestTypeDetails.name,
+          nameAr: this.requestTypeDetails.nameAr,
+          icon: this.requestTypeDetails.icon,
+          max: this.requestTypeDetails.max,
+          min: this.requestTypeDetails.min,
+          containAsset: this.requestTypeDetails.containAsset,
+          requestCategory: this.requestTypeDetails.requestCategoryId, 
+        });
+      }
+      
     }
   }
 
@@ -168,7 +193,6 @@ console.log(payload,"hhhhhhhhhhhhhhhhhh")
     });
   }
   saveChanges(): void {
-    // Build the payload according to your new structure
     const payload = {
       id: this.requestTypeDetails.id,
       companyId: this.requestTypeDetails.companyId,
@@ -178,8 +202,7 @@ console.log(payload,"hhhhhhhhhhhhhhhhhh")
       max: this.editForm.value.max,
       min: this.editForm.value.min,
       containAsset: this.editForm.value.containAsset,
-      isCustomized: this.requestTypeDetails.isCustomized,
-      requestCategoryId: this.requestTypeDetails.requestCategoryId,
+      requestCategoryId: this.editForm.value.requestCategory,
       requestTypeConfigs: this.requestTypes.map((config: any) => ({
         id: config.id,
         companyId: config.companyId,
@@ -188,13 +211,10 @@ console.log(payload,"hhhhhhhhhhhhhhhhhh")
         requestTypeId: config.requestTypeId,
       })),
     };
-
+  
     this.requestTypeService.editRequestType(payload).subscribe({
       next: () => {
         this.toastr.success('Changes saved successfully!');
-        console.log('Saved Payload:', payload);
-
-        // Optionally refresh the data or go back to read mode
         this.isEditMode = false;
         this.loadRequestTypeDetails(this.requestId);
       },
@@ -203,5 +223,12 @@ console.log(payload,"hhhhhhhhhhhhhhhhhh")
         this.toastr.error('Failed to save changes.');
       },
     });
+  }
+  get requestCategoryName(): string {
+    if (!this.requestCategories.length || !this.requestTypeDetails?.requestCategoryId) {
+      return 'N/A';
+    }
+    const category = this.requestCategories.find(cat => cat.id === this.requestTypeDetails.requestCategoryId);
+    return category ? category.name : 'N/A';
   }
 }
