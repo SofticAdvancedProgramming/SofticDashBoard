@@ -187,7 +187,7 @@
   <!-- Display company details when not in edit mode -->
   <div *ngIf="!editMode" class="about-container row">
     <div class="about-content col-lg-6 col-md-12 col-sm-12">
-      <h2>{{ 'PROFILE_DETAILS.ABOUT' | translate }}</h2>
+      <h2><b>{{ 'PROFILE_DETAILS.ABOUT' | translate }}</b></h2>
       <p class="info-description">
         {{ isArabic ? (company.descriptionAr || 'PROFILE_DETAILS.NO_DATA' | translate) : (company.description ||
         'PROFILE_DETAILS.NO_DATA' | translate) }}
@@ -195,22 +195,22 @@
     </div>
     <div class="contact-details col-lg-6 col-md-6 col-sm-12">
       <ul>
-        <li><strong>{{ 'PROFILE_DETAILS.ADDRESS' | translate }}</strong>:
+        <li><b>{{ 'PROFILE_DETAILS.ADDRESS' | translate }}</b>:
           {{ company.address || ('PROFILE_DETAILS.NO_DATA' | translate) }}
         </li>
-        <li><strong>{{ 'PROFILE_DETAILS.EMAIL' | translate }}</strong>:
+        <li><b>{{ 'PROFILE_DETAILS.EMAIL' | translate }}</b>:
           {{ company.email || ('PROFILE_DETAILS.NO_DATA' | translate) }}
         </li>
-        <li><strong>{{ 'PROFILE_DETAILS.MOBILE_NUMBER' | translate }}</strong>:
+        <li><b>{{ 'PROFILE_DETAILS.MOBILE_NUMBER' | translate }}</b>:
           {{ company.phoneNumber || ('PROFILE_DETAILS.NO_DATA' | translate) }}
         </li>
-        <li><strong>{{ 'PROFILE_DETAILS.FAX' | translate }}</strong>:
+        <li><b>{{ 'PROFILE_DETAILS.FAX' | translate }}</b>:
           {{ company.fax || ('PROFILE_DETAILS.NO_DATA' | translate) }}
         </li>
-        <li><strong>{{ 'PROFILE_DETAILS.PHONE' | translate }}</strong>:
+        <li><b>{{ 'PROFILE_DETAILS.PHONE' | translate }}</b>:
           {{ company.phone || ('PROFILE_DETAILS.NO_DATA' | translate) }}
         </li>
-        <li><strong>{{ 'PROFILE_DETAILS.currency' | translate }}</strong>:
+        <li><b>{{ 'PROFILE_DETAILS.currency' | translate }}</b>:
           {{ company.currency || ('PROFILE_DETAILS.NO_DATA' | translate) }}
         </li>
       </ul>
