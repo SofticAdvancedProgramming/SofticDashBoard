@@ -18,9 +18,10 @@
   font-size: 18px;
   font-weight: 500;
   line-height: 30px;
-
 }
-
+input::placeholder{
+  font-family: 'Lama Sans';
+}
 input {
   height: 48px;
 }
@@ -372,7 +373,9 @@ input:checked+.slider:before {
   border-top: 1px solid #817979;
   margin: 1rem 0;
 }
+
 .form-check-input{
   width: 6px !important;
   height: 6px !important;
 }
+

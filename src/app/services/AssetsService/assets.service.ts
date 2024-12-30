@@ -104,7 +104,9 @@ export class AssetsService {
       {}
     );
   }
-
+  GetAssetCountPerLastThreeMonths(request: any): Observable<any> {
+    return this.apiCall.request('POST', assetsController.GetAssetCountPerLastThreeMonths, request);
+  }
 
   addRelatedAsset(request: RelatedAsset): Observable<any> {
     return this.apiCall.request("POST", RelatedAssetsController.addRelatedAsset, request);

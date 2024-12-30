@@ -1,7 +1,7 @@
 <div class="container">
   <div class="col-lg-12 d-flex justify-content-between">
     <p class="header">
-      <img class="mx-1" src="../../../../../assets/images/chart.png" />Assets
+      <img class="mx-1" src="../../../../../assets/images/chart.png" />
       {{'assetDetails.Details'|translate}}
     </p>
     <button
@@ -43,18 +43,19 @@
           <div *ngFor="let asset of assets">
             <div *ngIf="asset" class="detail">
               <div class="detail-title">{{'assetDetails.Asset Name'|translate}}</div>
-              <div class="detail-info">{{ asset.name }}</div>
+              <div class="detail-info"> {{isArabic?asset.nameAr:asset.name}}</div>
             </div>
             <div class="detail">
               <div class="detail-title">{{'assetDetails.Category'|translate}}</div>
               <div class="detail-info">
                 {{ asset.assetCategoryName }}
+                {{isArabic?asset.assetCategoryNameAr:asset.assetCategoryName}}
               </div>
             </div>
             <div class="detail">
               <div class="detail-title">{{'assetDetails.Technical description'|translate}}</div>
               <div class="detail-info long-text">
-                {{ asset.model }} - {{ asset.name }}
+                {{ asset.model }} - {{isArabic?asset.nameAr:asset.name}}
               </div>
             </div>
             <!-- <div class="detail">
@@ -80,7 +81,7 @@
             <div class="detail">
               <div class="detail-title">{{'assetDetails.Assigned To'| translate}}</div>
               <div class="detail-info" *ngIf="asset.employeeName">{{ asset.employeeName }}</div>
-              <div class="detail-info" *ngIf="!asset.employeeName">not assigend</div>
+              <div class="detail-info" *ngIf="!asset.employeeName">{{'assetDetails.not assigend'|translate}}not assigend</div>
             </div>
           </div>
         </div>

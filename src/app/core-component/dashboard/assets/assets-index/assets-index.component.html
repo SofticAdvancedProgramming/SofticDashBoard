@@ -1,58 +1,121 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <p class="header"> <img  class="mx-1" src="../../../../../assets/images/chart.png">Assets</p>
+            <p class="header"> <img  class="mx-1" src="../../../../../assets/images/chart.png">{{"Assets.title"|translate}}</p>
         </div>
         <div class="col-lg-6 d-flex gap-3 ">
             <button class="btn action-btn"><img
-                    src="../../../../../assets/images/document-download.png">Download</button>
+                    src="../../../../../assets/images/document-download.png">{{"Assets.Download"|translate}}</button>
 
-            <button class="btn action-btn"><img src="../../../../../assets/images/document-upload.png">Import
-                Excel</button>
+            <button class="btn action-btn"><img src="../../../../../assets/images/document-upload.png">{{"Assets.Import Excel"|translate}}</button>
 
-            <button class="btn action-btn" routerLink="../AddAssets"><img src="../../../../../assets/images/add-square.png">Add Assets</button>
+            <button class="btn action-btn" routerLink="../AddAssets"><img src="../../../../../assets/images/add-square.png">{{"Assets.Add Assets"|translate}}</button>
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="card-container justify-content-between">
-            <div routerLink="../ShowAssets" class="card col-lg-3">
-                <div class="icon">
-                    <img src="../../../../../assets/images/allAssetsColored.png">All Assets
-                </div>
-                <h4>{{assetsCount.totalAssetsCount}}</h4>
-                <p class="update">Update:{{date | date }}</p>
+    <div class="row mt-4 ">
+       <div class="card-container d-flex gab-2 justify-content-between">
+          <div class="col-lg-3 card">
+            <div class="icon" routerLink="../ShowAssets">
+              <img src="../../../../../assets/images/allAssetsColored.png">{{"Assets.All Assets"|translate}}
             </div>
+            <h4 class="">{{assetsCount.totalAssetsCount}}</h4>
+            <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
+          </div>
+          <div class="col-lg-3 card">
+              <div class="icon"  [routerLink]="['../ShowAssets',true]" >
+                <img src="../../../../../assets/images/onDuty.png">{{"Assets.assigned Assets"|translate}}
+            </div>
+            <h4>{{assetsCount.assignedAssetsCount}}</h4>
+            <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
+          </div>
+          <div class="col-lg-3 card">
+            <div class="icon"  [routerLink]="['../ShowAssets',false]">
+              <img src="../../../../../assets/images/outserv.png">{{"Assets.not assigned Assets"|translate}}
+          </div>
+          <h4>{{assetsCount.unassignedAssetsCount}}</h4>
+          <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
 
-            <div class="card col-lg-3">
-                <div class="icon"  [routerLink]="['../ShowAssets',true]" >
-                    <img src="../../../../../assets/images/onDuty.png">assigned Assets
-                </div>
-                <h4>{{assetsCount.assignedAssetsCount}}</h4>
-                <p class="update">Update:{{date | date }}</p>
-            </div>
-            <div class="card col-lg-3">
-                <div class="icon"  [routerLink]="['../ShowAssets',3]"  >
-                    <img src="../../../../../assets/images/outService.png">out Of Service Depreciation Count
-                </div>
-                <h4>{{assetsCount.outOfServiceDepreciationCount}}</h4>
-                <p class="update">Update:{{date | date }}</p>
-            </div>
-            <div class="card col-lg-3"  [routerLink]="['../ShowAssets',false]">
-                <div class="icon">
-                    <img src="../../../../../assets/images/outserv.png">not assigned Assets
-                </div>
-                <h4>{{assetsCount.unassignedAssetsCount}}</h4>
-                <p class="update">Update: {{date | date }}</p>
-            </div>
+          </div>
+          <div class="col-lg-3 card">
+            <div class="icon"  [routerLink]="['../ShowAssets',3]"  >
+              <img src="../../../../../assets/images/outService.png">{{"Assets.out Of Service Depreciation Count"|translate}}
+          </div>
+          <h4>{{assetsCount.outOfServiceDepreciationCount}}</h4>
+          <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
+
+          </div>
+
+        </div>
+      <!-- <div class="col-lg-3">
+        <div class="card ">
+          <div class="icon" routerLink="../ShowAssets">
+              <img src="../../../../../assets/images/allAssetsColored.png">{{"Assets.All Assets"|translate}}
+          </div>
+          <h4>{{assetsCount.totalAssetsCount}}</h4>
+          <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
+      </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="card">
+          <div class="icon"  [routerLink]="['../ShowAssets',true]" >
+              <img src="../../../../../assets/images/onDuty.png">{{"Assets.assigned Assets"|translate}}
+          </div>
+          <h4>{{assetsCount.assignedAssetsCount}}</h4>
+          <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
+      </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="card">
+          <div class="icon"  [routerLink]="['../ShowAssets',false]">
+              <img src="../../../../../assets/images/outserv.png">{{"Assets.not assigned Assets"|translate}}
+          </div>
+          <h4>{{assetsCount.unassignedAssetsCount}}</h4>
+          <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="card">
+          <div class="icon"  [routerLink]="['../ShowAssets',3]"  >
+              <img src="../../../../../assets/images/outService.png">{{"Assets.out Of Service Depreciation Count"|translate}}
+          </div>
+          <h4>{{assetsCount.outOfServiceDepreciationCount}}</h4>
+          <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
+      </div>
+      </div> -->
+    </div>
+
+
+        <!-- <div class="card-container justify-content-between">
+
+
+        </div> -->
+
+    <div class="row mt-5">
+      <div class="col-lg-6" *ngIf="!isArabic"
+        [ngClass]="{ 'ps-4': isArabic, 'pe-4': !isArabic }">
+          <div class="chart">
+            <app-basic-line-chart [chartOptions]="barChartOptions"></app-basic-line-chart>
+          </div>
+        </div>
+        <div class="col-lg-6" *ngIf="isArabic"
+        [ngClass]="{ 'ps-4': isArabic, 'pe-4': !isArabic }">
+          <div class="chart">
+            <app-basic-line-chart [chartOptions]="barChartOptionsAr"></app-basic-line-chart>
+          </div>
+        </div>
+        <div class="col-lg-6" *ngIf="!isArabic"
+        [ngClass]="{ 'pe-4 ': isArabic, 'ps-4': !isArabic }">
+          <div class="chart">
+            <app-basic-donut-chart [chartOptions]="donutChartOptions"></app-basic-donut-chart>
+          </div>
+        </div>
+        <div class="col-lg-6" *ngIf="isArabic"
+        [ngClass]="{ 'pe-4 ': isArabic, 'ps-4': !isArabic }">
+          <div class="chart">
+            <app-basic-donut-chart [chartOptions]="donutChartOptionsAr"></app-basic-donut-chart>
+          </div>
         </div>
     </div>
- <div class="d-flex justify-content-around mt-3">
-    <div class="col-lg-6 chart">
-        <app-basic-line-chart [chartOptions]="barChartOptions"></app-basic-line-chart>
-    </div>
-<div class="col-lg-6 chart d-flex justify-content-center align-items-center">
-    <app-basic-donut-chart [chartOptions]="donutChartOptions"></app-basic-donut-chart>
+</div>
 
-</div>
- </div>
-</div>
+<!-- chart d-flex justify-content-center align-items-center   d-flex justify-content-around -->

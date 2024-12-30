@@ -67,8 +67,9 @@
           "Assets.AssetCategory" | translate
         }}</label>
         <app-drop-down
-          [placeholder]="'Select Asset Category'"
-          [placeholderSearch]="'Search by Name'"
+        placeholder="{{'Assets.SelectAssetCategory'|translate}}"
+        placeholderSearch="{{'Assets.Search by Name'|translate}}"
+
           [items]="mainAssets"
           [currentPage]="assetsPage"
           [itemsLength]="mainAssets.length"

@@ -28,7 +28,7 @@ export class DropDownComponent {
   @Output() onChange = new EventEmitter<any>();
   @Output() search = new EventEmitter<any>();
   @Output() getNextPageApi = new EventEmitter<any>();
- 
+
   limit: number = 10;
   private debounceSearchWithDiscount: (() => void) | any;
 
@@ -36,7 +36,9 @@ export class DropDownComponent {
   constructor() {
     this.debounceSearchWithDiscount = debounce(this.searchData.bind(this), 1000);
   }
-
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+  }
   onSelectChange(event: any) {
     if (+event.value) {
       this.onChange.emit(event.value);
