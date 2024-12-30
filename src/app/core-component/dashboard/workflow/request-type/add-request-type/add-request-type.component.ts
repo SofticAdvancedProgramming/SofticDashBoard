@@ -13,7 +13,7 @@ import { DropDownComponent } from '../../../components/drop-down/drop-down.compo
 import { RequestTypeService } from '../../../../../services/requestTypeService/request-type.service';
 import { ImageUploadService } from '../../../../../services/ImageUploadService/image-upload.service';
 import { ToastrService } from 'ngx-toastr';
- 
+
 @Component({
   selector: 'app-add-request-type',
   standalone: true,
@@ -78,12 +78,24 @@ export class AddRequestTypeComponent implements OnInit {
     this.initiation();
     this.loadRequestTypes();
 
+    // Whenever isCustomize is turned off, clear data
+    this.form.get('isCustomize')?.valueChanges.subscribe((value: boolean) => {
+      if (!value) {
+        this.selectedBranch = null;
+        this.selectedDepartment = null;
+        this.selectedPosition = null;
+        this.valuesArray = [];
+        this.rankNum = 0;
+      }
+    });
   }
+
   initiation() {
     this.form = this.fb.group({
       titleEn: ['', Validators.required],
       titleAr: ['', Validators.required],
-      maxDays: ['', Validators.required],
+      min: ['', Validators.required],
+      max: ['', Validators.required],
       RequestTypePhoto: [],
       isCustomize: [false],
     });
@@ -91,8 +103,8 @@ export class AddRequestTypeComponent implements OnInit {
   addNew() {
     this.newPosition.push(1);
   }
-  valuesArray: any[] = []; // Array to store added values
-   addValue() {
+  valuesArray: any[] = [];
+  addValue() {
     this.rankNum += 1;
     if (this.form.get('isCustomize')?.value) {
       this.valuesArray.push({
@@ -101,8 +113,7 @@ export class AddRequestTypeComponent implements OnInit {
         id: 0,
         rank: this.rankNum,
         requestTypeId: 0,
-      }); // Add values to the array
-      // this.dynamicForm.reset(); // Reset form for new input
+      });
     } else {
       alert('Please fill all fields correctly!');
     }
@@ -133,14 +144,29 @@ export class AddRequestTypeComponent implements OnInit {
     );
 
     if (requestCategory) {
-      console.log('Selected Branch:', requestCategory);
+      console.log('Selected Request Category:', requestCategory);
       this.selectedRequestCategory = requestCategory;
+
+
       this.loadDepartments(this.selectedRequestCategory.id);
-      console.log('Selected Branch ID:', this.selectedRequestCategory?.id);
+
+      this.form.get('isCustomize')?.setValue(false);
+
+      this.valuesArray = [];
+      this.rankNum = 0;
+
+      this.selectedBranch = null;
+      this.selectedDepartment = null;
+      this.selectedPosition = null;
+
+
+
+      console.log('Selected Request Category ID:', this.selectedRequestCategory?.id);
     } else {
-      console.log('Branch not found.');
+      console.log('Request Category not found.');
     }
   }
+
 
   onFileChange(event: any): void {
     console.log('onFileChange');
@@ -278,7 +304,8 @@ export class AddRequestTypeComponent implements OnInit {
       nameAr: this.form.value.titleAr,
       icon: this.uploadedImageBase64,
       iconExtension: this.PhotoExtension,
-      maxDays: this.form.value.maxDays,
+      max: this.form.value.max,
+      min: this.form.value.min,
       isCustomized: this.form.value.isCustomize,
       requestCategoryId: this.selectedRequestCategory?.id,
     };
@@ -345,7 +372,7 @@ export class AddRequestTypeComponent implements OnInit {
     })
   }
   loadRequestTypes() {
-    this.requestTypeService.getRequestType({ pageSize: 1000 }).subscribe({
+    this.requestTypeService.getRequestType({ pageSize: 1000 ,  companyId: this.companyId }).subscribe({
       next: (res) => {
         this.requestTypes = res.data.list;
         this.cdr.detectChanges();
@@ -357,5 +384,8 @@ export class AddRequestTypeComponent implements OnInit {
   }
   navigateToDetails(id: number): void {
     this.router.navigate(['/dashboard/workflow/Request-type/details', id]);
+  }
+  remove(index: number): void {
+    this.newPosition.splice(index, 1);
   }
 }
