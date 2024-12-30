@@ -18,7 +18,8 @@ import { BasicDonutChartComponent } from "../../../../common-component/basic-don
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AssetsService } from '../../../../services/AssetsService/assets.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -38,17 +39,21 @@ export type ChartOptions = {
   standalone: true,
   templateUrl: './assets-index.component.html',
   styleUrls: ['./assets-index.component.css'],
-  imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent, RouterLink,TranslateModule,DatePipe],
+  imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent, RouterLink,TranslateModule,DatePipe,CommonModule],
 })
 export class AssetsIndexComponent{
   constructor(
       private assetsService: AssetsService,
-      private translate: TranslateService){
-
-    this.getAssetsCount();
-    this.getAssetsPerCategoriesCount();
+      private translate: TranslateService,
+      private localStorage:LocalStorageService){
+        this.companyId = Number(localStorage.getItem('companyId'));
+        this.getAssetsCount();
+        this.getAssetsPerCategoriesCount();
+        this.getAssetCountPerLastThreeMonths();
   }
+
   date :Date =new Date()
+  companyId: number = 0;
   assetsCount!:{
     companyId: number,
     totalAssetsCount: number,
@@ -62,9 +67,17 @@ export class AssetsIndexComponent{
     nameAr: string,
     count: number
   }[]=[]
+  assetCountPerLastThreeMonths:{
+    month: string,
+    monthAr: string,
+    assetCount: number
+  }[]=[]
   assetsCategoryInArabic:string[]=[]
   assetsCategoryInEnglish:string[]=[]
   assetsInCatCount:number[]=[];
+  assetCountPerLastThreeMonthsInArabic:string[]=[]
+  assetCountPerLastThreeMonthsInEnglish:string[]=[]
+  assetCountPerLastThreeMonthsCount:number[]=[];
   isAssined:boolean=true;
   getAssetsCount(){
     const req=null;
@@ -88,12 +101,12 @@ export class AssetsIndexComponent{
   }
 
   getAssetsPerCategoriesCount(){
-    const req=null;
+    const req={
+      companyId:this.companyId
+    };
     this.assetsService.AssetCategorycounts(req).subscribe(
       {
         next:(res)=>{
-          //console.log(res)
-
           this.assetsInCategoriesCount=res;
           res.map((item:any)=>{
             this.assetsCategoryInArabic.push(item.nameAr);
@@ -101,9 +114,6 @@ export class AssetsIndexComponent{
             this.assetsInCatCount.push(item.count);
           }
         )
-       // console.log(this.assetsCategoryInArabic)
-       // console.log( this.assetsCategoryInEnglish)
-       // console.log(this.assetsInCatCount)
         },
 
         error:(res)=>{
@@ -114,12 +124,39 @@ export class AssetsIndexComponent{
   }
 
 
+  getAssetCountPerLastThreeMonths(){
+    const req={
+      companyId:this.companyId
+    };
+    this.assetsService.GetAssetCountPerLastThreeMonths(req).subscribe(
+      {
+        next:(res)=>{
+          this.assetCountPerLastThreeMonths=res;
+          res.data.map((item:any)=>{
+            this.assetCountPerLastThreeMonthsInArabic.push(item.month);
+            this.assetCountPerLastThreeMonthsInEnglish.push(item.month);
+            this.assetCountPerLastThreeMonthsCount.push(item.assetCount);
+          }
+        )
+        },
+
+        error:(res)=>{
+          console.log(res)
+        }
+      }
+    )
+  }
+
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+  }
+
   // Bar Chart Options
   barChartOptions = {
     series: [
       {
         name: 'Assets',
-        data: [31, 40, 28]
+        data: this.assetCountPerLastThreeMonthsCount
       }
     ],
     chart: {
@@ -142,7 +179,7 @@ export class AssetsIndexComponent{
       colors: ['transparent']
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar']
+      categories: this.assetCountPerLastThreeMonthsInEnglish
     },
     yaxis: {
       title: {
@@ -151,7 +188,56 @@ export class AssetsIndexComponent{
     },
     fill: {
       opacity: 1,
-      colors: ['#FF4560', '#00E396', '#fff']  // Specify different colors for each bar
+      colors: ['#FF4560', '#00FFFF', '#ffff00']  // Specify different colors for each bar
+    },
+    tooltip: {
+      y: {
+        formatter: function (val: any) {
+          return `${val} assets`;
+        }
+      }
+    },
+    legend: {
+      show: true
+    }
+  };
+  barChartOptionsAr = {
+    series: [
+      {
+        name: 'الأصول',
+        data: this.assetCountPerLastThreeMonthsCount
+      }
+    ],
+    chart: {
+      type: 'bar' as ChartType,
+      height: 300
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: '25%',
+        borderRadius: 10
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      show: true,
+      width: 0,
+      colors: ['transparent']
+    },
+    xaxis: {
+      categories:this.assetCountPerLastThreeMonthsInArabic
+    },
+    yaxis: {
+      title: {
+        text: 'أعداد الأصول'
+      }
+    },
+    fill: {
+      opacity: 1,
+      colors: ['#FF9560', '#00FFFF', '#ffff00']  // Specify different colors for each bar
     },
     tooltip: {
       y: {
@@ -165,8 +251,6 @@ export class AssetsIndexComponent{
     }
   };
 
-
-
   donutChartOptions = {
     //series: [44, 55, 41, 17, 15],
     series:  this.assetsInCatCount,
@@ -175,7 +259,7 @@ export class AssetsIndexComponent{
       type: 'donut' as ChartType
     },
  //   labels: ['Category 1', 'Category 2', 'Category 3'],
-    labels: this.isArabic?this.assetsCategoryInArabic:this.assetsCategoryInEnglish,
+    labels: this.assetsCategoryInEnglish,
     dataLabels: {
       enabled: false
     },
@@ -201,9 +285,38 @@ export class AssetsIndexComponent{
       }
     ]
   };
-
-
-  get isArabic(): boolean {
-    return localStorage.getItem('lang') === 'ar';
-  }
+  donutChartOptionsAr = {
+    //series: [44, 55, 41, 17, 15],
+    series:  this.assetsInCatCount,
+    chart: {
+      width: 380,
+      type: 'donut' as ChartType
+    },
+ //   labels: ['Category 1', 'Category 2', 'Category 3'],
+    labels: this.assetsCategoryInArabic,
+    dataLabels: {
+      enabled: false
+    },
+    fill: {
+      type: 'gradient'
+    },
+    legend: {
+      formatter: function (val: any, opts: any) {
+        return `${val} - ${opts.w.globals.series[opts.seriesIndex]}`;
+      }
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }
+    ]
+  };
 }
