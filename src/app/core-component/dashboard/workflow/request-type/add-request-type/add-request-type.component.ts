@@ -22,10 +22,9 @@ import { DropDownComponent } from '../../../components/drop-down/drop-down.compo
 import { RequestTypeService } from '../../../../../services/requestTypeService/request-type.service';
 import { ImageUploadService } from '../../../../../services/ImageUploadService/image-upload.service';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmnDeleteDialogComponent } from "../../../../../common-component/confirmn-delete-dialog/confirmn-delete-dialog.component";
 
-/** 
- * Interface for each dynamic row (branch/department/position).
- */
+ 
 interface RequestConfigForm {
   branchId: FormControl<number | null>;
   departmentId: FormControl<number | null>;
@@ -48,24 +47,26 @@ interface AddRequestTypeForm {
   requestTypeConfigs: FormArray<RequestConfigFormGroup>;
 }
 @Component({
-  selector: 'app-add-request-type',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    RouterLink,
-    RouterLinkActive,
-    DropDownComponent,
-  ],
-  templateUrl: './add-request-type.component.html',
-  styleUrls: ['./add-request-type.component.css'],
+    selector: 'app-add-request-type',
+    standalone: true,
+    templateUrl: './add-request-type.component.html',
+    styleUrls: ['./add-request-type.component.css'],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule,
+        RouterLink,
+        RouterLinkActive,
+        DropDownComponent,
+        ConfirmnDeleteDialogComponent
+    ]
 })
 export class AddRequestTypeComponent implements OnInit {
  
   form!: FormGroup<AddRequestTypeForm>;
-
+  showDeleteDialog = false;   
+  deleteRequestId: number | null = null; 
  
   requestTypeConfigs = this.fb.array<RequestConfigFormGroup>([]);
 
@@ -374,4 +375,22 @@ export class AddRequestTypeComponent implements OnInit {
   navigateToDetails(id: number): void {
     this.router.navigate(['/dashboard/workflow/Request-type/details', id]);
   }
+  openDeleteDialog(requestTypeId: number) {
+     this.deleteRequestId = requestTypeId;
+     this.showDeleteDialog = true;
+  }
+  
+  confirmDelete(): void {
+     if (this.deleteRequestId !== null) {
+      this.deleteRequestType(this.deleteRequestId);
+    }
+     this.deleteRequestId = null;
+    this.showDeleteDialog = false;
+  }
+  
+  cancelDelete(): void {
+     this.deleteRequestId = null;
+    this.showDeleteDialog = false;
+  }
+  
 }

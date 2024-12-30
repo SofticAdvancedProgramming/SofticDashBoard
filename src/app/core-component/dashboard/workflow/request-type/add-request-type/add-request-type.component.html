@@ -191,12 +191,22 @@
           <td>{{ requestType.name }}</td>
           <td>{{ requestType.nameAr }}</td>
           <td>
-            <button class="btn btn-sm" (click)="deleteRequestType(requestType.id); $event.stopPropagation()">
-              <img src="../../../../../../assets/images/trash 01.png" alt="trash" />
-            </button>
+            <button
+            class="btn btn-sm"
+            (click)="openDeleteDialog(requestType.id); $event.stopPropagation()"
+          >
+            <img src="../../../../../../assets/images/trash 01.png" alt="trash" />
+          </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+<app-confirmn-delete-dialog
+  *ngIf="showDeleteDialog"
+  [title]="'Confirm Deletion'"
+  [message]="'Are you sure you want to delete?'"
+  (onConfirm)="confirmDelete()"
+  (onCancel)="cancelDelete()"
+></app-confirmn-delete-dialog>
