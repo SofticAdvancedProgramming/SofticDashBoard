@@ -139,28 +139,20 @@ export class AddRequestTypeComponent implements OnInit {
     });
   }
   onRequestCategorySelect(requestCategoryId: any) {
+    this.valuesArray=[]
     const requestCategory = this.RequestCategories.find(
       (requestCategory: any) => requestCategory.id === requestCategoryId
     );
-
     if (requestCategory) {
       console.log('Selected Request Category:', requestCategory);
       this.selectedRequestCategory = requestCategory;
-
-
       this.loadDepartments(this.selectedRequestCategory.id);
-
       this.form.get('isCustomize')?.setValue(false);
-
       this.valuesArray = [];
-      this.rankNum = 0;
-
+     this.rankNum = 0;
       this.selectedBranch = null;
       this.selectedDepartment = null;
       this.selectedPosition = null;
-
-
-
       console.log('Selected Request Category ID:', this.selectedRequestCategory?.id);
     } else {
       console.log('Request Category not found.');

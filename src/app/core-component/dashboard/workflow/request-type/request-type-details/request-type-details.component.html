@@ -5,12 +5,12 @@
     <img src="../../../../../assets/images/arrow-left2.png" alt="arrow" />
     <p class="lead">{{"Request type Details" | translate}}</p>
   </div>
-  <button class="btn edit-btn">
-    {{'edit'|translate}}
+  <button class="btn edit-btn" (click)="toggleEdit()">
+    <!-- Switch label based on mode -->
+    {{ isEditMode ? ('Cancel' | translate) : ('edit' | translate) }}
   </button>
 </div>
-
-<div class="add-type-request-sm-container py-3 px-4 ">
+<div *ngIf="!isEditMode" class="add-type-request-sm-container py-3 px-4 ">
   <div class="row gy-3 ">
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'Title EN' | translate }}</label>
@@ -28,21 +28,57 @@
       <label class="d-block fw-semibold text-dark">{{ 'Maximum Dates' | translate }}</label>
       <div class="text-muted">{{ requestTypeDetails?.maxDays || 'N/A' }}</div>
     </div>
-    <!-- <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{
-        "attachments.File" | translate
-        }}</label>
-      <div class="text-muted">
-         <img alt="CertificateImage" style="width: 150px; height: 150px" />
-        <div class="d-flex gap-2 align-items-center">
-          <img src="../../../../../../../assets/images/fileIcon2.png" style="width: 100px; height: 100px" alt="" />
-        </div>
-        <a target="_blank" download>Download PDF</a>
-      </div>
-    </div> -->
   </div>
-
 </div>
+
+<!-- Edit Mode View (shown when isEditMode) -->
+<div *ngIf="isEditMode" class="add-type-request-sm-container py-3 px-4 ">
+  <!-- Use Reactive Form -->
+  <form [formGroup]="editForm">
+    <div class="row gy-3 ">
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">{{ 'Title EN' | translate }}</label>
+        <input 
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder="Enter Title EN"
+        />
+      </div>
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">{{ 'Title AR' | translate }}</label>
+        <input 
+          type="text"
+          class="form-control"
+          formControlName="nameAr"
+          placeholder="Enter Title AR"
+        />
+      </div>
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">{{ 'Request category' | translate }}</label>
+        <input 
+          type="text"
+          class="form-control"
+          formControlName="requestCategory"
+          placeholder="Enter Request Category"
+        />
+      </div>
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">{{ 'Maximum Dates' | translate }}</label>
+        <input 
+          type="number"
+          class="form-control"
+          formControlName="maxDays"
+          placeholder="Enter Maximum Dates"
+        />
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+
 <div class="row justify-content-end d-flex mt-3">
   <button class="btn save-btn" (click)="editRequestType()">
     {{ 'Save Changes' | translate }}
