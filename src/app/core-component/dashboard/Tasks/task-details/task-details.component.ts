@@ -16,6 +16,8 @@ import { ToastrService } from 'ngx-toastr';
 import { EvaluatoionComponent } from '../../components/evaluatoion/evaluatoion.component';
 import { ReAssignTaskPopupComponent } from '../../components/reAssignTask/re-assign-task-popup/re-assign-task-popup.component';
 import { MoveToArchivePopupComponent } from '../../components/moveToArchivePoup/move-to-archive-popup/move-to-archive-popup.component';
+import { ProgressbarComponent } from '../../components/progressbar/progressbar.component';
+import { ToDoProgressBarComponent } from '../../components/to-do-progress-bar/to-do-progress-bar/to-do-progress-bar.component';
 
 
 @Component({
@@ -31,7 +33,8 @@ import { MoveToArchivePopupComponent } from '../../components/moveToArchivePoup/
     AssignTaskPopupComponent,
     EvaluatoionComponent,
     ReAssignTaskPopupComponent,
-    MoveToArchivePopupComponent
+    MoveToArchivePopupComponent,
+    ToDoProgressBarComponent
   ],
   templateUrl: './task-details.component.html',
   styleUrl: './task-details.component.css',
@@ -134,7 +137,7 @@ export class TaskDetailsComponent implements OnInit {
           this.ReviewImgScr = this.ReviewImg;
           this.DoneImgScr = this.DoneImg;
         }
-        if(this.taskDetails.taskAttachments[0].file){
+        if(this.taskDetails?.taskAttachments[0]?.file){
           this.taskImg = this.taskDetails.taskAttachments[0].file;
         }
       },

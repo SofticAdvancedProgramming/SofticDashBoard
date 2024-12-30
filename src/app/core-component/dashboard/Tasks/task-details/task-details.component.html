@@ -10,13 +10,25 @@
       <!-- <button class="btn edit-btn" *ngIf="!isDoneStatus">
         <img src="../../../../../assets/images/edit-2.png" />Edit
       </button> -->
-      <button class="btn edit-btn" *ngIf="!isDoneStatus" [routerLink]="['../../addnew', id]">
+      <button
+        class="btn edit-btn"
+        *ngIf="!isDoneStatus"
+        [routerLink]="['../../addnew', id]"
+      >
         <img src="../../../../../assets/images/edit-2.png" />Edit
       </button>
-      <button class="btn edit-btn" (click)="toggleAssignTaskToPopup()" *ngIf="!isDoneStatus">
+      <button
+        class="btn edit-btn"
+        (click)="toggleAssignTaskToPopup()"
+        *ngIf="!isDoneStatus"
+      >
         <img src="../../../../../assets/images/edit-2.png" />Assign To
       </button>
-      <button *ngIf="isDoneStatus" class="save-btn btn" [routerLink]="['../../analytics', id]">
+      <button
+        *ngIf="isDoneStatus"
+        class="save-btn btn"
+        [routerLink]="['../../analytics', id]"
+      >
         Analytics
       </button>
     </div>
@@ -26,7 +38,7 @@
       <div class="task-details-card">
         <img [src]="taskImg" class="taskImg" />
         <div class="task-details-card-text p-3">
-          <h3 class="task-details-card-title">{{ taskDetails.name }}</h3>
+          <h3 class="task-details-card-title">{{ taskDetails?.name }}</h3>
           <div class="task-details-card-details row">
             <div class="col-6">
               <div
@@ -34,7 +46,7 @@
               >
                 <img src="../../../../../assets/images/calendar-2.png" />
                 <span class="date-description">From (Date)</span>
-                <span class="date">{{ taskDetails.startDate | date }}</span>
+                <span class="date">{{ taskDetails?.startDate | date }}</span>
               </div>
             </div>
             <div class="col-6">
@@ -43,7 +55,7 @@
               >
                 <img src="../../../../../assets/images/calendar-2.png" />
                 <span class="date-description">to (Date)</span>
-                <span class="date">{{ taskDetails.endDate | date }}</span>
+                <span class="date">{{ taskDetails?.endDate | date }}</span>
               </div>
             </div>
             <div class="col-4">
@@ -52,17 +64,18 @@
               >
                 <img src="../../../../../assets/images/clock.png" />
                 <span class="date-description-time px-3"
-                  >{{ taskDetails.duration }} <span>Days</span></span
+                  >{{ taskDetails?.duration }} <span>Days</span></span
                 >
               </div>
             </div>
             <div class="col-4">
-              <div  *ngIf="taskDetails.actualCost"
+              <div
+                *ngIf="taskDetails?.actualCost"
                 class="d-flex flex-row justify-content-start align-items-center py-3 w-100"
               >
                 <img src="../../../../../assets/images/dollar-circle.png" />
                 <span class="date-description-currency px-3"
-                  >{{ taskDetails.actualCost }}<span>$</span></span
+                  >{{ taskDetails?.actualCost }}<span>$</span></span
                 >
               </div>
             </div>
@@ -88,7 +101,7 @@
           <div class="task-details-card-description pt-3">
             <p class="task-details-card-description-title">Description</p>
             <p class="task-details-card-description-details">
-              {{ taskDetails.description }}
+              {{ taskDetails?.description }}
             </p>
           </div>
         </div>
@@ -201,9 +214,9 @@
       @for (todo of todoItems; track $index) {
       <div class="single-todo-card col-12">
         <p class="single-todo-card-details">
-          <span>{{ $index + 1 }}- </span>{{ todo.description }}
-          @if(todo.employeeId){
-            Assigned to {{todo.employeeId}}
+          <span>{{ $index + 1 }}- </span
+          >{{ todo.description }} @if(todo.employeeId){ Assigned to
+          {{ todo.employeeName }}
           }
         </p>
       </div>
@@ -227,6 +240,12 @@
         </p>
       </div> -->
     </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div class="todo-container p-3">
+    <app-to-do-progress-bar [progressValue]="taskDetails?.progress ? taskDetails?.progress : 0"></app-to-do-progress-bar>
   </div>
 </div>
 
