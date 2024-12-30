@@ -46,8 +46,7 @@ export class RequestTypeDetailsComponent {
     max: [null],
     min: [null],
     containAsset: [false],
-    requestCategory: [null],
-  });
+    requestCategory: [{ value: null, disabled: true }],  });
   
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
