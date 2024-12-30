@@ -156,7 +156,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   populateForm() {
-    console.log(this.taskDetails);
+    console.log("this.taskDetails,",this.taskDetails);
 
     const formattedDate = this.datePipe.transform(
       this.taskDetails?.startDate,
@@ -175,13 +175,15 @@ export class AddTaskComponent implements OnInit {
     console.log(this.form.value);
 
     // Clear existing todos
-    this.todos.clear();
+    this.form.setControl('todos', this.fb.array([]));
+    console.log("todos",this.todos)
 
     // Populate todos FormArray
     this.taskDetails?.toDoItems.forEach((todo: any) => {
       const todoGroup: any = this.fb.group({
         description: [todo.description, Validators.required],
         employeeId: [todo.employeeId, Validators.required],
+        id:[todo.id]
       });
       // this.form.setControl('todos', todoGroup);
       this.todos.push(todoGroup);
@@ -195,7 +197,8 @@ export class AddTaskComponent implements OnInit {
     for (let i = 0; i < this.todoValues.length; i++) {
       toDoItems.push({
         companyId: this.companyId,
-        ...this.todoValues[i],
+        id:this.todoValues[i].id,
+        ...this.todoValues[i]
       });
     }
     console.log(toDoItems);
@@ -219,7 +222,7 @@ export class AddTaskComponent implements OnInit {
           },
         ],
       };
-
+  
       if (this.todoValues) {
         query = {
           companyId: this.companyId,
@@ -252,26 +255,12 @@ export class AddTaskComponent implements OnInit {
         duration: this.form.controls['duration'].value,
         taskAttachments: this.attachments,
         taskAssignments: [],
+        toDoItems: toDoItems,
       };
-
-      if (this.todoValues) {
-        query = {
-          companyId: this.companyId,
-          name: this.form.controls['name'].value,
-          // taskFile: this.form.controls['taskFile'].value,
-          description: this.form.controls['taskDetails'].value,
-          startDate: this.form.controls['from'].value,
-          initialBudget: this.form.controls['initialCost'].value,
-          statusId: 1,
-          duration: this.form.controls['duration'].value,
-          taskAttachments: this.attachments,
-          taskAssignments: [],
-          toDoItems: toDoItems,
-        };
-      }
     }
     console.log(this.form.value);
     if (this.id) {
+      console.log("edit mode",this.id)
       query.id = this.id;
     }
     if (this.form.value) {
