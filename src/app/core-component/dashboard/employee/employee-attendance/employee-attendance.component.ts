@@ -22,17 +22,17 @@ export class EmployeeAttendanceComponent implements OnInit {
     totalPages: 0,
     list: [],
   };
+  public employee: any;
 
   public selectedEmployee: any = null;
-  public employeeLocations: any[] = []; // Store attendance locations for map
-  public showModal: boolean = false;
+   public showModal: boolean = false;
   public newAction: any[] = [
     {
       isExisting: true,
       src: 'location.png',  
     },
   ];
-  public id: number | null = null;  
+  public id: number | null = null; // Store employeeId from route
 
   constructor(
     private attendanceService: AttendanceService,
@@ -41,7 +41,8 @@ export class EmployeeAttendanceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-     this.id = +this.route.snapshot.paramMap.get('id')!;
+    // Get employeeId from route parameters
+    this.id = +this.route.snapshot.paramMap.get('id')!;
 
     if (this.id) {
       this.getAttendances(this.id);
@@ -52,7 +53,7 @@ export class EmployeeAttendanceComponent implements OnInit {
 
   getAttendances(employeeId: number, pageIndex?: number) {
     const query = {
-      employeeId,  
+      employeeId, // Include employeeId in the query
       pageIndex: pageIndex || 1,
       pageSize: 10,
       sortIsAsc: false,
@@ -70,15 +71,18 @@ export class EmployeeAttendanceComponent implements OnInit {
           ),
           latitude: item.lat || 0,  
           longitude: item.long || 0,  
+          
         })),
+        
       };
-    });
+
+     });
   }
 
   openLocationPopup(employee: any) {
     this.selectedEmployee = employee;
 
-     this.employeeLocations = this.attendances.list
+     this.employee = this.attendances.list
       .filter((record: any) => record.employeeId === employee.employeeId)
       .map((record: any) => ({
         date: record.attendanceDate,
@@ -86,7 +90,7 @@ export class EmployeeAttendanceComponent implements OnInit {
         long: record.longitude,
       }));
 
-    console.log('Employee Locations:', this.employeeLocations);
+    console.log('Employee Locations:', this.employee);
 
     this.showModal = true;
   }

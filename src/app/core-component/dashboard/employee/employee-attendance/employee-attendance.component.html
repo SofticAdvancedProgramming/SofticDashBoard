@@ -23,7 +23,8 @@
         <button class="close-btn" (click)="closeLocationPopup()">X</button>
       </div>
       <div class="custom-modal-body">
-        <app-map [locations]="employeeLocations"></app-map>
+        <app-map [lat]="employee?.lat || 0" [employee]="employee"
+        [long]="employee?.long || 0"></app-map>
       </div>
     </div>
     <div class="custom-modal-backdrop" (click)="closeLocationPopup()"></div>
