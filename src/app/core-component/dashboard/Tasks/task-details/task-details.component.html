@@ -208,20 +208,33 @@
 <div class="container mt-3">
   <div class="todo-container p-3">
     <div class="d-flex justify-content-between align-items-center">
-      <p class="lead">To Do LIst</p>
+      <p class="lead">To-do List</p>
     </div>
-    <div class="row px-3">
-      @for (todo of todoItems; track $index) {
-      <div class="single-todo-card col-12">
-        <p class="single-todo-card-details">
-          <span>{{ $index + 1 }}- </span
-          >{{ todo.description }} @if(todo.employeeId){ Assigned to
-          {{ todo.employeeName }}
-          }
-        </p>
-      </div>
-      }
-      <!-- <div class="single-todo-card">
+    <form [formGroup]="checkboxForm">
+      <div class="row px-3" formArrayName="checkboxes">
+        @for (todo of todoItems; track $index) {
+        <div
+          class="single-todo-card col-12 justify-content-between align-items-center"
+        >
+          <p class="single-todo-card-details">
+            <span>{{ $index + 1 }}- </span
+            >
+            <span>@if(todo.employeeId){ Assigned to
+            {{ todo.employeeName }}
+            }</span>
+            <span>{{ todo.description }}</span>
+          </p>
+          <input
+            type="checkbox"
+            class="checkbox"
+            name="todoDone"
+            id="todoDone"
+            [formControlName]="$index"
+            (change)="onCheckboxChange($index)"
+          />
+        </div>
+        }
+        <!-- <div class="single-todo-card">
         <p class="single-todo-card-details col-12">
           <span>1-</span>Follow the video tutorial above. Understand how to use
           each tool in the Figma
@@ -239,13 +252,16 @@
           each tool in the Figma
         </p>
       </div> -->
-    </div>
+      </div>
+    </form>
   </div>
 </div>
 
 <div class="container mt-3">
   <div class="todo-container p-3">
-    <app-to-do-progress-bar [progressValue]="taskDetails?.progress ? taskDetails?.progress : 0"></app-to-do-progress-bar>
+    <app-to-do-progress-bar
+      [progressValue]="taskDetails?.progress ? taskDetails?.progress : 0"
+    ></app-to-do-progress-bar>
   </div>
 </div>
 

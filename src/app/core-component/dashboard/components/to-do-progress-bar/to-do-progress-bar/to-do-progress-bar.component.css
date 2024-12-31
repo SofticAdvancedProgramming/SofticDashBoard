@@ -56,9 +56,11 @@
   }
   
   .details {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    display: flex;
+    /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
     gap: 20px;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
     color: #333;
     margin-top: 10px;
@@ -122,7 +124,7 @@
   .status-indicator {
     font-weight: bold;
     font-size: 14px;
-    color: #666;
+    color: #736F77;
   }
   
   .status-indicator.approved {

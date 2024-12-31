@@ -780,7 +780,8 @@
     "Confirm": "Confirm"
   },
   "deletePopUp": {
-    "Delete": "Default",
+    "title": "Confirm Deletion",
+    "Delete": "Delete",
     "question": "Are you sure about the deletion process?",
     "Cancel": "Cancel",
     "delete": "Delete"

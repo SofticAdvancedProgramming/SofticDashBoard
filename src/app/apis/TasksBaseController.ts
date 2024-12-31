@@ -12,6 +12,7 @@ export const TasksBaseController = {
     Add: `${environment.apiBaseUrl}Tasks/Add`,
     Edit: `${environment.apiBaseUrl}Tasks/Edit`,
     Delete: (id: number, companyId: number) => `${environment.apiBaseUrl}Tasks/Delete/${id}/${companyId}`,
+    DeleteTodo: (id: number, companyId: number) => `${environment.apiBaseUrl}ToDoItem/Delete/${id}/${companyId}`,
     Activate: (id: number, companyId: number) => `${environment.apiBaseUrl}Tasks/Activate/${id}/${companyId}`,
     DeActivate: (id: number, companyId: number) => `${environment.apiBaseUrl}Tasks/DeActivate/${id}/${companyId}`,
     Count: `${environment.apiBaseUrl}Tasks/Count`,

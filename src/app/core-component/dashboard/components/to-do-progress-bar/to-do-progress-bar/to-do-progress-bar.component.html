@@ -17,15 +17,15 @@
 </div>
 
 <div class="details">
-    <div>
+    
         <!-- <div class="recieverName text-end" *ngIf="step.name!='Waiting'">{{ getComplaintStatusName(i+1)}}</div> {{step.name}} -->
         <!-- <div class="recieverName text-end"*ngIf="step.name=='Waiting'">{{ getComplaintStatusName(i+1)}}</div> -->
-        <div class="recieverTitle"><i>closed</i></div>
-        <div  class="status-indicator">submitted</div>
-        <div  class="status-indicator">opened</div>
+        <!-- <div class="recieverTitle"><i>closed</i></div> -->
+        <div  class="status-indicator">To-do</div>
+        <!-- <div  class="status-indicator">opened</div>
         <div  class="status-indicator">In-progress</div>
         <div  class="status-indicator">Waiting</div>
-        <div class="status-indicator">Reopend</div>
-        <div class="status-indicator">closed</div>
-    </div>
+        <div class="status-indicator">Reopend</div> -->
+        <div *ngIf="progressValue==100" class="status-indicator">100% Done</div>
+    
 </div>
