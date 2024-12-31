@@ -26,8 +26,8 @@ export class EmployeeAttendanceComponent implements OnInit {
   public selectedEmployee: any = null;
   public employee: any;
   public showModal: boolean = false;
-  public attendanceTypeId: number = 1; // Default to Attendance
-  public attendanceType: string = 'Attendance'; // To display the current type
+  public attendanceTypeId: number = 1;  
+  public attendanceType: string = 'Attendance';  
   public newAction: any[] = [
     {
       isExisting: true,
@@ -53,8 +53,8 @@ export class EmployeeAttendanceComponent implements OnInit {
 
   getAttendances(pageIndex?: number) {
     const query = {
-      employeeId: this.id, // Include employeeId from the route
-      attendanceTypeId: this.attendanceTypeId, // Filter by the selected type
+      employeeId: this.id,  
+      attendanceTypeId: this.attendanceTypeId,  
       pageIndex: pageIndex || 1,
       pageSize: 10,
       sortIsAsc: false,
