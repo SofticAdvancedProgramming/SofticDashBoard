@@ -23,10 +23,24 @@
   background: #8413f8;
   width: Fixed (226px) px;
   height: Hug (52px) px;
-  padding: 12px;
+  padding: .375rem .75rem;
   border-radius: 10px;
   opacity: 0px;
   color: white;
+  width: 100%;
+  gap: 0.2em;
+  display: flex;
+  justify-content: center;
+}
+.archive-btn{
+  background: #FFFFFF;
+  width: Fixed (226px) px;
+  height: Hug (52px) px;
+  padding: .375rem .75rem;
+  border:  1px solid #736F77;
+  border-radius: 10px;
+  opacity: 0px;
+  color: #736F77;
   width: 100%;
   gap: 0.2em;
   display: flex;
@@ -166,10 +180,10 @@
 .task-list {
 
   min-height: 200px;
-  padding: 10px;
-  border: 1px dashed #ddd;
-  border-radius: 5px;
-  background-color: #f8f9fa;
+  /* padding: 10px; */
+  /* border: 1px dashed #ddd; */
+  border-radius: 10px;
+  /* background-color: #f8f9fa; */
   position: relative;
   max-height: 500px;
   overflow: auto;
@@ -177,12 +191,12 @@
 
 .task {
   padding: 8px;
-  margin: 5px 0;
+  margin: 10px 0;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: #fff;
   cursor: grab;
-  width: 220px;
+  /* width: 220px; */
 }
 
 .placeholder {

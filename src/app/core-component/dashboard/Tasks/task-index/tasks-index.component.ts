@@ -25,7 +25,7 @@ import { ShortenPipe } from '../../../../core/pipes/shorten.pipe';
   styleUrl: './tasks-index.component.css',
 })
 export class TasksIndexComponent implements OnInit {
-  statuses = ['TODO', 'In Progress', 'Submit For Review', 'Done', 'Archived'];
+  statuses = ['TODO', 'In Progress', 'Submit For Review', 'Done'];
 
   tasksByStatus: { [key: string]: Task[] } = {
     TODO: [],
@@ -52,8 +52,6 @@ export class TasksIndexComponent implements OnInit {
         return 'task-group-submitForReview';
       case 'Done':
         return 'task-group-done';
-      case 'Archived':
-        return 'task-group-todo';
       default:
         return '';
     }
@@ -102,9 +100,6 @@ export class TasksIndexComponent implements OnInit {
         break;
       case 'Done':
         newStatus = 4;
-        break;
-      case 'Archived':
-        newStatus = 5;
         break;
     }
 
@@ -168,7 +163,6 @@ export class TasksIndexComponent implements OnInit {
         this.tasksByStatus['TODO'] = [];
         this.tasksByStatus['In Progress'] = [];
         this.tasksByStatus['Done'] = [];
-        this.tasksByStatus['Archived'] = [];
         this.tasksByStatus['Submit For Review'] = [];
         for (let item of response['data'].list) {
           if (item.statusId === tasksStatus.Todo) {
@@ -180,9 +174,7 @@ export class TasksIndexComponent implements OnInit {
             this.tasksByStatus['Submit For Review'].push(item);
           } else if (item.statusId == tasksStatus.Done) {
             this.tasksByStatus['Done'].push(item);
-          } else if (item.statusId == tasksStatus.Archived) {
-            this.tasksByStatus['Archived'].push(item);
-          }
+          } 
         }
       },
       error: (err) => {
