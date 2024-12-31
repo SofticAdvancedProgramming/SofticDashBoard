@@ -766,6 +766,7 @@
     "Confirm": "تأكيد"
   },
   "deletePopUp": {
+    "title": "تأكيد الحذف",
     "Delete": "حذف",
     "question": "هل انت متاكد من عملية الحذف؟",
     "Cancel": "الغاء",

@@ -1,0 +1,17 @@
+<div class="modal-background" (click)="onCancel()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <!-- <div class="modal-icon">
+      <img src="../../../assets/images/Frame (4).png" alt="Delete Icon" />
+    </div> -->
+    <h2 class="modal-title">{{ "deletePopUp.title" | translate }}</h2>
+    <p class="modal-text">{{ "deletePopUp.question" | translate }}</p>
+    <div class="modal-actions">
+      <button class="btn cancel-button" type="button" (click)="onCancel()">
+        {{ "deletePopUp.Cancel" | translate }}
+      </button>
+      <button class="btn delete-button" type="button" (click)="onConfirm()">
+        {{ "deletePopUp.delete" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

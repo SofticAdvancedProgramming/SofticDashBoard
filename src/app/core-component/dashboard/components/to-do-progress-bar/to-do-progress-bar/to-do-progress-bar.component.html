@@ -1,0 +1,31 @@
+<div class="progress-container">
+    <div class="progress-bar" [style.width.%]="progressValue">
+        <!-- <div *ngFor="let step of steps; let i = index" [ngClass]="{
+              'Submitted': step.name === 'Submitted',
+              'opened': step.name === 'opened',
+              'In-progress': step.name === 'In-progress',
+              'Waiting': step.name === 'Waiting',
+              'Reopend': step.name === 'Reopend',
+              'closed': step.name === 'closed',
+              'active': i === currentStep,
+              'current-step': i === currentStep
+           }"
+           class="step-indicator">
+        </div> -->
+        <img class="arrow" src="../../../../../assets/images/send.png" alt="Arrow">
+    </div>
+</div>
+
+<div class="details">
+    
+        <!-- <div class="recieverName text-end" *ngIf="step.name!='Waiting'">{{ getComplaintStatusName(i+1)}}</div> {{step.name}} -->
+        <!-- <div class="recieverName text-end"*ngIf="step.name=='Waiting'">{{ getComplaintStatusName(i+1)}}</div> -->
+        <!-- <div class="recieverTitle"><i>closed</i></div> -->
+        <div  class="status-indicator">To-do</div>
+        <!-- <div  class="status-indicator">opened</div>
+        <div  class="status-indicator">In-progress</div>
+        <div  class="status-indicator">Waiting</div>
+        <div class="status-indicator">Reopend</div> -->
+        <div *ngIf="progressValue==100" class="status-indicator">100% Done</div>
+    
+</div>

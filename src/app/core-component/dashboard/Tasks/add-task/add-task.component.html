@@ -326,7 +326,7 @@
           
           <div class="col-6">
             <div class="form-group">
-              <label for="Name">Assign to</label>
+              <label for="Name" class="form-label">Assign to</label>
               <mat-select class="custom-select" [placeholder]="'Select Employee'" formControlName="employeeId">
                 <mat-option [value]="null" disabled>Select Employee</mat-option>
                 <mat-option *ngFor="let emp of employees" [value]="emp.id">
@@ -346,20 +346,21 @@
             } -->
             </div>
           </div>
-          <div class="d-flex col-6 justify-content-center align-items-center">
+          <div class="d-flex col-6 justify-content-center align-items-end bnt-container">
             <button
               class="btn remove-btn"
               type="button"
-              (click)="removeTodo(i)"
+              (click)="deleteTodo()"
             >
-              Remove
+              <img src="../../../../../assets/images/trash.png" alt="remove"> Remove
             </button>
           </div>
         </div>
+        <app-delete-confirmation-pop-up *ngIf="isDelete" (cancel)="onCancel()" (confirm)="removeTodo(i)" ></app-delete-confirmation-pop-up>
       </div>
     </div>
   </div>
-
+  
   <div
     class="col-12 d-flex justify-content-center align-items-center py-4 gap-2"
   >

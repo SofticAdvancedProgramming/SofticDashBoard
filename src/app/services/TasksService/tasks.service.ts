@@ -68,6 +68,9 @@ export class TasksService {
   delete(id: number, companyId: number): Observable<any> {
     return this.http.request('POST', TasksBaseController.Delete(id, companyId), {});
   }
+  deleteTodo(id: number, companyId: number): Observable<any> {
+    return this.http.request('POST', TasksBaseController.DeleteTodo(id, companyId), {});
+  }
 
   activate(id: number, companyId: number): Observable<any> {
     return this.http.request('POST', TasksBaseController.Activate(id, companyId), {});
