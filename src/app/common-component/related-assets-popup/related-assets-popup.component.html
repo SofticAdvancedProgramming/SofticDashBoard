@@ -13,6 +13,18 @@
     <form (ngSubmit)="Submit()">
       <div class="form-group">
         <label for="Name">{{'RelatedAssetPopup.Name'|translate}}</label>
+
+      <!-- <app-drop-down
+        [placeholder]="'Select main Asset'"
+        [placeholderSearch]="'Search by Name'"
+        [items]="assets"
+        [currentPage]="assetsPage"
+        [itemsLength]="assets?.length"
+        (getNextPageApi)="loadAssets()"
+        (search)="loadAssets()"
+        (onChange)="getChild()"
+      ></app-drop-down> -->
+
         <select name="childId" [(ngModel)]="childId" (change)="getChild()">
           <option *ngFor="let item of assets" [value]="item.id">
             @if (lang == 'en') {
