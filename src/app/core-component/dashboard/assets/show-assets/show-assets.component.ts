@@ -108,10 +108,10 @@ export class ShowAssetsComponent implements OnInit {
     }
 
     // Add assigned/unassigned filter logic
-    if (this.isAssined !== undefined && this.isAssined !== 3) {
+    if (this.isAssined !== undefined && this.isAssined != 3) {
       query.isAssgined = this.isAssined;
-    } else if (this.isAssined === 3) {
-      query.assetStatusId = 3; // Filter for a specific asset status (example)
+    } else if (this.isAssined == 3) {
+      query.assetStatusId = 3;  // Filter for a specific asset status (example)
     }
 
     // Include isMain filter if selected
