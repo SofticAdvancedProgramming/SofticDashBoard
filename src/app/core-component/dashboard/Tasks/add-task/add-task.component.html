@@ -294,9 +294,9 @@
 
   <div class="container mt-3 py-5 px-5">
     <div class="d-flex justify-content-between align-items-center">
-      <p class="lead">To-Do List</p>
-      <button class="btn action-btn" type="button" (click)="addToDoFun()">
-        Add to do list
+      <p class="lead">{{'ToDo.toDoTitle' | translate}}</p>
+      <button class="btn action-btn" type="button" *ngIf="todos.length == 0" (click)="addToDoFun()">
+        {{'ToDo.addToDo' | translate}}
       </button>
     </div>
     <div class="row" formArrayName="todos">
@@ -305,7 +305,8 @@
         *ngFor="let todo of todos.controls; let i = index"
         [formGroupName]="i"
       >
-        <label class="form-label">To-Do Description</label>
+      
+        <label class="form-label">{{'ToDo.toDoDescription' | translate}}</label>
         <textarea
           class="textarea form-control"
           formControlName="description"
@@ -326,9 +327,9 @@
           
           <div class="col-6">
             <div class="form-group">
-              <label for="Name" class="form-label">Assign to</label>
+              <label for="Name" class="form-label">{{'ToDo.assignTo' | translate}}</label>
               <mat-select class="custom-select" [placeholder]="'Select Employee'" formControlName="employeeId">
-                <mat-option [value]="null" disabled>Select Employee</mat-option>
+                <mat-option [value]="null" disabled>{{'ToDo.selectEmployee' | translate}}</mat-option>
                 <mat-option *ngFor="let emp of employees" [value]="emp.id">
                   {{ emp.firstName }} {{ emp.lastName }}
                 </mat-option>
@@ -352,10 +353,13 @@
               type="button"
               (click)="deleteTodo()"
             >
-              <img src="../../../../../assets/images/trash.png" alt="remove"> Remove
+              <img src="../../../../../assets/images/trash.png" alt="remove"> {{'ToDo.remove' | translate}}
             </button>
           </div>
         </div>
+        <button class="btn action-btn" type="button" *ngIf="todos.length -1 == i" (click)="addToDoFun()">
+          {{'ToDo.addToDo' | translate}}
+        </button>
         <app-delete-confirmation-pop-up *ngIf="isDelete" (cancel)="onCancel()" (confirm)="removeTodo(i)" ></app-delete-confirmation-pop-up>
       </div>
     </div>

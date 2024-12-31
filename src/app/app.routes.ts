@@ -52,6 +52,7 @@ import { EnhancedOrganizationChartComponent } from './core-component/dashboard/e
 import { AddRequestTypeComponent } from './core-component/dashboard/workflow/request-type/add-request-type/add-request-type.component';
 import { RequestTypeIndexComponent } from './core-component/dashboard/workflow/request-type/request-type-index/request-type-index.component';
 import { RequestTypeDetailsComponent } from './core-component/dashboard/workflow/request-type/request-type-details/request-type-details.component';
+import { TasksArchivedComponent } from './core-component/dashboard/Tasks/tasks-archived/tasks-archived/tasks-archived.component';
 
 export const routes: Routes = [
   {
@@ -107,6 +108,7 @@ export const routes: Routes = [
       { path: 'AssetsDetails/:id', component: AssetsDetailsComponent },
       { path: 'employee-locations/:id', component: AddLocationComponent },
       { path: 'tasks', component: TasksIndexComponent},
+      { path: 'tasks/tasksArchived', component: TasksArchivedComponent},
       { path: 'tasks/addnew', component: AddTaskComponent},
       { path: 'tasks/addnew/:id', component: AddTaskComponent},
       { path: 'tasks/details/:id', component: TaskDetailsComponent},

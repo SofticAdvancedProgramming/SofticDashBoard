@@ -113,6 +113,13 @@
   white-space: normal; /* Allow text to wrap */
   overflow-wrap: anywhere; /* Handle text overflow gracefully */
 }
+.single-todo-employeeName{
+  border-right: 1px solid #DFDFDF; 
+  margin-right: 10px;
+}
+.single-todo-description{
+  font-weight: 400 !important;
+}
 
 .form-label {
   color: #0d0714;
