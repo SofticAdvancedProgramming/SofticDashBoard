@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AttendanceService } from '../../../../services/AttendanceService/attendance.service';
 import { PaginatedAttendances } from '../../../../../models/attendances';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
-import { MapComponent } from "../../../../common-component/map/map.component";
-import { ModernTableComponent } from "../../components/modern-table/modern-table.component";
+import { MapComponent } from '../../../../common-component/map/map.component';
+import { ModernTableComponent } from '../../components/modern-table/modern-table.component';
 
 @Component({
   selector: 'app-employee-attendance',
@@ -11,11 +12,9 @@ import { ModernTableComponent } from "../../components/modern-table/modern-table
   templateUrl: './employee-attendance.component.html',
   styleUrls: ['./employee-attendance.component.css'],
   providers: [DatePipe],
-  imports: [CommonModule, MapComponent, ModernTableComponent]
+  imports: [CommonModule, MapComponent, ModernTableComponent],
 })
 export class EmployeeAttendanceComponent implements OnInit {
-  public employee: any = null;
-
   public attendances: PaginatedAttendances = {
     pageIndex: 1,
     pageSize: 10,
@@ -23,57 +22,63 @@ export class EmployeeAttendanceComponent implements OnInit {
     totalPages: 0,
     list: [],
   };
+
   public selectedEmployee: any = null;
-  public employeeLocations: any[] = []; 
+  public employeeLocations: any[] = []; // Store attendance locations for map
   public showModal: boolean = false;
   public newAction: any[] = [
     {
-      isExisting: true,  
+      isExisting: true,
       src: 'location.png',  
     },
   ];
+  public id: number | null = null;  
+
   constructor(
     private attendanceService: AttendanceService,
+    private route: ActivatedRoute,
     private datePipe: DatePipe
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.getAttendances();
+     this.id = +this.route.snapshot.paramMap.get('id')!;
+
+    if (this.id) {
+      this.getAttendances(this.id);
+    } else {
+      console.error('No employeeId found in route parameters.');
+    }
   }
 
-  getAttendances(pageIndex?: number) {
+  getAttendances(employeeId: number, pageIndex?: number) {
     const query = {
+      employeeId,  
       pageIndex: pageIndex || 1,
+      pageSize: 10,
       sortIsAsc: false,
       sortCol: 'attendanceDate',
     };
 
-    this.attendanceService.getAttendances(query).subscribe((res) => {
+    this.attendanceService.getAttendances(query).subscribe((res: any) => {
       this.attendances = {
         ...res,
         list: res.list.map((item: any) => ({
           ...item,
-          latitude: item.latitude || 0, // Ensure latitude exists
-          longitude: item.longitude || 0, // Ensure longitude exists
+          attendanceDate: this.datePipe.transform(
+            item.attendanceDate,
+            'yyyy-MM-dd HH:mm:ss'
+          ),
+          latitude: item.lat || 0,  
+          longitude: item.long || 0,  
         })),
       };
     });
   }
 
-  map(event: any) {
-    this.employee = {
-      ...event,
-      lat: event.latitude || 0, // Use latitude from API
-      long: event.longitude || 0, // Use longitude from API
-    };
-
-    console.log('Selected Employee:', this.employee);
-  }
-
   openLocationPopup(employee: any) {
     this.selectedEmployee = employee;
 
-    this.employeeLocations = this.attendances.list
+     this.employeeLocations = this.attendances.list
       .filter((record: any) => record.employeeId === employee.employeeId)
       .map((record: any) => ({
         date: record.attendanceDate,
@@ -81,12 +86,13 @@ export class EmployeeAttendanceComponent implements OnInit {
         long: record.longitude,
       }));
 
-    console.log(this.employeeLocations);
+    console.log('Employee Locations:', this.employeeLocations);
 
     this.showModal = true;
   }
 
   closeLocationPopup() {
     this.showModal = false;
+    this.selectedEmployee = null;
   }
 }

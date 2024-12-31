@@ -9,17 +9,14 @@
         [isThereEdit]="false"
         [isThereDelete]="false"
         [showActions]="true"
-        [newAction]="newAction" 
+        [newAction]="newAction"
         (onCLickNewActionOutput)="openLocationPopup($event)"
       ></app-modern-table>
     </div>
   </div>
 
-  <!-- Custom Modal -->
-  <div
-    class="custom-modal"
-    *ngIf="showModal"
-  >
+  <!-- Modal -->
+  <div class="custom-modal" *ngIf="showModal">
     <div class="custom-modal-content">
       <div class="custom-modal-header">
         <h5>Employee Attendance Locations</h5>
@@ -28,7 +25,6 @@
       <div class="custom-modal-body">
         <app-map [locations]="employeeLocations"></app-map>
       </div>
-      
     </div>
     <div class="custom-modal-backdrop" (click)="closeLocationPopup()"></div>
   </div>
