@@ -22,17 +22,19 @@ export class EmployeeAttendanceComponent implements OnInit {
     totalPages: 0,
     list: [],
   };
-  public employee: any;
 
   public selectedEmployee: any = null;
-   public showModal: boolean = false;
+  public employee: any;
+  public showModal: boolean = false;
+  public attendanceTypeId: number = 1; // Default to Attendance
+  public attendanceType: string = 'Attendance'; // To display the current type
   public newAction: any[] = [
     {
       isExisting: true,
-      src: 'location.png',  
+      src: 'location.png',
     },
   ];
-  public id: number | null = null; // Store employeeId from route
+  public id: number | null = null;
 
   constructor(
     private attendanceService: AttendanceService,
@@ -41,19 +43,18 @@ export class EmployeeAttendanceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Get employeeId from route parameters
     this.id = +this.route.snapshot.paramMap.get('id')!;
-
     if (this.id) {
-      this.getAttendances(this.id);
+      this.getAttendances();
     } else {
       console.error('No employeeId found in route parameters.');
     }
   }
 
-  getAttendances(employeeId: number, pageIndex?: number) {
+  getAttendances(pageIndex?: number) {
     const query = {
-      employeeId, // Include employeeId in the query
+      employeeId: this.id, // Include employeeId from the route
+      attendanceTypeId: this.attendanceTypeId, // Filter by the selected type
       pageIndex: pageIndex || 1,
       pageSize: 10,
       sortIsAsc: false,
@@ -69,28 +70,32 @@ export class EmployeeAttendanceComponent implements OnInit {
             item.attendanceDate,
             'yyyy-MM-dd HH:mm:ss'
           ),
-          latitude: item.lat || 0,  
-          longitude: item.long || 0,  
-          
+          latitude: item.lat || 0,
+          longitude: item.long || 0,
         })),
-        
       };
 
-     });
+      console.log('Attendance Data:', this.attendances.list);
+    });
+  }
+
+  changeAttendanceTypeId(type: number) {
+    this.attendanceTypeId = type;
+    this.attendanceType =
+      type === 1 ? 'Attendance' : type === 2 ? 'Departure' : 'Absence';
+    this.getAttendances();
   }
 
   openLocationPopup(employee: any) {
     this.selectedEmployee = employee;
 
-     this.employee = this.attendances.list
-      .filter((record: any) => record.employeeId === employee.employeeId)
-      .map((record: any) => ({
-        date: record.attendanceDate,
-        lat: record.latitude,
-        long: record.longitude,
-      }));
+    this.employee = {
+      ...employee,
+      lat: employee.latitude || 0,
+      long: employee.longitude || 0,
+    };
 
-    console.log('Employee Locations:', this.employee);
+    console.log('Selected Employee:', this.employee, 'Type:', this.attendanceType);
 
     this.showModal = true;
   }

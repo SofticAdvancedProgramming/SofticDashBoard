@@ -1,9 +1,49 @@
 <div class="container-fluid">
+  <div class="row justify-content-center m-1">
+    <div class="col-4 d-flex justify-content-center">
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="attendanceType"
+          id="radioAttendance"
+          value="1"
+          [checked]="attendanceTypeId === 1"
+          (change)="changeAttendanceTypeId(1)"
+        />
+        <label class="form-check-label" for="radioAttendance">Attendance</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="attendanceType"
+          id="radioDeparture"
+          value="2"
+          [checked]="attendanceTypeId === 2"
+          (change)="changeAttendanceTypeId(2)"
+        />
+        <label class="form-check-label" for="radioDeparture">Departure</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="attendanceType"
+          id="radioAbsence"
+          value="3"
+          [checked]="attendanceTypeId === 3"
+          (change)="changeAttendanceTypeId(3)"
+        />
+        <label class="form-check-label" for="radioAbsence">Absence</label>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-lg-12">
       <app-modern-table
         [totalRows]="attendances.totalRows"
-        [tableTitle]="'Attendance Overview'"
+        [tableTitle]="attendanceType + ' Overview'"
         [tableData]="attendances.list"
         [columns]="['attendanceDate', 'day', 'hour']"
         [isThereEdit]="false"
@@ -19,12 +59,15 @@
   <div class="custom-modal" *ngIf="showModal">
     <div class="custom-modal-content">
       <div class="custom-modal-header">
-        <h5>Employee Attendance Locations</h5>
+        <h5>Employee {{ attendanceType }}</h5>
         <button class="close-btn" (click)="closeLocationPopup()">X</button>
       </div>
       <div class="custom-modal-body">
-        <app-map [lat]="employee?.lat || 0" [employee]="employee"
-        [long]="employee?.long || 0"></app-map>
+        <app-map
+          [lat]="employee?.lat || 0"
+          [long]="employee?.long || 0"
+          [employee]="employee"
+        ></app-map>
       </div>
     </div>
     <div class="custom-modal-backdrop" (click)="closeLocationPopup()"></div>
