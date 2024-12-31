@@ -46,20 +46,26 @@
           <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('phoneNumber')}">
             <label for="phoneNumber">{{ 'addAdminPage.fields.phoneNumber.label' | translate }}</label>
             <ngx-intl-tel-input
-              [cssClass]="'custom w-100'"
-              [preferredCountries]="preferredCountries"
-              [enableAutoCountrySelect]="true"
-              [enablePlaceholder]="true"
-              [searchCountryFlag]="true"
-              [searchCountryField]="searchCountryFields"
-              [selectFirstCountry]="false"
-              [selectedCountryISO]="CountryISO.SaudiArabia"
-              [maxLength]="15" [phoneValidation]="true"
-              formControlName="phone">
-            </ngx-intl-tel-input>
-            <div *ngIf="isFieldInvalid('phoneNumber')" class="invalid-feedback">
+            [cssClass]="'custom w-100'"
+            [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="true"
+            [searchCountryFlag]="true"
+            [searchCountryField]="searchCountryFields"
+            [selectFirstCountry]="false"
+            [selectedCountryISO]="CountryISO.SaudiArabia"
+            [maxLength]="15"
+            [phoneValidation]="true"
+            formControlName="phoneNumber">
+          </ngx-intl-tel-input>
+          <div *ngIf="isFieldInvalid('phoneNumber')" class="text-danger">
+            <small *ngIf="addAdminForm.get('phoneNumber')?.errors?.['required']">
               {{ 'addAdminPage.fields.phoneNumber.required' | translate }}
-            </div>
+            </small>
+            <small *ngIf="addAdminForm.get('phoneNumber')?.errors?.['validatePhoneNumber']">
+              {{ 'addAdminPage.fields.phoneNumber.invalid' | translate }}
+            </small>
+          </div>
           </div>
         </div>
 

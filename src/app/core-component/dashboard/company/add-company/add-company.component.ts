@@ -94,7 +94,8 @@ export class AddCompanyComponent implements OnInit {
       cityId: [null],
       countryId: [null],
       address: [null],
-      subscriptionPlanId: ['', Validators.required]
+      subscriptionPlanId: ['', Validators.required],
+      centralizedDepartment: [false],
     });
   }
 

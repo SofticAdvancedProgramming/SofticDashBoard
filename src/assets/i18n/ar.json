@@ -180,7 +180,8 @@
     "DESCRIPTION_CONSTRAINT": "يجب أن يكون بين 5 و 250 حرفًا.",
     "CHARACTERS_COUNT": "  حرف",
     "HR": "موارد بشرية",
-    "FINANCIAL": "مالية"
+    "FINANCIAL": "مالية",
+    "IS_CENTRALIZED":"ادارة مركزية"
   },
   "DEPARTMENTS": {
     "ADD_DEPARTMENT": "إضافة قسم",
