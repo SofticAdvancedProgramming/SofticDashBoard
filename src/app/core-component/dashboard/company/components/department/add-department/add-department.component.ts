@@ -46,8 +46,7 @@ export class AddDepartmentComponent implements OnInit {
     private messageService: MessageService,
     private translate: TranslateService
   ) {
-    // Initialize the form group with departmentType
-    this.form = this.fb.group({
+     this.form = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
       shortName: ['', Validators.required],
@@ -57,7 +56,9 @@ export class AddDepartmentComponent implements OnInit {
       branchId: [null, Validators.required],
       description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
       descriptionAr: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
-      departmentType: [null]    });
+      departmentType: [null],
+      isCentralized: [false],
+        });
   }
 
   ngOnInit(): void {
@@ -104,70 +105,63 @@ export class AddDepartmentComponent implements OnInit {
     });
   }
 
- onSave(): void {
-  if (this.form.invalid) {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: 'Please fill all required fields'
-    });
-    return;
-  }
-
-  const selectedType = this.form.value.departmentType;
-
-  const departmentData: Department = {
-    id: this.isEdit && this.department ? this.department.id : 0,
-    companyId: this.companyId || 0,
-    name: this.form.value.name,
-    shortName: this.form.value.shortName,
-    nameAr: this.form.value.nameAr,
-    description: this.form.value.description,
-    descriptionAr: this.form.value.descriptionAr,
-    branchId: this.form.value.branchId,
-    long: this.form.value.long,
-    lat: this.form.value.lat,
-    isHR: selectedType === 'HR',
-    isFinancial: selectedType === 'Financial'
-  };
-
-  this.departmentService[this.isEdit ? 'editDepartment' : 'addDepartment'](departmentData).subscribe({
-    next: (response) => {
-      console.log('Department saved successfully', response);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Department saved successfully'
-      });
-
-      if (this.isEdit) {
-        setTimeout(() => {
-          this.action.emit(false); // Hide AddDepartmentComponent after editing
-        }, 1000);
-      } else {
-        // Emit event to hide AddDepartmentComponent after adding
-        this.action.emit(false);
-
-        // Optionally, reset the form with default values
-        this.form.reset({
-          departmentType: null,
-          long: 0,
-          lat: 0
-        });
-        this.descriptionCharacterCount = 0;
-        this.descriptionArCharacterCount = 0;
-      }
-    },
-    error: (err) => {
-      console.error('Error saving department:', err);
+  onSave(): void {
+    if (this.form.invalid) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
-        detail: 'Error saving department'
+        detail: 'Please fill all required fields',
       });
+      return;
     }
-  });
-}
+  
+    const selectedType = this.form.value.departmentType;
+  
+    const departmentData: Department = {
+      id: this.isEdit && this.department ? this.department.id : 0,
+      companyId: this.companyId || 0,
+      name: this.form.value.name,
+      shortName: this.form.value.shortName,
+      nameAr: this.form.value.nameAr,
+      description: this.form.value.description,
+      descriptionAr: this.form.value.descriptionAr,
+      branchId: Number(this.form.value.branchId),
+            long: this.form.value.long,
+      lat: this.form.value.lat,
+      isHR: selectedType === 'HR',
+      isFinancial: selectedType === 'Financial',
+      isCentralized: this.form.value.isCentralized,  
+    };
+  
+    this.departmentService[this.isEdit ? 'editDepartment' : 'addDepartment'](departmentData).subscribe({
+      next: (response) => {
+        console.log('Department saved successfully', response);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Department saved successfully',
+        });
+        this.action.emit(false);
+        if (!this.isEdit) {
+          this.form.reset({
+            departmentType: null,
+            long: 0,
+            lat: 0,
+            isCentralized: false, // Reset the checkbox
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Error saving department:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error saving department',
+        });
+      },
+    });
+  }
+  
 
 
   onBack(): void {

@@ -15,4 +15,5 @@ export class Department {
   isFinancial?: boolean;
   branchName?:string;
   branchNameAr?:string;
+  isCentralized?:boolean;
 }

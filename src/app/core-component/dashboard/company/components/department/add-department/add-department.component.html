@@ -1,7 +1,8 @@
 <div class="container mt-4">
   <div class="form-container">
     <form [formGroup]="form" (ngSubmit)="onSave()">
-      <div class="form-group">
+      <div class="row"> 
+      <div class="form-group col-lg-6 ">
         <label for="name">{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_EN' | translate }}</label>
         <input id="name" formControlName="name" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_EN' | translate }}"
           class="form-control" [appInputRestriction]="'arabic'" />
@@ -9,7 +10,7 @@
           {{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_EN' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group col-lg-6">
         <label for="nameAr">{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_AR' | translate }}</label>
         <input id="nameAr" formControlName="nameAr" placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_AR' | translate }}"
           class="form-control" [appInputRestriction]="'english'" />
@@ -17,7 +18,7 @@
           {{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_AR' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group col-lg-6">
         <label for="shortName">{{ 'ADD_DEPARTMENT.DEPARTMENT_abbreviation' | translate }}</label>
         <input id="shortName" formControlName="shortName"
           placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_abbreviation' | translate }}" class="form-control" />
@@ -25,7 +26,7 @@
           {{ 'ADD_DEPARTMENT.DEPARTMENT_SHORT_NAME' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group col-lg-6">
         <label for="branchId">{{ 'ADD_DEPARTMENT.BRANCH' | translate }}</label>
         <select id="branchId" formControlName="branchId" class="form-control">
           <option value="null" disabled>{{ 'ADD_DEPARTMENT.SELECT_OPTION' | translate }}</option>
@@ -35,7 +36,7 @@
           {{ 'ADD_DEPARTMENT.BRANCH' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group col-lg-6">
         <label for="description">{{ 'ADD_DEPARTMENT.DESCRIPTION_EN' | translate }}</label>
         <textarea id="description" formControlName="description"
           placeholder="{{ 'ADD_DEPARTMENT.DESCRIPTION_EN' | translate }}" class="form-control"
@@ -50,7 +51,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group col-lg-6">
         <label for="descriptionAr">{{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }}</label>
         <textarea id="descriptionAr" formControlName="descriptionAr"
           placeholder="{{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }}" class="form-control"
@@ -89,7 +90,19 @@
             {{ 'ADD_DEPARTMENT.FINANCIAL' | translate }}
           </label>
         </div>
-        
+      </div>
+      <div class="form-group">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="isCentralized"
+            formControlName="isCentralized"
+          />
+          <label class="form-check-label" for="isCentralized">
+            {{ 'ADD_DEPARTMENT.IS_CENTRALIZED' | translate }}
+          </label>
+        </div>
       </div>
       
       <div class="form-group d-none">
@@ -132,6 +145,7 @@
         </button>
         </div>
       </div>
+    </div>
     </form>
   </div>
 </div>

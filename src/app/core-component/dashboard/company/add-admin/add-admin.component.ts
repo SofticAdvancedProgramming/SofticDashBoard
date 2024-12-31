@@ -83,11 +83,9 @@ export class AddAdminComponent implements OnInit, OnDestroy {
       return;
     }
   
-    // Clone the form value
-    const formValue = { ...this.addAdminForm.value };
+     const formValue = { ...this.addAdminForm.value };
   
-    // Extract the phone number in e164 format
-    if (formValue.phoneNumber && formValue.phoneNumber.e164Number) {
+     if (formValue.phoneNumber && formValue.phoneNumber.e164Number) {
       formValue.phoneNumber = formValue.phoneNumber.e164Number;
     } else {
       this.toastersService.typeError(this.translate.instant('addAdminPage.validation.invalidPhoneNumber'));
@@ -96,8 +94,7 @@ export class AddAdminComponent implements OnInit, OnDestroy {
   
     console.log('Submitting form with value:', formValue);
   
-    // Call the API
-    this.adminService.AddAdmin(formValue).subscribe({
+     this.adminService.AddAdmin(formValue).subscribe({
       next: (response: any) => {
         this.toastersService.typeSuccess(
           this.translate.instant('addAdminPage.toasts.adminAddedSuccess'),
