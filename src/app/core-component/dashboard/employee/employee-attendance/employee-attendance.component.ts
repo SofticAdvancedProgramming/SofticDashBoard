@@ -1,3 +1,4 @@
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import { AttendanceService } from '../../../../services/AttendanceService/attendance.service';
 import { PaginatedAttendances } from '../../../../../models/attendances';
@@ -12,7 +13,7 @@ import { ModernTableComponent } from '../../components/modern-table/modern-table
   templateUrl: './employee-attendance.component.html',
   styleUrls: ['./employee-attendance.component.css'],
   providers: [DatePipe],
-  imports: [CommonModule, MapComponent, ModernTableComponent],
+  imports: [CommonModule, MapComponent, ModernTableComponent, TranslateModule],
 })
 export class EmployeeAttendanceComponent implements OnInit {
   public attendances: PaginatedAttendances = {
@@ -26,8 +27,8 @@ export class EmployeeAttendanceComponent implements OnInit {
   public selectedEmployee: any = null;
   public employee: any;
   public showModal: boolean = false;
-  public attendanceTypeId: number = 1;  
-  public attendanceType: string = 'Attendance';  
+  public attendanceTypeId: number = 1;
+  public attendanceType: string = '';
   public newAction: any[] = [
     {
       isExisting: true,
@@ -39,7 +40,8 @@ export class EmployeeAttendanceComponent implements OnInit {
   constructor(
     private attendanceService: AttendanceService,
     private route: ActivatedRoute,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -49,12 +51,13 @@ export class EmployeeAttendanceComponent implements OnInit {
     } else {
       console.error('No employeeId found in route parameters.');
     }
+    this.setAttendanceType();
   }
 
   getAttendances(pageIndex?: number) {
     const query = {
-      employeeId: this.id,  
-      attendanceTypeId: this.attendanceTypeId,  
+      employeeId: this.id,
+      attendanceTypeId: this.attendanceTypeId,
       pageIndex: pageIndex || 1,
       pageSize: 10,
       sortIsAsc: false,
@@ -81,9 +84,18 @@ export class EmployeeAttendanceComponent implements OnInit {
 
   changeAttendanceTypeId(type: number) {
     this.attendanceTypeId = type;
-    this.attendanceType =
-      type === 1 ? 'Attendance' : type === 2 ? 'Departure' : 'Absence';
+    this.setAttendanceType();
     this.getAttendances();
+  }
+
+  setAttendanceType() {
+    this.attendanceType = this.translateService.instant(
+      this.attendanceTypeId === 1
+        ? 'ATTENDANCE'
+        : this.attendanceTypeId === 2
+        ? 'DEPARTURE'
+        : 'ABSENCE'
+    );
   }
 
   openLocationPopup(employee: any) {
