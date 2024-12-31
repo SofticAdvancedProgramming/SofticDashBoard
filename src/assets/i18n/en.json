@@ -960,5 +960,13 @@
   "TASKS.TASKNAME":"Please write your task name",
   "TASKS.TASKDETAILS":"Please write your message no more than 300 words",
   "TASKS.INITIALCOST":"Please enter initial cost",
-  "ASSIGNED_TO_CENTERALIZED_DEPARTMENT":"Is assigned to centeralized department?"
+  "ASSIGNED_TO_CENTERALIZED_DEPARTMENT":"Is assigned to centeralized department?",
+  "ToDo": {
+    "toDoTitle":"To-do List",
+    "addToDo":"Add To-do",
+    "toDoDescription": "To-Do Description",
+    "assignTo": "Assign To",
+    "selectEmployee": "Select Employee",
+    "remove":"Remove"
+  }
 }
