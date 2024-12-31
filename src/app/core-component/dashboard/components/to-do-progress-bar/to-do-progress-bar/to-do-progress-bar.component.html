@@ -26,6 +26,7 @@
         <div  class="status-indicator">In-progress</div>
         <div  class="status-indicator">Waiting</div>
         <div class="status-indicator">Reopend</div> -->
-        <div *ngIf="progressValue==100" class="status-indicator">100% Done</div>
+        <div *ngIf="progressValue==100" class="status-indicator" style="color: #9ACA3C;">100% Done</div>
+        <div *ngIf="progressValue!=100" class="status-indicator">{{progressValue}}% Done</div>
     
 </div>
