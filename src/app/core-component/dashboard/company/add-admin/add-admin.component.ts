@@ -19,7 +19,7 @@ import { CountryISO, NgxIntlTelInputModule, PhoneNumberFormat, SearchCountryFiel
   styleUrls: ['./add-admin.component.css'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule, ToastModule, RouterLink, TranslateModule,NgxIntlTelInputModule],
+  imports: [CommonModule, ReactiveFormsModule, ToastModule, RouterLink, TranslateModule, NgxIntlTelInputModule],
   providers: [MessageService, AdminService],
 })
 export class AddAdminComponent implements OnInit, OnDestroy {
@@ -28,13 +28,13 @@ export class AddAdminComponent implements OnInit, OnDestroy {
   isSubmitting = false;
   passwordFieldType: string = 'password';
   confirmPasswordFieldType: string = 'password';
-  companyId: number = Number(localStorage.getItem('companyId'));
+  companyId: number | null = null;
   formValue: Company = {} as Company;
-    preferredCountries = [CountryISO.Egypt, CountryISO.SaudiArabia];
-    searchCountryFields = [SearchCountryField.Name, SearchCountryField.DialCode, SearchCountryField.Iso2];
-    selectedCountryISO = CountryISO.Egypt;
-    CountryISO = CountryISO;
-    PhoneNumberFormat = PhoneNumberFormat;
+  preferredCountries = [CountryISO.Egypt, CountryISO.SaudiArabia];
+  searchCountryFields = [SearchCountryField.Name, SearchCountryField.DialCode, SearchCountryField.Iso2];
+  selectedCountryISO = CountryISO.Egypt;
+  CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
 
   constructor(
     private fb: FormBuilder,
@@ -50,13 +50,16 @@ export class AddAdminComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.initializeForm();
-    this.route.queryParams.subscribe((params: any) => {
-      if (params['companyId']) {
-        this.companyId = params['companyId'];
+     this.route.queryParams.subscribe((params) => {
+      this.companyId = params['companyId'] ? +params['companyId'] : null;
+      if (this.companyId) {
+        this.initializeForm();
+      } else {
+        console.error('No companyId found in route parameters.');
       }
     });
   }
+
 
   private initializeForm(): void {
     this.addAdminForm = this.fb.group({
@@ -67,8 +70,8 @@ export class AddAdminComponent implements OnInit, OnDestroy {
       phoneNumber: ['', Validators.required],
       password: ['', [Validators.required, PasswordValidator.passwordComplexity()]],
       confirmPassword: ['', Validators.required],
-      companyId: this.companyId
-    }, {
+      companyId: [this.companyId],
+        }, {
       validators: PasswordValidator.passwordMatch('password', 'confirmPassword')
     });
   }
@@ -79,28 +82,37 @@ export class AddAdminComponent implements OnInit, OnDestroy {
       this.validateAllFormFields(this.addAdminForm);
       return;
     }
-    this.formValue = this.addAdminForm.value;
-    this.formValue.companyId = Number(this.companyId);
-    this.adminService.AddAdmin(this.formValue).subscribe({
+  
+    // Clone the form value
+    const formValue = { ...this.addAdminForm.value };
+  
+    // Extract the phone number in e164 format
+    if (formValue.phoneNumber && formValue.phoneNumber.e164Number) {
+      formValue.phoneNumber = formValue.phoneNumber.e164Number;
+    } else {
+      this.toastersService.typeError(this.translate.instant('addAdminPage.validation.invalidPhoneNumber'));
+      return;
+    }
+  
+    console.log('Submitting form with value:', formValue);
+  
+    // Call the API
+    this.adminService.AddAdmin(formValue).subscribe({
       next: (response: any) => {
         this.toastersService.typeSuccess(
           this.translate.instant('addAdminPage.toasts.adminAddedSuccess'),
           this.translate.instant('addAdminPage.toasts.successTitle')
         );
         this.addAdminForm.reset();
-        this.router.navigate(['home']).then(() => {
-          this.cdr.detectChanges();
-        });
+        this.router.navigate(['dashboard']);
       },
-      error: () => {
+      error: (err) => {
+        console.error('Error adding admin:', err);
         this.toastersService.typeError(this.translate.instant('addAdminPage.toasts.errorTitle'));
       },
-      complete: () => {
-        console.log('AddAdmin request completed');
-      }
     });
   }
-
+  
 
   togglePasswordVisibility(): void {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
