@@ -125,7 +125,7 @@ export class AddDepartmentComponent implements OnInit {
       nameAr: this.form.value.nameAr,
       description: this.form.value.description,
       descriptionAr: this.form.value.descriptionAr,
-      branchId: Number(this.form.value.branchId),
+      branchId: this.form.get('isCentralized')?.value==true ? 0: Number(this.form.value.branchId),
             long: this.form.value.long,
       lat: this.form.value.lat,
       isHR: selectedType === 'HR',
