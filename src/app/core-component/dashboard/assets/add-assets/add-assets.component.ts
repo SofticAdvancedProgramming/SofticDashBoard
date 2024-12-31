@@ -84,7 +84,7 @@ export class AddAssetsComponent implements OnInit {
       serialNum: ['', Validators.required],
       plateNum: [''],
       subAssetCategory: [''],
-      AssetReason: ['', Validators.required],
+      // AssetReason: ['', Validators.required],
       AssetAttachment: ['', Validators.required],
       AssetPhoto: ['', Validators.required],
       long: [0, Validators.required],
@@ -326,6 +326,7 @@ export class AddAssetsComponent implements OnInit {
       assetAttachments: this.attachments,
       serialNumber: this.form.controls['serialNum'].value,
       plateNumber: this.form.controls['plateNum'].value,
+      // reason: this.form.controls['AssetReason'].value
     };
     if(this.selectedAsset){
       params = {
@@ -342,6 +343,7 @@ export class AddAssetsComponent implements OnInit {
         assetAttachments: this.attachments,
         serialNumber: this.form.controls['serialNum'].value,
         plateNumber: this.form.controls['plateNum'].value,
+        // reason:this.form.controls['AssetReason'].value
       };
     }
     console.log(params);

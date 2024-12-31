@@ -1,4 +1,6 @@
 {
+  "Yes":"Yes",
+  "No":"No",
   "errorModels": {
     "1": "Email is already in use.",
     "2": "Email does not exist.",
@@ -251,10 +253,17 @@
   },
   "RELATED_ASSETS": {
     "TITLE": "Related Assets",
+    "MAINASSETS":"Main Assets",
     "NAME": "Related Assets",
     "NAME_AR": "Related Assets (Arabic)",
     "MODEL": "Model",
     "DIRECT_PARENT": "Direct Parent"
+  },
+  "RelatedAssetPopup":{
+    "TITLE": "Add Related Assets",
+    "Name": "Related Assets Name",
+    "Submit": "Submit",
+    "Close": "Close"
   },
   "NAV": {
     "SEARCH": "Search..."
@@ -369,6 +378,11 @@
     "reasonForRejection": "reason for rejection",
     "writeComment": "please write your comment no more than 300 words"
   },
+  "Select Employee":"Select Employee",
+  "select":"Select",
+  "Search by Name":"Search by name",
+  "Select main Asset":"Select main asset",
+  "Select Sub Asset Category":"Select sub asset category",
   "progressBarTitle":"completeness percentage",
   "personalInfo": {
     "PROFILE_INFORMATION": "Profile Information",
@@ -816,6 +830,7 @@
     "Import Excel":"Import Excel",
     "Add Assets":"Add assets",
     "All Assets":"All assets",
+    "MainAsset":"Main Asset",
     "Update":"Update",
     "assigned Assets":"Assigned assets",
     "out Of Service Depreciation Count":"Out of service depreciation count",
@@ -859,12 +874,25 @@
     },
     "messages": {
       "uploadAnotherImage": "Upload Another Image",
-      "uploadAnotherFile": "Upload Another File"
+      "uploadAnotherFile": "Upload Anothe r File"
     }
   },
+  "assignAssetPopup":{
+    "Name":"Name",
+    "Assign Date":"Assign Date",
+    "Submit":"Submit",
+    "Title":"Assign an asset to employee",
+    "Close":"Close"
+  },
   "assetDetails":{
+    "Delete related asset":"Delete related asset",
+    "Are you sure you want to delete this related asset?":"Are you sure you want to delete this related asset?",
+    "not assigend":"Not assigend yet",
+    "plateNumber":"Plate Number",
+    "relateTo":"Relate to",
+    "assginDate":"Assgining Date",
     "Details":"Details",
-    "Assign To Employee":"Assign To Employee",
+    "Assign To Employee":"Assign to employee",
     "Add Related Assets":"Add Related Assets",
     "Asset Name":"Asset Name",
     "Category":"Category",
@@ -874,8 +902,10 @@
     "Address not available":"Address not available",
     "Assigned To":"Assigned To",
     "Related Assets":"Related Assets",
-    "No related assets available":"No related assets available",
-    "No attachments available":"No attachments available"
+    "serialNumber":"Serial Number",
+    "No attachments available":"No attachments available",
+    "No related assets available":"No related assets available"
+
   },
   "ASSET_UPLOADER": {
     "BROWSE_FILE": "Browse File",

@@ -48,25 +48,38 @@
             <div class="detail">
               <div class="detail-title">{{'assetDetails.Category'|translate}}</div>
               <div class="detail-info">
-                {{ asset.assetCategoryName }}
+
                 {{isArabic?asset.assetCategoryNameAr:asset.assetCategoryName}}
               </div>
             </div>
-            <div class="detail">
+            <!-- <div class="detail" *ngIf="asset.reason">
               <div class="detail-title">{{'assetDetails.Technical description'|translate}}</div>
               <div class="detail-info long-text">
-                {{ asset.model }} - {{isArabic?asset.nameAr:asset.name}}
+                {{ asset.reason }}
+              </div>
+            </div> -->
+            <div class="detail" *ngIf="asset.serialNumber">
+              <div class="detail-title">{{'assetDetails.serialNumber'|translate}}</div>
+              <div class="detail-info long-text">
+                {{ asset.serialNumber }}
               </div>
             </div>
-            <!-- <div class="detail">
-            <div class="detail-title">Accessories</div>
-            <div class="detail-description">keyboard & ...............</div>
-           </div> -->
+            <div class="detail" *ngIf="asset.plateNumber">
+              <div class="detail-title">{{'assetDetails.plateNumber'|translate}}</div>
+              <div class="detail-info long-text">
+                {{ asset.plateNumber }}
+              </div>
+            </div>
+
             <div class="detail">
               <div class="detail-title">{{'assetDetails.Model'|translate}}</div>
               <div class="detail-info">{{ asset.model }}</div>
             </div>
-            <div class="detail">
+            <div class="detail" *ngIf="!isMainAsset">
+              <div class="detail-title">{{'assetDetails.relateTo'|translate}}</div>
+              <div class="detail-info">{{isArabic?asset.parentAssetNameAr:asset.parentAssetName }}</div>
+            </div>
+            <!-- <div class="detail">
               <div class="detail-title">{{'assetDetails.Address'|translate}}</div>
               <div
                 class="detail-info long-text"
@@ -77,11 +90,16 @@
               <ng-template #noAddress>
                 <div class="detail-info">{{'assetDetails.Address not available'|translate}}</div>
               </ng-template>
-            </div>
+            </div> -->
+
             <div class="detail">
               <div class="detail-title">{{'assetDetails.Assigned To'| translate}}</div>
               <div class="detail-info" *ngIf="asset.employeeName">{{ asset.employeeName }}</div>
-              <div class="detail-info" *ngIf="!asset.employeeName">{{'assetDetails.not assigend'|translate}}not assigend</div>
+              <div class="detail-info" *ngIf="!asset.employeeName">{{'assetDetails.not assigend'|translate}}</div>
+            </div>
+            <div class="detail" *ngIf="asset.assginDate">
+              <div class="detail-title">{{'assetDetails.assginDate'| translate}}</div>
+              <div class="detail-info" *ngIf="asset.assginDate">{{ asset.assginDate }}</div>
             </div>
           </div>
         </div>
@@ -105,7 +123,7 @@
                   class="px-3 relatedAsset-details-text d-flex flex-column justify-content-center align-items-center"
                 >
                   <p class="relatedAsset-name text-center">
-                    {{ relatedAsset.name }}
+                    {{isArabic?relatedAsset.nameAr: relatedAsset.name }}
                   </p>
                   <!-- <p class="relatedAsset-name ">
                     {{ relatedAsset.model }}
@@ -152,8 +170,9 @@
 
 <app-confirmn-delete-dialog
   *ngIf="isConfirmationDialogVisible"
-  title="Delete related asset"
-  message="Are you sure you want to delete this related asset?"
+
+  title='assetDetails.Delete related asset'
+  message='assetDetails.Are you sure you want to delete this related asset?'
   (onConfirm)="handleDeleteConfirm()"
   (onCancel)="handleDeleteCancel()"
 ></app-confirmn-delete-dialog>

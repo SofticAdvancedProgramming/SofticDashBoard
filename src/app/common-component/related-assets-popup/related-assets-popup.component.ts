@@ -188,4 +188,7 @@ export class RelatedAssetsPopupComponent {
     };
     reader.readAsDataURL(file);
   }
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+  }
 }
