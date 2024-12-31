@@ -225,13 +225,12 @@
             <span>{{ todo.description }}</span>
           </p>
           <input
-            type="checkbox"
-            class="checkbox"
-            name="todoDone"
-            id="todoDone"
-            [formControlName]="$index"
-            (change)="onCheckboxChange($index)"
-          />
+          *ngIf="checkboxes.controls[$index]" 
+          type="checkbox"
+          class="checkbox"
+          [formControlName]="$index"
+          (change)="onCheckboxChange($index)"
+        />
         </div>
         }
         <!-- <div class="single-todo-card">
