@@ -183,7 +183,9 @@
     "DESCRIPTION_CONSTRAINT": "must be between 5 and 250 characters.",
     "CHARACTERS_COUNT": "  characters",
     "HR": "HR",
-    "FINANCIAL": "FINANCIAL"
+    "FINANCIAL": "FINANCIAL",
+    "IS_CENTRALIZED": "Centerlized Department"
+
   },
   "DEPARTMENTS": {
     "ADD_DEPARTMENT": "Add Department",
