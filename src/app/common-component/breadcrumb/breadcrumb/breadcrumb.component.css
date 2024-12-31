@@ -1,0 +1,38 @@
+
+.breadcrumb-item.first-item img {
+  margin-right: 10px; /* Add space between icon and label only for the first item */
+}
+
+.breadcrumb-item.active {
+  font-weight: bold;
+  color: #6c757d;
+}
+
+.breadcrumb {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  color: #663895;
+}
+
+/* Remove any default separator */
+.breadcrumb-item + .breadcrumb-item::before {
+  content: none;
+}
+
+/* Separator image styling */
+.breadcrumb-separator {
+  margin: 0 0.5rem;
+  width: 20px; /* Adjust size */
+  height: 20px;
+}
+.ng-star-inserted
+{
+  color: #663895 ;
+}

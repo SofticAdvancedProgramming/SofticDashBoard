@@ -65,7 +65,7 @@ export class EnhancedOrganizationChartComponent implements OnInit ,AfterViewInit
             // companyId: item.companyId,
             //entityId: item.entityId,
             id: item.entityId,
-            pid: item.partentId,
+            pid: item.parentId,
             name: item.title,
             nameArabic: item.titleAr,
             title: item.type,

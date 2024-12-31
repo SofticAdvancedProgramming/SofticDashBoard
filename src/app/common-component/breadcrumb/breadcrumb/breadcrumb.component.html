@@ -1,0 +1,21 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li
+      *ngFor="let breadcrumb of breadcrumbs; let isLast = last; let i = index"
+      class="breadcrumb-item"
+      [ngClass]="{ 'first-item': i === 0 }">
+      
+      <ng-container *ngIf="!isLast">
+        <img src="../../../../../assets/images/send-1.png" alt="taskImg"/>
+        <a [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
+      </ng-container>
+      <ng-container *ngIf="isLast">
+        <img
+          src="../../../../../assets/images/arrow-left2.png" alt="arrow"
+          class="breadcrumb-separator"
+        />
+        {{ breadcrumb.label }}
+      </ng-container>
+    </li>
+  </ol>
+</nav>

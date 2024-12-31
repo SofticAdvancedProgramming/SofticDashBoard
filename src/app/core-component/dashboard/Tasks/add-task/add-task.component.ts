@@ -22,6 +22,9 @@ import { employee } from '../../../../../models/employee';
 import { EmployeeService } from '../../../../services/employeeService/employee.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatSelectModule } from '@angular/material/select';
+import { ToDoItemService } from '../../../../services/ToDoItemService/to-do-item.service';
+import { DeletePopUpComponent } from '../../components/delete-pop-up/delete-pop-up.component';
+import { DeleteConfirmationPopUpComponent } from '../../components/delete-confirmation-pop-up/delete-confirmation-pop-up/delete-confirmation-pop-up.component';
 
 @Component({
   selector: 'app-add-task',
@@ -35,6 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule,
     DropDownComponent,
     MatSelectModule,
+    DeleteConfirmationPopUpComponent,
   ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.css',
@@ -65,9 +69,11 @@ export class AddTaskComponent implements OnInit {
   todayDate: string = '';
   employeePage = 1;
   taskDetails: any;
+  todoItems: any;
   todoValues: any;
   todoGroup: any;
   assignedEmployees: any;
+  isDelete: boolean = false;
   constructor(
     private fb: FormBuilder,
     private tasksService: TasksService,
@@ -78,7 +84,8 @@ export class AddTaskComponent implements OnInit {
     private route: ActivatedRoute,
     private toast: ToastrService,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private todoService:ToDoItemService
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
@@ -96,6 +103,7 @@ export class AddTaskComponent implements OnInit {
     if (this.id) {
       this.getTaksDetails();
       this.getEmployeesAssignments();
+      this.getTodoItems();
     }
   }
   initiation() {
@@ -129,30 +137,55 @@ export class AddTaskComponent implements OnInit {
         employeeId: [null, Validators.required], // Dropdown selection
       })
     );
-
-    // Clear the existing FormArray
-    // this.todos.clear();
-
-    // Populate the FormArray with backend data
-    //   if(this.id){
-    //   this.taskDetails.toDoItems.forEach((item: any) => {
-    //     const todoGroup = this.fb.group({
-    //       description: [item.description, Validators.required],
-    //       assignEmployee: [item.assignEmployee, Validators.required],
-    //     });
-    //     this.todos.push(todoGroup);
-    //   });
-    // }else{
-    //     const todoGroup = this.fb.group({
-    //       description: ['', Validators.required],
-    //       assignEmployee: ['', Validators.required],
-    //     });
-    //     this.todos.push(todoGroup);
-    // }
   }
+
+  getTodoItems(){
+    let query = {
+      taskId: this.id,
+      pageSize: 1000
+    }
+    this.todoService.get(query).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.todoItems = res.data.list;
+        console.log(this.todoItems);
+        this.todoItems?.forEach((todo: any) => {
+          const todoGroup: any = this.fb.group({
+            description: [todo.description, Validators.required],
+            employeeId: [todo.employeeId, Validators.required],
+            id:[todo.id]
+          });
+          // this.form.setControl('todos', todoGroup);
+          this.todos.push(todoGroup);
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
   // Remove a specific todo field
   removeTodo(index: number): void {
+    this.isDelete = false;
     this.todos.removeAt(index);
+    const todoId = this.todoItems[index].id;
+    this.todoService.delete(todoId, this.companyId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.toast.success('Deleted Successfully');
+        // this.ngOnInit();
+      },
+      error(err) {
+        console.log(err);
+      },
+    })
+  }
+  deleteTodo(){
+    this.isDelete = true;
+  }
+  onCancel(){
+    this.isDelete = false;
   }
 
   populateForm() {
@@ -179,7 +212,7 @@ export class AddTaskComponent implements OnInit {
     console.log("todos",this.todos)
 
     // Populate todos FormArray
-    this.taskDetails?.toDoItems.forEach((todo: any) => {
+    this.todoItems?.forEach((todo: any) => {
       const todoGroup: any = this.fb.group({
         description: [todo.description, Validators.required],
         employeeId: [todo.employeeId, Validators.required],
@@ -429,6 +462,7 @@ export class AddTaskComponent implements OnInit {
     let query = {
       companyId: this.companyId,
       id: this.id,
+      isDelete: false,
     };
     this.tasksService.get(query).subscribe({
       next: (res) => {

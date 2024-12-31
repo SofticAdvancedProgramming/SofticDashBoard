@@ -4,6 +4,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TasksService } from '../../../../services/TasksService/tasks.service';
 import { CommonModule } from '@angular/common';
 import {
+  FormArray,
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -16,7 +17,9 @@ import { ToastrService } from 'ngx-toastr';
 import { EvaluatoionComponent } from '../../components/evaluatoion/evaluatoion.component';
 import { ReAssignTaskPopupComponent } from '../../components/reAssignTask/re-assign-task-popup/re-assign-task-popup.component';
 import { MoveToArchivePopupComponent } from '../../components/moveToArchivePoup/move-to-archive-popup/move-to-archive-popup.component';
-
+import { ProgressbarComponent } from '../../components/progressbar/progressbar.component';
+import { ToDoProgressBarComponent } from '../../components/to-do-progress-bar/to-do-progress-bar/to-do-progress-bar.component';
+import { ToDoItemService } from '../../../../services/ToDoItemService/to-do-item.service';
 
 @Component({
   selector: 'app-task-details',
@@ -31,13 +34,15 @@ import { MoveToArchivePopupComponent } from '../../components/moveToArchivePoup/
     AssignTaskPopupComponent,
     EvaluatoionComponent,
     ReAssignTaskPopupComponent,
-    MoveToArchivePopupComponent
+    MoveToArchivePopupComponent,
+    ToDoProgressBarComponent,
   ],
   templateUrl: './task-details.component.html',
   styleUrl: './task-details.component.css',
 })
 export class TaskDetailsComponent implements OnInit {
   id!: number;
+  todoDone: any;
   companyId: number;
   taskDetails: any;
   employees: any;
@@ -61,13 +66,16 @@ export class TaskDetailsComponent implements OnInit {
   isDoneStatus: boolean = false;
   isDonePopup: boolean = false;
   taskImg = '../../../../../assets/images/Video Task.png';
+  isChecked: any;
+  checkboxForm!: FormGroup;
 
   constructor(
     private tasksService: TasksService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private translate: TranslateService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private todoService: ToDoItemService
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
@@ -79,6 +87,7 @@ export class TaskDetailsComponent implements OnInit {
         console.log('Extracted taskId:', id);
       }
     });
+    this.initiation();
     this.isTodoStatus = false;
     this.isInProgressStatus = false;
     this.isReviewStatus = false;
@@ -90,10 +99,43 @@ export class TaskDetailsComponent implements OnInit {
     this.getTaksDetails();
     this.getEmployeesAssignments();
     this.initiation();
+    // console.log(this.todoDone);
+    this.getTodoItems();
   }
 
   initiation() {
+    this.checkboxForm = this.fb.group({
+      checkboxes: this.fb.array([]), // FormArray to hold checkbox states
+    });
+  }
+  get checkboxes(): FormArray {
+    return this.checkboxForm.get('checkboxes') as FormArray;
+  }
 
+  getTodoItems() {
+    let query = {
+      taskId: this.id,
+      pageSize: 1000,
+    };
+    this.todoService.get(query).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.todoItems = res.data.list;
+        console.log(this.todoItems);
+        // Initialize FormArray with checkboxes
+        this.todoItems?.forEach((todo: any) => {
+          if (todo.statusId == 4) {
+            this.checkboxes.push(this.fb.control(true));
+          } else {
+            this.checkboxes.push(this.fb.control(false));
+          }
+        });
+        console.log(this.checkboxes);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   getTaksDetails() {
@@ -109,12 +151,15 @@ export class TaskDetailsComponent implements OnInit {
           laborCost: [this.taskDetails.laborCost, Validators.required],
           materialCost: [this.taskDetails.materialCost, Validators.required],
           serviceCost: [this.taskDetails.serviceCost, Validators.required],
-          additionalCost: [this.taskDetails.additionalCost, Validators.required],
+          additionalCost: [
+            this.taskDetails.additionalCost,
+            Validators.required,
+          ],
         });
-
-        if(this.taskDetails.toDoItems){
-          this.todoItems = this.taskDetails.toDoItems;
-        }
+console.log("this.taskDetailsthis.taskDetails",this.taskDetails)
+        // if(this.taskDetails.toDoItems){
+        //   this.todoItems = this.taskDetails.toDoItems;
+        // }
         if (this.taskDetails.statusId == 1) {
           this.isTodoStatus = true;
           this.todoImgScr = this.todoImg;
@@ -134,7 +179,7 @@ export class TaskDetailsComponent implements OnInit {
           this.ReviewImgScr = this.ReviewImg;
           this.DoneImgScr = this.DoneImg;
         }
-        if(this.taskDetails.taskAttachments[0].file){
+        if (this.taskDetails?.taskAttachments[0]?.file) {
           this.taskImg = this.taskDetails.taskAttachments[0].file;
         }
       },
@@ -143,11 +188,11 @@ export class TaskDetailsComponent implements OnInit {
       },
     });
   }
-  getEmployeesAssignments(){
+  getEmployeesAssignments() {
     let query = {
       companyId: this.companyId,
       taskId: this.id,
-    }
+    };
     this.tasksService.assignEmployees(query).subscribe({
       next: (res) => {
         console.log(res);
@@ -155,8 +200,49 @@ export class TaskDetailsComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-      }
-    })
+      },
+    });
+  }
+
+  onCheckboxChange(index: number) {
+    const isChecked = this.checkboxes.at(index).value;
+    if (isChecked) {
+      let query = {
+        id: this.todoItems[index].id,
+        companyId: this.companyId,
+        taskId: this.id,
+        description: this.todoItems[index].description,
+        statusId: 4,
+        employeeId: this.todoItems[index].employeeId,
+      };
+      this.todoService.edit(query).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.ngOnInit();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }else{
+      let query = {
+        id: this.todoItems[index].id,
+        companyId: this.companyId,
+        taskId: this.id,
+        description: this.todoItems[index].description,
+        statusId: 1,
+        employeeId: this.todoItems[index].employeeId,
+      };
+      this.todoService.edit(query).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.ngOnInit();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 
   search() {}
@@ -181,7 +267,7 @@ export class TaskDetailsComponent implements OnInit {
       },
     });
   }
-  inProgressStaate(){
+  inProgressStaate() {
     let query = {
       taskId: this.id,
       statusId: 2,
@@ -196,7 +282,7 @@ export class TaskDetailsComponent implements OnInit {
       },
     });
   }
-  submitForReview(){
+  submitForReview() {
     let query = {
       taskId: this.id,
       statusId: 3,
@@ -231,7 +317,7 @@ export class TaskDetailsComponent implements OnInit {
   done() {
     this.isEvaluationVisible = true;
     console.log(this.isEvaluationVisible);
-    
+
     // let query = {
     //   taskId: this.id,
     //   statusId: 4,
