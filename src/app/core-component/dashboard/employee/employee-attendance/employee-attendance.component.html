@@ -1,33 +1,35 @@
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-12">
-        <app-modern-table
-          [totalRows]="attendances.totalRows"
-          tableTitle="Attendance Overview"
-          [tableData]="attendances.list"
-          [columns]="['attendanceDate', 'day', 'hour']"
-          (onCLickNewActionOutput)="openLocationPopup($event)"
-        ></app-modern-table>
-      </div>
-    </div>
-  
-    <!-- Location Modal -->
-    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="locationModalLabel">Employee Location</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <app-map
-              [lat]="selectedEmployee?.lat || 0"
-              [long]="selectedEmployee?.long || 0"
-              [employee]="selectedEmployee"
-            ></app-map>
-          </div>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <app-modern-table
+        [totalRows]="attendances.totalRows"
+        [tableTitle]="'Attendance Overview'"
+        [tableData]="attendances.list"
+        [columns]="['attendanceDate', 'day', 'hour']"
+        [isThereEdit]="false"
+        [isThereDelete]="false"
+        [showActions]="true"
+        [newAction]="newAction" 
+        (onCLickNewActionOutput)="openLocationPopup($event)"
+      ></app-modern-table>
     </div>
   </div>
-  
+
+  <!-- Custom Modal -->
+  <div
+    class="custom-modal"
+    *ngIf="showModal"
+  >
+    <div class="custom-modal-content">
+      <div class="custom-modal-header">
+        <h5>Employee Attendance Locations</h5>
+        <button class="close-btn" (click)="closeLocationPopup()">X</button>
+      </div>
+      <div class="custom-modal-body">
+        <app-map [locations]="employeeLocations"></app-map>
+      </div>
+      
+    </div>
+    <div class="custom-modal-backdrop" (click)="closeLocationPopup()"></div>
+  </div>
+</div>
