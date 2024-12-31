@@ -183,7 +183,10 @@ export class AssetsIndexComponent{
     },
     yaxis: {
       title: {
-        text: 'Assets Count'
+        text: 'Assets Count',
+        style: {
+          fontFamily: 'lama sans',
+        },
       }
     },
     fill: {
@@ -216,7 +219,13 @@ export class AssetsIndexComponent{
       bar: {
         horizontal: false,
         columnWidth: '25%',
-        borderRadius: 10
+        borderRadius: 10,
+        colors: {
+          ranges: [], // Leave empty if not using range-based coloring
+          backgroundBarColors: [], // Optional for background bar colors
+          backgroundBarOpacity: 0.5,
+          distributed: true // Enables different colors for each bar
+        }
       }
     },
     dataLabels: {
@@ -232,12 +241,15 @@ export class AssetsIndexComponent{
     },
     yaxis: {
       title: {
-        text: 'أعداد الأصول'
+        text: 'أعداد الأصول',
+        style: {
+          fontFamily: 'lama sans',
+        },
       }
     },
     fill: {
       opacity: 1,
-      colors: ['#FF9560', '#00FFFF', '#ffff00']  // Specify different colors for each bar
+      colors: ['#FD0000','#9ACA3C','#FF9560']  // Specify different colors for each bar
     },
     tooltip: {
       y: {

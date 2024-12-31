@@ -1,3 +1,7 @@
+
+*{
+  font-family: Lama Sans;
+}
 .assets-form {
   background: white;
   padding: 50px;
@@ -23,7 +27,7 @@
 
 .form-group label {
   color: #0d0714;
-  font-family: Lama Sans;
+  font-family: 'Lama Sans';
   font-size: 18px;
   font-weight: 500;
   line-height: 30px;
@@ -275,7 +279,7 @@
 .img-preview {
   width: 50%;
   height: auto;
-  object-fit: cover;    
+  object-fit: cover;
   top: 0;
   left: 0;
   border-radius: 10px;
@@ -284,7 +288,7 @@
 .img-preview2{
   width: 100%;
   height: auto;
-  object-fit: cover;    
+  object-fit: cover;
   top: 0;
   left: 0;
   border-radius: 10px;

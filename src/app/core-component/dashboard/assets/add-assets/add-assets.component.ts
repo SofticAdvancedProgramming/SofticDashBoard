@@ -93,6 +93,9 @@ export class AddAssetsComponent implements OnInit {
     });
   }
 
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+  }
   getAssets(name?: string, pageSize?: number) {
     let query: any;
 

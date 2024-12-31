@@ -37,7 +37,7 @@
     <!-- Apply `routerLinkActive` directive here -->
     <li
       class="sidebar-item"
-      routerLinkActive="active-link"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
       [routerLinkActiveOptions]="{ exact: true }"
     >
       <a routerLink="/dashboard/HomeIndex" class="sidebar-link">
@@ -50,7 +50,7 @@
     <li
       class="sidebar-item"
       *ngIf="role[0] === 'Admin'"
-      routerLinkActive="active-link"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a [routerLink]="'/dashboard/company/' + companyId" class="sidebar-link">
         <img src="../../../../assets/images/softic/companyIcon.png" />
@@ -62,7 +62,7 @@
     <li
       class="sidebar-item"
       *ngIf="role[0] === 'SuperAdmin'"
-      routerLinkActive="active-link"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/indexCompany" class="sidebar-link">
         <img src="../../../../assets/images/softic/companyIcon.png" />
@@ -73,7 +73,7 @@
     <li
       class="sidebar-item"
       *ngIf="role[0] === 'Admin'"
-      routerLinkActive="active-link"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/OrganizationCharts" class="sidebar-link">
         <img src="../../../../assets/images/softic/orgIcon.png" />
@@ -83,7 +83,7 @@
     <li
       class="sidebar-item"
       *ngIf="role[0] === 'Admin'"
-      routerLinkActive="active-link"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/ComplaintsSuggestions" class="sidebar-link">
         <img src="../../../../assets/images/archive-book.png" />
@@ -95,7 +95,7 @@
     <li
       class="sidebar-item"
       *ngIf="role[0] === 'Admin'"
-      routerLinkActive="active-link"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/ViewEmployees" class="sidebar-link">
         <img src="../../../../assets/images/profile-circle.png" />
@@ -105,7 +105,7 @@
     <li
       class="sidebar-item"
       *ngIf="role[0] === 'Admin'"
-      routerLinkActive="active-link"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/AssetsIndex" class="sidebar-link">
         <img src="../../../../assets/images/chart.png" />
@@ -115,7 +115,7 @@
     <li
       class="sidebar-item"
       *ngIf="role[0] === 'Admin'"
-      routerLinkActive="active-link"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/tasks" class="sidebar-link">
         <img src="../../../../assets/images/task.png" />
@@ -125,7 +125,7 @@
     <li
       class="sidebar-item"
       *ngIf="role[0] === 'Admin'"
-      routerLinkActive="active-link"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="workflow/Request-type/addRequest-type" class="sidebar-link">
         <img src="../../../../assets/images/send-1.png" />
@@ -138,7 +138,7 @@
       routerLink="add-admin"
       *ngIf="role[0] === 'Admin'"
       class="sidebar-link"
-      routerLinkActive="active-link"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
       [routerLinkActiveOptions]="{ exact: true }"
     >
       <img src="../../../../assets/images/softic/user-add.png" />
@@ -149,7 +149,7 @@
       <a
         routerLink="generalLookups"
         class="sidebar-link"
-        routerLinkActive="active-link"
+        routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
         [routerLinkActiveOptions]="{ exact: true }"
       >
         <img src="../../../../assets/images/settings.png" />
@@ -158,7 +158,8 @@
     </ng-container>
 
     <!-- Help Link -->
-    <a href="#" class="sidebar-link" routerLinkActive="active-link">
+    <a href="#" class="sidebar-link"
+    routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
       <img src="../../../../assets/images/help.png" />
       <span class="helpText">{{ "SIDEBAR.HELP" | translate }}</span>
     </a>

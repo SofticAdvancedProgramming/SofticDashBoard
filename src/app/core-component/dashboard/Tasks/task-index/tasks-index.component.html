@@ -61,7 +61,7 @@
         *ngFor="let task of tasksByStatus[status]"
         cdkDrag
         [cdkDragData]="task"
-        class="task"
+        class="task mx-auto"
         [routerLink]="['details', task.id]"
       >
         <div class="task-card done-card fixed-size-card p-3 mb-3">
