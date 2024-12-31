@@ -57,15 +57,15 @@
           <td><span *ngIf="employee.accountStatus==1">{{employee.dateOfJoined | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</span></td>
 
           <td>
-            <span *ngIf="employee.isActive && employee.accountStatus==1">{{"viewEmployees.ACTIVE"|translate}}</span>
-            <span *ngIf="!employee.isActive && employee.accountStatus==1">{{"viewEmployees.DEACTIVTE"|translate}}</span>
+            <span class="active-state" *ngIf="employee.isActive && employee.accountStatus==1">{{"viewEmployees.ACTIVE"|translate}}</span>
+            <span class="deactive-state" *ngIf="!employee.isActive && employee.accountStatus==1">{{"viewEmployees.DEACTIVTE"|translate}}</span>
           </td>
           <td>
             <button class="btn btn-sm"  (click)="viewDetails(employee)">
               <img src="../../../../../assets/images/view.png">
             </button>
             <button  *ngIf="!postionId && !employee.isActive && employee.accountStatus==1" class="btn btn-sm " (click)="openActiveModal(employee)">
-              <img src="../../../../../assets/images/edit-green-icon.png" >
+              <img src="../../../../../assets/images/save-2.png" >
             </button>
             <button  *ngIf="!postionId && employee.isActive && employee.accountStatus==1" class="btn btn-sm " (click)="openDeactiveModal(employee)">
               <img src="../../../../../assets/images/save-remove.png">

@@ -1,4 +1,4 @@
-<div class="form-group">
+
   <label>{{ label | translate }}</label>
   <mat-select msInfiniteScroll class="custom-select" [placeholder]="placeholder | translate"
     [complete]="limit === itemsLength - 1" (infiniteScroll)="getNextPage()" (selectionChange)="onSelectChange($event)">
@@ -9,10 +9,10 @@
     </mat-option>
     @for ( i of items; track i.id) {
     <mat-option [value]="i.id">
-      {{i.name}}
+      {{isArabic?i.nameAr:i.name}}
     </mat-option>
     } @empty {
     <option>{{'There are no items.' | translate }}</option>
     }
   </mat-select>
-</div>
+

@@ -236,9 +236,16 @@ a.sidebar-link:hover {
     background: #F3E7FE;
     color: #8413F8;
     border-right: #8413F8 5px solid;
+    border-left:  none;
     border-radius: 6px;
 }
-
+.active-link-ar {
+  background: #F3E7FE;
+  color: #8413F8;
+  border-left: #8413F8 5px solid;
+  border-right: none;
+  border-radius: 6px;
+}
 
 .active-link .sidebar-link img {
     filter: none;

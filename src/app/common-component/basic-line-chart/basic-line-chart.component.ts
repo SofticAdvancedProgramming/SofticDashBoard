@@ -12,7 +12,7 @@ import {
   ApexFill,
   ApexTooltip,
   NgApexchartsModule,
-  ChartType  
+  ChartType
 } from 'ng-apexcharts';
  import { CommonModule } from '@angular/common';
 
@@ -38,9 +38,9 @@ export type ChartOptions = {
 })
 export class BasicLineChartComponent implements OnInit {
   @ViewChild('chart') chart?: ChartComponent;
-  
-  @Input() chartOptions: ChartOptions = {} as ChartOptions;   
-  
+
+  @Input() chartOptions: ChartOptions = {} as ChartOptions;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class BasicLineChartComponent implements OnInit {
         type: 'bar',
         height: 350
       },
-      
+
       plotOptions: this.chartOptions.plotOptions || {
         bar: {
           horizontal: false,
@@ -82,7 +82,7 @@ export class BasicLineChartComponent implements OnInit {
           }
         }
       },
-      legend: this.chartOptions.legend || {},   
+      legend: this.chartOptions.legend || {},
     };
   }
 }

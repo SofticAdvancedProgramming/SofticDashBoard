@@ -1,11 +1,17 @@
 .header {
-    font-family: Lama Sans;
+    font-family: 'Lama Sans';
     font-size: 19.07px;
     font-weight: 700;
     line-height: 38.13px;
     letter-spacing: 0.03em;
     text-decoration-skip-ink: none;
     color: #09050E;
+}
+h4,p,button,.icon{
+  font-family: 'Lama Sans';
+}
+.icon{
+  font-weight: 700;
 }
 
 .action-btn {
@@ -68,5 +74,18 @@
 .chart{
     background-color: white;
     border-radius: 16px;
-    width: 45%;
+    /* width: 45%; */
+    height: 100%;
+}
+.update{
+  position: relative;
+}
+.update::before{
+position: absolute;
+top: -13px;
+left: 0;
+background-color:#777777a8;
+width: 100%;
+height: .5px;
+content: '';
 }

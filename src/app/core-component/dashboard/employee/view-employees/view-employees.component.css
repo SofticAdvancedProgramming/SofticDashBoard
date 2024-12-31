@@ -8,7 +8,7 @@
 select.arabic{
 
 }
-.form-select option{
+.form-select option,.form-select,label {
 
   font-family: "Lama Sans" !important;
 }
@@ -101,7 +101,7 @@ select.arabic{
 }
 
 .btn-danger {
-  background-color: #ff4d4f;
+  background-color: #ff4d4f; 
   border: none;
   color: #fff;
   transition: background-color 0.3s ease;
@@ -148,4 +148,10 @@ select.arabic{
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   font-family: "Lama Sans" !important;
+}
+.active-state{
+  color: #9ACA3C; ;
+}
+.deactive-state{
+  color:  #FD0000;;
 }

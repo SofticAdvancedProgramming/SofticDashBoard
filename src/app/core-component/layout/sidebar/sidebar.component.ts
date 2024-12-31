@@ -19,6 +19,9 @@ export class SidebarComponent {
 
   constructor(private authService: AuthenticationService, private translate: TranslateService) { }
 
+  get isArabic():boolean{
+    return localStorage.getItem('lang') === 'ar';
+  }
   toggleSidebar() {
     this.isExpanded = !this.isExpanded;
   }

@@ -174,7 +174,7 @@ input:active ,textarea:active{
   color: white;
 }
 .active-date{
-  background-color: #9ACA3C;
+  background-color: #9ACA3C; 
 }
 .day,p.date{
   font-family: Lama Sans;
