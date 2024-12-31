@@ -395,6 +395,8 @@
     "nationalIdPhoto": "صورة الهوية الشخصية"
   },
   "employeeDetails": {
+    "attendance": "الحضور والانصراف",
+
     "SALARY_ASSIGN_SUCCESS": "تم تخصيص الراتب بنجاح",
     "grossSalary": "الراتب الإجمالي",
     "netSalary": "الراتب الصافي",
@@ -914,5 +916,11 @@
   "Minimum":"اقل قيمة",
   "Maximum":"اكثر قيمة",
   "MinmumAndMax":"اقل قيمة يجب ان تكون اقل من او تساوى اكبر قيمة",
-  "AddNewPosition":"اضافه منصب جديد"
+  "AddNewPosition":"اضافه منصب جديد",
+  "ATTENDANCE": "الحضور",
+  "DEPARTURE": "المغادرة",
+  "ABSENCE": "الغياب",
+  "OVERVIEW": "نظرة عامة",
+  "EMPLOYEE": "الموظف",
+  "CLOSE": "إغلاق"
 }
