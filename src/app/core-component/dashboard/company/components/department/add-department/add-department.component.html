@@ -19,22 +19,14 @@
             {{ 'ADD_DEPARTMENT.DEPARTMENT_NAME_AR' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
           </div>
         </div>
+</div>
+<div class="row">
         <div class="form-group col-lg-6">
           <label for="shortName">{{ 'ADD_DEPARTMENT.DEPARTMENT_abbreviation' | translate }}</label>
           <input id="shortName" formControlName="shortName"
             placeholder="{{ 'ADD_DEPARTMENT.DEPARTMENT_abbreviation' | translate }}" class="form-control" />
           <div *ngIf="form.get('shortName')?.invalid && form.get('shortName')?.touched" class="text-danger">
             {{ 'ADD_DEPARTMENT.DEPARTMENT_SHORT_NAME' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
-          </div>
-        </div>
-        <div class="form-group col-lg-6">
-          <label for="branchId">{{ 'ADD_DEPARTMENT.BRANCH' | translate }}</label>
-          <select id="branchId" formControlName="branchId" class="form-control">
-            <option value="null" disabled>{{ 'ADD_DEPARTMENT.SELECT_OPTION' | translate }}</option>
-            <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
-          </select>
-          <div *ngIf="form.get('branchId')?.invalid && form.get('branchId')?.touched" class="text-danger">
-            {{ 'ADD_DEPARTMENT.BRANCH' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
           </div>
         </div>
         <div class="form-group col-lg-6">
@@ -51,58 +43,72 @@
             {{ descriptionCharacterCount }} / 250 {{ 'ADD_DEPARTMENT.CHARACTERS_COUNT' | translate }}
           </div>
         </div>
+</div>
 
-        <div class="form-group col-lg-6">
-          <label for="descriptionAr">{{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }}</label>
-          <textarea id="descriptionAr" formControlName="descriptionAr"
-            placeholder="{{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }}" class="form-control"
-            (input)="updateCharacterCount('descriptionAr')" maxlength="250" minlength="5"
-            [appInputRestriction]="'english'"></textarea>
-          <div *ngIf="form.get('descriptionAr')?.invalid && form.get('descriptionAr')?.touched" class="text-danger">
-            {{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }} {{
-            'ADD_DEPARTMENT.DESCRIPTION_CONSTRAINT' | translate }}
+<div class="row">
+  <div class="form-group col-lg-6">
+    <label for="descriptionAr">{{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }}</label>
+    <textarea id="descriptionAr" formControlName="descriptionAr"
+      placeholder="{{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }}" class="form-control"
+      (input)="updateCharacterCount('descriptionAr')" maxlength="250" minlength="5"
+      [appInputRestriction]="'english'"></textarea>
+    <div *ngIf="form.get('descriptionAr')?.invalid && form.get('descriptionAr')?.touched" class="text-danger">
+      {{ 'ADD_DEPARTMENT.DESCRIPTION_AR' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }} {{
+      'ADD_DEPARTMENT.DESCRIPTION_CONSTRAINT' | translate }}
+    </div>
+    <div class="text-right text-muted">
+      {{ descriptionArCharacterCount }} / 250 {{ 'ADD_DEPARTMENT.CHARACTERS_COUNT' | translate }}
+    </div>
+  </div>
+  <div class="form-group col-lg-6" *ngIf="!hideBranch">
+    <label for="branchId">{{ 'ADD_DEPARTMENT.BRANCH' | translate }}</label>
+    <select id="branchId" formControlName="branchId" class="form-control">
+      <option value="null" disabled>{{ 'ADD_DEPARTMENT.SELECT_OPTION' | translate }}</option>
+      <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
+    </select>
+    <div *ngIf="form.get('branchId')?.invalid && form.get('branchId')?.touched" class="text-danger">
+      {{ 'ADD_DEPARTMENT.BRANCH' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
+    </div>
+  </div>
+
+</div>
+      
+     <div class="row">
+      <div class="form-group col-lg-6" *ngIf="hasCenterlizedDepartment">
+        <div class="form-group toggle-group">
+          <label class="switch">
+            <input type="checkbox" formControlName="isCentralized" (change)="hideShowBranch()">
+            <span class="slider"></span>
+          </label>
+          <label  class="toggle-label">{{ 'IS_CENTERLIZED_DEPARTMENT' | translate }}</label>
+        </div>
+      </div>
+
+      <div class="form-group col-lg-6">
+        <div class="align-items-center">
+          <div class="d-flex align-items-center">
+            <div class="form-check me-3">
+              <input class="form-check-input" type="radio" id="isHR" value="HR" formControlName="departmentType" />
+              <label class="form-check-label" for="isHR">
+                {{ 'ADD_DEPARTMENT.HR' | translate }}
+              </label>
+            </div>
           </div>
-          <div class="text-right text-muted">
-            {{ descriptionArCharacterCount }} / 250 {{ 'ADD_DEPARTMENT.CHARACTERS_COUNT' | translate }}
+
+           <div class="d-flex align-items-center mt-2">
+             <div class="form-check me-3">
+              <input class="form-check-input" type="radio" id="isFinancial" value="Financial"
+                formControlName="departmentType" />
+              <label class="form-check-label" for="isFinancial">
+                {{ 'ADD_DEPARTMENT.FINANCIAL' | translate }}
+              </label>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <div class="align-items-center">
-            <div class="d-flex align-items-center">
-              <div class="form-check me-3">
-                <input class="form-check-input" type="radio" id="isHR" value="HR" formControlName="departmentType" />
-                <label class="form-check-label" for="isHR">
-                  {{ 'ADD_DEPARTMENT.HR' | translate }}
-                </label>
-              </div>
-
-               <div class="form-check" *ngIf="form.get('departmentType')?.value === 'HR'">
-                <input class="form-check-input" type="checkbox" id="isCentralizedHR" formControlName="isCentralized" />
-                <label class="form-check-label" for="isCentralizedHR">
-                  {{ 'ADD_DEPARTMENT.IS_CENTRALIZED' | translate }}
-                </label>
-              </div>
-            </div>
-
-             <div class="d-flex align-items-center mt-2">
-               <div class="form-check me-3">
-                <input class="form-check-input" type="radio" id="isFinancial" value="Financial"
-                  formControlName="departmentType" />
-                <label class="form-check-label" for="isFinancial">
-                  {{ 'ADD_DEPARTMENT.FINANCIAL' | translate }}
-                </label>
-              </div>
-
-               <div class="form-check" *ngIf="form.get('departmentType')?.value === 'Financial'">
-                <input class="form-check-input" type="checkbox" id="isCentralizedFinancial"
-                  formControlName="isCentralized" />
-                <label class="form-check-label" for="isCentralizedFinancial">
-                  {{ 'ADD_DEPARTMENT.IS_CENTRALIZED' | translate }}
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
+  
+     </div>
+  
 
 
 
@@ -140,7 +146,7 @@
             </button>
           </div>
         </div>
-      </div>
+
     </form>
   </div>
 </div>
