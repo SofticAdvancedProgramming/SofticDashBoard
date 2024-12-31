@@ -38,7 +38,8 @@ export class IndexComponent implements OnInit {
   selectedPositionData: any = {};
   directManger?: employee = {} as employee;
   employees: employee[] = [];
-  @Input() companyId?: number = 0;
+
+  @Input() companyId?: any = '';
   positions: Position[] = [];
   departments: Department[] = [];
   currentPage: number = 1;

@@ -958,6 +958,9 @@
   "TASKS.TASKDETAILS":"من فضلك ادخل تفاصيل المهمه",
   "TASKS.INITIALCOST":"من فضلك ادخل الميزانيه المقترحة",
   "ASSIGNED_TO_CENTERALIZED_DEPARTMENT":"هل هو منصب داحل قسم عام",
+
+  "IS_CENTERLIZED_DEPARTMENT":"هل هذا قسم عام ؟",
+
   "ToDo": {
   "toDoTitle": "قائمة المهام",
   "addToDo": "إضافة مهمة",
