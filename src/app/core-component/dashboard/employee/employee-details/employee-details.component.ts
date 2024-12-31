@@ -21,28 +21,30 @@ import { EmployeeRequestsComponent } from '../employee-requests/employee-request
 import { LocalStorageService } from '../../../../services/local-storage-service/local-storage.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmployeeAssetsComponent } from '../employee-assets/employee-assets/employee-assets.component';
+import { EmployeeAttendanceComponent } from "../employee-attendance/employee-attendance.component";
 declare var bootstrap: any;
 
 @Component({
-  selector: 'app-employee-details',
-  standalone: true,
-  templateUrl: './employee-details.component.html',
-  styleUrls: ['./employee-details.component.css'],
-  imports: [
-    RouterLink,
-    TranslateModule,
-    MatTabsModule,
-    CommonModule,
-    PersonalInformationComponent,
-    AdvancedInformationComponent,
-    CountdownComponent,
-    FinancialComponent,
-    ShiftsComponent,
-    SalaryComponent,
-    EmployeeRequestsComponent,
-    FormsModule,ReactiveFormsModule,
-    EmployeeAssetsComponent
-  ],
+    selector: 'app-employee-details',
+    standalone: true,
+    templateUrl: './employee-details.component.html',
+    styleUrls: ['./employee-details.component.css'],
+    imports: [
+        RouterLink,
+        TranslateModule,
+        MatTabsModule,
+        CommonModule,
+        PersonalInformationComponent,
+        AdvancedInformationComponent,
+        CountdownComponent,
+        FinancialComponent,
+        ShiftsComponent,
+        SalaryComponent,
+        EmployeeRequestsComponent,
+        FormsModule, ReactiveFormsModule,
+        EmployeeAssetsComponent,
+        EmployeeAttendanceComponent
+    ]
 })
 export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   activeTab: string = 'personal';

@@ -9,7 +9,7 @@
               type="text"
               formControlName="name"
               class="form-control"
-              placeholder="Please write your message no more than 300 words"
+              placeholder="{{'TASKS.TASKNAME' |translate}}"
               [ngClass]="{
                 'is-invalid':
                 form.controls['name'].touched &&
@@ -37,7 +37,8 @@
           <textarea
             class="textarea form-control"
             formControlName="taskDetails"
-            placeholder="Please write your message no more than 300 words"
+            placeholder="{{'TASKS.TASKDETAILS' |translate}}"
+            placeholder=""
             [ngClass]="{
               'is-invalid':
               form.controls['taskDetails'].touched &&
@@ -134,7 +135,8 @@
               type="number"
               class="textarea form-control"
               formControlName="initialCost"
-              placeholder="Please write your message no more than 300 words"
+              placeholder="{{'TASKS.INITIALCOST' |translate}}"
+              
               [ngClass]="{
                 'is-invalid':
                 form.controls['initialCost'].touched &&

@@ -156,7 +156,7 @@ export class TaskDetailsComponent implements OnInit {
             Validators.required,
           ],
         });
-
+console.log("this.taskDetailsthis.taskDetails",this.taskDetails)
         // if(this.taskDetails.toDoItems){
         //   this.todoItems = this.taskDetails.toDoItems;
         // }

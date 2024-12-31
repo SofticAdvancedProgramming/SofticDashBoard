@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import * as bodyPix from '@tensorflow-models/body-pix';
 import { DatePipe } from '@angular/common';
 
-@Injectable(
-)
-
+@Injectable({
+  providedIn: 'root',  
+})
 export class GlobalFunctionsService {
   model: bodyPix.BodyPix | undefined;
 

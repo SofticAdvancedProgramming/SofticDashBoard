@@ -1,0 +1,83 @@
+<div class="container-fluid">
+  <div class="row justify-content-center m-1">
+    <div class="col-4 d-flex justify-content-center">
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="attendanceType"
+          id="radioAttendance"
+          value="1"
+          [checked]="attendanceTypeId === 1"
+          (change)="changeAttendanceTypeId(1)"
+        />
+        <label class="form-check-label" for="radioAttendance">
+          {{ 'ATTENDANCE' | translate }}
+        </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="attendanceType"
+          id="radioDeparture"
+          value="2"
+          [checked]="attendanceTypeId === 2"
+          (change)="changeAttendanceTypeId(2)"
+        />
+        <label class="form-check-label" for="radioDeparture">
+          {{ 'DEPARTURE' | translate }}
+        </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="attendanceType"
+          id="radioAbsence"
+          value="3"
+          [checked]="attendanceTypeId === 3"
+          (change)="changeAttendanceTypeId(3)"
+        />
+        <label class="form-check-label" for="radioAbsence">
+          {{ 'ABSENCE' | translate }}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <app-modern-table
+        [totalRows]="attendances.totalRows"
+        [tableTitle]="attendanceType + ' ' + ('OVERVIEW' | translate)"
+        [tableData]="attendances.list"
+        [columns]="['attendanceDate', 'day', 'hour']"
+        [isThereEdit]="false"
+        [isThereDelete]="false"
+        [showActions]="true"
+        [newAction]="newAction"
+        (onCLickNewActionOutput)="openLocationPopup($event)"
+      ></app-modern-table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="custom-modal" *ngIf="showModal">
+    <div class="custom-modal-content">
+      <div class="custom-modal-header">
+        <h5>{{ 'EMPLOYEE' | translate }} {{ attendanceType }}</h5>
+        <button class="close-btn" (click)="closeLocationPopup()">
+          {{ 'CLOSE' | translate }}
+        </button>
+      </div>
+      <div class="custom-modal-body">
+        <app-map
+          [lat]="employee?.lat || 0"
+          [long]="employee?.long || 0"
+          [employee]="employee"
+        ></app-map>
+      </div>
+    </div>
+    <div class="custom-modal-backdrop" (click)="closeLocationPopup()"></div>
+  </div>
+</div>

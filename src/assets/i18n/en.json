@@ -183,7 +183,9 @@
     "DESCRIPTION_CONSTRAINT": "must be between 5 and 250 characters.",
     "CHARACTERS_COUNT": "  characters",
     "HR": "HR",
-    "FINANCIAL": "FINANCIAL"
+    "FINANCIAL": "FINANCIAL",
+    "IS_CENTRALIZED": "Centerlized Department"
+
   },
   "DEPARTMENTS": {
     "ADD_DEPARTMENT": "Add Department",
@@ -220,14 +222,13 @@
     "POSITION_TYPE": "Position Type",
     "SELECT_POSITION_TYPE": "Select Position Type",
     "DEPARTMENT": "Department",
-    "Branch":"Branch",
+    "Branch": "Branch",
     "SELECT_DEPARTMENT": "Select Department",
-    "SELECT_BRANCH":"Select Branch",
+    "SELECT_BRANCH": "Select Branch",
     "DIRECT_MANAGER": "Direct Manager",
     "POSITION": "Position",
     "SELECT_POSITION": "Select Position",
     "REQUIRED_FIELD": "This field is required",
-
     "SAVE": "Save",
     "BACK": "Back",
     "ERROR_LOADING_POSITION_TYPES": "Error loading position types",
@@ -330,16 +331,16 @@
     "RelatedAssets_DESCRIPTION": "Manage Related Assets."
   },
   "viewEmployees": {
-    "ACTIVE_CONFIRMATION":"Are you sure you want to active this employee?",
-    "ACTIVTE":"Confirm activate",
-    "DEACTIVE_CONFIRMATION":"Are you sure you want to deactive this employee?",
-    "JOINDATE":"Join Date",
-    "HIRINDATE":"Hiring Date",
-    "STATUS":"Status",
+    "ACTIVE_CONFIRMATION": "Are you sure you want to active this employee?",
+    "ACTIVTE": "Confirm activate",
+    "DEACTIVE_CONFIRMATION": "Are you sure you want to deactive this employee?",
+    "JOINDATE": "Join Date",
+    "HIRINDATE": "Hiring Date",
+    "STATUS": "Status",
     "DELETEEmployeeFromPosITON_CONFIRMATION": "Are you sure you want to delete this employee from this postion?",
-    "DEACTIVTE":"Deactive",
-    "ACTIVE":"Active",
-    "DEACTIVE":"Deactive",
+    "DEACTIVTE": "Deactive",
+    "ACTIVE": "Active",
+    "DEACTIVE": "Deactive",
     "DELETE_CONFIRMATION": "Are you sure you want to delete this employee?",
     "CURRENT_EMPLOYEES": "Current Employees",
     "NEW_EMPLOYEE_REQUESTS": "New Employee Requests",
@@ -369,7 +370,7 @@
     "reasonForRejection": "reason for rejection",
     "writeComment": "please write your comment no more than 300 words"
   },
-  "progressBarTitle":"completeness percentage",
+  "progressBarTitle": "completeness percentage",
   "personalInfo": {
     "PROFILE_INFORMATION": "Profile Information",
     "GREETING": "Hi, I'm",
@@ -393,6 +394,7 @@
     "progressInfoTitle": "Personal Information completeness"
   },
   "employeeDetails": {
+    "attendance": "Attendance And Departure",
     "SALARY_ASSIGN_SUCCESS": "Salary assigned successfully",
     "grossSalary": "Gross Salary",
     "netSalary": "Net Salary",
@@ -448,10 +450,10 @@
     "Full_Address": "Address",
     "No_Data": "No Data",
     "progressAddressTitle": "Address completeness",
-    "nearBy":"nearBy",
-    "unit":"unit",
-    "floor":"floor",
-    "zone":"zone"
+    "nearBy": "nearBy",
+    "unit": "unit",
+    "floor": "floor",
+    "zone": "zone"
   },
   "education": {
     "Title": "Education",
@@ -466,7 +468,6 @@
     "certificateImg": "Certificate Image",
     "progressEducationTitle": "Education completeness",
     "Graduation_Year": "Graduation Year"
-
   },
   "jobExperience": {
     "Title": "Employment history",
@@ -487,7 +488,7 @@
     "Bussiness Size": "Bussiness Size",
     "Bussiness Type": "Bussiness Type"
   },
-  "employeeTypes":{
+  "employeeTypes": {
     "Title": "Employee Type",
     "No_Data": "No Data"
   },
@@ -502,9 +503,9 @@
     "expiryon": "expiry on",
     "healthCondition": "health Condition",
     "Chronic_Disease": "Chronic Disease",
-    "allergy":"allergy",
+    "allergy": "allergy",
     "No_Data": "No Data",
-    "ischronicdisease":"is chronic disease",
+    "ischronicdisease": "is chronic disease",
     "progressMedicalTitle": "Medical Insurance completeness"
   },
   "socialMediaContact": {
@@ -516,11 +517,11 @@
     "Twitter": "Twitter",
     "No_Data": "No Data",
     "progressSocialTitle": "Social Media completeness",
-    "referance":"referance",
-    "email":"email",
-    "userTelephone":"telephone",
-    "isWhatsApp":"whatsApp",
-    "isFavourit":"main"
+    "referance": "referance",
+    "email": "email",
+    "userTelephone": "telephone",
+    "isWhatsApp": "whatsApp",
+    "isFavourit": "main"
   },
   "type": {
     "Title": "Employee Type"
@@ -812,15 +813,15 @@
   "Enter benefit amount": "Enter benefit amount",
   "Cancel": "Cancel",
   "Assets": {
-    "title":"Assets",
-    "Download":"Download",
-    "Import Excel":"Import Excel",
-    "Add Assets":"Add assets",
-    "All Assets":"All assets",
-    "Update":"Update",
-    "assigned Assets":"Assigned assets",
-    "out Of Service Depreciation Count":"Out of service depreciation count",
-    "not assigned Assets":"Not assigned assets",
+    "title": "Assets",
+    "Download": "Download",
+    "Import Excel": "Import Excel",
+    "Add Assets": "Add assets",
+    "All Assets": "All assets",
+    "Update": "Update",
+    "assigned Assets": "Assigned assets",
+    "out Of Service Depreciation Count": "Out of service depreciation count",
+    "not assigned Assets": "Not assigned assets",
     "AddNewAsset": "Add new asset",
     "AssetName": "Asset Name",
     "AssetNameAr": "Asset Name (Arabic)",
@@ -863,20 +864,20 @@
       "uploadAnotherFile": "Upload Another File"
     }
   },
-  "assetDetails":{
-    "Details":"Details",
-    "Assign To Employee":"Assign To Employee",
-    "Add Related Assets":"Add Related Assets",
-    "Asset Name":"Asset Name",
-    "Category":"Category",
-    "Technical description":"Technical description",
-    "Model":"Model",
-    "Address":"Address",
-    "Address not available":"Address not available",
-    "Assigned To":"Assigned To",
-    "Related Assets":"Related Assets",
-    "No related assets available":"No related assets available",
-    "No attachments available":"No attachments available"
+  "assetDetails": {
+    "Details": "Details",
+    "Assign To Employee": "Assign To Employee",
+    "Add Related Assets": "Add Related Assets",
+    "Asset Name": "Asset Name",
+    "Category": "Category",
+    "Technical description": "Technical description",
+    "Model": "Model",
+    "Address": "Address",
+    "Address not available": "Address not available",
+    "Assigned To": "Assigned To",
+    "Related Assets": "Related Assets",
+    "No related assets available": "No related assets available",
+    "No attachments available": "No attachments available"
   },
   "ASSET_UPLOADER": {
     "BROWSE_FILE": "Browse File",
@@ -901,7 +902,7 @@
   "ActivEmployees": "Active Employees",
   "DeactiveEmployees": "Deactive Employees",
   "employeeAssets": {
-    "name":"asset",
+    "name": "asset",
     "category": "Category",
     "subcategory": "Sub Category",
     "subsubsategory": "Sub Sub Category",
@@ -940,24 +941,24 @@
     }
   },
   "SELECT_DEPARTMENT": "Select Department",
-  "SELECT_ASSET_TYPE":"Select asset type",
-  "assetName":"Asset Name",
-  "assetNameInArabic":"Asset Name In Arabic",
-  "employeeFirstName":"Employee Name",
-  "attendanceType":"Attendance Type",
-  "attendanceDate":"Attendance Date ",
-  "Minimum":"Minimum Amount",
-  "Maximum":"Maximum Amount",
-  "MinmumAndMax":"Minimum value must be less than or equal the maximum value.",
-   "AddNewPosition":"Add Another Position",
-
-  "ToDo": {
-    "toDoTitle":"To-do List",
-    "addToDo":"Add To-do",
-    "toDoDescription": "To-Do Description",
-    "assignTo": "Assign To",
-    "selectEmployee": "Select Employee",
-    "remove":"Remove"
-  }
-  
+  "SELECT_ASSET_TYPE": "Select asset type",
+  "assetName": "Asset Name",
+  "assetNameInArabic": "Asset Name In Arabic",
+  "employeeFirstName": "Employee Name",
+  "attendanceType": "Attendance Type",
+  "attendanceDate": "Attendance Date ",
+  "Minimum": "Minimum Amount",
+  "Maximum": "Maximum Amount",
+  "MinmumAndMax": "Minimum value must be less than or equal the maximum value.",
+  "AddNewPosition": "Add Another Position",
+  "ATTENDANCE": "Attendance",
+  "DEPARTURE": "Departure",
+  "ABSENCE": "Absence",
+  "OVERVIEW": "Overview",
+  "EMPLOYEE": "Employee",
+  "CLOSE": "Close",
+  "TASKS.TASKNAME":"Please write your task name",
+  "TASKS.TASKDETAILS":"Please write your message no more than 300 words",
+  "TASKS.INITIALCOST":"Please enter initial cost",
+  "ASSIGNED_TO_CENTERALIZED_DEPARTMENT":"Is assigned to centeralized department?"
 }

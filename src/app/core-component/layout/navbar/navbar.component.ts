@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { BreadcrumbComponent } from '../../../common-component/breadcrumb/breadcrumb/breadcrumb.component';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -19,7 +20,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatIconModule,
     MatButtonModule,
     MatBadgeModule,
-    TranslateModule
+    TranslateModule,
+    BreadcrumbComponent
   ]
 })
 export class NavbarComponent {

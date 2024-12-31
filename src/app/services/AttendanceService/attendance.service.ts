@@ -10,8 +10,7 @@ export class AttendanceService {
   constructor(private apiCall: ApiCall) { }
 
 
-  // Methods
-  getAttendances(request: any = {}): Observable<any> {
+   getAttendances(request: any = {}): Observable<any> {
     return this.apiCall.request('POST', EmployeeAttendances.Get, request);
   }
 

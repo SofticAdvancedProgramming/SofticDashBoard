@@ -225,4 +225,15 @@
     color: #663895;  
     cursor: pointer;
   }
+  .form-group label{
+    color: #0D0714;
+     font-family: Lama Sans;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0.03em;
+     text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    
+  }
   

@@ -15,6 +15,7 @@ import { firstValueFrom, map, Observable } from 'rxjs';
 import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
 import { branch } from '../../../../../../../models/branch';
 import { DropDownComponent } from '../../../../components/drop-down/drop-down.component';
+import { CompanyService } from '../../../../../../services/comapnyService/company.service';
 
 @Component({
   selector: 'app-add-position',
@@ -29,14 +30,16 @@ export class AddPositionComponent implements OnInit {
   @Input() positionData: Position | any;
   @Input() _branchId: number | any;
   @Output() action = new EventEmitter<boolean>();
-  @Input() companyId?: string = '';
+  @Input() companyId?: number = 0;
   positionType: any[] = [];
   branches:branch[]=[];
   departments: Department[] = [];
   positions: any[] = [];
   form: FormGroup;
   loading: boolean = true;
-  positionTypePage:number=1
+  positionTypePage:number=1;
+  hasCenterlizedDepartment:boolean=false;
+  
 
   constructor(
     private fb: FormBuilder,
@@ -47,7 +50,8 @@ export class AddPositionComponent implements OnInit {
     private messageService: MessageService,
     private translate: TranslateService,
     private employeeService:EmployeeService,
-    private cd:ChangeDetectorRef
+    private cd:ChangeDetectorRef,
+    private companyService:CompanyService
   ) {
     this.branchId=0;
     this.departmentId=0;
@@ -55,19 +59,22 @@ export class AddPositionComponent implements OnInit {
       positionType: ['', Validators.required],
       branch: ['', Validators.required],
       department: ['', Validators.required],
-      position: [{ value: '', disabled: true }, Validators.required],
-      isDirectManager: [false]
+      position: [{ value: '', disabled: true }],
+      isDirectManager: [false],
+      centerlizedDepartment:[false]
     });
   }
 
   ngOnInit(): void {
     this.loadPositionTypes();
-    this.loadBranches();
+   
 
     this.togglePositionField();
     if (this.isEdit) {
       this.initForm();
     }
+    this.checkIsCenteralizedCompany();
+
   }
 
   initForm() {
@@ -102,19 +109,38 @@ export class AddPositionComponent implements OnInit {
   loadBranches(): void {
     this.branchsService.getBranch({ companyId: this.companyId,pageSize:20  }).subscribe({
       next: (response) => {
+        console.log("brances",response.data.list)
         this.branches = response.data.list;
         this.loadDepartmentsAndPositions(); // Ensure positions are loaded after departments
       }
     });
   }
   loadDepartmentsAndPositions(): void {
-    this.departmentsService.getDepartment({ companyId: this.companyId,branchId:+this.branchId ,pageSize:20 }).subscribe({
-      next: (response) => {
-        this.departments = response.data.list;
-        console.log(this.departments)
-       // Ensure positions are loaded after departments
-      }
-    });
+    console.log("this.hasCenterlizedDepartment",this.hasCenterlizedDepartment ,this.form.get('centerlizedDepartment')?.value)
+    if(this.hasCenterlizedDepartment &&this.form.get('centerlizedDepartment')?.value)
+    {
+      this.departmentsService.getDepartment({ companyId: this.companyId ,pageSize:20,isCentralized:true }).subscribe({
+        next: (response) => {
+          this.departments = response.data.list;
+          console.log("this.hasCenterlizedDepartment",this.departments)
+         // Ensure positions are loaded after departments
+        }
+      });
+    }
+    else
+    {
+      console.log("this.branchId",this.branchId)
+      this.departmentsService.getDepartment({ companyId: this.companyId,branchId:+this.branchId ,pageSize:20 }).subscribe({
+        next: (response) => {
+          this.departments = response.data.list;
+          console.log("this.hasCenterlizedDepartment heeereee",response.data)
+         // Ensure positions are loaded after departments
+        }
+      });
+
+    
+    }
+   
   }
 
   async loadPositions(): Promise<void> {
@@ -180,6 +206,7 @@ export class AddPositionComponent implements OnInit {
   }
 
   onSave(): void {
+    console.log("this.form",this.form)
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
@@ -193,9 +220,11 @@ export class AddPositionComponent implements OnInit {
       positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : null
     };
     this.createOrEdit(positionData);
-    this.ngOnInit();
+
     this.action.emit(false);
     this.cd.detectChanges();
+    this.ngOnInit();
+  
   }
 
   createOrEdit(positionData: Position) {
@@ -207,6 +236,7 @@ export class AddPositionComponent implements OnInit {
         } else {
           setTimeout(() => {
             this.action.emit(false);
+            this.ngOnInit();
           }, 1000);
         }
       }
@@ -231,7 +261,9 @@ export class AddPositionComponent implements OnInit {
   branchId!:number
   departmentId!:number;
   GetBranch(event:any){
+    console.log("eeeeeeeeeevent",event.target.value)
     this.departmentId=0;
+    this.branchId=event.target.value;
     if(this.isEdit){
       this.form.patchValue({
         positionType: this.positionData.positionTypeId,
@@ -248,5 +280,44 @@ export class AddPositionComponent implements OnInit {
 
     console.log(this.departmentId);
     this.loadPositions();
+  }
+
+  checkIsCenteralizedCompany()
+  {
+    let companyId = Number(localStorage.getItem("companyId"));
+    if(companyId)
+    {
+      let body={
+        id:companyId
+      }
+      this.companyService.getCompany(body).subscribe({
+        next:companyData=>{
+          this.hasCenterlizedDepartment=companyData.data.list[0].centralizedDepartment;
+          this.loadBranches();
+        }
+      })
+    }
+  }
+  getDepartments()
+  {
+    const centerlized = this.form.get('centerlizedDepartment')?.value;
+    console.log('Centerlized Department changed:', centerlized ? 'Enabled' : 'Disabled');
+    
+    
+        const branchControl = this.form.get('branch');
+    
+        if (centerlized) {
+          // When centerlizedDepartment is true, remove the 'required' validator
+          branchControl?.clearValidators();
+          
+        } else {
+          // When centerlizedDepartment is false, apply the 'required' validator
+          branchControl?.setValidators(Validators.required);
+        }
+    
+        // Re-evaluate the validity of the 'branch' control after changing validators
+        branchControl?.updateValueAndValidity();
+
+    this.loadDepartmentsAndPositions();
   }
 }

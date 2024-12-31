@@ -16,8 +16,7 @@ export class MapComponent implements OnInit, OnChanges {
   private markers: mapboxgl.Marker[] = [];
   private roles = JSON.parse(localStorage.getItem('roles')!);
   private lang = localStorage.getItem('lang') || 'ar';
-  // Access Token should be defined in a secure way (e.g., environment variables)
-
+   @Input() locations: { lat: number; long: number; date?: string }[] = [];
   private accessToken = 'pk.eyJ1IjoiYWJhbm91Ym1hbnNvdXIiLCJhIjoiY200c2o4d29mMDFlYTJsc2cweWZmZjM0ZiJ9.JAYvHu8gHH7VPrHpuStn9A'
 
  

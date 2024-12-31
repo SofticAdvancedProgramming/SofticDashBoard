@@ -180,7 +180,8 @@
     "DESCRIPTION_CONSTRAINT": "يجب أن يكون بين 5 و 250 حرفًا.",
     "CHARACTERS_COUNT": "  حرف",
     "HR": "موارد بشرية",
-    "FINANCIAL": "مالية"
+    "FINANCIAL": "مالية",
+    "IS_CENTRALIZED":"ادارة مركزية"
   },
   "DEPARTMENTS": {
     "ADD_DEPARTMENT": "إضافة قسم",
@@ -395,6 +396,8 @@
     "nationalIdPhoto": "صورة الهوية الشخصية"
   },
   "employeeDetails": {
+    "attendance": "الحضور والانصراف",
+
     "SALARY_ASSIGN_SUCCESS": "تم تخصيص الراتب بنجاح",
     "grossSalary": "الراتب الإجمالي",
     "netSalary": "الراتب الصافي",
@@ -914,5 +917,15 @@
   "Minimum":"اقل قيمة",
   "Maximum":"اكثر قيمة",
   "MinmumAndMax":"اقل قيمة يجب ان تكون اقل من او تساوى اكبر قيمة",
-  "AddNewPosition":"اضافه منصب جديد"
+  "AddNewPosition":"اضافه منصب جديد",
+  "ATTENDANCE": "الحضور",
+  "DEPARTURE": "المغادرة",
+  "ABSENCE": "الغياب",
+  "OVERVIEW": "نظرة عامة",
+  "EMPLOYEE": "الموظف",
+  "CLOSE": "إغلاق",
+  "TASKS.TASKNAME":"ادخل اسم المهمه",
+  "TASKS.TASKDETAILS":"من فضلك ادخل تفاصيل المهمه",
+  "TASKS.INITIALCOST":"من فضلك ادخل الميزانيه المقترحة",
+  "ASSIGNED_TO_CENTERALIZED_DEPARTMENT":"هل هو منصب داحل قسم عام"
 }
