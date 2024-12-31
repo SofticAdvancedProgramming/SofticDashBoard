@@ -16,16 +16,17 @@ h4,p,button,.icon{
 
 .action-btn {
     background: #8413F8;
-    width: Fixed (226px)px;
+    width: 170px;
     height: Hug (52px)px;
     padding: 12px;
     border-radius: 10px;
     opacity: 0px;
     color: white;
-    width: 100%;
     gap: 0.2em;
     display: flex;
     justify-content: center;
+    margin-left: 371px;
+    
 }
 .card-container {
     display: flex;
