@@ -922,5 +922,8 @@
   "ABSENCE": "الغياب",
   "OVERVIEW": "نظرة عامة",
   "EMPLOYEE": "الموظف",
-  "CLOSE": "إغلاق"
+  "CLOSE": "إغلاق",
+  "TASKS.TASKNAME":"ادخل اسم المهمه",
+  "TASKS.TASKDETAILS":"من فضلك ادخل تفاصيل المهمه",
+  "TASKS.INITIALCOST":"من فضلك ادخل الميزانيه المقترحة"
 }

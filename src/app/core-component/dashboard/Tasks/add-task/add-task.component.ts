@@ -38,7 +38,7 @@ import { DeleteConfirmationPopUpComponent } from '../../components/delete-confir
     FormsModule,
     DropDownComponent,
     MatSelectModule,
-    DeleteConfirmationPopUpComponent
+    DeleteConfirmationPopUpComponent,
   ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.css',
