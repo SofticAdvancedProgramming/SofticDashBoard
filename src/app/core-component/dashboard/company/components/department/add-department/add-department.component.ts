@@ -114,9 +114,9 @@ export class AddDepartmentComponent implements OnInit {
       });
       return;
     }
-  
+
     const selectedType = this.form.value.departmentType;
-  
+
     const departmentData: Department = {
       id: this.isEdit && this.department ? this.department.id : 0,
       companyId: this.companyId || 0,
@@ -130,9 +130,9 @@ export class AddDepartmentComponent implements OnInit {
       lat: this.form.value.lat,
       isHR: selectedType === 'HR',
       isFinancial: selectedType === 'Financial',
-      isCentralized: this.form.value.isCentralized,  
+      isCentralized: this.form.value.isCentralized,
     };
-  
+
     this.departmentService[this.isEdit ? 'editDepartment' : 'addDepartment'](departmentData).subscribe({
       next: (response) => {
         console.log('Department saved successfully', response);
@@ -161,7 +161,7 @@ export class AddDepartmentComponent implements OnInit {
       },
     });
   }
-  
+
 
 
   onBack(): void {
@@ -186,5 +186,9 @@ export class AddDepartmentComponent implements OnInit {
 
   private showError(detail: string): void {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
+  }
+
+  get isArabic():boolean{
+    return localStorage.getItem('lang')==='ar'
   }
 }

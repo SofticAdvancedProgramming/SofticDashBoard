@@ -31,7 +31,7 @@
           <label for="branchId">{{ 'ADD_DEPARTMENT.BRANCH' | translate }}</label>
           <select id="branchId" formControlName="branchId" class="form-control">
             <option value="null" disabled>{{ 'ADD_DEPARTMENT.SELECT_OPTION' | translate }}</option>
-            <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
+            <option *ngFor="let branch of branches" [value]="branch.id">{{isArabic?branch.nameAr:branch.name }}</option>
           </select>
           <div *ngIf="form.get('branchId')?.invalid && form.get('branchId')?.touched" class="text-danger">
             {{ 'ADD_DEPARTMENT.BRANCH' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}

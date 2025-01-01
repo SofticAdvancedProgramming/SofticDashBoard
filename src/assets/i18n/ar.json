@@ -112,6 +112,9 @@
     "search_position": "بحث عن المسمى الوظيفي"
   },
   "addBranch": {
+    "FAILED_TO_ADD_BRANCH":"خطأ في إضافة الفرع",
+    "BRANCH_EDITED_SUCCESSFULLY": "تمت تعديل الفرع بنجاح",
+    "PLEASE_FILL_REQUIRED_FIELDS":"يرجى ملء جميع الحقول المطلوبة",
     "BRANCH_NAME_EN": "اسم الفرع (بالإنجليزية)",
     "BRANCH_NAME_AR": "اسم الفرع (بالعربية)",
     "ENTER_BRANCH_NAME": "أدخل اسم الفرع",
@@ -131,6 +134,7 @@
     "ERROR_ADDING_BRANCH": "خطأ في إضافة الفرع"
   },
   "viewBranches": {
+    "Branch":"فرع",
     "ADD_BRANCH": "إضافة فرع",
     "ADD_EMPLOYEE": "إضافة موظف",
     "SHOW_DETAILS": "عرض التفاصيل",
@@ -162,6 +166,7 @@
     "ASSIGN": "تعيين"
   },
   "ADD_DEPARTMENT": {
+    "DEPARTMENT_SHORT_NAME":"الاسم المختصر",
     "DEPARTMENT_NAME_EN": "اسم القسم (بالإنجليزية)",
     "DEPARTMENT_NAME_AR": "اسم القسم (بالعربية)",
     "DEPARTMENT_abbreviation": "اسم القسم المختصر",

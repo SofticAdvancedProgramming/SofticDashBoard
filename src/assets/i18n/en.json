@@ -115,6 +115,9 @@
     "search_position": "Search Position"
   },
   "addBranch": {
+    "FAILED_TO_ADD_BRANCH":"Error adding branch",
+    "BRANCH_EDITED_SUCCESSFULLY":"Branch edited successfully",
+    "PLEASE_FILL_REQUIRED_FIELDS":"Please fill all required fields",
     "BRANCH_NAME_EN": "Branch Name (English)",
     "BRANCH_NAME_AR": "Branch Name (Arabic)",
     "ENTER_BRANCH_NAME": "Enter Branch Name",
@@ -134,6 +137,7 @@
     "ERROR_ADDING_BRANCH": "Error adding branch"
   },
   "viewBranches": {
+    "Branch":"Branch",
     "ADD_BRANCH": "Add Branch",
     "ADD_EMPLOYEE": "Add Employee",
     "SHOW_DETAILS": "Show Details",
@@ -165,6 +169,8 @@
     "ASSIGN": "Assign"
   },
   "ADD_DEPARTMENT": {
+    "DEPARTMENT_SHORT_NAME":"Abbreviation",
+
     "DEPARTMENT_NAME_EN": "Department Name (English)",
     "DEPARTMENT_NAME_AR": "Department Name (Arabic)",
     "DEPARTMENT_abbreviation": "Department Abbreviation",
