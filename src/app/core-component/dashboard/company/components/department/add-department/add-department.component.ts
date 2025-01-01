@@ -91,6 +91,8 @@ export class AddDepartmentComponent implements OnInit {
       departmentType: this.department?.isHR ? 'HR' : this.department?.isFinancial ? 'Financial' : null,
       isCentralized: this.department?.isCentralized
     });
+
+  this.hideShowBranch();
   }
 
   loadBranches(): void {
