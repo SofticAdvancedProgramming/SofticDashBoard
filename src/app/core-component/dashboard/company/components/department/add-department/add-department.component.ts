@@ -11,6 +11,7 @@ import { branch } from '../../../../../../../models/branch';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { InputRestrictionDirective } from '../../../../../../common-component/directives/lang-directive/input-restriction.directive';
 import { MapComponent } from '../../../../../../common-component/map/map.component';
+import { CompanyService } from '../../../../../../services/comapnyService/company.service';
 
 @Component({
   selector: 'app-add-department',
@@ -38,13 +39,15 @@ export class AddDepartmentComponent implements OnInit {
 
   descriptionCharacterCount: number = 0;
   descriptionArCharacterCount: number = 0;
-
+  hasCenterlizedDepartment:boolean=false;
+  hideBranch:boolean=false;
   constructor(
     private fb: FormBuilder,
     private departmentService: DepartmentService,
     private branchService: BranchService,
     private messageService: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private companyService:CompanyService
   ) {
      this.form = this.fb.group({
       name: ['', Validators.required],
@@ -69,6 +72,7 @@ export class AddDepartmentComponent implements OnInit {
     if (this.isEdit) {
       this.initoForm();
     }
+    this.checkIsCenteralizedCompany();
     this.loadBranches();
     this.updateCharacterCount('description');
     this.updateCharacterCount('descriptionAr');
@@ -125,7 +129,7 @@ export class AddDepartmentComponent implements OnInit {
       nameAr: this.form.value.nameAr,
       description: this.form.value.description,
       descriptionAr: this.form.value.descriptionAr,
-      branchId: this.form.get('isCentralized')?.value==true ? 0: Number(this.form.value.branchId),
+      branchId: this.form.get('isCentralized')?.value==true ? null: Number(this.form.value.branchId),
             long: this.form.value.long,
       lat: this.form.value.lat,
       isHR: selectedType === 'HR',
@@ -186,6 +190,46 @@ export class AddDepartmentComponent implements OnInit {
 
   private showError(detail: string): void {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
+  }
+
+  checkIsCenteralizedCompany()
+  {
+    let companyId = Number(localStorage.getItem("companyId"));
+    if(companyId)
+    {
+      let body={
+        id:companyId
+      }
+      this.companyService.getCompany(body).subscribe({
+        next:companyData=>{
+          console.log("companyData.data.list[0].centralizedDepartment",companyData.data.list[0].centralizedDepartment)
+          this.hasCenterlizedDepartment=companyData.data.list[0].centralizedDepartment;
+        }
+      })
+    }
+  }
+
+  hideShowBranch()
+  {
+    const centerlized = this.form.get('isCentralized')?.value;
+    console.log('Centerlized Department changed:', centerlized ? 'Enabled' : 'Disabled');
+
+
+        const branchControl = this.form.get('branchId');
+
+        if (centerlized) {
+          // When centerlizedDepartment is true, remove the 'required' validator
+          branchControl?.clearValidators();
+          this.hideBranch=true;
+
+        } else {
+          // When centerlizedDepartment is false, apply the 'required' validator
+          branchControl?.setValidators(Validators.required);
+          this.hideBranch=false;
+        }
+
+        // Re-evaluate the validity of the 'branch' control after changing validators
+        branchControl?.updateValueAndValidity();
   }
 
   get isArabic():boolean{

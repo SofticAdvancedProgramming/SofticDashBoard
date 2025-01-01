@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { debounce } from "lodash";
 import { MatSelectInfiniteScrollModule } from 'ng-mat-select-infinite-scroll';
 import { employee } from '../../../../../models/employee';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-drop-down',
@@ -13,7 +14,7 @@ import { employee } from '../../../../../models/employee';
     MatSelectModule,
     FormsModule,
     TranslateModule,
-    MatSelectInfiniteScrollModule
+    MatSelectInfiniteScrollModule,CommonModule
   ],
   templateUrl: './drop-down.component.html',
   styleUrl: './drop-down.component.css'

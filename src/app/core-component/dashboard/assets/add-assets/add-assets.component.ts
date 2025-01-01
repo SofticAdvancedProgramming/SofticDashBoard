@@ -84,7 +84,7 @@ export class AddAssetsComponent implements OnInit {
       serialNum: ['', Validators.required],
       plateNum: [''],
       subAssetCategory: [''],
-      AssetReason: ['', Validators.required],
+      // AssetReason: ['', Validators.required],
       AssetAttachment: ['', Validators.required],
       AssetPhoto: ['', Validators.required],
       long: [0, Validators.required],
@@ -312,21 +312,43 @@ export class AddAssetsComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form.value);
-    let params = {
-      companyId: Number(this.companyId),
-      name: this.form.value.AssetName,
-      nameAr: this.form.value.AssetNameAr,
-      model: this.form.controls['Model'].value,
-      assetCategoryId: this.selectedAssetCategory.id,
-      parentAssetId: null,
-      photo: this.uploadedImageBase64,
-      photoExtension: this.PhotoExtension,
-      long: this.form.controls['long'].value,
-      lat: this.form.controls['lat'].value,
-      assetAttachments: this.attachments,
-      serialNumber: this.form.controls['serialNum'].value,
-      plateNumber: this.form.controls['plateNum'].value,
-    };
+    let params ;
+    if(this.selectedAssetCategory.id){
+      params = {
+        companyId: Number(this.companyId),
+        name: this.form.value.AssetName,
+        nameAr: this.form.value.AssetNameAr,
+        model: this.form.controls['Model'].value,
+        assetCategoryId: this.selectedAssetCategory.id,
+        parentAssetId: null,
+        photo: this.uploadedImageBase64,
+        photoExtension: this.PhotoExtension,
+        long: this.form.controls['long'].value,
+        lat: this.form.controls['lat'].value,
+        assetAttachments: this.attachments,
+        serialNumber: this.form.controls['serialNum'].value,
+        plateNumber: this.form.controls['plateNum'].value,
+        // reason: this.form.controls['AssetReason'].value
+      };
+
+    }else{
+      params = {
+        companyId: Number(this.companyId),
+        name: this.form.value.AssetName,
+        nameAr: this.form.value.AssetNameAr,
+        model: this.form.controls['Model'].value,
+        parentAssetId: null,
+        photo: this.uploadedImageBase64,
+        photoExtension: this.PhotoExtension,
+        long: this.form.controls['long'].value,
+        lat: this.form.controls['lat'].value,
+        assetAttachments: this.attachments,
+        serialNumber: this.form.controls['serialNum'].value,
+        plateNumber: this.form.controls['plateNum'].value,
+        // reason: this.form.controls['AssetReason'].value
+      };
+    }
+
     if(this.selectedAsset){
       params = {
         companyId: Number(this.companyId),
@@ -342,6 +364,7 @@ export class AddAssetsComponent implements OnInit {
         assetAttachments: this.attachments,
         serialNumber: this.form.controls['serialNum'].value,
         plateNumber: this.form.controls['plateNum'].value,
+        // reason:this.form.controls['AssetReason'].value
       };
     }
     console.log(params);

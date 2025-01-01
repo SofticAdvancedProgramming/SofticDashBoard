@@ -38,7 +38,8 @@ export class IndexComponent implements OnInit {
   selectedPositionData: any = {};
   directManger?: employee = {} as employee;
   employees: employee[] = [];
-  @Input() companyId?: string = '';
+
+  @Input() companyId?: any = '';
   positions: Position[] = [];
   departments: Department[] = [];
   currentPage: number = 1;
@@ -87,7 +88,7 @@ export class IndexComponent implements OnInit {
   }
   loadAllDepartments(): void {
     if (this.companyId) {
-      this.departmentService.getDepartment({ companyId: parseInt(this.companyId) }).subscribe({
+      this.departmentService.getDepartment({ companyId: this.companyId }).subscribe({
         next: (response) => {
           this.departments = response.data.list;
          },
@@ -256,7 +257,7 @@ export class IndexComponent implements OnInit {
       acceptButtonStyleClass: 'p-button-danger',
       rejectButtonStyleClass: 'p-button-secondary',
       accept: () => {
-        const companyId = this.companyId ? parseInt(this.companyId) : 0;
+        const companyId = this.companyId ? this.companyId : 0;
         this.positionService.deletePosition(positionId, companyId).subscribe({
           next: () => {
             this.messageService.add({

@@ -4,13 +4,14 @@
   text-transform: capitalize ;
 } */
 label{
-  margin-bottom: 3px;
+  margin-bottom: 3px !important;
+  font-family: Lama Sans !important;
 }
 input,textarea{
   text-transform: none !important ;
   border-radius: 10px !important;
 }
-input::placeholder,textarea::placeholder{
+input::placeholder,textarea::placeholder,option,select,button{
   font-family: Lama Sans !important;;
 }
 .CustomIcon{

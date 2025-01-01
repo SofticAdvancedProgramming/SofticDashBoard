@@ -1,4 +1,6 @@
 {
+  "Yes":"نعم",
+  "No":"لا",
   "errorModels": {
     "1": "البريد الإلكتروني مستخدم بالفعل.",
     "2": "البريد الإلكتروني غير موجود.",
@@ -245,7 +247,7 @@
     "NAME": "الاسم (بالانجليزية)",
     "NAME_AR": "الاسم (بالعربية)",
     "DIRECT_PARENT": "الأصل المباشر",
-    "DIRECT_ASSET_PARENT": "الأصل الاب",
+    "DIRECT_ASSET_PARENT": "أصل رئيسي",
     "ASSETS": "الأصول",
     "SELECT_ASSET": "اختر الأصل",
     "REQUIRED_FIELD": "هذا الحقل مطلوب",
@@ -253,10 +255,17 @@
   },
   "RELATED_ASSETS": {
     "TITLE": "الأصول ذات الصلة",
+    "MAINASSETS":"الأصول الرئيسية",
     "NAME": "الأصول ذات الصلة",
     "NAME_AR": "الأصول ذات الصلة (عربي)",
     "MODEL": "الموديل",
     "DIRECT_PARENT": "الأصل المباشر"
+  },
+  "RelatedAssetPopup":{
+    "TITLE": "أضف أصل كمتعلق",
+    "Name": "اسم الأصل المتعلق",
+    "Submit": "حفظ",
+    "Close": "إغلاق"
   },
   "INDEX_POSITION": {
     "ADD_POSITION": "إضافة وظيفة",
@@ -363,8 +372,20 @@
     "reasonForRejection": "سبب الرفض",
     "writeComment": "من فضلك اكتب تعليقاً لا يزيد عن 300 كلمة"
   },
+  "select":"اختر",
+  "Search by Name":"ابحث بالاسم",
+  "Select main Asset":"اختر الأصل الرئيسي",
+  "Select Sub Asset Category":"اختر الفئة الفرعية",
+  "Select Employee":"اختر الموظف",
   "assetDetails": {
+    "Delete related asset":"إزالة أصل متعلق",
+    "Are you sure you want to delete this related asset?":"هل أنت متأكد أنك تريد حذف هذا الأصل المتعلق؟",
+    "plateNumber":"رقم اللوحة",
+    "assginDate":"تاريخ الإسناد",
+    "serialNumber":"الرقم التسلسلي",
+    "not assigend":"لم يتم اسناده لموظف بعد",
     "Details": "التفاصيل",
+    "relateTo":"تابع لـ",
     "Assign To Employee": "اسناد لموظف",
     "Add Related Assets": "اضافة متعلق",
     "Asset Name": "الاسم",
@@ -372,7 +393,7 @@
     "Technical description": "الوصف",
     "Model": "الموديل",
     "Address": "العنوان",
-    "Address not available": "العنوان غير متاح",
+    "Address not available":"العنوان غير متاح",
     "Assigned To": "اسناد لـ",
     "Related Assets": "المتعلقات",
     "No related assets available": "لا توجد متعلقات",
@@ -816,9 +837,12 @@
   "ActivEmployees": "الموظفين النشطاء",
   "DeactiveEmployees": "الموظفين الغير نشطاء",
   "Assets": {
+
+    "SubAssetCategory":"فئة فرعية",
     "title":"الأصول",
     "Download":"تحميل",
     "Import Excel":"تصدير اكسل",
+    "MainAsset":"الأصول الرئيسية",
     "Add Assets":"إضافة أصول",
     "All Assets":"جميع الأصول",
     "Update":"تحديث",
@@ -864,7 +888,13 @@
       "uploadAnotherFile": "رفع ملف آخر"
     }
   },
-
+  "assignAssetPopup":{
+    "Name":"اسم الموظف",
+    "Assign Date":"تاريخ الاسناد",
+    "Submit":"حفظ",
+    "Title":"اسناد أصل الى موظف",
+    "Close":"اغلاق"
+  },
   "ASSET_UPLOADER": {
     "BROWSE_FILE": "تصفح الملف",
     "NO_FILE_SELECTED": "لم يتم اختيار ملف",
@@ -933,6 +963,9 @@
   "TASKS.TASKDETAILS":"من فضلك ادخل تفاصيل المهمه",
   "TASKS.INITIALCOST":"من فضلك ادخل الميزانيه المقترحة",
   "ASSIGNED_TO_CENTERALIZED_DEPARTMENT":"هل هو منصب داحل قسم عام",
+
+  "IS_CENTERLIZED_DEPARTMENT":"هل هذا قسم عام ؟",
+
   "ToDo": {
   "toDoTitle": "قائمة المهام",
   "addToDo": "إضافة مهمة",
