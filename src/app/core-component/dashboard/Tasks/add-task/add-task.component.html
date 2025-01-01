@@ -202,7 +202,7 @@
       <div class="row my-3">
         <div class="col-12">
           <div class="form-group">
-            <label for="Name">Assign to</label>
+            <label class="form-label" for="Name">Assign To</label>
             <app-drop-down
               [placeholder]="'Select Employee'"
               [placeholderSearch]="'Search by Name'"
@@ -289,6 +289,18 @@
             alt="taskImage"
             class="img-preview"
           />}
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <label for="Name" class="form-label">{{'ToDo.taskPriority' | translate}}</label>
+          <mat-select class="custom-select" placeholder="{{'ToDo.selectPriority' | translate}}" formControlName="priority">
+            <mat-option [value]="null" disabled>{{'ToDo.selectPriority' | translate}}</mat-option>
+            <mat-option *ngFor="let priority of priorities" [value]="priority.id">
+              {{ priority.name }}
+            </mat-option>
+          </mat-select>
         </div>
       </div>
     </div>

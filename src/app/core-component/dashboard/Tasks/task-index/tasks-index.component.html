@@ -1,4 +1,4 @@
-<div class="container py-5">
+<div class="mb-4">
   <div class="row action-section align-items-center justify-content-between">
     <div class="col-7 d-flex align-items-center">
       <div class="col-lg-4">
@@ -9,14 +9,17 @@
           <p class="lead m-0">Task board</p>
         </div>
       </div>
-      <div class="col-lg-7 align-items-center">
-        <div class="d-flex flex-row justify-content-start align-items-center">
+      <div class="col-lg-8 d-flex  align-items-center justify-content-between">
+        <div class="d-flex flex-row justify-content-start align-items-center col-9">
           <input
             placeholder="{{ 'viewEmployees.SEARCH' | translate }}"
             class="form-control custom-search"
             [(ngModel)]="searchText"
             (ngModelChange)="searcWithDebounce(searchText)"
           />
+        </div>
+        <div class="col-3">
+          <img src="../../../../../assets/images/filter.png" alt="filter Image">
         </div>
       </div>
     </div>
