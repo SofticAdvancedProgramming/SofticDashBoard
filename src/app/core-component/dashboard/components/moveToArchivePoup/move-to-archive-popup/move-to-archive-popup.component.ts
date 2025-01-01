@@ -1,11 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TasksService } from '../../../../../services/TasksService/tasks.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-move-to-archive-popup',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './move-to-archive-popup.component.html',
   styleUrl: './move-to-archive-popup.component.css',
 })
