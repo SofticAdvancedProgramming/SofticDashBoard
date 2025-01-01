@@ -96,7 +96,7 @@ export class AddPositionComponent implements OnInit {
         this.positionType = response.data.list
         // const newItems = response.data.list
         // this.positionType = newItems;
-        // console.log(response.data.totalRows)
+       
         // if(response.data.totalRows>this.positionTypePage*10){
         //   this.positionTypePage++
         //   this.positionType=[...this.positionType,...newItems]
@@ -110,31 +110,31 @@ export class AddPositionComponent implements OnInit {
   loadBranches(): void {
     this.branchsService.getBranch({ companyId: this.companyId,pageSize:20  }).subscribe({
       next: (response) => {
-        console.log("brances",response.data.list)
+        
         this.branches = response.data.list;
         this.loadDepartmentsAndPositions(); // Ensure positions are loaded after departments
       }
     });
   }
   loadDepartmentsAndPositions(): void {
-    console.log("this.hasCenterlizedDepartment",this.hasCenterlizedDepartment ,this.form.get('centerlizedDepartment')?.value)
+    
     if(this.hasCenterlizedDepartment &&this.form.get('centerlizedDepartment')?.value)
     {
       this.departmentsService.getDepartment({ companyId: this.companyId ,pageSize:20,isCentralized:true }).subscribe({
         next: (response) => {
           this.departments = response.data.list;
-          console.log("this.hasCenterlizedDepartment",this.departments)
+       
          // Ensure positions are loaded after departments
         }
       });
     }
     else
     {
-      console.log("this.branchId",this.branchId)
+      
       this.departmentsService.getDepartment({ companyId: this.companyId,branchId:+this.branchId ,pageSize:20 }).subscribe({
         next: (response) => {
           this.departments = response.data.list;
-          console.log("this.hasCenterlizedDepartment heeereee",response.data)
+     
          // Ensure positions are loaded after departments
         }
       });
@@ -145,19 +145,19 @@ export class AddPositionComponent implements OnInit {
   }
 
   async loadPositions(): Promise<void> {
-console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+
 
     this.positionService.getPosition({ companyId: this.companyId,departmentId:this.departmentId ,pageSize:20 }).subscribe({
       next: async (response) => {
 
         const positionList = response.data.list || [];
         let filteredPositions = positionList;
-        console.log(filteredPositions)
+    
         if(this.isEdit){
-          console.log(this.departmentId)
+        
           filteredPositions = positionList.filter((item:any)=>item.id!=this.positionData.id)
         }
-        console.log("filteredPositions",filteredPositions)
+       
         // Use Promise.all to resolve all employee names
         const positionsWithEmployeeNames = await Promise.all(
           filteredPositions.map(async (position: any) => {
@@ -171,7 +171,7 @@ console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         );
 
         this.positions = positionsWithEmployeeNames;
-        console.log("this.positionspositionsWithEmployeeNames",positionsWithEmployeeNames)
+        
         this.checkLoadingState();
       }
     });
@@ -186,7 +186,7 @@ console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
   }
 
   getDepartmentName(departmentId: number): string {
-    console.log("this.departments",this.departments)
+    
     const department = this.departments.find(dep => dep.id === departmentId);
     return department?.name ?? 'Unknown';
   }
@@ -209,7 +209,7 @@ console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
   }
 
   onSave(): void {
-    console.log("this.form",this.form)
+    
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
@@ -265,7 +265,7 @@ console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
   branchId!:number
   departmentId!:number;
   GetBranch(event:any){
-    console.log("eeeeeeeeeevent",event.target.value)
+    
     this.departmentId=0;
     this.branchId=event.target.value;
     if(this.isEdit){
@@ -281,8 +281,7 @@ console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     }
   }
   GetDepartment(event:any){
-   console.log("eventeeeeeeeeeee",event.target.value)
-    console.log("this.departmentId",this.departmentId);
+ 
     this.departmentId=event.target.value
     this.loadPositions();
   }
@@ -306,7 +305,7 @@ console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
   getDepartments()
   {
     const centerlized = this.form.get('centerlizedDepartment')?.value;
-    console.log('Centerlized Department changed:', centerlized ? 'Enabled' : 'Disabled');
+    
     
     
         const branchControl = this.form.get('branch');

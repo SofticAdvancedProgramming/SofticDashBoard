@@ -45,7 +45,7 @@ export class TasksArchivedComponent implements OnInit {
   }
   public search(value: any): void {
     this.valueOfSearch = value.length > 0 ? value.trim() : '';
-    console.log(this.valueOfSearch);
+   
     this.loadAllTasks(this.valueOfSearch);
   }
 
@@ -69,14 +69,13 @@ export class TasksArchivedComponent implements OnInit {
 
 
   onDrop(event: CdkDragDrop<Task[]>) {
-      console.log('Event:', event);
+     
       // Access the dropped task
       const droppedTask = event.item.data;
-      console.log('Dropped Task:', droppedTask);
+     
   
       const droppedIntoStatus = event.container.id;
-      console.log('Dropped Task:', droppedTask);
-      console.log('Dropped into Status:', droppedIntoStatus);
+     
       let newStatus: number = 0;
       switch (droppedIntoStatus) {
         case 'TODO':
@@ -120,7 +119,7 @@ export class TasksArchivedComponent implements OnInit {
         .assignTaskStatus({ taskId: taskId, statusId: statusId })
         .subscribe({
           next: (response) => {
-            console.log('assign task response', response);
+           
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -128,7 +127,7 @@ export class TasksArchivedComponent implements OnInit {
             });
           },
           error: (err) => {
-            console.error('Error assigning task status:', err);
+          
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
@@ -149,10 +148,10 @@ export class TasksArchivedComponent implements OnInit {
     if (name) {
       query.name = name;
     }
-    console.log(query);
+ 
     this.tasksService.get(query).subscribe({
       next: (response: any) => {  
-        console.log(response);
+      
         // Ensure Tasks is an array before iterating
         this.tasksByStatus['Archived'] = [];
         for (let item of response['data'].list) {

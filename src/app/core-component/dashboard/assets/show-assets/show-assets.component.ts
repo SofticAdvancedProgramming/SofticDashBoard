@@ -75,7 +75,7 @@ export class ShowAssetsComponent implements OnInit {
       }
       if (res['status']) {
         this.status = res['status'];
-        console.log(this.status)
+      
       }
     });
     this.getAssets();
@@ -124,11 +124,11 @@ export class ShowAssetsComponent implements OnInit {
       query.name = this.searchText.trim();
     }
   
-    console.log('Query:', query); // Debugging the query parameters
+     // Debugging the query parameters
   
     this.assetsService.getAsset(query).subscribe({
       next: (res) => {
-        console.log('Assets Response:', res.data.list); // Debugging the response
+        
         this.assets = res.data.list; // Update the assets list
         this.filteredAssets = this.assets; // Apply the filters directly to the view
         this.totalRows = res.data.totalRows; // Update total rows for pagination
@@ -150,10 +150,10 @@ export class ShowAssetsComponent implements OnInit {
   }
 
   delete(id: number) {
-    console.log(id)
+    
     this.assetsService.deleteAsset(id, this.companyId).subscribe({
       next: (res) => {
-        console.log(res);
+        
         this.getAssets();
       }
     })
@@ -165,11 +165,11 @@ export class ShowAssetsComponent implements OnInit {
     this.isChangeStatusPopupVisible = isVisible;
   }
   applyFilterPopup(event: any) {
-    console.log('Received Data:', event);
+   
 
     const assetName = event.name;
     const isAssigned: boolean = event.isAssigned;
-    console.log(isAssigned)
+   
     const assetCategoryId = event.AssetCategory;
     const isDrived: boolean = event.isDrived;
     let query: any = { companyId: this.companyId, pageIndex: this.page };
@@ -247,7 +247,7 @@ export class ShowAssetsComponent implements OnInit {
       });
 
     // if (this.searchText.trim()) {
-    // //  console.log(this.searchText)
+   
     //   this.filteredAssets = this.assets.filter(
     //     (asset) =>
     //         asset.assetCategoryName?.toLowerCase()
@@ -322,7 +322,7 @@ export class ShowAssetsComponent implements OnInit {
     );
   }
   filterByMainAsset() {
-    console.log(this.isMain);
+    
     this.getAssets();
   }
   clearFilters(): void {

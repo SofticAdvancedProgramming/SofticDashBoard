@@ -135,7 +135,7 @@ export class CurrencyTableComponent {
 
   public searcWithDebounce(event: any): void {
     this.debounceSearchWithDiscount(event);
-    console.log("###########");
+
   }
 
   public search(value: any): void {

@@ -48,11 +48,11 @@ export class TasksFilterPopUpComponent {
     getPriorities() {
       this.tasksService.getPriorities({}).subscribe({
         next: (res) => {
-          console.log(res);
+
           this.priorities = res.data.list;
         },
         error: (err) => {
-          console.log(err);
+
         },
       });
     }

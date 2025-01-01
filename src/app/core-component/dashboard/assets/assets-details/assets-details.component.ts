@@ -55,7 +55,7 @@ export class AssetsDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       const id = params['id'];
       if (id) {
-        console.log('Extracted assetId:', id);
+        
         this.gettAssets(Number(id));
         this.getRelatedAssets(Number(id));
       }
@@ -66,7 +66,7 @@ export class AssetsDetailsComponent implements OnInit {
     return localStorage.getItem('lang') === 'ar';
   }
   downloadFile(fileUrl: string) {
-    console.log('File URL:', fileUrl);
+    
 
     const link = document.createElement('a');
     link.href = fileUrl;
@@ -104,7 +104,7 @@ export class AssetsDetailsComponent implements OnInit {
     this.assetsService.getMainAssetsCategory(params).subscribe(
       res => {
         this.assetsCategory = res.data.list;
-        console.log(res.data.list);
+        
       },
       error => {
         console.error(error);
@@ -114,10 +114,10 @@ export class AssetsDetailsComponent implements OnInit {
 
   gettAssets(id: number) {
     const params = { id };
-    console.log('Requesting asset with ID:', id);
+    
     this.assetsService.getAsset(params).subscribe({
       next: (res) => {
-        console.log('Assets Response:', res.data.list);
+        
         this.assets = res.data.list.map((asset: any) => {
           // const category = this.assetsCategory.find(cat => cat.id === asset.assetCategoryId);
           // const assetCategoryName = category ? (this.translate.currentLang === 'ar' ? category.nameAr : category.name) : 'Unknown';
@@ -141,7 +141,7 @@ export class AssetsDetailsComponent implements OnInit {
           //  assetCategoryName: assetCategoryName
           };
         });
-        console.log('Mapped Assets Array:', this.assets);
+        
 
         this.getRelatedAssets(id);
       },
@@ -160,7 +160,7 @@ export class AssetsDetailsComponent implements OnInit {
       next: (response: any) => {
         if (response.features && response.features.length > 0) {
           this.selectedAssetAddress = response.features[0]?.place_name;
-          console.log('Fetched Address:', this.selectedAssetAddress);
+         
         } else {
           this.selectedAssetAddress = 'Address not available';
         }
@@ -170,18 +170,18 @@ export class AssetsDetailsComponent implements OnInit {
         this.selectedAssetAddress = 'Address not available';
       },
       complete: () => {
-        console.log('Address fetch complete');
+        
       }
     });
   }
   getRelatedAssets(assetId: number) {
     //const params = { assetId };
     const params = { parentAssetId:assetId };
-    console.log('Requesting related assets for assetId:', assetId);
+    
    // this.assetsService.getRelatedAssets(params).subscribe({
       this.assetsService.getAsset(params).subscribe({
       next: (res) => {
-        console.log('Related Assets Response:', res);
+        
         if (res.data && Array.isArray(res.data.list)) {
           this.relatedAssets = res.data.list;
         } else {
@@ -206,7 +206,7 @@ export class AssetsDetailsComponent implements OnInit {
 
   handleDeleteConfirm(){
     if(this.childAsset){
- //   console.log(this.deletedrelatedAssetsId);
+  
     this.edit();
     }
   }
@@ -216,24 +216,23 @@ export class AssetsDetailsComponent implements OnInit {
   }
 
   getChild(){
-    console.log(this.deletedrelatedAssetsId)
+    
     let params={id:this.deletedrelatedAssetsId}
     this.assetsService.getAsset(params).subscribe(
       (res)=>{
         this.childAsset=res.data.list[0];
-    //console.log(this.childAsset)
-    //  console.log(res)
+
       },
       (err)=>{console.log(err)}
     )
   }
   edit(){
-    console.log(this.childAsset)
+   
     this.childAsset.parentAssetId=null;
-    console.log(this.childAsset);
+    
     this.assetsService.edit(this.childAsset).subscribe({
       next:(res)=>{
-      //console.log(res);
+     
         this.isConfirmationDialogVisible=false;
         this.ngOnInit();},
       error:(res)=>{console.log(res);}

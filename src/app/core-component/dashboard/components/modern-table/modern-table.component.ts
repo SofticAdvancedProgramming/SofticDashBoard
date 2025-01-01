@@ -176,7 +176,7 @@ export class ModernTableComponent implements OnInit {
     this.onCLickNewActionOutput.emit(data);
   }
   onOptionSelected(event:any){
-   console.log(event)
+  
 
   }
 

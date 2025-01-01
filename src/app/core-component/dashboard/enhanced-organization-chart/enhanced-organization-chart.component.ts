@@ -37,9 +37,9 @@ export class EnhancedOrganizationChartComponent implements OnInit ,AfterViewInit
   updateTspanAttributes() {
     // Find the <tspan> element
     const tspanElements = this.el.nativeElement.querySelectorAll('tspan[x="230"][y="30"]');
-    console.log("tspanElements",tspanElements)
+ 
     if (tspanElements.length>0) {
-      console.log('Tspan found, updating attributes...');
+     
       for(let i=0;i<tspanElements.length;i++)
       {
         this.renderer.setAttribute(tspanElements[i], 'x', this.updatedX.toString());
@@ -59,7 +59,7 @@ export class EnhancedOrganizationChartComponent implements OnInit ,AfterViewInit
 
     this.organizationChartService.getAllOrganizationChart({ companyId,pageSize:10000 }).subscribe({
       next: (orgData) => {
-        console.log("orgData.data.list",orgData.data.list)
+    
         for (let item of orgData.data.list) {
           orgChartData.push({
             // companyId: item.companyId,

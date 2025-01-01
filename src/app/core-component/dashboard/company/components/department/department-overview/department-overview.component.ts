@@ -38,7 +38,7 @@ export class DepartmentOverviewComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['Department'] && this.Department && this.Department.id) {
-      console.log('Department input has changed:', this.Department);
+     
       this.loadEmployeesForDepartment(this.Department.id);
     } else {
       console.warn('Department ID is missing or undefined');
@@ -48,13 +48,13 @@ export class DepartmentOverviewComponent implements OnInit, OnChanges {
 
   async getCompanyDetails(companyId: string): Promise<void> {
     try {
-      console.log('Fetching company details for companyId:', companyId);
+      
       const response = await this.companyService.getCompany({ id: companyId }).toPromise();
       if (response && response.data && response.data.list && response.data.list.length > 0) {
         this.company = response.data.list[0];
-        console.log('Company details loaded:', this.company);
+        
       } else {
-        console.error('Unexpected response structure:', response);
+        
       }
     } catch (error) {
       console.error('Error fetching company details:', error);
@@ -62,13 +62,13 @@ export class DepartmentOverviewComponent implements OnInit, OnChanges {
   }
 
   loadEmployeesForDepartment(departmentId: number): void {
-    console.log('Loading employees for departmentId:', departmentId);
+
     this.employeeService.loadEmployees({ departmentId: departmentId }).subscribe({
       next: (response) => {
-        console.log('Employee response:', response);
+       
         if (response && response.data && response.data.list) {
           this.employees = response.data.list;
-          console.log('Employees loaded:', this.employees);
+         
         } else {
           console.error('Unexpected response structure when loading employees:', response);
         }

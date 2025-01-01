@@ -89,13 +89,13 @@ export class ComplaintsSuggestionsComponent {
             }));
 
             this.filteredComplaints = this.complaints;
-           // console.log("dddddaaaatttttaaa",this.filteredComplaints)
+         
             this.totalComplaints = response.data.totalRows || 0;
           }
         },
         error: (error) => {
           this.loading = false;
-        //  console.error('Error fetching complaints/suggestions:', error);
+  
         },
       });
     }
@@ -113,16 +113,16 @@ export class ComplaintsSuggestionsComponent {
       if (result) {
         this.IssueService.deleteIssue(id,companyId).subscribe({
           next:data=>{
-         //   console.log("deleted",data);
+         
             this.loadComplaints();
           }
         })
       }
     });
     if (this.activeTab === 'complaints') {
-      //console.log(`Deleting complaint with ID: ${id}`);
+      
     } else if (this.activeTab === 'suggestions') {
-     // console.log(`Deleting suggestion with ID: ${id}`);
+     
     }
   }
 
@@ -144,27 +144,27 @@ export class ComplaintsSuggestionsComponent {
     //Change status first time to opened
     //1-Get the complaints or suggetion
 
-   // console.log("filteredComplaintsfilteredComplaints",this.filteredComplaints)
+   
     //2-check for status
    // debugger
       this.IssueExcuter.getIssueExcuterById(complaintId).subscribe({
         next: (response) => {
-        console.log("my response data",response)
+        
         //debugger;
          if (response.data?.list[0].issue.issueStatusId == issueStatus.Submitted) {
             //3-Change status
             let executerId=response.data?.list[0].id;
-          //  console.log("ExecuterId",executerId)
+         
             this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.Opened).subscribe({
               next:data=>
                 {
-                  console.log("sddddsssssssssssssssssss",data)
+                  
 
                 }
             });
          }
           this.loading = false;
-          console.log('Complaint details loaded:', this.complaintDetails);
+         
         },
         error: (error) => {
           this.loading = false;

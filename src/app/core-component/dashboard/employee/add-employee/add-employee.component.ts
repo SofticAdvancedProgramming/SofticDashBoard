@@ -40,7 +40,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initializeForm();
     this.companyId = Number(localStorage.getItem('companyId')) || 0;
-    console.log('Company ID from localStorage:', this.companyId);
+    
   }
 
   private initializeForm(): void {
@@ -69,7 +69,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
       companyId: this.companyId
     };
     this.isSubmitting = true;
-    console.log(this.formValue);
+    
 
     this.employeeService.addEmployee(this.formValue).pipe(
       takeUntil(this.destroy$)
@@ -79,7 +79,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
         this.showSuccess('Employee Added', 'Employee has been added successfully');
         this.router.navigate(['/dashboard/indexCompany']).then(success => {
           if (success) {
-            console.log('Navigation to employee list successful');
+            
           } else {
             console.error('Navigation to employee list failed');
           }

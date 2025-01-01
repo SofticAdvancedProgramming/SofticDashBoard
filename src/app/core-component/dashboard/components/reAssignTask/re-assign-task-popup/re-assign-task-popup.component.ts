@@ -39,7 +39,7 @@ export class ReAssignTaskPopupComponent {
   } 
   ngOnInit() {
     this.taskId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log('Task ID:', this.taskId);
+    
     this.loadEmployees();
     this.initiation();
     this.getEmployeesAssignments();
@@ -59,7 +59,7 @@ export class ReAssignTaskPopupComponent {
     for (let i = 0; i < this.assignEmployees.length; i++) {
       employeesIds.push(this.assignEmployees[i].employeeId);
     }
-    console.log(employeesIds);
+    
 
 
     if (this.selectedEmployee && this.taskId && this.form.controls['isHasMainCategory'].value) {
@@ -69,17 +69,17 @@ export class ReAssignTaskPopupComponent {
         employeeIds: [...employeesIds, this.selectedEmployee.id],
         reason: this.form.controls['comment'].value
       };
-      console.log(this.selectedEmployee.id);
+      
 
       this.taskService.reAssignTask(reAssignTaskData).subscribe({
         next: (response) => {
           this.toast.success('Task assigned successfully');
           this.onEmployeeSelected.emit(this.selectedEmployee!);
           this.closePopup();
-          console.log(response);
+         
         },
         error(err) {
-          console.log(err);
+          
         },
       });
     }
@@ -96,10 +96,10 @@ export class ReAssignTaskPopupComponent {
           this.toast.success('Task assigned successfully');
           this.onEmployeeSelected.emit(this.selectedEmployee!);
           this.closePopup();
-          console.log(response);
+          
         },
         error(err) {
-          console.log(err);
+          
         },
       });
     }
@@ -139,11 +139,11 @@ export class ReAssignTaskPopupComponent {
     const employee = this.employees.find((emp) => emp.id === employeeId);
 
     if (employee) {
-      console.log('Selected Employee:', employee);
+      
       this.selectedEmployee = employee;
-      console.log('Selected Employee ID:', this.selectedEmployee?.id);
+      
     } else {
-      console.log('Employee not found.');
+      
     }
   }
 
@@ -154,12 +154,12 @@ export class ReAssignTaskPopupComponent {
     }
     this.taskService.assignEmployees(query).subscribe({
       next: (res) => {
-        console.log(res);
+      
         this.assignEmployees = res.data.list;
-        console.log(this.assignEmployees);
+        
       },
       error: (err) => {
-        console.log(err);
+       
       }
     })
   }

@@ -89,19 +89,18 @@ export class TasksIndexComponent implements OnInit {
   }
   public search(value: any): void {
     this.valueOfSearch = value.length > 0 ? value.trim() : '';
-    console.log(this.valueOfSearch);
+   
     this.loadAllTasks(this.valueOfSearch);
   }
 
   onDrop(event: CdkDragDrop<Task[]>) {
-    console.log('Event:', event);
+   
     // Access the dropped task
     const droppedTask = event.item.data;
-    console.log('Dropped Task:', droppedTask);
+    
 
     const droppedIntoStatus = event.container.id;
-    console.log('Dropped Task:', droppedTask);
-    console.log('Dropped into Status:', droppedIntoStatus);
+  
     let newStatus: number = 0;
     switch (droppedIntoStatus) {
       case 'TODO':
@@ -142,7 +141,7 @@ export class TasksIndexComponent implements OnInit {
       .assignTaskStatus({ taskId: taskId, statusId: statusId })
       .subscribe({
         next: (response) => {
-          console.log('assign task response', response);
+        
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -150,7 +149,7 @@ export class TasksIndexComponent implements OnInit {
           });
         },
         error: (err) => {
-          console.error('Error assigning task status:', err);
+        
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
@@ -169,10 +168,10 @@ export class TasksIndexComponent implements OnInit {
     if (name) {
       query.name = name;
     }
-    console.log(query);
+    
     this.tasksService.get(query).subscribe({
       next: (response: any) => {
-        console.log(response);
+      
         // Ensure Tasks is an array before iterating
         this.tasksByStatus['TODO'] = [];
         this.tasksByStatus['In Progress'] = [];
@@ -203,7 +202,7 @@ export class TasksIndexComponent implements OnInit {
     this.isFilterPopupVisible = isVisible;
   }
   applyFilterPopup(event: any) {
-    console.log('Received Data:', event);
+   
 
     const taskName = event.name;
     const code: boolean = event.taskCode;
@@ -262,7 +261,7 @@ export class TasksIndexComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+       
       },
     });
   }

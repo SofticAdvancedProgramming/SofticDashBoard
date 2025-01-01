@@ -113,11 +113,11 @@ export class IndexComponent implements OnInit {
       payload.departmentId = this.selectedDepartmentId;
     }
 
-    console.log('Sending payload:', payload); // Debugging line
+    
 
     this.positionService.getPosition(payload).subscribe({
       next: (response) => {
-        console.log( response.data.list)
+    
         this.positions = response.data.list;
         this.totalItems = response.data.totalRows;
         this.getPositionEmployee();
@@ -211,7 +211,7 @@ export class IndexComponent implements OnInit {
     this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
     this.loadUnassignedEmployees();
     this.isAddEmployee = true;
-    console.log(positionId);
+   
 
   }
 

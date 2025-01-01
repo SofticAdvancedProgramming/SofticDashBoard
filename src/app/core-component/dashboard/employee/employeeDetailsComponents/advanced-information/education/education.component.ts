@@ -70,7 +70,7 @@ export class HighSchoolComponent implements OnInit, OnDestroy {
       .pipe(
         tap((res) => {
           this.userEducation = res.data.list[0];
-          console.log(res);
+      
         }),
         takeUntil(this.unsubscribe$)
       )

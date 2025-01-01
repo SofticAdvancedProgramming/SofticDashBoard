@@ -104,7 +104,7 @@ export class DepartmentsComponent implements OnInit {
       payload.branchId = this.selectedBranchId;
     }
 
-    console.log('Sending payload:', payload); // Debugging line
+   
 
     this.departmentService.getDepartment(payload).subscribe({
       next: (response) => {
@@ -212,7 +212,7 @@ export class DepartmentsComponent implements OnInit {
   editDepartment(department: Department) {
     this.isEdit = true;
     this.department = department;
-    console.log(department);
+  
   }
 
   private showSuccess(detail: string): void {

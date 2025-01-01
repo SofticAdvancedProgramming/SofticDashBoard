@@ -40,7 +40,7 @@ export class MedicalInsuranceComponent {
       .pipe(
         tap((res) => {
           this.userMedical = res.data.list[res.data.totalRows-1];
-          console.log(res);
+         
         }),
         takeUntil(this.unsubscribe$)
       )

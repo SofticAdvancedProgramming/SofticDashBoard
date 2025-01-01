@@ -56,16 +56,16 @@ if (isActivate) {
                         fs.writeFileSync(jsFiles[n], content);
                     }
                 }
-                console.log('(INFO) Syncfusion License imported successfully.');
+               
             } else {
-                console.log('(Error) License key is not valid.');
+             
             }
         }
     } else {
-        console.log('Please add the syncfusion-license.txt file or set environment variable SYNCFUSION_LICENSE');
+       
     }
 } else {
-    console.log('Supported command: npx syncfusion-license activate');
+   
 }
  
 function getEncryptedKey(uniKey) {
