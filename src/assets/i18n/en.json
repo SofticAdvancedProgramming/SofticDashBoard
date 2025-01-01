@@ -969,6 +969,8 @@
     "addToDo":"Add To-do",
     "toDoDescription": "To-Do Description",
     "assignTo": "Assign To",
+    "taskPriority": "Task Priority",
+    "selectPriority": "Select Priority",
     "selectEmployee": "Select Employee",
     "remove":"Remove"
   }

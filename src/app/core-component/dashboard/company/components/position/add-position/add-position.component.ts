@@ -30,7 +30,7 @@ export class AddPositionComponent implements OnInit {
   @Input() positionData: Position | any;
   @Input() _branchId: number | any;
   @Output() action = new EventEmitter<boolean>();
-  @Input() companyId?: number = 0;
+  @Input() companyId?: any;
   positionType: any[] = [];
   branches:branch[]=[];
   departments: Department[] = [];
