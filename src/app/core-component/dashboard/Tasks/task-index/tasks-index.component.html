@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="col-lg-8 d-flex  align-items-center justify-content-between">
-        <div class="d-flex flex-row justify-content-start align-items-center col-9">
+        <div class="d-flex flex-row justify-content-start align-items-center col-8">
           <input
             placeholder="{{ 'viewEmployees.SEARCH' | translate }}"
             class="form-control custom-search"
@@ -18,7 +18,7 @@
             (ngModelChange)="searcWithDebounce(searchText)"
           />
         </div>
-        <div class="col-3">
+        <div class="col-3" (click)="toggleFilterPopup()">
           <img src="../../../../../assets/images/filter.png" alt="filter Image">
         </div>
       </div>
@@ -97,3 +97,5 @@
     </div>
   </div>
 </div>
+
+<app-tasks-filter-pop-up *ngIf="isFilterPopupVisible" (closeFilterPopup)="onFilterPopupClose($event)" (confirmFilterPopup)="applyFilterPopup($event)"></app-tasks-filter-pop-up>

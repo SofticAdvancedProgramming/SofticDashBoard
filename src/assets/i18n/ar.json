@@ -891,6 +891,7 @@
     "status": "الحالة",
     "active": "نشط",
     "inactive": "غير نشط",
+    "code": "الكود",
     "delivered": "تم التسليم",
     "yes": "نعم",
     "no": "لا",
@@ -936,6 +937,8 @@
   "addToDo": "إضافة مهمة",
   "toDoDescription": "وصف المهمة",
   "assignTo": "تعيين إلى",
+  "taskPriority": "أولوية المهمة",
+  "selectPriority": "اختر أولوية",
   "selectEmployee": "اختر الموظف",
   "remove": "إزالة"
 }

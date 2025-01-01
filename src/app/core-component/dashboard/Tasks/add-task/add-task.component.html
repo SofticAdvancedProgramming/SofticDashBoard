@@ -368,13 +368,14 @@
               (click)="deleteTodo()"
             >
               <img src="../../../../../assets/images/trash.png" alt="remove"> {{'ToDo.remove' | translate}}
+              <app-delete-confirmation-pop-up *ngIf="isDelete" (cancel)="onCancel()" (confirm)="removeTodo(i)" ></app-delete-confirmation-pop-up>
             </button>
           </div>
         </div>
         <button class="btn action-btn" type="button" *ngIf="todos.length -1 == i" (click)="addToDoFun()">
           {{'ToDo.addToDo' | translate}}
         </button>
-        <app-delete-confirmation-pop-up *ngIf="isDelete" (cancel)="onCancel()" (confirm)="removeTodo(i)" ></app-delete-confirmation-pop-up>
+        
       </div>
     </div>
   </div>
