@@ -311,14 +311,16 @@ export class ShowAssetsComponent implements OnInit {
   }
   showCannotDeleteToast(employeeName: string) {
     this.toastr.warning(
-      `This asset is assigned to ${employeeName}. You cannot delete it.`,
-      'Delete Not Allowed'
+      !this.isArabic?
+      `This asset is assigned to ${employeeName}. You cannot delete it.`:
+      `هذا الأصل مسند للموظف ${employeeName} .لا يمكنك مسحه `
     );
   }
   showCannotChangeStatusToast(employeeName: string) {
     this.toastr.warning(
-      `This asset is assigned to ${employeeName}. You cannot change its status.`,
-      'change status Not Allowed'
+      !this.isArabic?
+      `This asset is assigned to ${employeeName}. You cannot change its status`:
+      `هذا الأصل مسند للموظف ${employeeName} .لا يمكنك تغيرر حالته `
     );
   }
   filterByMainAsset() {
