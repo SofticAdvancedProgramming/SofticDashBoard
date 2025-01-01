@@ -45,7 +45,7 @@ export class IndexComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
-  isArabic: boolean = false;
+  isArabic: boolean =  localStorage.getItem('lang')=='ar'?true:false;;
   searchText!:string;
   selectedDepartmentId: number | null = null;
   filteredDepartments: Department[] = [];

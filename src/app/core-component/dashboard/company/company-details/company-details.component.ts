@@ -28,7 +28,7 @@ export class CompanyDetailsComponent implements OnInit {
   company: Company = {} as Company;
   cityName: string = '';
   countryName: string = '';
-  isArabic: boolean = false;
+  isArabic: boolean = localStorage.getItem('lang')=='ar'?true:false;
   activeTabIndex: number = 0; // Default tab index (first tab)
   constructor(
     private route: ActivatedRoute,
@@ -37,7 +37,7 @@ export class CompanyDetailsComponent implements OnInit {
     private messageService: MessageService,
     private translate: TranslateService,
     private router :Router
-    
+
   ) {}
 
   async ngOnInit() {
@@ -52,6 +52,9 @@ export class CompanyDetailsComponent implements OnInit {
   }
   checkLanguageDirection(): void {
     this.isArabic = this.translate.currentLang === 'ar';
+  }
+  get _isArabic():boolean{
+    return localStorage.getItem('lang')==='ar';
   }
   navigateToTab(index: number): void {
     this.activeTabIndex = index; // Update active tab
