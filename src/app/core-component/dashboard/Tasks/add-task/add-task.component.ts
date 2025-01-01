@@ -64,6 +64,7 @@ export class AddTaskComponent implements OnInit {
     fileType?: string;
   }[] = [];
   employees: employee[] = [];
+  priorities: any[] = [];
   selectedEmployee: any;
   loadingMoreEmployees = false;
   todayDate: string = '';
@@ -85,7 +86,7 @@ export class AddTaskComponent implements OnInit {
     private toast: ToastrService,
     private datePipe: DatePipe,
     private router: Router,
-    private todoService:ToDoItemService
+    private todoService: ToDoItemService
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
@@ -99,6 +100,7 @@ export class AddTaskComponent implements OnInit {
     });
     this.initiation();
     this.loadEmployees();
+    this.getPriorities();
     this.todayDate = new Date().toISOString().split('T')[0];
     if (this.id) {
       this.getTaksDetails();
@@ -123,6 +125,7 @@ export class AddTaskComponent implements OnInit {
       duration: ['', Validators.required],
       taskToDoDescription: [''],
       AssetAttachment: [''],
+      priority: [''],
       todos: this.fb.array([]), // Initialize the FormArray
     });
   }
@@ -139,11 +142,11 @@ export class AddTaskComponent implements OnInit {
     );
   }
 
-  getTodoItems(){
+  getTodoItems() {
     let query = {
       taskId: this.id,
-      pageSize: 1000
-    }
+      pageSize: 1000,
+    };
     this.todoService.get(query).subscribe({
       next: (res) => {
         console.log(res);
@@ -153,7 +156,7 @@ export class AddTaskComponent implements OnInit {
           const todoGroup: any = this.fb.group({
             description: [todo.description, Validators.required],
             employeeId: [todo.employeeId, Validators.required],
-            id:[todo.id]
+            id: [todo.id],
           });
           // this.form.setControl('todos', todoGroup);
           this.todos.push(todoGroup);
@@ -161,8 +164,8 @@ export class AddTaskComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-      }
-    })
+      },
+    });
   }
 
   // Remove a specific todo field
@@ -179,17 +182,17 @@ export class AddTaskComponent implements OnInit {
       error(err) {
         console.log(err);
       },
-    })
+    });
   }
-  deleteTodo(){
+  deleteTodo() {
     this.isDelete = true;
   }
-  onCancel(){
+  onCancel() {
     this.isDelete = false;
   }
 
   populateForm() {
-    console.log("this.taskDetails,",this.taskDetails);
+    console.log('this.taskDetails,', this.taskDetails);
 
     const formattedDate = this.datePipe.transform(
       this.taskDetails?.startDate,
@@ -204,19 +207,20 @@ export class AddTaskComponent implements OnInit {
       taskToDoDescription: [''],
       AssetAttachment: [''],
       duration: this.taskDetails?.duration,
+      priority: this.taskDetails?.priorityId,
     });
     console.log(this.form.value);
 
     // Clear existing todos
     this.form.setControl('todos', this.fb.array([]));
-    console.log("todos",this.todos)
+    console.log('todos', this.todos);
 
     // Populate todos FormArray
     this.todoItems?.forEach((todo: any) => {
       const todoGroup: any = this.fb.group({
         description: [todo.description, Validators.required],
         employeeId: [todo.employeeId, Validators.required],
-        id:[todo.id]
+        id: [todo.id],
       });
       // this.form.setControl('todos', todoGroup);
       this.todos.push(todoGroup);
@@ -230,16 +234,15 @@ export class AddTaskComponent implements OnInit {
     for (let i = 0; i < this.todoValues.length; i++) {
       toDoItems.push({
         companyId: this.companyId,
-        id:this.todoValues[i].id,
-        ...this.todoValues[i]
+        id: this.todoValues[i].id,
+        ...this.todoValues[i],
       });
     }
     console.log(toDoItems);
 
     let query: any;
-    if (this.selectedEmployee?.id) {
-      query = {
-        companyId: this.companyId,
+    query = {
+      companyId: this.companyId,
         name: this.form.controls['name'].value,
         // taskFile: this.form.controls['taskFile'].value,
         description: this.form.controls['taskDetails'].value,
@@ -248,52 +251,36 @@ export class AddTaskComponent implements OnInit {
         statusId: 1,
         duration: this.form.controls['duration'].value,
         taskAttachments: this.attachments,
-        taskAssignments: [
-          {
-            companyId: this.companyId,
-            employeeId: this.selectedEmployee.id,
-          },
-        ],
-      };
-  
-      if (this.todoValues) {
-        query = {
+    };
+
+    if (this.selectedEmployee?.id) {
+      query.taskAssignments = [
+        {
           companyId: this.companyId,
-          name: this.form.controls['name'].value,
-          // taskFile: this.form.controls['taskFile'].value,
-          description: this.form.controls['taskDetails'].value,
-          startDate: this.form.controls['from'].value,
-          initialBudget: this.form.controls['initialCost'].value,
-          statusId: 1,
-          duration: this.form.controls['duration'].value,
-          taskAttachments: this.attachments,
-          taskAssignments: [
-            {
-              companyId: this.companyId,
-              employeeId: this.selectedEmployee.id,
-            },
-          ],
-          toDoItems: toDoItems,
-        };
+          employeeId: this.selectedEmployee.id,
+        },
+      ];
+
+      if (this.todoValues) {
+        query.toDoItems = toDoItems;
+      }
+
+      if(this.form.controls['priority'].value){
+        query.priorityId = this.form.controls['priority'].value
       }
     } else {
-      query = {
-        companyId: this.companyId,
-        name: this.form.controls['name'].value,
-        // taskFile: this.form.controls['taskFile'].value,
-        description: this.form.controls['taskDetails'].value,
-        startDate: this.form.controls['from'].value,
-        initialBudget: this.form.controls['initialCost'].value,
-        statusId: 1,
-        duration: this.form.controls['duration'].value,
-        taskAttachments: this.attachments,
-        taskAssignments: [],
-        toDoItems: toDoItems,
-      };
+      query.taskAssignments = []
+
+      if (this.todoValues) {
+        query.toDoItems = toDoItems;
+      }
+      if(this.form.controls['priority'].value){
+        query.priorityId = this.form.controls['priority'].value
+      }
     }
     console.log(this.form.value);
     if (this.id) {
-      console.log("edit mode",this.id)
+      console.log('edit mode', this.id);
       query.id = this.id;
     }
     if (this.form.value) {
@@ -398,6 +385,18 @@ export class AddTaskComponent implements OnInit {
 
       reader.readAsDataURL(file);
     }
+  }
+
+  getPriorities() {
+    this.tasksService.getPriorities({}).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.priorities = res.data.list;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   loadEmployees() {

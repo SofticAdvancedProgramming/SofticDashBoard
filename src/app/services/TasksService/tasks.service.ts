@@ -3,6 +3,7 @@ import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
 import { TasksBaseController } from '../../apis/TasksBaseController';
 import { taskController } from '../../apis/taskController';
+import { TasksPrioritiesController } from '../../apis/tasksPrioritiesController';
 
 
 @Injectable({
@@ -82,5 +83,10 @@ export class TasksService {
   count(request:any):Observable<any>
   {
     return this.http.request('POST', TasksBaseController.Count, request);
-   }
+  }
+
+  getPriorities(request:any):Observable<any>
+  {
+    return this.http.request('POST', TasksPrioritiesController.GET , request);
+  }
 }
