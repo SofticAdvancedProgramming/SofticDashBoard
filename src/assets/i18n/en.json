@@ -276,6 +276,8 @@
     "SEARCH": "Search..."
   },
   "INDEX_POSITION": {
+
+    "SELECT_BRANCH":"Select Branch",
     "ADD_POSITION": "Add Position",
     "DEPARTMENT": "Department",
     "ADD_EMPLOYEE": "Add Employee",

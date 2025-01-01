@@ -103,7 +103,6 @@ export class IndexComponent implements OnInit {
   loadPositions(page: number = this.currentPage): void {
     const companyId = this.getCompanyId();
     if (!companyId) return;
-
      const payload: any = {
       companyId: companyId,
       pageIndex: page,
@@ -113,7 +112,6 @@ export class IndexComponent implements OnInit {
     if (this.selectedDepartmentId !== null) {
       payload.departmentId = this.selectedDepartmentId;
     }
-
     console.log('Sending payload:', payload); // Debugging line
 
     this.positionService.getPosition(payload).subscribe({
@@ -127,6 +125,55 @@ export class IndexComponent implements OnInit {
     });
 
   }
+
+
+  loadEntities( ): void {
+    let name=this.searchText.trim();
+    let query: any = { companyId: this.companyId,pageIndex :this.currentPage};
+    if(name){
+    if (/^[a-zA-Z]/.test(name)) {
+      query = {
+        ...query,
+        positionTypeName:name
+      };
+    }else if(name){
+      query = {
+        ...query,
+        positionTypeNameAr:name
+      };
+    }}
+    if(this.selectedDepartmentId){
+      query={
+        ...query,
+        departmentId:this.selectedDepartmentId
+      }
+    }
+    console.log(query)
+    this.positionService.getPosition(query).subscribe(
+      {
+        next: (response) => {
+          console.log( response.data.list)
+          this.positions = response.data.list;
+          this.totalItems = response.data.totalRows;
+          this.getPositionEmployee();
+        },
+      }
+    )
+
+    //  const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
+    // (this.positionTypeService[methodName] as Function)(query).subscribe(
+    //   (response: any) => {
+    //     console.log(response)
+    //      if (response.status === 200) {
+    //       (this as any)[this.entityTypes[entity].data] = response.data.list;
+    //      this.positions=response.data.list
+    //     }
+    //   }
+    // );
+  }
+
+
+
   filterPositionsByDepartment(): void {
     this.currentPage = 1;
     this.loadPositions();
@@ -187,9 +234,25 @@ export class IndexComponent implements OnInit {
     }
   }
 
-  getDepartmentName(departmentId: number): string {
+  // getDepartmentName(departmentId: number): string {
+  //   const department = this.departments.find(dep => dep.id === departmentId);
+  //   if(department)
+  //   return this._isArabic?department.nameAr: department.name ?? 'Unknown';
+  // }
+
+
+  getDepartmentName(departmentId: number): string|undefined {
     const department = this.departments.find(dep => dep.id === departmentId);
-    return department?.name ?? 'Unknown';
+    if (department) {
+      return this._isArabic
+        ? department.nameAr
+        : department.name ?? 'Unknown';
+    }
+    return 'Unknown';
+  }
+
+  get _isArabic():boolean{
+    return localStorage.getItem('lang')==='ar';
   }
 
   addPosition(): void {
@@ -318,31 +381,7 @@ export class IndexComponent implements OnInit {
   private showSuccess(detail: string): void {
     this.messageService.add({ severity: 'success', summary: 'Success', detail });
   }
-  loadEntities(entity: string, pageIndex: number): void {
-    let name=this.searchText.trim();
-    let query: any = { companyId: this.companyId, pageIndex };
-     if(name){
-    if (/^[a-zA-Z]/.test(name)) {
-      query = {
-        ...query,
-        name:name
-      };
-    }else if(name){
-      query = {
-        ...query,
-        nameAr:name
-      };
-    }}
-     const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
-    (this.positionTypeService[methodName] as Function)(query).subscribe(
-      (response: any) => {
-         if (response.status === 200) {
-          (this as any)[this.entityTypes[entity].data] = response.data.list;
-         this.positions=response.data.list
-        }
-      }
-    );
-  }
+
   loadMoreEmployees(page: number): void {
     this.employeeService.loadEmployees({
       companyId: this.companyId,

@@ -222,6 +222,7 @@
     "ASSIGN": "تعيين"
   },
   "ADD_POSITION": {
+    "SELECT_BRANCH":"اختر فرع",
     "POSITION_TYPE": "نوع الوظيفة",
     "SELECT_POSITION_TYPE": "اختر نوع الوظيفة",
     "DEPARTMENT": "القسم",

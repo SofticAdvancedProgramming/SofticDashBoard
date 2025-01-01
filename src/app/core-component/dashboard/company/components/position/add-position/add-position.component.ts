@@ -39,7 +39,9 @@ export class AddPositionComponent implements OnInit {
   loading: boolean = true;
   positionTypePage:number=1;
   hasCenterlizedDepartment:boolean=false;
-  
+  get isArabic():boolean{
+    return localStorage.getItem('lang')==='ar';
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -67,7 +69,7 @@ export class AddPositionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPositionTypes();
-   
+
 
     this.togglePositionField();
     if (this.isEdit) {
@@ -138,9 +140,9 @@ export class AddPositionComponent implements OnInit {
         }
       });
 
-    
+
     }
-   
+
   }
 
   async loadPositions(): Promise<void> {
@@ -224,7 +226,7 @@ export class AddPositionComponent implements OnInit {
     this.action.emit(false);
     this.cd.detectChanges();
     this.ngOnInit();
-  
+
   }
 
   createOrEdit(positionData: Position) {
@@ -302,20 +304,20 @@ export class AddPositionComponent implements OnInit {
   {
     const centerlized = this.form.get('centerlizedDepartment')?.value;
     console.log('Centerlized Department changed:', centerlized ? 'Enabled' : 'Disabled');
-    
-    
+
+
         const branchControl = this.form.get('branch');
-    
+
         if (centerlized) {
           // When centerlizedDepartment is true, remove the 'required' validator
           branchControl?.clearValidators();
           this.form.get('department')?.setValue('0')
-          
+
         } else {
           // When centerlizedDepartment is false, apply the 'required' validator
           branchControl?.setValidators(Validators.required);
         }
-    
+
         // Re-evaluate the validity of the 'branch' control after changing validators
         branchControl?.updateValueAndValidity();
 

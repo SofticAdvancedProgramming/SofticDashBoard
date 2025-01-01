@@ -3,9 +3,15 @@
     <form [formGroup]="form" (ngSubmit)="onSave()">
       <div class="form-group">
         <label for="positionType">{{ 'ADD_POSITION.POSITION_TYPE' | translate }}</label>
-        <select id="positionType" formControlName="positionType" class="form-control">
+        <select *ngIf="!isArabic"  id="positionType" formControlName="positionType" class="form-control">
           <option value="" disabled>{{ 'ADD_POSITION.SELECT_POSITION_TYPE' | translate }}</option>
           <option *ngFor="let item of positionType; trackBy: trackByPositionId" [value]="item.id">{{ item.name }}</option>
+
+        </select>
+        <select *ngIf="isArabic" id="positionType" formControlName="positionType" class="form-control">
+          <option value="" disabled>{{ 'ADD_POSITION.SELECT_POSITION_TYPE' | translate }}</option>
+          <option *ngFor="let item of positionType; trackBy: trackByPositionId" [value]="item.id">{{ item.nameAr }}</option>
+
         </select>
         <div *ngIf="form.get('positionType')?.invalid && form.get('positionType')?.touched" class="text-danger">
           {{ 'ADD_POSITION.REQUIRED_FIELD' | translate }}
@@ -22,9 +28,13 @@
 
       <div class="form-group" *ngIf="!form.get('centerlizedDepartment')?.value">
         <label for="branch">{{ 'ADD_POSITION.Branch' | translate }}</label>
-        <select id="branch" formControlName="branch" class="form-control" (change)="GetBranch($event)">
+        <select  *ngIf="!isArabic"  id="branch" formControlName="branch" class="form-control" (change)="GetBranch($event)">
           <option value="0" disabled>{{ 'ADD_POSITION.SELECT_BRANCH' | translate }}</option>
           <option *ngFor="let item of branches; trackBy: trackByBranchId" [value]="item.id">{{ item.name }}</option>
+        </select>
+        <select  *ngIf="isArabic" id="branch" formControlName="branch" class="form-control" (change)="GetBranch($event)">
+          <option value="0" disabled>{{ 'ADD_POSITION.SELECT_BRANCH' | translate }}</option>
+          <option *ngFor="let item of branches; trackBy: trackByBranchId" [value]="item.id">{{ item.nameAr }}</option>
         </select>
         <div *ngIf="form.get('branch')?.invalid && form.get('branch')?.touched" class="text-danger">
           {{ 'ADD_POSITION.REQUIRED_FIELD' | translate }}
@@ -33,9 +43,13 @@
 
       <div class="form-group" *ngIf="form.get('branch')?.value || form.get('centerlizedDepartment')?.value">
         <label for="department">{{ 'ADD_POSITION.DEPARTMENT' | translate }}</label>
-        <select id="department" formControlName="department" class="form-control" (change)="GetDepartment($event)">
+        <select *ngIf="!isArabic" id="department" formControlName="department" class="form-control" (change)="GetDepartment($event)">
           <option value="0" disabled>{{ 'ADD_POSITION.SELECT_DEPARTMENT' | translate }}</option>
           <option *ngFor="let item of departments; trackBy: trackByDepartmentId" [value]="item.id">{{ item.name }}</option>
+        </select>
+        <select *ngIf="isArabic" id="department" formControlName="department" class="form-control" (change)="GetDepartment($event)">
+          <option value="0" disabled>{{ 'ADD_POSITION.SELECT_DEPARTMENT' | translate }}</option>
+          <option *ngFor="let item of departments; trackBy: trackByDepartmentId" [value]="item.id">{{ item.nameAr }}</option>
         </select>
         <div *ngIf="form.get('department')?.invalid && form.get('department')?.touched" class="text-danger">
           {{ 'ADD_POSITION.REQUIRED_FIELD' | translate }}
