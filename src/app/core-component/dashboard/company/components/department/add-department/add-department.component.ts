@@ -88,7 +88,8 @@ export class AddDepartmentComponent implements OnInit {
       branchId: this.department?.branchId,
       description: this.department?.description,
       descriptionAr: this.department?.descriptionAr,
-      departmentType: this.department?.isHR ? 'HR' : this.department?.isFinancial ? 'Financial' : null
+      departmentType: this.department?.isHR ? 'HR' : this.department?.isFinancial ? 'Financial' : null,
+      isCentralized: this.department?.isCentralized
     });
   }
 

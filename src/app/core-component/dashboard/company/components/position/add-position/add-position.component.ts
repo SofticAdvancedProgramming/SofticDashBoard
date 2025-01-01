@@ -85,7 +85,8 @@ export class AddPositionComponent implements OnInit {
       department: this.positionData.departmentId,
       position:!this.positionData.positionManagerId?'': this.positionData.positionManagerId,
       isDirectManager: this.positionData.positionManagerId !== null,
-      branch:this._branchId
+      branch:this._branchId,
+      centerlizedDepartment:this.positionData.isCentralized
     })
   }
 
@@ -217,7 +218,8 @@ export class AddPositionComponent implements OnInit {
       companyId: Number(this.companyId),
       positionTypeId: parseInt(this.form.value.positionType, 10),
       departmentId: parseInt(this.form.value.department, 10),
-      positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : null
+      positionManagerId: this.form.value.isDirectManager ? parseInt(this.form.value.position, 10) : null,
+      isCentralized:this.form.value.centerlizedDepartment
     };
     this.createOrEdit(positionData);
 
