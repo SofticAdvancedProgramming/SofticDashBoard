@@ -309,6 +309,7 @@ export class AddPositionComponent implements OnInit {
         if (centerlized) {
           // When centerlizedDepartment is true, remove the 'required' validator
           branchControl?.clearValidators();
+          this.form.get('department')?.setValue('0')
           
         } else {
           // When centerlizedDepartment is false, apply the 'required' validator
