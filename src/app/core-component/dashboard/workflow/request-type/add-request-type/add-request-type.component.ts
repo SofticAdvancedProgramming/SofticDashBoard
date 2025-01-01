@@ -141,7 +141,7 @@ export class AddRequestTypeComponent implements OnInit {
         RequestTypePhoto: this.fb.control<string | null>(null),
         isCustomize: this.fb.control<boolean>(false, { nonNullable: true }),
         containAsset: this.fb.control<boolean>(false, { nonNullable: true }),
-        requestTypeConfigs: this.requestTypeConfigs,
+        requestTypeConfigs: this.requestTypeConfigs ,
       },
       { validators: [minLessThanMaxValidator] }  
     );
@@ -331,27 +331,27 @@ export class AddRequestTypeComponent implements OnInit {
       iconExtension: this.PhotoExtension || null,
       max: f.max,
       min: f.min,
-       containAsset: f.containAsset,
+      containAsset: f.containAsset,
       isCustomized: f.isCustomize,
       requestCategoryId: this.selectedRequestCategory?.id,
-      requestTypeConfigs: [],
+      requestTypeConfigs: null, // Initialize as null
     };
   
-     if (this.selectedRequestCategory?.id === 3) {
+    if (this.selectedRequestCategory?.id === 3) {
       delete payload.min;
       delete payload.max;
     }
   
-     if (f.isCustomize) {
-      this.requestTypeConfigs.controls.forEach((group, index) => {
+    if (f.isCustomize && this.requestTypeConfigs.length > 0) {
+      payload.requestTypeConfigs = this.requestTypeConfigs.controls.map((group, index) => {
         const g = group.value;
-        payload.requestTypeConfigs.push({
+        return {
           companyId: this.companyId,
           positionId: g.positionId,
           id: 0,
           rank: index + 1,
           requestTypeId: 0,
-        });
+        };
       });
     }
   
@@ -362,7 +362,7 @@ export class AddRequestTypeComponent implements OnInit {
         this.toast.success('Request Type Added Successfully');
         console.log('Server response:', res);
   
-         this.loadRequestTypes();
+        this.loadRequestTypes();
         this.RequestAdded.emit();
         this.form.reset();
         this.requestTypeConfigs.clear();
@@ -374,8 +374,14 @@ export class AddRequestTypeComponent implements OnInit {
         this.PhotoExtension = null;
         this.isSubmitting = false;
       },
+      error: (err) => {
+        console.error('Error adding request type:', err);
+        this.toast.error('Failed to add Request Type');
+        this.isSubmitting = false;
+      },
     });
   }
+  
   
 
   deleteRequestType(id: number): void {
