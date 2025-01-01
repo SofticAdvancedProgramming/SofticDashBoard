@@ -52,7 +52,7 @@
 
       <div class="form-group" *ngIf="form.get('isDirectManager')?.value">
         <label for="position">{{ 'ADD_POSITION.POSITION' | translate }}</label>
-        <select id="position" formControlName="position" class="form-control">
+        <select id="position" formControlName="position" class="form-control" >
           <option value="" disabled>{{ 'ADD_POSITION.SELECT_POSITION' | translate }}</option>
           <option *ngFor="let item of positions; trackBy: trackByPositionId" [value]="item.id">
             {{ item.name }} - {{ item.departmentName }} - {{ item.employeeName }}

@@ -145,6 +145,7 @@ export class AddPositionComponent implements OnInit {
   }
 
   async loadPositions(): Promise<void> {
+console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
     this.positionService.getPosition({ companyId: this.companyId,departmentId:this.departmentId ,pageSize:20 }).subscribe({
       next: async (response) => {
@@ -170,6 +171,7 @@ export class AddPositionComponent implements OnInit {
         );
 
         this.positions = positionsWithEmployeeNames;
+        console.log("this.positionspositionsWithEmployeeNames",positionsWithEmployeeNames)
         this.checkLoadingState();
       }
     });
@@ -279,8 +281,9 @@ export class AddPositionComponent implements OnInit {
     }
   }
   GetDepartment(event:any){
-
-    console.log(this.departmentId);
+   console.log("eventeeeeeeeeeee",event.target.value)
+    console.log("this.departmentId",this.departmentId);
+    this.departmentId=event.target.value
     this.loadPositions();
   }
 
