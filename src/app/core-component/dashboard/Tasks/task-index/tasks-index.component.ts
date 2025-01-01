@@ -16,11 +16,24 @@ import { tasksStatus } from '../../../../core/enums/taskStatus';
 import { debounce } from 'lodash';
 import { FormsModule } from '@angular/forms';
 import { ShortenPipe } from '../../../../core/pipes/shorten.pipe';
+import { TasksFilterPopUpComponent } from '../../../../common-component/tasks-filter-pop-up/tasks-filter-pop-up/tasks-filter-pop-up.component';
 
 @Component({
   selector: 'app-tasks-index',
   standalone: true,
-  imports: [ShortenPipe,TranslateModule, RouterLink, RouterLinkActive, DragDropModule, NgIf, NgFor, NgClass, DatePipe,FormsModule],
+  imports: [
+    ShortenPipe,
+    TranslateModule,
+    RouterLink,
+    RouterLinkActive,
+    DragDropModule,
+    NgIf,
+    NgFor,
+    NgClass,
+    DatePipe,
+    FormsModule,
+    TasksFilterPopUpComponent
+  ],
   templateUrl: './tasks-index.component.html',
   styleUrl: './tasks-index.component.css',
 })
@@ -34,7 +47,8 @@ export class TasksIndexComponent implements OnInit {
     Done: [],
     Archived: [],
   };
-
+  isFilterPopupVisible: boolean = false;
+  companyId: number = 0;
   connectedLists = this.statuses; // All lists are connected for drag-and-drop
 
   get connectedStatuses(): string[] {
@@ -64,6 +78,7 @@ export class TasksIndexComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.debounceSearchWithDiscount = debounce(this.search.bind(this), 500);
+    this.companyId = Number(localStorage.getItem('companyId'));
   }
 
   ngOnInit(): void {
@@ -145,7 +160,6 @@ export class TasksIndexComponent implements OnInit {
       });
   }
 
-
   loadAllTasks(name?: string): void {
     const companyId = Number(localStorage.getItem('companyId'));
     let query: any = {
@@ -174,7 +188,7 @@ export class TasksIndexComponent implements OnInit {
             this.tasksByStatus['Submit For Review'].push(item);
           } else if (item.statusId == tasksStatus.Done) {
             this.tasksByStatus['Done'].push(item);
-          } 
+          }
         }
       },
       error: (err) => {
@@ -182,5 +196,74 @@ export class TasksIndexComponent implements OnInit {
       },
     });
   }
+  toggleFilterPopup() {
+    this.isFilterPopupVisible = !this.isFilterPopupVisible;
+  }
+  onFilterPopupClose(isVisible: boolean) {
+    this.isFilterPopupVisible = isVisible;
+  }
+  applyFilterPopup(event: any) {
+    console.log('Received Data:', event);
 
+    const taskName = event.name;
+    const code: boolean = event.taskCode;
+    const taskPriorityId = event.taskPriorityId;
+    let query: any = { companyId: this.companyId };
+    if (taskName) {
+      query = {
+        companyId: this.companyId,
+        name: taskName.trim(),
+      };
+    } else if (taskPriorityId) {
+      query = {
+        companyId: this.companyId,
+        taskPriorityId: taskPriorityId,
+      };
+    } else if (taskName && taskPriorityId) {
+      query = {
+        companyId: this.companyId,
+        name: taskName,
+        taskPriorityId: taskPriorityId,
+      };
+    } else if (code) {
+      query = {
+        companyId: this.companyId,
+        taskCode: code,
+      };
+    } else if (taskName && taskPriorityId && code) {
+      query = {
+        companyId: this.companyId,
+        name: taskName,
+        taskPriorityId: taskPriorityId,
+        taskCode: code,
+      };
+    } else {
+      query = { companyId: this.companyId };
+    }
+    this.tasksService.get(query).subscribe({
+      next: (response) => {
+        console.log(response);
+        // Ensure Tasks is an array before iterating
+        this.tasksByStatus['TODO'] = [];
+        this.tasksByStatus['In Progress'] = [];
+        this.tasksByStatus['Done'] = [];
+        this.tasksByStatus['Submit For Review'] = [];
+        for (let item of response['data'].list) {
+          if (item.statusId === tasksStatus.Todo) {
+            this.tasksByStatus['TODO'].push(item);
+            // console.log(item);
+          } else if (item.statusId == tasksStatus.InProgress) {
+            this.tasksByStatus['In Progress'].push(item);
+          } else if (item.statusId == tasksStatus.SubmitForReview) {
+            this.tasksByStatus['Submit For Review'].push(item);
+          } else if (item.statusId == tasksStatus.Done) {
+            this.tasksByStatus['Done'].push(item);
+          }
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 }

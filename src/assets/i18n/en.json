@@ -919,6 +919,7 @@
     "active": "Active",
     "inactive": "In Active",
     "delivered": "Delivered",
+    "code": "Code",
     "yes": "Yes",
     "no": "No",
     "filter": "Filter",
