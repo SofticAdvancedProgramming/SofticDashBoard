@@ -132,7 +132,7 @@
           <div class="d-flex justify-content-end mb-3" *ngIf="i==requestTypeConfigs.length-1">
             <button type="button" class="btn addNewBtn" (click)="addRow()">{{"AddNewPosition"|translate}}</button>
           </div>
-          <div class="form-group toggle-group">
+          <div class="form-group toggle-group " *ngIf="hasCenterlizedDepartment">
             <label class="switch">
               <input type="checkbox" formControlName="isCentrlize" (change)="onCentralizedToggle(i)" />
               <span class="slider"></span>

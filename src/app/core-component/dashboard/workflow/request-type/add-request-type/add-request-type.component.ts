@@ -111,13 +111,13 @@ export class AddRequestTypeComponent implements OnInit {
     this.loadBranchs();
     this.loadRequestCategory();
     this.loadRequestTypes();
-
+    this.checkIsCenteralizedCompany();
     this.form.statusChanges.subscribe(() => {
-     
+
     });
 
     this.form.valueChanges.subscribe(() => {
-      this.cdr.detectChanges(); // Ensure UI updates for error messages
+      this.cdr.detectChanges();
     });
 
     this.form.controls.isCustomize.valueChanges.subscribe((value) => {
@@ -193,7 +193,7 @@ export class AddRequestTypeComponent implements OnInit {
 
   loadDepartments(branchId: number | null, rowIndex: number): void {
     const isCentralized = this.requestTypeConfigs.at(rowIndex).controls.isCentrlize.value;
-  
+
     this.requestTypeService.getDepartments({ branchId, isCentralized }).subscribe({
       next: (res) => {
         this.departmentOptions[rowIndex] = res.data.list || [];
@@ -201,7 +201,7 @@ export class AddRequestTypeComponent implements OnInit {
       error: (err) => console.error(err),
     });
   }
-  
+
 
 
   loadPositions(departmentId: number, rowIndex: number): void {
@@ -254,35 +254,35 @@ export class AddRequestTypeComponent implements OnInit {
     const isCentralized = this.requestTypeConfigs.at(rowIndex).controls.isCentrlize.value;
 
     if (branch && !isCentralized) {
-        this.requestTypeConfigs.at(rowIndex).controls.branchId.setValue(branch.id);
-        this.loadDepartments(branch.id, rowIndex);
+      this.requestTypeConfigs.at(rowIndex).controls.branchId.setValue(branch.id);
+      this.loadDepartments(branch.id, rowIndex);
     } else {
-        this.requestTypeConfigs.at(rowIndex).controls.departmentId.clearValidators();
-        this.requestTypeConfigs.at(rowIndex).controls.departmentId.updateValueAndValidity();
+      this.requestTypeConfigs.at(rowIndex).controls.departmentId.clearValidators();
+      this.requestTypeConfigs.at(rowIndex).controls.departmentId.updateValueAndValidity();
     }
-}
-onCentralizedToggle(rowIndex: number): void {
-  const isCentralized = this.requestTypeConfigs.at(rowIndex).controls.isCentrlize.value;
-
-  const branchControl = this.requestTypeConfigs.at(rowIndex).controls.branchId;
-  const departmentControl = this.requestTypeConfigs.at(rowIndex).controls.departmentId;
-
-  if (isCentralized) {
-    // Clear branch-related validators and hide it
-    branchControl.clearValidators();
-    branchControl.reset();
-    this.departmentOptions[rowIndex] = []; // Clear departments if centralized
-    this.loadDepartments(null, rowIndex); // Load departments for centralization
-  } else {
-    // Set branch-related validators and show it
-    branchControl.setValidators(Validators.required);
-    this.departmentOptions[rowIndex] = []; // Reset departments to match selected branch
-    departmentControl.reset(); // Reset department selection
   }
+  onCentralizedToggle(rowIndex: number): void {
+    const isCentralized = this.requestTypeConfigs.at(rowIndex).controls.isCentrlize.value;
 
-  branchControl.updateValueAndValidity();
-  departmentControl.updateValueAndValidity();
-}
+    const branchControl = this.requestTypeConfigs.at(rowIndex).controls.branchId;
+    const departmentControl = this.requestTypeConfigs.at(rowIndex).controls.departmentId;
+
+    if (isCentralized) {
+      // Clear branch-related validators and hide it
+      branchControl.clearValidators();
+      branchControl.reset();
+      this.departmentOptions[rowIndex] = []; // Clear departments if centralized
+      this.loadDepartments(null, rowIndex); // Load departments for centralization
+    } else {
+      // Set branch-related validators and show it
+      branchControl.setValidators(Validators.required);
+      this.departmentOptions[rowIndex] = []; // Reset departments to match selected branch
+      departmentControl.reset(); // Reset department selection
+    }
+
+    branchControl.updateValueAndValidity();
+    departmentControl.updateValueAndValidity();
+  }
 
 
   onDepartmentSelect(departmentId: any, rowIndex: number): void {
@@ -367,7 +367,7 @@ onCentralizedToggle(rowIndex: number): void {
       containAsset: f.containAsset,
       isCustomized: f.isCustomize,
       requestCategoryId: this.selectedRequestCategory?.id,
-      requestTypeConfigs: null, // Initialize as null
+      requestTypeConfigs: null,  
     };
 
     if (this.selectedRequestCategory?.id === 3) {
@@ -392,7 +392,7 @@ onCentralizedToggle(rowIndex: number): void {
     this.requestTypeService.addRequestType(payload).subscribe({
       next: (res) => {
         this.toast.success('Request Type Added Successfully');
-       
+
 
         this.loadRequestTypes();
         this.RequestAdded.emit();
@@ -446,20 +446,35 @@ onCentralizedToggle(rowIndex: number): void {
     this.deleteRequestId = null;
     this.showDeleteDialog = false;
   }
-  checkIsCenteralizedCompany() {
+
+  checkIsCenteralizedCompany()
+  {
     let companyId = Number(localStorage.getItem("companyId"));
-    if (companyId) {
-      let body = {
-        id: companyId
+    if(companyId)
+    {
+      let body={
+        id:companyId
       }
       this.companyService.getCompany(body).subscribe({
-        next: companyData => {
-          console.log("companyData.data.list[0].centralizedDepartment", companyData.data.list[0].centralizedDepartment)
-          this.hasCenterlizedDepartment = companyData.data.list[0].centralizedDepartment;
+        next:companyData=>{
+          
+          this.hasCenterlizedDepartment=companyData.data.list[0].centralizedDepartment;
         }
       })
     }
   }
+
+  updateFormForCentralization(): void {
+    if (!this.hasCenterlizedDepartment) {
+      // If the company is not centralized, disable the isCustomize toggle
+      this.form.controls.isCustomize.setValue(false);
+      this.form.controls.isCustomize.disable();
+    } else {
+      // Enable the toggle for centralized companies
+      this.form.controls.isCustomize.enable();
+    }
+  }
+
 
   hideShowBranch() {
     const centerlized = this.form.get('isCentralized')?.value;
@@ -469,15 +484,14 @@ onCentralizedToggle(rowIndex: number): void {
     const branchControl = this.form.get('branchId');
 
     if (centerlized) {
-      // When centerlizedDepartment is true, remove the 'required' validator
       branchControl?.clearValidators();
       this.hideBranch = true;
 
     } else {
-       branchControl?.setValidators(Validators.required);
+      branchControl?.setValidators(Validators.required);
       this.hideBranch = false;
     }
 
-     branchControl?.updateValueAndValidity();
+    branchControl?.updateValueAndValidity();
   }
 }
