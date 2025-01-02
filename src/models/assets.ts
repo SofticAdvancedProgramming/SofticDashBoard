@@ -13,7 +13,19 @@ export interface Asset {
     assetCategoryName: string;
     assetCategoryNameAr:string;
     employeeName:string;
+    assetStatusName?:string;
+    assetStatusNameAr?:string;
+    assginDate?:Date|null;
+    parentAssetName?:string;
+    parentAssetNameAr?:string;
+    serialNumber?:string;
+    plateNumber?:string;
+    reason?:string;
+
+
   }
+
+
   export interface RelatedAsset {
      companyId: number;
     name: string;

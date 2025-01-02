@@ -51,7 +51,7 @@ export class AddBranchComponent implements OnInit {
       this.companyId = Number(storedCompanyId);
     }
     if (this.isEdit) {
-      
+
       this.initoForm();
     }
   }
@@ -67,11 +67,12 @@ export class AddBranchComponent implements OnInit {
 
   onSave(): void {
     if (this.form.invalid) {
-      this.messageService.add({ 
-        severity: 'error', 
-        summary: 'Error', 
-        detail: this.translate.instant('addBranch.PLEASE_FILL_REQUIRED_FIELDS') 
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: this.translate.instant('addBranch.PLEASE_FILL_REQUIRED_FIELDS')
       });
+      this.ngOnInit()
       return;
     }
 
@@ -86,13 +87,15 @@ export class AddBranchComponent implements OnInit {
 
     this.branchService[this.isEdit ? 'editBranch' : 'addBranch'](branchData).subscribe({
       next: (response) => {
-        
-        this.messageService.add({ 
-          severity: 'success', 
-          summary: 'Success', 
-          detail: this.isEdit ? 
-            this.translate.instant('addBranch.BRANCH_EDITED_SUCCESSFULLY') : 
-            this.translate.instant('addBranch.BRANCH_ADDED_SUCCESSFULLY') 
+      //  console.log('Branch added successfully', response);
+      
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: this.isEdit ?
+            this.translate.instant('addBranch.BRANCH_EDITED_SUCCESSFULLY') :
+            this.translate.instant('addBranch.BRANCH_ADDED_SUCCESSFULLY')
         });
 
         if (this.isEdit) {
@@ -103,15 +106,15 @@ export class AddBranchComponent implements OnInit {
         } else {
            this.form.reset();
           this.action.emit(false);
- 
+
         }
       },
       error: (err) => {
         console.error('Error adding/editing branch:', err);
-        this.messageService.add({ 
-          severity: 'error', 
-          summary: 'Error', 
-          detail: this.translate.instant('addBranch.FAILED_TO_ADD_BRANCH') 
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: this.translate.instant('addBranch.FAILED_TO_ADD_BRANCH')
         });
       }
     });

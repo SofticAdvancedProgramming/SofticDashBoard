@@ -14,13 +14,14 @@
         <div class="col-4">
           <label class="form-label ">{{'COMPANY_DETAILS.search_position'|translate}}</label>
           <input [(ngModel)]="searchText" placeholder="{{'COMPANY_DETAILS.search_position'|translate}}"
-            (input)="loadEntities('PositionType', 1)" placeholder="translate" class="form-control custom-search " />
+            (input)="loadEntities()" placeholder="translate" class="form-control custom-search " />
         </div>
+        <!-- loadPositions   loadEntities('PositionType', 1)-->
         <div class="col-4">
           <label for="branchSelect" class="form-label">{{ 'SELECT_DEPARTMENT' | translate }}</label>
         <select id="departmentSelect" class="form-select" [(ngModel)]="selectedDepartmentId"
         (change)="filterPositionsByDepartment()">
-        <option [ngValue]="null">All Departments</option>
+        <option [ngValue]="null">{{isArabic?'جميع الأقسام':'All Departments'}}</option>
         <option *ngFor="let department of departments" [ngValue]="department.id">
           {{ isArabic ? department.nameAr : department.name }} - {{ isArabic ? department.branchNameAr : department.branchName }}
         </option>
@@ -72,13 +73,14 @@
                 <!-- Dropdown Menu -->
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li>
-                        <a class="dropdown-item" (click)="addEmployee(position.id?.toString() || '0'); closeDropdown($event); $event.stopPropagation()">Assign new employee</a>
+                        <a class="dropdown-item" (click)="addEmployee(position.id?.toString() || '0'); closeDropdown($event); $event.stopPropagation()">{{ isArabic ? 'اسناد موظف':'Assign new employee' }}</a>
                     </li>
                     <li>
-                        <a class="dropdown-item" [routerLink]="['../../ViewEmployees', position.id]">View assigned employee List</a>
+                        <a class="dropdown-item" [routerLink]="['../../ViewEmployees', position.id]">{{ isArabic ? 'عرض قائمة الموظفين في هذه الوظيفة': 'View assigned employee List' }}</a>
                     </li>
                 </ul>
             </div>
+
 
               <!-- <button class="btn" (click)="showDetailsPage(position.id?.toString()||'0')">
                 <span class="details">{{ 'INDEX_POSITION.SHOW_DETAILS' | translate }}

@@ -75,7 +75,7 @@ export class ShowAssetsComponent implements OnInit {
       }
       if (res['status']) {
         this.status = res['status'];
-      
+
       }
     });
     this.getAssets();
@@ -101,34 +101,37 @@ export class ShowAssetsComponent implements OnInit {
       pageIndex: page,
       pageSize: this.itemsPerPage,
     };
-  
+
      if (event && typeof event === 'number') {
       query.assetCategoryId = event;
-      this.setActiveButton(i!); 
+      this.setActiveButton(i!);
     }
-  
+
     // Add assigned/unassigned filter logic
-    if (this.isAssined !== undefined && this.isAssined !== 3) {
+    if (this.isAssined !== undefined && this.isAssined != 3) {
       query.isAssgined = this.isAssined;
-    } else if (this.isAssined === 3) {
-      query.assetStatusId = 3; // Filter for a specific asset status (example)
+    } else if (this.isAssined == 3) {
+      query.assetStatusId = 3;  // Filter for a specific asset status (example)
     }
-  
+
     // Include isMain filter if selected
     if (this.isMain !== undefined && this.isMain !== null) {
       query.isMain = this.isMain;
     }
-  
+
     // Include search filter if searchText is provided
     if (this.searchText.trim()) {
       query.name = this.searchText.trim();
     }
-  
+
+    console.log('Query:', query); // Debugging the query parameters
+
+
      // Debugging the query parameters
-  
+
     this.assetsService.getAsset(query).subscribe({
       next: (res) => {
-        
+
         this.assets = res.data.list; // Update the assets list
         this.filteredAssets = this.assets; // Apply the filters directly to the view
         this.totalRows = res.data.totalRows; // Update total rows for pagination
@@ -138,7 +141,7 @@ export class ShowAssetsComponent implements OnInit {
       },
     });
   }
-  
+
 
   toggleFilterPopup() {
     this.isFilterPopupVisible = !this.isFilterPopupVisible;
@@ -150,10 +153,10 @@ export class ShowAssetsComponent implements OnInit {
   }
 
   delete(id: number) {
-    
+
     this.assetsService.deleteAsset(id, this.companyId).subscribe({
       next: (res) => {
-        
+
         this.getAssets();
       }
     })
@@ -165,11 +168,11 @@ export class ShowAssetsComponent implements OnInit {
     this.isChangeStatusPopupVisible = isVisible;
   }
   applyFilterPopup(event: any) {
-   
+
 
     const assetName = event.name;
     const isAssigned: boolean = event.isAssigned;
-   
+
     const assetCategoryId = event.AssetCategory;
     const isDrived: boolean = event.isDrived;
     let query: any = { companyId: this.companyId, pageIndex: this.page };
@@ -247,7 +250,7 @@ export class ShowAssetsComponent implements OnInit {
       });
 
     // if (this.searchText.trim()) {
-   
+
     //   this.filteredAssets = this.assets.filter(
     //     (asset) =>
     //         asset.assetCategoryName?.toLowerCase()
@@ -311,18 +314,20 @@ export class ShowAssetsComponent implements OnInit {
   }
   showCannotDeleteToast(employeeName: string) {
     this.toastr.warning(
-      `This asset is assigned to ${employeeName}. You cannot delete it.`,
-      'Delete Not Allowed'
+      !this.isArabic?
+      `This asset is assigned to ${employeeName}. You cannot delete it.`:
+      `هذا الأصل مسند للموظف ${employeeName} .لا يمكنك مسحه `
     );
   }
   showCannotChangeStatusToast(employeeName: string) {
     this.toastr.warning(
-      `This asset is assigned to ${employeeName}. You cannot change its status.`,
-      'change status Not Allowed'
+      !this.isArabic?
+      `This asset is assigned to ${employeeName}. You cannot change its status`:
+      `هذا الأصل مسند للموظف ${employeeName} .لا يمكنك تغيرر حالته `
     );
   }
   filterByMainAsset() {
-    
+
     this.getAssets();
   }
   clearFilters(): void {

@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<div *ngIf="isEditMode" class="add-type-request-sm-container py-3 px-4 ">
+<div *ngIf="isEditMode" class="add-type-request-sm-container py-3 px-4">
   <form [formGroup]="editForm">
     <div class="row gy-3">
       <div class="col-12 col-md-6 border-bottom-custom">
@@ -55,15 +55,14 @@
 
       <div class="col-12 col-md-6 border-bottom-custom">
         <label class="d-block fw-semibold text-dark">{{ 'Request Category' | translate }}</label>
-        <input type="text" class="form-control" [value]="requestCategoryName" readonly />
+        <input style="    cursor: not-allowed;" type="text" class="form-control" [value]="requestCategoryName" readonly />
       </div>
-
 
       <div *ngIf="editForm.get('requestCategory')?.value === 3" class="col-12 col-md-6 border-bottom-custom">
         <label class="d-block fw-semibold text-dark">{{ 'Contains Asset?' | translate }}</label>
         <input type="checkbox" formControlName="containAsset" />
       </div>
-
+<div class="row"> 
       <div *ngIf="editForm.get('requestCategory')?.value === 1" class="col-12 col-md-6 border-bottom-custom">
         <label class="d-block fw-semibold text-dark">{{ 'Minimum Days' | translate }}</label>
         <input type="number" class="form-control" formControlName="min" placeholder="Enter Minimum Days" />
@@ -72,7 +71,6 @@
         <label class="d-block fw-semibold text-dark">{{ 'Maximum Days' | translate }}</label>
         <input type="number" class="form-control" formControlName="max" placeholder="Enter Maximum Days" />
       </div>
-
       <div *ngIf="editForm.get('requestCategory')?.value === 2" class="col-12 col-md-6 border-bottom-custom">
         <label class="d-block fw-semibold text-dark">{{ 'Maximum Amount' | translate }}</label>
         <input type="number" class="form-control" formControlName="max" placeholder="Enter Maximum Amount" />
@@ -81,9 +79,15 @@
         <label class="d-block fw-semibold text-dark">{{ 'Minimum Amount' | translate }}</label>
         <input type="number" class="form-control" formControlName="min" placeholder="Enter Minimum Amount" />
       </div>
+
+      <div *ngIf="isMinMaxInvalid" class="col-12 text-danger">
+        <small>{{ 'Minimum value cannot be greater than or equal to Maximum value.' | translate }}</small>
+      </div>
+    </div>
     </div>
   </form>
 </div>
+
 
 <!-- <div class="row justify-content-end d-flex mt-3">
   <button class="btn save-btn" (click)="editRequestType()">

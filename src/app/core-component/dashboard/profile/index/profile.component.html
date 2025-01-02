@@ -1,18 +1,22 @@
 <div class="profile-header">
   <img src="../../../../assets/images/coverimg.png" alt="Background Image" class="background-img">
   <div class="profile-content">
-    <div class="col-lg-6 d-flex align-items-center">
+    <div class="col-lg-12 d-flex align-items-center ">
       <img [src]="user?.profileImage ?user?.profileImage: 'assets/images/default.jpeg'" alt="Profile Image"
         class="profile-img">
-      <div class="profile-info">
-        <h1>{{user?.firstName|| ''}}</h1>
-        <p>{{roles[0] || '' | translate }}</p>
-      </div>
-    </div>
-    <div class="col-lg-6 d-flex justify-content-end">
-      <div class="custombtn ">
+        <div class="row px-3">
+          <div class="col-12 profile-info pt-4 ">
+            <h1>{{user?.firstName|| ''}}</h1>
+            <p>{{roles[0] || '' | translate }}</p>
+          </div>
+
+    <div class="col-12 d-flex justify-content-end ">
+      <div class="custombtn">
         <button routerLink="../EditProfile" class="edit-profile-btn">{{'Profile_Information.Edit Profile' | translate}}</button>
       </div>
+    </div>
+        </div>
+
     </div>
   </div>
 </div>
@@ -22,22 +26,45 @@
     <div class="profile-card">
       <h3>{{"Profile_Information.Profile Information" | translate}}</h3>
       <div class="profile-details">
-        <div class="detail">
-          <span class="label">{{"Profile_Information.Full Name"| translate}}:</span>
-          <span class="value">{{user.firstName}}</span>
+        <div class="detail row ">
+          <div class="col-2">
+            <span class="label">{{"Profile_Information.Full Name"| translate}}:</span>
+          </div>
+          <div class="col-6">
+            <span class="value">{{user.firstName}}</span>
+          </div>
+        </div>
+        <div class="detail row ">
+          <div class="col-2">
+            <span class="label">{{"Profile_Information.Mobile"| translate}}:</span>
+          </div>
+          <div class="col-6">
+            <span class="value">{{user.phoneNumber}}</span>
+          </div>
+        </div>
+        <div class="detail row ">
+          <div class="col-2">
+            <span class="label">{{"Profile_Information.Email"| translate}}:</span>
+          </div>
+          <div class="col-6">
+            <span class="value">{{user.email}}</span>
+          </div>
+        </div>
+        <div class="detail row ">
+          <div class="col-2 ">
+            <span class="label">{{"Profile_Information.BirthDate"| translate}}:</span>
+          </div>
+          <div class="col-6">
+            <span class="value">{{user.birthDate | date:'longDate'}}</span>
+          </div>
+        </div>
+        <!-- <div class="detail">
         </div>
         <div class="detail">
-          <span class="label">{{"Profile_Information.Mobile"| translate}}:</span>
-          <span class="value">{{user.phoneNumber}}</span>
         </div>
         <div class="detail">
-          <span class="label">{{"Profile_Information.Email"| translate}}:</span>
-          <span class="value">{{user.email}}</span>
-        </div>
-        <div class="detail">
-          <span class="label">{{"Profile_Information.BirthDate"| translate}}:</span>
-          <span class="value">{{user.birthDate | date:'longDate'}}</span>
-        </div>
+
+        </div> -->
       </div>
     </div>
 

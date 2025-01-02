@@ -66,7 +66,7 @@ export class DepartmentsComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
-  isArabic: boolean = false;
+  isArabic: boolean =  localStorage.getItem('lang')=='ar'?true:false;;
 
 
   constructor(
@@ -155,7 +155,7 @@ export class DepartmentsComponent implements OnInit {
     };
     this.employeeService.assginEmployeeToDepartment(requestPayload).subscribe({
       next: () => {
-        this.showSuccess('Employee assigned to department successfully');
+        this.showSuccess(this.isArabic?'تمت إضافة الموظف للقسم بنجاح':'Employee assigned to department successfully');
         this.isAssignEntity = false;
         this.loadDepartments();
       }
@@ -189,7 +189,7 @@ export class DepartmentsComponent implements OnInit {
     this.departmentService.activateDepartment(department.id, companyId || 0).subscribe({
       next: () => {
         department.isActive = true;
-        this.showSuccess('Department activated successfully');
+        this.showSuccess(this.isArabic?'تم تنشيط القسم بنجاح':'Department activated successfully');
       }
     });
   }
@@ -199,7 +199,7 @@ export class DepartmentsComponent implements OnInit {
     this.departmentService.deactivateDepartment(department.id, companyId || 0).subscribe({
       next: () => {
         department.isActive = false;
-        this.showSuccess('Department deactivated successfully');
+        this.showSuccess(this.isArabic?'تم إيقاف القسم بنجاح':'Department deactivated successfully');
       }
     });
   }
