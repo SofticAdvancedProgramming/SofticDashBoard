@@ -13,6 +13,8 @@ import { issueStatus } from '../../../core/enums/IssueStatus';
 import { EnumToStringPipe } from '../../../core/pipes/enum-to-string.pipe';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteComplaintComponent } from '../components/confirm-delete-complaint/confirm-delete-complaint.component';
+import { IssueStatusService } from '../../../services/issueStatusService/issue-status.service';
+import { IssueStatusData } from '../../../core/models/issueStatusData';
 @Component({
   selector: 'app-complaints-suggestions',
   standalone: true,
@@ -41,6 +43,7 @@ export class ComplaintsSuggestionsComponent {
   @Output() confirm = new EventEmitter<boolean>();
   loading: boolean = false;
   complaintDetails: any = null;
+  allIssueStatus:IssueStatusData[]=[];
   constructor(
     private translate: TranslateService,
     private router: Router,
@@ -48,7 +51,8 @@ export class ComplaintsSuggestionsComponent {
     private localStorageService: LocalStorageService,
     private complaintsService: CompliantsAndSuggestionsService,
     private IssueService:IssueService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private issueStatusService:IssueStatusService
 
   ) { }
 
@@ -56,6 +60,7 @@ export class ComplaintsSuggestionsComponent {
   ngOnInit(): void {
     this.loadAllAgainstType();
     this.loadComplaints();
+    this.getIssuesStatus()
   }
   selectTab(tab: string): void {
     this.activeTab = tab;
@@ -63,6 +68,69 @@ export class ComplaintsSuggestionsComponent {
     this.loadComplaints();
   }
 
+  getIssuesStatus()
+  {
+    const companyId = Number(this.localStorageService.getItem('companyId'));
+     this.issueStatusService.getIssueStatus({companyId}).subscribe({
+      next:issueStatusData=>{
+        console.log(issueStatusData)
+        this.allIssueStatus=issueStatusData.data.list
+        console.log(this.allIssueStatus)
+      }
+     })
+  }
+  getSearchedIssues()
+  {
+    
+  }
+
+  getSpecificCompaintsOrSuggetions(data:any)
+  {
+    let statusId=data.target.value
+    if(statusId=="null")
+    {
+      statusId=null;
+    }
+    else
+    {
+      statusId=Number(statusId);
+    }
+    let page=this.currentPage
+    this.loading = true;
+    const companyId = Number(this.localStorageService.getItem('companyId'));
+    const employeeId = Number(this.localStorageService.getItem('userId'));
+
+    if (companyId && employeeId) {
+      const params = {
+        companyId,
+        issueTypeId: this.issueTypeId,
+        pageIndex: page,
+        pageSize: this.itemsPerPage,
+        issueStatusId:statusId
+      };
+
+      this.IssueExcuter.getIssueExcuter(params).subscribe({
+        next: (response: any) => {
+          this.loading = false;
+
+          if (response?.data?.list) {
+            this.complaints = response.data.list.map((item: any) => ({
+              ...item,
+              againstTypeName: this.matchAgainstTypeName(item.issue.againestTypeId),
+            }));
+
+            this.filteredComplaints = this.complaints;
+         
+            this.totalComplaints = response.data.totalRows || 0;
+          }
+        },
+        error: (error) => {
+          this.loading = false;
+  
+        },
+      });
+    }
+  }
 
 
   loadComplaints(page: number = this.currentPage): void {

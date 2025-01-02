@@ -14,29 +14,40 @@
 </div>
 
 <div class="container">
+    <div class="row">
+        <!-- Filters Section -->
+        <div class="col-md-5">
+            <select class="form-select" (change)="getSpecificCompaintsOrSuggetions($event)" >
+                <option value="null">Filter by Status</option>
+                <option *ngFor="let issueStatus of allIssueStatus" [value]="issueStatus.id">{{issueStatus.name}}</option>
+            </select>
+        </div>
+    </div>
     <div class="row mt-3">
         <!-- No Data Message -->
-        <div *ngIf="filteredComplaints.length === 0 && !loading" class="no-data-message">
+        <div *ngIf="filteredComplaints.length === 0 && !loading" class="no-data-message text-center">
             {{ activeTab === 'complaints'
             ? ('complaintsPage.noComplaints' | translate)
             : ('complaintsPage.noSuggestions' | translate) }}
         </div>
 
         <!-- Loading Spinner -->
-        <div *ngIf="loading" class="loading-spinner">
+        <div *ngIf="loading" class="loading-spinner text-center">
             {{ 'complaintsPage.loading' | translate }}
         </div>
 
         <!-- Complaints/Suggestions List -->
         <div *ngIf="filteredComplaints && filteredComplaints.length > 0;">
-            <div class="row mt-5">
-                <div class="col-lg-6" *ngFor="let complaint of filteredComplaints">
+            <div class="row mt-5 g-4">
+                <!-- Loop to display two cards per row -->
+                <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center" *ngFor="let complaint of filteredComplaints">
                     <div class="complaint-card">
                         <div class="user-info">
                             <img [src]="userImageUrl" alt="User Avatar" class="avatar" (error)="onImageError($event)">
                             <div class="user-details">
                                 <ng-container *ngFor="let executor of complaint.issue.issueExcuters">
-                                    <h3  class="mx-1">{{ executor.employeeName }}</h3>
+                                    <h3 class="mx-1">{{ executor.employeeName }}</h3>
+                                    <hr class="name-divider">
                                 </ng-container>
                                 <h3 class="title">{{ userPosition }}</h3>
                             </div>
@@ -46,29 +57,24 @@
                             <span class="against-type">{{ complaint.againstTypeName }}</span>
                         </div>
                         <div class="complaint-actions mt-3 justify-content-between d-flex">
-
-                            <div class="complaint-actions mt-3 justify-content-between d-flex">
-                              @if(complaint.issue.issueTypeId==2){
+                            <div class="complaint-status">
+                                <span class="status-label">Status:</span>
                                 <span class="status" [ngClass]="getStatusClass(complaint.issue.issueStatusId)">
-                                  {{ getComplaintStatusName(complaint.issue.issueStatusId) }}
-                              </span>
-                              }
-                              @else {
-                                <span class="status status-submitted" >
-                                 {{'status.submitted'| translate}}
-                              </span>
-                              }
-
+                                    {{ getComplaintStatusName(complaint.issue.issueStatusId) }}
+                                </span>
                             </div>
 
-                            <button class="delete-button"
-                                (click)="deleteComplaint(complaint.companyId,complaint.issue.id, $event)">
+                            <button class="delete-button btn btn-danger d-flex align-items-center"
+                                (click)="deleteComplaint(complaint.companyId, complaint.issue.id, $event)">
+                                <i class="fas fa-trash me-2"></i>
                                 {{ activeTab === 'complaints'
                                 ? ('complaintsPage.deleteComplaint' | translate)
                                 : ('complaintsPage.deleteSuggestion' | translate) }}
                             </button>
                         </div>
-                        <button class="detailsButton btn text-center" (click)="navigateToDetails(complaint.id)">
+                        <button class="detailsButton btn btn-primary mt-3 w-100 d-flex align-items-center justify-content-center"
+                            (click)="navigateToDetails(complaint.id)">
+                            <i class="fas fa-eye me-2"></i>
                             {{ 'complaintsPage.seeDetails' | translate }}
                         </button>
                     </div>

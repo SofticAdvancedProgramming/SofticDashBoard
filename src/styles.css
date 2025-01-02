@@ -138,4 +138,10 @@ body{
   background-color: #663895 !important;
   color: white;
 }
+/* Style for the horizontal line (hr) */
+.complaint-card hr.name-divider {
+  border: 0;
+  border-top: 2px solid #663895; /* Set the color of the line */
+  margin: 10px 0; /* Space above and below the line */
+}
 

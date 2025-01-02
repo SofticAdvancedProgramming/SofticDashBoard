@@ -57,7 +57,7 @@ export class EnhancedOrganizationChartComponent implements OnInit ,AfterViewInit
     OrgChart.LINK_ROUNDED_CORNERS = 20;
     OrgChart.templates['mila'].link = '<path stroke-linejoin="round" stroke="#aeaeae" stroke-width="1px" fill="none" d="{rounded}" />';
 
-    this.organizationChartService.getAllOrganizationChart({ companyId,pageSize:10000 }).subscribe({
+    this.organizationChartService.getAllOrganizationChart({isDelete:false, companyId,pageSize:10000 }).subscribe({
       next: (orgData) => {
     
         for (let item of orgData.data.list) {
