@@ -77,6 +77,7 @@
     "ADDRESS": "Address",
     "EMAIL": "Email",
     "PHONE": "Phone",
+    "CENTRALIZED_DEPARTMENT":"Centerlized department",
     "MOBILE_NUMBER": "Mobile Number",
     "WEBSITE": "Website",
     "FACEBOOK": "Facebook",
