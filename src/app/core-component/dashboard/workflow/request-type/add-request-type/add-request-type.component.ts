@@ -23,9 +23,10 @@ import { RequestTypeService } from '../../../../../services/requestTypeService/r
 import { ImageUploadService } from '../../../../../services/ImageUploadService/image-upload.service';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmnDeleteDialogComponent } from "../../../../../common-component/confirmn-delete-dialog/confirmn-delete-dialog.component";
- import { minLessThanMaxValidator } from '../../../../../../validator/minLessThanMaxValidator';
+import { minLessThanMaxValidator } from '../../../../../../validator/minLessThanMaxValidator';
+import { CompanyService } from '../../../../../services/comapnyService/company.service';
 
- 
+
 interface RequestConfigForm {
   branchId: FormControl<number | null>;
   departmentId: FormControl<number | null>;
@@ -48,46 +49,44 @@ interface AddRequestTypeForm {
   requestTypeConfigs: FormArray<RequestConfigFormGroup>;
 }
 @Component({
-    selector: 'app-add-request-type',
-    standalone: true,
-    templateUrl: './add-request-type.component.html',
-    styleUrls: ['./add-request-type.component.css'],
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        TranslateModule,
-        RouterLink,
-        RouterLinkActive,
-        DropDownComponent,
-        ConfirmnDeleteDialogComponent
-    ]
+  selector: 'app-add-request-type',
+  standalone: true,
+  templateUrl: './add-request-type.component.html',
+  styleUrls: ['./add-request-type.component.css'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    RouterLink,
+    RouterLinkActive,
+    DropDownComponent,
+    ConfirmnDeleteDialogComponent
+  ]
 })
 export class AddRequestTypeComponent implements OnInit {
- 
-  form!: FormGroup<AddRequestTypeForm>;
-  showDeleteDialog = false;   
-  deleteRequestId: number | null = null; 
- 
-  requestTypeConfigs = this.fb.array<RequestConfigFormGroup>([]);
 
-   RequestCategories: any[] = [];
+  form!: FormGroup<AddRequestTypeForm>;
+  showDeleteDialog = false;
+  deleteRequestId: number | null = null;
+  hasCenterlizedDepartment: boolean = false;
+  requestTypeConfigs = this.fb.array<RequestConfigFormGroup>([]);
+  hideBranch: boolean = false;
+  RequestCategories: any[] = [];
   Branches: any[] = [];
   departmentOptions: any[][] = [];
   positionOptions: any[][] = [];
-
-   requestTypes: any[] = [];
-
-   fileType: string | null = null;
+  requestTypes: any[] = [];
+  fileType: string | null = null;
   uploadMessage: string | null = null;
   uploadedImageBase64: string | null = null;
   selectedFileName: string | null = null;
   imagePreviewUrl: string | ArrayBuffer | null = null;
   PhotoExtension: string | null = null;
 
-   isSubmitting = false;
+  isSubmitting = false;
 
-   selectedRequestCategory: any;
+  selectedRequestCategory: any;
   companyId!: number;
 
   @Output() RequestAdded = new EventEmitter<void>();
@@ -99,6 +98,8 @@ export class AddRequestTypeComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private imageUploadService: ImageUploadService,
     private toast: ToastrService,
+    private companyService: CompanyService,
+
     private router: Router
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
@@ -109,17 +110,17 @@ export class AddRequestTypeComponent implements OnInit {
     this.loadBranchs();
     this.loadRequestCategory();
     this.loadRequestTypes();
-  
-     this.form.statusChanges.subscribe(() => {
+
+    this.form.statusChanges.subscribe(() => {
       if (this.form.errors?.['minGreaterThanMax']) {
         console.log('Validation error: Minimum must be less than Maximum');
       }
     });
-  
+
     this.form.valueChanges.subscribe(() => {
       this.cdr.detectChanges(); // Ensure UI updates for error messages
     });
-  
+
     this.form.controls.isCustomize.valueChanges.subscribe((value) => {
       if (!value) {
         this.requestTypeConfigs.clear();
@@ -128,7 +129,7 @@ export class AddRequestTypeComponent implements OnInit {
       }
     });
   }
-  
+
 
 
   private buildForm(): void {
@@ -141,13 +142,13 @@ export class AddRequestTypeComponent implements OnInit {
         RequestTypePhoto: this.fb.control<string | null>(null),
         isCustomize: this.fb.control<boolean>(false, { nonNullable: true }),
         containAsset: this.fb.control<boolean>(false, { nonNullable: true }),
-        requestTypeConfigs: this.requestTypeConfigs ,
+        requestTypeConfigs: this.requestTypeConfigs,
       },
-      { validators: [minLessThanMaxValidator] }  
+      { validators: [minLessThanMaxValidator] }
     );
   }
-  
-  
+
+
 
   private createConfigGroup(): RequestConfigFormGroup {
     return this.fb.group<RequestConfigForm>({
@@ -158,14 +159,14 @@ export class AddRequestTypeComponent implements OnInit {
     });
   }
 
-   addRow(): void {
+  addRow(): void {
     this.requestTypeConfigs.push(this.createConfigGroup());
     const rowIndex = this.requestTypeConfigs.length - 1;
-     this.departmentOptions[rowIndex] = [];
+    this.departmentOptions[rowIndex] = [];
     this.positionOptions[rowIndex] = [];
   }
 
-   removeRow(index: number): void {
+  removeRow(index: number): void {
     this.requestTypeConfigs.removeAt(index);
     this.departmentOptions.splice(index, 1);
     this.positionOptions.splice(index, 1);
@@ -319,10 +320,10 @@ export class AddRequestTypeComponent implements OnInit {
   onSubmit(): void {
     if (this.isSubmitting) return;
     if (!this.form.valid) return;
-  
+
     this.isSubmitting = true;
     const f = this.form.value;
-  
+
     const payload: any = {
       companyId: this.companyId,
       name: f.name,
@@ -336,12 +337,12 @@ export class AddRequestTypeComponent implements OnInit {
       requestCategoryId: this.selectedRequestCategory?.id,
       requestTypeConfigs: null, // Initialize as null
     };
-  
+
     if (this.selectedRequestCategory?.id === 3) {
       delete payload.min;
       delete payload.max;
     }
-  
+
     if (f.isCustomize && this.requestTypeConfigs.length > 0) {
       payload.requestTypeConfigs = this.requestTypeConfigs.controls.map((group, index) => {
         const g = group.value;
@@ -354,14 +355,14 @@ export class AddRequestTypeComponent implements OnInit {
         };
       });
     }
-  
+
     console.log('Submission Payload:', payload);
-  
+
     this.requestTypeService.addRequestType(payload).subscribe({
       next: (res) => {
         this.toast.success('Request Type Added Successfully');
         console.log('Server response:', res);
-  
+
         this.loadRequestTypes();
         this.RequestAdded.emit();
         this.form.reset();
@@ -381,8 +382,8 @@ export class AddRequestTypeComponent implements OnInit {
       },
     });
   }
-  
-  
+
+
 
   deleteRequestType(id: number): void {
     this.requestTypeService.deleteRequestType(id, this.companyId).subscribe({
@@ -398,21 +399,54 @@ export class AddRequestTypeComponent implements OnInit {
     this.router.navigate(['/dashboard/workflow/Request-type/details', id]);
   }
   openDeleteDialog(requestTypeId: number) {
-     this.deleteRequestId = requestTypeId;
-     this.showDeleteDialog = true;
+    this.deleteRequestId = requestTypeId;
+    this.showDeleteDialog = true;
   }
-  
+
   confirmDelete(): void {
-     if (this.deleteRequestId !== null) {
+    if (this.deleteRequestId !== null) {
       this.deleteRequestType(this.deleteRequestId);
     }
-     this.deleteRequestId = null;
+    this.deleteRequestId = null;
     this.showDeleteDialog = false;
   }
-  
+
   cancelDelete(): void {
-     this.deleteRequestId = null;
+    this.deleteRequestId = null;
     this.showDeleteDialog = false;
   }
-  
+  checkIsCenteralizedCompany() {
+    let companyId = Number(localStorage.getItem("companyId"));
+    if (companyId) {
+      let body = {
+        id: companyId
+      }
+      this.companyService.getCompany(body).subscribe({
+        next: companyData => {
+          console.log("companyData.data.list[0].centralizedDepartment", companyData.data.list[0].centralizedDepartment)
+          this.hasCenterlizedDepartment = companyData.data.list[0].centralizedDepartment;
+        }
+      })
+    }
+  }
+
+  hideShowBranch() {
+    const centerlized = this.form.get('isCentralized')?.value;
+    console.log('Centerlized Department changed:', centerlized ? 'Enabled' : 'Disabled');
+
+
+    const branchControl = this.form.get('branchId');
+
+    if (centerlized) {
+      // When centerlizedDepartment is true, remove the 'required' validator
+      branchControl?.clearValidators();
+      this.hideBranch = true;
+
+    } else {
+       branchControl?.setValidators(Validators.required);
+      this.hideBranch = false;
+    }
+
+     branchControl?.updateValueAndValidity();
+  }
 }
