@@ -32,6 +32,7 @@ interface RequestConfigForm {
   departmentId: FormControl<number | null>;
   positionId: FormControl<number | null>;
   rank: FormControl<number | null>;
+  isCentrlize: FormControl<boolean>;
 
 }
 
@@ -154,6 +155,7 @@ export class AddRequestTypeComponent implements OnInit {
       departmentId: this.fb.control<number | null>(null, { validators: [Validators.required] }),
       positionId: this.fb.control<number | null>(null, { validators: [Validators.required] }),
       rank: this.fb.control<number | null>(0, { validators: [Validators.required] }),
+      isCentrlize: this.fb.control<boolean>(false, { nonNullable: true }),
     });
   }
 
@@ -189,14 +191,18 @@ export class AddRequestTypeComponent implements OnInit {
     });
   }
 
-  loadDepartments(branchId: number, rowIndex: number): void {
-    this.requestTypeService.getDepartments({ branchId }).subscribe({
+  loadDepartments(branchId: number | null, rowIndex: number): void {
+    const isCentralized = this.requestTypeConfigs.at(rowIndex).controls.isCentrlize.value;
+  
+    this.requestTypeService.getDepartments({ branchId, isCentralized }).subscribe({
       next: (res) => {
         this.departmentOptions[rowIndex] = res.data.list || [];
       },
       error: (err) => console.error(err),
     });
   }
+  
+
 
   loadPositions(departmentId: number, rowIndex: number): void {
     this.requestTypeService.getPositions({ departmentId }).subscribe({
@@ -245,11 +251,39 @@ export class AddRequestTypeComponent implements OnInit {
 
   onBranchSelect(branchId: any, rowIndex: number): void {
     const branch = this.Branches.find((b) => b.id === branchId);
-    if (branch) {
-      this.requestTypeConfigs.at(rowIndex).controls.branchId.setValue(branch.id);
-      this.loadDepartments(branch.id, rowIndex);
+    const isCentralized = this.requestTypeConfigs.at(rowIndex).controls.isCentrlize.value;
+
+    if (branch && !isCentralized) {
+        this.requestTypeConfigs.at(rowIndex).controls.branchId.setValue(branch.id);
+        this.loadDepartments(branch.id, rowIndex);
+    } else {
+        this.requestTypeConfigs.at(rowIndex).controls.departmentId.clearValidators();
+        this.requestTypeConfigs.at(rowIndex).controls.departmentId.updateValueAndValidity();
     }
+}
+onCentralizedToggle(rowIndex: number): void {
+  const isCentralized = this.requestTypeConfigs.at(rowIndex).controls.isCentrlize.value;
+
+  const branchControl = this.requestTypeConfigs.at(rowIndex).controls.branchId;
+  const departmentControl = this.requestTypeConfigs.at(rowIndex).controls.departmentId;
+
+  if (isCentralized) {
+    // Clear branch-related validators and hide it
+    branchControl.clearValidators();
+    branchControl.reset();
+    this.departmentOptions[rowIndex] = []; // Clear departments if centralized
+    this.loadDepartments(null, rowIndex); // Load departments for centralization
+  } else {
+    // Set branch-related validators and show it
+    branchControl.setValidators(Validators.required);
+    this.departmentOptions[rowIndex] = []; // Reset departments to match selected branch
+    departmentControl.reset(); // Reset department selection
   }
+
+  branchControl.updateValueAndValidity();
+  departmentControl.updateValueAndValidity();
+}
+
 
   onDepartmentSelect(departmentId: any, rowIndex: number): void {
     const depArray = this.departmentOptions[rowIndex] || [];

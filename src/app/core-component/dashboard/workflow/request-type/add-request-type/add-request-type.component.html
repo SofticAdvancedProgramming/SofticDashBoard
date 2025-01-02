@@ -127,27 +127,34 @@
 
         <div class="row gy-3" *ngFor="let configGroup of requestTypeConfigs.controls; let i = index"
           [formGroup]="configGroup">
-          <div class="form-group toggle-group">
-            <label class="switch">
-              <input type="checkbox" formControlName="isCentrlize" />
-              <span class="slider"></span>
-            </label>
-            <label for="direct-manager" class="toggle-label">{{
-              "Is Centrlize" | translate
-              }}</label>
-          </div>
+
+        
           <div class="d-flex justify-content-end mb-3" *ngIf="i==requestTypeConfigs.length-1">
             <button type="button" class="btn addNewBtn" (click)="addRow()">{{"AddNewPosition"|translate}}</button>
           </div>
-          <div class="col-lg-6">
+          <div class="form-group toggle-group">
+            <label class="switch">
+              <input type="checkbox" formControlName="isCentrlize" (change)="onCentralizedToggle(i)" />
+              <span class="slider"></span>
+            </label>
+            <label class="toggle-label">
+              {{ "Is Centralized" | translate }}
+            </label>
+          </div>
+          
+          <div class="col-lg-6" *ngIf="!configGroup.controls.isCentrlize.value">
             <div class="form-group">
               <label class="form-label">{{ "Branch" | translate }}</label>
-              <app-drop-down [items]="Branches" [placeholder]="'Select Branch' | translate"
-                [placeholderSearch]="'Search by Name' | translate" [itemsLength]="Branches.length"
-                (onChange)="onBranchSelect($event, i)" (getNextPageApi)="loadBranchs()" (search)="loadBranchs()">
+              <app-drop-down 
+                [items]="Branches" 
+                [placeholder]="'Select Branch' | translate"
+                (onChange)="onBranchSelect($event, i)" 
+                (getNextPageApi)="loadBranchs()" 
+                (search)="loadBranchs()">
               </app-drop-down>
             </div>
           </div>
+          
 
           <div class="col-lg-6">
             <div class="form-group">
