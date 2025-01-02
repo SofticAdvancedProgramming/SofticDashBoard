@@ -205,11 +205,8 @@ export class AddDepartmentComponent implements OnInit {
         next:companyData=>{
 
           this.hasCenterlizedDepartment=companyData.data.list[0].centralizedDepartment;
-        next: companyData => {
 
-          this.hasCenterlizedDepartment = companyData.data.list[0].centralizedDepartment;
-        }
-      })
+      }})
     }
   }
 
