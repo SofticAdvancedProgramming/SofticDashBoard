@@ -39,6 +39,6 @@ export class MainFormComponent {
   ];
 
   save() {
-    console.log('Form saved!', this.personalInfoFields, this.professionalInfoFields);
+
   }
 }

@@ -143,7 +143,7 @@ export class SalaryComponent implements OnInit {
       this.employeeService.assginEmployeeSalary(salaryData).subscribe(
         (res) => {
           this.isSalaryAssigned = false; // Use 'this.isSalaryAssigned'
-          console.log('Salary assigned successfully');
+       
           this.toast.success(
             this.translate.instant('employeeDetails.SALARY_ASSIGN_SUCCESS')
           );
@@ -163,11 +163,11 @@ export class SalaryComponent implements OnInit {
   }
 
   getSalary() {
-    console.log('Fetching salary...');
+   
     this.employeeService
       .loadEmployees({ id: this.employeeId })
       .subscribe((res: EmployeeResponse) => {
-        console.log('Salary response:', res);
+     
         const { grossSalary, netSalary } = res.data.list[0];
         this.updatedGrossSalary = Number(grossSalary);
         this.initFormWithSalary({ grossSalary, netSalary });
@@ -233,7 +233,7 @@ export class SalaryComponent implements OnInit {
           this.closeModal();
           this.loadEmployeeBenefits();
         }
-        console.log(response, 'edit hereeeee');
+      
       },
       (error) => {
         this.toast.error('Error updating benefit');
@@ -259,12 +259,12 @@ export class SalaryComponent implements OnInit {
         grossSalary: this.updatedGrossSalary,
       };
 
-      console.log('Updating gross salary:', updatedSalaryData);
+   
 
       this.employeeService
         .assginEmployeeSalary(updatedSalaryData)
         .subscribe((res) => {
-          console.log('Gross salary updated:', res);
+        
           this.getSalary();
         });
     }

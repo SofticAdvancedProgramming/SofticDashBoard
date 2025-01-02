@@ -94,7 +94,7 @@ export class AssetsCategoryComponent implements OnInit {
   // getMainAssets(name?:string) {
   //   this.assetsService.getMainAssetsCategory().subscribe({
   //     next: (res) => {
-  //       console.log(res);
+  //     
   //       this.assets = res.data.list;
   //       this.totalRows = res.data.totalRows;
   //     },
@@ -137,8 +137,7 @@ export class AssetsCategoryComponent implements OnInit {
               ? item.mainAssetName
               : (item.mainAssetName = 'Main Category')
           );
-  
-          console.log(this.newAssets);
+
         }
       }
     );

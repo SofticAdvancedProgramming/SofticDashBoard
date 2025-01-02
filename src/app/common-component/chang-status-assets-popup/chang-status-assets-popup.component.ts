@@ -24,7 +24,6 @@ export class ChangStatusAssetsPopupComponent {
   constructor(private assetService: AssetsService) { }
 
   ngOnInit() {
-    console.log('Asset ID:', this.assetId);
   }
 
   closePopup() {
@@ -37,13 +36,13 @@ export class ChangStatusAssetsPopupComponent {
 
   onStatusSelect(selectedStatusId: number) {
     this.selectedStatus=selectedStatusId;
-    console.log('Selected Employee:', selectedStatusId);
+
   }
 
 changeStatus(){
   this.assetService.changrStatus(this.assetId,this.selectedStatus).subscribe(
     {
-      next:(res:any)=>{console.log(res)}
+      next:(res:any)=>{}
     }
   )
 }

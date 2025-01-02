@@ -48,7 +48,7 @@ export class AuthenticationService {
   }
 
   login(email: string, password: string, deviceToken: string): Observable<any> {
-    console.log('Attempting login with email:', email);
+   
     return this.apiCall
       .request('POST', `${environment.apiBaseUrl}${authController.login}`, {
         email,
@@ -103,7 +103,7 @@ export class AuthenticationService {
     } else if (Array.isArray(decodedToken?.roles)) {
       roles = decodedToken.roles;
     }
-    console.log('Decoded Roles:', roles);
+   
     localStorage.setItem('roles', JSON.stringify(roles));
     this.permissionsService.loadPermissions(roles);
   }

@@ -51,7 +51,7 @@ export class AddBranchComponent implements OnInit {
       this.companyId = Number(storedCompanyId);
     }
     if (this.isEdit) {
-      console.log("branch",this.branch)
+
       this.initoForm();
     }
   }
@@ -87,7 +87,9 @@ export class AddBranchComponent implements OnInit {
 
     this.branchService[this.isEdit ? 'editBranch' : 'addBranch'](branchData).subscribe({
       next: (response) => {
-        console.log('Branch added successfully', response);
+      //  console.log('Branch added successfully', response);
+      
+
         this.messageService.add({
           severity: 'success',
           summary: 'Success',

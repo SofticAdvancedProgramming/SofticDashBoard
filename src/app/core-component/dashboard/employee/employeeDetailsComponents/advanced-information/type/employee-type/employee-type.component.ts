@@ -30,7 +30,7 @@ export class EmployeeTypeComponent implements OnInit {
   getEmployeeTypes(){
     this.employeeTypeService.getEmployeeType({userId: this.id}).subscribe({
       next: (res) => {
-        console.log(res);
+      
         this.employeeType = res.data.list;
       },
       error: (err) => {

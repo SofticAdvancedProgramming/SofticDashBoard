@@ -88,8 +88,11 @@ export class AddDepartmentComponent implements OnInit {
       branchId: this.department?.branchId,
       description: this.department?.description,
       descriptionAr: this.department?.descriptionAr,
-      departmentType: this.department?.isHR ? 'HR' : this.department?.isFinancial ? 'Financial' : null
+      departmentType: this.department?.isHR ? 'HR' : this.department?.isFinancial ? 'Financial' : null,
+      isCentralized: this.department?.isCentralized
     });
+
+  this.hideShowBranch();
   }
 
   loadBranches(): void {
@@ -139,7 +142,7 @@ export class AddDepartmentComponent implements OnInit {
 
     this.departmentService[this.isEdit ? 'editDepartment' : 'addDepartment'](departmentData).subscribe({
       next: (response) => {
-        console.log('Department saved successfully', response);
+
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -202,7 +205,7 @@ export class AddDepartmentComponent implements OnInit {
       }
       this.companyService.getCompany(body).subscribe({
         next:companyData=>{
-          console.log("companyData.data.list[0].centralizedDepartment",companyData.data.list[0].centralizedDepartment)
+
           this.hasCenterlizedDepartment=companyData.data.list[0].centralizedDepartment;
         }
       })
@@ -212,7 +215,8 @@ export class AddDepartmentComponent implements OnInit {
   hideShowBranch()
   {
     const centerlized = this.form.get('isCentralized')?.value;
-    console.log('Centerlized Department changed:', centerlized ? 'Enabled' : 'Disabled');
+   
+
 
 
         const branchControl = this.form.get('branchId');

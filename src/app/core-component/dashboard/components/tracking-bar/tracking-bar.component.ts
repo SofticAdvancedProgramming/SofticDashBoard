@@ -45,7 +45,7 @@ export class TrackingBarComponent implements OnChanges  {
     // }
 
     //const acceptedSteps = this.steps.filter(step => step.name === 'closed').length;
-   // console.log(this.currentStep)
+   
    // this.progressValue = (acceptedSteps / this.steps.length) * 100;
     this.progressValue = ((this.currentStep-.2) / this.steps.length) * 100;
     if(this.currentStep==this.steps.length){

@@ -34,7 +34,7 @@ export class DynamicModalComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['formData'] && this.form) {
-      console.log(this.formData, "FROM ngOnChanges")
+      
       this.form.patchValue(this.formData);
     }
   }
@@ -53,10 +53,10 @@ export class DynamicModalComponent implements OnInit, OnChanges {
       } else {
         formControls[field.name] = [this.isEdit ? this.formData[field.name] : null, field.required ? Validators.required : null];
       }
-      console.log("#######################")
+      
     });
     this.form = this.fb.group(formControls);
-    console.log("------------------------")
+    
   }
 
 

@@ -79,8 +79,7 @@ export class SalaryTypeComponent {
   }
 
   addEntity(entity: string, newEntity: any): void {
-    console.log(entity)
-    console.log(newEntity)
+
     const methodName = this.entityTypes[entity].add as keyof SalaryTypeService;
     (this.salaryTypeService[methodName] as Function)(newEntity).subscribe((response: any) => {
       if (response.status === 200) {

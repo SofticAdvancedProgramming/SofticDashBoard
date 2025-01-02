@@ -101,10 +101,10 @@ export class RelatedAssetsComponent implements OnInit{
     const params={id}
     this.assetsService.getAsset(params).subscribe({
       next: (res) => {
-        console.log(res)
+        
       },
       error: (err)=>{
-        console.log(err)
+        
       }
     })
   }
@@ -115,8 +115,7 @@ export class RelatedAssetsComponent implements OnInit{
       next: (res) => {
         this.assets = res.data.list
         this.relatedAssets= res.data.list
-        console.log(res.data.list)
-        console.log(this.relatedAssets)
+ 
 
         // this.relatedAssets=  this.relatedAssets.map((item:any)=>{
         //   this.getParentAsset(item.parentAssetId)
@@ -126,7 +125,7 @@ export class RelatedAssetsComponent implements OnInit{
 
       },
       error: (err)=>{
-        console.log(err)
+        
       }
     })
   }
@@ -140,7 +139,7 @@ export class RelatedAssetsComponent implements OnInit{
     };
     if (name) {
       query.name = name;
-      console.log(name)
+     
     }
     if (isAssgined!=undefined) {
       if(isAssgined==='true'){
@@ -150,7 +149,7 @@ export class RelatedAssetsComponent implements OnInit{
         }
       }
 
-      console.log(query)
+    
 
     const methodName = this.entityTypes[entity].load as keyof AssetsService;
     (this.assetsService[methodName] as Function)(query).subscribe((response: any) => {
@@ -210,7 +209,7 @@ export class RelatedAssetsComponent implements OnInit{
 
     this.assetsService.addRelatedAsset(this.RelatedAssetsData).subscribe({
       next: (res) => {
-        console.log(res);
+       
         this.ngOnInit();
       },
       error: (err) => console.log(err),

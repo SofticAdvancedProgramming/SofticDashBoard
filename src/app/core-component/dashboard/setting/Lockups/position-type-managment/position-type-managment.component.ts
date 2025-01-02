@@ -49,7 +49,7 @@ export class PositionTypeManagmentComponent implements OnInit {
 
   loadEntities(entity: string, pageIndex: number, name?:string): void {
     let query: any = { companyId: this.companyId, pageIndex };
-    console.log(name);
+   
     if(name){
     if (/^[a-zA-Z]/.test(name)) {
       query = {
@@ -62,11 +62,11 @@ export class PositionTypeManagmentComponent implements OnInit {
         nameAr:name
       };
     }}
-    console.log(query)
+
     const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
     (this.positionTypeService[methodName] as Function)(query).subscribe(
       (response: any) => {
-        console.log(response);
+   
         if (response.status === 200) {
           (this as any)[this.entityTypes[entity].data] = response.data.list;
           this.totalRows[entity] = response.data.totalRows;
