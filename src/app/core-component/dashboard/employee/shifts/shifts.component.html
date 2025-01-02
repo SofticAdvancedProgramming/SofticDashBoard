@@ -3,10 +3,10 @@
       <div class="col-lg-6">
         <div class="form-group">
           <label for="shift-start">{{ 'employeeDetails.Shift_Start_Time' | translate }}</label>
-          <input 
-            type="time" 
-            id="shift-start" 
-            class="form-control" 
+          <input
+            type="time"
+            id="shift-start"
+            class="form-control"
             [(ngModel)]="shift.start"
           />
         </div>
@@ -14,16 +14,16 @@
       <div class="col-lg-6">
         <div class="form-group">
           <label for="shift-end">{{ 'employeeDetails.Shift_End_Time' | translate }}</label>
-          <input 
-            type="time" 
-            id="shift-end" 
-            class="form-control" 
+          <input
+            type="time"
+            id="shift-end"
+            class="form-control"
             [(ngModel)]="shift.end"
           />
         </div>
       </div>
     </div>
-  
+
     <div class="row">
       <div class="col-lg-6">
         <button class="btn-cancel" (click)="cancel()">{{ 'employeeDetails.Cancel' | translate }}</button>
@@ -35,6 +35,22 @@
       </div>
     </div>
   </div>
-  
+
+
+  <!-- <div class="container mt-4">
+    <app-modern-table
+      [isThereSearch]="false"
+      (newReqByPage)="loadEmployeeshifts()"
+      (searchApi)="loadEmployeeshifts()"
+      [totalRows]="totalRows['employeeSalary']"
+      [tableTitle]="activeTab"
+      [tableData]="shifts"
+      [columns]="columns"
+      searchPlaceholder="Search data..."
+      (editItem)="openEditModal($event)"
+      (deleteItem)="deleteSift($event.id, $event.companyId)"
+      [deleteId]="deleteId"
+    >
+    </app-modern-table>
+  </div> -->
   <p-toast position="top-center"></p-toast>
-  

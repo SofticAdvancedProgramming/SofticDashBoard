@@ -424,6 +424,7 @@
     "nationalIdPhoto": "صورة الهوية الشخصية"
   },
   "employeeDetails": {
+    "Salarytype":"نوع المرتب",
     "attendance": "الحضور والانصراف",
 
     "SALARY_ASSIGN_SUCCESS": "تم تخصيص الراتب بنجاح",

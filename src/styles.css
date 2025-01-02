@@ -14,6 +14,9 @@ input,textarea{
 input::placeholder,textarea::placeholder,option,select,button{
   font-family: Lama Sans !important;;
 }
+input[type='date']{
+  text-transform: lowercase;
+}
 .CustomIcon{
   width: 30px;
   height: 30px;
