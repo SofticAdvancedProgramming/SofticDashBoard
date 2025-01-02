@@ -36,7 +36,7 @@ export class RelatedAssetsPopupComponent {
   uploadedImageBase64: any;
   assets: any;
   lang: string = this.localStorageService.getItem('lang')!;
-
+  companyId=this.localStorageService.getItem('companyId')
   assetsPage = 1;
   childAsset:any;
   relatedAsset: RelatedAsset = {
@@ -75,11 +75,20 @@ export class RelatedAssetsPopupComponent {
   }
   loadAssets(){
     this.assetService.getAsset({
-      pageSize: 1000,
+
+  pageSize: 1000,
+  companyId: 1,
+  isAssgined: false,
+  isMain: true,
+
+      // companyId:this.companyId,
+      // pageSize: 1000,
+      // isAssgined:false,
     }).subscribe({
       next: (res) => {
         this.assets = res.data.list.filter((item:any)=>
-        item.parentAssetId==null && item.id!= this.assetId
+          //item.parentAssetId==null &&
+         item.id!= this.assetId
       )
       },
       error: (err)=>{
