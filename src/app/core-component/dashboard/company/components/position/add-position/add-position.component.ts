@@ -39,7 +39,9 @@ export class AddPositionComponent implements OnInit {
   loading: boolean = true;
   positionTypePage:number=1;
   hasCenterlizedDepartment:boolean=false;
-  
+  get isArabic():boolean{
+    return localStorage.getItem('lang')==='ar';
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -67,7 +69,7 @@ export class AddPositionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPositionTypes();
-   
+
 
     this.togglePositionField();
     if (this.isEdit) {
@@ -96,7 +98,7 @@ export class AddPositionComponent implements OnInit {
         this.positionType = response.data.list
         // const newItems = response.data.list
         // this.positionType = newItems;
-       
+
         // if(response.data.totalRows>this.positionTypePage*10){
         //   this.positionTypePage++
         //   this.positionType=[...this.positionType,...newItems]
@@ -110,38 +112,38 @@ export class AddPositionComponent implements OnInit {
   loadBranches(): void {
     this.branchsService.getBranch({ companyId: this.companyId,pageSize:20  }).subscribe({
       next: (response) => {
-        
+
         this.branches = response.data.list;
         this.loadDepartmentsAndPositions(); // Ensure positions are loaded after departments
       }
     });
   }
   loadDepartmentsAndPositions(): void {
-    
+
     if(this.hasCenterlizedDepartment &&this.form.get('centerlizedDepartment')?.value)
     {
       this.departmentsService.getDepartment({ companyId: this.companyId ,pageSize:20,isCentralized:true }).subscribe({
         next: (response) => {
           this.departments = response.data.list;
-       
+
          // Ensure positions are loaded after departments
         }
       });
     }
     else
     {
-      
+
       this.departmentsService.getDepartment({ companyId: this.companyId,branchId:+this.branchId ,pageSize:20 }).subscribe({
         next: (response) => {
           this.departments = response.data.list;
-     
+
          // Ensure positions are loaded after departments
         }
       });
 
-    
+
     }
-   
+
   }
 
   async loadPositions(): Promise<void> {
@@ -152,12 +154,12 @@ export class AddPositionComponent implements OnInit {
 
         const positionList = response.data.list || [];
         let filteredPositions = positionList;
-    
+
         if(this.isEdit){
-        
+
           filteredPositions = positionList.filter((item:any)=>item.id!=this.positionData.id)
         }
-       
+
         // Use Promise.all to resolve all employee names
         const positionsWithEmployeeNames = await Promise.all(
           filteredPositions.map(async (position: any) => {
@@ -171,7 +173,7 @@ export class AddPositionComponent implements OnInit {
         );
 
         this.positions = positionsWithEmployeeNames;
-        
+
         this.checkLoadingState();
       }
     });
@@ -186,7 +188,7 @@ export class AddPositionComponent implements OnInit {
   }
 
   getDepartmentName(departmentId: number): string {
-    
+
     const department = this.departments.find(dep => dep.id === departmentId);
     return department?.name ?? 'Unknown';
   }
@@ -209,7 +211,7 @@ export class AddPositionComponent implements OnInit {
   }
 
   onSave(): void {
-    
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill all required fields' });
@@ -228,7 +230,7 @@ export class AddPositionComponent implements OnInit {
     this.action.emit(false);
     this.cd.detectChanges();
     this.ngOnInit();
-  
+
   }
 
   createOrEdit(positionData: Position) {
@@ -265,7 +267,7 @@ export class AddPositionComponent implements OnInit {
   branchId!:number
   departmentId!:number;
   GetBranch(event:any){
-    
+
     this.departmentId=0;
     this.branchId=event.target.value;
     if(this.isEdit){
@@ -281,7 +283,7 @@ export class AddPositionComponent implements OnInit {
     }
   }
   GetDepartment(event:any){
- 
+
     this.departmentId=event.target.value
     this.loadPositions();
   }
@@ -305,21 +307,22 @@ export class AddPositionComponent implements OnInit {
   getDepartments()
   {
     const centerlized = this.form.get('centerlizedDepartment')?.value;
-    
-    
-    
+ 
+
+
+
         const branchControl = this.form.get('branch');
-    
+
         if (centerlized) {
           // When centerlizedDepartment is true, remove the 'required' validator
           branchControl?.clearValidators();
           this.form.get('department')?.setValue('0')
-          
+
         } else {
           // When centerlizedDepartment is false, apply the 'required' validator
           branchControl?.setValidators(Validators.required);
         }
-    
+
         // Re-evaluate the validity of the 'branch' control after changing validators
         branchControl?.updateValueAndValidity();
 

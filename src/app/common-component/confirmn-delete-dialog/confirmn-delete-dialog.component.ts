@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-confirmn-delete-dialog',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './confirmn-delete-dialog.component.html',
   styleUrl: './confirmn-delete-dialog.component.css'
 })
@@ -13,7 +14,7 @@ export class ConfirmnDeleteDialogComponent {
   @Output() onConfirm = new EventEmitter<void>();
   @Output() onCancel = new EventEmitter<void>();
 
-  confirm() { 
+  confirm() {
     this.onConfirm.emit();
   }
 

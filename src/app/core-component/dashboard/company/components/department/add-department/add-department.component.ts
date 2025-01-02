@@ -121,9 +121,9 @@ export class AddDepartmentComponent implements OnInit {
       });
       return;
     }
-  
+
     const selectedType = this.form.value.departmentType;
-  
+
     const departmentData: Department = {
       id: this.isEdit && this.department ? this.department.id : 0,
       companyId: this.companyId || 0,
@@ -137,12 +137,12 @@ export class AddDepartmentComponent implements OnInit {
       lat: this.form.value.lat,
       isHR: selectedType === 'HR',
       isFinancial: selectedType === 'Financial',
-      isCentralized: this.form.value.isCentralized,  
+      isCentralized: this.form.value.isCentralized,
     };
-  
+
     this.departmentService[this.isEdit ? 'editDepartment' : 'addDepartment'](departmentData).subscribe({
       next: (response) => {
-        
+
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -168,7 +168,7 @@ export class AddDepartmentComponent implements OnInit {
       },
     });
   }
-  
+
 
 
   onBack(): void {
@@ -205,7 +205,7 @@ export class AddDepartmentComponent implements OnInit {
       }
       this.companyService.getCompany(body).subscribe({
         next:companyData=>{
-          
+
           this.hasCenterlizedDepartment=companyData.data.list[0].centralizedDepartment;
         }
       })
@@ -215,23 +215,28 @@ export class AddDepartmentComponent implements OnInit {
   hideShowBranch()
   {
     const centerlized = this.form.get('isCentralized')?.value;
-    
-    
-    
+   
+
+
+
         const branchControl = this.form.get('branchId');
-    
+
         if (centerlized) {
           // When centerlizedDepartment is true, remove the 'required' validator
           branchControl?.clearValidators();
           this.hideBranch=true;
-          
+
         } else {
           // When centerlizedDepartment is false, apply the 'required' validator
           branchControl?.setValidators(Validators.required);
           this.hideBranch=false;
         }
-    
+
         // Re-evaluate the validity of the 'branch' control after changing validators
         branchControl?.updateValueAndValidity();
+  }
+
+  get isArabic():boolean{
+    return localStorage.getItem('lang')==='ar'
   }
 }

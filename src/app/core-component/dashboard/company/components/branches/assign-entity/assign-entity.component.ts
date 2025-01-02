@@ -19,7 +19,7 @@ export class AssignEntityComponent {
   @Input() branch: branch | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() submitForm = new EventEmitter<{ employeeId: number, branchId: number }>();
-  isArabic: boolean = false;
+  isArabic: boolean =  localStorage.getItem('lang')=='ar'?true:false;
   assignForm: FormGroup;
 
   constructor(private fb: FormBuilder ,  private translate: TranslateService) {
@@ -45,9 +45,9 @@ export class AssignEntityComponent {
     return this.assignForm.get('selectedEmployeeId');
   }
   ngOnInit(): void {
-    this.isArabic = this.translate.currentLang === 'ar';  
+    this.isArabic = this.translate.currentLang === 'ar';
     this.translate.onLangChange.subscribe(event => {
-      this.isArabic = event.lang === 'ar';  
+      this.isArabic = event.lang === 'ar';
     });
   }
 }

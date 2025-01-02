@@ -123,19 +123,21 @@
           </div> -->
         </div>
         <div class="col-lg-6" *ngIf="isMainAsset">
-          <label for="AssetCategory">{{
-            "Assets.SubAssetCategory" | translate
-          }}</label>
-          <app-drop-down
-            [placeholder]="'Select Sub Asset Category'"
-            [placeholderSearch]="'Search by Name'"
-            [items]="subAssetsCategories"
-            [currentPage]="assetsPage"
-            [itemsLength]="subAssetsCategories.length"
-            (getNextPageApi)="getSubAssetsCategories(selectedAssetCategory.id)"
-            (search)="getSubAssetsCategories(selectedAssetCategory.id)"
-            (onChange)="onSubAssetCategorySelect($event)"
-          ></app-drop-down>
+          <div class="form-group">
+            <label for="AssetCategory">{{
+              "Assets.SubAssetCategory" | translate
+            }}</label>
+            <app-drop-down
+              [placeholder]="'Select Sub Asset Category'"
+              [placeholderSearch]="'Search by Name'"
+              [items]="subAssetsCategories"
+              [currentPage]="assetsPage"
+              [itemsLength]="subAssetsCategories.length"
+              (getNextPageApi)="getSubAssetsCategories(selectedAssetCategory.id)"
+              (search)="getSubAssetsCategories(selectedAssetCategory.id)"
+              (onChange)="onSubAssetCategorySelect($event)"
+            ></app-drop-down>
+          </div>
         </div>
         <div class="col-lg-6">
           <div class="form-group">
@@ -224,7 +226,7 @@
             />
           </div>
         </div> -->
-        <div class="col-12">
+        <!-- <div class="col-12">
           <div class="form-group full-width">
             <label for="reason">{{
               "Assets.TechnicalDescription" | translate
@@ -266,7 +268,7 @@
               </small>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="col-12">
           <div class="form-group toggle-group" (click)="getAssets()">
             <label class="switch">
@@ -282,7 +284,7 @@
               "Assets.MainAsset" | translate
             }}</label>
             <app-drop-down
-              [placeholder]="'Select Sub Asset Category'"
+              [placeholder]="'Select main Asset'"
               [placeholderSearch]="'Search by Name'"
               [items]="assets"
               [currentPage]="assetsPage"
@@ -291,6 +293,7 @@
               (search)="getAssets(selectedAsset.id)"
               (onChange)="onAssetSelect($event)"
             ></app-drop-down>
+
           </div>
         </div>
 

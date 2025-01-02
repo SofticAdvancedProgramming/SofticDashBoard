@@ -6,12 +6,6 @@
     padding: 1em;
 }
 
-.about-content {
-    flex: 1;
-    margin-right: 20px;
-    background: white;
-    padding: 2em;
-}
 
 .about-content h2 {
     color: #36313C;
@@ -31,20 +25,21 @@
     letter-spacing: 0.03em;
 }
 
-.contact-details {
-    flex: 1;
+.contact-details ,.about-content{
+    /* flex: 1; */
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    margin-top: 20px;
+    margin-top: 20px ;
+    height: 90%;
 }
 
-.contact-details ul {
+.contact-details ul ,.contact-details .details-container{
     list-style: none;
     padding: 2em;
 }
 
-.contact-details li {
+.contact-details li,.contact-details .detail {
     margin-bottom: 20px;    font-size: 16px;
      align-items: center;
 }

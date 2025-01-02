@@ -1,3 +1,6 @@
+*{
+  font-family: lama sans;
+}
 .breadcrumb {
     padding: 10px 20px;
     background-color: #fff;
@@ -43,18 +46,18 @@
     height: 160px;
 }
 
- 
 
- 
+
+
 :host-context([dir="ltr"]) .company-details {
-    margin-left: 180px;  
+    margin-left: 180px;
 }
 
 :host-context([dir="rtl"]) .company-details {
-    margin-right: 180px;  
+    margin-right: 180px;
 }
 
- 
+
 .profile-details h1 {
     margin: 0;
     font-size: 24px;
@@ -140,13 +143,13 @@ input:checked + .slider:before {
     }
 
     .company-details {
-        margin-left: 0;  
-        margin-right: 0;  
+        margin-left: 0;
+        margin-right: 0;
         text-align: center;
     }
 
     .profile-action {
-        margin-top: 10px;  
+        margin-top: 10px;
     }
 }
 
@@ -160,8 +163,8 @@ input:checked + .slider:before {
         align-items: center;
     }
     .company-details {
-        margin-left: 0 !important;  
-        margin-right: 0 !important;  
+        margin-left: 0 !important;
+        margin-right: 0 !important;
         text-align: center;
     }
 }

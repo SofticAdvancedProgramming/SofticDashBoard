@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dashboard-layout.component.css'
 })
 export class DashboardLayoutComponent {
-  isArabic: boolean = false;
+  isArabic: boolean =  localStorage.getItem('lang')=='ar'?true:false;
 
   constructor(private translate: TranslateService) {
     this.isArabic = this.translate.currentLang === 'ar';
