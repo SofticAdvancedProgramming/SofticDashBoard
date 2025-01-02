@@ -942,4 +942,8 @@
   "selectEmployee": "اختر الموظف",
   "remove": "إزالة"
 }
+,
+  "BRANCH_NAME":"اسم الفرع :",
+  "DEPARTMENT_NAME":"اسم القسم :",
+  "POSITION_TYPE":"نوع الوظيفة :"
 }

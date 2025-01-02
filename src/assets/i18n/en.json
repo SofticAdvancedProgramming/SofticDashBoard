@@ -974,6 +974,9 @@
     "selectPriority": "Select Priority",
     "selectEmployee": "Select Employee",
     "remove":"Remove"
-  }
+  },
+    "BRANCH_NAME":"Branch name :",
+    "DEPARTMENT_NAME":"Department name :",
+    "POSITION_TYPE":"Position type :"
 
 }

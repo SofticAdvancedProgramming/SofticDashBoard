@@ -35,8 +35,9 @@
         <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let position of positions">
           <div class="card"  >
             <div class="card-header">
-              <h3>{{ isArabic ?position.nameAr:position.name }}</h3>
-              <p>{{ 'INDEX_POSITION.DEPARTMENT' | translate }}: {{ getDepartmentName(position.departmentId) }}</p>
+              <b>{{"POSITION_TYPE"|translate}}</b>{{ isArabic ?position.nameAr:position.name }}
+              <br>
+             <b>{{"DEPARTMENT_NAME"|translate}}</b>{{ getDepartmentName(position.departmentId) }}
             </div>
             <!-- *ngIf="!position.isAssigned" -->
             <div class="card-body">
