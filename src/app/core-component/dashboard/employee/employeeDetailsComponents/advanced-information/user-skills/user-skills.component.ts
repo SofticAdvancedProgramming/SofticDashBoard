@@ -34,7 +34,7 @@ export class UserSkillsComponent implements OnInit, OnDestroy {
 
   getSkills() {
     this.userSkillsService
-      .getSkills({userId: this.id})
+      .getSkills({employeeId: this.id})
       .pipe(
         tap((res) => {
           this.userSkills = res.data.list;

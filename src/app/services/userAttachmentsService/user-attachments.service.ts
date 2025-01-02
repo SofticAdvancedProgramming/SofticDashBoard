@@ -11,6 +11,6 @@ export class UserAttachmentsService {
   constructor(private apiCall:ApiCall) { }
 
   getAttachments(request: any): Observable<any> {
-    return this.apiCall.request('POST', userAttachmentsController.loadAddresses, request);
+    return this.apiCall.request('POST', userAttachmentsController.loadAttachment, request);
   }
 }
