@@ -92,7 +92,7 @@ export class AddAdminComponent implements OnInit, OnDestroy {
       return;
     }
   
-    console.log('Submitting form with value:', formValue);
+    
   
      this.adminService.AddAdmin(formValue).subscribe({
       next: (response: any) => {

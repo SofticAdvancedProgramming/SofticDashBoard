@@ -84,9 +84,7 @@ export class TaskDetailsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const id = params['id'];
       this.id = params['id'];
-      if (id) {
-        console.log('Extracted taskId:', id);
-      }
+     
     });
     this.initiation();
     this.isTodoStatus = false;
@@ -120,9 +118,9 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.todoService.get(query).subscribe({
       next: (res) => {
-        console.log(res);
+      
         this.todoItems = res.data.list;
-        console.log(this.todoItems);
+       
         // Initialize FormArray with checkboxes
         this.todoItems?.forEach((todo: any) => {
           if (todo.statusId == 4) {
@@ -131,10 +129,10 @@ export class TaskDetailsComponent implements OnInit {
             this.checkboxes.push(this.fb.control({value: false, disabled: true}));
           }
         });
-        console.log(this.checkboxes);
+        
       },
       error: (err) => {
-        console.log(err);
+       
       },
     });
   }
@@ -146,7 +144,7 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.tasksService.get(query).subscribe({
       next: (res) => {
-        console.log(res);
+      
         this.taskDetails = res.data.list[0];
         this.form = this.fb.group({
           laborCost: [this.taskDetails.laborCost, Validators.required],
@@ -185,7 +183,7 @@ export class TaskDetailsComponent implements OnInit {
         }
       },
       error(err) {
-        console.log(err);
+       
       },
     });
   }
@@ -196,11 +194,11 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.tasksService.assignEmployees(query).subscribe({
       next: (res) => {
-        console.log(res);
+       
         this.employees = res.data.list;
       },
       error: (err) => {
-        console.log(err);
+     
       },
     });
   }
@@ -218,11 +216,11 @@ export class TaskDetailsComponent implements OnInit {
       };
       this.todoService.edit(query).subscribe({
         next: (res) => {
-          console.log(res);
+       
           this.ngOnInit();
         },
         error: (err) => {
-          console.log(err);
+         
         },
       });
     } else {
@@ -236,11 +234,11 @@ export class TaskDetailsComponent implements OnInit {
       };
       this.todoService.edit(query).subscribe({
         next: (res) => {
-          console.log(res);
+        
           this.ngOnInit();
         },
         error: (err) => {
-          console.log(err);
+         
         },
       });
     }
@@ -256,15 +254,15 @@ export class TaskDetailsComponent implements OnInit {
       serviceCost: this.form.controls['serviceCost'].value,
       additionalCost: this.form.controls['additionalCost'].value,
     };
-    console.log(query);
+   
     this.tasksService.assignCost(query).subscribe({
       next: (res) => {
         this.toast.success('Updated Successfully');
-        console.log(res);
+       
         this.ngOnInit();
       },
       error: (err) => {
-        console.log(err);
+      
       },
     });
   }
@@ -275,11 +273,11 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.tasksService.assignTaskStatus(query).subscribe({
       next: (res) => {
-        console.log(res);
+      
         this.ngOnInit();
       },
       error: (err) => {
-        console.log(err);
+       
       },
     });
   }
@@ -290,17 +288,17 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.tasksService.assignTaskStatus(query).subscribe({
       next: (res) => {
-        console.log(res);
+       
         this.ngOnInit();
       },
       error: (err) => {
-        console.log(err);
+       
       },
     });
   }
   reWork() {
     this.isReAssignVisible = true;
-    console.log(this.isEvaluationVisible);
+    
     // let query = {
     //   taskId: this.id,
     //   statusId: 2,
@@ -341,11 +339,11 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.tasksService.assignTaskStatus(query).subscribe({
       next: (res) => {
-        console.log(res);
+       
         this.ngOnInit();
       },
       error: (err) => {
-        console.log(err);
+     
       },
     });
   }

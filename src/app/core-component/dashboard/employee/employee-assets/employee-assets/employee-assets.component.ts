@@ -63,7 +63,7 @@ export class EmployeeAssetsComponent implements OnInit {
   ngOnInit(): void {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
     this.route.queryParams.subscribe((res) => {
-      console.log(res);
+    
     });
     this.getAssetsCategory();
     this.getAssets();
@@ -79,8 +79,7 @@ export class EmployeeAssetsComponent implements OnInit {
     this.assetsService.getMainAssetsCategory(params).subscribe((res)=> {
       this.assetsCategory = res.data.list;
       this.totalPages = res.data.totalPages;
-      // console.log(res.data.list);
-      // console.log( this.assetsCategory);
+  
     });
   }
   getAssets(
@@ -109,29 +108,27 @@ export class EmployeeAssetsComponent implements OnInit {
         employeeId: this.employeeId
       };
     }
-    //console.log(this.employeeId);
+    
 
-    // console.log(query)
+    
     this.assetsService.getAsset(query).subscribe({
       next: (res) => {
-        // console.log(res.data.list);
+       
         this.assets = res.data.list;
         this.filteredAssets = this.assets;
         this.totalRows = res.data.totalRows;
 
         const assetsCategoryIds=this.assets.map(asset=> asset.assetCategoryId);
-        //console.log(this.assets)
+       
         this.filterCategory(assetsCategoryIds);
 
          // this.assets.some(asset => asset.assetsCategoryId === item.id))
-         // console.log(item)
+       
 
-        //console.log(this.filteredCategory)
-        //console.log(this.assetsCategory)
-        //console.log(assetsCategoryIds)
+    
       },
       error: (err) => {
-      //  console.log(err);
+     
       },
     });
   }
@@ -139,7 +136,7 @@ export class EmployeeAssetsComponent implements OnInit {
   filterCategory(assetsCategoryIds:any[]){
     for(let i=0 ;i< assetsCategoryIds.length;i++){
       for(let j=0;j<this.assetsCategory.length;j++){
-        console.log(this.assetsCategory[j]);
+        
         if(assetsCategoryIds[i]==this.assetsCategory[j].id&&this.filteredCategory.length<= assetsCategoryIds.length){
           this.filteredCategory.push(this.assetsCategory[j])
         }
@@ -156,12 +153,12 @@ export class EmployeeAssetsComponent implements OnInit {
     this.isFilterPopupVisible = isVisible;
   }
   applyFilterPopup(event: any) {
-    console.log('Received Data:', event);
+
 
     // Extract individual values
     const assetName = event.name;
     const isAssigned: boolean = event.isAssigned;
-    console.log(isAssigned)
+   
     const assetCategoryId = event.AssetCategory;
     const isDrived: boolean = event.isDrived;
     let query: any = { companyId: this.companyId, pageIndex: this.page };
@@ -207,7 +204,7 @@ export class EmployeeAssetsComponent implements OnInit {
     } else {
       query = { companyId: this.companyId, pageIndex: this.page , employeeId: this.employeeId };
     }
-    console.log(this.employeeId);
+
 
     this.assetsService.getAsset(query).subscribe({
       next: (res) => {

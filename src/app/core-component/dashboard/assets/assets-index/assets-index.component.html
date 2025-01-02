@@ -18,21 +18,21 @@
             <div class="icon" routerLink="../ShowAssets">
               <img src="../../../../../assets/images/allAssetsColored.png">{{"Assets.All Assets"|translate}}
             </div>
-            <h4 class="">{{assetsCount.totalAssetsCount}}</h4>
+            <h4 class="">{{assetsCount?.totalAssetsCount}}</h4>
             <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
           </div>
           <div class="col-lg-3 card">
               <div class="icon"  [routerLink]="['../ShowAssets',true]" >
                 <img src="../../../../../assets/images/onDuty.png">{{"Assets.assigned Assets"|translate}}
             </div>
-            <h4>{{assetsCount.assignedAssetsCount}}</h4>
+            <h4>{{assetsCount?.assignedAssetsCount}}</h4>
             <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
           </div>
           <div class="col-lg-3 card">
             <div class="icon"  [routerLink]="['../ShowAssets',false]">
               <img src="../../../../../assets/images/outserv.png">{{"Assets.not assigned Assets"|translate}}
           </div>
-          <h4>{{assetsCount.unassignedAssetsCount}}</h4>
+          <h4>{{assetsCount?.unassignedAssetsCount}}</h4>
           <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
 
           </div>
@@ -40,7 +40,7 @@
             <div class="icon"  [routerLink]="['../ShowAssets',3]"  >
               <img src="../../../../../assets/images/outService.png">{{"Assets.out Of Service Depreciation Count"|translate}}
           </div>
-          <h4>{{assetsCount.outOfServiceDepreciationCount}}</h4>
+          <h4>{{assetsCount?.outOfServiceDepreciationCount}}</h4>
           <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
 
           </div>

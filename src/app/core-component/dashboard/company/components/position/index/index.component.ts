@@ -38,13 +38,14 @@ export class IndexComponent implements OnInit {
   selectedPositionData: any = {};
   directManger?: employee = {} as employee;
   employees: employee[] = [];
-  @Input() companyId?: string = '';
+
+  @Input() companyId?: any = '';
   positions: Position[] = [];
   departments: Department[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
-  isArabic: boolean = false;
+  isArabic: boolean =  localStorage.getItem('lang')=='ar'?true:false;;
   searchText!:string;
   selectedDepartmentId: number | null = null;
   filteredDepartments: Department[] = [];
@@ -87,7 +88,7 @@ export class IndexComponent implements OnInit {
   }
   loadAllDepartments(): void {
     if (this.companyId) {
-      this.departmentService.getDepartment({ companyId: parseInt(this.companyId) }).subscribe({
+      this.departmentService.getDepartment({ companyId: this.companyId }).subscribe({
         next: (response) => {
           this.departments = response.data.list;
          },
@@ -102,7 +103,6 @@ export class IndexComponent implements OnInit {
   loadPositions(page: number = this.currentPage): void {
     const companyId = this.getCompanyId();
     if (!companyId) return;
-
      const payload: any = {
       companyId: companyId,
       pageIndex: page,
@@ -113,11 +113,11 @@ export class IndexComponent implements OnInit {
       payload.departmentId = this.selectedDepartmentId;
     }
 
-    console.log('Sending payload:', payload); // Debugging line
+
 
     this.positionService.getPosition(payload).subscribe({
       next: (response) => {
-        console.log( response.data.list)
+
         this.positions = response.data.list;
         this.totalItems = response.data.totalRows;
         this.getPositionEmployee();
@@ -126,6 +126,55 @@ export class IndexComponent implements OnInit {
     });
 
   }
+
+
+  loadEntities( ): void {
+    let name=this.searchText.trim();
+    let query: any = { companyId: this.companyId,pageIndex :this.currentPage};
+    if(name){
+    if (/^[a-zA-Z]/.test(name)) {
+      query = {
+        ...query,
+        positionTypeName:name
+      };
+    }else if(name){
+      query = {
+        ...query,
+        positionTypeNameAr:name
+      };
+    }}
+    if(this.selectedDepartmentId){
+      query={
+        ...query,
+        departmentId:this.selectedDepartmentId
+      }
+    }
+    console.log(query)
+    this.positionService.getPosition(query).subscribe(
+      {
+        next: (response) => {
+          console.log( response.data.list)
+          this.positions = response.data.list;
+          this.totalItems = response.data.totalRows;
+          this.getPositionEmployee();
+        },
+      }
+    )
+
+    //  const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
+    // (this.positionTypeService[methodName] as Function)(query).subscribe(
+    //   (response: any) => {
+    //     console.log(response)
+    //      if (response.status === 200) {
+    //       (this as any)[this.entityTypes[entity].data] = response.data.list;
+    //      this.positions=response.data.list
+    //     }
+    //   }
+    // );
+  }
+
+
+
   filterPositionsByDepartment(): void {
     this.currentPage = 1;
     this.loadPositions();
@@ -186,9 +235,25 @@ export class IndexComponent implements OnInit {
     }
   }
 
-  getDepartmentName(departmentId: number): string {
+  // getDepartmentName(departmentId: number): string {
+  //   const department = this.departments.find(dep => dep.id === departmentId);
+  //   if(department)
+  //   return this._isArabic?department.nameAr: department.name ?? 'Unknown';
+  // }
+
+
+  getDepartmentName(departmentId: number): string|undefined {
     const department = this.departments.find(dep => dep.id === departmentId);
-    return department?.name ?? 'Unknown';
+    if (department) {
+      return this._isArabic
+        ? department.nameAr
+        : department.name ?? 'Unknown';
+    }
+    return 'Unknown';
+  }
+
+  get _isArabic():boolean{
+    return localStorage.getItem('lang')==='ar';
   }
 
   addPosition(): void {
@@ -211,7 +276,7 @@ export class IndexComponent implements OnInit {
     this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
     this.loadUnassignedEmployees();
     this.isAddEmployee = true;
-    console.log(positionId);
+
 
   }
 
@@ -256,7 +321,7 @@ export class IndexComponent implements OnInit {
       acceptButtonStyleClass: 'p-button-danger',
       rejectButtonStyleClass: 'p-button-secondary',
       accept: () => {
-        const companyId = this.companyId ? parseInt(this.companyId) : 0;
+        const companyId = this.companyId ? this.companyId : 0;
         this.positionService.deletePosition(positionId, companyId).subscribe({
           next: () => {
             this.messageService.add({
@@ -317,31 +382,7 @@ export class IndexComponent implements OnInit {
   private showSuccess(detail: string): void {
     this.messageService.add({ severity: 'success', summary: 'Success', detail });
   }
-  loadEntities(entity: string, pageIndex: number): void {
-    let name=this.searchText.trim();
-    let query: any = { companyId: this.companyId, pageIndex };
-     if(name){
-    if (/^[a-zA-Z]/.test(name)) {
-      query = {
-        ...query,
-        name:name
-      };
-    }else if(name){
-      query = {
-        ...query,
-        nameAr:name
-      };
-    }}
-     const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
-    (this.positionTypeService[methodName] as Function)(query).subscribe(
-      (response: any) => {
-         if (response.status === 200) {
-          (this as any)[this.entityTypes[entity].data] = response.data.list;
-         this.positions=response.data.list
-        }
-      }
-    );
-  }
+
   loadMoreEmployees(page: number): void {
     this.employeeService.loadEmployees({
       companyId: this.companyId,

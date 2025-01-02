@@ -32,10 +32,10 @@ export class MoveToArchivePopupComponent implements OnInit {
     };
     this.tasksService.assignTaskStatus(query).subscribe({
       next: (res) => {
-        console.log(res);
+        
       },
       error: (err) => {
-        console.log(err);
+        
       },
     });
   }

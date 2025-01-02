@@ -4,14 +4,18 @@
   text-transform: capitalize ;
 } */
 label{
-  margin-bottom: 3px;
+  margin-bottom: 3px !important;
+  font-family: Lama Sans !important;
 }
 input,textarea{
   text-transform: none !important ;
   border-radius: 10px !important;
 }
-input::placeholder,textarea::placeholder{
+input::placeholder,textarea::placeholder,option,select,button{
   font-family: Lama Sans !important;;
+}
+input[type='date']{
+  text-transform: lowercase;
 }
 .CustomIcon{
   width: 30px;
@@ -133,5 +137,11 @@ body{
 {
   background-color: #663895 !important;
   color: white;
+}
+/* Style for the horizontal line (hr) */
+.complaint-card hr.name-divider {
+  border: 0;
+  border-top: 2px solid #663895; /* Set the color of the line */
+  margin: 10px 0; /* Space above and below the line */
 }
 

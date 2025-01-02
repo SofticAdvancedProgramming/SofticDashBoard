@@ -8,7 +8,7 @@
         <img [src]="company.logo" alt="Company Logo">
       </div>
       <div class="company-details">
-        <h1>{{ company.name }}</h1>
+        <h1>{{ _isArabic?company.nameAr:company.name }}</h1>
         <p>{{ 'COMPANY_DETAILS.PHONE_NUMBER' | translate }}: {{ company.phoneNumber }}</p>
       </div>
     </div>
@@ -40,7 +40,7 @@
     <app-departments></app-departments>
   </mat-tab>
   <mat-tab label="{{ 'COMPANY_DETAILS.POSITION' | translate }}">
-    <app-index [companyId]="companyId"></app-index>
+    <app-index [companyId]="+companyId"></app-index>
   </mat-tab>
   <!-- <mat-tab label="{{ 'COMPANY_DETAILS.TOP_MANAGEMENT' | translate }}">
     <app-top-managment></app-top-managment>

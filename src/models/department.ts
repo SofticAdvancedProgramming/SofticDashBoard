@@ -7,7 +7,7 @@ export class Department {
   description?: string;
   descriptionAr?: string;
   manager?: string;
-  branchId?: number;
+  branchId?: any;
   long?: number;
   lat?: number;
   isActive?:boolean;

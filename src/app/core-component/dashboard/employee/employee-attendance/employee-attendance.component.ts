@@ -78,7 +78,7 @@ export class EmployeeAttendanceComponent implements OnInit {
         })),
       };
 
-      console.log('Attendance Data:', this.attendances.list);
+     
     });
   }
 
@@ -107,7 +107,7 @@ export class EmployeeAttendanceComponent implements OnInit {
       long: employee.longitude || 0,
     };
 
-    console.log('Selected Employee:', this.employee, 'Type:', this.attendanceType);
+    
 
     this.showModal = true;
   }

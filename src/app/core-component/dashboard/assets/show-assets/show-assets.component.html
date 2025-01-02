@@ -8,12 +8,12 @@
 </div>
 <div class="tab-container justify-content-center">
   <div class="categories tabs">
-    <button *ngIf="page>1" class="btn" (click)="prevPage()"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+    <button *ngIf="page>1" class="btn" (click)="prevPage()"><i  ngClass="{{isArabic?'fa fa-arrow-right':'fa fa-arrow-left'}}" aria-hidden="true"></i></button>
     <button *ngFor="let category of assetsCategory;let i =index" class="tab-button" (click)="getAssets(category.id,i)" [class.active]="activeButtonIndex === i" >
       {{isArabic? category.nameAr:category.name}}
     </button>
     <button *ngIf="assetsCategory.length>1" class="btn" (click)="clear()"><i class="fa fa-filter" aria-hidden="true"></i></button>
-    <button *ngIf="page<totalPages"   class="btn" (click)="nextPage()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+    <button *ngIf="page<totalPages"  class="btn" (click)="nextPage()"><i  ngClass="{{isArabic?'fa fa-arrow-left':'fa fa-arrow-right'}}"  aria-hidden="true"></i></button>
   </div>
 </div>
 
@@ -23,38 +23,38 @@
       <label for="departmentSelect" class="form-label">{{ 'SELECT_ASSET_TYPE' | translate }}</label>
     <select id="departmentSelect" class="form-select" [(ngModel)]="isMain"
     (change)="filterByMainAsset()">
-    <option [ngValue]="null">{{ 'All Assets' | translate }}</option>
-      <option [ngValue]="true">{{ 'main asset'|translate }}</option>
-      <option [ngValue]="false">{{ 'related asset'|translate  }}</option>
+    <option [ngValue]="null">{{ 'Assets.All Assets' | translate }}</option>
+      <option [ngValue]="true">{{ 'RELATED_ASSETS.MAINASSETS'|translate }}</option>
+      <option [ngValue]="false">{{ 'RELATED_ASSETS.TITLE'|translate  }}</option>
     </select>
     </div>
   </div>
 </div>
 
 <div class="container mt-3" *ngFor="let asset of filteredAssets" [routerLink]="['/dashboard/AssetsDetails',asset.id]">
-  <div class="item">
+  <div class="item" ngClass="{{isArabic?'item-ar':'item-en'}}">
     <img *ngIf="asset.photo" [src]="asset.photo" class="image">
     <img *ngIf="!asset.photo" src="https://via.placeholder.com/100" class="image">
   </div>
-  <div class="item">
+  <div class="item" ngClass="{{isArabic?'item-ar':'item-en'}}">
     <b>{{ 'employeeAssets.name' | translate}}</b>
-    <p>{{asset.name}}</p>
+    <p>{{isArabic?asset.nameAr:asset.name}}</p>
   </div>
-  <div class="item">
+  <div class="item" ngClass="{{isArabic?'item-ar':'item-en'}}">
     <b>{{ 'employeeAssets.category' | translate}}</b>
-    <p>{{asset.assetCategoryName}}</p>
+    <p>{{isArabic?asset.assetCategoryNameAr:asset.assetCategoryName}}</p>
   </div>
 
-  <div class="item" >
+  <div class="item" ngClass="{{isArabic?'item-ar':'item-en'}}" >
     <b *ngIf="asset.employeeId">{{ 'employeeAssets.AssienedTo' | translate}}</b>
     <p *ngIf="asset.employeeId">{{asset.employeeName}}</p>
     <b *ngIf="!asset.employeeId">{{ 'employeeAssets.NotAssiened' | translate}}</b>
   </div>
-  <div class="item">
+  <div class="item" ngClass="{{isArabic?'item-ar':'item-en'}}">
     <b>{{ 'employeeAssets.Model' | translate}}</b>
     <p>{{asset.model}}</p>
   </div>
-  <div class="item">
+  <div class="item" ngClass="{{isArabic?'item-ar':'item-en'}}">
     <b>{{ 'employeeAssets.assetstatus' | translate}}</b>
     <p class="status">{{isArabic?asset.assetStatusNameAr:asset.assetStatusName}}</p>
   </div>

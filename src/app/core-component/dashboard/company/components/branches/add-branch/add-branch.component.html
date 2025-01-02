@@ -10,7 +10,7 @@
       </div>
       <div class="form-group">
         <label for="nameAr">{{ 'addBranch.BRANCH_NAME_AR' | translate }}</label>
-        <input id="nameAr" formControlName="nameAr" placeholder="{{ 'addBranch.ENTER_BRANCH_NAME_AR' | translate }}"
+        <input [appInputRestriction]="'english'" id="nameAr" formControlName="nameAr" placeholder="{{ 'addBranch.ENTER_BRANCH_NAME_AR' | translate }}"
           class="form-control" />
         <div *ngIf="form.get('nameAr')?.invalid && form.get('nameAr')?.touched" class="text-danger">{{
           'addBranch.AR_NAME_REQUIRED' | translate }}</div>

@@ -14,12 +14,7 @@ export class BasicTableComponent implements OnChanges {
   @Input() tableData: any[] = [];
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['tableData']) {
-      console.log('Table data updated:', this.tableData);
-    }
-    if (changes['tableHeaders']) {
-      console.log('Table headers updated:', this.tableHeaders);
-    }
+  
   }
 
   getHeaderKey(header: string): string {

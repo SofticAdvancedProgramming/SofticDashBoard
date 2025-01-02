@@ -1,13 +1,14 @@
 import { Position } from './../../../../../../models/positionModel';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { DropDownComponent } from '../../../components/drop-down/drop-down.component';
 import { RequestTypeService } from '../../../../../services/requestTypeService/request-type.service';
 import { ToastrService } from 'ngx-toastr';
 import { pad } from 'lodash';
+import { minLessThanMaxValidator } from '../../../../../../validator/minLessThanMaxValidator';
 
 @Component({
   selector: 'app-request-type-details',
@@ -39,15 +40,21 @@ export class RequestTypeDetailsComponent {
   ) {
 
   }
-  editForm: FormGroup = this.fb.group({
-    name: [''],
-    nameAr: [''],
-    icon: [''],
-    max: [null],
-    min: [null],
-    containAsset: [false],
-    requestCategory: [{ value: null, disabled: true }],  });
-  
+  editForm: FormGroup = this.fb.group(
+    {
+      name: [''],
+      nameAr: [''],
+      icon: [''],
+      max: [null, [Validators.required]],
+      min: [null, [Validators.required]],
+      containAsset: [false],
+      requestCategory: [{ value: null, disabled: true }],
+    },
+    { validators: [minLessThanMaxValidator] }  
+  );
+  get isMinMaxInvalid(): boolean {
+    return this.editForm.errors?.['minGreaterThanMax'] ?? false;
+  }
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.requestId = +params['id'];
@@ -59,10 +66,10 @@ export class RequestTypeDetailsComponent {
     this.requestTypeService.getRequestCategory({}).subscribe({
       next: (res) => {
         this.requestCategories = res.data.list || [];
-        console.log('Request Categories:', this.requestCategories);
+      
       },
       error: (err) => {
-        console.error('Error fetching request categories:', err);
+      
       },
     });
   }
@@ -71,7 +78,7 @@ export class RequestTypeDetailsComponent {
     this.requestTypeService.getRequestTypeById(id).subscribe({
       next: (res) => {
         this.requestTypeDetails = res.data.list.find((item: any) => item.id === id) || null;
-        console.log('Request Type Details:', this.requestTypeDetails);
+       
   
         if (this.requestTypeDetails) {
           // Merge name and nameAr with requestTypeConfigs if present
@@ -80,7 +87,7 @@ export class RequestTypeDetailsComponent {
             name: this.requestTypeDetails.name,
             nameAr: this.requestTypeDetails.nameAr,
           })) || [];
-          console.log('Request Types:', this.requestTypes);
+        
   
           this.editForm.patchValue({
             name: this.requestTypeDetails.name,
@@ -198,7 +205,7 @@ export class RequestTypeDetailsComponent {
     this.requestTypeService.editRequestType(payload).subscribe({
       next: () => {
         this.toastr.success('Changes saved successfully!');
-        console.log('Saved Payload:', payload);
+       ;
       },
       error: (err) => {
         console.error('Error saving changes:', err);

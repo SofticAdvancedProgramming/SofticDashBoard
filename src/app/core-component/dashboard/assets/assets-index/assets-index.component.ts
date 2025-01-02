@@ -84,7 +84,7 @@ export class AssetsIndexComponent{
     this.assetsService.getAssetsCount(req).subscribe(
       {
         next:(res)=>{
-         console.log(res)
+        
           this.assetsCount={
             companyId:res.companyId,
             totalAssetsCount:res.totalAssetsCount,
@@ -94,7 +94,7 @@ export class AssetsIndexComponent{
           }
         },
         error:(res)=>{
-         // console.log(res)
+        
         }
       }
     )
@@ -117,7 +117,7 @@ export class AssetsIndexComponent{
         },
 
         error:(res)=>{
-          console.log(res)
+          
         }
       }
     )
@@ -141,7 +141,7 @@ export class AssetsIndexComponent{
         },
 
         error:(res)=>{
-          console.log(res)
+        
         }
       }
     )

@@ -54,7 +54,7 @@ export class ProfileDetailsComponent implements OnInit {
     if (companyIdString) {
       this.companyId = parseInt(companyIdString, 10);
       this.getCompanyData(this.companyId);
-      console.log('Retrieved companyId from localStorage:', this.companyId);
+      
     }
     this.initializeForm();
     this.loadSubscriptionPlan();
@@ -68,7 +68,7 @@ export class ProfileDetailsComponent implements OnInit {
     this.currenyService.getCurrencyTypes().subscribe({
       next: (res) => {
         this.currencies = res.data.list;
-        console.log(res);
+      
       },
       error: (err) => console.log(err)
       
@@ -110,7 +110,8 @@ export class ProfileDetailsComponent implements OnInit {
       description: ['', [Validators.minLength(5), Validators.maxLength(250)]],
       descriptionAr: ['', [Validators.minLength(5), Validators.maxLength(250)]],
       subscriptionPlanId: [''],
-      companyExtention: ['']
+      companyExtention: [''],
+      centralizedDepartment: [false] 
     });
   }
 
@@ -129,7 +130,7 @@ export class ProfileDetailsComponent implements OnInit {
     const request = { id: id };
     this.companyService.getCompany(request).subscribe(
       (response: any) => {
-        console.log('Company data fetched:', response);
+        
         if (response.data && response.data.list && response.data.list.length > 0) {
           const company = response.data.list[0];
           this.populateForm(company);
@@ -161,12 +162,13 @@ export class ProfileDetailsComponent implements OnInit {
       description: company.description || '',
       descriptionAr: company.descriptionAr || '',
       subscriptionPlanId: company.subscriptionPlanId || this.subscriptionPlanId,
-      companyExtention: company.companyExtention || this.companyExtention
+      companyExtention: company.companyExtention || this.companyExtention,
+      centralizedDepartment: company.centralizedDepartment || false
     });
   }
 
   submitForm(): void {
-    console.log(this.companyForm.get('phone')?.errors, this.companyForm.get('phoneNumber')?.errors, this.companyForm)
+  
     if (this.companyForm.valid) {
       const updatedCompany: any = {
         ...this.companyForm.value,
@@ -175,23 +177,29 @@ export class ProfileDetailsComponent implements OnInit {
         companyExtention: this.companyExtention || this.companyForm.get('companyExtention')?.value,
         phone: this.companyForm.get('phone')?.value?.e164Number || this.companyForm.get('phone')?.value,
         phoneNumber: this.companyForm.get('phoneNumber')?.value?.e164Number || this.companyForm.get('phoneNumber')?.value,
+        centralizedDepartment: this.companyForm.get('centralizedDepartment')?.value // Include centralizedDepartment
       };
       if (!this.base64ImageForServer) {
         delete updatedCompany.logo;
       } else {
         updatedCompany.logo = this.base64ImageForServer;
       }
-
+  
       this.companyService.editCompany(updatedCompany).subscribe(
         response => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Company updated successfully' });
           this.editMode = false;
         },
+        error => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update company' });
+          console.error('Error updating company:', error);
+        }
       );
       return;
     }
     this.companyForm.markAllAsTouched();
   }
+  
 
 
   isFieldInvalid(field: string): boolean {

@@ -14,7 +14,8 @@
 }
 
 input[type="date"] {
-  padding-left: 10px;
+  padding: 10px;
+  text-transform: lowercase !important;
 }
 
 .switch {
@@ -144,8 +145,5 @@ label {
 input {
   border: 1px solid #e7e6e8;
   background: #fbfbfb;
-}
-.formatedDate
-{
-  text-transform: uppercase !important;
+  padding: 10px;
 }

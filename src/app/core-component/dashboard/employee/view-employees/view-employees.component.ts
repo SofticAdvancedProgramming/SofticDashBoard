@@ -54,7 +54,7 @@ export class ViewEmployeesComponent implements OnInit {
     this.route.params.subscribe(res => {
       if (res['postionId'] != undefined) {
         this.postionId = res['postionId'];
-        console.log(this.postionId)
+      
       }
     });
     this.loadEmployees();
@@ -80,7 +80,7 @@ export class ViewEmployeesComponent implements OnInit {
       : accountStatus.Active;
 
     this.loadEmployeesByCompany(status);
-    //console.log(status)
+ 
   }
   filterText!:string;
   loadEmployeesByCompany(status: accountStatus) {
@@ -105,7 +105,7 @@ export class ViewEmployeesComponent implements OnInit {
         }
       }
 
-      console.log(query)
+     
     if (this.companyId) {
       this.employeeService
         .loadEmployees(query)
@@ -174,7 +174,7 @@ export class ViewEmployeesComponent implements OnInit {
   //       }
   //     }
 
-  //     console.log(query)
+  //   
   //   if (this.companyId) {
   //     this.employeeService
   //       .loadEmployees(query)
@@ -208,8 +208,7 @@ export class ViewEmployeesComponent implements OnInit {
       'isPending',
       this.isShowingPending.toString()
     );
-    console.log(localStorage.getItem('isPending'));
-
+   
     // localStorage.setItem('isPending', this.isShowingPending.toString());
     this.currentPage = 1;
     this.loadEmployees();
@@ -273,9 +272,7 @@ export class ViewEmployeesComponent implements OnInit {
         .deleteEmployee(this.companyId, this.employeeToDelete.id)
         .pipe(
           tap(() => {
-            console.log(
-              `Employee ${this.employeeToDelete?.id} deleted successfully.`
-            );
+          
             this.loadEmployees();
             this.employeeToDelete = null;
           })
@@ -289,9 +286,7 @@ export class ViewEmployeesComponent implements OnInit {
         .deactiveEmployee(this.companyId, this.employeeToDelete.id)
         .pipe(
           tap(() => {
-            console.log(
-              `Employee ${this.employeeToDelete?.id} deactivated successfully.`
-            );
+         
             this.loadEmployees();
             this.employeeToDelete = null;
           })
@@ -305,9 +300,7 @@ export class ViewEmployeesComponent implements OnInit {
         .activeEmployee(this.companyId, this.employeeToDelete.id)
         .pipe(
           tap(() => {
-            console.log(
-              `Employee ${this.employeeToDelete?.id} deactivated successfully.`
-            );
+          
             this.loadEmployees();
             this.employeeToDelete = null;
           })
@@ -323,10 +316,10 @@ export class ViewEmployeesComponent implements OnInit {
         .assginEmployeeToPosition({employeeId:this.employeeToDeleteFromPositon.id,positionId:0})
         .subscribe({
           next:(res)=>{
-            console.log(res);
+        
             this.loadEmployees();},
             error:(res)=>{
-              console.log(res);}
+              }
         });
     }
   }

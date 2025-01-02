@@ -46,7 +46,7 @@ export class ViewBranchesComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
-  isArabic: boolean = false;
+  isArabic: boolean =  localStorage.getItem('lang')=='ar'?true:false;;
   translatedColumns: string[] = [];
   constructor(private branchService: BranchService, private translate: TranslateService,
     private employeeService: EmployeeService, private messageService: MessageService,

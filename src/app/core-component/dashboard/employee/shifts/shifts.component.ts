@@ -5,11 +5,12 @@ import { EmployeeService } from '../../../../services/employeeService/employee.s
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { ModernTableComponent } from '../../components/modern-table/modern-table.component';
 
 @Component({
   selector: 'app-shifts',
   standalone: true,
-  imports: [CommonModule, TranslateModule, FormsModule, ToastModule],
+  imports: [CommonModule, TranslateModule, FormsModule, ToastModule,ModernTableComponent],
   templateUrl: './shifts.component.html',
   styleUrls: ['./shifts.component.css'],
   providers: [MessageService]
@@ -118,7 +119,7 @@ export class ShiftsComponent implements OnInit {
 
   private handleShiftSuccess(response: any): void {
     this.showMessage('success', 'Success', 'Shift assigned successfully.');
-    console.log('Shift assigned successfully:', response);
+
   }
 
   private handleShiftError(error: any): void {
@@ -133,4 +134,20 @@ export class ShiftsComponent implements OnInit {
   cancel(): void {
 
   }
+
+  // columns:any;
+  // deleteId: string = 'deleteSalaryBenefit';
+  // activeTab: string = 'Entitlements';
+  // shifts: any[] = [];
+  // totalRows: any = {
+  //   employeeSalary: 0,
+  // };
+  // loadEmployeeshifts(){
+
+  // }
+
+  // deleteSift(id:number, companyId:number){
+
+  // }
+  // openEditModal(event:any){}
 }
