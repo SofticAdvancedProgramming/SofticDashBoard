@@ -68,6 +68,7 @@ export class TaskDetailsComponent implements OnInit {
   taskImg = '../../../../../assets/images/Video Task.png';
   isChecked: any;
   checkboxForm!: FormGroup;
+  isDisabled: boolean = true;
 
   constructor(
     private tasksService: TasksService,
@@ -125,9 +126,9 @@ export class TaskDetailsComponent implements OnInit {
         // Initialize FormArray with checkboxes
         this.todoItems?.forEach((todo: any) => {
           if (todo.statusId == 4) {
-            this.checkboxes.push(this.fb.control(true));
+            this.checkboxes.push(this.fb.control({value: true, disabled: true}));
           } else {
-            this.checkboxes.push(this.fb.control(false));
+            this.checkboxes.push(this.fb.control({value: false, disabled: true}));
           }
         });
         console.log(this.checkboxes);
@@ -156,7 +157,7 @@ export class TaskDetailsComponent implements OnInit {
             Validators.required,
           ],
         });
-console.log("this.taskDetailsthis.taskDetails",this.taskDetails)
+        console.log('this.taskDetailsthis.taskDetails', this.taskDetails);
         // if(this.taskDetails.toDoItems){
         //   this.todoItems = this.taskDetails.toDoItems;
         // }
@@ -224,7 +225,7 @@ console.log("this.taskDetailsthis.taskDetails",this.taskDetails)
           console.log(err);
         },
       });
-    }else{
+    } else {
       let query = {
         id: this.todoItems[index].id,
         companyId: this.companyId,
