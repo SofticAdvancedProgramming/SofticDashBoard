@@ -726,3 +726,22 @@ button:hover {
   background-color: #5a2a8f;
   transform: scale(1.05); /* Slightly enlarge the button on hover */
 }
+/* Search Bar */
+.form-control {
+  border-radius: 30px;
+  padding: 12px 20px;
+  width: 100%;
+  max-width: 400px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+}
+
+/* Filter Select */
+.form-select {
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+}
+
+/* Tab and Button Styling (unchanged) */

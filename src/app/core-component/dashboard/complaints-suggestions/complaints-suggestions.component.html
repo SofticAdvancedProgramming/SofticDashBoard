@@ -1,16 +1,11 @@
 <div class="row d-flex justify-content-center">
-    <div class="tab-container">
+    <div class="tab-container justify-content-center">
         <div class="tabs">
-            <!-- Complaints Tab -->
             <button class="tab-button" [class.active]="activeTab === 'complaints'" (click)="selectTab('complaints')">
-                <i class="fas fa-exclamation-triangle"></i> 
                 {{ 'tabs.complaints' | translate }}
                 <span *ngIf="activeTab === 'complaints'" class="indicator"></span>
             </button>
-
-            <!-- Suggestions Tab -->
             <button class="tab-button" [class.active]="activeTab === 'suggestions'" (click)="selectTab('suggestions')">
-                <i class="fas fa-lightbulb"></i> 
                 {{ 'tabs.suggestions' | translate }}
                 <span *ngIf="activeTab === 'suggestions'" class="indicator"></span>
             </button>
@@ -19,6 +14,15 @@
 </div>
 
 <div class="container">
+    <div class="row">
+        <!-- Filters Section -->
+        <div class="col-md-5">
+            <select class="form-select" (change)="getSpecificCompaintsOrSuggetions($event)" >
+                <option value="null">Filter by Status</option>
+                <option *ngFor="let issueStatus of allIssueStatus" [value]="issueStatus.id">{{issueStatus.name}}</option>
+            </select>
+        </div>
+    </div>
     <div class="row mt-3">
         <!-- No Data Message -->
         <div *ngIf="filteredComplaints.length === 0 && !loading" class="no-data-message text-center">
