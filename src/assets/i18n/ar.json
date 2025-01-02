@@ -94,6 +94,7 @@
     "DESCRIPTION_MIN_AR": "يجب أن يكون الوصف بالعربية 5 حرف على الأقل.",
     "DESCRIPTION_MAX_AR": "لا يمكن أن يتجاوز الوصف بالعربية 250 حرفًا.",
     "FAX": "فاكس",
+    "CENTRALIZED_DEPARTMENT":"ادارة مركزية",
     "currency": "العملة",
     "instagram": "انستجرام",
     "X": "اكس",

@@ -1,13 +1,14 @@
 import { Position } from './../../../../../../models/positionModel';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { DropDownComponent } from '../../../components/drop-down/drop-down.component';
 import { RequestTypeService } from '../../../../../services/requestTypeService/request-type.service';
 import { ToastrService } from 'ngx-toastr';
 import { pad } from 'lodash';
+import { minLessThanMaxValidator } from '../../../../../../validator/minLessThanMaxValidator';
 
 @Component({
   selector: 'app-request-type-details',
@@ -39,15 +40,21 @@ export class RequestTypeDetailsComponent {
   ) {
 
   }
-  editForm: FormGroup = this.fb.group({
-    name: [''],
-    nameAr: [''],
-    icon: [''],
-    max: [null],
-    min: [null],
-    containAsset: [false],
-    requestCategory: [{ value: null, disabled: true }],  });
-  
+  editForm: FormGroup = this.fb.group(
+    {
+      name: [''],
+      nameAr: [''],
+      icon: [''],
+      max: [null, [Validators.required]],
+      min: [null, [Validators.required]],
+      containAsset: [false],
+      requestCategory: [{ value: null, disabled: true }],
+    },
+    { validators: [minLessThanMaxValidator] }  
+  );
+  get isMinMaxInvalid(): boolean {
+    return this.editForm.errors?.['minGreaterThanMax'] ?? false;
+  }
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.requestId = +params['id'];
