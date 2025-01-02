@@ -38,7 +38,7 @@ export class SocialComponent {
       .pipe(
         tap((res) => {
           this.userSocial = res.list[0];
-          console.log(res);
+        
           if(this.userSocial?.facebook != null){
             this.progressBarValue +=20;
           }

@@ -91,7 +91,7 @@ export class AuthenticationService {
     } else if (Array.isArray(decodedToken?.roles)) {
       roles = decodedToken.roles;
     }
-    console.log('Decoded Roles:', roles);
+
     localStorage.setItem('roles', JSON.stringify(roles));
     this.permissionsService.loadPermissions(roles);
   }

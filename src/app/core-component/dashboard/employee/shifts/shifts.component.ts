@@ -118,7 +118,7 @@ export class ShiftsComponent implements OnInit {
 
   private handleShiftSuccess(response: any): void {
     this.showMessage('success', 'Success', 'Shift assigned successfully.');
-    console.log('Shift assigned successfully:', response);
+  
   }
 
   private handleShiftError(error: any): void {

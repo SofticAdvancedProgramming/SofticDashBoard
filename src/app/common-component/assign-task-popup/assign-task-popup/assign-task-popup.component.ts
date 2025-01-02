@@ -37,7 +37,7 @@ export class AssignTaskPopupComponent {
   }
   ngOnInit() {
     this.taskId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log('Task ID:', this.taskId);
+
     this.loadEmployees();
   }
   closePopup() {
@@ -50,7 +50,7 @@ export class AssignTaskPopupComponent {
         taskId: this.taskId,
         employeeId: this.selectedEmployee.id,
       };
-      console.log(this.selectedEmployee.id);
+
       
 
       this.taskService.assignTask(assignAssetData).subscribe({
@@ -58,7 +58,7 @@ export class AssignTaskPopupComponent {
           this.toast.success('Task assigned successfully');
           this.onEmployeeSelected.emit(this.selectedEmployee!);
           this.closePopup();
-          console.log(response);
+        
         },
         error(err) {
           console.log(err);
@@ -101,11 +101,9 @@ export class AssignTaskPopupComponent {
     const employee = this.employees.find((emp) => emp.id === employeeId);
 
     if (employee) {
-      console.log('Selected Employee:', employee);
+
       this.selectedEmployee = employee;
-      console.log('Selected Employee ID:', this.selectedEmployee?.id);
-    } else {
-      console.log('Employee not found.');
-    }
+
+    } 
   }
 }

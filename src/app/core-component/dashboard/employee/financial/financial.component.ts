@@ -91,8 +91,7 @@ export class FinancialComponent {
     this.isDeduction = tab === 'Deductions' ? true :false ;
     this.loadEntitie('employeeSalary', 1);
     this.loadEntitiesDropDown('SalaryType', 1, this.isDeduction);
-    console.log(tab);
-    console.log(this.isDeduction);
+  
   }
 
   ngOnInit(): void {
@@ -183,7 +182,7 @@ export class FinancialComponent {
           this.dropDownData = this.dropDownDataIsDeductionFalse;
         }
         this.currentPageDropDown = response.data.pageIndex;
-        console.log(response);
+    
       }
     });
   }
@@ -219,7 +218,7 @@ export class FinancialComponent {
       id: 0,
     };
 
-    console.log("payload ",payload)
+  
 
     this.employeeService.addEmployeeSalary(payload).subscribe({
       next: (res) => {
@@ -252,7 +251,7 @@ export class FinancialComponent {
   }
 
   handleFormSubmission(data: any): void {
-    console.log(data, 'data');
+ 
     if (this.isEdit) {
       data.companyId = this.companyId;
       data.id = this.formData.id;
@@ -263,12 +262,12 @@ export class FinancialComponent {
 
   editEntity(entity: string, updatedEntity: any): void {
     let query=updatedEntity;
-    console.log(query)
+ 
     this.employeeService.editEmployeeSalary(query).subscribe(
       {
         next:(res)=>{
           this.loadEntitie('employeeSalary',1)},
-        error:(res)=>{console.log(res)}
+        error:(res)=>{}
       }
     )
 
@@ -317,17 +316,17 @@ export class FinancialComponent {
 
   deleteEntity(entity: string, id: number): void {
 
-    console.log('entity',entity,'id',id)
+ 
     // this.employeeService.
     const methodName = this.entityTypes[entity].delete as keyof EmployeeService;
 
-    console.log(methodName);
+  
     if(this.companyId){
       this.employeeService.deleteEmployeeSalary(+this.companyId,id).subscribe(
         {
           next:(res)=>{
             this.loadEntitie('employeeSalary',1)},
-          error:(res)=>{console.log(res)}
+          error:(res)=>{}
         }
       )
     }

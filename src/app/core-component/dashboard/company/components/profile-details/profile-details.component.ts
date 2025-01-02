@@ -54,7 +54,7 @@ export class ProfileDetailsComponent implements OnInit {
     if (companyIdString) {
       this.companyId = parseInt(companyIdString, 10);
       this.getCompanyData(this.companyId);
-      console.log('Retrieved companyId from localStorage:', this.companyId);
+      
     }
     this.initializeForm();
     this.loadSubscriptionPlan();
@@ -68,7 +68,7 @@ export class ProfileDetailsComponent implements OnInit {
     this.currenyService.getCurrencyTypes().subscribe({
       next: (res) => {
         this.currencies = res.data.list;
-        console.log(res);
+      
       },
       error: (err) => console.log(err)
       
@@ -130,7 +130,7 @@ export class ProfileDetailsComponent implements OnInit {
     const request = { id: id };
     this.companyService.getCompany(request).subscribe(
       (response: any) => {
-        console.log('Company data fetched:', response);
+        
         if (response.data && response.data.list && response.data.list.length > 0) {
           const company = response.data.list[0];
           this.populateForm(company);
@@ -168,7 +168,7 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   submitForm(): void {
-    console.log(this.companyForm.get('phone')?.errors, this.companyForm.get('phoneNumber')?.errors, this.companyForm)
+  
     if (this.companyForm.valid) {
       const updatedCompany: any = {
         ...this.companyForm.value,

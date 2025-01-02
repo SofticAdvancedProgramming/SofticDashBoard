@@ -112,9 +112,7 @@ export class AddRequestTypeComponent implements OnInit {
     this.loadRequestTypes();
 
     this.form.statusChanges.subscribe(() => {
-      if (this.form.errors?.['minGreaterThanMax']) {
-        console.log('Validation error: Minimum must be less than Maximum');
-      }
+     
     });
 
     this.form.valueChanges.subscribe(() => {
@@ -356,12 +354,11 @@ export class AddRequestTypeComponent implements OnInit {
       });
     }
 
-    console.log('Submission Payload:', payload);
 
     this.requestTypeService.addRequestType(payload).subscribe({
       next: (res) => {
         this.toast.success('Request Type Added Successfully');
-        console.log('Server response:', res);
+       
 
         this.loadRequestTypes();
         this.RequestAdded.emit();

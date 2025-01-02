@@ -27,10 +27,10 @@ export class OtpComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.otp);
+
     this.apiCall.request(`${environment.apiBaseUrl}Auth/VerfiyEmail`, 'post', { email: this.email, otp: this.otp }).subscribe({
       next: (response) => {
-        console.log('Response:', response);
+
         if (response?.status === 200 && response?.data?.isAuth) {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'OTP verified successfully' });
           setTimeout(() => {

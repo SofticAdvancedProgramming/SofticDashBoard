@@ -76,10 +76,10 @@ export class LoginComponent implements OnInit, OnDestroy {
              localStorage.setItem('firstName', decodedObject.nameid);
 
           }
-          console.log('Token saved. Attempting to navigate to dashboard...');
+
           this.router.navigate(['/dashboard']).then(success => {
             if (success) {
-              console.log('Navigation to dashboard successful');
+
             } else {
               console.error('Navigation to dashboard failed');
             }

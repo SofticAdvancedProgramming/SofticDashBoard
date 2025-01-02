@@ -27,9 +27,9 @@ export class SignalRService {
       this.hubConnection
         .start()
         .then(() => {
-          console.log('SignalR connection started');
+         
           this.addWasageCallbackListener((data: any) => {
-            console.log("Received data:", data);
+            
           });
         })
         .catch((err) => console.error('Error while starting SignalR connection: ' + err));
@@ -46,9 +46,9 @@ export class SignalRService {
   }
 
   public addWasageCallbackListener(validateCallback: (data: any) => void): void {
-    console.log("Adding WasageCallback listener");
+   
     this.hubConnection.on('WasageCallback', (data) => {
-      console.log("WasageCallback triggered", data);
+    
       validateCallback(data);
     });
   }
@@ -67,7 +67,7 @@ export class SignalRService {
 
   private registerOnReconnected(): void {
     this.hubConnection.onreconnected((connectionId) => {
-      console.log('SignalR connection reconnected. Connection ID: ' + connectionId);
+    
     });
   }
 }

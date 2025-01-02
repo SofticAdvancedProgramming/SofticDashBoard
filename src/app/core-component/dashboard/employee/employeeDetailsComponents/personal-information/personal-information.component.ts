@@ -42,7 +42,7 @@ export class PersonalInformationComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log(this.employeeId);
+  
 
     if (this.employeeId) {
       this.loadPersonalInformation();
@@ -59,7 +59,7 @@ export class PersonalInformationComponent implements OnInit {
         if (response?.list?.length > 0) {
           this.personalInfo = response.list[0] as PersonalInformation;
           this.setImageUrl(this.personalInfo.referancePhoto);
-          console.log(response);
+        
         }
       },
       (error) => {
@@ -147,8 +147,7 @@ export class PersonalInformationComponent implements OnInit {
   }
 
   updatePersonalInformation() {
-    console.log("hi")
-    console.log(this.personalInfo)
+  
     if (this.personalInfo) {
       const updatedPersonalInfo: Partial<PersonalInformation> = { ...this.personalInfo };
       updatedPersonalInfo.nationality = '';

@@ -167,7 +167,7 @@ export class AddCompanyComponent implements OnInit {
       Object.keys(this.addCompanyForm.controls).forEach(key => {
         const controlErrors = this.addCompanyForm.get(key)?.errors;
         if (controlErrors) {
-          console.log('Key control: ' + key + ', errors: ', controlErrors);
+         
         }
       });
       this.showError('Invalid Form', 'Please fill all the required fields correctly.');
@@ -184,7 +184,7 @@ export class AddCompanyComponent implements OnInit {
     companyData.phoneNumber = companyData.phoneNumber?.e164Number;
 
     // Console log the form data before submission
-    console.log('Company Data:', companyData);
+    
 
     this.companyService.addCompany(companyData).subscribe(
       response => {

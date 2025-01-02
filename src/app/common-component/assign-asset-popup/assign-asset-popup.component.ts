@@ -32,7 +32,6 @@ export class AssignAssetPopupComponent {
   ) { }
   ngOnInit() {
     this.assetId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log('Asset ID:', this.assetId);
     this.loadEmployees();
   }
   closePopup() {
@@ -89,12 +88,9 @@ export class AssignAssetPopupComponent {
     const employee = this.employees.find(emp => emp.id === employeeId);
 
     if (employee) {
-      console.log('Selected Employee:', employee);
+
       this.selectedEmployee = employee;
-      console.log('Selected Employee ID:', this.selectedEmployee?.id);
-    } else {
-      console.log('Employee not found.');
-    }
+    } 
   }
 
 

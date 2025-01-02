@@ -40,23 +40,23 @@ export class RequestTypeIndexComponent implements OnInit {
     this.requestTypeService.getRequestType({pageSize:1000}).subscribe({
       next: (res) => {
         this.requestTypes = res.data.list;
-        console.log(res);
+       
         this.cdr.detectChanges();
       },
       error: (err) => {
-        console.log(err);
+       
       },
     });
   }
   deleteRequestType(id:number){
     this.requestTypeService.deleteRequestType(id, this.companyId).subscribe({
       next: (res) => {
-        console.log(res);
+       
         this.toast.success('Request Type Deleted Successfully');
         this.ngOnInit();
       },
       error: (err) => {
-        console.log(err);
+       
       }
     })
   }

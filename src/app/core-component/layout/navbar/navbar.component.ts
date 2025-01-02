@@ -48,8 +48,8 @@ export class NavbarComponent {
       this.profileImage = user?.profileImage || 'assets/images/default.jpeg';
       this.user = user || {};
     });
-    console.log('User:', this.user);
-    console.log('Roles:', this.roles);
+   
+  
 
     // Load initial user data
     const storedUser = this.userService.getUser();
