@@ -109,14 +109,14 @@ export class ComplaintsSuggestionsComponent {
         issueStatusId:statusId
       };
 
-      this.IssueExcuter.getIssueExcuter(params).subscribe({
+      this.IssueService.getIssues(params).subscribe({
         next: (response: any) => {
           this.loading = false;
 
           if (response?.data?.list) {
             this.complaints = response.data.list.map((item: any) => ({
               ...item,
-              againstTypeName: this.matchAgainstTypeName(item.issue.againestTypeId),
+              againstTypeName: this.matchAgainstTypeName(item.againestTypeId),
             }));
 
             this.filteredComplaints = this.complaints;
@@ -146,14 +146,15 @@ export class ComplaintsSuggestionsComponent {
         pageSize: this.itemsPerPage,
       };
 
-      this.IssueExcuter.getIssueExcuter(params).subscribe({
+   
+      this.IssueService.getIssues(params).subscribe({
         next: (response: any) => {
           this.loading = false;
 
           if (response?.data?.list) {
             this.complaints = response.data.list.map((item: any) => ({
               ...item,
-              againstTypeName: this.matchAgainstTypeName(item.issue.againestTypeId),
+              againstTypeName: this.matchAgainstTypeName(item.againestTypeId),
             }));
 
             this.filteredComplaints = this.complaints;

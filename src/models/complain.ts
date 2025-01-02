@@ -7,7 +7,7 @@ export interface Complaint {
   issue:Issue;
   issueId:number;
   issueStatusId:number;
- 
+  issueExcuters:Excuter[]
   }
 
   export interface Issue

@@ -45,7 +45,7 @@
                         <div class="user-info">
                             <img [src]="userImageUrl" alt="User Avatar" class="avatar" (error)="onImageError($event)">
                             <div class="user-details">
-                                <ng-container *ngFor="let executor of complaint.issue.issueExcuters">
+                                <ng-container *ngFor="let executor of complaint.issueExcuters">
                                     <h3 class="mx-1">{{ executor.employeeName }}</h3>
                                     <hr class="name-divider">
                                 </ng-container>
@@ -59,13 +59,13 @@
                         <div class="complaint-actions mt-3 justify-content-between d-flex">
                             <div class="complaint-status">
                                 <span class="status-label">Status:</span>
-                                <span class="status" [ngClass]="getStatusClass(complaint.issue.issueStatusId)">
-                                    {{ getComplaintStatusName(complaint.issue.issueStatusId) }}
+                                <span class="status" [ngClass]="getStatusClass(complaint.issueStatusId)">
+                                    {{ getComplaintStatusName(complaint.issueStatusId) }}
                                 </span>
                             </div>
 
                             <button class="delete-button btn btn-danger d-flex align-items-center"
-                                (click)="deleteComplaint(complaint.companyId, complaint.issue.id, $event)">
+                                (click)="deleteComplaint(complaint.companyId, complaint.id, $event)">
                                 <i class="fas fa-trash me-2"></i>
                                 {{ activeTab === 'complaints'
                                 ? ('complaintsPage.deleteComplaint' | translate)
