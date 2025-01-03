@@ -21,7 +21,7 @@ export interface Asset {
     serialNumber?:string;
     plateNumber?:string;
     reason?:string;
-
+    isDrived?:boolean;
 
   }
 

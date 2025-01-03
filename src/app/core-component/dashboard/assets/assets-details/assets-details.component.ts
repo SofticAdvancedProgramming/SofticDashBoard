@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AssignAssetPopupComponent } from "../../../../common-component/assign-asset-popup/assign-asset-popup.component";
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AssetsService } from '../../../../services/AssetsService/assets.service';
@@ -10,6 +10,7 @@ import { MapComponent } from '../../../../common-component/map/map.component';
 import { HttpClient } from '@angular/common/http';
 import { RelatedAssetsPopupComponent } from "../../../../common-component/related-assets-popup/related-assets-popup.component";
 import { ConfirmnDeleteDialogComponent } from '../../../../common-component/confirmn-delete-dialog/confirmn-delete-dialog.component';
+import { ShortenPipe } from '../../../../core/pipes/shorten.pipe';
 
 @Component({
   selector: 'app-assets-details',
@@ -19,9 +20,13 @@ import { ConfirmnDeleteDialogComponent } from '../../../../common-component/conf
   imports: [CommonModule,
             AssignAssetPopupComponent,
             MapComponent,
-            RelatedAssetsPopupComponent,RouterLink,
+            RelatedAssetsPopupComponent,
+            RouterLink,
             ConfirmnDeleteDialogComponent,
-            TranslateModule]
+            TranslateModule,
+            ShortenPipe,
+            DatePipe
+          ]
 })
 export class AssetsDetailsComponent implements OnInit {
   assets: Asset[] = [];
@@ -55,7 +60,7 @@ export class AssetsDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       const id = params['id'];
       if (id) {
-        
+
         this.gettAssets(Number(id));
         this.getRelatedAssets(Number(id));
       }
@@ -66,7 +71,7 @@ export class AssetsDetailsComponent implements OnInit {
     return localStorage.getItem('lang') === 'ar';
   }
   downloadFile(fileUrl: string) {
-    
+
 
     const link = document.createElement('a');
     link.href = fileUrl;
@@ -104,7 +109,7 @@ export class AssetsDetailsComponent implements OnInit {
     this.assetsService.getMainAssetsCategory(params).subscribe(
       res => {
         this.assetsCategory = res.data.list;
-        
+
       },
       error => {
         console.error(error);
@@ -114,11 +119,12 @@ export class AssetsDetailsComponent implements OnInit {
 
   gettAssets(id: number) {
     const params = { id };
-    
+
     this.assetsService.getAsset(params).subscribe({
       next: (res) => {
-        
+
         this.assets = res.data.list.map((asset: any) => {
+
           // const category = this.assetsCategory.find(cat => cat.id === asset.assetCategoryId);
           // const assetCategoryName = category ? (this.translate.currentLang === 'ar' ? category.nameAr : category.name) : 'Unknown';
 
@@ -136,14 +142,16 @@ export class AssetsDetailsComponent implements OnInit {
           if(asset.parentAssetId){
             this.isMainAsset=false;}
 
+            console.log(this.assets)
           return {
             ...asset,
           //  assetCategoryName: assetCategoryName
           };
         });
-        
+
 
         this.getRelatedAssets(id);
+        console.log(this.assets)
       },
       error: (err) => {
         console.error('Error fetching assets:', err);
@@ -160,7 +168,7 @@ export class AssetsDetailsComponent implements OnInit {
       next: (response: any) => {
         if (response.features && response.features.length > 0) {
           this.selectedAssetAddress = response.features[0]?.place_name;
-         
+
         } else {
           this.selectedAssetAddress = 'Address not available';
         }
@@ -170,18 +178,18 @@ export class AssetsDetailsComponent implements OnInit {
         this.selectedAssetAddress = 'Address not available';
       },
       complete: () => {
-        
+
       }
     });
   }
   getRelatedAssets(assetId: number) {
     //const params = { assetId };
     const params = { parentAssetId:assetId };
-    
+
    // this.assetsService.getRelatedAssets(params).subscribe({
       this.assetsService.getAsset(params).subscribe({
       next: (res) => {
-        
+
         if (res.data && Array.isArray(res.data.list)) {
           this.relatedAssets = res.data.list;
         } else {
@@ -206,7 +214,7 @@ export class AssetsDetailsComponent implements OnInit {
 
   handleDeleteConfirm(){
     if(this.childAsset){
-  
+
     this.edit();
     }
   }
@@ -216,7 +224,7 @@ export class AssetsDetailsComponent implements OnInit {
   }
 
   getChild(){
-    
+
     let params={id:this.deletedrelatedAssetsId}
     this.assetsService.getAsset(params).subscribe(
       (res)=>{
@@ -227,12 +235,12 @@ export class AssetsDetailsComponent implements OnInit {
     )
   }
   edit(){
-   
+
     this.childAsset.parentAssetId=null;
-    
+
     this.assetsService.edit(this.childAsset).subscribe({
       next:(res)=>{
-     
+
         this.isConfirmationDialogVisible=false;
         this.ngOnInit();},
       error:(res)=>{console.log(res);}
