@@ -22,27 +22,27 @@
     </ng-container> -->
 
     <div class="col-lg-auto col-md-6 col-sm-12 mb-3" >
-      <app-dashboard-card routerLink='/dashboard/ViewEmployees' [title]="lang === 'ar'? 'الموظفين' : 'Employees'" [value]="adminCounts.employeeCount"
+      <app-dashboard-card routerLink='/dashboard/ViewEmployees' [title]="isArabic? 'الموظفين' : 'Employees'" [value]="adminCounts.employeeCount"
         [icon]="'assets/images/profile/workdays.png'">
       </app-dashboard-card>
     </div>
     <div class="col-lg-auto col-md-6 col-sm-12 mb-3">
-      <app-dashboard-card (click)="navigateToSecondPageWithTab(1)" [title]="lang === 'ar'? 'الفروع' : 'Branchs'" [value]="adminCounts.branchCount"
+      <app-dashboard-card (click)="navigateToSecondPageWithTab(1)" [title]="isArabic ? 'الفروع' : 'Branchs'" [value]="adminCounts.branchCount"
          [icon]="'assets/images/profile/workdays.png'">
       </app-dashboard-card>
     </div>
     <div class="col-lg-auto col-md-6 col-sm-12 mb-3">
-      <app-dashboard-card [routerLink]="['/dashboard/AssetsIndex']"  [title]="lang === 'ar'?'المساعدين' : 'Assets'" [value]="adminCounts.assetCount"
+      <app-dashboard-card [routerLink]="['/dashboard/AssetsIndex']"  [title]="isArabic?'الأصول' : 'Assets'" [value]="adminCounts.assetCount"
          [icon]="'assets/images/profile/workdays.png'">
       </app-dashboard-card>
     </div>
     <div class="col-lg-auto col-md-6 col-sm-12 mb-3">
-      <app-dashboard-card (click)="navigateToSecondPageWithTab(3)" [title]="lang === 'ar'? 'الأقسام' : 'Positions'" [value]="adminCounts.positionCount"
+      <app-dashboard-card (click)="navigateToSecondPageWithTab(3)" [title]="isArabic? 'الوظائف' : 'Positions'" [value]="adminCounts.positionCount"
          [icon]="'assets/images/profile/workdays.png'">
       </app-dashboard-card>
     </div>
     <div class="col-lg-auto col-md-6 col-sm-12 mb-3">
-      <app-dashboard-card (click)="navigateToSecondPageWithTab(2)" [title]="lang === 'ar'? 'الأقسام' : 'Departments'" [value]="adminCounts.departmentCount"
+      <app-dashboard-card (click)="navigateToSecondPageWithTab(2)" [title]="isArabic? 'الأقسام' : 'Departments'" [value]="adminCounts.departmentCount"
          [icon]="'assets/images/profile/workdays.png'">
       </app-dashboard-card>
     </div>
@@ -72,10 +72,19 @@
     </div> -->
 
   </div>
-  <app-modern-table [tableTitle]="'Overview'" [totalRows]="attendances.totalRows" [tableData]="attendances.list"
-    [columns]="columns" [isThereSearch]="false" [isThereEdit]="false" [isThereDelete]="false" [newAction]="newAction"
-    (searchDateApi)="searchDateApi($event)" (newReqByPage)="getAttendances({},$event)"
-    (onCLickNewActionOutput)="map($event)" searchPlaceholder="Search data...">
+  <app-modern-table
+    [tableTitle]="'Overview'"
+    [totalRows]="attendances.totalRows"
+    [tableData]="attendances.list"
+    [columns]="columns"
+    [isThereSearch]="false"
+    [isThereEdit]="false"
+    [isThereDelete]="false"
+    [newAction]="newAction"
+    (searchDateApi)="searchDateApi($event)"
+    (newReqByPage)="getAttendances({},$event)"
+    (onCLickNewActionOutput)="map($event)"
+    searchPlaceholder="Search data...">
   </app-modern-table>
 
 </div>

@@ -30,11 +30,11 @@ export class LocationCardComponent implements OnInit{
   }
   ngOnInit():void{
     if (this.map) {
-      console.log(this.map);
+
     }
     this.lat=this._location?.lat;
     this.long=this._location?.long;
-    console.log(this.lat,this.long);
+
     this.getAddressFromCoordinates(this.long, this.lat);
   }
   getAddressFromCoordinates(lng: any, lat: any): void {
@@ -43,8 +43,8 @@ export class LocationCardComponent implements OnInit{
       next: (response:any) => {
         if (response.features && response.features.length > 0) {
           this.address = this.lang === 'en' ? response.features[0]?.place_name_en : response.features[0]?.place_name;
-          console.log(lng,lat)
-        console.log(this.address);
+
+
         this.divide(this.address );
       }
       },
@@ -52,13 +52,13 @@ export class LocationCardComponent implements OnInit{
         console.error('Error fetching address:', error);
       },
       complete: () => {
-        console.log('Request complete');
+
       }
     })
   }
   divide(address:string){
     this.addressArr= address.split(',')
-    console.log( this.addressArr);
+
   }
 
 

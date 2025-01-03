@@ -11,6 +11,6 @@ export class UserSkillsService {
   constructor(private apiCall:ApiCall) { }
 
   getSkills(request: any): Observable<any> {
-    return this.apiCall.request('POST', userSkillsController.loadAddresses, request);
+    return this.apiCall.request('POST', userSkillsController.loadASkills, request);
   }
 }

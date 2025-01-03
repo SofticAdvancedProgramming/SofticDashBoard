@@ -34,7 +34,7 @@ export class MapComponent implements OnInit, OnChanges {
     
     if(this.long!=undefined && this.lat!=undefined)
     {
-      console.log("lat",this.lat)
+
       this.getAddressFromCoordinates(this.long, this.lat);
     }
     
@@ -51,10 +51,10 @@ export class MapComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.initializeMap();
-    console.log("lattttttttttttttttttttttt",this.lat)
+
     if(this.lat==undefined && this.long==undefined)
     {
-      console.log("here")
+
       this.detectMyLocation();
     }
     
@@ -116,12 +116,12 @@ export class MapComponent implements OnInit, OnChanges {
 
   detectMyLocation(): void {
     if ('geolocation' in navigator) {
-      console.log("hereeee")
+
       // Use browser's geolocation API
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const userCoordinates: [number, number] = [position.coords.longitude, position.coords.latitude];
-          console.log("userCoordinates",userCoordinates)
+
           this.locationSelected.emit({ lat: position.coords.longitude, lng: position.coords.latitude });
   
           // Fly to user's location on the map
@@ -148,7 +148,7 @@ export class MapComponent implements OnInit, OnChanges {
         }
       );
     } else {
-      console.log('Geolocation is not supported by your browser.');
+
     }
   }
 
@@ -278,14 +278,14 @@ export class MapComponent implements OnInit, OnChanges {
       next: (response) => {
         if (response.features && response.features.length > 0) {
           this.selectedAddress = this.lang === 'en' ? response.features[0]?.place_name_en : response.features[0]?.place_name;
-          console.log("selectedAddress",this.selectedAddress)
+
         }
       },
       error: (error) => {
         console.error('Error fetching address:', error);
       },
       complete: () => {
-        console.log('Request complete');
+
       }
     })
   }

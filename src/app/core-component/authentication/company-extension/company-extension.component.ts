@@ -39,11 +39,11 @@ export class CompanyExtensionComponent implements OnDestroy {
     this.getCompanySubscription = this.companyService.getCompany({ companyExtention }).subscribe({
       next: (response) => {
         if (response?.data.list.length > 0) {
-          console.log(response);
+
           this.company = response?.data.list[0];
           this.router.navigate(['registration', { extension: this.company?.companyExtention }]);
         } else {
-          console.log(response);
+
           this.messageService.add({
             severity: 'warn',
             summary: 'No Company Found',

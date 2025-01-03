@@ -28,7 +28,7 @@ export class CompanyDetailsComponent implements OnInit {
   company: Company = {} as Company;
   cityName: string = '';
   countryName: string = '';
-  isArabic: boolean = false;
+  isArabic: boolean = localStorage.getItem('lang')=='ar'?true:false;
   activeTabIndex: number = 0; // Default tab index (first tab)
   constructor(
     private route: ActivatedRoute,
@@ -37,7 +37,7 @@ export class CompanyDetailsComponent implements OnInit {
     private messageService: MessageService,
     private translate: TranslateService,
     private router :Router
-    
+
   ) {}
 
   async ngOnInit() {
@@ -52,6 +52,9 @@ export class CompanyDetailsComponent implements OnInit {
   }
   checkLanguageDirection(): void {
     this.isArabic = this.translate.currentLang === 'ar';
+  }
+  get _isArabic():boolean{
+    return localStorage.getItem('lang')==='ar';
   }
   navigateToTab(index: number): void {
     this.activeTabIndex = index; // Update active tab
@@ -125,7 +128,7 @@ export class CompanyDetailsComponent implements OnInit {
     if (this.company.id && this.companyId) {
       try {
         const response = await this.companyService.activatePosition(this.company.id, +this.companyId).toPromise();
-        console.log('Company activated:', response);
+      
         this.showSuccess('Company activated successfully');
       } catch (error) {
         console.error('Error activating company:', error);
@@ -139,7 +142,7 @@ export class CompanyDetailsComponent implements OnInit {
     if (this.company.id && this.companyId) {
       try {
         const response = await this.companyService.deactivatePosition(this.company.id, +this.companyId).toPromise();
-        console.log('Company deactivated:', response);
+        
         this.showSuccess('Company deactivated successfully');
       } catch (error) {
         console.error('Error deactivating company:', error);

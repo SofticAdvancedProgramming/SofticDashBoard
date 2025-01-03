@@ -34,9 +34,10 @@ export class RelatedAssetsPopupComponent {
   selectedFileName: string | null = null;
   PhotoExtension: any;
   uploadedImageBase64: any;
-  assets: any[] = [];
+  assets: any;
   lang: string = this.localStorageService.getItem('lang')!;
-
+  companyId=this.localStorageService.getItem('companyId')
+  assetsPage = 1;
   childAsset:any;
   relatedAsset: RelatedAsset = {
     companyId: 0,
@@ -63,7 +64,7 @@ export class RelatedAssetsPopupComponent {
     const assetIdFromRoute = Number(this.route.snapshot.paramMap.get('id'));
     this.assetId = assetIdFromRoute;
     this.relatedAsset.assetId = this.assetId;
-    console.log('Asset ID:', this.assetId);
+
     this. loadAssets();
     const companyIdFromStorage = localStorage.getItem('companyId');
     if (companyIdFromStorage) {
@@ -73,14 +74,25 @@ export class RelatedAssetsPopupComponent {
     }
   }
   loadAssets(){
-    this.assetService.getAsset().subscribe({
+    this.assetService.getAsset({
+
+  pageSize: 1000,
+  companyId: 1,
+  isAssgined: false,
+  isMain: true,
+
+      // companyId:this.companyId,
+      // pageSize: 1000,
+      // isAssgined:false,
+    }).subscribe({
       next: (res) => {
         this.assets = res.data.list.filter((item:any)=>
-        item.parentAssetId==null && item.id!= this.assetId
+          //item.parentAssetId==null &&
+         item.id!= this.assetId
       )
       },
       error: (err)=>{
-        console.log(err)
+
       }
     })
   }
@@ -93,8 +105,7 @@ export class RelatedAssetsPopupComponent {
     // this.relatedAsset.photoExtension = this.PhotoExtension;
     // this.relatedAsset.photo = this.uploadedImageBase64;
     // this.relatedAsset.parentAssetId=this.assetId
-    // console.log(this.relatedAsset);
-    // console.log(this.childId);
+
     this.childAsset.parentAssetId=this.assetId;
     this.childAsset.employeeId=this.employeeId;
     this.edit();
@@ -105,10 +116,10 @@ export class RelatedAssetsPopupComponent {
     //   this.relatedAsset.photoExtension &&
     //   this.relatedAsset.photo
     // ) {
-    //     console.log(this.relatedAsset);
+
     //   this.assetService.addRelatedAsset(this.relatedAsset).subscribe({
     //     next: (response) => {
-    //       console.log('Related asset added:', response);
+
 
     //       this.toastr.success('Related asset added successfully');
 
@@ -116,27 +127,26 @@ export class RelatedAssetsPopupComponent {
     //     },
     //   });
     // } else {
-    //     console.log(this.relatedAsset);
+
     //   this.toastr.error('All fields are required!');
     // }
   }
   getChild(){
-    console.log(this.childId)
+
     let params={id:this.childId}
     this.assetService.getAsset(params).subscribe(
       (res)=>{
         this.childAsset=res.data.list[0];
-       // console.log(this.childAsset)
-       // console.log(res)
+
       },
-      (err)=>{console.log(err)}
+      (err)=>{}
     )
   }
   edit(){
     console.log(this.childAsset)
     this.assetService.edit(this.childAsset).subscribe({
       next:(res)=>{
-      //  console.log(res);
+
         this.closeRelatedAssets.emit(false);
 
       },
@@ -144,7 +154,7 @@ export class RelatedAssetsPopupComponent {
     })
   }
   onFileChange(event: any): void {
-    console.log('onFileChange');
+
     const file = event.target.files[0];
     if (file) {
       const fileName = file.name;
@@ -182,10 +192,33 @@ export class RelatedAssetsPopupComponent {
         );
         if (this.fileType?.startsWith('image/')) {
           this.imagePreviewUrl = result;
-          console.log(this.imagePreviewUrl);
+
         }
       }
     };
     reader.readAsDataURL(file);
+  }
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+  }
+
+
+  getAssets(name?: string, pageSize?: number) {
+    let query: any;
+
+    query = {
+      pageSize: 1000,
+    };
+    if(name){
+      query.name = name;
+    }
+
+    this.assetService.getAsset(query).subscribe({
+      next: (res) => {
+        this.assets = res.data.list;
+        console.log(res);
+      },
+      error: (err) => console.log(err),
+    });
   }
 }

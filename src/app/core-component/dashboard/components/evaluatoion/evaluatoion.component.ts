@@ -31,7 +31,7 @@ export class EvaluatoionComponent implements OnInit {
   }
   ngOnInit(): void {
     this.taskId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log('Task ID:', this.taskId);
+    
     this.initiation();
   }
   initiation() {
@@ -44,7 +44,7 @@ export class EvaluatoionComponent implements OnInit {
   }
   Submit() {
     if (this.form.value && this.taskId) {
-      console.log(this.form.value);
+      
 
       const query = {
         companyId: this.companyId,
@@ -60,7 +60,7 @@ export class EvaluatoionComponent implements OnInit {
           this.toast.success('Task Done successfully');
           // this.onEmployeeSelected.emit(this.selectedEmployee!);
           this.closePopup();
-          console.log(response);
+         
         },
         error(err) {
           console.log(err);
@@ -74,15 +74,15 @@ export class EvaluatoionComponent implements OnInit {
 
   selectQuality(value: number): void {
     this.selectedQuality = value;
-    console.log('Selected Quality:', this.selectedQuality);
+    
   }
   selectDuration(value: number): void {
     this.selectedDuration = value;
-    console.log('Selected Duration:', this.selectedDuration);
+    
   }
 
   // selectQuality(index: number): void {
   //   this.selectedQuality = this.qualities[index];
-  //   console.log('Selected Quality:', this.selectedQuality);
+  
   // }
 }

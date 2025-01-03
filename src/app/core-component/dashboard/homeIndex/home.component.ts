@@ -139,7 +139,7 @@ export class HomeIndexComponent {
    getAttendances(searchDate = {}, pageIndex?: number) {
     let query: any = pageIndex ? { pageIndex, sortIsAsc: false, sortCol: "attendanceDate" } : { sortIsAsc: false, sortCol: "attendanceDate"};
       this.attendanceService.getAttendances({ ...searchDate,  attendanceTypeId: null }).subscribe((res) => {
-      console.log(res);
+
       this.attendances = {
         ...res,
         list: res.list.map( (item: any) => ({
@@ -151,7 +151,7 @@ export class HomeIndexComponent {
           //this.getEmployeeDepartment(item['employeeId'],) || 'no dept'
         })),
       };
-      console.log(this.attendances);
+
     });
   }
 
@@ -179,24 +179,28 @@ export class HomeIndexComponent {
 
   getAdminStatistics() {
     this.adminStatics.AdminCounts().subscribe((res => {
-      console.log(res)
+
       this.adminCounts = res;
     }))
   }
 
   getDepartmentEmployeeCounts() {
     this.adminStatics.employeeDepartmentcounts(null).subscribe((res => {
-      console.log(res)
+
       this.departmentEmploye = res;
     }))
+  }
+
+  get isArabic():boolean{
+    return localStorage.getItem('lang')==='ar';
   }
 
 
   assetCategorycounts() {
     this.adminStatics.assetCategorycounts(null).subscribe((res => {
-       console.log(res)
+
        this.assetCategory=res;
-      console.log(this.assetCategory)
+
     }))
   }}
 

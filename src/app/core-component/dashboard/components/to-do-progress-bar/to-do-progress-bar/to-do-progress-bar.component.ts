@@ -26,7 +26,7 @@ export class ToDoProgressBarComponent implements OnChanges {
     this.calculateProgress();
   }
   calculateProgress(): void {
-    console.log(this.currentStep);
+    
    
     // this.progressValue = ((this.currentStep - 0.2) / this.steps.length) * 100;
     // if (this.currentStep == this.steps.length) {

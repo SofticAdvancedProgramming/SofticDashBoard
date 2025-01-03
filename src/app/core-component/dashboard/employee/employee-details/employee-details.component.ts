@@ -80,11 +80,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
         await this.getEmployee(); // Wait for employee data to load
   
         // Now it's safe to access this.employee
-        console.log("this.employee.accountStatus:", this.employee.accountStatus);
-        console.log(
-          "Is account status pending?",
-          this.employee.accountStatus === accountStatus.Pending
-        );
+       
       });
   
     this.isPending = this.localStorageService.getItem('isPending');
@@ -94,7 +90,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
       this.currentLang = event.lang;
     });
 
-    console.log("employee.accountStatus==accountStatus.Active",this.employee.accountStatus==accountStatus.Active)
+   
   }
   switchLang(lang: string) {
     this.translate.use(lang);
@@ -104,7 +100,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
       this.employeeService.loadEmployees({ id: this.id })
     );
     this.employee = response.data.list[0];
-    console.log("Employee data loaded:", this.employee);
+  
   }
 
   setActiveTab(tab: string): void {
@@ -148,7 +144,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
 
   reject(status: accountStatus){
     const rejectionReson=this.form.value.rejectionReson;
-    console.log(rejectionReson);
+   
     this.adminService
       .EditStatus({ id: this.id, accountStatus: status ,comment:rejectionReson})
       .subscribe({

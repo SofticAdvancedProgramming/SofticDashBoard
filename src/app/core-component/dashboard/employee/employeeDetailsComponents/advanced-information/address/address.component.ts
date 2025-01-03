@@ -33,7 +33,7 @@ export class AddressComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((params) => {
         this.id = Number(params.get('id'));
-        console.log(this.id);
+     
         this.getAddresses();
       });
   }
@@ -43,7 +43,7 @@ export class AddressComponent implements OnInit, OnDestroy {
       .getAddress({ userId: this.id })
       .pipe(
         tap((res) => {
-          console.log(res)
+       
 
           this.userAddress = res.data.list.map((item:Address)=>({
             ...item,
@@ -75,7 +75,7 @@ export class AddressComponent implements OnInit, OnDestroy {
           //   id: type.id,
           //   name: this.currentLang === 'ar' ? type.nameAr : type.name,
           // }));
-          console.log(response);
+        
         })
       )
       .subscribe({
@@ -96,7 +96,7 @@ export class AddressComponent implements OnInit, OnDestroy {
           //   id: type.id,
           //   name: this.currentLang === 'ar' ? type.nameAr : type.name,
           // }));
-          console.log(response);
+    
         })
       )
       .subscribe({
@@ -116,7 +116,7 @@ export class AddressComponent implements OnInit, OnDestroy {
           //   id: type.id,
           //   name: this.currentLang === 'ar' ? type.nameAr : type.name,
           // }));
-          console.log(response);
+        
         })
       )
       .subscribe({

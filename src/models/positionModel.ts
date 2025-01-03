@@ -4,4 +4,5 @@ export interface Position {
   positionTypeId: number;
   departmentId: number;
   positionManagerId: number | null;
+  isCentralized:boolean;
 }

@@ -11,6 +11,7 @@ import { branch } from '../../../../../../../models/branch';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { InputRestrictionDirective } from '../../../../../../common-component/directives/lang-directive/input-restriction.directive';
 import { MapComponent } from '../../../../../../common-component/map/map.component';
+import { CompanyService } from '../../../../../../services/comapnyService/company.service';
 
 @Component({
   selector: 'app-add-department',
@@ -38,15 +39,17 @@ export class AddDepartmentComponent implements OnInit {
 
   descriptionCharacterCount: number = 0;
   descriptionArCharacterCount: number = 0;
-
+  hasCenterlizedDepartment: boolean = false;
+  hideBranch: boolean = false;
   constructor(
     private fb: FormBuilder,
     private departmentService: DepartmentService,
     private branchService: BranchService,
     private messageService: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private companyService: CompanyService
   ) {
-     this.form = this.fb.group({
+    this.form = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
       shortName: ['', Validators.required],
@@ -58,7 +61,7 @@ export class AddDepartmentComponent implements OnInit {
       descriptionAr: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(250)]],
       departmentType: [null],
       isCentralized: [false],
-        });
+    });
   }
 
   ngOnInit(): void {
@@ -69,6 +72,7 @@ export class AddDepartmentComponent implements OnInit {
     if (this.isEdit) {
       this.initoForm();
     }
+    this.checkIsCenteralizedCompany();
     this.loadBranches();
     this.updateCharacterCount('description');
     this.updateCharacterCount('descriptionAr');
@@ -84,8 +88,11 @@ export class AddDepartmentComponent implements OnInit {
       branchId: this.department?.branchId,
       description: this.department?.description,
       descriptionAr: this.department?.descriptionAr,
-      departmentType: this.department?.isHR ? 'HR' : this.department?.isFinancial ? 'Financial' : null
+      departmentType: this.department?.isHR ? 'HR' : this.department?.isFinancial ? 'Financial' : null,
+      isCentralized: this.department?.isCentralized
     });
+
+    this.hideShowBranch();
   }
 
   loadBranches(): void {
@@ -114,9 +121,9 @@ export class AddDepartmentComponent implements OnInit {
       });
       return;
     }
-  
+
     const selectedType = this.form.value.departmentType;
-  
+
     const departmentData: Department = {
       id: this.isEdit && this.department ? this.department.id : 0,
       companyId: this.companyId || 0,
@@ -125,17 +132,17 @@ export class AddDepartmentComponent implements OnInit {
       nameAr: this.form.value.nameAr,
       description: this.form.value.description,
       descriptionAr: this.form.value.descriptionAr,
-      branchId: this.form.get('isCentralized')?.value==true ? 0: Number(this.form.value.branchId),
-            long: this.form.value.long,
+      branchId: this.form.get('isCentralized')?.value == true ? null : Number(this.form.value.branchId),
+      long: this.form.value.long,
       lat: this.form.value.lat,
       isHR: selectedType === 'HR',
       isFinancial: selectedType === 'Financial',
-      isCentralized: this.form.value.isCentralized,  
+      isCentralized: this.form.value.isCentralized,
     };
-  
+
     this.departmentService[this.isEdit ? 'editDepartment' : 'addDepartment'](departmentData).subscribe({
       next: (response) => {
-        console.log('Department saved successfully', response);
+
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -161,7 +168,7 @@ export class AddDepartmentComponent implements OnInit {
       },
     });
   }
-  
+
 
 
   onBack(): void {
@@ -186,5 +193,46 @@ export class AddDepartmentComponent implements OnInit {
 
   private showError(detail: string): void {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
+  }
+
+  checkIsCenteralizedCompany() {
+    let companyId = Number(localStorage.getItem("companyId"));
+    if (companyId) {
+      let body = {
+        id: companyId
+      }
+      this.companyService.getCompany(body).subscribe({
+        next:companyData=>{
+
+          this.hasCenterlizedDepartment=companyData.data.list[0].centralizedDepartment;
+
+      }})
+    }
+  }
+
+  hideShowBranch() {
+    const centerlized = this.form.get('isCentralized')?.value;
+
+
+
+    const branchControl = this.form.get('branchId');
+
+    if (centerlized) {
+      // When centerlizedDepartment is true, remove the 'required' validator
+      branchControl?.clearValidators();
+      this.hideBranch = true;
+
+    } else {
+      // When centerlizedDepartment is false, apply the 'required' validator
+      branchControl?.setValidators(Validators.required);
+      this.hideBranch = false;
+    }
+
+    // Re-evaluate the validity of the 'branch' control after changing validators
+    branchControl?.updateValueAndValidity();
+  }
+
+  get isArabic():boolean{
+    return localStorage.getItem('lang')==='ar'
   }
 }

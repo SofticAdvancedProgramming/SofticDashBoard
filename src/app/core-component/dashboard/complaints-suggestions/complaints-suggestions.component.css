@@ -367,6 +367,7 @@
   line-height: 26px;
   letter-spacing: 0.03em;
   color: #36313C;
+  margin-right:12px
 
 }
 
@@ -504,3 +505,243 @@ margin: 0 auto;  /* Horizontally centers the element */
   font-weight: 500;
 }
  
+
+
+
+/* Card Styling */
+.complaint-card {
+  width: 100%;
+  max-width: 500px; /* Limit card width for consistency */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin-bottom: 20px; /* Add margin to the bottom of each card */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hover Effect for Cards */
+.complaint-card:hover {
+  transform: scale(1.05); /* Slightly scale up the card */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Increase shadow on hover */
+}
+
+/* Button Opacity on Hover */
+button {
+  transition: opacity 0.3s ease;
+}
+
+/* Apply opacity to buttons when hovering over the card */
+.complaint-card:hover button,
+button:hover {
+  opacity: 0.8; /* Reduce opacity when hovering over the card or the button */
+}
+
+/* Adjust the space between name and hr */
+.user-details h3 {
+  margin-bottom: 5px; /* Reduce space between name and hr */
+}
+
+/* Ensure HR is properly placed */
+.name-divider {
+  border-top: 1px solid #ddd;
+  margin-top: 5px; /* Reduce space above HR */
+  margin-bottom: 10px; /* Maintain a little space below HR */
+}
+
+/* Align the text and elements to the left */
+.user-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.user-details {
+  margin-left: 10px;
+}
+
+.complaint-details {
+  margin-top: 20px; /* Ensure there's enough space between title and status */
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Align status and button */
+.complaint-status {
+  display: flex;
+  justify-content: flex-start;
+  margin-right: 20px;
+}
+
+.complaint-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px; /* Add space between status and other elements */
+  margin-bottom: 10px; /* Add space below the actions */
+}
+
+/* Space between "Directed" and the against-type */
+.complaint-details .Directed {
+  margin-right: 20px; /* Add space between Directed and against-type */
+}
+
+/* Center the cards in smaller screens */
+@media (max-width: 767px) {
+  .complaint-card {
+    margin: 0 auto;
+  }
+}
+
+/* Ensure "See Details" button aligns properly */
+.detailsButton {
+  display: block;
+  margin-top: 10px;
+  width: 100%; /* Ensures button takes full width */
+  text-align: center;
+}
+
+.detailsButton .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Adjust padding and margin between items */
+.complaint-card .user-info,
+.complaint-card .complaint-details {
+  padding: 0;
+  margin: 0;
+}
+
+.complaint-card .complaint-actions {
+  margin-top: 20px;
+}
+
+/* Badge Styling */
+.status {
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 14px; /* Smaller font size for badges */
+  color: #333;
+  display: inline-block;
+  margin-left: 10px; /* Space between the Status label and the badge */
+  text-transform: capitalize;
+}
+
+/* Status Label Styling */
+.status-label {
+  font-weight: bold;
+  margin-right: 10px; /* Space between the label and the badge */
+}
+
+/* Hover effect for the card */
+.complaint-card:hover {
+  transform: scale(1.05); /* Slightly scale up the card */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Increase shadow on hover */
+}
+
+/* Adjust margin and spacing between items in the complaint-actions */
+.complaint-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px; /* Space between the status and the buttons */
+}
+
+/* Ensure "See Details" button aligns properly */
+.detailsButton {
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Adjusting padding and margin between elements */
+.complaint-card .user-info,
+.complaint-card .complaint-details {
+  padding: 0;
+  margin: 0;
+}
+/* Tab Button Styles */
+.tab-container {
+  width: 100%;
+  max-width: 600px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Styling the Tab Buttons */
+.tab-button {
+
+  color: black;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 30px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tab-button i {
+  font-size: 20px; /* Adjust icon size */
+}
+
+.tab-button.active {
+  background-color: #5a2a8f;
+  color: white;
+}
+
+.tab-button:hover {
+  background-color: #5a2a8f;
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.tab-button .indicator {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  margin-top: 10px;
+}
+
+/* Active Tab Styles */
+.tab-button.active .indicator {
+  display: block; /* Show indicator for active tab */
+}
+
+/* Hover Effect for Tab Button */
+.tab-button:hover {
+  background-color: #5a2a8f;
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+/* Search Bar */
+.form-control {
+  border-radius: 30px;
+  padding: 12px 20px;
+  width: 100%;
+  max-width: 400px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+}
+
+/* Filter Select */
+.form-select {
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+}
+
+/* Tab and Button Styling (unchanged) */

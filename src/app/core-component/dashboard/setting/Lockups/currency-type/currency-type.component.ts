@@ -76,7 +76,7 @@ export class CurrencyTypeComponent {
   //     next:(response: any) => {
   //     if (response.status === 200) {
   //       (this as any)[this.entityTypes[entity].data] = response.data.list;
-  //       console.log(response);
+  //       
   //       this.pageIndex[entity] = response.data.pageIndex;
   //       this.totalRows[entity] = response.data.totalRows;
   //     }
@@ -87,8 +87,7 @@ export class CurrencyTypeComponent {
   }
 
   addEntity(entity: string, newEntity: any): void {
-    console.log(entity)
-    console.log(newEntity)
+   
     const methodName = this.entityTypes[entity].add as keyof CurrencyService;
     (this.currencyTypeService[methodName] as Function)(newEntity).subscribe((response: any) => {
       if (response.status === 200) {
@@ -113,7 +112,7 @@ export class CurrencyTypeComponent {
 
   deleteEntity(entity: string, id: number): void {
     const methodName = this.entityTypes[entity].delete as keyof CurrencyService;
-    console.log(methodName);
+   
     (this.currencyTypeService[methodName] as Function)(id, this.companyId).subscribe((response: any) => {
       if (response.status === 200) {
         this.loadEntities(entity, this.pageIndex[entity]);

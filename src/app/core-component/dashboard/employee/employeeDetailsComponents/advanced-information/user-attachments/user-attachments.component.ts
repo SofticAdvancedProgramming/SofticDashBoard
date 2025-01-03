@@ -27,7 +27,7 @@ export class UserAttachmentsComponent {
       takeUntil(this.unsubscribe$)
     ).subscribe(params => {
       this.id = Number(params.get('id'));
-      console.log(this.id);
+     
       this.getAttachments();
     })
   }
@@ -38,7 +38,7 @@ export class UserAttachmentsComponent {
       .pipe(
         tap((res) => {
           this.userAttachments = res.data.list;
-          console.log(res);
+        
           
         }),
         takeUntil(this.unsubscribe$)

@@ -74,10 +74,10 @@ export class EmployeeRequestsComponent implements OnInit {
       createdOnTo: this.createdOnTo ? new Date(this.createdOnTo).toISOString() : undefined,
     };
   
-    console.log('Request Payload:', requestPayload); 
+   
     this.requestService.getRequests(requestPayload).pipe(
       tap((response: any) => {
-        console.log('API Response:', response);
+      
         if (response.status === 200) {
           this.requests = response.data.list || [];
           this.totalRequests = response.data.totalRows || 0;
@@ -104,7 +104,7 @@ export class EmployeeRequestsComponent implements OnInit {
         if (response.status === 200) {
           this.requestTypes = response.data.list || [];
         }
-        console.log("Request Types Response:", response)
+       
       }),
       catchError((error) => {
         console.error('Error loading request types:', error);

@@ -15,7 +15,7 @@ export class GlobalFunctionsService {
   }
   async detectHuman(imageElement: HTMLImageElement): Promise<boolean> {
     try {
-      console.log("Loading BodyPix model...");
+    
       this.model = await bodyPix.load({
         architecture: 'MobileNetV1',
         outputStride: 16,

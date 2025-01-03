@@ -85,19 +85,22 @@ export class FinancialComponent {
       comment: ['', Validators.required],
       amount: ['', [Validators.required, Validators.min(0)]],
     });
+    console.log( this.isDeduction);
   }
   setActiveTab(tab: string): void {
     this.activeTab = tab;
     this.isDeduction = tab === 'Deductions' ? true :false ;
     this.loadEntitie('employeeSalary', 1);
     this.loadEntitiesDropDown('SalaryType', 1, this.isDeduction);
-    console.log(tab);
-    console.log(this.isDeduction);
+
   }
 
   ngOnInit(): void {
-    this.loadEntitiesDropDown('SalaryType', 1, false);
+    console.log( this.isDeduction);
+    this.setActiveTab('Deductions');
+    this.loadEntitiesDropDown('SalaryType', 1,  this.isDeduction);
     this.loadEntitie('employeeSalary', 1);
+
     this.todayDate = new Date().toISOString().split('T')[0];
   }
 
@@ -143,18 +146,20 @@ export class FinancialComponent {
     const methodName = this.entityTypes[entity].load as keyof EmployeeService;
     (this.employeeService[methodName] as Function)(query).subscribe(
       (response: any) => {
+        console.log(response);
         if (response.status === 200) {
-          (this as any)[this.entityTypes[entity].data] = response.data.list.map(
-            (res: any) => {
-              return {
-                ...res,
-                transactionDate: this.datePipe.transform(
-                  res.transactionDate,
-                  'yyyy-MM-dd'
-                ),
-              };
-            }
-          );
+          // (this as any)[this.entityTypes[entity].data] = response.data.list.map(
+          //   (res: any) => {
+          //     return {
+          //       ...res,
+          //       transactionDate: this.datePipe.transform(
+          //         res.transactionDate,
+          //         'yyyy-MM-dd'
+          //       ),
+          //     };
+          //   }
+          // );
+          this.financial=response.data.list;
           this.pageIndex[entity] = response.data.pageIndex;
           this.totalRows[entity] = response.data.totalRows;
         }
@@ -183,7 +188,7 @@ export class FinancialComponent {
           this.dropDownData = this.dropDownDataIsDeductionFalse;
         }
         this.currentPageDropDown = response.data.pageIndex;
-        console.log(response);
+
       }
     });
   }
@@ -219,11 +224,13 @@ export class FinancialComponent {
       id: 0,
     };
 
-    console.log("payload ",payload)
+
 
     this.employeeService.addEmployeeSalary(payload).subscribe({
       next: (res) => {
+        console.log(res)
         if (res.status === 200) {
+          this.resetForm();
           this.toastersService.typeSuccess(
             this.isDeduction
               ? 'Deduction added successfully'
@@ -240,7 +247,7 @@ export class FinancialComponent {
         );
       },
     });
-    this.ngOnInit();
+    // this.ngOnInit();
   }
 
   convertToTransactionDate(date: Date) {
@@ -252,7 +259,7 @@ export class FinancialComponent {
   }
 
   handleFormSubmission(data: any): void {
-    console.log(data, 'data');
+
     if (this.isEdit) {
       data.companyId = this.companyId;
       data.id = this.formData.id;
@@ -263,12 +270,12 @@ export class FinancialComponent {
 
   editEntity(entity: string, updatedEntity: any): void {
     let query=updatedEntity;
-    console.log(query)
+
     this.employeeService.editEmployeeSalary(query).subscribe(
       {
         next:(res)=>{
           this.loadEntitie('employeeSalary',1)},
-        error:(res)=>{console.log(res)}
+        error:(res)=>{}
       }
     )
 
@@ -317,22 +324,32 @@ export class FinancialComponent {
 
   deleteEntity(entity: string, id: number): void {
 
-    console.log('entity',entity,'id',id)
+
     // this.employeeService.
     const methodName = this.entityTypes[entity].delete as keyof EmployeeService;
 
-    console.log(methodName);
+
     if(this.companyId){
       this.employeeService.deleteEmployeeSalary(+this.companyId,id).subscribe(
         {
           next:(res)=>{
             this.loadEntitie('employeeSalary',1)},
-          error:(res)=>{console.log(res)}
+          error:(res)=>{}
         }
       )
     }
 
   }
-
+  resetForm(){
+     this.form = this.fb.group({
+      id: 0,
+      transactionDate: ['', Validators.required],
+      companyId: this.companyId,
+      employeeId: this.employeeId,
+      salaryTypeId: this.salaryTypeId,
+      comment: ['', Validators.required],
+      amount: ['', [Validators.required, Validators.min(0)]],
+    });
+  }
 
 }

@@ -67,9 +67,7 @@ export class TaskAnalyticsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const id = params['id'];
       this.id = params['id'];
-      if (id) {
-        console.log('Extracted taskId:', id);
-      }
+     
     });
     this.isTodoStatus = false;
     this.isInProgressStatus = false;
@@ -92,7 +90,7 @@ export class TaskAnalyticsComponent implements OnInit {
       };
       this.tasksService.get(query).subscribe({
         next: (res) => {
-          console.log(res);
+         
           this.taskDetails = res.data.list[0];
 
 
@@ -123,7 +121,7 @@ export class TaskAnalyticsComponent implements OnInit {
           }
         },
         error(err) {
-          console.log(err);
+        
         },
       });
     }
@@ -134,21 +132,21 @@ export class TaskAnalyticsComponent implements OnInit {
       }
       this.tasksService.assignEmployees(query).subscribe({
         next: (res) => {
-          console.log(res);
+         
           this.employees = res.data.list;
         },
         error: (err) => {
-          console.log(err);
+        
         }
       })
   }
   getTaskEvaluation(){
       this.tasksService.getEvaluation(this.id,{}).subscribe({
-        next:(res)=>{console.log(res);
+        next:(res)=>{
           this.evaluation=res.data;
           this.convertDates();
         },
-        error:(res)=>{console.log(res);}
+        error:(res)=>{}
       })
   }
 

@@ -20,7 +20,8 @@
     </app-dynamic-modal>
 
     <div class="tab-content">
-      <div *ngIf="activeTab === 'Deductions'">
+      <!-- class="bg-warning" -->
+      <div   *ngIf="activeTab === 'Deductions'">
         <div class="row mt-4">
           <form [formGroup]="form">
             <div class="row">
@@ -33,10 +34,14 @@
                 <input type="date" [max]="todayDate" class= " formatedDate form-control ml-3" formControlName="transactionDate" />
               </div>
               <div class="col-lg-4">
-                <app-drop-down (currentPage)="currentPageDropDown" (onChange)="dropDown($event)"
-                  (getNextPageApi)="loadEntitiesDropDown('SalaryType',$event, isDeduction)" (currentPage)="currentPageDropDown"
+                <label>{{ 'employeeDetails.Salarytype' | translate }}</label>
+                <app-drop-down
+                  (currentPage)="currentPageDropDown"
+                  (onChange)="dropDown($event)"
+                  (getNextPageApi)="loadEntitiesDropDown('SalaryType',$event, isDeduction)"
                   (search)="searchInDropDown('SalaryType',$event)" [items]="dropDownData"
-                  [itemsLength]="dropDownData.length" [label]="''" [placeholder]="'select'"
+                  [itemsLength]="dropDownData.length"
+                  [placeholder]="'select'"
                   [placeholderSearch]="'Search By Name'">
                 </app-drop-down>
               </div>
@@ -71,6 +76,7 @@
           </app-modern-table>
         </div>
       </div>
+      <!--  class="bg-danger" -->
       <div *ngIf="activeTab === 'Entitlements'">
         <div class="row mt-4">
           <form [formGroup]="form">
@@ -84,10 +90,16 @@
                 <input type="date" class="formatedDate form-control ml-3" formControlName="transactionDate" />
               </div>
               <div class="col-lg-4">
-                <app-drop-down (currentPage)="currentPageDropDown" (onChange)="dropDown($event)"
-                  (getNextPageApi)="loadEntitiesDropDown('SalaryType',$event,isDeduction)" (currentPage)="currentPageDropDown"
-                  (search)="searchInDropDown('SalaryType',$event)" [items]="dropDownData"
-                  [itemsLength]="dropDownData.length" [label]="''" [placeholder]="'select'"
+                <label>{{ 'employeeDetails.Salarytype' | translate }}</label>
+                <app-drop-down
+                (currentPage)="currentPageDropDown"
+                (onChange)="dropDown($event)"
+                  (getNextPageApi)="loadEntitiesDropDown('SalaryType',$event,isDeduction)"
+                  (currentPage)="currentPageDropDown"
+                  (search)="searchInDropDown('SalaryType',$event)"
+                  [items]="dropDownData"
+                  [itemsLength]="dropDownData.length"
+                  [placeholder]="'select'"
                   [placeholderSearch]="'Search By Name'">
                 </app-drop-down>
               </div>

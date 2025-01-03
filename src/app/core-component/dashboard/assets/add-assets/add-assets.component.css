@@ -391,3 +391,17 @@ input:checked + .slider:before {
 }
 
 
+
+.attachment-container{
+  margin-top: 10px;
+  background: #006Eff13;
+  border-radius: 10px;
+  height: 60px;
+
+}
+.attachment-container img{
+  border-radius: 10px;
+  height: 85% !important;
+
+
+}

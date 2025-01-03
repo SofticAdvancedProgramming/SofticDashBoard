@@ -15,6 +15,7 @@ import { ImageUploadService } from '../../../../services/ImageUploadService/imag
 import { MapComponent } from '../../../../common-component/map/map.component';
 import { DropDownComponent } from '../../components/drop-down/drop-down.component';
 import { ToastrService } from 'ngx-toastr';
+import { ShortenPipe } from '../../../../core/pipes/shorten.pipe';
 
 @Component({
   selector: 'app-add-assets',
@@ -26,6 +27,7 @@ import { ToastrService } from 'ngx-toastr';
     FormsModule,
     MapComponent,
     DropDownComponent,
+    ShortenPipe
   ],
   templateUrl: './add-assets.component.html',
   styleUrl: './add-assets.component.css',
@@ -84,7 +86,7 @@ export class AddAssetsComponent implements OnInit {
       serialNum: ['', Validators.required],
       plateNum: [''],
       subAssetCategory: [''],
-      AssetReason: ['', Validators.required],
+      // AssetReason: ['', Validators.required],
       AssetAttachment: ['', Validators.required],
       AssetPhoto: ['', Validators.required],
       long: [0, Validators.required],
@@ -109,7 +111,7 @@ export class AddAssetsComponent implements OnInit {
     this.assetsService.getAsset(query).subscribe({
       next: (res) => {
         this.assets = res.data.list;
-        console.log(res);
+
       },
       error: (err) => console.log(err),
     });
@@ -118,12 +120,12 @@ export class AddAssetsComponent implements OnInit {
     const asset = this.assets.find((asset: any) => asset.id === assetId);
 
     if (asset) {
-      console.log('Selected Asset:', asset);
+
       this.selectedAsset = asset;
       this.getSubAssetsCategories(this.selectedAsset.id);
-      console.log('Selected Main Asset ID:', this.selectedAsset?.id);
+
     } else {
-      console.log('Asset not found.');
+
     }
   }
 
@@ -131,11 +133,11 @@ export class AddAssetsComponent implements OnInit {
     this.assetsService.getMainAssetsCategory().subscribe({
       next: (res) => {
         this.assetsCategories = res.data.list;
-        console.log(res);
+
         this.mainAssets = this.assetsCategories.filter(
           (mainAsset: any) => mainAsset.mainAssetId == null
         );
-        console.log(this.mainAssets);
+
       },
       error: (err) => console.log(err),
     });
@@ -144,12 +146,12 @@ export class AddAssetsComponent implements OnInit {
     const asset = this.mainAssets.find((asset: any) => asset.id === assetId);
 
     if (asset) {
-      console.log('Selected Asset:', asset);
+
       this.selectedAssetCategory = asset;
       this.getSubAssetsCategories(this.selectedAssetCategory.id);
-      console.log('Selected Main Asset ID:', this.selectedAssetCategory?.id);
+
     } else {
-      console.log('Asset not found.');
+
     }
   }
   getSubAssetsCategories(id: number) {
@@ -159,7 +161,7 @@ export class AddAssetsComponent implements OnInit {
         if (this.subAssetsCategories.length > 0) {
           this.isMainAsset = true;
         }
-        console.log(res);
+
       },
       error: (err) => console.log(err),
     });
@@ -170,16 +172,14 @@ export class AddAssetsComponent implements OnInit {
     );
 
     if (asset) {
-      console.log('Selected Sub Asset:', asset);
+
       this.selectedAssetCategory = asset;
-      console.log('Selected Asset ID:', this.selectedAssetCategory?.id);
-    } else {
-      console.log('Asset not found.');
+
     }
   }
 
   onFileChange(event: any): void {
-    console.log('onFileChange');
+
     const file = event.target.files[0];
     if (file) {
       const fileName = file.name;
@@ -217,7 +217,7 @@ export class AddAssetsComponent implements OnInit {
         );
         if (this.fileType?.startsWith('image/')) {
           this.imagePreviewUrl = result;
-          console.log(this.imagePreviewUrl);
+
         }
       }
     };
@@ -225,7 +225,7 @@ export class AddAssetsComponent implements OnInit {
   }
 
   onAttachmentChange(event: any): void {
-    console.log('onAttachmentChange');
+
 
     const file = event.target.files[0];
     if (file) {
@@ -274,13 +274,12 @@ export class AddAssetsComponent implements OnInit {
           // If the file is an image, add a preview URL
           if (attachmentfileType.startsWith('image/')) {
             this.attachmentImagePreviewUrl = result;
-            console.log(this.attachmentImagePreviewUrl);
+
           }
 
           // Add the file to the array
           this.files.push(fileDetails);
-          console.log(fileDetails);
-          console.log(this.attachments);
+
 
           // Update message
           this.attachmentUploadMessage = this.translate.instant(
@@ -312,21 +311,43 @@ export class AddAssetsComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form.value);
-    let params = {
-      companyId: Number(this.companyId),
-      name: this.form.value.AssetName,
-      nameAr: this.form.value.AssetNameAr,
-      model: this.form.controls['Model'].value,
-      assetCategoryId: this.selectedAssetCategory.id,
-      parentAssetId: null,
-      photo: this.uploadedImageBase64,
-      photoExtension: this.PhotoExtension,
-      long: this.form.controls['long'].value,
-      lat: this.form.controls['lat'].value,
-      assetAttachments: this.attachments,
-      serialNumber: this.form.controls['serialNum'].value,
-      plateNumber: this.form.controls['plateNum'].value,
-    };
+    let params ;
+    if(this.selectedAssetCategory.id){
+      params = {
+        companyId: Number(this.companyId),
+        name: this.form.value.AssetName,
+        nameAr: this.form.value.AssetNameAr,
+        model: this.form.controls['Model'].value,
+        assetCategoryId: this.selectedAssetCategory.id,
+        parentAssetId: null,
+        photo: this.uploadedImageBase64,
+        photoExtension: this.PhotoExtension,
+        long: this.form.controls['long'].value,
+        lat: this.form.controls['lat'].value,
+        assetAttachments: this.attachments,
+        serialNumber: this.form.controls['serialNum'].value,
+        plateNumber: this.form.controls['plateNum'].value,
+        // reason: this.form.controls['AssetReason'].value
+      };
+
+    }else{
+      params = {
+        companyId: Number(this.companyId),
+        name: this.form.value.AssetName,
+        nameAr: this.form.value.AssetNameAr,
+        model: this.form.controls['Model'].value,
+        parentAssetId: null,
+        photo: this.uploadedImageBase64,
+        photoExtension: this.PhotoExtension,
+        long: this.form.controls['long'].value,
+        lat: this.form.controls['lat'].value,
+        assetAttachments: this.attachments,
+        serialNumber: this.form.controls['serialNum'].value,
+        plateNumber: this.form.controls['plateNum'].value,
+        // reason: this.form.controls['AssetReason'].value
+      };
+    }
+
     if(this.selectedAsset){
       params = {
         companyId: Number(this.companyId),
@@ -342,9 +363,10 @@ export class AddAssetsComponent implements OnInit {
         assetAttachments: this.attachments,
         serialNumber: this.form.controls['serialNum'].value,
         plateNumber: this.form.controls['plateNum'].value,
+        // reason:this.form.controls['AssetReason'].value
       };
     }
-    console.log(params);
+
     this.assetsService.addAsset(params).subscribe({
       next: (res) => {
         this.toast.success('Added Successfully');
@@ -352,7 +374,7 @@ export class AddAssetsComponent implements OnInit {
       },
       error: (err) => {
         this.toast.error('Error');
-        console.log(err);
+
       },
     });
   }

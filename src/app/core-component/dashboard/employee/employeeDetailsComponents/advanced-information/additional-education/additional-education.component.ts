@@ -55,7 +55,7 @@ export class AdditionalEducationComponent implements OnInit, OnDestroy {
       .pipe(
         tap((res) => {
           this.userEducation = res.data.list;
-          console.log(res);
+      
         }),
         takeUntil(this.unsubscribe$)
       )

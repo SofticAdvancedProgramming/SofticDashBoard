@@ -10,7 +10,7 @@ export class OrganizationChartService {
   constructor(private apiCall: ApiCall) { }
 
 
-  getAllOrganizationChart(params:{companyId:number,pageSize:number})
+  getAllOrganizationChart(params:{isDelete:boolean,companyId:number,pageSize:number})
   {
     return this.apiCall.request("POST", organizationChartController.get,params);
   }

@@ -1,4 +1,6 @@
 {
+  "Yes":"Yes",
+  "No":"No",
   "errorModels": {
     "1": "Email is already in use.",
     "2": "Email does not exist.",
@@ -75,6 +77,7 @@
     "ADDRESS": "Address",
     "EMAIL": "Email",
     "PHONE": "Phone",
+    "CENTRALIZED_DEPARTMENT":"Centerlized department",
     "MOBILE_NUMBER": "Mobile Number",
     "WEBSITE": "Website",
     "FACEBOOK": "Facebook",
@@ -115,6 +118,9 @@
     "search_position": "Search Position"
   },
   "addBranch": {
+    "FAILED_TO_ADD_BRANCH":"Error adding branch",
+    "BRANCH_EDITED_SUCCESSFULLY":"Branch edited successfully",
+    "PLEASE_FILL_REQUIRED_FIELDS":"Please fill all required fields",
     "BRANCH_NAME_EN": "Branch Name (English)",
     "BRANCH_NAME_AR": "Branch Name (Arabic)",
     "ENTER_BRANCH_NAME": "Enter Branch Name",
@@ -134,6 +140,7 @@
     "ERROR_ADDING_BRANCH": "Error adding branch"
   },
   "viewBranches": {
+    "Branch":"Branch",
     "ADD_BRANCH": "Add Branch",
     "ADD_EMPLOYEE": "Add Employee",
     "SHOW_DETAILS": "Show Details",
@@ -165,6 +172,8 @@
     "ASSIGN": "Assign"
   },
   "ADD_DEPARTMENT": {
+    "DEPARTMENT_SHORT_NAME":"Abbreviation",
+
     "DEPARTMENT_NAME_EN": "Department Name (English)",
     "DEPARTMENT_NAME_AR": "Department Name (Arabic)",
     "DEPARTMENT_abbreviation": "Department Abbreviation",
@@ -252,15 +261,24 @@
   },
   "RELATED_ASSETS": {
     "TITLE": "Related Assets",
+    "MAINASSETS":"Main Assets",
     "NAME": "Related Assets",
     "NAME_AR": "Related Assets (Arabic)",
     "MODEL": "Model",
     "DIRECT_PARENT": "Direct Parent"
   },
+  "RelatedAssetPopup":{
+    "TITLE": "Add Related Assets",
+    "Name": "Related Assets Name",
+    "Submit": "Submit",
+    "Close": "Close"
+  },
   "NAV": {
     "SEARCH": "Search..."
   },
   "INDEX_POSITION": {
+
+    "SELECT_BRANCH":"Select Branch",
     "ADD_POSITION": "Add Position",
     "DEPARTMENT": "Department",
     "ADD_EMPLOYEE": "Add Employee",
@@ -370,6 +388,11 @@
     "reasonForRejection": "reason for rejection",
     "writeComment": "please write your comment no more than 300 words"
   },
+  "Select Employee":"Select Employee",
+  "select":"Select",
+  "Search by Name":"Search by name",
+  "Select main Asset":"Select main asset",
+  "Select Sub Asset Category":"Select sub asset category",
   "progressBarTitle": "completeness percentage",
   "personalInfo": {
     "PROFILE_INFORMATION": "Profile Information",
@@ -394,6 +417,7 @@
     "progressInfoTitle": "Personal Information completeness"
   },
   "employeeDetails": {
+    "Salarytype":"Salary type",
     "attendance": "Attendance And Departure",
     "SALARY_ASSIGN_SUCCESS": "Salary assigned successfully",
     "grossSalary": "Gross Salary",
@@ -813,11 +837,14 @@
   "Enter benefit amount": "Enter benefit amount",
   "Cancel": "Cancel",
   "Assets": {
+
+    "AttachedFiles":"Attached Files",
     "title": "Assets",
     "Download": "Download",
     "Import Excel": "Import Excel",
     "Add Assets": "Add assets",
     "All Assets": "All assets",
+    "MainAsset":"Main Asset",
     "Update": "Update",
     "assigned Assets": "Assigned assets",
     "out Of Service Depreciation Count": "Out of service depreciation count",
@@ -861,23 +888,40 @@
     },
     "messages": {
       "uploadAnotherImage": "Upload Another Image",
-      "uploadAnotherFile": "Upload Another File"
+      "uploadAnotherFile": "Upload Anothe r File"
     }
   },
-  "assetDetails": {
-    "Details": "Details",
-    "Assign To Employee": "Assign To Employee",
-    "Add Related Assets": "Add Related Assets",
-    "Asset Name": "Asset Name",
-    "Category": "Category",
-    "Technical description": "Technical description",
-    "Model": "Model",
-    "Address": "Address",
-    "Address not available": "Address not available",
-    "Assigned To": "Assigned To",
-    "Related Assets": "Related Assets",
-    "No related assets available": "No related assets available",
-    "No attachments available": "No attachments available"
+  "assignAssetPopup":{
+    "Name":"Name",
+    "Assign Date":"Assign Date",
+    "Submit":"Submit",
+    "Title":"Assign an asset to employee",
+    "Close":"Close"
+  },
+  "assetDetails":{
+    "pending":"Pending",
+    "Attatchment":"Attatchment",
+    "Delete related asset":"Delete related asset",
+    "Are you sure you want to delete this related asset?":"Are you sure you want to delete this related asset?",
+    "not assigend":"Not assigend yet",
+    "plateNumber":"Plate Number",
+    "relateTo":"Related to",
+    "assginDate":"Assgining Date",
+    "Details":"Details",
+    "Assign To Employee":"Assign to employee",
+    "Add Related Assets":"Add Related Assets",
+    "Asset Name":"Asset Name",
+    "Category":"Category",
+    "Technical description":"Technical description",
+    "Model":"Model",
+    "Address":"Address",
+    "Address not available":"Address not available",
+    "Assigned To":"Assigned To",
+    "Related Assets":"Related Assets",
+    "serialNumber":"Serial Number",
+    "No attachments available":"No attachments available",
+    "No related assets available":"No related assets available"
+
   },
   "ASSET_UPLOADER": {
     "BROWSE_FILE": "Browse File",
@@ -902,6 +946,8 @@
   "ActivEmployees": "Active Employees",
   "DeactiveEmployees": "Deactive Employees",
   "employeeAssets": {
+    "mainAsset":"Main asset",
+    "ParentAsset":"Parent asset",
     "name": "asset",
     "category": "Category",
     "subcategory": "Sub Category",
@@ -944,10 +990,13 @@
   "SELECT_DEPARTMENT": "Select Department",
   "SELECT_ASSET_TYPE": "Select asset type",
   "assetName": "Asset Name",
-  "assetNameInArabic": "Asset Name In Arabic",
+  "assetNameInArabic": "Asset name in Arabic",
   "employeeFirstName": "Employee Name",
   "attendanceType": "Attendance Type",
   "attendanceDate": "Attendance Date ",
+  "day": "Day",
+  "hour": "Hour",
+  "department": "Department",
   "Minimum": "Minimum Amount",
   "Maximum": "Maximum Amount",
   "MinmumAndMax": "Minimum value must be less than or equal the maximum value.",
@@ -962,6 +1011,9 @@
   "TASKS.TASKDETAILS":"Please write your message no more than 300 words",
   "TASKS.INITIALCOST":"Please enter initial cost",
   "ASSIGNED_TO_CENTERALIZED_DEPARTMENT":"Is assigned to centeralized department?",
+
+  "IS_CENTERLIZED_DEPARTMENT":"Is Centerlized department ?",
+
   "ToDo": {
     "toDoTitle":"To-do List",
     "addToDo":"Add To-do",
@@ -971,5 +1023,11 @@
     "selectPriority": "Select Priority",
     "selectEmployee": "Select Employee",
     "remove":"Remove"
-  }
+  },
+    "BRANCH_NAME":"Branch name :",
+    "DEPARTMENT_NAME":"Department name :",
+    "POSITION_TYPE":"Position type :"
+
 }
+
+

@@ -27,18 +27,18 @@ export class UserSkillsComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribe$)
     ).subscribe(params => {
       this.id = Number(params.get('id'));
-      console.log(this.id);
+     
       this.getSkills();
     })
   }
 
   getSkills() {
     this.userSkillsService
-      .getSkills({userId: this.id})
+      .getSkills({employeeId: this.id})
       .pipe(
         tap((res) => {
           this.userSkills = res.data.list;
-          console.log(res);
+      
           
         }),
         takeUntil(this.unsubscribe$)

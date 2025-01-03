@@ -48,7 +48,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
     private issueCommentService:IssueCommentService,
     private issueService:IssueService
   ) {
-    console.log('welcome')
+   
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -62,19 +62,18 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   }
 
   loadComplaintDetails(): void {
-    console.log(this.id);
+    
     if (this.id) {
       this.loading = true;
       this.IssueExcuter.getIssueExcuterById(this.id).subscribe({
         next: (response) => {
-        //  console.log("response data inside com",response)
-          //console.log("my responsekkkkkkkkkkkkkkkk",response)
+    
           this.complaintDetails = response.data?.list[0].issue || null;
           this.issueExecuterId=response.data?.list[0].id;
-          console.log("  this.complaintDetails",  this.complaintDetails)
+          
           this.loading = false;
           this.matchAgainstTypeName();
-          //console.log(this.complaintDetails.companyId+' line 73 '+this.complaintDetails.id)
+      
           this.getAllReplays(this.complaintDetails.companyId,this.complaintDetails.id)
 
         },
@@ -92,7 +91,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   }
 
   matchAgainstTypeName(): void {
-    //console.log("this.complaintDetailsthis.complaintDetails",this.complaintDetails)
+    
     if (this.complaintDetails && this.complaintDetails.againestTypeId) {
       // Match againstTypeName logic if needed
       this.matchedAgainstTypeName = this.complaintDetails.againestTypeName;
@@ -108,7 +107,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.WaitingForReplay).subscribe({
         next:data=>{
           this.router.navigate(['/dashboard/ComplaintsSuggestions'])
-          //console.log(data)
+          
         }
       });
     }
@@ -117,10 +116,10 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
 }
   submitReply(companyId:number,issueExcuterId:number,issueId:number)
   {
-   //console.log("this.complaintDetails",this.complaintDetails)
+  
     this.IssueExcuter.getIssueExcuter({id:this.issueExecuterId}).subscribe({
       next: (response) => {
-        //console.log("dataaaaaaaaaa",response)
+      
 
         if (response.data?.list[0].issue.issueStatusId == issueStatus.Opened || response.data?.list[0].issue.issueStatusId == issueStatus.Reopend) {
           //3-Change status
@@ -133,7 +132,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
           this.openModal();
         }
         this.loading = false;
-        //console.log('Complaint details loaded:', this.complaintDetails);
+       
       },
       error: (error) => {
         this.loading = false;
@@ -141,14 +140,14 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       }
     });
 
-   // console.log('comment is',)
+   
 
     //submit comment
     let comment=this.comment?.nativeElement.value;
     this.issueCommentService.addIssueComment(comment,companyId,issueExcuterId,issueId).subscribe({
       next:data=>{
         this.ngOnInit();
-       // console.log("comment data",data)
+     
        // this.router.navigate(['/dashboard/ComplaintsSuggestions'])
       }
     })
