@@ -17,6 +17,8 @@ import { debounce } from 'lodash';
 import { FormsModule } from '@angular/forms';
 import { ShortenPipe } from '../../../../core/pipes/shorten.pipe';
 import { TasksFilterPopUpComponent } from '../../../../common-component/tasks-filter-pop-up/tasks-filter-pop-up/tasks-filter-pop-up.component';
+import { DropDownComponent } from '../../components/drop-down/drop-down.component';
+import { RequestTypeService } from '../../../../services/requestTypeService/request-type.service';
 
 @Component({
   selector: 'app-tasks-index',
@@ -32,14 +34,17 @@ import { TasksFilterPopUpComponent } from '../../../../common-component/tasks-fi
     NgClass,
     DatePipe,
     FormsModule,
-    TasksFilterPopUpComponent
+    TasksFilterPopUpComponent,
+    DropDownComponent
   ],
   templateUrl: './tasks-index.component.html',
   styleUrl: './tasks-index.component.css',
 })
 export class TasksIndexComponent implements OnInit {
   statuses = ['TODO', 'In Progress', 'Submit For Review', 'Done'];
-
+  Branches: any[] = [];
+  departmentOptions: any[] = [];
+  departmentId: any;
   tasksByStatus: { [key: string]: Task[] } = {
     TODO: [],
     'In Progress': [],
@@ -50,6 +55,7 @@ export class TasksIndexComponent implements OnInit {
   isFilterPopupVisible: boolean = false;
   companyId: number = 0;
   connectedLists = this.statuses; // All lists are connected for drag-and-drop
+  branchId: any;
 
   get connectedStatuses(): string[] {
     return this.statuses;
@@ -75,7 +81,9 @@ export class TasksIndexComponent implements OnInit {
   valueOfSearch: any;
   constructor(
     private tasksService: TasksService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private requestTypeService: RequestTypeService
+    
   ) {
     this.debounceSearchWithDiscount = debounce(this.search.bind(this), 500);
     this.companyId = Number(localStorage.getItem('companyId'));
@@ -83,6 +91,7 @@ export class TasksIndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAllTasks();
+    this.loadBranchs();
   }
   public searcWithDebounce(event: any): void {
     this.debounceSearchWithDiscount(event);
@@ -160,7 +169,7 @@ export class TasksIndexComponent implements OnInit {
       });
   }
 
-  loadAllTasks(name?: string): void {
+  loadAllTasks(name?: string, departmentId? : number): void {
     const companyId = Number(localStorage.getItem('companyId'));
     let query: any = {
       companyId,
@@ -168,6 +177,9 @@ export class TasksIndexComponent implements OnInit {
     };
     if (name) {
       query.name = name;
+    }
+    if(departmentId){
+      query.departmentId = departmentId;
     }
     console.log(query);
     this.tasksService.get(query).subscribe({
@@ -265,5 +277,40 @@ export class TasksIndexComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  loadBranchs(): void {
+    this.requestTypeService.getBranches({}).subscribe({
+      next: (res) => {
+        this.Branches = res.data.list || [];
+      },
+      error: (err) => console.error(err),
+    });
+  }
+  onBranchSelect(branchId: any): void {
+    const branch = this.Branches.find((b) => b.id === branchId);
+    if (branch) {
+      // this.requestTypeConfigs.at(rowIndex).controls.branchId.setValue(branch.id);
+      this.branchId = branch.id;
+      this.loadDepartments(branch.id);
+    }
+  }
+  loadDepartments(branchId: number): void {
+    this.requestTypeService.getDepartments({ branchId }).subscribe({
+      next: (res) => {
+        this.departmentOptions = res.data.list || [];
+      },
+      error: (err) => console.error(err),
+    });
+  }
+  onDepartmentSelect(departmentId: any): void {
+    const depArray = this.departmentOptions || [];
+    const department = this.departmentOptions.find((d: any) => d.id === departmentId);
+    if (department) {
+      this.departmentId = department.id;
+      this.loadAllTasks('', department.id);
+      // this.requestTypeConfigs.at(rowIndex).controls.departmentId.setValue(department.id);
+      // this.loadPositions(department.id, rowIndex);
+    }
   }
 }

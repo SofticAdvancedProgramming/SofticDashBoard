@@ -156,7 +156,7 @@
             <div class="form-group">
               <label class="form-label">{{ "Position" | translate }}</label>
               <app-drop-down [items]="positionOptions[i]" [placeholder]="'Select Position' | translate"
-                [placeholderSearch]="'Search by Name' | translate" [itemsLength]="positionOptions[i]?.length || 0"
+                [placeholderSearch]="'Search by Name' | translate" [itemsLength]="positionOptions[i].length || 0"
                 (onChange)="onPositionSelect($event, i)"
                 (getNextPageApi)="loadPositions(configGroup.value.departmentId!, i)"
                 (search)="loadPositions(configGroup.value.departmentId!, i)">

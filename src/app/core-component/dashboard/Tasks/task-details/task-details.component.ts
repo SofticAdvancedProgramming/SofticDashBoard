@@ -68,6 +68,7 @@ export class TaskDetailsComponent implements OnInit {
   taskImg = '../../../../../assets/images/Video Task.png';
   isChecked: any;
   checkboxForm!: FormGroup;
+  isValid: boolean = false;
 
   constructor(
     private tasksService: TasksService,
@@ -87,6 +88,7 @@ export class TaskDetailsComponent implements OnInit {
         console.log('Extracted taskId:', id);
       }
     });
+
     this.initiation();
     this.isTodoStatus = false;
     this.isInProgressStatus = false;
@@ -96,7 +98,7 @@ export class TaskDetailsComponent implements OnInit {
     this.inProgressImgScr = '../../../../../assets/images/notDoneYet.png';
     this.ReviewImgScr = '../../../../../assets/images/notDoneYet.png';
     this.DoneImgScr = '../../../../../assets/images/notDoneYet.png';
-    this.getTaksDetails();
+    this.getTaskDetails();
     this.getEmployeesAssignments();
     this.initiation();
     // console.log(this.todoDone);
@@ -138,7 +140,7 @@ export class TaskDetailsComponent implements OnInit {
     });
   }
 
-  getTaksDetails() {
+  getTaskDetails() {
     let query = {
       companyId: this.companyId,
       id: this.id,
@@ -156,10 +158,20 @@ export class TaskDetailsComponent implements OnInit {
             Validators.required,
           ],
         });
-console.log("this.taskDetailsthis.taskDetails",this.taskDetails)
+        console.log('this.taskDetailsthis.taskDetails', this.taskDetails);
         // if(this.taskDetails.toDoItems){
         //   this.todoItems = this.taskDetails.toDoItems;
         // }
+        if (
+          this.taskDetails?.laborCost <= 0 &&
+          this.taskDetails?.materialCost <= 0 &&
+          this.taskDetails?.serviceCost <= 0 &&
+          this.taskDetails?.additionalCost <= 0
+        ) {
+          this.isValid = true;
+        }
+        console.log(this.taskDetails?.laborCost);
+        console.log(this.isValid);
         if (this.taskDetails.statusId == 1) {
           this.isTodoStatus = true;
           this.todoImgScr = this.todoImg;
@@ -224,7 +236,7 @@ console.log("this.taskDetailsthis.taskDetails",this.taskDetails)
           console.log(err);
         },
       });
-    }else{
+    } else {
       let query = {
         id: this.todoItems[index].id,
         companyId: this.companyId,
