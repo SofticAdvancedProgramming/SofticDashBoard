@@ -380,6 +380,8 @@
   "Select Sub Asset Category":"اختر الفئة الفرعية",
   "Select Employee":"اختر الموظف",
   "assetDetails": {
+    "pending":"قيد القبول",
+    "Attatchment":"الملحقات",
     "Delete related asset":"إزالة أصل متعلق",
     "Are you sure you want to delete this related asset?":"هل أنت متأكد أنك تريد حذف هذا الأصل المتعلق؟",
     "plateNumber":"رقم اللوحة",
@@ -840,7 +842,7 @@
   "ActivEmployees": "الموظفين النشطاء",
   "DeactiveEmployees": "الموظفين الغير نشطاء",
   "Assets": {
-
+    "AttachedFiles":"الملفات المرفقة",
     "SubAssetCategory":"فئة فرعية",
     "title":"الأصول",
     "Download":"تحميل",
@@ -913,6 +915,8 @@
   },
 
   "employeeAssets": {
+    "mainAsset":"أصل رئيسي",
+    "ParentAsset":"الأصل الرئيسي",
     "name": "الأصل",
     "category": "الفئة",
     "subcategory": "الفئة الفرعية",
@@ -946,6 +950,8 @@
       "nameRequired": "اسم المهمة مطلوب"
     }
   },
+  "Find":"بحث",
+  "Overview":"ملخص",
   "SELECT_DEPARTMENT": "اختر الفرع",
   "SELECT_ASSET_TYPE": "اختار النوع ",
   "assetName": "اسم الاصل",
@@ -953,6 +959,9 @@
   "employeeFirstName": "اسم الموظف",
   "attendanceType": "نوع الغياب",
   "attendanceDate": "تاريح الغياب",
+  "day": "اليوم",
+  "hour": "الساعة",
+  "department": "القسم",
   "Minimum":"اقل قيمة",
   "Maximum":"اكثر قيمة",
   "MinmumAndMax":"اقل قيمة يجب ان تكون اقل من او تساوى اكبر قيمة",

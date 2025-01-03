@@ -837,6 +837,8 @@
   "Enter benefit amount": "Enter benefit amount",
   "Cancel": "Cancel",
   "Assets": {
+
+    "AttachedFiles":"Attached Files",
     "title": "Assets",
     "Download": "Download",
     "Import Excel": "Import Excel",
@@ -897,11 +899,13 @@
     "Close":"Close"
   },
   "assetDetails":{
+    "pending":"Pending",
+    "Attatchment":"Attatchment",
     "Delete related asset":"Delete related asset",
     "Are you sure you want to delete this related asset?":"Are you sure you want to delete this related asset?",
     "not assigend":"Not assigend yet",
     "plateNumber":"Plate Number",
-    "relateTo":"Relate to",
+    "relateTo":"Related to",
     "assginDate":"Assgining Date",
     "Details":"Details",
     "Assign To Employee":"Assign to employee",
@@ -942,6 +946,8 @@
   "ActivEmployees": "Active Employees",
   "DeactiveEmployees": "Deactive Employees",
   "employeeAssets": {
+    "mainAsset":"Main asset",
+    "ParentAsset":"Parent asset",
     "name": "asset",
     "category": "Category",
     "subcategory": "Sub Category",
@@ -984,10 +990,13 @@
   "SELECT_DEPARTMENT": "Select Department",
   "SELECT_ASSET_TYPE": "Select asset type",
   "assetName": "Asset Name",
-  "assetNameInArabic": "Asset Name In Arabic",
+  "assetNameInArabic": "Asset name in Arabic",
   "employeeFirstName": "Employee Name",
   "attendanceType": "Attendance Type",
   "attendanceDate": "Attendance Date ",
+  "day": "Day",
+  "hour": "Hour",
+  "department": "Department",
   "Minimum": "Minimum Amount",
   "Maximum": "Maximum Amount",
   "MinmumAndMax": "Minimum value must be less than or equal the maximum value.",

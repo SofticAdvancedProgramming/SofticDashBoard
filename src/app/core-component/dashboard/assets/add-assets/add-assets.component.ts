@@ -15,6 +15,7 @@ import { ImageUploadService } from '../../../../services/ImageUploadService/imag
 import { MapComponent } from '../../../../common-component/map/map.component';
 import { DropDownComponent } from '../../components/drop-down/drop-down.component';
 import { ToastrService } from 'ngx-toastr';
+import { ShortenPipe } from '../../../../core/pipes/shorten.pipe';
 
 @Component({
   selector: 'app-add-assets',
@@ -26,6 +27,7 @@ import { ToastrService } from 'ngx-toastr';
     FormsModule,
     MapComponent,
     DropDownComponent,
+    ShortenPipe
   ],
   templateUrl: './add-assets.component.html',
   styleUrl: './add-assets.component.css',
