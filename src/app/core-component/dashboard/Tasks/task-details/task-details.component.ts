@@ -68,6 +68,7 @@ export class TaskDetailsComponent implements OnInit {
   taskImg = '../../../../../assets/images/Video Task.png';
   isChecked: any;
   checkboxForm!: FormGroup;
+  isValid: boolean = false;
   isDisabled: boolean = true;
 
   constructor(
@@ -86,6 +87,7 @@ export class TaskDetailsComponent implements OnInit {
       this.id = params['id'];
      
     });
+
     this.initiation();
     this.isTodoStatus = false;
     this.isInProgressStatus = false;
@@ -95,7 +97,7 @@ export class TaskDetailsComponent implements OnInit {
     this.inProgressImgScr = '../../../../../assets/images/notDoneYet.png';
     this.ReviewImgScr = '../../../../../assets/images/notDoneYet.png';
     this.DoneImgScr = '../../../../../assets/images/notDoneYet.png';
-    this.getTaksDetails();
+    this.getTaskDetails();
     this.getEmployeesAssignments();
     this.initiation();
     // console.log(this.todoDone);
@@ -137,7 +139,7 @@ export class TaskDetailsComponent implements OnInit {
     });
   }
 
-  getTaksDetails() {
+  getTaskDetails() {
     let query = {
       companyId: this.companyId,
       id: this.id,
@@ -159,6 +161,16 @@ export class TaskDetailsComponent implements OnInit {
         // if(this.taskDetails.toDoItems){
         //   this.todoItems = this.taskDetails.toDoItems;
         // }
+        if (
+          this.taskDetails?.laborCost <= 0 &&
+          this.taskDetails?.materialCost <= 0 &&
+          this.taskDetails?.serviceCost <= 0 &&
+          this.taskDetails?.additionalCost <= 0
+        ) {
+          this.isValid = true;
+        }
+        console.log(this.taskDetails?.laborCost);
+        console.log(this.isValid);
         if (this.taskDetails.statusId == 1) {
           this.isTodoStatus = true;
           this.todoImgScr = this.todoImg;
