@@ -26,6 +26,7 @@ import { ToDoItemService } from '../../../../services/ToDoItemService/to-do-item
 import { DeletePopUpComponent } from '../../components/delete-pop-up/delete-pop-up.component';
 import { DeleteConfirmationPopUpComponent } from '../../components/delete-confirmation-pop-up/delete-confirmation-pop-up/delete-confirmation-pop-up.component';
 import { MatOptionModule } from '@angular/material/core';
+import { RequestTypeService } from '../../../../services/requestTypeService/request-type.service';
 
 @Component({
   selector: 'app-add-task',
@@ -78,6 +79,10 @@ export class AddTaskComponent implements OnInit {
   assignedEmployees: any;
   isDelete: boolean = false;
   todoGroup!: FormGroup;
+  Branches: any[] = [];
+  departments: any[] = [];
+  branchId: any;
+  departmentId: any;
   constructor(
     private fb: FormBuilder,
     private tasksService: TasksService,
@@ -89,7 +94,8 @@ export class AddTaskComponent implements OnInit {
     private toast: ToastrService,
     private datePipe: DatePipe,
     private router: Router,
-    private todoService: ToDoItemService
+    private todoService: ToDoItemService,
+    private requestTypeService: RequestTypeService
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
@@ -104,6 +110,7 @@ export class AddTaskComponent implements OnInit {
     this.initiation();
     this.loadEmployees();
     this.getPriorities();
+    this.loadBranches();
     this.todayDate = new Date().toISOString().split('T')[0];
     if (this.id) {
       this.getTaksDetails();
@@ -114,7 +121,6 @@ export class AddTaskComponent implements OnInit {
   initiation() {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      // taskFile: ['', Validators.required],
       taskDetails: [
         '',
         [
@@ -128,8 +134,10 @@ export class AddTaskComponent implements OnInit {
       duration: ['', Validators.required],
       taskToDoDescription: [''],
       AssetAttachment: [''],
+      isGlobal: [false],
       priority: [''],
       todos: this.fb.array([]), // Initialize the FormArray
+      EmployeeIds: [[]] // Initialize as an empty array
     });
   }
   // Getter for the todos FormArray
@@ -241,6 +249,8 @@ export class AddTaskComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.form.value.EmployeeIds);
+    
     this.todoValues = this.form.value.todos; // Get all to-do values
     
     const toDoItems: any[] = [];
@@ -251,8 +261,6 @@ export class AddTaskComponent implements OnInit {
         ...this.todoValues[i],
       });
     }
-   
-
     let query: any;
     query = {
       companyId: this.companyId,
@@ -263,9 +271,15 @@ export class AddTaskComponent implements OnInit {
         initialBudget: this.form.controls['initialCost'].value,
         statusId: 1,
         duration: this.form.controls['duration'].value,
-        taskAttachments: this.attachments,
+        taskAttachments: this.attachments
+        // departmentIds: this.form.value.EmployeeIds
     };
-
+    if (this.todoValues) {
+      query.toDoItems = toDoItems;
+    }
+    if(this.form.controls['priority'].value){
+      query.priorityId = this.form.controls['priority'].value
+    }
     if (this.selectedEmployee?.id) {
       query.taskAssignments = [
         {
@@ -273,29 +287,23 @@ export class AddTaskComponent implements OnInit {
           employeeId: this.selectedEmployee.id,
         },
       ];
-
-      if (this.todoValues) {
-        query.toDoItems = toDoItems;
-      }
-
-      if(this.form.controls['priority'].value){
-        query.priorityId = this.form.controls['priority'].value
-      }
     } else {
       query.taskAssignments = []
-
-      if (this.todoValues) {
-        query.toDoItems = toDoItems;
-      }
-      if(this.form.controls['priority'].value){
-        query.priorityId = this.form.controls['priority'].value
-      }
+    }
+    if(this.form.value.EmployeeIds){
+      query.isGlobal = false;
+      query.departmentIds = this.form.value.EmployeeIds;
+    }
+    if(this.form.value.isGlobal){
+      query.isGlobal = true;
+      query.departmentIds = [];
     }
    
     if (this.id) {
       
       query.id = this.id;
     }
+
     if (this.form.value) {
       if (this.id) {
         this.tasksService.edit(query).subscribe({
@@ -532,4 +540,38 @@ export class AddTaskComponent implements OnInit {
       },
     });
   }
+  loadBranches(): void {
+    this.requestTypeService.getBranches({}).subscribe({
+      next: (res) => {
+        this.Branches = res.data.list || [];
+      },
+      error: (err) => console.error(err),
+    });
+  }
+  onBranchSelect(branchId: any): void {
+    const branch = this.Branches.find((b) => b.id === branchId);
+    if (branch) {
+      // this.requestTypeConfigs.at(rowIndex).controls.branchId.setValue(branch.id);
+      this.branchId = branch.id;
+      this.loadDepartments(branch.id);
+    }
+  }
+  loadDepartments(branchId: number): void {
+    this.requestTypeService.getDepartments({ branchId }).subscribe({
+      next: (res) => {
+        this.departments = res.data.list || [];
+      },
+      error: (err) => console.error(err),
+    });
+  }
+  onDepartmentSelect(departmentId: any): void {
+    const depArray = this.departments || [];
+    const department = this.departments.find((d: any) => d.id === departmentId);
+    if (department) {
+      this.departmentId = department.id;
+      // this.requestTypeConfigs.at(rowIndex).controls.departmentId.setValue(department.id);
+      // this.loadPositions(department.id, rowIndex);
+    }
+  }
+
 }

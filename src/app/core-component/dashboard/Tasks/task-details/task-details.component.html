@@ -276,7 +276,7 @@
 <div class="container mt-3">
   <div class="todo-container p-3">
     <div class="form py-2">
-      <form [formGroup]="form" (ngSubmit)="onSave()" *ngIf="taskDetails">
+      <form [formGroup]="form" (ngSubmit)="onSave()" *ngIf="taskDetails?.initialBudget">
         <div class="row my-3">
           <div class="col-6 form-group">
             <label class="form-label">Labor Cost</label>
@@ -391,7 +391,7 @@
           class="col-12 my-5 row btns d-flex justify-content-center align-items-center"
         >
           <button class="col-4 action-btn btn mx-2">Cancel</button>
-          <button class="col-4 save-btn btn mx-2" type="submit">Save</button>
+          <button class="col-4 save-btn btn mx-2" type="submit" [disabled]="isValid">Save</button>
         </div>
       </form>
     </div>
