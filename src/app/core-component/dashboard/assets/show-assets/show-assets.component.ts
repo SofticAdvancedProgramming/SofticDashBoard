@@ -13,6 +13,7 @@ import { any } from '@tensorflow/tfjs-core';
 import { ChangStatusAssetsPopupComponent } from '../../../../common-component/chang-status-assets-popup/chang-status-assets-popup.component';
 import { ConfirmnDeleteDialogComponent } from "../../../../common-component/confirmn-delete-dialog/confirmn-delete-dialog.component";
 import { ToastrService } from 'ngx-toastr';
+import { ShortenPipe } from '../../../../core/pipes/shorten.pipe';
 
 @Component({
   selector: 'app-show-assets',
@@ -27,7 +28,7 @@ import { ToastrService } from 'ngx-toastr';
     FormsModule,
     PaginationModule,
     ChangStatusAssetsPopupComponent,
-    ConfirmnDeleteDialogComponent
+    ConfirmnDeleteDialogComponent,ShortenPipe
   ]
 })
 export class ShowAssetsComponent implements OnInit {
@@ -126,7 +127,6 @@ export class ShowAssetsComponent implements OnInit {
 
     console.log('Query:', query); // Debugging the query parameters
 
-
      // Debugging the query parameters
 
     this.assetsService.getAsset(query).subscribe({
@@ -134,6 +134,8 @@ export class ShowAssetsComponent implements OnInit {
 
         this.assets = res.data.list; // Update the assets list
         this.filteredAssets = this.assets; // Apply the filters directly to the view
+
+        console.log('ِAssets:', this.filteredAssets);
         this.totalRows = res.data.totalRows; // Update total rows for pagination
       },
       error: (err) => {
