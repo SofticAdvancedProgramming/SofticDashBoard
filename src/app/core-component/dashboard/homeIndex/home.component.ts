@@ -45,7 +45,9 @@ export class HomeIndexComponent {
 
   public newAction: any = [{
     isExisting: true,
-    src: 'map.png'
+    src: 'Location_.png',
+    class:'img-fluid'
+
   }];
   constructor(
     private translateService: TranslationService,
@@ -121,6 +123,7 @@ export class HomeIndexComponent {
   };
 
   columns: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'day', 'hour','department'];
+  columnsAr: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'dayAr', 'hour','department'];
 
   getAddress(e: any) {
     this.addressData = e;
@@ -139,7 +142,7 @@ export class HomeIndexComponent {
    getAttendances(searchDate = {}, pageIndex?: number) {
     let query: any = pageIndex ? { pageIndex, sortIsAsc: false, sortCol: "attendanceDate" } : { sortIsAsc: false, sortCol: "attendanceDate"};
       this.attendanceService.getAttendances({ ...searchDate,  attendanceTypeId: null }).subscribe((res) => {
-
+      //  console.log(res);
       this.attendances = {
         ...res,
         list: res.list.map( (item: any) => ({
@@ -147,8 +150,10 @@ export class HomeIndexComponent {
           attendanceDate: this.functionService.formatDate(item.attendanceDate),
           hour: this.functionService.formatHour(item.attendanceDate),
           attendanceType: this.getAttendancebyTypeId(item.attendanceTypeId),
-          department: item.employeeDepartmentName|| 'no dept'
-          //this.getEmployeeDepartment(item['employeeId'],) || 'no dept'
+          department: item.employeeDepartmentName||'no dept'
+
+          // department: this.isArabic?item.employeeDepartmentNameAr: item.employeeDepartmentName|| this.isArabic?'لايوجد قسم':'no dept'
+          // //this.getEmployeeDepartment(item['employeeId'],) || 'no dept'
         })),
       };
 

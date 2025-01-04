@@ -300,6 +300,7 @@
     "NO": "No"
   },
   "SIDEBAR": {
+    "Request":"Requests",
     "QUICK_ACCESS": "Quick Access",
     "DASHBOARD": "Dashboard",
     "COMPANY": "Company",
@@ -312,7 +313,7 @@
     "LOGOUT": "Logout",
     "ASSETS": "Assets",
     "COMPLAINSANDSUGGESTIONS": "Complaints & Suggetions",
-    "TASKS": "tasks"
+    "TASKS": "Tasks"
   },
   "Home": {
     "ActiveCompanies": "Active Companies",
@@ -987,6 +988,7 @@
       "initialCostRequired": "Initial Cost Required"
     }
   },
+  "Assets Category":"Assets Category",
   "SELECT_DEPARTMENT": "Select Department",
   "SELECT_ASSET_TYPE": "Select asset type",
   "assetName": "Asset Name",
@@ -995,6 +997,7 @@
   "attendanceType": "Attendance Type",
   "attendanceDate": "Attendance Date ",
   "day": "Day",
+  "dayAr": "Day",
   "hour": "Hour",
   "department": "Department",
   "Minimum": "Minimum Amount",
@@ -1003,6 +1006,8 @@
   "AddNewPosition": "Add Another Position",
   "ATTENDANCE": "Attendance",
   "DEPARTURE": "Departure",
+  "Departure":"Attendance",
+  "Attendance":"Departure",
   "ABSENCE": "Absence",
   "OVERVIEW": "Overview",
   "EMPLOYEE": "Employee",
