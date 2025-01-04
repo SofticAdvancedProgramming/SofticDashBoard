@@ -28,7 +28,7 @@
   <ul class="sidebar-nav">
     <li class="sidebar-item">
       <a class="sidebar-link">
-        <span class="lightDescription justify-content-between">{{
+        <span  class="mx-1" class="lightDescription justify-content-between">{{
           "SIDEBAR.QUICK_ACCESS" | translate
         }}</span>
       </a>
@@ -41,7 +41,7 @@
       [routerLinkActiveOptions]="{ exact: true }"
     >
       <a routerLink="/dashboard/HomeIndex" class="sidebar-link">
-        <img src="../../../../assets/images/element-4.png" />
+        <img class="mx-1"  src="../../../../assets/images/element-4.png" />
         <span>{{ "SIDEBAR.DASHBOARD" | translate }}</span>
       </a>
     </li>
@@ -53,7 +53,7 @@
       routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a [routerLink]="'/dashboard/company/' + companyId" class="sidebar-link">
-        <img src="../../../../assets/images/softic/companyIcon.png" />
+        <img class="mx-1"  src="../../../../assets/images/softic/companyIcon.png" />
         <span>{{ "SIDEBAR.COMPANY" | translate }}</span>
       </a>
     </li>
@@ -65,8 +65,8 @@
       routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/indexCompany" class="sidebar-link">
-        <img src="../../../../assets/images/softic/companyIcon.png" />
-        <span>{{ "SIDEBAR.COMPANIES" | translate }}</span>
+        <img class="mx-1"  src="../../../../assets/images/softic/companyIcon.png" />
+        <span> {{ "SIDEBAR.COMPANIES" | translate }}</span>
       </a>
     </li>
 
@@ -76,8 +76,8 @@
       routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/OrganizationCharts" class="sidebar-link">
-        <img src="../../../../assets/images/softic/orgIcon.png" />
-        <span>{{ "SIDEBAR.ORGANIZATIONAL_CHART" | translate }}</span>
+        <img class="mx-1"  src="../../../../assets/images/softic/orgIcon.png" />
+        <span> {{ "SIDEBAR.ORGANIZATIONAL_CHART" | translate }}</span>
       </a>
     </li>
     <li
@@ -86,8 +86,8 @@
       routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/ComplaintsSuggestions" class="sidebar-link">
-        <img src="../../../../assets/images/archive-book.png" />
-        <span>{{ "SIDEBAR.COMPLAINSANDSUGGESTIONS" | translate }}</span>
+        <img  class="mx-1" src="../../../../assets/images/archive-book.png" />
+        <span> {{ "SIDEBAR.COMPLAINSANDSUGGESTIONS" | translate }}</span>
       </a>
     </li>
 
@@ -98,8 +98,8 @@
       routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/ViewEmployees" class="sidebar-link">
-        <img src="../../../../assets/images/profile-circle.png" />
-        <span>{{ "SIDEBAR.EMPLOYEE" | translate }}</span>
+        <img class="mx-1"  src="../../../../assets/images/profile-circle.png" />
+        <span> {{ "SIDEBAR.EMPLOYEE" | translate }}</span>
       </a>
     </li>
     <li
@@ -108,8 +108,8 @@
       routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/AssetsIndex" class="sidebar-link">
-        <img src="../../../../assets/images/chart.png" />
-        <span>{{ "SIDEBAR.ASSETS" | translate }}</span>
+        <img class="mx-1"  src="../../../../assets/images/chart.png" />
+        <span> {{ "SIDEBAR.ASSETS" | translate }}</span>
       </a>
     </li>
     <li
@@ -118,8 +118,8 @@
       routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="/dashboard/tasks" class="sidebar-link">
-        <img src="../../../../assets/images/task.png" />
-        <span>{{ "SIDEBAR.TASKS" | translate }}</span>
+        <img class="mx-1"  src="../../../../assets/images/task.png" />
+        <span> {{ "SIDEBAR.TASKS" | translate }}</span>
       </a>
     </li>
     <li
@@ -128,8 +128,8 @@
       routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
     >
       <a routerLink="workflow/Request-type/addRequest-type" class="sidebar-link">
-        <img src="../../../../assets/images/send-1.png" />
-        <span>{{ "workflow" | translate }}</span>
+        <img class="mx-1"  src="../../../../assets/images/send-1.png" />
+        <span> {{ "SIDEBAR.Request" | translate }}</span>
       </a>
     </li>
   </ul>
@@ -141,8 +141,8 @@
       routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
       [routerLinkActiveOptions]="{ exact: true }"
     >
-      <img src="../../../../assets/images/softic/user-add.png" />
-      <span class="settingText">{{ "SIDEBAR.ADD_ADMIN" | translate }}</span>
+      <img class="mx-1"  src="../../../../assets/images/softic/user-add.png" />
+      <span class="settingText"> {{ "SIDEBAR.ADD_ADMIN" | translate }}</span>
     </a>
 
     <ng-container *ngIf="role[0] === 'Admin' || role[0] === 'SuperAdmin'">
@@ -152,23 +152,23 @@
         routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
         [routerLinkActiveOptions]="{ exact: true }"
       >
-        <img src="../../../../assets/images/settings.png" />
-        <span class="settingText">{{ "SIDEBAR.SETTING" | translate }}</span>
+        <img class="mx-1"  src="../../../../assets/images/settings.png" />
+        <span class="settingText"> {{ "SIDEBAR.SETTING" | translate }}</span>
       </a>
     </ng-container>
 
     <!-- Help Link -->
     <a href="#" class="sidebar-link"
     routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
-      <img src="../../../../assets/images/help.png" />
-      <span class="helpText">{{ "SIDEBAR.HELP" | translate }}</span>
+      <img class="mx-1"  src="../../../../assets/images/help.png" />
+      <span class="helpText"> {{ "SIDEBAR.HELP" | translate }}</span>
     </a>
 
     <!-- Logout Button -->
     <div>
       <a class="sidebar-link" (click)="logout()">
-        <img src="../../../../assets/images/logout.png" />
-        <span class="logoutText">{{ "SIDEBAR.LOGOUT" | translate }}</span>
+        <img class="mx-1" src="../../../../assets/images/logout.png" />
+        <span class="logoutText"> {{ "SIDEBAR.LOGOUT" | translate }}</span>
       </a>
     </div>
   </div>

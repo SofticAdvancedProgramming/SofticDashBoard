@@ -291,6 +291,7 @@
     "NO": "لا"
   },
   "SIDEBAR": {
+    "Request":"الطلبات",
     "QUICK_ACCESS": "الوصول السريع",
     "DASHBOARD": "لوحة القيادة",
     "COMPANY": "شركة",
@@ -842,6 +843,7 @@
   "ActivEmployees": "الموظفين النشطاء",
   "DeactiveEmployees": "الموظفين الغير نشطاء",
   "Assets": {
+    "Request":"طلبات",
     "AttachedFiles":"الملفات المرفقة",
     "SubAssetCategory":"فئة فرعية",
     "title":"الأصول",
@@ -960,13 +962,17 @@
   "attendanceType": "نوع الغياب",
   "attendanceDate": "تاريح الغياب",
   "day": "اليوم",
+  "dayAr": "اليوم",
   "hour": "الساعة",
   "department": "القسم",
   "Minimum":"اقل قيمة",
   "Maximum":"اكثر قيمة",
   "MinmumAndMax":"اقل قيمة يجب ان تكون اقل من او تساوى اكبر قيمة",
   "AddNewPosition":"اضافه منصب جديد",
+  "Assets Category":"فئات الأصول",
   "ATTENDANCE": "الحضور",
+  "Departure":"غياب",
+  "Attendance":"حضور",
   "DEPARTURE": "المغادرة",
   "ABSENCE": "الغياب",
   "OVERVIEW": "نظرة عامة",

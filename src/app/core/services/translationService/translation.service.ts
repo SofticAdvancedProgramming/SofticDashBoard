@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TranslationService {
-
+  lang!: string | null; 
   constructor(public translateService: TranslateService) {
     this.translateService.setDefaultLang('en');
     this.translateService.use('en');
   }
+
+  private classToggle = new BehaviorSubject<boolean>(this.lang === 'ar'? true : false);
+  classToggle$ = this.classToggle.asObservable();
 
   //change Language
   async changeLang(lang: string) {
@@ -22,8 +26,8 @@ export class TranslationService {
   }
 
   getCurrentLanguage() {
-    const lang = localStorage.getItem('lang');
-    lang == 'ar' ? true : false;
+    this.lang = localStorage.getItem('lang');
+    this.lang == 'ar' ? true : false;
   }
 
   //get current language

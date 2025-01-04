@@ -3,51 +3,51 @@
     <div class="col-lg-4" *ngIf="role[0] === 'SuperAdmin'">
       <app-lockup-card iconSrc="../../../../../assets/images/lockup/PersonalReferanceManagement.png"
         header="{{ 'generalLookups.SUBSCRIPTION_PLAN_MANAGEMENT' | translate }}"
-        description="{{ 'generalLookups.SUBSCRIPTION_PLAN_DESCRIPTION' | translate }}" link="../SubscriptionPlan">
+        description="{{ 'generalLookups.SUBSCRIPTION_PLAN_DESCRIPTION' | translate  |Shorten:100}}" link="../SubscriptionPlan">
       </app-lockup-card>
     </div>
     <div class="col-lg-4 mt-3" *ngIf="role[0] === 'Admin'">
       <app-lockup-card iconSrc="../../../../../assets/images/lockup/security-user.png"
         header="{{ 'generalLookups.POSITION_MANAGEMENT' | translate }}"
-        description="{{ 'generalLookups.POSITION_MANAGEMENT_DESCRIPTION' | translate }}"
+        description="{{ 'generalLookups.POSITION_MANAGEMENT_DESCRIPTION' | translate |Shorten:100}}"
         link="../PositionTypeManagment">
       </app-lockup-card>
     </div>
     <div class="col-lg-4 mt-3" *ngIf="role[0] === 'Admin'">
       <app-lockup-card iconSrc="../../../../../assets/images/lockup/security-user.png"
         header="{{ 'generalLookups.SalaryType' | translate }}"
-        description="{{ 'generalLookups.Salary_Type_DESCRIPTION' | translate }}"
+        description="{{ 'generalLookups.Salary_Type_DESCRIPTION' | translate |Shorten:100 }}"
         link="../salary-type">
       </app-lockup-card>
     </div>
     <div class="col-lg-4 mt-3" *ngIf="role[0] === 'Admin' || role[0] === 'SuperAdmin'">
       <app-lockup-card iconSrc="../../../../../assets/images/lockup/security-user.png"
         header="{{ 'generalLookups.CurrencyType' | translate }}"
-        description="{{ 'generalLookups.Salary_Type_DESCRIPTION' | translate }}"
+        description="{{ 'generalLookups.Salary_Type_DESCRIPTION' | translate  |Shorten:100}}"
         link="../currency-type">
       </app-lockup-card>
     </div>
     <div class="col-lg-4 mt-3" *ngIf="role[0] === 'Admin'">
-      <app-lockup-card 
+      <app-lockup-card
         iconSrc="../../../../../assets/images/lockup/security-user.png"
         header="{{ 'generalLookups.BenefitType' | translate }}"
-        description="{{ 'generalLookups.BenefitType_DESCRIPTION' | translate }}"
+        description="{{ 'generalLookups.BenefitType_DESCRIPTION' | translate  |Shorten:100}}"
         link="../BenefitType">
       </app-lockup-card>
     </div>
     <div class="col-lg-4 mt-3" *ngIf="role[0] === 'Admin'">
-      <app-lockup-card 
+      <app-lockup-card
         iconSrc="../../../../../assets/images/lockup/security-user.png"
         header="{{ 'generalLookups.AssetsCategory' | translate }}"
-        description="{{ 'generalLookups.AssetsCategory_DESCRIPTION' | translate }}"
+        description="{{ 'generalLookups.AssetsCategory_DESCRIPTION' | translate  |Shorten:100}}"
         link="../assetsCategory">
       </app-lockup-card>
     </div>
     <div class="col-lg-4 mt-3" *ngIf="role[0] === 'Admin'">
-      <app-lockup-card 
+      <app-lockup-card
         iconSrc="../../../../../assets/images/lockup/security-user.png"
         header="{{ 'generalLookups.RelatedAssets' | translate }}"
-        description="{{ 'generalLookups.RelatedAssets_DESCRIPTION' | translate }}"
+        description="{{ 'generalLookups.RelatedAssets_DESCRIPTION' | translate  |Shorten:100}}"
         link="../relatedAssets">
       </app-lockup-card>
     </div>

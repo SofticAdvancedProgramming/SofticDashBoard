@@ -68,7 +68,7 @@
             [tableTitle]="activeTab"
             [tableData]="financial"
             [columns]="columns"
-            searchPlaceholder="Search data..."
+            [searchPlaceholder]="'Search data...'"
             [modalId]="modalId"
             (deleteItem)="deleteEntity('employeeSalary', $event.id)"
             [deleteId]="deleteId"
