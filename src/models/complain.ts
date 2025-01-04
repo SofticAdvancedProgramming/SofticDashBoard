@@ -8,6 +8,7 @@ export interface Complaint {
   issueId:number;
   issueStatusId:number;
   issueExcuters:Excuter[]
+  createdOn:string;
   }
 
   export interface Issue

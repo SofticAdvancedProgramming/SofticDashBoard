@@ -1026,7 +1026,8 @@
   },
     "BRANCH_NAME":"Branch name :",
     "DEPARTMENT_NAME":"Department name :",
-    "POSITION_TYPE":"Position type :"
+    "POSITION_TYPE":"Position type :",
+    "CREATED_AT":"Created at :"
 
 }
 

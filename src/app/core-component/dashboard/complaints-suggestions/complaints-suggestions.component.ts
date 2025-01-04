@@ -152,6 +152,7 @@ export class ComplaintsSuggestionsComponent {
           this.loading = false;
 
           if (response?.data?.list) {
+            console.log("response",response?.data?.list)
             this.complaints = response.data.list.map((item: any) => ({
               ...item,
               againstTypeName: this.matchAgainstTypeName(item.againestTypeId),
