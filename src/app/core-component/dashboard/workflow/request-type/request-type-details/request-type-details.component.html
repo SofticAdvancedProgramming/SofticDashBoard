@@ -13,32 +13,46 @@
   </button>
 
  </div>
-<div *ngIf="!isEditMode" class="add-type-request-sm-container py-3 px-4 ">
-  <div class="row gy-3 ">
-    <div class="col-12 col-md-6 border-bottom-custom">
+ <div *ngIf="!isEditMode" class="add-type-request-sm-container py-3 px-4">
+  <div class="row gy-3">
+     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'Title In English' | translate }}</label>
       <div class="text-muted">{{ requestTypeDetails?.name || 'N/A' }}</div>
     </div>
-    <div class="col-12 col-md-6 border-bottom-custom">
-      <div class="col-12 col-md-6 border-bottom-custom">
-        <label class="d-block fw-semibold text-dark">{{ 'Title In Arabic' | translate }}</label>
-        <div class="text-muted">{{ requestTypeDetails?.nameAr || 'N/A' }}</div>
-      </div>
+
+     <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{ 'Title In Arabic' | translate }}</label>
+      <div class="text-muted">{{ requestTypeDetails?.nameAr || 'N/A' }}</div>
     </div>
-    <div class="col-12 col-md-6 border-bottom-custom">
+
+     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'Request category' | translate }}</label>
-      <div class="text-muted"> {{ requestCategoryName }} </div>
+      <div class="text-muted">{{ requestCategoryName }}</div>
     </div>
-    <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'Minimum' | translate }}</label>
-      <div class="text-muted">{{ requestTypeDetails.min || 'N/A' }}</div>
-    </div>
-    <div class="col-12 col-md-6 border-bottom-custom">
-      <label class="d-block fw-semibold text-dark">{{ 'Maximum' | translate }}</label>
-      <div class="text-muted">{{ requestTypeDetails.max || 'N/A' }}</div>
-    </div>
+
+    <!-- If NOT Assets => show min & max -->
+    <ng-container *ngIf="requestTypeDetails?.requestCategoryId !== 3; else assetFields">
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">{{ 'Minimum' | translate }}</label>
+        <div class="text-muted">{{ requestTypeDetails?.min || 'N/A' }}</div>
+      </div>
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">{{ 'Maximum' | translate }}</label>
+        <div class="text-muted">{{ requestTypeDetails?.max || 'N/A' }}</div>
+      </div>
+    </ng-container>
+
+     <ng-template #assetFields>
+      <div class="col-12 col-md-6 border-bottom-custom">
+        <label class="d-block fw-semibold text-dark">{{ 'Contains Asset?' | translate }}</label>
+        <div class="text-muted">
+           {{ requestTypeDetails?.containAsset ? ('Yes' | translate) : ('No' | translate) }}
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>
+
 
 <div *ngIf="isEditMode" class="add-type-request-sm-container py-3 px-4">
   <form [formGroup]="editForm">
