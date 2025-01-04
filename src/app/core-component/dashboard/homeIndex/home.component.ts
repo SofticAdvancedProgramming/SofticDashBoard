@@ -45,9 +45,7 @@ export class HomeIndexComponent {
 
   public newAction: any = [{
     isExisting: true,
-    src: 'Location_.png',
-    class:'img-fluid'
-
+    src: 'Location_.png'
   }];
   constructor(
     private translateService: TranslationService,

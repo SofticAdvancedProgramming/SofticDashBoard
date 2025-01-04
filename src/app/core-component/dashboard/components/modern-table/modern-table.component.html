@@ -65,7 +65,8 @@
               [attr.data-bs-target]="'#' + modalId"
               (click)="editItem.emit(item)"
             >
-              <i class="fa-solid fa-lg fa-pen"></i>
+            <img src="../../../../../assets/images/edit-2.png">
+              <!-- <i class="fa-solid fa-lg fa-pen"></i> -->
             </button>
             } @if(isThereDelete){
             <button
@@ -75,10 +76,15 @@
               data-bs-toggle="modal"
               [attr.data-bs-target]="'#' + deleteId"
             >
-              <img
+              <!-- <img
                 class="CustomIcon"
                 src="../../../../../assets/images/delete.png"
+              /> -->
+              <img
+                class="CustomIcon"
+                src="../../../../../assets/images/trash 01.png"
               />
+
             </button>
             } @if(newAction.length >= 1){ @for (newA of newAction ; track
             newA.isExisting ; let idx = $index, e = $even) {
