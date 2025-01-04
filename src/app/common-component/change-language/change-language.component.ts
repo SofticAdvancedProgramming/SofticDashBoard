@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslationService } from '../../core/services/translationService/translation.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-change-language',
@@ -22,6 +23,8 @@ export class ChangeLanguageComponent {
   ) {
     this.handelFlag();
   }
+
+  
 
   changeLanguage(lang: string): void {
     this.currentLang = lang;
