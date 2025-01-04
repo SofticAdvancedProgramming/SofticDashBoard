@@ -54,7 +54,7 @@
                 class="d-flex flex-row justify-content-between align-items-center w-95"
               >
                 <img src="../../../../../assets/images/calendar-2.png" />
-                <span class="date-description">to (Date)</span>
+                <span class="date-description">To (Date)</span>
                 <span class="date">{{ taskDetails?.endDate | date }}</span>
               </div>
             </div>
@@ -80,7 +80,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-6" *ngFor="let employee of employees">
+              <div class="col-6 mb-2" *ngFor="let employee of employees">
                 <div
                   class="d-flex flex-row justify-content-start align-items-center gap-2 w-100"
                 >
@@ -91,9 +91,8 @@
                     "
                     class="employeeImg"
                   />
-                  <span class="date-description-time px-2">{{
-                    employee.employeeName
-                  }}</span>
+                  <span class="date-description-time px-2" *ngIf="classToggled">{{employee.employeeNameAr}}</span>
+                  <span class="date-description-time px-2" *ngIf="!classToggled">{{employee.employeeName}}</span>
                 </div>
               </div>
             </div>

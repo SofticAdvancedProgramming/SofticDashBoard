@@ -20,6 +20,7 @@ import { MoveToArchivePopupComponent } from '../../components/moveToArchivePoup/
 import { ProgressbarComponent } from '../../components/progressbar/progressbar.component';
 import { ToDoProgressBarComponent } from '../../components/to-do-progress-bar/to-do-progress-bar/to-do-progress-bar.component';
 import { ToDoItemService } from '../../../../services/ToDoItemService/to-do-item.service';
+import { TranslationService } from '../../../../core/services/translationService/translation.service';
 
 @Component({
   selector: 'app-task-details',
@@ -70,6 +71,7 @@ export class TaskDetailsComponent implements OnInit {
   checkboxForm!: FormGroup;
   isValid: boolean = false;
   isDisabled: boolean = true;
+  classToggled: boolean = false;
 
   constructor(
     private tasksService: TasksService,
@@ -77,7 +79,8 @@ export class TaskDetailsComponent implements OnInit {
     private fb: FormBuilder,
     private translate: TranslateService,
     private toast: ToastrService,
-    private todoService: ToDoItemService
+    private todoService: ToDoItemService,
+    private _languageService: TranslationService
   ) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
@@ -85,7 +88,9 @@ export class TaskDetailsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       const id = params['id'];
       this.id = params['id'];
-     
+    });
+    this._languageService.classToggle$.subscribe((toggled) => {
+      this.classToggled = toggled;
     });
 
     this.initiation();
@@ -120,22 +125,22 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.todoService.get(query).subscribe({
       next: (res) => {
-      
         this.todoItems = res.data.list;
-       
+
         // Initialize FormArray with checkboxes
         this.todoItems?.forEach((todo: any) => {
           if (todo.statusId == 4) {
-            this.checkboxes.push(this.fb.control({value: true, disabled: true}));
+            this.checkboxes.push(
+              this.fb.control({ value: true, disabled: true })
+            );
           } else {
-            this.checkboxes.push(this.fb.control({value: false, disabled: true}));
+            this.checkboxes.push(
+              this.fb.control({ value: false, disabled: true })
+            );
           }
         });
-        
       },
-      error: (err) => {
-       
-      },
+      error: (err) => {},
     });
   }
 
@@ -146,7 +151,6 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.tasksService.get(query).subscribe({
       next: (res) => {
-      
         this.taskDetails = res.data.list[0];
         this.form = this.fb.group({
           laborCost: [this.taskDetails.laborCost, Validators.required],
@@ -194,9 +198,7 @@ export class TaskDetailsComponent implements OnInit {
           this.taskImg = this.taskDetails.taskAttachments[0].file;
         }
       },
-      error(err) {
-       
-      },
+      error(err) {},
     });
   }
   getEmployeesAssignments() {
@@ -206,12 +208,10 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.tasksService.assignEmployees(query).subscribe({
       next: (res) => {
-       
+        console.log(res);
         this.employees = res.data.list;
       },
-      error: (err) => {
-     
-      },
+      error: (err) => {},
     });
   }
 
@@ -228,12 +228,9 @@ export class TaskDetailsComponent implements OnInit {
       };
       this.todoService.edit(query).subscribe({
         next: (res) => {
-       
           this.ngOnInit();
         },
-        error: (err) => {
-         
-        },
+        error: (err) => {},
       });
     } else {
       let query = {
@@ -246,12 +243,9 @@ export class TaskDetailsComponent implements OnInit {
       };
       this.todoService.edit(query).subscribe({
         next: (res) => {
-        
           this.ngOnInit();
         },
-        error: (err) => {
-         
-        },
+        error: (err) => {},
       });
     }
   }
@@ -266,16 +260,14 @@ export class TaskDetailsComponent implements OnInit {
       serviceCost: this.form.controls['serviceCost'].value,
       additionalCost: this.form.controls['additionalCost'].value,
     };
-   
+
     this.tasksService.assignCost(query).subscribe({
       next: (res) => {
         this.toast.success('Updated Successfully');
-       
+
         this.ngOnInit();
       },
-      error: (err) => {
-      
-      },
+      error: (err) => {},
     });
   }
   inProgressStaate() {
@@ -285,12 +277,9 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.tasksService.assignTaskStatus(query).subscribe({
       next: (res) => {
-      
         this.ngOnInit();
       },
-      error: (err) => {
-       
-      },
+      error: (err) => {},
     });
   }
   submitForReview() {
@@ -300,17 +289,14 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.tasksService.assignTaskStatus(query).subscribe({
       next: (res) => {
-       
         this.ngOnInit();
       },
-      error: (err) => {
-       
-      },
+      error: (err) => {},
     });
   }
   reWork() {
     this.isReAssignVisible = true;
-    
+
     // let query = {
     //   taskId: this.id,
     //   statusId: 2,
@@ -351,12 +337,9 @@ export class TaskDetailsComponent implements OnInit {
     };
     this.tasksService.assignTaskStatus(query).subscribe({
       next: (res) => {
-       
         this.ngOnInit();
       },
-      error: (err) => {
-     
-      },
+      error: (err) => {},
     });
   }
   toggleAssignTaskToPopup() {
