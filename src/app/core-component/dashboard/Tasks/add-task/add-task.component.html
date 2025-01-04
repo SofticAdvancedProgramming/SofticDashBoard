@@ -100,7 +100,7 @@
         </div>
         <div class="col-6">
           <div class="form-group">
-            <label class="form-label">Duration</label>
+            <label class="form-label">Duration in days</label>
             <input
               type="number"
               class="form-control"
@@ -135,6 +135,8 @@
               type="number"
               class="textarea form-control"
               formControlName="initialCost"
+              placeholder="{{'TASKS.INITIALCOST' |translate}}"
+
               placeholder="{{ 'TASKS.INITIALCOST' | translate }}"
               [ngClass]="{
                 'is-invalid':
@@ -384,6 +386,8 @@
         *ngFor="let todo of todos.controls; let i = index"
         [formGroupName]="i"
       >
+
+        <label class="form-label">{{'ToDo.toDoDescription' | translate}}</label>
         <label class="form-label">{{
           "ToDo.toDoDescription" | translate
         }}</label>
@@ -404,6 +408,7 @@
       }"
         ></textarea>
         <div class="d-flex gap-2">
+
           <div class="col-6">
             <div class="form-group">
               <label for="Name" class="form-label">{{
@@ -456,9 +461,11 @@
         >
           {{ "ToDo.addToDo" | translate }}
         </button>
+
       </div>
     </div>
   </div>
+
 
   <div
     class="col-12 d-flex justify-content-center align-items-center py-4 gap-2"

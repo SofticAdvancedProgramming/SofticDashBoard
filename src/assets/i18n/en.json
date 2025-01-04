@@ -300,6 +300,7 @@
     "NO": "No"
   },
   "SIDEBAR": {
+    "Request":"Requests",
     "QUICK_ACCESS": "Quick Access",
     "DASHBOARD": "Dashboard",
     "COMPANY": "Company",
@@ -312,7 +313,7 @@
     "LOGOUT": "Logout",
     "ASSETS": "Assets",
     "COMPLAINSANDSUGGESTIONS": "Complaints & Suggetions",
-    "TASKS": "tasks"
+    "TASKS": "Tasks"
   },
   "Home": {
     "ActiveCompanies": "Active Companies",
@@ -412,13 +413,13 @@
     "REFERENCE_PHOTO": "Reference Photo",
     "PASSPORT_PHOTO": "Passport Photo",
     "LOADING": "Loading...",
-    "passportPhoto": "passport Photo",
-    "nationalIdPhoto": "nationalId Photo",
+    "passportPhoto": "Passport photo",
+    "nationalIdPhoto": "National id photo",
     "progressInfoTitle": "Personal Information completeness"
   },
   "employeeDetails": {
     "Salarytype":"Salary type",
-    "attendance": "Attendance And Departure",
+    "attendance": "Attendance & Departure",
     "SALARY_ASSIGN_SUCCESS": "Salary assigned successfully",
     "grossSalary": "Gross Salary",
     "netSalary": "Net Salary",
@@ -444,7 +445,7 @@
     "add_deduction": "Add Deduction",
     "Due_Date": "Due (Date)",
     "Add_Bonus": "Add Bonus",
-    "shifts": "shifts",
+    "shifts": "Shifts",
     "Team_Leader": "Team leader",
     "George_Mikhaiel": "George Mikhaiel",
     "Shift_Start_Time": "Shift start time",
@@ -987,6 +988,7 @@
       "initialCostRequired": "Initial Cost Required"
     }
   },
+  "Assets Category":"Assets Category",
   "SELECT_DEPARTMENT": "Select Department",
   "SELECT_ASSET_TYPE": "Select asset type",
   "assetName": "Asset Name",
@@ -995,6 +997,7 @@
   "attendanceType": "Attendance Type",
   "attendanceDate": "Attendance Date ",
   "day": "Day",
+  "dayAr": "Day",
   "hour": "Hour",
   "department": "Department",
   "Minimum": "Minimum Amount",
@@ -1003,6 +1006,8 @@
   "AddNewPosition": "Add Another Position",
   "ATTENDANCE": "Attendance",
   "DEPARTURE": "Departure",
+  "Departure":"Attendance",
+  "Attendance":"Departure",
   "ABSENCE": "Absence",
   "OVERVIEW": "Overview",
   "EMPLOYEE": "Employee",
