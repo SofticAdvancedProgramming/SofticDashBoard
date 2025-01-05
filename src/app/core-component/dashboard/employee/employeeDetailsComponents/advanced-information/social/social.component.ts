@@ -27,6 +27,7 @@ export class SocialComponent {
     this.route.paramMap.pipe(
       takeUntil(this.unsubscribe$)
     ).subscribe(params => {
+      console.log(params)
       this.id = Number(params.get('id'));
       this.getAddresses();
     })
@@ -38,7 +39,7 @@ export class SocialComponent {
       .pipe(
         tap((res) => {
           this.userSocial = res.list[0];
-        
+
           if(this.userSocial?.facebook != null){
             this.progressBarValue +=20;
           }

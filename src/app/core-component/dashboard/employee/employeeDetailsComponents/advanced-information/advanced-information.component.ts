@@ -48,4 +48,8 @@ export class AdvancedInformationComponent {
       this.currentSlide++;
     }
   }
+
+  get isArabic():boolean{
+    return localStorage.getItem('lang')==='ar';
+  }
 }

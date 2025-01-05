@@ -33,7 +33,11 @@
 
 <div class="carousel">
   <div class="d-flex justify-content-center align-items-center">
-    <button class="arrow left-arrow" (click)="prevSlide()">&#8249;</button>
+    <button class="btn" (click)="prevSlide()">
+      <!--class="arrow left-arrow"  &#8249; -->
+      <img *ngIf="!isArabic" src="../../../../../../assets/images/arrow-right2.png"/>
+      <img *ngIf="isArabic" src="../../../../../../assets/images/arrow-left2.png"/>
+    </button>
     <div class="dots">
       <span
         *ngFor="let dot of slides; let i = index"
@@ -42,6 +46,12 @@
       >
       </span>
     </div>
-    <button class="arrow right-arrow" (click)="nextSlide()">&#8250;</button>
+
+
+    <button class="btn" (click)="nextSlide()">
+      <!-- class="arrow right-arrow" &#8250; -->
+      <img *ngIf="!isArabic" src="../../../../../../assets/images/arrow-left2.png"/>
+      <img *ngIf="isArabic" src="../../../../../../assets/images/arrow-right2.png"/>
+    </button>
   </div>
 </div>

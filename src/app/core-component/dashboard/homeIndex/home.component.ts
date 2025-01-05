@@ -196,6 +196,7 @@ export class HomeIndexComponent {
 
   get isArabic():boolean{
     return localStorage.getItem('lang')==='ar';
+
   }
 
 

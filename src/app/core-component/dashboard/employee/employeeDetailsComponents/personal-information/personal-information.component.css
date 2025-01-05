@@ -1,6 +1,9 @@
 * {
   font-family: "Lama Sans" !important;
 }
+.employee-name,.nationality{
+  text-transform: capitalize;
+}
 .profile-info-card {
   background-color: white;
   border-radius: 8px;
