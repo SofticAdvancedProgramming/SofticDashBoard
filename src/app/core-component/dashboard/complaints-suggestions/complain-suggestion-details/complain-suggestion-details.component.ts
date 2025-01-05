@@ -48,7 +48,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
     private issueCommentService:IssueCommentService,
     private issueService:IssueService
   ) {
-   
+
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -62,18 +62,20 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   }
 
   loadComplaintDetails(): void {
-    
+
     if (this.id) {
       this.loading = true;
-      this.IssueExcuter.getIssueExcuterById(this.id).subscribe({
+      this.IssueExcuter.getIssueById(this.id).subscribe({
         next: (response) => {
-    
-          this.complaintDetails = response.data?.list[0].issue || null;
+          //console.log(response)
+          this.complaintDetails = response.data?.list[0];
+          console.log(this.complaintDetails )
+
           this.issueExecuterId=response.data?.list[0].id;
-          
+
           this.loading = false;
           this.matchAgainstTypeName();
-      
+
           this.getAllReplays(this.complaintDetails.companyId,this.complaintDetails.id)
 
         },
@@ -91,13 +93,13 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   }
 
   matchAgainstTypeName(): void {
-    
+
     if (this.complaintDetails && this.complaintDetails.againestTypeId) {
       // Match againstTypeName logic if needed
       this.matchedAgainstTypeName = this.complaintDetails.againestTypeName;
     }
   }
- 
+
   wait(){
     this.IssueExcuter.getIssueExcuter({id:this.issueExecuterId}).subscribe({
       next: (response) => {
@@ -107,7 +109,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       this.IssueExcuter.performActionOnIssueExcuter(executerId, issueStatus.WaitingForReplay).subscribe({
         next:data=>{
           this.router.navigate(['/dashboard/ComplaintsSuggestions'])
-          
+
         }
       });
     }
@@ -116,10 +118,10 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
 }
   submitReply(companyId:number,issueExcuterId:number,issueId:number)
   {
-  
+
     this.IssueExcuter.getIssueExcuter({id:this.issueExecuterId}).subscribe({
       next: (response) => {
-      
+
 
         if (response.data?.list[0].issue.issueStatusId == issueStatus.Opened || response.data?.list[0].issue.issueStatusId == issueStatus.Reopend) {
           //3-Change status
@@ -132,7 +134,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
           this.openModal();
         }
         this.loading = false;
-       
+
       },
       error: (error) => {
         this.loading = false;
@@ -140,14 +142,14 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       }
     });
 
-   
+
 
     //submit comment
     let comment=this.comment?.nativeElement.value;
     this.issueCommentService.addIssueComment(comment,companyId,issueExcuterId,issueId).subscribe({
       next:data=>{
         this.ngOnInit();
-     
+
        // this.router.navigate(['/dashboard/ComplaintsSuggestions'])
       }
     })
