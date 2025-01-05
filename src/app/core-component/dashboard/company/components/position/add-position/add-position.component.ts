@@ -234,8 +234,8 @@ export class AddPositionComponent implements OnInit {
             this.ngOnInit();
         } else {
           setTimeout(() => {
-           // this.action.emit(false);
-            //this.ngOnInit();
+           this.action.emit(false);
+            this.ngOnInit();
           }, 1000);
         }
       }
