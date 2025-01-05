@@ -220,9 +220,7 @@ export class AddPositionComponent implements OnInit {
     };
     this.createOrEdit(positionData);
 
-    this.action.emit(false);
-    this.cd.detectChanges();
-    this.ngOnInit();
+    //this.action.emit(false);
 
   }
 
@@ -234,8 +232,8 @@ export class AddPositionComponent implements OnInit {
           this.form.reset();
         } else {
           setTimeout(() => {
-            this.action.emit(false);
-            this.ngOnInit();
+           // this.action.emit(false);
+            //this.ngOnInit();
           }, 1000);
         }
       }

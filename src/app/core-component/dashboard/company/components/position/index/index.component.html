@@ -33,7 +33,7 @@
 
       </div>
       <div class="row">
-        <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let position of positions">
+        <div class="col-lg-4 mt-3 col-md-6 col-sm-12" *ngFor="let position of positions ; trackBy: trackByPosition">
           <div class="card"  >
             <div class="card-header">
               {{"POSITION_TYPE"|translate}}<b>{{ isArabic ?position.nameAr:position.name }}</b>
