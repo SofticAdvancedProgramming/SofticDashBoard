@@ -57,7 +57,7 @@
     </div> -->
     <div class="col-lg-12 col-md-12 col-sm-12 customStyle">
       <app-bar-chart
-        #assets [chartData]="'chartassetsCategory'"  class="chartText" [data]="assetCategory" [title]="'Assets Category' | translate" [xName]="'name'"
+        #assets [chartData]="'chartassetsCategory'"  class="chartText" [data]="assetCategory" [title]="'Assets Category' | translate" [xName]="isArabic?'nameAr':'name'"
         [yName]="'count'" [tooltipMappingName]="'Text'" [backgroundColor]="'white'"
         [barWidth]=".25"></app-bar-chart>
     </div>
