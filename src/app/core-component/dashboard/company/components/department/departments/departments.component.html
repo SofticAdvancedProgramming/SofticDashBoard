@@ -23,7 +23,8 @@
         <div class="card-header">
           {{"DEPARTMENT_NAME"|translate}}<b> {{ isArabic ? department.nameAr : department.name }}</b>
           <p>{{ department.shortName?.toUpperCase() }}</p>
-          <p>{{"BRANCH_NAME"|translate}}<b> {{isArabic ? department.branchNameAr:department.branchName}}</b></p>
+          <p *ngIf="!department.isCentralized">{{"BRANCH_NAME"|translate}}<b> {{isArabic ? department.branchNameAr:department.branchName}}</b></p>
+          <p *ngIf="department.isCentralized"><b> {{isArabic ?'قسم مركزي':'Central department'}}</b></p>
         </div>
         <!-- <div class="card-body" *ngIf="department.isActive">
           <button class="btn btn-add" (click)="assignEntity(department.id.toString())">

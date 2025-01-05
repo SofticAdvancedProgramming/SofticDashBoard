@@ -1,6 +1,7 @@
 import { environment } from "../environment/environment";
 
 export const IssueExcuter = {
+  GetIssueById:`${environment.apiBaseUrl}Issue/Get`,
     Get: `${environment.apiBaseUrl}IssueExcuter/Get`,
     Add: `${environment.apiBaseUrl}IssueExcuter/Add`,
     Edit: `${environment.apiBaseUrl}IssueExcuter/Edit`,

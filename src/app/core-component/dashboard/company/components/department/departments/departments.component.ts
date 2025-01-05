@@ -23,6 +23,7 @@ interface DepartmentPayload {
   pageIndex: number;
   pageSize: number;
   branchId?: number;
+  isCentralized?:boolean;
 }
 
 @Component({
@@ -49,7 +50,7 @@ interface DepartmentPayload {
 export class DepartmentsComponent implements OnInit {
   @Input() companyId?: number;
   @Output() departmentAdded = new EventEmitter<void>();
-  selectedBranchId: number | null = null;
+  selectedBranchId: any | null = null;
   showOverView: boolean = false;
   isAdd: boolean = false;
   isEdit: boolean = false;
@@ -101,13 +102,20 @@ export class DepartmentsComponent implements OnInit {
     };
 
     if (this.selectedBranchId !== null) {
-      payload.branchId = this.selectedBranchId;
+      if(this.selectedBranchId==='centralized'){
+        payload.isCentralized=true;
+      }else{
+        payload.branchId = this.selectedBranchId;
+      }
+
     }
 
-   
+
+
 
     this.departmentService.getDepartment(payload).subscribe({
       next: (response) => {
+        
         this.departments = response.data.list;
         this.filteredDepartments = [...this.departments];
         this.totalItems = response.data.totalRows;
@@ -212,7 +220,7 @@ export class DepartmentsComponent implements OnInit {
   editDepartment(department: Department) {
     this.isEdit = true;
     this.department = department;
-  
+
   }
 
   private showSuccess(detail: string): void {
@@ -243,10 +251,12 @@ export class DepartmentsComponent implements OnInit {
       }
     });
   }
+  isCentralized:boolean=false;
   loadBranches(): void {
     this.branchService.getBranch().subscribe({
       next: (response) => {
-        this.branches = [{ id: null, name: 'All Branches', nameAr: 'كل الفروع' }, ...response.data.list];
+        this.branches = [{ id: null, name: 'All Branches', nameAr: 'كل الفروع' }, ...response.data.list,{ id: 'centralized', name: 'Centralized', nameAr: 'الأقسام المركزية' }];
+
         this.selectedBranchId = null;
         this.filterDepartmentsByBranch();
       },
@@ -254,3 +264,4 @@ export class DepartmentsComponent implements OnInit {
     });
   }
 }
+
