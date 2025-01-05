@@ -119,45 +119,35 @@ export class AddPositionComponent implements OnInit {
     });
   }
   loadDepartmentsAndPositions(): void {
-
-    if(this.hasCenterlizedDepartment &&this.form.get('centerlizedDepartment')?.value)
-    {
-      this.departmentsService.getDepartment({ companyId: this.companyId ,pageSize:20,isCentralized:true }).subscribe({
+    if (this.hasCenterlizedDepartment && this.form.get('centerlizedDepartment')?.value) {
+      this.departmentsService.getDepartment({ companyId: this.companyId, pageSize: 20, isCentralized: true }).subscribe({
         next: (response) => {
           this.departments = response.data.list;
-
-         // Ensure positions are loaded after departments
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load departments' });
+        }
+      });
+    } else {
+      this.departmentsService.getDepartment({ companyId: this.companyId, branchId: +this.branchId, pageSize: 20 }).subscribe({
+        next: (response) => {
+          this.departments = response.data.list;
+        },
+        error: (err) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load departments' });
         }
       });
     }
-    else
-    {
-
-      this.departmentsService.getDepartment({ companyId: this.companyId,branchId:+this.branchId ,pageSize:20 }).subscribe({
-        next: (response) => {
-          this.departments = response.data.list;
-
-         // Ensure positions are loaded after departments
-        }
-      });
-
-
-    }
-
   }
 
   async loadPositions(): Promise<void> {
-
-
-    this.positionService.getPosition({ companyId: this.companyId,departmentId:this.departmentId ,pageSize:20 }).subscribe({
+    this.positionService.getPosition({ companyId: this.companyId, departmentId: this.departmentId, pageSize: 20 }).subscribe({
       next: async (response) => {
-
         const positionList = response.data.list || [];
         let filteredPositions = positionList;
 
-        if(this.isEdit){
-
-          filteredPositions = positionList.filter((item:any)=>item.id!=this.positionData.id)
+        if (this.isEdit) {
+          filteredPositions = positionList.filter((item: any) => item.id != this.positionData.id);
         }
 
         // Use Promise.all to resolve all employee names
@@ -173,11 +163,14 @@ export class AddPositionComponent implements OnInit {
         );
 
         this.positions = positionsWithEmployeeNames;
-
         this.checkLoadingState();
+      },
+      error: (err) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load positions' });
       }
     });
   }
+
 
   async getPositionEmployee(id: number): Promise<string> {
     const response = await firstValueFrom(this.employeeService.getEmployees({ positionId: id }));

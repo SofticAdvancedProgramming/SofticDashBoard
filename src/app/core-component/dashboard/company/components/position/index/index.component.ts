@@ -282,13 +282,17 @@ export class IndexComponent implements OnInit {
 
 
   handleAction(isAdd: boolean): void {
-    this.isAdd = isAdd;
-    this.isEdit = isAdd;
-    this.loadPositions();
-    this.ngOnInit();
-    this.cdr.detectChanges();
+    if (isAdd) {
+      this.isAdd = isAdd;
+      this.isEdit = isAdd;
+      this.currentPage = this.currentPage;  
+      this.loadPositions(this.currentPage);
+    } else {
+       this.isEdit = isAdd;
+      this.isAdd = isAdd;
+      this.loadPositions(this.currentPage);
+    }
   }
-
   closePopup(): void {
     this.isAddEmployee = false;
   }
