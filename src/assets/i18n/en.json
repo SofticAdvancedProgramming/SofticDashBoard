@@ -93,7 +93,7 @@
     "DESCRIPTION_MIN": "Description must be at least 100 characters.",
     "DESCRIPTION_MAX": "Description cannot exceed 250 characters.",
     "DESCRIPTION_REQUIRED_AR": "Arabic description is required.",
-    "DESCRIPTION_MIN_AR": "Arabic description must be at least 100 characters.",
+    "DESCRIPTION_MIN_AR": "Arabic description must be at least 5 characters.",
     "DESCRIPTION_MAX_AR": "Arabic description cannot exceed 250 characters.",
     "FAX": "Fax",
     "PROFILE_DETAILS.MOBILE_NUMBER": "Mobile Number",

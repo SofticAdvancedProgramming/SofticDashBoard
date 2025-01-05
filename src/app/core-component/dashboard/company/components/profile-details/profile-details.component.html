@@ -177,7 +177,7 @@
         <div class="form-group" [ngClass]="{'has-error': isFieldInvalid('descriptionAr')}">
           <label for="descriptionAr">{{ 'PROFILE_DETAILS.DESCRIPTION_AR' | translate }}</label>
           <textarea id="descriptionAr" formControlName="descriptionAr" class="form-control CustomModelInput"
-            placeholder="{{ 'PROFILE_DETAILS.DESCRIPTION_AR' | translate }}" minlength="100" maxlength="250"></textarea>
+            placeholder="{{ 'PROFILE_DETAILS.DESCRIPTION_AR' | translate }}" minlength="5" maxlength="250"></textarea>
           <p class="char-counter">{{ companyForm.get('descriptionAr')?.value?.length || 0 }} / 250</p>
           <div *ngIf="isFieldInvalid('descriptionAr')" class="text-danger">
             <small *ngIf="companyForm.get('descriptionAr')?.errors?.['required']">{{

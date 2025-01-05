@@ -248,12 +248,12 @@ export class AddCompanyComponent implements OnInit {
     const valueLength = control.value ? control.value.length : 0;
 
     if (field === 'description') {
-      this.reasonErrorMessageEn = valueLength < 100 ? 'Your message must be at least 100 characters long.' :
+      this.reasonErrorMessageEn = valueLength < 5 ? 'Your message must be at least 5 characters long.' :
         valueLength > 250 ? 'Your message cannot exceed 250 characters.' : null;
     }
 
     if (field === 'descriptionAr') {
-      this.reasonErrorMessageAr = valueLength < 100 ? 'Your message in Arabic must be at least 100 characters long.' :
+      this.reasonErrorMessageAr = valueLength < 5 ? 'Your message in Arabic must be at least 5 characters long.' :
         valueLength > 250 ? 'Your message in Arabic cannot exceed 300 characters.' : null;
     }
   }
