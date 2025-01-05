@@ -230,6 +230,8 @@ export class AddPositionComponent implements OnInit {
          this.messageService.add({ severity: 'success', summary: 'Success', detail: this.isEdit ? 'Position Edit successfully' : 'Position added successfully' });
         if (!this.isEdit) {
           this.form.reset();
+           this.action.emit(false);
+            this.ngOnInit();
         } else {
           setTimeout(() => {
            // this.action.emit(false);
