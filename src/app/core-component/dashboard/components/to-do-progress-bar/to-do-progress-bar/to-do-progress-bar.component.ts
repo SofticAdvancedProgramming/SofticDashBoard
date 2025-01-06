@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, input, Input, OnChanges, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -14,6 +14,7 @@ export class ToDoProgressBarComponent implements OnChanges {
   constructor(private translate: TranslateService) {}
 
   @Input() currentStep!: number;
+  @Input() isFromTask!:boolean;
   @Input() steps: {
     name: string;
     nameAr: string;
