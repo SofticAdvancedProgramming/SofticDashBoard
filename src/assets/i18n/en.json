@@ -931,11 +931,11 @@
     "BROWSE_IMG": "Browse Img",
     "BROWSE_PHOTO": "Browse Photo",
     "NO_FILE_SELECTED": "No file selected",
-    "NO_IMG_SELECTED": "NO IMG SELECTED",
+    "NO_IMG_SELECTED": "No img selected",
     "NO_PHOTO_SELECTED": "No Photo selected",
     "SELECTED_FILE": "Selected File",
-    "uploadAnotherImage": "upload Another Image",
-    "uploadAnotherFile": "upload Another File",
+    "uploadAnotherImage": "Upload another image",
+    "uploadAnotherFile": "Upload another file",
     "IMAGE_UPLOADED": "Image uploaded successfully.",
     "FILE_UPLOADED": "File uploaded successfully.",
     "SEND": "Send"
@@ -1031,8 +1031,8 @@
     "selectEmployee": "Select Employee",
     "remove":"Remove"
   },
-    "BRANCH_NAME":"Branch name :",
-    "DEPARTMENT_NAME":"Department name :",
+    "BRANCH_NAME":"Branch:",
+    "DEPARTMENT_NAME":"Department:",
     "POSITION_TYPE":"Position type :",
     "CREATED_AT":"Created at :"
 

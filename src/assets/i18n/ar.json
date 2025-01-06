@@ -999,8 +999,8 @@
   "remove": "إزالة"
 }
 ,
-  "BRANCH_NAME":"اسم الفرع :",
-  "DEPARTMENT_NAME":"اسم القسم :",
+  "BRANCH_NAME":"الفرع :",
+  "DEPARTMENT_NAME":"القسم :",
   "POSITION_TYPE":"نوع الوظيفة :",
     "CREATED_AT":"انشأت فى :"
 }
