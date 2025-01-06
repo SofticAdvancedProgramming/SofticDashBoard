@@ -59,8 +59,9 @@ export class EnhancedOrganizationChartComponent implements OnInit ,AfterViewInit
 
     this.organizationChartService.getAllOrganizationChart({isDelete:false, companyId,pageSize:10000 }).subscribe({
       next: (orgData) => {
-    
+     console.log("dataaaaaaaaaa",orgData)
         for (let item of orgData.data.list) {
+
           orgChartData.push({
             // companyId: item.companyId,
             //entityId: item.entityId,

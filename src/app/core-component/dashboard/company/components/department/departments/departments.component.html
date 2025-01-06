@@ -21,9 +21,10 @@
     <div *ngFor="let department of filteredDepartments" class="col-lg-4 col-md-6 col-sm-12">
       <div class="card">
         <div class="card-header">
-          <b>{{"DEPARTMENT_NAME"|translate}}</b> {{ isArabic ? department.nameAr : department.name }}
+          {{"DEPARTMENT_NAME"|translate}}<b> {{ isArabic ? department.nameAr : department.name }}</b>
           <p>{{ department.shortName?.toUpperCase() }}</p>
-          <p><b>{{"BRANCH_NAME"|translate}}</b> {{isArabic ? department.branchNameAr:department.branchName}}</p>
+          <p *ngIf="!department.isCentralized">{{"BRANCH_NAME"|translate}}<b> {{isArabic ? department.branchNameAr:department.branchName}}</b></p>
+          <p *ngIf="department.isCentralized"><b> {{isArabic ?'قسم مركزي':'Central department'}}</b></p>
         </div>
         <!-- <div class="card-body" *ngIf="department.isActive">
           <button class="btn btn-add" (click)="assignEntity(department.id.toString())">

@@ -1,14 +1,16 @@
 
+/* *{
+  font-family: lama sans !important;
+} */
 /* bar-chart.component.css */
 .control-section {
     display: block;
     width: 100%;
   }
-  
+
   @media (max-width: 767px) {
     .control-section {
       width: 100%;
       height: 300px;
     }
   }
-  

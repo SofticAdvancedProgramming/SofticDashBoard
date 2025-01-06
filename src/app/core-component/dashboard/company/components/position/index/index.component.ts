@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, Output, ChangeDetectorRef, ChangeDetectionStrategy, ApplicationRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PositionService } from '../../../../../../services/positionService/position.service';
@@ -73,7 +73,8 @@ export class IndexComponent implements OnInit {
     private translate: TranslateService,
     private confirmationService: ConfirmationService,
     private positionTypeService: PositionTypeService,
-     private cdr: ChangeDetectorRef
+     private cdr: ChangeDetectorRef,
+     private appRef: ApplicationRef,
   ) { }
 
   ngOnInit(): void {
@@ -103,28 +104,30 @@ export class IndexComponent implements OnInit {
   loadPositions(page: number = this.currentPage): void {
     const companyId = this.getCompanyId();
     if (!companyId) return;
-     const payload: any = {
+  
+    const payload: any = {
       companyId: companyId,
       pageIndex: page,
       pageSize: this.itemsPerPage,
     };
-
-    if (this.selectedDepartmentId !== null) {
-      payload.departmentId = this.selectedDepartmentId;
-    }
-
-
-
+  
     this.positionService.getPosition(payload).subscribe({
       next: (response) => {
+      
 
-        this.positions = response.data.list;
-        this.totalItems = response.data.totalRows;
-        this.getPositionEmployee();
+
+        setTimeout(() => {
+          this.positions = [...response.data.list];
+          this.totalItems = response.data.totalRows;
+          this.getPositionEmployee();
+          this.appRef.tick(); // 🔥 Force complete UI refresh
+        }, 0);
+        // Manually trigger change detection
+        this.cdr.detectChanges();
+
+      
       },
-
     });
-
   }
 
 
@@ -282,13 +285,19 @@ export class IndexComponent implements OnInit {
 
 
   handleAction(isAdd: boolean): void {
-    this.isAdd = isAdd;
-    this.isEdit = isAdd;
-    this.loadPositions();
-    this.ngOnInit();
-    this.cdr.detectChanges();
+    console.log("heeeeeeeereeeeeeeeee")
+    if (isAdd) {
+      this.isAdd = isAdd;
+      this.isEdit = isAdd;
+      this.currentPage = this.currentPage;  
+    } else {
+       this.isEdit = isAdd;
+      this.isAdd = isAdd;
+    }
+    this.positions = [];
+    this.cdr.detectChanges(); // Manually trigger change detection
+    this.loadPositions(this.currentPage);
   }
-
   closePopup(): void {
     this.isAddEmployee = false;
   }
@@ -416,5 +425,9 @@ export class IndexComponent implements OnInit {
   closeDropdown(event: Event) {
     const dropdownMenu = (event.target as HTMLElement).closest('.dropdown-menu');
     dropdownMenu?.classList.remove('show');
+}
+
+trackByPosition(index: number, position: Position): any {
+  return position.id;
 }
 }

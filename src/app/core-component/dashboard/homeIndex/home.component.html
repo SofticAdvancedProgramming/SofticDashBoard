@@ -56,7 +56,8 @@
         [barWidth]=".3"></app-bar-chart>
     </div> -->
     <div class="col-lg-12 col-md-12 col-sm-12 customStyle">
-      <app-bar-chart #assets [chartData]="'chartassetsCategory'"  class="chartText" [data]="assetCategory" [title]="'assets category' | translate" [xName]="'name'"
+      <app-bar-chart
+        #assets [chartData]="'chartassetsCategory'"  class="chartText" [data]="assetCategory" [title]="'Assets Category' | translate" [xName]="isArabic?'nameAr':'name'"
         [yName]="'count'" [tooltipMappingName]="'Text'" [backgroundColor]="'white'"
         [barWidth]=".25"></app-bar-chart>
     </div>
@@ -76,7 +77,7 @@
     [tableTitle]="'Overview'"
     [totalRows]="attendances.totalRows"
     [tableData]="attendances.list"
-    [columns]="columns"
+    [columns]="isArabic?columnsAr:columns"
     [isThereSearch]="false"
     [isThereEdit]="false"
     [isThereDelete]="false"

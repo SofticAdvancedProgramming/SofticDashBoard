@@ -21,7 +21,7 @@ export class ProgressbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    console.log("complaintDetails",this.complaintDetails)
     this.IssueExcuter.getAllStatus().subscribe(
       res=>{
         if(res.status===200)

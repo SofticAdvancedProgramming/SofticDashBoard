@@ -4,13 +4,14 @@ import { NextButtonComponent } from '../components/next-button/next-button.compo
 import { LockupCardComponent } from "../../../../common-component/lockup-card/lockup-card.component";
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ShortenPipe } from '../../../../core/pipes/shorten.pipe';
 
 @Component({
     selector: 'app-general-lookups',
     standalone: true,
     templateUrl: './general-lookups.component.html',
     styleUrl: './general-lookups.component.css',
-    imports: [RouterLink, NextButtonComponent, LockupCardComponent, CommonModule, TranslateModule]
+    imports: [RouterLink, NextButtonComponent, LockupCardComponent, CommonModule, TranslateModule,ShortenPipe]
 })
 export class GeneralLookupsComponent {
     role: any = JSON.parse(localStorage.getItem('roles')!);

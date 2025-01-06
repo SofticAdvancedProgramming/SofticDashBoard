@@ -92,10 +92,10 @@
           <label class="d-block fw-semibold text-dark" *ngIf="userSocial?.userEmails!.length>=1">
             {{ 'socialMediaContact.email' | translate }}
           </label>
-          <p *ngFor="let email of userSocial?.userEmails;let i =index"
+          <p  *ngFor="let email of userSocial?.userEmails;let i =index"
             class="text-muted"
           >
-            {{ email?.email ? email?.email : ('socialMediaContact.No_Data' | translate) }}
+           <a href="mailto:{{email.email}}">{{ email?.email ? email?.email : ('socialMediaContact.No_Data' | translate) }}</a>
           </p>
       </div>
 
@@ -103,7 +103,7 @@
         <label class="d-block fw-semibold text-dark" *ngIf="userSocial?.userRefernces!.length>=1">
           {{ 'socialMediaContact.referance' | translate }}
         </label>
-        <p *ngFor="let referance of userSocial?.userRefernces;let i =index"
+        <p  *ngFor="let referance of userSocial?.userRefernces;let i =index"
           class="text-muted"
         >
           {{ referance?.email ? referance?.email : ('socialMediaContact.No_Data' | translate) }}
@@ -114,13 +114,14 @@
         <label class="d-block fw-semibold text-dark" *ngIf="userSocial?.userTelephones!.length>=1">
           {{ 'socialMediaContact.userTelephone' | translate }}
         </label>
-        <p *ngFor="let userTelephone of userSocial?.userTelephones;let i =index"
+        <p  *ngFor="let userTelephone of userSocial?.userTelephones;let i =index"
 
-          class="text-muted"
+          class="text-muted row"
         >
-          {{ userTelephone?.telephone ? userTelephone?.telephone : ('socialMediaContact.No_Data' | translate) }}
-          <span *ngIf="userTelephone.isFavourit"> - {{'socialMediaContact.isFavourit' | translate}}</span>
-          <span *ngIf="userTelephone.isWhatsApp  "> - {{'socialMediaContact.isWhatsApp' | translate}}</span>
+        <span class="col-3" *ngIf="userTelephone.isFavourit">{{'socialMediaContact.isFavourit' | translate}} :</span>
+        <span class="col-3" *ngIf="userTelephone.isWhatsApp ">{{'socialMediaContact.isWhatsApp' | translate}} :</span>
+         <span class="col-6"> {{ userTelephone?.telephone ? userTelephone?.telephone : ('socialMediaContact.No_Data' | translate) }}</span>
+
 
       </p>
       </div>

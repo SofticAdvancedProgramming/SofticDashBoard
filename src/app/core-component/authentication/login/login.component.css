@@ -5,12 +5,16 @@
 input {
     width: 100% !important;
   }:host-context([dir="rtl"]) .authIcon {
-    left: 20px;  
+    left: 20px;
     right: auto;
   }
-  
+
   :host-context([dir="ltr"]) .authIcon {
-    right: 20px; 
+    right: 20px;
     left: auto;
   }
-  
+
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+  display: none; /* لإخفاء الأيقونة الافتراضية في متصفح Edge */
+}

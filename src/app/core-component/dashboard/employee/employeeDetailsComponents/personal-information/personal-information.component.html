@@ -9,7 +9,7 @@
         <b>{{ 'personalInfo.FULL_NAME' | translate }}:</b>
       </div>
       <div class="col-lg-8">
-        <p>{{ personalInfo.fullName }}</p>
+        <p class="employee-name">{{ personalInfo.fullName }}</p>
       </div>
     </div>
 
@@ -64,7 +64,7 @@
         <b>{{ 'personalInfo.NATIONALITY' | translate }}:</b>
       </div>
       <div class="col-lg-8">
-        <p>{{ personalInfo.nationality || 'N/A' }}</p>
+        <p class="nationality">{{ personalInfo.nationality || 'N/A' }}</p>
       </div>
     </div>
 
@@ -104,7 +104,7 @@
 
     <div class="row  d-flex flex-row align-items-start" *ngIf="personalInfo.passportPhoto">
       <div class="col-lg-4 col-md-6 mb-3">
-        <b>{{"personalInfo.passportPhoto" | translate }}:</b>
+        <b  *ngIf="personalInfo.passportPhoto">{{"personalInfo.passportPhoto" | translate }}:</b>
       </div>
       <div class="col-lg-5">
         <img

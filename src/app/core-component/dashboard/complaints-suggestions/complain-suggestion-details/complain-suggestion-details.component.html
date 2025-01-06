@@ -6,7 +6,7 @@
     <div *ngIf="errorMessage" class="error-message">
         {{ 'complainDetails.error' | translate }}
     </div>
-    <app-progressbar [complaintDetails]="complaintDetails"></app-progressbar>
+    <app-progressbar *ngIf="complaintDetails" [complaintDetails]="complaintDetails"></app-progressbar>
     <div *ngIf="!loading && complaintDetails && !errorMessage">
         <div class="user-info">
             <div class="user-info">
