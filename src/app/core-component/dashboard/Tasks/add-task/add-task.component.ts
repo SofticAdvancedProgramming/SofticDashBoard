@@ -83,6 +83,9 @@ export class AddTaskComponent implements OnInit {
   departments: any[] = [];
   branchId: any;
   departmentId: any;
+  taskAssignments: any[] = [];
+  firstBind = false;
+  counter = 0;
   constructor(
     private fb: FormBuilder,
     private tasksService: TasksService,
@@ -100,6 +103,7 @@ export class AddTaskComponent implements OnInit {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
   ngOnInit(): void {
+    this.counter++;
     this.route.params.subscribe((params) => {
       const id = params['id'];
       this.id = params['id'];
@@ -107,10 +111,12 @@ export class AddTaskComponent implements OnInit {
         
       }
     });
+    
     this.initiation();
     this.loadEmployees();
     this.getPriorities();
     this.loadBranches();
+
     this.todayDate = new Date().toISOString().split('T')[0];
     if (this.id) {
       this.getTaksDetails();
@@ -137,6 +143,7 @@ export class AddTaskComponent implements OnInit {
       isGlobal: [false],
       priority: [''],
       todos: this.fb.array([]), // Initialize the FormArray
+      departmentIds: [[]], // Initialize as an empty array
       EmployeeIds: [[]] // Initialize as an empty array
     });
   }
@@ -158,11 +165,10 @@ export class AddTaskComponent implements OnInit {
       taskId: this.id,
       pageSize: 1000,
     };
+    
     this.todoService.get(query).subscribe({
-      next: (res) => {
-       
-        this.todoItems = res.data.list;
-        
+      next: (res) => { 
+        this.todoItems = res.data.list; 
         // this.todos.reset();
         this.todoItems?.forEach((todo: any) => {
           const todoGroup1: any = this.fb.group({
@@ -175,22 +181,19 @@ export class AddTaskComponent implements OnInit {
           
           
         });
+        console.log(this.todos);
+        
       },
       error: (err) => {
        
       },
     });
   }
-
   // Remove a specific todo field
   removeTodo(index: number): void {
-    
-    
     this.isDelete = false;
     this.todos.removeAt(index);
     const todoId = this.todoItems[index].id;
-    
-    
     this.todoService.delete(todoId, this.companyId).subscribe({
       next: (res) => {
         
@@ -210,8 +213,6 @@ export class AddTaskComponent implements OnInit {
   }
 
   populateForm() {
-   
-
     const formattedDate = this.datePipe.transform(
       this.taskDetails?.startDate,
       'yyyy-MM-dd'
@@ -230,7 +231,7 @@ export class AddTaskComponent implements OnInit {
    
 
     // Clear existing todos
-    this.form.setControl('todos', this.fb.array([]));
+    // this.form.setControl('todos', this.fb.array([]));
     
 
     // Populate todos FormArray
@@ -249,7 +250,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value.EmployeeIds);
+    console.log(this.form.value.departmentIds);
     
     this.todoValues = this.form.value.todos; // Get all to-do values
     
@@ -271,8 +272,8 @@ export class AddTaskComponent implements OnInit {
         initialBudget: this.form.controls['initialCost'].value,
         statusId: 1,
         duration: this.form.controls['duration'].value,
-        taskAttachments: this.attachments
-        // departmentIds: this.form.value.EmployeeIds
+        taskAttachments: this.attachments,
+        // departmentIds: this.form.value.departmentIds
     };
     if (this.todoValues) {
       query.toDoItems = toDoItems;
@@ -280,19 +281,20 @@ export class AddTaskComponent implements OnInit {
     if(this.form.controls['priority'].value){
       query.priorityId = this.form.controls['priority'].value
     }
-    if (this.selectedEmployee?.id) {
-      query.taskAssignments = [
-        {
+    if (this.form.value.EmployeeIds) {
+      for(let i = 0; i< this.form.value.EmployeeIds.length; i++){
+        this.taskAssignments.push({
           companyId: this.companyId,
-          employeeId: this.selectedEmployee.id,
-        },
-      ];
+          employeeId: this.form.value.EmployeeIds[i]
+        })
+      }
+      query.taskAssignments = this.taskAssignments;
     } else {
       query.taskAssignments = []
     }
-    if(this.form.value.EmployeeIds){
+    if(this.form.value.departmentIds){
       query.isGlobal = false;
-      query.departmentIds = this.form.value.EmployeeIds;
+      query.departmentIds = this.form.value.departmentIds;
     }
     if(this.form.value.isGlobal){
       query.isGlobal = true;
@@ -419,19 +421,33 @@ export class AddTaskComponent implements OnInit {
     });
   }
 
-  loadEmployees() {
+  loadEmployees(branchId?:number) {
     if (this.loadingMoreEmployees) return;
     this.loadingMoreEmployees = true;
-
-    this.employeeService
-      .loadEmployees({
+    let query: any = {
         accountStatus: 1,
-        pageIndex: this.employeePage,
+        pageIndex: 1,
         pageSize: 1000,
-      })
+    }
+    // if(branchId){
+    //   query.departmentId = branchId;
+    // }
+    if (Array.isArray(branchId)) {
+      branchId.forEach(value => {
+        console.log('Selected department ID:', value);
+        query.departmentId = value;
+      });
+    }
+    if(this.form.value.departmentIds.length > 0 && !this.firstBind && this.counter > 0){
+      this.employees = [];
+      this.firstBind = true;
+    }
+    this.employeeService
+      .loadEmployees(query)
       .subscribe({
         next: (response) => {
-         
+          console.log(response);
+          
           const newItems = response.data.list
             .filter((item: any) => !this.employees.some((a) => a.id == item.id))
             .map((employee: any) => ({
@@ -442,7 +458,7 @@ export class AddTaskComponent implements OnInit {
           this.employees = [...this.employees, ...newItems];
           this.employeePage++;
           this.loadingMoreEmployees = false;
-         
+          console.log(this.employees);
         },
         error: (err) => {
           console.error('Error loading employees:', err);
@@ -471,7 +487,7 @@ export class AddTaskComponent implements OnInit {
         this.assignedEmployees = res.data.list;
       },
       error: (err) => {
-     
+        console.log(err);
       },
     });
   }

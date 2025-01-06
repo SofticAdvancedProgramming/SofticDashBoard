@@ -229,9 +229,10 @@
             <label class="form-label" for="Name">Departments</label>
             <mat-select
               class="custom-select"
-              [placeholder]="'Select Employees'"
-              formControlName="EmployeeIds"
+              [placeholder]="'Select Department'"
+              formControlName="departmentIds"
               multiple
+              (selectionChange)="loadEmployees($event.value)"
             >
               <mat-option [value]="null" disabled>{{
                 "ToDo.selectEmployee" | translate
@@ -252,7 +253,7 @@
         <div class="col-12">
           <div class="form-group">
             <label class="form-label" for="Name">Assign To</label>
-            <app-drop-down
+            <!-- <app-drop-down
               [placeholder]="'Select Employee'"
               [placeholderSearch]="'Search by Name'"
               [items]="employees"
@@ -261,7 +262,23 @@
               (getNextPageApi)="loadEmployees()"
               (search)="loadEmployees()"
               (onChange)="onEmployeeSelect($event)"
-            ></app-drop-down>
+            ></app-drop-down> -->
+            <mat-select
+              class="custom-select"
+              [placeholder]="'Select Employees'"
+              formControlName="EmployeeIds"
+              multiple
+            >
+              <mat-option [value]="null" disabled>{{
+                "ToDo.selectEmployee" | translate
+              }}</mat-option>
+              <mat-option
+                *ngFor="let emp of employees"
+                [value]="emp.id"
+              >
+                {{ emp.firstName }} {{ emp.lastName }}
+              </mat-option>
+            </mat-select>
             <!-- <mat-select class="custom-select" [placeholder]="'Select Employee'" formControlName="assignEmployee">
               <mat-option [value]="null" disabled>Select Employee</mat-option>
               <mat-option *ngFor="let emp of employees" [value]="emp.id">

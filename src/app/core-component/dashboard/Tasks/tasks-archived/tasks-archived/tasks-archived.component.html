@@ -56,7 +56,13 @@
       <p class="task-group-count">{{ tasksByStatus[status]?.length }}</p>
     </div>
     <br /> -->
-    <div class="task-list gap-2">
+    <div
+      class="task-list gap-2"
+      [ngClass]="{
+        'justify-content-center': tasksByStatus[status]?.length === 0,
+        'align-items-center': tasksByStatus[status]?.length === 0
+      }"
+    >
       <!-- Tasks -->
       <div
         *ngFor="let task of tasksByStatus[status]"
@@ -65,7 +71,9 @@
       >
         <div class="task-card done-card fixed-size-card p-3 mb-3">
           <h4 class="task-card-title">{{ task.name }}</h4>
-          <p class="task-card-description">{{ task.description |Shorten:20}}</p>
+          <p class="task-card-description">
+            {{ task.description | Shorten : 20 }}
+          </p>
           <div class="d-flex justify-content-between align-items-center">
             <span
               ><img
@@ -85,9 +93,8 @@
 
       <!-- Placeholder for empty lists -->
       <div *ngIf="tasksByStatus[status]?.length === 0" class="placeholder">
-        Drop tasks here
+        There is no tasks here
       </div>
     </div>
   </div>
 </div>
-
