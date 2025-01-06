@@ -10,8 +10,14 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './tracking-bar.component.html',
   styleUrls: ['./tracking-bar.component.css']
 })
-export class TrackingBarComponent implements OnChanges  {
+export class TrackingBarComponent implements OnChanges ,OnInit {
   constructor(private translate:TranslateService){}
+  ngOnInit(): void {
+    if(this.currentStep==1)
+    {
+      this.currentStep=2
+    }
+  }
 
   @Input() currentStep!: number;
   @Input() steps: { name: string, nameAr: string, id: string, companyId: string }[]=[];

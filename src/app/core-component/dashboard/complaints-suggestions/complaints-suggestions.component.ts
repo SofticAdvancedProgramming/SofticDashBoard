@@ -217,7 +217,7 @@ export class ComplaintsSuggestionsComponent {
    
     //2-check for status
    // debugger
-      this.IssueExcuter.getIssueExcuterById(complaintId).subscribe({
+      this.IssueExcuter.getIssueExcuter({issueId:complaintId}).subscribe({
         next: (response) => {
         
         //debugger;
@@ -229,6 +229,7 @@ export class ComplaintsSuggestionsComponent {
               next:data=>
                 {
                   
+                  this.ngOnInit();
 
                 }
             });

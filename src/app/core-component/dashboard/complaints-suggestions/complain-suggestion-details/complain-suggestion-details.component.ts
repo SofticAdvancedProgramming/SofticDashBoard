@@ -56,6 +56,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
       if (this.id) {
         this.loadComplaintDetails();
       }
+    
     });
 
 
@@ -70,7 +71,7 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
           
           this.complaintDetails = response.data?.list[0];
 
-          console.log("response",this.complaintDetails )
+          console.log("responsesssssssssss",this.complaintDetails )
           this.issueExecuterId=response.data?.list[0].id;
 
           this.loading = false;
@@ -101,8 +102,9 @@ export class ComplainSuggestionDetailsComponent implements OnInit {
   }
 
   wait(){
-    this.IssueExcuter.getIssueExcuter({id:this.issueExecuterId}).subscribe({
+    this.IssueExcuter.getIssueExcuter({issueId:this.issueExecuterId}).subscribe({
       next: (response) => {
+        console.log("response.data?.list[0].issue.issueStatusId",response.data?.list[0])
     if (response.data?.list[0].issue.issueStatusId == issueStatus.Progress) {
       //3-Change status
       let executerId= response.data?.list[0].id;

@@ -10,7 +10,7 @@ export class IssueExcuterService {
 
   constructor(private apiCall: ApiCall) { }
 
-  getIssueExcuter(params: { companyId?: number; issueTypeId?: number ,id?:number,excuterId?:number}): Observable<any> {
+  getIssueExcuter(params: { issueId?:number,companyId?: number; issueTypeId?: number ,id?:number,excuterId?:number}): Observable<any> {
     return this.apiCall.request("POST", IssueExcuter.Get, params);
   }
 
