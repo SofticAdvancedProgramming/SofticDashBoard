@@ -63,7 +63,7 @@
       style="color: black"
     ></i> -->
   </div>
-  
+
   <div class="row gy-3 mt-3">
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{
@@ -121,7 +121,6 @@
       </div>
     </div>
   </div>
-  
 </div>
 
 
@@ -144,7 +143,7 @@
       style="color: black"
     ></i> -->
   </div>
-  
+
   <div class="row gy-3 mt-3" *ngIf="isCertificateOpen">
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{
@@ -164,6 +163,22 @@
             ? item?.specialist
             : ("certificate.No_Data" | translate)
         }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Certificate_Number" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ item?.certificateNumber ? item?.certificateNumber : ("certificate.No_Data" | translate) }}
+      </div>
+    </div>
+    <div class="col-12 col-md-6 border-bottom-custom">
+      <label class="d-block fw-semibold text-dark">{{
+        "certificate.Certificate_Link" | translate
+      }}</label>
+      <div class="text-muted">
+        {{ item?.certificateLink ? item?.certificateLink : ("certificate.No_Data" | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -243,7 +258,7 @@
       <div class="text-muted">650</div>
     </div> -->
   </div>
-  
+
 </div>
 }
 <!-- <div class="container py-4 mb-4 bgColor">
