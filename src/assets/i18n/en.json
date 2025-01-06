@@ -454,6 +454,8 @@
     "Save": "Save"
   },
   "certificate": {
+    "Certificate_Link":"Certificate Link",
+    "Certificate_Number":"Certificate Number",
     "Certificates": "Certificates",
     "Certificate_Name": "Certificate Name",
     "Specialist": "Specialist",
@@ -530,7 +532,7 @@
     "Chronic_Disease": "Chronic Disease",
     "allergy": "allergy",
     "No_Data": "No Data",
-    "ischronicdisease": "is chronic disease",
+    "ischronicdisease": "Chronical disease",
     "progressMedicalTitle": "Medical Insurance completeness"
   },
   "socialMediaContact": {
@@ -929,11 +931,11 @@
     "BROWSE_IMG": "Browse Img",
     "BROWSE_PHOTO": "Browse Photo",
     "NO_FILE_SELECTED": "No file selected",
-    "NO_IMG_SELECTED": "NO IMG SELECTED",
+    "NO_IMG_SELECTED": "No img selected",
     "NO_PHOTO_SELECTED": "No Photo selected",
     "SELECTED_FILE": "Selected File",
-    "uploadAnotherImage": "upload Another Image",
-    "uploadAnotherFile": "upload Another File",
+    "uploadAnotherImage": "Upload another image",
+    "uploadAnotherFile": "Upload another file",
     "IMAGE_UPLOADED": "Image uploaded successfully.",
     "FILE_UPLOADED": "File uploaded successfully.",
     "SEND": "Send"
@@ -1029,8 +1031,8 @@
     "selectEmployee": "Select Employee",
     "remove":"Remove"
   },
-    "BRANCH_NAME":"Branch name :",
-    "DEPARTMENT_NAME":"Department name :",
+    "BRANCH_NAME":"Branch:",
+    "DEPARTMENT_NAME":"Department:",
     "POSITION_TYPE":"Position type :",
     "CREATED_AT":"Created at :"
 

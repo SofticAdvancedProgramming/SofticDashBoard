@@ -32,7 +32,7 @@ export class EmployeeAttendanceComponent implements OnInit {
   public newAction: any[] = [
     {
       isExisting: true,
-      src: 'location.png',
+      src: 'Location_.png',
     },
   ];
   public id: number | null = null;
@@ -65,14 +65,16 @@ export class EmployeeAttendanceComponent implements OnInit {
     };
 
     this.attendanceService.getAttendances(query).subscribe((res: any) => {
+      console.log("attendance",res)
       this.attendances = {
         ...res,
         list: res.list.map((item: any) => ({
           ...item,
           attendanceDate: this.datePipe.transform(
             item.attendanceDate,
-            'yyyy-MM-dd HH:mm:ss'
+            'yyyy-MM-dd'
           ),
+          hour:this.datePipe.transform((item.attendanceDate), 'HH:mm:ss'),
           latitude: item.lat || 0,
           longitude: item.long || 0,
         })),

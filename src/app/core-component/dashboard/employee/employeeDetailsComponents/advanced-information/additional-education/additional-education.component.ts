@@ -54,8 +54,9 @@ export class AdditionalEducationComponent implements OnInit, OnDestroy {
       .getAditionalEducation({ employeeId: this.id })
       .pipe(
         tap((res) => {
+          console.log(res);
           this.userEducation = res.data.list;
-      
+
         }),
         takeUntil(this.unsubscribe$)
       )
@@ -64,11 +65,11 @@ export class AdditionalEducationComponent implements OnInit, OnDestroy {
   isImage(file: string): boolean {
     return /\.(jpg|jpeg|png|gif)$/i.test(file);
   }
-  
+
   isPDF(file: string): boolean {
     return /\.pdf$/i.test(file);
   }
-  
+
   isText(file: string): boolean {
     return /\.(txt|log)$/i.test(file);
   }

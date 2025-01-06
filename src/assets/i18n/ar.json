@@ -464,6 +464,9 @@
     "Save": "حفظ"
   },
   "certificate": {
+
+    "Certificate_Link":"رابط الشهادة",
+    "Certificate_Number":"رقم الشهادة",
     "Certificates": "الشهادات",
     "Certificate_Name": "اسم الشهادة",
     "Specialist": "التخصص",
@@ -996,8 +999,8 @@
   "remove": "إزالة"
 }
 ,
-  "BRANCH_NAME":"اسم الفرع :",
-  "DEPARTMENT_NAME":"اسم القسم :",
+  "BRANCH_NAME":"الفرع :",
+  "DEPARTMENT_NAME":"القسم :",
   "POSITION_TYPE":"نوع الوظيفة :",
     "CREATED_AT":"انشأت فى :"
 }

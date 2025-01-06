@@ -48,10 +48,10 @@
           <div class="col-lg-6 align-items-center d-flex" *ngIf="selectedRequestCategory?.id !== 3">
             <div class="form-group w-100">
               <label *ngIf="selectedRequestCategory?.id === 2" class="form-label">
-                {{ "minimun Amount" | translate }}
+                {{ "Minimun Amount" | translate }}
               </label>
               <label *ngIf="selectedRequestCategory?.id !== 2" class="form-label">
-                {{ "minimun Days" | translate }}
+                {{ "Minimun days" | translate }}
               </label>
 
               <input type="number" class="form-control" formControlName="min" />
@@ -66,10 +66,10 @@
           <div class="col-lg-6 align-items-center d-flex" *ngIf="selectedRequestCategory?.id !== 3">
             <div class="form-group w-100">
               <label *ngIf="selectedRequestCategory?.id === 2" class="form-label">
-                {{ "Maximum Amount" | translate }}
+                {{ "Maximum amount" | translate }}
               </label>
               <label *ngIf="selectedRequestCategory?.id !== 2" class="form-label">
-                {{ "Maximum Days" | translate }}
+                {{ "Maximum days" | translate }}
               </label>
 
               <input type="number" class="form-control" formControlName="max" />

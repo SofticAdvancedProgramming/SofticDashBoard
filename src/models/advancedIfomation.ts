@@ -5,6 +5,8 @@ export interface Certificates {
   from: string;
   to: string;
   file:any;
+  certificateLink:string;
+  certificateNumber:string;
   fileDescription: {
     description: string;
   };

@@ -186,6 +186,7 @@
     padding: 20px;
     border: 2px dashed royalblue;
     background-color: #f8f9fa;
+    height: 269px;
   }
 }
 
@@ -211,6 +212,7 @@
   .container-upload {
     width: 100%;
     padding: 10px;
+    height: 269px;
   }
 
   .form-group {
@@ -274,6 +276,7 @@
   background-color: #f8f9fa;
   overflow: hidden;
   margin-bottom: 10px;
+  height: 269px;
 }
 
 .img-preview {
@@ -396,7 +399,7 @@ input:checked + .slider:before {
   margin-top: 10px;
   background: #006Eff13;
   border-radius: 10px;
-  height: 60px;
+  height: 55px;
 
 }
 .attachment-container img{
