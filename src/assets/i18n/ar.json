@@ -464,6 +464,9 @@
     "Save": "حفظ"
   },
   "certificate": {
+
+    "Certificate_Link":"رابط الشهادة",
+    "Certificate_Number":"رقم الشهادة",
     "Certificates": "الشهادات",
     "Certificate_Name": "اسم الشهادة",
     "Specialist": "التخصص",

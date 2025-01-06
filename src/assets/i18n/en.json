@@ -454,6 +454,8 @@
     "Save": "Save"
   },
   "certificate": {
+    "Certificate_Link":"Certificate Link",
+    "Certificate_Number":"Certificate Number",
     "Certificates": "Certificates",
     "Certificate_Name": "Certificate Name",
     "Specialist": "Specialist",
