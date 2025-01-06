@@ -72,6 +72,7 @@ export class TaskDetailsComponent implements OnInit {
   isValid: boolean = false;
   isDisabled: boolean = true;
   classToggled: boolean = false;
+  isFromTask:boolean=true;
 
   constructor(
     private tasksService: TasksService,

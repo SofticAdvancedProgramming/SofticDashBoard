@@ -267,7 +267,7 @@
 <div class="container mt-3">
   <div class="todo-container p-3">
     <app-to-do-progress-bar
-      [progressValue]="taskDetails?.progress ? taskDetails?.progress : 0"
+      [isFromTask]="true" [progressValue]="taskDetails?.progress ? taskDetails?.progress : 0"
     ></app-to-do-progress-bar>
   </div>
 </div>
