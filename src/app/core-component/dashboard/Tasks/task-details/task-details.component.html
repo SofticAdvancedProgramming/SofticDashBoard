@@ -92,14 +92,16 @@
                     class="employeeImg"
                   />
                   <!-- <span class="date-description-time px-2" *ngIf="classToggled">{{employee.employeeNameAr}}</span> -->
-                  <span class="date-description-time px-2">{{employee.employeeName}}</span>
+                  <span class="date-description-time px-2">{{
+                    employee.employeeName
+                  }}</span>
                 </div>
               </div>
             </div>
             <div class="row mt-2">
               <div
-                  class="d-flex flex-row justify-content-start align-items-center gap-2 w-100"
-                >
+                class="d-flex flex-row justify-content-start align-items-center gap-2 w-100"
+              >
                 <span class="date-description-time"
                   >Priority: {{ taskDetails?.priorityName }}</span
                 >
@@ -225,20 +227,21 @@
           class="single-todo-card col-12 justify-content-between align-items-center"
         >
           <p class="single-todo-card-details m-0">
-            <span>{{ $index + 1 }}- </span
+            <span>{{ $index + 1 }}- </span>
+            <span class="single-todo-employeeName"
+              >@if(todo.employeeId){
+              {{ todo.employeeName }}
+              }</span
             >
-            <span class="single-todo-employeeName">@if(todo.employeeId){
-            {{ todo.employeeName }}
-            }</span>
             <span class="single-todo-description">{{ todo.description }}</span>
           </p>
           <input
-          *ngIf="checkboxes.controls[$index]" 
-          type="checkbox"
-          class="checkbox"
-          [formControlName]="$index"
-          (change)="onCheckboxChange($index)"
-        />
+            *ngIf="checkboxes.controls[$index]"
+            type="checkbox"
+            class="checkbox"
+            [formControlName]="$index"
+            (change)="onCheckboxChange($index)"
+          />
         </div>
         }
         <!-- <div class="single-todo-card">
@@ -267,7 +270,8 @@
 <div class="container mt-3">
   <div class="todo-container p-3">
     <app-to-do-progress-bar
-      [isFromTask]="true" [progressValue]="taskDetails?.progress ? taskDetails?.progress : 0"
+      [isFromTask]="true"
+      [progressValue]="taskDetails?.progress ? taskDetails?.progress : 0"
     ></app-to-do-progress-bar>
   </div>
 </div>
@@ -275,7 +279,11 @@
 <div class="container mt-3">
   <div class="todo-container p-3">
     <div class="form py-2">
-      <form [formGroup]="form" (ngSubmit)="onSave()" *ngIf="taskDetails?.initialBudget">
+      <form
+        [formGroup]="form"
+        (ngSubmit)="onSave()"
+        *ngIf="taskDetails?.initialBudget"
+      >
         <div class="row my-3">
           <div class="col-6 form-group">
             <label class="form-label">Labor Cost</label>
@@ -390,7 +398,18 @@
           class="col-12 my-5 row btns d-flex justify-content-center align-items-center"
         >
           <button class="col-4 action-btn btn mx-2">Cancel</button>
-          <button class="col-4 save-btn btn mx-2" type="submit" [disabled]="isValid">Save</button>
+          <button
+            class="col-4 save-btn btn mx-2"
+            type="submit"
+            [disabled]="
+              form.controls['additionalCost'].value == 0 &&
+              form.controls['serviceCost'].value == 0 &&
+              form.controls['materialCost'].value == 0 &&
+              form.controls['laborCost'].value == 0
+            "
+          >
+            Save
+          </button>
         </div>
       </form>
     </div>
