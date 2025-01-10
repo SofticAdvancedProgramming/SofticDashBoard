@@ -18,9 +18,9 @@
   width: 250px;
   x: 0;
   y: 56;
-}
-::ng-deep [data-n-id="1"] rect:nth-child(2) {
-  fill: #00938B;
+}ddyuqugysgsftusadjqy qrqjiqoGyLKM87YGAUSYSJTIUW
+::ng-deep [data-n-id=1] rect:nth-child(2) {
+  fill: #00938B !important;
 }
 
 ::ng-deep g text:nth-child(2) {
@@ -87,6 +87,13 @@
 
 ::ng-deep path{
   stroke:#0A3A9669;
+}
+
+::ng-deep .centralized-node {
+  fill: #E7E6E8 !important; /* Purple background */
+  stroke: #663895 !important; /* Purple border */
+  stroke-width: 3px !important;
+  color:white !important
 }
 
 

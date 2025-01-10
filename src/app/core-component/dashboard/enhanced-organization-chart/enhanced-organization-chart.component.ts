@@ -61,18 +61,36 @@ export class EnhancedOrganizationChartComponent implements OnInit ,AfterViewInit
       next: (orgData) => {
      console.log("dataaaaaaaaaa",orgData)
         for (let item of orgData.data.list) {
-       
-          orgChartData.push({
-            // companyId: item.companyId,
-            //entityId: item.entityId,
-            id: item.entityId,
-            pid: item.parentId,
-            name: item.title,
-            nameArabic: item.titleAr,
-            title: item.type,
-          });
+          if(item.parentId==orgData.data.list[0].entityId && item.type==="Department")
+          {
+            orgChartData.push({
+              // companyId: item.companyId,
+              //entityId: item.entityId,
+              id: item.entityId,
+              pid: item.parentId,
+              name: item.title,
+              nameArabic: item.titleAr,
+              title: item.type,
+              isCenteralized:true
+            });
+          }
+          else
+          {
+            orgChartData.push({
+              // companyId: item.companyId,
+              //entityId: item.entityId,
+              id: item.entityId,
+              pid: item.parentId,
+              name: item.title,
+              nameArabic: item.titleAr,
+              title: item.type,
+              isCenteralized:false
+            });
+          }
+     
         }
 
+        console.log("orgChartData",orgChartData)
         // After data is fetched, trigger chart rendering
         this.loadChart(orgChartData);
       
@@ -86,6 +104,17 @@ export class EnhancedOrganizationChartComponent implements OnInit ,AfterViewInit
   loadChart(orgChartData: OrganizationChartModel[]) {
     const tree = document.getElementById('tree');
     if (tree) {
+      orgChartData.forEach(node => {
+        if (node.isCenteralized) {
+          node.tags = ['centralized'];
+        }
+      });
+      // Clone the "mila" template and modify it
+    OrgChart.templates['centralized'] = Object.assign({}, OrgChart.templates['mila']);
+    
+    // Modify the node background color
+    OrgChart.templates['centralized'].node = 
+      `<rect x="0" y="0" height="{h}" width="{w}" fill="#FFFFFF" class="centralized-node" stroke="#663895" stroke-width="3"></rect>`;
       const chart = new OrgChart(tree, {
         menu: {
           pdf: { text: "Export PDF" },
@@ -100,10 +129,14 @@ export class EnhancedOrganizationChartComponent implements OnInit ,AfterViewInit
           field_1: "title",
         },
         filterBy:['name','title'],
+        
         tags: {
+          centralized: {
+            template: 'centralized', // Use the newly created template
+          },
           filter: {
               template: 'dot'
-          }
+          },
       },
         template: 'mila',
         showXScroll:true,

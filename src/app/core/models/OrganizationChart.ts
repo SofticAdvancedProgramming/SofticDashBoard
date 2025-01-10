@@ -7,5 +7,7 @@ export interface OrganizationChartModel
     name:string;
     nameArabic:string;
     title:string;
+    isCenteralized:boolean;
+    tags?: string[];
 
 }
