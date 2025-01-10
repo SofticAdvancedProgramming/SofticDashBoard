@@ -74,7 +74,7 @@ export class EmployeeAttendanceComponent implements OnInit {
             item.attendanceDate,
             'yyyy-MM-dd'
           ),
-          hour:this.datePipe.transform((item.attendanceDate), 'HH:mm:ss'),
+          // hour:this.datePipe.transform((item.attendanceDate), 'HH:mm:ss'),
           latitude: item.lat || 0,
           longitude: item.long || 0,
         })),
