@@ -15,4 +15,6 @@ export class DashboardCardComponent {
   @Input() cardClass: string = 'lightCard';
   @Input() bgColor: string = '#FFFFFF';
   @Input() icon: string = '';
+  @Input() color: string = '#FFFFFF';
+
 }

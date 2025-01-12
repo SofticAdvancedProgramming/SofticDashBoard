@@ -2,13 +2,14 @@
   background: #FFFFFF;
   padding: 1em;
   border-radius: 10px;
-  opacity: 1; /* Set opacity to 1 for the default state */
+  opacity: 1;
+  /* Set opacity to 1 for the default state */
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   width: 15em;
-  transition: background 0.3s ease, opacity 0.3s ease; /* Add transition for smooth effect */
+  transition: background 0.3s ease, opacity 0.3s ease;
 }
 
 .lightCard:hover {
@@ -16,9 +17,9 @@
   opacity: 1;
 }
 
-.lightCard p:first-of-type, .greyCard p:first-of-type {
+.lightCard p:first-of-type,
+.greyCard p:first-of-type {
   color: #0047B3;
-  /* font-family: Nunito; */
   font-family: Lama Sans;
   font-size: 16px;
   font-weight: 700;
@@ -26,9 +27,9 @@
   letter-spacing: 0.03em;
 }
 
-.lightCard .text p:last-of-type, .greyCard .text p:last-of-type {
+.lightCard .text p:last-of-type,
+.greyCard .text p:last-of-type {
   color: #2D3A49;
-  /* font-family: Inter; */
   font-family: Lama Sans;
   font-size: 15px;
   font-weight: 400;
@@ -37,4 +38,52 @@
 .text {
   display: flex;
   gap: 2em;
+}
+
+.card-container {
+  border-radius: 10px;
+  padding: 1em;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  padding-inline: 2em;
+}
+
+.card-title {
+  font-family: Lama Sans;
+
+  font-size: 17.15px;
+  font-weight: 500;
+  line-height: 25.72px;
+  letter-spacing: 0.03em;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+
+}
+
+.card-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: Lama Sans;
+
+  display: flex;
+  gap: 1em;
+}
+
+.card-value span {
+  font-size: 12.86px;
+  font-weight: 400;
+  font-family: Lama Sans;
+  line-height: 19.29px;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #736F77;
+
+}
+
+.card-icon {
+  width: 30px;
+  height: 30px;
+  margin-top: 10px;
 }
