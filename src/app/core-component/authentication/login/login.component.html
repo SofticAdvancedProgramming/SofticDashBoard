@@ -1,5 +1,5 @@
-<div class="container-fluid landing">
-  <div class="row">
+<div class="container landing">
+  <div class="row d-flex align-items-center">
     <div class="logo">
       <img src="../../../../assets/images/Chabaka Al- Dhakia- logo options-01 1.svg">
     </div>
@@ -9,14 +9,14 @@
         <p class="lightDescription">{{ 'LIGHT_DESCRIPTION' | translate }}</p>
         <div class="customLabels">
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="row">
+            <div class="mt-3">
               <label>{{ 'EMAIL' | translate }}</label>
               <input formControlName="email" placeholder="{{ 'EMAIL' | translate }}" type="text" autocomplete="email">
               <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
                 <small *ngIf="loginForm.get('email')?.errors?.['required']">{{ 'EMAIL' | translate }} is required.</small>
               </div>
             </div>
-            <div class="row">
+            <div class="mt-3">
               <label>{{ 'PASSWORD' | translate }}</label>
               <div class="password-container p-0">
                 <input [type]="passwordFieldType" formControlName="password" placeholder="{{ 'PASSWORD' | translate }}"
@@ -28,18 +28,18 @@
                 <small *ngIf="loginForm.get('password')?.errors?.['required']">{{ 'PASSWORD' | translate }} is required.</small>
               </div>
             </div>
-            <div class="justify-content-end d-flex w-100 mt-2">
-              <p routerLink="forgetPassword" class="lightDescription">{{ 'FORGOT_PASSWORD' | translate }}</p>
+            <div class="justify-content-end d-flex w-100 mt-3">
+              <p routerLink="forgetPassword" class="forgetPassword">{{ 'FORGOT_PASSWORD' | translate }}</p>
             </div>
-            <div class="row">
-              <button type="submit" class="authBtn">{{ 'SIGN_IN' | translate }}</button>
+            <div class="col-lg-12">
+              <button type="submit" class="authBtn w-100">{{ 'SIGN_IN' | translate }}</button>
             </div>
           </form>
         </div>
       </div>
     </div>
     <div class="col-lg-6 ">
-      <img class="imgContainer" src="../../../../assets/images/Frame 1000003989.png">
+      <img class="imgContainer" src="../../../../assets/images/authLanding.svg">
     </div>
   </div>
 </div>

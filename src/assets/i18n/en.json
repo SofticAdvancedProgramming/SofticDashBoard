@@ -30,7 +30,7 @@
   "EMAIL": "Email",
   "PASSWORD": "Password",
   "FORGOT_PASSWORD": "Forgot Password?",
-  "SIGN_IN": "SIGN IN",
+  "SIGN_IN": "Sign in",
   "INVALID_FORM": "Login failed, please try again",
   "FORGOT_PASSWORD_TITLE": "Forget your password",
   "FORGOT_PASSWORD_DESCRIPTION": "Please enter your email and we will send an OTP code in the next step to reset your password.",
