@@ -8,28 +8,44 @@ import { Browser } from '../../../../assets/ej2-base';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TranslationService } from '../../../core/services/translationService/translation.service';
 import { TranslateModule } from '@ngx-translate/core';
- import { MapComponent } from "../../../common-component/map/map.component";
- import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MapComponent } from "../../../common-component/map/map.component";
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AttendanceService } from '../../../services/AttendanceService/attendance.service';
- import { EmployeeService } from '../../../services/employeeService/employee.service';
+import { EmployeeService } from '../../../services/employeeService/employee.service';
 import { GlobalFunctionsService } from '../../../services/Global Functions Dashboard/global-functions.service';
-import { math, string } from '@tensorflow/tfjs-core';
 import { AdminStaticsService } from '../../../services/AdminStatistics/AdminStatics.service';
-import { forEach } from 'lodash';
 import { Router } from '@angular/router';
+import { BasicLineChartComponent } from "../../../common-component/basic-line-chart/basic-line-chart.component";
+import { BasicDonutChartComponent } from "../../../common-component/basic-donut-chart/basic-donut-chart.component";
+import { ChartType } from 'ng-apexcharts';
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
+  stroke: ApexStroke;
+  legend: ApexLegend;
+};
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, MatDatepickerModule, MatFormFieldModule, DashboardCardComponent, BarChartComponent, DonutChartComponent, ModernTableComponent, CommonModule, TranslateModule, MapComponent],
-  providers: [provideNativeDateAdapter(),DatePipe, GlobalFunctionsService],
+  providers: [provideNativeDateAdapter(), DatePipe, GlobalFunctionsService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   encapsulation: ViewEncapsulation.None,
+  imports: [RouterLink, ReactiveFormsModule, MatDatepickerModule, MatFormFieldModule, DashboardCardComponent, BarChartComponent, DonutChartComponent, ModernTableComponent, CommonModule, TranslateModule, MapComponent, BasicLineChartComponent, BasicDonutChartComponent]
 })
+
 export class HomeIndexComponent {
+  
   public employee: any;
   attendances: any = [];
   public addressData: any;
@@ -41,8 +57,13 @@ export class HomeIndexComponent {
   endDate!: Date;
   form!: FormGroup;
   cards: any = [];
-  comapnyId:number=Number(localStorage.getItem('companyId')) || 0;
-
+  comapnyId: number = Number(localStorage.getItem('companyId')) || 0;
+  assetsCategoryInArabic: string[] = []
+  assetsCategoryInEnglish: string[] = []
+  assetsInCatCount: number[] = [];
+  assetCountPerLastThreeMonthsInArabic: string[] = []
+  assetCountPerLastThreeMonthsInEnglish: string[] = []
+  assetCountPerLastThreeMonthsCount: number[] = [];
   public newAction: any = [{
     isExisting: true,
     src: 'Location_.png'
@@ -50,11 +71,11 @@ export class HomeIndexComponent {
   constructor(
     private translateService: TranslationService,
     private attendanceService: AttendanceService,
-     private employeeService: EmployeeService,
-     private functionService: GlobalFunctionsService,
-     private adminStatics:AdminStaticsService,
+    private employeeService: EmployeeService,
+    private functionService: GlobalFunctionsService,
+    private adminStatics: AdminStaticsService,
     private fb: FormBuilder,
-    private router:Router
+    private router: Router
   ) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
@@ -66,23 +87,23 @@ export class HomeIndexComponent {
     });
     this.getStatistics();
     this.getAttendances({}, 1);
-    this. getAdminStatistics();
+    this.getAdminStatistics();
     this.getDepartmentEmployeeCounts();
     this.assetCategorycounts();
   }
 
   public dashboardCards: any = [];
   public departmentEmploye: any[] = [];
-  public assetCategory:any[]=[];
+  public assetCategory: any[] = [];
   public adminCounts!:
-  {
-    companyId: number,
-    employeeCount: number,
-    branchCount: number,
-    assetCount: number,
-    positionCount: number,
-    departmentCount: number
-  }
+    {
+      companyId: number,
+      employeeCount: number,
+      branchCount: number,
+      assetCount: number,
+      positionCount: number,
+      departmentCount: number
+    }
 
 
   public chartData: Object[] = [
@@ -110,18 +131,8 @@ export class HomeIndexComponent {
     ]
   };
 
-
-  public donutChartOptions = {
-    cutout: '60%',
-    plugins: {
-      legend: {
-        display: false
-      }
-    }
-  };
-
-  columns: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'day', 'hour','department'];
-  columnsAr: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'dayAr', 'hour','department'];
+  columns: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'day', 'hour', 'department'];
+  columnsAr: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'dayAr', 'hour', 'department'];
 
   getAddress(e: any) {
     this.addressData = e;
@@ -131,24 +142,23 @@ export class HomeIndexComponent {
     this.employee = event;
   }
 
-  navigateToSecondPageWithTab(index:number)
-  {
-    this.router.navigate([`/dashboard/company/${this.comapnyId}`], { queryParams: { tab: index} });
+  navigateToSecondPageWithTab(index: number) {
+    this.router.navigate([`/dashboard/company/${this.comapnyId}`], { queryParams: { tab: index } });
 
   }
 
-   getAttendances(searchDate = {}, pageIndex?: number) {
-    let query: any = pageIndex ? { pageIndex, sortIsAsc: false, sortCol: "attendanceDate" } : { sortIsAsc: false, sortCol: "attendanceDate"};
-      this.attendanceService.getAttendances({ ...searchDate,  attendanceTypeId: null }).subscribe((res) => {
+  getAttendances(searchDate = {}, pageIndex?: number) {
+    let query: any = pageIndex ? { pageIndex, sortIsAsc: false, sortCol: "attendanceDate" } : { sortIsAsc: false, sortCol: "attendanceDate" };
+    this.attendanceService.getAttendances({ ...searchDate, attendanceTypeId: null }).subscribe((res) => {
       //  console.log(res);
       this.attendances = {
         ...res,
-        list: res.list.map( (item: any) => ({
+        list: res.list.map((item: any) => ({
           ...item,
           attendanceDate: this.functionService.formatDate(item.attendanceDate),
           hour: this.functionService.formatHour(item.attendanceDate),
           attendanceType: this.getAttendancebyTypeId(item.attendanceTypeId),
-          department: item.employeeDepartmentName||'no dept'
+          department: item.employeeDepartmentName || 'no dept'
 
           // department: this.isArabic?item.employeeDepartmentNameAr: item.employeeDepartmentName|| this.isArabic?'لايوجد قسم':'no dept'
           // //this.getEmployeeDepartment(item['employeeId'],) || 'no dept'
@@ -173,7 +183,7 @@ export class HomeIndexComponent {
 
   getStatistics() {
     let query: any = { ...this.form.value };
-       query = { ...query, employeeId: this.userId };
+    query = { ...query, employeeId: this.userId };
 
     this.employeeService.getStatistics(query).subscribe((res => {
       this.dashboardCards = res;
@@ -194,18 +204,103 @@ export class HomeIndexComponent {
     }))
   }
 
-  get isArabic():boolean{
-    return localStorage.getItem('lang')==='ar';
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
 
   }
 
 
   assetCategorycounts() {
     this.adminStatics.assetCategorycounts(null).subscribe((res => {
-
-       this.assetCategory=res;
-
+      this.assetCategory = res;
     }))
-  }}
+  }
+
+  barChartOptions = {
+    series: [
+      {
+        name: 'Assets',
+        data: this.assetCountPerLastThreeMonthsCount
+      }
+    ],
+    chart: {
+      type: 'bar' as ChartType,
+      height: 300
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: '25%',
+        borderRadius: 10
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      show: true,
+      width: 0,
+      colors: ['transparent']
+    },
+    xaxis: {
+      categories: this.assetCountPerLastThreeMonthsInEnglish
+    },
+    yaxis: {
+      title: {
+        text: 'Assets Count',
+        style: {
+          fontFamily: 'lama sans',
+        },
+      }
+    },
+    fill: {
+      opacity: 1,
+      colors: ['#FF4560', '#00FFFF', '#ffff00']
+    },
+    tooltip: {
+      y: {
+        formatter: function (val: any) {
+          return `${val} assets`;
+        }
+      }
+    },
+    legend: {
+      show: true
+    }
+  };
+  donutChartOptions = {
+     series: this.assetsInCatCount,
+    chart: {
+      width: 380,
+      type: 'donut' as ChartType
+    },
+ 
+    labels: this.assetsCategoryInEnglish,
+    dataLabels: {
+      enabled: false
+    },
+    fill: {
+      type: 'gradient'
+    },
+    legend: {
+      formatter: function (val: any, opts: any) {
+        return `${val} - ${opts.w.globals.series[opts.seriesIndex]}`;
+      }
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }
+    ]
+  };
+}
 
 
