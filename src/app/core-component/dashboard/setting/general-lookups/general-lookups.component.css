@@ -1,1 +1,11 @@
- 
+.setting{
+    color: #09050E;
+     font-family: Lama Sans;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 0.03em;
+     text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    
+ }
