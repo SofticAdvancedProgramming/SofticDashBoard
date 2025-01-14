@@ -1,5 +1,5 @@
 import { ToastrService } from 'ngx-toastr';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {
   FormGroup,
   ReactiveFormsModule,
@@ -15,9 +15,8 @@ import { ToastersService } from '../../../../core/services/toast-service/toast.s
 import { CommonModule, DatePipe } from '@angular/common';
 import { BenefitTypeService } from '../../../../services/benefitTypeService/benefit-type.service';
 import { BenefitService } from '../../../../services/benefitService/benefit.service';
-import { DynamicModalComponent } from '../../components/dynamic-modal/dynamic-modal.component';
-import { DeletePopUpComponent } from '../../components/delete-pop-up/delete-pop-up.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SalaryType } from '../../../../core/models/SalaryType';
 interface Salary {
   grossSalary: string;
   netSalary: string;
@@ -58,9 +57,6 @@ interface BenefitType {
     ReactiveFormsModule,
     ModernTableComponent,
     CommonModule,
-    DatePipe,
-    DynamicModalComponent,
-    DeletePopUpComponent,
   ],
 })
 export class SalaryComponent implements OnInit {
@@ -77,7 +73,7 @@ export class SalaryComponent implements OnInit {
   columns: string[] = ['amount', 'benefitTypeName'];
   companyId = Number(localStorage.getItem('companyId'));
   salaryTypeId!: number;
-  benefitTypes: any[] = [];
+  benefitTypes: SalaryType[] = [];
   benefitForm!: FormGroup;
   formData: any = {};
   benefitToDelete: { id: number; companyId: number } | null = null;
@@ -104,7 +100,7 @@ export class SalaryComponent implements OnInit {
     private datePipe: DatePipe,
     private benefitTypeService: BenefitTypeService,
     private benefitService: BenefitService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -126,7 +122,8 @@ export class SalaryComponent implements OnInit {
   initForm(): void {
     this.form = this.fb.group({
       employeeId: [this.employeeId],
-      netSalary: ['', [Validators.required]],
+      netSalary: [''],
+      grossSalary:['']
     });
   }
 
@@ -167,8 +164,10 @@ export class SalaryComponent implements OnInit {
     this.employeeService
       .loadEmployees({ id: this.employeeId })
       .subscribe((res: EmployeeResponse) => {
-     
+        
+        console.log("ressssssssssss",res)
         const { grossSalary, netSalary } = res.data.list[0];
+        console.log(" grossSalary, netSalary ", grossSalary, netSalary )
         this.updatedGrossSalary = Number(grossSalary);
         this.initFormWithSalary({ grossSalary, netSalary });
       });
@@ -177,6 +176,7 @@ export class SalaryComponent implements OnInit {
   loadBenefitTypes() {
     this.benefitTypeService.getBenefitsType().subscribe((response) => {
       if (response.status === 200) {
+        console.log("response",response)
         this.benefitTypes = response.data.list;
       }
     });
@@ -202,7 +202,8 @@ export class SalaryComponent implements OnInit {
             benefitTypeName: newBenefit.benefitTypeName,
           });
           this.totalRows['employeeSalary'] = this.financial.length;
-          this.updateGrossSalary();
+          //this.updateGrossSalary();
+          this.getSalary();
           this.resetForm();
           this.ngOnInit();
         }
@@ -232,6 +233,7 @@ export class SalaryComponent implements OnInit {
           this.toast.success('Benefit updated successfully');
           this.closeModal();
           this.loadEmployeeBenefits();
+          this.getSalary();
         }
       
       },
@@ -299,7 +301,8 @@ export class SalaryComponent implements OnInit {
             (sum, benefit) => sum + benefit.amount,
             0
           );
-          this.updateGrossSalary();
+          //this.updateGrossSalary();
+          this.getSalary();
         } else {
           this.toast.error('Failed to load employee benefits');
         }

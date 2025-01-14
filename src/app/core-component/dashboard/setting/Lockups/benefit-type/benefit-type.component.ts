@@ -21,7 +21,8 @@ export class BenefitTypeComponent implements OnInit {
   companyId: number = 0;
   structure = [
     { name: 'name', label: 'Benefit Name', type: 'text', required: true },
-    { name: 'nameAr', label: 'Benefit Name (Arabic)', type: 'text', required: true }
+    { name: 'nameAr', label: 'Benefit Name (Arabic)', type: 'text', required: true },
+    { name: 'isDeduction', label: 'Deduction', type: 'checkbox', required: false }
   ];
 
 
