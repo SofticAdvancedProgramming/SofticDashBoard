@@ -13,15 +13,47 @@
     </div> -->
   </div>
   <div class="row" *ngIf="adminCounts">
-    <!-- <ng-container *ngFor="let card of dashboardCards">
-      <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
-        <app-dashboard-card [title]="lang === 'ar'? card.titleAr : card.title" [value]="card.value"
-          [cardClass]="card.cardClass" [bgColor]="card.bgColor" [icon]="'assets/images/profile/workdays.png'">
-        </app-dashboard-card>
-      </div>
-    </ng-container> -->
+ 
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card
+        [title]="isArabic ? 'أيام العمل' : 'Total Worked Days'"
+        [value]="attendanceData.totalWorkedDays"
+        [percentage]="'0.00%'"
+        [bgColor]="'#FFFFFF'"
+        [color]="'#993BF9'"
+      ></app-dashboard-card>
+    </div>
 
     <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card
+        [title]="isArabic ? 'ساعات العمل' : 'Total Worked Hours'"
+        [value]="attendanceData.totalWorkedHours"
+        [percentage]="'0.00%'"
+        [bgColor]="'#F3E7FE'"
+        [color]="'#1F2933'"
+      ></app-dashboard-card>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card
+        [title]="isArabic ? 'أيام الغياب' : 'Total Absence Days'"
+        [value]="attendanceData.totalAbsenceDays"
+        [percentage]="'0.00%'"
+        [bgColor]="'#FFFFFF'"
+        [color]="'#993BF9'"
+      ></app-dashboard-card>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card
+        [title]="isArabic ? 'ساعات العمل الإضافي' : 'Total Overtime Hours'"
+        [value]="attendanceData.totalOvertimeHours"
+        [percentage]="'0.00%'"
+        [bgColor]="'#F3E7FE'"
+        [color]="'#1F2933'"
+      ></app-dashboard-card>
+    </div>
+    <!-- <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
       <app-dashboard-card routerLink='/dashboard/ViewEmployees' [title]="isArabic? 'الموظفين' : 'Employees'"
         [value]="adminCounts.employeeCount" [percentage]="'11.02%'" [bgColor]="'#FFFFFF'" [color]="'#993BF9'">
       </app-dashboard-card>
@@ -45,10 +77,10 @@
       <app-dashboard-card (click)="navigateToSecondPageWithTab(2)" [title]="isArabic? 'الأقسام' : 'Departments'"
         [value]="adminCounts.departmentCount" [percentage]="'11.02%'" [bgColor]="'#FFFFFF'" [color]="'#993BF9'">
       </app-dashboard-card>
-    </div>
+    </div> -->
 
 
-    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+    <!-- <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
       <app-dashboard-card [title]="'Vacations Balance'" [value]="7265" [percentage]="'11.02%'" [bgColor]="'#F3E7FE'"
         [color]="'#1F2933'">
       </app-dashboard-card>
@@ -62,7 +94,7 @@
       <app-dashboard-card [title]="'Deductions'" [value]="156" [percentage]="'15.03%'" [bgColor]="'#F3E7FE'"
         [color]="'#1F2933'">
       </app-dashboard-card>
-    </div>
+    </div> -->
 
   </div>
 
@@ -90,31 +122,31 @@
     </div>  
 
   </div> -->
-  <div class="row mt-5">
+  <!-- <div class="row mt-5">
     <div class="col-lg-6" *ngIf="!isArabic" [ngClass]="{ 'ps-4': isArabic, 'pe-4': !isArabic }">
       <div class="chart">
         <app-basic-line-chart [chartOptions]="barChartOptions"></app-basic-line-chart>
       </div>
     </div>
-    <!-- <div class="col-lg-6" *ngIf="isArabic"
+      <div class="col-lg-6" *ngIf="isArabic"
       [ngClass]="{ 'ps-4': isArabic, 'pe-4': !isArabic }">
         <div class="chart">
           <app-basic-line-chart [chartOptions]="barChartOptionsAr"></app-basic-line-chart>
         </div>
-      </div> -->
+      </div>  
       <div class="col-lg-6" *ngIf="!isArabic" [ngClass]="{ 'pe-4 ': isArabic, 'ps-4': !isArabic }">
         <div class="chart">
           <app-basic-donut-chart [chartOptions]="donutChartOptions"></app-basic-donut-chart>
         </div>
       </div>
       
-    <!-- <div class="col-lg-6" *ngIf="isArabic"
+    <div class="col-lg-6" *ngIf="isArabic"
       [ngClass]="{ 'pe-4 ': isArabic, 'ps-4': !isArabic }">
         <div class="chart">
           <app-basic-donut-chart [chartOptions]="donutChartOptionsAr"></app-basic-donut-chart>
         </div>
-      </div> -->
-  </div>
+      </div>  
+  </div> -->
 
   <app-modern-table [tableTitle]="'Overview'" [totalRows]="attendances.totalRows" [tableData]="attendances.list"
     [columns]="isArabic?columnsAr:columns" [isThereSearch]="false" [isThereEdit]="false" [isThereDelete]="false"

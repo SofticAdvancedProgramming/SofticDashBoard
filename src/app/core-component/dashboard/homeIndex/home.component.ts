@@ -45,7 +45,7 @@ export type ChartOptions = {
 })
 
 export class HomeIndexComponent {
-  
+  attendanceData: any = {};
   public employee: any;
   attendances: any = [];
   public addressData: any;
@@ -90,6 +90,7 @@ export class HomeIndexComponent {
     this.getAdminStatistics();
     this.getDepartmentEmployeeCounts();
     this.assetCategorycounts();
+    this.GetAttendanceDetails();
   }
 
   public dashboardCards: any = [];
@@ -301,6 +302,38 @@ export class HomeIndexComponent {
       }
     ]
   };
+  GetAttendanceDetails() {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1;  
+    const companyId = Number(localStorage.getItem('companyId')) || 0;
+  
+    const query = {
+      companyId: companyId,
+      month: currentMonth,
+      year: currentYear,
+    };
+  
+    this.attendanceService.GetAttendanceDetails(query).subscribe(
+      (res: any) => {
+        console.log('API Response: ffffffffffffffffffffffffffffff', res);  
+        if (res && res.status === 200 && res.data) {
+          this.attendanceData = {
+            totalWorkedDays: res.data.totalWorkedDays,
+            totalWorkedHours: res.data.totalWorkedHours.toFixed(2),
+            totalAbsenceDays: res.data.totalAbsenceDays,
+            totalOvertimeHours: res.data.totalOvertimeHours.toFixed(2),
+          };
+          console.log('Attendance Data:', this.attendanceData);  
+        } else {
+          console.error('Failed to fetch attendance data:', res);
+        }
+      },
+      (error) => {
+        console.error('Error fetching attendance data:', error);
+      }
+    );
+  }
+  
 }
 
 
