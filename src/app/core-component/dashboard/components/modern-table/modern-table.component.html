@@ -40,7 +40,7 @@
     </div>
   </div>
   <div class="table-responsive">
-    <table class="table custom-table">
+    <table class="tabl e custom-table">
       <thead>
         <tr>
           <th class="customColumn" *ngFor="let column of columns">
@@ -55,7 +55,10 @@
       <tbody>
         <tr *ngFor="let item of tableData">
           <td class="tableText" *ngFor="let column of columns">
-            {{ item[column] }}
+            <span  [ngClass]="{'detuction-item':item[column]&&column=='benefitTypeIsDeduction',
+                               'bouns-item':!item[column]&&column=='benefitTypeIsDeduction'}">
+                               {{ item[column] }}
+            </span>
           </td>
           <td class="tableText" *ngIf="showActions">
             @if(isThereEdit){
@@ -65,7 +68,7 @@
               [attr.data-bs-target]="'#' + modalId"
               (click)="editItem.emit(item)"
             >
-            <img src="../../../../../assets/images/edit-2.png">
+            <img src="../../../../../assets/images/edit-green-icon.png">
               <!-- <i class="fa-solid fa-lg fa-pen"></i> -->
             </button>
             } @if(isThereDelete){

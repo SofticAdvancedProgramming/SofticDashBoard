@@ -70,7 +70,7 @@ export class SalaryComponent implements OnInit {
   dropDownData: any[] = [];
   deleteId: string = 'deleteSalaryBenefit';
   financial: any[] = [];
-  columns: string[] = ['amount', 'benefitTypeName'];
+  columns: string[] = ['amount', 'benefitTypeName','benefitTypeIsDeduction'];
   companyId = Number(localStorage.getItem('companyId'));
   salaryTypeId!: number;
   benefitTypes: SalaryType[] = [];
@@ -140,7 +140,7 @@ export class SalaryComponent implements OnInit {
       this.employeeService.assginEmployeeSalary(salaryData).subscribe(
         (res) => {
           this.isSalaryAssigned = false; // Use 'this.isSalaryAssigned'
-       
+
           this.toast.success(
             this.translate.instant('employeeDetails.SALARY_ASSIGN_SUCCESS')
           );
@@ -160,11 +160,11 @@ export class SalaryComponent implements OnInit {
   }
 
   getSalary() {
-   
+
     this.employeeService
       .loadEmployees({ id: this.employeeId })
       .subscribe((res: EmployeeResponse) => {
-        
+
         console.log("ressssssssssss",res)
         const { grossSalary, netSalary } = res.data.list[0];
         console.log(" grossSalary, netSalary ", grossSalary, netSalary )
@@ -235,7 +235,7 @@ export class SalaryComponent implements OnInit {
           this.loadEmployeeBenefits();
           this.getSalary();
         }
-      
+
       },
       (error) => {
         this.toast.error('Error updating benefit');
@@ -261,12 +261,12 @@ export class SalaryComponent implements OnInit {
         grossSalary: this.updatedGrossSalary,
       };
 
-   
+
 
       this.employeeService
         .assginEmployeeSalary(updatedSalaryData)
         .subscribe((res) => {
-        
+
           this.getSalary();
         });
     }
