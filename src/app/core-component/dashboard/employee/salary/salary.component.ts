@@ -34,6 +34,7 @@ interface EmployeeResponse {
 interface Benefit {
   amount: number;
   benefitTypeName: string;
+  benefitTypeIsDeduction:any;
   transactionDate: string;
   benefitType?: {
     name: string;
@@ -192,6 +193,7 @@ export class SalaryComponent implements OnInit {
     benefitData.employeeId = this.employeeId;
     benefitData.benefitTypeId = Number(benefitData.benefitTypeId);
 
+
     this.benefitService.addEmployeeBenefit(benefitData).subscribe({
       next: (response) => {
         if (response.status === 200) {
@@ -200,6 +202,7 @@ export class SalaryComponent implements OnInit {
           this.financial.push({
             amount: newBenefit.amount,
             benefitTypeName: newBenefit.benefitTypeName,
+            benefitTypeIsDeduction:newBenefit.benefitTypeIsDeduction?'Deduction':'Entitlement'
           });
           this.totalRows['employeeSalary'] = this.financial.length;
           //this.updateGrossSalary();
@@ -286,6 +289,7 @@ export class SalaryComponent implements OnInit {
       employeeId: this.employeeId,
       page,
       pageSize,
+      sortCol: "benefitTypeIsDeduction",
     };
 
     this.benefitService.GetEmployeeBenefit(request).subscribe(
@@ -294,6 +298,7 @@ export class SalaryComponent implements OnInit {
           this.financial = res.data.list.map((benefit: Benefit) => ({
             ...benefit,
             benefitTypeName: benefit.benefitTypeName,
+            benefitTypeIsDeduction:benefit.benefitTypeIsDeduction?'Deduction':'Entitlement'
           }));
           this.totalRows['employeeSalary'] = res.data.total;
 
