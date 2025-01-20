@@ -175,12 +175,16 @@
   color: #9f0101;
   border-radius: 40px;
   padding:15px 40px ;
+  width: 176px ;
+  display: inline-block;
 
 
 }
 .bouns-item{
+  display: inline-block;
   background-color: #9ACA3C4f;
   color: #619102;
-  padding:15px 40px ;
-  border-radius: 40px
+  padding:15px  40px ;
+  border-radius: 40px;
+  width: 176px ;
 }
