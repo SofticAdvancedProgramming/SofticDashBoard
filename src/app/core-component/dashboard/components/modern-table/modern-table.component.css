@@ -174,17 +174,19 @@
   background-color: #fd00004f;
   color: #9f0101;
   border-radius: 40px;
-  padding:15px 40px ;
+  padding:15px;
+  text-align: center;
   width: 176px ;
   display: inline-block;
 
 
 }
 .bouns-item{
+  text-align: center;
   display: inline-block;
   background-color: #9ACA3C4f;
   color: #619102;
-  padding:15px  40px ;
+  padding:15px  ;
   border-radius: 40px;
   width: 176px ;
 }
