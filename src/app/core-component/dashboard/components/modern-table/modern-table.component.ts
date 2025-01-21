@@ -74,7 +74,7 @@ export class ModernTableComponent implements OnInit {
   }
   exportToExcel(): void {
     const keysToExclude = ['id'];
-  
+
     // Transform the data by excluding specific keys and formatting headers
     const formattedData = this.tableData.map(item => {
       const transformedItem: any = {};
@@ -88,18 +88,18 @@ export class ModernTableComponent implements OnInit {
       }
       return transformedItem;
     });
-  
+
     // Create a worksheet with the transformed data
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(formattedData);
-  
+
     // Get headers
     const headers = Object.keys(formattedData[0] || {});
-  
+
     // Calculate column widths based on the largest content
     const columnWidths = headers.map(header => {
       // Include header width
       let maxWidth = header.length;
-  
+
       // Check the length of data in each row for this column
       for (const row of formattedData) {
         const cellValue = row[header];
@@ -108,13 +108,13 @@ export class ModernTableComponent implements OnInit {
           maxWidth = cellLength;
         }
       }
-  
+
       return { width: maxWidth + 2 }; // Add padding
     });
-  
+
     // Apply column widths
     worksheet['!cols'] = columnWidths;
-  
+
     // Style the headers
     const range = XLSX.utils.decode_range(worksheet['!ref'] || 'A1');
     for (let col = range.s.c; col <= range.e.c; col++) {
@@ -127,14 +127,14 @@ export class ModernTableComponent implements OnInit {
         };
       }
     }
-  
+
     // Create a workbook and add the worksheet
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-  
+
     // Write the workbook to a file
     XLSX.writeFile(workbook, 'table_data.xlsx');
   }
-  
+
 
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
@@ -176,7 +176,7 @@ export class ModernTableComponent implements OnInit {
     this.onCLickNewActionOutput.emit(data);
   }
   onOptionSelected(event:any){
-  
+
 
   }
 
