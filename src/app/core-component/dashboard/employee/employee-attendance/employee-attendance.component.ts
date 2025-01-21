@@ -65,10 +65,9 @@ export class EmployeeAttendanceComponent implements OnInit {
     };
 
     this.attendanceService.getAttendances(query).subscribe((res: any) => {
-      console.log("attendance",res)
       this.attendances = {
         ...res,
-        list: res.list.map((item: any) => ({
+        list: res.data.list.map((item: any) => ({
           ...item,
           attendanceDate: this.datePipe.transform(
             item.attendanceDate,
@@ -79,8 +78,6 @@ export class EmployeeAttendanceComponent implements OnInit {
           longitude: item.long || 0,
         })),
       };
-
-     
     });
   }
 
@@ -109,7 +106,7 @@ export class EmployeeAttendanceComponent implements OnInit {
       long: employee.longitude || 0,
     };
 
-    
+
 
     this.showModal = true;
   }

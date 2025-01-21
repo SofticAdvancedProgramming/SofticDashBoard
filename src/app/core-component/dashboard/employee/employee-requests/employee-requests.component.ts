@@ -35,7 +35,7 @@ export class EmployeeRequestsComponent implements OnInit {
   public RequestStatus = RequestStatus;
   createdOnFrom: string = '';
   createdOnTo: string = '';
-  dateError: string = ''; 
+  dateError: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalRequests: number = 0;
@@ -69,19 +69,19 @@ export class EmployeeRequestsComponent implements OnInit {
       employeeId: this.employeeId,
       pageIndex: page,
       pageSize: this.itemsPerPage,
- 
+
       createdOnFrom: this.createdOnFrom ? new Date(this.createdOnFrom).toISOString() : undefined,
       createdOnTo: this.createdOnTo ? new Date(this.createdOnTo).toISOString() : undefined,
     };
-  
-   
+
+
     this.requestService.getRequests(requestPayload).pipe(
       tap((response: any) => {
-      
+
         if (response.status === 200) {
           this.requests = response.data.list || [];
           this.totalRequests = response.data.totalRows || 0;
-          this.filterRequests(); 
+          this.filterRequests();
         } else {
           console.error('Unexpected response status:', response.status);
         }
@@ -92,7 +92,7 @@ export class EmployeeRequestsComponent implements OnInit {
       })
     ).subscribe();
   }
-  
+
   handlePageChange(event: { page: number }): void {
     this.currentPage = event.page;
     this.loadRequests(this.currentPage);
@@ -104,7 +104,7 @@ export class EmployeeRequestsComponent implements OnInit {
         if (response.status === 200) {
           this.requestTypes = response.data.list || [];
         }
-       
+
       }),
       catchError((error) => {
         console.error('Error loading request types:', error);
@@ -129,7 +129,7 @@ export class EmployeeRequestsComponent implements OnInit {
       })
     ).subscribe();
   }
-  
+
   getRequestTypeName(id: number): string {
     const type = this.requestTypes.find((rt) => rt.id === id);
     return type ? type.name : this.translate.instant('EMPLOYEE_REQUESTS.UNKNOWN_TYPE');
@@ -145,7 +145,9 @@ export class EmployeeRequestsComponent implements OnInit {
   filterRequests(): void {
     // First, filter out only Accepted and Rejected requests
     this.filteredRequests = this.requests.filter(
-      (request) => request.requestStatusId === RequestStatus.Accepted || request.requestStatusId === RequestStatus.Rejected
+      (request) => request.requestStatusId === RequestStatus.Accepted ||
+       request.requestStatusId === RequestStatus.Rejected ||
+       request.requestStatusId === RequestStatus.Pending
     );
 
     // If a specific status is selected, apply additional filtering
@@ -189,18 +191,18 @@ export class EmployeeRequestsComponent implements OnInit {
   }
 
   onDateChange(): void {
-    this.validateDates();  
+    this.validateDates();
     if (!this.dateError) {
-      this.currentPage = 1;  
+      this.currentPage = 1;
       this.loadRequests(this.currentPage);
     }
   }
 
   showDatePicker(event: Event, inputId: string): void {
-    event.stopPropagation();  
+    event.stopPropagation();
     const inputElement = document.getElementById(inputId) as HTMLInputElement;
     if (inputElement) {
-      inputElement.click();  
+      inputElement.click();
     }
   }
 
@@ -212,7 +214,7 @@ export class EmployeeRequestsComponent implements OnInit {
       if (endDate < startDate) {
          this.dateError = this.translate.instant('DATE_ERROR.END_BEFORE_START');
       } else {
-        this.dateError = ''; 
+        this.dateError = '';
       }
     }
   }
