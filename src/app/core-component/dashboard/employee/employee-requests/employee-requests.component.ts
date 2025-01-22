@@ -119,7 +119,9 @@ export class EmployeeRequestsComponent implements OnInit {
         if (response.status === 200) {
           // Include only Accepted and Rejected statuses
           this.requestStatuses = response.data.list.filter(
-            (status: any) => status.id === RequestStatus.Accepted || status.id === RequestStatus.Rejected
+            (status: any) => status.id === RequestStatus.Accepted ||
+             status.id === RequestStatus.Rejected||
+             status.id === RequestStatus.Pending
           );
         }
       }),
@@ -137,6 +139,7 @@ export class EmployeeRequestsComponent implements OnInit {
 
   getRequestStatusName(id: number): string {
     const status = this.requestStatuses.find((rs) => rs.id === id);
+
     return status
       ? this.translate.instant(`EMPLOYEE_REQUESTS.REQUEST_STATUSES.${status.name.toUpperCase()}`)
       : this.translate.instant('EMPLOYEE_REQUESTS.UNKNOWN_STATUS');
