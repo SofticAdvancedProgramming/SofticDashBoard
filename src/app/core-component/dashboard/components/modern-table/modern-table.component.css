@@ -37,6 +37,7 @@
 .custom-table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 25px;
 }
 
 .custom-table thead th {
@@ -47,7 +48,7 @@
 }
 
 .custom-table tbody tr {
-  border-bottom: 1px solid #dee2e6;
+   border-bottom: 1px solid #dee2e6;
 }
 
 .custom-table tbody td {
@@ -166,4 +167,26 @@
 .CustomIcon{
   width: auto !important;
   height: auto !important;
+}
+
+
+.detuction-item{
+  background-color: #fd00004f;
+  color: #9f0101;
+  border-radius: 40px;
+  padding: 7px 0px;
+  text-align: center;
+  width: 176px ;
+  display: inline-block;
+
+
+}
+.bouns-item{
+  text-align: center;
+  display: inline-block;
+  background-color: #9ACA3C4f;
+  color: #619102;
+  padding: 7px 0px;
+  border-radius: 40px;
+  width: 176px ;
 }

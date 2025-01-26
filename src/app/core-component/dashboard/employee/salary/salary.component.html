@@ -11,6 +11,7 @@
             id="netSalary"
             formControlName="netSalary"
             class="form-control"
+            readonly
           />
           @if(form.get('netSalary')?.invalid && form.get('netSalary')?.touched){
           <div>
@@ -33,7 +34,7 @@
             type="number"
             id="grossSalary"
             class="form-control"
-            [value]="updatedGrossSalary"
+            formControlName="grossSalary"
             readonly
           />
         </div>
@@ -41,13 +42,13 @@
     </div>
   </form>
 
-  <div class="row justify-content-center">
+  <!-- <div class="row justify-content-center">
     <div class="col-lg-6">
       <button class="btn-save" (click)="submitSalary()">
         {{ "employeeDetails.Save" | translate }}
       </button>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <div class="container mt-4">
