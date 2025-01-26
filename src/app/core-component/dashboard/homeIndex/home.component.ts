@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 import { BasicLineChartComponent } from "../../../common-component/basic-line-chart/basic-line-chart.component";
 import { BasicDonutChartComponent } from "../../../common-component/basic-donut-chart/basic-donut-chart.component";
 import { ChartType } from 'ng-apexcharts';
+import { LeavesLog } from '../../../../models/employee';
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -64,6 +65,8 @@ export class HomeIndexComponent {
   assetCountPerLastThreeMonthsInArabic: string[] = []
   assetCountPerLastThreeMonthsInEnglish: string[] = []
   assetCountPerLastThreeMonthsCount: number[] = [];
+  public leavesLogData: LeavesLog = new LeavesLog();
+
   public newAction: any = [{
     isExisting: true,
     src: 'Location_.png'
@@ -91,6 +94,8 @@ export class HomeIndexComponent {
     this.getDepartmentEmployeeCounts();
     this.assetCategorycounts();
     this.GetAttendanceDetails();
+    this.fetchLeavesLog();
+
   }
 
   public dashboardCards: any = [];
@@ -270,12 +275,12 @@ export class HomeIndexComponent {
     }
   };
   donutChartOptions = {
-     series: this.assetsInCatCount,
+    series: this.assetsInCatCount,
     chart: {
       width: 380,
       type: 'donut' as ChartType
     },
- 
+
     labels: this.assetsCategoryInEnglish,
     dataLabels: {
       enabled: false
@@ -304,18 +309,17 @@ export class HomeIndexComponent {
   };
   GetAttendanceDetails() {
     const currentYear = new Date().getFullYear();
-    const currentMonth = new Date().getMonth() + 1;  
+    const currentMonth = new Date().getMonth() + 1;
     const companyId = Number(localStorage.getItem('companyId')) || 0;
-  
+
     const query = {
       companyId: companyId,
       month: currentMonth,
       year: currentYear,
     };
-  
+
     this.attendanceService.GetAttendanceDetails(query).subscribe(
       (res: any) => {
-        console.log('API Response: ffffffffffffffffffffffffffffff', res);  
         if (res && res.status === 200 && res.data) {
           this.attendanceData = {
             totalWorkedDays: res.data.totalWorkedDays,
@@ -323,7 +327,7 @@ export class HomeIndexComponent {
             totalAbsenceDays: res.data.totalAbsenceDays,
             totalOvertimeHours: res.data.totalOvertimeHours.toFixed(2),
           };
-          console.log('Attendance Data:', this.attendanceData);  
+          console.log('Attendance Data:', this.attendanceData);
         } else {
           console.error('Failed to fetch attendance data:', res);
         }
@@ -333,7 +337,31 @@ export class HomeIndexComponent {
       }
     );
   }
-  
+  fetchLeavesLog() {
+    const currentYear = new Date().getFullYear();
+
+    const query = {
+      companyId: this.comapnyId,
+      year: currentYear,
+    };
+
+    this.employeeService.getLeavesLog(query).subscribe(
+      (res: any) => {
+        if (res && res.status === 200 && res.data) {
+          this.leavesLogData = new LeavesLog(
+            res.data.holidayRequest,
+            res.data.vacationBalabnce
+          );
+        } else {
+          console.error('Failed to fetch leaves log data:', res);
+        }
+      },
+      (error) => {
+        console.error('Error fetching leaves log data:', error);
+      }
+    );
+  }
+
 }
 
 

@@ -24,4 +24,5 @@ export const employeeController = {
   removeEmployeeAttendanceLocation:(id: number, companyId: number) => `${environment.apiBaseUrl}EmployeeAttendanceLocation/Delete/${id}/${companyId}`,
   editEmployeeAttendanceLocation:`${environment.apiBaseUrl}EmployeeAttendanceLocation/Edit`,
   GetEmployees: `${environment.apiBaseUrl}Employee/Get`,
+  GetLeavesLog: `${environment.apiBaseUrl}Employee/LeavesLog`,
  };
