@@ -1,6 +1,6 @@
 <div class="container-fluid  ">
   <div class="row ">
-    <div class="date-range-picker d-flex justify-content-end">
+    <!-- <div class="date-range-picker d-flex justify-content-end">
       <mat-form-field appearance="outline" class="date-input">
         <mat-date-range-input [rangePicker]="picker" [formGroup]="form">
           <input matStartDate formControlName="from" placeholder="Start date" />
@@ -10,51 +10,132 @@
         <mat-date-range-picker #picker></mat-date-range-picker>
       </mat-form-field>
       <button mat-button class="find-btn" (click)="getStatistics()">{{'Find' | translate}}</button>
-    </div>
+    </div> -->
   </div>
-  <div class="row" *ngIf="adminCounts" >
-    <!-- <ng-container *ngFor="let card of dashboardCards">
+  <div class="row" *ngIf="adminCounts">
+ 
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card
+        [title]="isArabic ? 'أيام العمل' : 'Total Worked Days'"
+        [value]="attendanceData.totalWorkedDays"
+         [bgColor]="'#FFFFFF'"
+        [color]="'#993BF9'"
+      ></app-dashboard-card>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card
+        [title]="isArabic ? 'ساعات العمل' : 'Total Worked Hours'"
+        [value]="attendanceData.totalWorkedHours"
+         [bgColor]="'#F3E7FE'"
+        [color]="'#1F2933'"
+      ></app-dashboard-card>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card
+        [title]="isArabic ? 'أيام الغياب' : 'Total Absence Days'"
+        [value]="attendanceData.totalAbsenceDays"
+         [bgColor]="'#FFFFFF'"
+        [color]="'#993BF9'"
+      ></app-dashboard-card>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card
+        [title]="isArabic ? 'ساعات العمل الإضافي' : 'Total Overtime Hours'"
+        [value]="attendanceData.totalOvertimeHours"
+         [bgColor]="'#F3E7FE'"
+        [color]="'#1F2933'"
+      ></app-dashboard-card>
+    </div>
+
       <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
-        <app-dashboard-card [title]="lang === 'ar'? card.titleAr : card.title" [value]="card.value"
-          [cardClass]="card.cardClass" [bgColor]="card.bgColor" [icon]="'assets/images/profile/workdays.png'">
-        </app-dashboard-card>
+        <app-dashboard-card
+          [title]="isArabic ? 'طلبات الإجازة' : 'Holiday Requests'"
+          [value]="leavesLogData.holidayRequest"
+           [bgColor]="'#FFFFFF'"
+          [color]="'#993BF9'"
+        ></app-dashboard-card>
       </div>
-    </ng-container> -->
+      
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+        <app-dashboard-card
+          [title]="isArabic ? 'رصيد الإجازة' : 'Vacation Balance'"
+          [value]="leavesLogData.vacationBalance"
+           [bgColor]="'#F3E7FE'"
+          [color]="'#1F2933'"
+        ></app-dashboard-card>
+      </div>
+      
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+        <app-dashboard-card
+          [title]="isArabic ? 'الاستحقاقات' : 'Entitlements'"
+          [value]="financialLogData.entitlements"
+           [bgColor]="'#FFFFFF'"
+          [color]="'#993BF9'"
+        ></app-dashboard-card>
+      </div>
+      
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+        <app-dashboard-card
+          [title]="isArabic ? 'الخصومات' : 'Deductions'"
+          [value]="financialLogData.deductions"
+           [bgColor]="'#F3E7FE'"
+          [color]="'#1F2933'"
+        ></app-dashboard-card>
+      </div>
+    <!-- <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card routerLink='/dashboard/ViewEmployees' [title]="isArabic? 'الموظفين' : 'Employees'"
+        [value]="adminCounts.employeeCount" [percentage]="'11.02%'" [bgColor]="'#FFFFFF'" [color]="'#993BF9'">
+      </app-dashboard-card>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card (click)="navigateToSecondPageWithTab(1)" [title]="isArabic ? 'الفروع' : 'Branchs'"
+        [value]="adminCounts.branchCount" [percentage]="'-0.03%'" [bgColor]="'#F3E7FE'" [color]="'#1F2933'">
+      </app-dashboard-card>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card [routerLink]="['/dashboard/AssetsIndex']" [title]="isArabic?'الأصول' : 'Assets'"
+        [value]="adminCounts.assetCount" [percentage]="'11.02%'" [bgColor]="'#FFFFFF'" [color]="'#993BF9'">
+      </app-dashboard-card>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card (click)="navigateToSecondPageWithTab(3)" [title]="isArabic? 'الوظائف' : 'Positions'"
+        [value]="adminCounts.positionCount" [percentage]="'-0.03%'" [bgColor]="'#F3E7FE'" [color]="'#1F2933'">
+      </app-dashboard-card>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card (click)="navigateToSecondPageWithTab(2)" [title]="isArabic? 'الأقسام' : 'Departments'"
+        [value]="adminCounts.departmentCount" [percentage]="'11.02%'" [bgColor]="'#FFFFFF'" [color]="'#993BF9'">
+      </app-dashboard-card>
+    </div> -->
 
-    <div class="col-lg-auto col-md-6 col-sm-12 mb-3" >
-      <app-dashboard-card routerLink='/dashboard/ViewEmployees' [title]="isArabic? 'الموظفين' : 'Employees'" [value]="adminCounts.employeeCount"
-        [icon]="'assets/images/profile/workdays.png'">
+
+    <!-- <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card [title]="'Vacations Balance'" [value]="7265" [percentage]="'11.02%'" [bgColor]="'#F3E7FE'"
+        [color]="'#1F2933'">
       </app-dashboard-card>
     </div>
-    <div class="col-lg-auto col-md-6 col-sm-12 mb-3">
-      <app-dashboard-card (click)="navigateToSecondPageWithTab(1)" [title]="isArabic ? 'الفروع' : 'Branchs'" [value]="adminCounts.branchCount"
-         [icon]="'assets/images/profile/workdays.png'">
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card [title]="'Entitlements'" [value]="3671" [percentage]="'-0.03%'" [bgColor]="'#FFFFFF'"
+        [color]="'#993BF9'">
       </app-dashboard-card>
     </div>
-    <div class="col-lg-auto col-md-6 col-sm-12 mb-3">
-      <app-dashboard-card [routerLink]="['/dashboard/AssetsIndex']"  [title]="isArabic?'الأصول' : 'Assets'" [value]="adminCounts.assetCount"
-         [icon]="'assets/images/profile/workdays.png'">
+    <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+      <app-dashboard-card [title]="'Deductions'" [value]="156" [percentage]="'15.03%'" [bgColor]="'#F3E7FE'"
+        [color]="'#1F2933'">
       </app-dashboard-card>
-    </div>
-    <div class="col-lg-auto col-md-6 col-sm-12 mb-3">
-      <app-dashboard-card (click)="navigateToSecondPageWithTab(3)" [title]="isArabic? 'الوظائف' : 'Positions'" [value]="adminCounts.positionCount"
-         [icon]="'assets/images/profile/workdays.png'">
-      </app-dashboard-card>
-    </div>
-    <div class="col-lg-auto col-md-6 col-sm-12 mb-3">
-      <app-dashboard-card (click)="navigateToSecondPageWithTab(2)" [title]="isArabic? 'الأقسام' : 'Departments'" [value]="adminCounts.departmentCount"
-         [icon]="'assets/images/profile/workdays.png'">
-      </app-dashboard-card>
-    </div>
+    </div> -->
 
   </div>
 
-  <div class="row chartRow justify-content-center">
-    <!-- <div class="col-lg-6 col-md-12 col-sm-12 customStyle">
+  <!-- <div class="row chartRow justify-content-center">
+     <div class="col-lg-6 col-md-12 col-sm-12 customStyle">
       <app-bar-chart #departemployee [chartData]="'chartDepartemployee'" class="chartText" [data]="departmentEmploye" [title]="'Departments Employees' | translate" [xName]="'name'"
         [yName]="'count'" [tooltipMappingName]="'Text'" [backgroundColor]="'white'"
         [barWidth]=".3"></app-bar-chart>
-    </div> -->
+    </div>  
     <div class="col-lg-12 col-md-12 col-sm-12 customStyle">
       <app-bar-chart
         #assets [chartData]="'chartassetsCategory'"  class="chartText" [data]="assetCategory" [title]="'Assets Category' | translate" [xName]="isArabic?'nameAr':'name'"
@@ -62,7 +143,7 @@
         [barWidth]=".25"></app-bar-chart>
     </div>
 
-    <!-- <div class="col-lg-6 col-md-12 col-sm-12 customStyle d-flex flex-column">
+    <div class="col-lg-6 col-md-12 col-sm-12 customStyle d-flex flex-column">
 
        <div class="chart-wrapper w-100">
         <h3 class="chart-title text-center">{{'Traffic by Location' | translate}}</h3>
@@ -70,28 +151,44 @@
           <donut-chart [data]="donutChartData" [options]="donutChartOptions"></donut-chart>
         </div>
       </div>
-    </div> -->
+    </div>  
 
-  </div>
-  <app-modern-table
-    [tableTitle]="'Overview'"
-    [totalRows]="attendances.totalRows"
-    [tableData]="attendances.list"
-    [columns]="isArabic?columnsAr:columns"
-    [isThereSearch]="false"
-    [isThereEdit]="false"
-    [isThereDelete]="false"
-    [newAction]="newAction"
-    (searchDateApi)="searchDateApi($event)"
-    (newReqByPage)="getAttendances({},$event)"
-    (onCLickNewActionOutput)="map($event)"
-    searchPlaceholder="Search data...">
+  </div> -->
+  <!-- <div class="row mt-5">
+    <div class="col-lg-6" *ngIf="!isArabic" [ngClass]="{ 'ps-4': isArabic, 'pe-4': !isArabic }">
+      <div class="chart">
+        <app-basic-line-chart [chartOptions]="barChartOptions"></app-basic-line-chart>
+      </div>
+    </div>
+      <div class="col-lg-6" *ngIf="isArabic"
+      [ngClass]="{ 'ps-4': isArabic, 'pe-4': !isArabic }">
+        <div class="chart">
+          <app-basic-line-chart [chartOptions]="barChartOptionsAr"></app-basic-line-chart>
+        </div>
+      </div>  
+      <div class="col-lg-6" *ngIf="!isArabic" [ngClass]="{ 'pe-4 ': isArabic, 'ps-4': !isArabic }">
+        <div class="chart">
+          <app-basic-donut-chart [chartOptions]="donutChartOptions"></app-basic-donut-chart>
+        </div>
+      </div>
+      
+    <div class="col-lg-6" *ngIf="isArabic"
+      [ngClass]="{ 'pe-4 ': isArabic, 'ps-4': !isArabic }">
+        <div class="chart">
+          <app-basic-donut-chart [chartOptions]="donutChartOptionsAr"></app-basic-donut-chart>
+        </div>
+      </div>  
+  </div> -->
+
+  <app-modern-table [tableTitle]="'Overview'" [totalRows]="attendances.totalRows" [tableData]="attendances.list"
+    [columns]="isArabic?columnsAr:columns" [isThereSearch]="false" [isThereEdit]="false" [isThereDelete]="false"
+    [newAction]="newAction" (searchDateApi)="searchDateApi($event)" (newReqByPage)="getAttendances({},$event)"
+    (onCLickNewActionOutput)="map($event)" searchPlaceholder="Search data...">
   </app-modern-table>
 
 </div>
 
-<!-- Modal -->
-<div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+ <div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

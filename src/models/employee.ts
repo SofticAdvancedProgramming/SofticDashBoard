@@ -54,3 +54,24 @@ export interface employee {
   isActive:boolean
 }
 
+export class LeavesLog {
+  holidayRequest: number;
+  vacationBalance: number;
+
+  constructor(holidayRequest: number = 0, vacationBalance: number = 0) {
+    this.holidayRequest = holidayRequest;
+    this.vacationBalance = vacationBalance;
+  }
+}
+export interface FinancialLog {
+  entitlements: number;
+  deductions: number;
+}
+
+export interface FinancialLogResponse {
+  status: number;
+  message: string;
+  data: FinancialLog;
+  errors: any;
+}
+

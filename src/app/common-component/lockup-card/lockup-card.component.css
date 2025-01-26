@@ -25,13 +25,13 @@
  }
 
  .card {
-     background: #FFFFFF;
+      height: 254px;
      gap: 0px;
      border-radius: 14px;
      opacity: 0px;
-     padding: 2em;
      border: none;
-     height: 35vh;
+     justify-content: space-between;
+     padding: 1em;
  }
 
  .img {
@@ -46,25 +46,31 @@
      height: auto;
  }
 
- /* Text styling */
  .Customheader {
-     color: #0D0714;
+
      font-family: Lama Sans;
      font-size: 20px;
      font-weight: 700;
      line-height: 27px;
      letter-spacing: 0.03em;
+     text-underline-position: from-font;
+     text-decoration-skip-ink: none;
+     color: #0D0714;
      margin: 0px;
+
  }
 
  .description {
-     color: #736F77;
+    color: #736F77;
      font-family: Lama Sans;
-     font-size: 16px;
-     font-weight: 300;
-     line-height: 26px;
-     letter-spacing: 0.03em;
-     text-align: left;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 26px;
+    letter-spacing: 0.03em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    
 
  }
 
@@ -74,9 +80,8 @@
  }
 
  .customIcon {
-     background-color:#8413F8;
-     border-radius: 50%;
      padding: 1em;
+      
  }
 
  .lockupButton {
@@ -100,4 +105,15 @@
      transform: rotate(180deg);
      color: var(--primary-color);
 
+ }
+
+ .iconContainer {
+     width: 45px;
+     height: 45px;
+     background-color: #8413F8;
+     border-radius: 50%;
+     justify-content: center;
+     display: flex
+ ;
+     align-items: center;
  }

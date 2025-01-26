@@ -1,9 +1,7 @@
-<div class=" justify-content-center d-flex">
-    <div [ngClass]="cardClass" class="mt-2 lightCard">
-      <p>{{ title }}</p>
-      <div class="text">
-        <p>{{ value }}</p>
-      </div>
-    </div>
-  </div>
-  
+<div class="card-container" [ngStyle]="{'background-color': bgColor}">
+  <p [ngStyle]="{'color': color}" class="card-title">{{ title }}</p>
+  <div class="card-value">
+    <p  [ngStyle]="{'color': color}">{{ value }}</p>
+   </div>
+  <img *ngIf="icon" [src]="icon" alt="icon" class="card-icon">
+</div>

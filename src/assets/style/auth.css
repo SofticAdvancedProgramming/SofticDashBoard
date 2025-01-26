@@ -1,5 +1,5 @@
 .customContainer {
-    width: 75%;
+    width: 100%;
 }
 
 .landing {
@@ -8,7 +8,7 @@
 
 .logo {
     display: flex;
- }
+}
 
 .authContainer {
     padding: 3em;
@@ -25,7 +25,6 @@
     font-weight: 700;
     line-height: 40px;
     letter-spacing: 0.03em;
-    text-align: center;
 }
 
 .logo img {
@@ -69,11 +68,15 @@
 
 .customLabels label {
     color: #0D0714;
+    padding: 0;
     font-family: Lama Sans;
     font-size: 18px;
     font-weight: 500;
     line-height: 30px;
     letter-spacing: 0.03em;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
 }
 
 .customLabels input {
@@ -84,6 +87,7 @@
     opacity: 0px;
     padding: 0.6em;
     width: 100%;
+
 }
 
 .customLabels input:focus {
@@ -108,6 +112,7 @@
     color: white;
     border: none;
     margin-top: 0.8em;
+    height: 48px;
 }
 
 .customSpan {
@@ -190,12 +195,31 @@
 .imgContainer {
     width: 75%;
 }
+
 .iti {
     width: 100%;
 }
-.backArrow{
+
+.backArrow {
     width: 30px;
     height: 30px;
     margin-right: 0.3em;
     margin-left: 0.3em;
+}
+
+.forgetPassword {
+    font-family: Lama Sans;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 30px;
+    letter-spacing: 0.03em;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #9ACA3C;
+    cursor: context-menu;
+}
+.text-danger small {
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

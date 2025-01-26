@@ -39,22 +39,22 @@ export type ChartOptions = {
   standalone: true,
   templateUrl: './assets-index.component.html',
   styleUrls: ['./assets-index.component.css'],
-  imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent, RouterLink,TranslateModule,DatePipe,CommonModule],
+  imports: [BasicLineChartComponent, NgApexchartsModule, BasicDonutChartComponent, RouterLink, TranslateModule, DatePipe, CommonModule],
 })
-export class AssetsIndexComponent{
+export class AssetsIndexComponent {
   constructor(
-      private assetsService: AssetsService,
-      private translate: TranslateService,
-      private localStorage:LocalStorageService){
-        this.companyId = Number(localStorage.getItem('companyId'));
-        this.getAssetsCount();
-        this.getAssetsPerCategoriesCount();
-        this.getAssetCountPerLastThreeMonths();
+    private assetsService: AssetsService,
+    private translate: TranslateService,
+    private localStorage: LocalStorageService) {
+    this.companyId = Number(localStorage.getItem('companyId'));
+    this.getAssetsCount();
+    this.getAssetsPerCategoriesCount();
+    this.getAssetCountPerLastThreeMonths();
   }
 
-  date :Date =new Date()
+  date: Date = new Date()
   companyId: number = 0;
-  assetsCount!:{
+  assetsCount!: {
     companyId: number,
     totalAssetsCount: number,
     outOfServiceDepreciationCount: number,
@@ -62,86 +62,86 @@ export class AssetsIndexComponent{
     unassignedAssetsCount: number
   }
 
-  assetsInCategoriesCount:{
+  assetsInCategoriesCount: {
     name: string,
     nameAr: string,
     count: number
-  }[]=[]
-  assetCountPerLastThreeMonths:{
+  }[] = []
+  assetCountPerLastThreeMonths: {
     month: string,
     monthAr: string,
     assetCount: number
-  }[]=[]
-  assetsCategoryInArabic:string[]=[]
-  assetsCategoryInEnglish:string[]=[]
-  assetsInCatCount:number[]=[];
-  assetCountPerLastThreeMonthsInArabic:string[]=[]
-  assetCountPerLastThreeMonthsInEnglish:string[]=[]
-  assetCountPerLastThreeMonthsCount:number[]=[];
-  isAssined:boolean=true;
-  getAssetsCount(){
-    const req=null;
+  }[] = []
+  assetsCategoryInArabic: string[] = []
+  assetsCategoryInEnglish: string[] = []
+  assetsInCatCount: number[] = [];
+  assetCountPerLastThreeMonthsInArabic: string[] = []
+  assetCountPerLastThreeMonthsInEnglish: string[] = []
+  assetCountPerLastThreeMonthsCount: number[] = [];
+  isAssined: boolean = true;
+  getAssetsCount() {
+    const req = null;
     this.assetsService.getAssetsCount(req).subscribe(
       {
-        next:(res)=>{
-        
-          this.assetsCount={
-            companyId:res.companyId,
-            totalAssetsCount:res.totalAssetsCount,
-            outOfServiceDepreciationCount:res.outOfServiceDepreciationCount,
+        next: (res) => {
+
+          this.assetsCount = {
+            companyId: res.companyId,
+            totalAssetsCount: res.totalAssetsCount,
+            outOfServiceDepreciationCount: res.outOfServiceDepreciationCount,
             assignedAssetsCount: res.assignedAssetsCount,
             unassignedAssetsCount: res.unassignedAssetsCount
           }
         },
-        error:(res)=>{
-        
+        error: (res) => {
+
         }
       }
     )
   }
 
-  getAssetsPerCategoriesCount(){
-    const req={
-      companyId:this.companyId
+  getAssetsPerCategoriesCount() {
+    const req = {
+      companyId: this.companyId
     };
     this.assetsService.AssetCategorycounts(req).subscribe(
       {
-        next:(res)=>{
-          this.assetsInCategoriesCount=res;
-          res.map((item:any)=>{
+        next: (res) => {
+          this.assetsInCategoriesCount = res;
+          res.map((item: any) => {
             this.assetsCategoryInArabic.push(item.nameAr);
             this.assetsCategoryInEnglish.push(item.name);
             this.assetsInCatCount.push(item.count);
           }
-        )
+          )
         },
 
-        error:(res)=>{
-          
+        error: (res) => {
+
         }
       }
     )
   }
 
 
-  getAssetCountPerLastThreeMonths(){
-    const req={
-      companyId:this.companyId
+  getAssetCountPerLastThreeMonths() {
+    const req = {
+      companyId: this.companyId
     };
     this.assetsService.GetAssetCountPerLastThreeMonths(req).subscribe(
       {
-        next:(res)=>{
-          this.assetCountPerLastThreeMonths=res;
-          res.data.map((item:any)=>{
+        next: (res) => {
+          this.assetCountPerLastThreeMonths = res;
+          res.data.map((item: any) => {
             this.assetCountPerLastThreeMonthsInArabic.push(item.month);
             this.assetCountPerLastThreeMonthsInEnglish.push(item.month);
             this.assetCountPerLastThreeMonthsCount.push(item.assetCount);
           }
-        )
+          )
         },
 
-        error:(res)=>{
-        
+        error: (res) => {
+
         }
       }
     )
@@ -151,8 +151,7 @@ export class AssetsIndexComponent{
     return localStorage.getItem('lang') === 'ar';
   }
 
-  // Bar Chart Options
-  barChartOptions = {
+   barChartOptions = {
     series: [
       {
         name: 'Assets',
@@ -221,10 +220,10 @@ export class AssetsIndexComponent{
         columnWidth: '25%',
         borderRadius: 10,
         colors: {
-          ranges: [], // Leave empty if not using range-based coloring
-          backgroundBarColors: [], // Optional for background bar colors
+          ranges: [],  
+          backgroundBarColors: [],  
           backgroundBarOpacity: 0.5,
-          distributed: true // Enables different colors for each bar
+          distributed: true 
         }
       }
     },
@@ -237,7 +236,7 @@ export class AssetsIndexComponent{
       colors: ['transparent']
     },
     xaxis: {
-      categories:this.assetCountPerLastThreeMonthsInArabic
+      categories: this.assetCountPerLastThreeMonthsInArabic
     },
     yaxis: {
       title: {
@@ -249,7 +248,7 @@ export class AssetsIndexComponent{
     },
     fill: {
       opacity: 1,
-      colors: ['#FD0000','#9ACA3C','#FF9560']  // Specify different colors for each bar
+      colors: ['#FD0000', '#9ACA3C', '#FF9560']  // Specify different colors for each bar
     },
     tooltip: {
       y: {
@@ -265,12 +264,12 @@ export class AssetsIndexComponent{
 
   donutChartOptions = {
     //series: [44, 55, 41, 17, 15],
-    series:  this.assetsInCatCount,
+    series: this.assetsInCatCount,
     chart: {
       width: 380,
       type: 'donut' as ChartType
     },
- //   labels: ['Category 1', 'Category 2', 'Category 3'],
+    //   labels: ['Category 1', 'Category 2', 'Category 3'],
     labels: this.assetsCategoryInEnglish,
     dataLabels: {
       enabled: false
@@ -298,13 +297,11 @@ export class AssetsIndexComponent{
     ]
   };
   donutChartOptionsAr = {
-    //series: [44, 55, 41, 17, 15],
-    series:  this.assetsInCatCount,
+    series: this.assetsInCatCount,
     chart: {
       width: 380,
       type: 'donut' as ChartType
     },
- //   labels: ['Category 1', 'Category 2', 'Category 3'],
     labels: this.assetsCategoryInArabic,
     dataLabels: {
       enabled: false
