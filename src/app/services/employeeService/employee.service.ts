@@ -98,5 +98,8 @@ export class EmployeeService {
   getLeavesLog(request: any = {}): Observable<any> {
     return this.apiCall.request('POST', employeeController.GetLeavesLog, request);
   }
+  getFinancialLog(request: any = {}): Observable<any> {
+    return this.apiCall.request('POST', employeeController.GetFinancialLog, request);
+  }
 
 }

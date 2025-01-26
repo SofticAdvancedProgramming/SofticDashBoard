@@ -63,4 +63,15 @@ export class LeavesLog {
     this.vacationBalance = vacationBalance;
   }
 }
+export interface FinancialLog {
+  entitlements: number;
+  deductions: number;
+}
+
+export interface FinancialLogResponse {
+  status: number;
+  message: string;
+  data: FinancialLog;
+  errors: any;
+}
 

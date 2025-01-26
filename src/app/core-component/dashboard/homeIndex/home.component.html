@@ -74,6 +74,25 @@
         ></app-dashboard-card>
       </div>
       
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+        <app-dashboard-card
+          [title]="isArabic ? 'الاستحقاقات' : 'Entitlements'"
+          [value]="financialLogData.entitlements"
+          [percentage]="'0.00%'"
+          [bgColor]="'#FFFFFF'"
+          [color]="'#993BF9'"
+        ></app-dashboard-card>
+      </div>
+      
+      <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+        <app-dashboard-card
+          [title]="isArabic ? 'الخصومات' : 'Deductions'"
+          [value]="financialLogData.deductions"
+          [percentage]="'0.00%'"
+          [bgColor]="'#F3E7FE'"
+          [color]="'#1F2933'"
+        ></app-dashboard-card>
+      </div>
     <!-- <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
       <app-dashboard-card routerLink='/dashboard/ViewEmployees' [title]="isArabic? 'الموظفين' : 'Employees'"
         [value]="adminCounts.employeeCount" [percentage]="'11.02%'" [bgColor]="'#FFFFFF'" [color]="'#993BF9'">

@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 import { BasicLineChartComponent } from "../../../common-component/basic-line-chart/basic-line-chart.component";
 import { BasicDonutChartComponent } from "../../../common-component/basic-donut-chart/basic-donut-chart.component";
 import { ChartType } from 'ng-apexcharts';
-import { LeavesLog } from '../../../../models/employee';
+import { FinancialLog, LeavesLog } from '../../../../models/employee';
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -95,7 +95,7 @@ export class HomeIndexComponent {
     this.assetCategorycounts();
     this.GetAttendanceDetails();
     this.fetchLeavesLog();
-
+    this.fetchFinancialLog(); 
   }
 
   public dashboardCards: any = [];
@@ -110,7 +110,11 @@ export class HomeIndexComponent {
       positionCount: number,
       departmentCount: number
     }
-
+    public financialLogData: FinancialLog = {
+      entitlements: 0,
+      deductions: 0,
+    };
+    
 
   public chartData: Object[] = [
     { Country: this.translateService.translate("Request an advance"), Literacy_Rate: 19.1 },
@@ -361,7 +365,29 @@ export class HomeIndexComponent {
       }
     );
   }
-
+  fetchFinancialLog() {
+    const currentYear = new Date().getFullYear(); 
+  
+    const request = {
+       companyId: this.comapnyId, 
+      year: currentYear, 
+    };
+  
+    this.employeeService.getFinancialLog(request).subscribe(
+      (res) => {
+        if (res && res.status === 200 && res.data) {
+          this.financialLogData = res.data;
+          console.log('Financial Log Data:', this.financialLogData);
+        } else {
+          console.error('Failed to fetch financial log data:', res);
+        }
+      },
+      (error) => {
+        console.error('Error fetching financial log data:', error);
+      }
+    );
+  }
+  
 }
 
 

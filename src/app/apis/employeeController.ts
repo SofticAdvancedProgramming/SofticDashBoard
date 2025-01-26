@@ -25,4 +25,5 @@ export const employeeController = {
   editEmployeeAttendanceLocation:`${environment.apiBaseUrl}EmployeeAttendanceLocation/Edit`,
   GetEmployees: `${environment.apiBaseUrl}Employee/Get`,
   GetLeavesLog: `${environment.apiBaseUrl}Employee/LeavesLog`,
+  GetFinancialLog: `${environment.apiBaseUrl}Employee/FinancialLog`,
  };
