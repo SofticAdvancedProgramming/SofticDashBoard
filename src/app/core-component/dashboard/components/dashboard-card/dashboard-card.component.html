@@ -2,7 +2,6 @@
   <p [ngStyle]="{'color': color}" class="card-title">{{ title }}</p>
   <div class="card-value">
     <p  [ngStyle]="{'color': color}">{{ value }}</p>
-    <span>{{ percentage }}</span>
-  </div>
+   </div>
   <img *ngIf="icon" [src]="icon" alt="icon" class="card-icon">
 </div>

@@ -59,12 +59,6 @@ export class HomeIndexComponent {
   form!: FormGroup;
   cards: any = [];
   comapnyId: number = Number(localStorage.getItem('companyId')) || 0;
-  assetsCategoryInArabic: string[] = []
-  assetsCategoryInEnglish: string[] = []
-  assetsInCatCount: number[] = [];
-  assetCountPerLastThreeMonthsInArabic: string[] = []
-  assetCountPerLastThreeMonthsInEnglish: string[] = []
-  assetCountPerLastThreeMonthsCount: number[] = [];
   public leavesLogData: LeavesLog = new LeavesLog();
 
   public newAction: any = [{
@@ -91,9 +85,7 @@ export class HomeIndexComponent {
     this.getStatistics();
     this.getAttendances({}, 1);
     this.getAdminStatistics();
-    this.getDepartmentEmployeeCounts();
-    this.assetCategorycounts();
-    this.GetAttendanceDetails();
+      this.GetAttendanceDetails();
     this.fetchLeavesLog();
     this.fetchFinancialLog(); 
   }
@@ -114,9 +106,6 @@ export class HomeIndexComponent {
       entitlements: 0,
       deductions: 0,
     };
-    
-
- 
 
  
  
@@ -187,12 +176,6 @@ export class HomeIndexComponent {
     }))
   }
 
-  getDepartmentEmployeeCounts() {
-    this.adminStatics.employeeDepartmentcounts(null).subscribe((res => {
-
-      this.departmentEmploye = res;
-    }))
-  }
 
   get isArabic(): boolean {
     return localStorage.getItem('lang') === 'ar';
@@ -200,97 +183,6 @@ export class HomeIndexComponent {
   }
 
 
-  assetCategorycounts() {
-    this.adminStatics.assetCategorycounts(null).subscribe((res => {
-      this.assetCategory = res;
-    }))
-  }
-
-  barChartOptions = {
-    series: [
-      {
-        name: 'Assets',
-        data: this.assetCountPerLastThreeMonthsCount
-      }
-    ],
-    chart: {
-      type: 'bar' as ChartType,
-      height: 300
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: '25%',
-        borderRadius: 10
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      show: true,
-      width: 0,
-      colors: ['transparent']
-    },
-    xaxis: {
-      categories: this.assetCountPerLastThreeMonthsInEnglish
-    },
-    yaxis: {
-      title: {
-        text: 'Assets Count',
-        style: {
-          fontFamily: 'lama sans',
-        },
-      }
-    },
-    fill: {
-      opacity: 1,
-      colors: ['#FF4560', '#00FFFF', '#ffff00']
-    },
-    tooltip: {
-      y: {
-        formatter: function (val: any) {
-          return `${val} assets`;
-        }
-      }
-    },
-    legend: {
-      show: true
-    }
-  };
-  donutChartOptions = {
-    series: this.assetsInCatCount,
-    chart: {
-      width: 380,
-      type: 'donut' as ChartType
-    },
-
-    labels: this.assetsCategoryInEnglish,
-    dataLabels: {
-      enabled: false
-    },
-    fill: {
-      type: 'gradient'
-    },
-    legend: {
-      formatter: function (val: any, opts: any) {
-        return `${val} - ${opts.w.globals.series[opts.seriesIndex]}`;
-      }
-    },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200
-          },
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }
-    ]
-  };
   GetAttendanceDetails() {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
