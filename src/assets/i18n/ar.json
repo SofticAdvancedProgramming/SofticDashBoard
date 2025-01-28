@@ -1005,5 +1005,17 @@
   "BRANCH_NAME": "الفرع :",
   "DEPARTMENT_NAME": "القسم :",
   "POSITION_TYPE": "نوع الوظيفة :",
-  "CREATED_AT": "انشأت فى :"
+  "CREATED_AT": "انشأت فى :",
+  "SEARCH": "بحث",
+  "TODO": "قيد العمل",
+  "IN_PROGRESS": "جار التنفيذ",
+  "SUBMIT_FOR_REVIEW": "للمراجعة",
+  "DONE": "تم",
+  "NO_TASKS": "لا توجد مهام",
+  "TASK_TITLE": "عنوان المهمة",
+  "TASK_DESCRIPTION": "الوصف",
+  "CALENDAR": "تاريخ البداية",
+  "ASSIGNEE": "المُكلَّف",
+  "FILTER": "تصفية",
+  "DROP_TASKS": "أسقط المهام هنا"
 }
