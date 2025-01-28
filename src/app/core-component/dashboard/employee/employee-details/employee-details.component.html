@@ -79,6 +79,12 @@
         (click)="setActiveTab('attendance')">
         {{ "employeeDetails.attendance" | translate }}
       </div>
+      <div
+        class="tab"
+        [ngClass]="{ active: activeTab === 'tasks' }"
+        (click)="setActiveTab('tasks')">
+        {{ "employeeDetails.tasks" | translate }}
+      </div>
       }
     </div>
   </div>
@@ -123,6 +129,9 @@
   </div>
   <div *ngIf="activeTab === 'attendance'">
     <app-employee-attendance></app-employee-attendance>
+  </div>
+  <div *ngIf="activeTab === 'tasks'">
+    <app-employee-tasks></app-employee-tasks>
   </div>
   }
 </div>

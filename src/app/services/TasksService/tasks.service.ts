@@ -89,4 +89,7 @@ export class TasksService {
   {
     return this.http.request('POST', TasksPrioritiesController.GET , request);
   }
+  GetTaskAssignment(request: any): Observable<any> {
+    return this.http.request('POST', TasksBaseController.GetTaskAssignment, request);
+  }
 }
