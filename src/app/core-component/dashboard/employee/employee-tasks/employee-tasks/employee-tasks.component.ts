@@ -12,24 +12,26 @@ import { Task, TaskAssignment } from '../../../models/Task';
 import { TasksService } from '../../../../../services/TasksService/tasks.service';
 import { tasksStatus } from '../../../../../core/enums/taskStatus';
 import { ShortenPipe } from '../../../../../core/pipes/shorten.pipe';
+import { TasksFilterPopUpComponent } from "../../../../../common-component/tasks-filter-pop-up/tasks-filter-pop-up/tasks-filter-pop-up.component";
 
 @Component({
-  selector: 'app-employee-tasks',
-  standalone: true,
-   templateUrl: './employee-tasks.component.html',
-  styleUrl: './employee-tasks.component.css',
- imports: [
-    TranslateModule,
-    RouterLink,
-    RouterLinkActive,
-    DragDropModule,
-    NgIf,
-    NgFor,
-    NgClass,
-     FormsModule,
-    DatePipe,
-    ShortenPipe,
-   ]
+    selector: 'app-employee-tasks',
+    standalone: true,
+    templateUrl: './employee-tasks.component.html',
+    styleUrl: './employee-tasks.component.css',
+    imports: [
+        TranslateModule,
+        RouterLink,
+        RouterLinkActive,
+        DragDropModule,
+        NgIf,
+        NgFor,
+        NgClass,
+        FormsModule,
+        DatePipe,
+        ShortenPipe,
+        TasksFilterPopUpComponent
+    ]
 })
 export class EmployeeTasksComponent {
 
@@ -85,84 +87,10 @@ export class EmployeeTasksComponent {
     console.log("Searching for:", this.searchText);
     this.getAssignedTasks(this.searchText);  
   }
-  onDrop(event: CdkDragDrop<Task[]>): void {
-    const droppedTask: Task = event.item.data;
-    const droppedIntoStatus = event.container.id;
-
-    console.log(`Dropped task: ${droppedTask.id} into status: ${droppedIntoStatus}`);
-  
-    console.log("Dropped Task:", droppedTask);
-    console.log("Dropped Into Status:", droppedIntoStatus);
-  
-    if (
-      droppedTask.statusId === tasksStatus.Done ||
-      droppedTask.statusId === tasksStatus.Archived
-    ) {
-      
-      this.toast.error('This task has been completed or archived and cannot be moved.');
-      return;
-    }
-  
-    let roles: any[] = JSON.parse(localStorage.getItem("roles") || "[]");
-    const isAdmin = roles.includes('admin');
-  
-    console.log("Is Admin:", isAdmin);
-  
-    if (!isAdmin && (droppedIntoStatus === "Done" || droppedIntoStatus === "Archived") && this.employeeId!=droppedTask.createdBy) {
-       this.toast.error('You have not permissions to move this task to done or archived');
-      return;
-    }
-  
-    const newStatusId = this.getStatusIdFromString(droppedIntoStatus);
-    console.log(`New Status ID for ${droppedIntoStatus}:`, newStatusId);
-  
-    if (event.previousContainer === event.container) {
-      console.log("Reordering within the same list");
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      console.log("Moving item between lists");
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
-  
-    console.log("Updating task status...");
-    this.changeTaskStatus(droppedTask.id, newStatusId);
-  }
-  
+ 
 
 
-  changeTaskStatus(taskId: number, statusId: number): void {
-    console.log(`Updating Task ${taskId} to Status ID ${statusId}`);
-
-    this.tasksService.assignTaskStatus({ taskId, statusId }).subscribe({
-        next: response => {
-            console.log("Task status updated:", response);
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Task status updated successfully!'
-            });
-            this.toast.success('Task status updated successfully!');
-
-            
-        },
-        error: err => {
-            console.error("Failed to update task status:", err);
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Failed to update task status.'
-            });
-            this.toast.error('Failed to update task status.');
-
-        }
-    });
-}
-
+ 
 
  
 
