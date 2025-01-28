@@ -1,6 +1,6 @@
 {
-  "Yes":"نعم",
-  "No":"لا",
+  "Yes": "نعم",
+  "No": "لا",
   "errorModels": {
     "1": "البريد الإلكتروني مستخدم بالفعل.",
     "2": "البريد الإلكتروني غير موجود.",
@@ -94,7 +94,7 @@
     "DESCRIPTION_MIN_AR": "يجب أن يكون الوصف بالعربية 5 حرف على الأقل.",
     "DESCRIPTION_MAX_AR": "لا يمكن أن يتجاوز الوصف بالعربية 250 حرفًا.",
     "FAX": "فاكس",
-    "CENTRALIZED_DEPARTMENT":"ادارة مركزية",
+    "CENTRALIZED_DEPARTMENT": "ادارة مركزية",
     "currency": "العملة",
     "instagram": "انستجرام",
     "X": "اكس",
@@ -115,9 +115,9 @@
     "search_position": "بحث عن المسمى الوظيفي"
   },
   "addBranch": {
-    "FAILED_TO_ADD_BRANCH":"خطأ في إضافة الفرع",
+    "FAILED_TO_ADD_BRANCH": "خطأ في إضافة الفرع",
     "BRANCH_EDITED_SUCCESSFULLY": "تمت تعديل الفرع بنجاح",
-    "PLEASE_FILL_REQUIRED_FIELDS":"يرجى ملء جميع الحقول المطلوبة",
+    "PLEASE_FILL_REQUIRED_FIELDS": "يرجى ملء جميع الحقول المطلوبة",
     "BRANCH_NAME_EN": "اسم الفرع (بالإنجليزية)",
     "BRANCH_NAME_AR": "اسم الفرع (بالعربية)",
     "ENTER_BRANCH_NAME": "أدخل اسم الفرع",
@@ -137,7 +137,7 @@
     "ERROR_ADDING_BRANCH": "خطأ في إضافة الفرع"
   },
   "viewBranches": {
-    "Branch":"فرع",
+    "Branch": "فرع",
     "ADD_BRANCH": "إضافة فرع",
     "ADD_EMPLOYEE": "إضافة موظف",
     "SHOW_DETAILS": "عرض التفاصيل",
@@ -169,7 +169,7 @@
     "ASSIGN": "تعيين"
   },
   "ADD_DEPARTMENT": {
-    "DEPARTMENT_SHORT_NAME":"الاسم المختصر",
+    "DEPARTMENT_SHORT_NAME": "الاسم المختصر",
     "DEPARTMENT_NAME_EN": "اسم القسم (بالإنجليزية)",
     "DEPARTMENT_NAME_AR": "اسم القسم (بالعربية)",
     "DEPARTMENT_abbreviation": "اسم القسم المختصر",
@@ -189,7 +189,7 @@
     "CHARACTERS_COUNT": "  حرف",
     "HR": "موارد بشرية",
     "FINANCIAL": "مالية",
-    "IS_CENTRALIZED":"ادارة مركزية"
+    "IS_CENTRALIZED": "ادارة مركزية"
   },
   "DEPARTMENTS": {
     "ADD_DEPARTMENT": "إضافة قسم",
@@ -223,12 +223,12 @@
     "ASSIGN": "تعيين"
   },
   "ADD_POSITION": {
-    "SELECT_BRANCH":"اختر فرع",
+    "SELECT_BRANCH": "اختر فرع",
     "POSITION_TYPE": "نوع الوظيفة",
     "SELECT_POSITION_TYPE": "اختر نوع الوظيفة",
     "DEPARTMENT": "القسم",
-    "Branch":"الفرع",
-    "SELECT_Branch":"اختر الفرع",
+    "Branch": "الفرع",
+    "SELECT_Branch": "اختر الفرع",
     "SELECT_DEPARTMENT": "اختر القسم",
     "DIRECT_MANAGER": "مدير مباشر",
     "POSITION": "الوظيفة",
@@ -257,13 +257,13 @@
   },
   "RELATED_ASSETS": {
     "TITLE": "الأصول ذات الصلة",
-    "MAINASSETS":"الأصول الرئيسية",
+    "MAINASSETS": "الأصول الرئيسية",
     "NAME": "الأصول ذات الصلة",
     "NAME_AR": "الأصول ذات الصلة (عربي)",
     "MODEL": "الموديل",
     "DIRECT_PARENT": "الأصل المباشر"
   },
-  "RelatedAssetPopup":{
+  "RelatedAssetPopup": {
     "TITLE": "أضف أصل كمتعلق",
     "Name": "اسم الأصل المتعلق",
     "Submit": "حفظ",
@@ -291,7 +291,7 @@
     "NO": "لا"
   },
   "SIDEBAR": {
-    "Request":"الطلبات",
+    "Request": "الطلبات",
     "QUICK_ACCESS": "الوصول السريع",
     "DASHBOARD": "لوحة القيادة",
     "COMPANY": "شركة",
@@ -316,7 +316,15 @@
     "ThisYear": "هذا العام",
     "LastYear": "العام الماضي"
   },
-  "MONTHS": ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو"],
+  "MONTHS": [
+    "يناير",
+    "فبراير",
+    "مارس",
+    "أبريل",
+    "مايو",
+    "يونيو",
+    "يوليو"
+  ],
   "generalLookups": {
     "SUBSCRIPTION_PLAN_MANAGEMENT": "إدارة خطط الاشتراك",
     "SUBSCRIPTION_PLAN_DESCRIPTION": "إنشاء وإدارة خطط الاشتراك لتلبية احتياجات المستخدمين المتنوعة.",
@@ -336,14 +344,14 @@
     "SEARCH": "بحث..."
   },
   "viewEmployees": {
-    "ACTIVE_CONFIRMATION":"هل أنت متأكد أنك تريد تأكيد تنشيط هذا الموظف؟",
-    "ACTIVTE":"تأكيد التنشيط",
+    "ACTIVE_CONFIRMATION": "هل أنت متأكد أنك تريد تأكيد تنشيط هذا الموظف؟",
+    "ACTIVTE": "تأكيد التنشيط",
     "DELETEEmployeeFromPosITON_CONFIRMATION": "هل أنت متأكد أنك تريد حذف الموظف من هذه الوظيفة؟",
-    "DEACTIVE":"الغاء التنشيط",
-    "DEACTIVE_CONFIRMATION":"هل أنت متأكد أنك تريد الغاء تنشيط هذا الموظف؟",
-    "HIRINDATE":"تاريخ التوظيف",
-    "STATUS":"الحالة",
-    "JOINDATE":"تاريخ الالتحاق",
+    "DEACTIVE": "الغاء التنشيط",
+    "DEACTIVE_CONFIRMATION": "هل أنت متأكد أنك تريد الغاء تنشيط هذا الموظف؟",
+    "HIRINDATE": "تاريخ التوظيف",
+    "STATUS": "الحالة",
+    "JOINDATE": "تاريخ الالتحاق",
     "CURRENT_EMPLOYEES": "الموظفون الحاليون",
     "NEW_EMPLOYEE_REQUESTS": "طلبات الموظفين الجدد",
     "SEARCH": "بحث...",
@@ -352,8 +360,8 @@
     "DEPARTMENT": "القسم",
     "POSITION": "الوظيفة",
     "ACTION": "إجراء",
-    "ACTIVE":"نشط",
-    "DEACTIVTE":"غير نشط",
+    "ACTIVE": "نشط",
+    "DEACTIVTE": "غير نشط",
     "NO_EMPLOYEES_FOUND": "لم يتم العثور على موظفين",
     "DELETE_CONFIRMATION": "هل أنت متأكد أنك تريد حذف هذا الموظف؟",
     "CANCEL": "إلغاء",
@@ -375,22 +383,22 @@
     "reasonForRejection": "سبب الرفض",
     "writeComment": "من فضلك اكتب تعليقاً لا يزيد عن 300 كلمة"
   },
-  "select":"اختر",
-  "Search by Name":"ابحث بالاسم",
-  "Select main Asset":"اختر الأصل الرئيسي",
-  "Select Sub Asset Category":"اختر الفئة الفرعية",
-  "Select Employee":"اختر الموظف",
+  "select": "اختر",
+  "Search by Name": "ابحث بالاسم",
+  "Select main Asset": "اختر الأصل الرئيسي",
+  "Select Sub Asset Category": "اختر الفئة الفرعية",
+  "Select Employee": "اختر الموظف",
   "assetDetails": {
-    "pending":"قيد القبول",
-    "Attatchment":"الملحقات",
-    "Delete related asset":"إزالة أصل متعلق",
-    "Are you sure you want to delete this related asset?":"هل أنت متأكد أنك تريد حذف هذا الأصل المتعلق؟",
-    "plateNumber":"رقم اللوحة",
-    "assginDate":"تاريخ الإسناد",
-    "serialNumber":"الرقم التسلسلي",
-    "not assigend":"لم يتم اسناده لموظف بعد",
+    "pending": "قيد القبول",
+    "Attatchment": "الملحقات",
+    "Delete related asset": "إزالة أصل متعلق",
+    "Are you sure you want to delete this related asset?": "هل أنت متأكد أنك تريد حذف هذا الأصل المتعلق؟",
+    "plateNumber": "رقم اللوحة",
+    "assginDate": "تاريخ الإسناد",
+    "serialNumber": "الرقم التسلسلي",
+    "not assigend": "لم يتم اسناده لموظف بعد",
     "Details": "التفاصيل",
-    "relateTo":"تابع لـ",
+    "relateTo": "تابع لـ",
     "Assign To Employee": "اسناد لموظف",
     "Add Related Assets": "اضافة متعلق",
     "Asset Name": "الاسم",
@@ -398,7 +406,7 @@
     "Technical description": "الوصف",
     "Model": "الموديل",
     "Address": "العنوان",
-    "Address not available":"العنوان غير متاح",
+    "Address not available": "العنوان غير متاح",
     "Assigned To": "اسناد لـ",
     "Related Assets": "المتعلقات",
     "No related assets available": "لا توجد متعلقات",
@@ -427,9 +435,9 @@
     "nationalIdPhoto": "صورة الهوية الشخصية"
   },
   "employeeDetails": {
-    "Salarytype":"نوع المرتب",
+    "Salarytype": "نوع المرتب",
     "attendance": "الحضور والانصراف",
-
+    "tasks": "المهام",
     "SALARY_ASSIGN_SUCCESS": "تم تخصيص الراتب بنجاح",
     "grossSalary": "الراتب الإجمالي",
     "netSalary": "الراتب الصافي",
@@ -464,9 +472,8 @@
     "Save": "حفظ"
   },
   "certificate": {
-
-    "Certificate_Link":"رابط الشهادة",
-    "Certificate_Number":"رقم الشهادة",
+    "Certificate_Link": "رابط الشهادة",
+    "Certificate_Number": "رقم الشهادة",
     "Certificates": "الشهادات",
     "Certificate_Name": "اسم الشهادة",
     "Specialist": "التخصص",
@@ -846,19 +853,19 @@
   "ActivEmployees": "الموظفين النشطاء",
   "DeactiveEmployees": "الموظفين الغير نشطاء",
   "Assets": {
-    "Request":"طلبات",
-    "AttachedFiles":"الملفات المرفقة",
-    "SubAssetCategory":"فئة فرعية",
-    "title":"الأصول",
-    "Download":"تحميل",
-    "Import Excel":"تصدير اكسل",
-    "MainAsset":"الأصول الرئيسية",
-    "Add Assets":"إضافة أصول",
-    "All Assets":"جميع الأصول",
-    "Update":"تحديث",
-    "assigned Assets":"الأصول المستخدمة",
-    "out Of Service Depreciation Count":"أصول خارج الخدمة",
-    "not assigned Assets":"الأصول غير المستخدمة",
+    "Request": "طلبات",
+    "AttachedFiles": "الملفات المرفقة",
+    "SubAssetCategory": "فئة فرعية",
+    "title": "الأصول",
+    "Download": "تحميل",
+    "Import Excel": "تصدير اكسل",
+    "MainAsset": "الأصول الرئيسية",
+    "Add Assets": "إضافة أصول",
+    "All Assets": "جميع الأصول",
+    "Update": "تحديث",
+    "assigned Assets": "الأصول المستخدمة",
+    "out Of Service Depreciation Count": "أصول خارج الخدمة",
+    "not assigned Assets": "الأصول غير المستخدمة",
     "AddNewAsset": "إضافة أصل جديد",
     "AssetName": "اسم الأصل",
     "AssetNameAr": "اسم الأصل بالعربية",
@@ -898,12 +905,12 @@
       "uploadAnotherFile": "رفع ملف آخر"
     }
   },
-  "assignAssetPopup":{
-    "Name":"اسم الموظف",
-    "Assign Date":"تاريخ الاسناد",
-    "Submit":"حفظ",
-    "Title":"اسناد أصل الى موظف",
-    "Close":"اغلاق"
+  "assignAssetPopup": {
+    "Name": "اسم الموظف",
+    "Assign Date": "تاريخ الاسناد",
+    "Submit": "حفظ",
+    "Title": "اسناد أصل الى موظف",
+    "Close": "اغلاق"
   },
   "ASSET_UPLOADER": {
     "BROWSE_FILE": "تصفح الملف",
@@ -918,10 +925,9 @@
     "uploadAnotherImage": "تحميل صورة اخرى",
     "uploadAnotherFile": "تحميل ملف اخر"
   },
-
   "employeeAssets": {
-    "mainAsset":"أصل رئيسي",
-    "ParentAsset":"الأصل الرئيسي",
+    "mainAsset": "أصل رئيسي",
+    "ParentAsset": "الأصل الرئيسي",
     "name": "الأصل",
     "category": "الفئة",
     "subcategory": "الفئة الفرعية",
@@ -955,8 +961,8 @@
       "nameRequired": "اسم المهمة مطلوب"
     }
   },
-  "Find":"بحث",
-  "Overview":"ملخص",
+  "Find": "بحث",
+  "Overview": "ملخص",
   "SELECT_DEPARTMENT": "اختر الفرع",
   "SELECT_ASSET_TYPE": "اختار النوع ",
   "assetName": "اسم الاصل",
@@ -968,39 +974,36 @@
   "dayAr": "اليوم",
   "hour": "الساعة",
   "department": "القسم",
-  "Minimum":"اقل قيمة",
-  "Maximum":"اكثر قيمة",
-  "MinmumAndMax":"اقل قيمة يجب ان تكون اقل من او تساوى اكبر قيمة",
-  "AddNewPosition":"اضافه منصب جديد",
-  "Assets Category":"فئات الأصول",
+  "Minimum": "اقل قيمة",
+  "Maximum": "اكثر قيمة",
+  "MinmumAndMax": "اقل قيمة يجب ان تكون اقل من او تساوى اكبر قيمة",
+  "AddNewPosition": "اضافه منصب جديد",
+  "Assets Category": "فئات الأصول",
   "ATTENDANCE": "الحضور",
-  "Departure":"غياب",
-  "Attendance":"حضور",
+  "Departure": "غياب",
+  "Attendance": "حضور",
   "DEPARTURE": "المغادرة",
   "ABSENCE": "الغياب",
   "OVERVIEW": "نظرة عامة",
   "EMPLOYEE": "الموظف",
   "CLOSE": "إغلاق",
-  "TASKS.TASKNAME":"ادخل اسم المهمه",
-  "TASKS.TASKDETAILS":"من فضلك ادخل تفاصيل المهمه",
-  "TASKS.INITIALCOST":"من فضلك ادخل الميزانيه المقترحة",
-  "ASSIGNED_TO_CENTERALIZED_DEPARTMENT":"هل هو منصب داحل قسم عام",
-
-  "IS_CENTERLIZED_DEPARTMENT":"هل هذا قسم عام ؟",
-
+  "TASKS.TASKNAME": "ادخل اسم المهمه",
+  "TASKS.TASKDETAILS": "من فضلك ادخل تفاصيل المهمه",
+  "TASKS.INITIALCOST": "من فضلك ادخل الميزانيه المقترحة",
+  "ASSIGNED_TO_CENTERALIZED_DEPARTMENT": "هل هو منصب داحل قسم عام",
+  "IS_CENTERLIZED_DEPARTMENT": "هل هذا قسم عام ؟",
   "ToDo": {
-  "toDoTitle": "قائمة المهام",
-  "addToDo": "إضافة مهمة",
-  "toDoDescription": "وصف المهمة",
-  "assignTo": "تعيين إلى",
-  "taskPriority": "أولوية المهمة",
-  "selectPriority": "اختر أولوية",
-  "selectEmployee": "اختر الموظف",
-  "remove": "إزالة"
-}
-,
-  "BRANCH_NAME":"الفرع :",
-  "DEPARTMENT_NAME":"القسم :",
-  "POSITION_TYPE":"نوع الوظيفة :",
-    "CREATED_AT":"انشأت فى :"
+    "toDoTitle": "قائمة المهام",
+    "addToDo": "إضافة مهمة",
+    "toDoDescription": "وصف المهمة",
+    "assignTo": "تعيين إلى",
+    "taskPriority": "أولوية المهمة",
+    "selectPriority": "اختر أولوية",
+    "selectEmployee": "اختر الموظف",
+    "remove": "إزالة"
+  },
+  "BRANCH_NAME": "الفرع :",
+  "DEPARTMENT_NAME": "القسم :",
+  "POSITION_TYPE": "نوع الوظيفة :",
+  "CREATED_AT": "انشأت فى :"
 }

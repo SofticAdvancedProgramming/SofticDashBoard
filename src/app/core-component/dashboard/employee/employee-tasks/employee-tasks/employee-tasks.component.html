@@ -1,45 +1,9 @@
-<!-- <div class="mb-4">
-  <div class="row action-section align-items-center">
-    <div class="col-lg-2">
-      <div class="d-flex flex-row justify-content-start align-items-center">
-        <div style="width: 48px; height: 48px;" class="rounded-circle">
-          <img class="mx-1" src="../../../../../assets/images/task.png" alt="Task">
-        </div>
-        <p class="lead">Task board</p>
-      </div>
-    </div>
-
-    <div class="col-lg-4">
-      <div class="d-flex flex-row justify-content-start align-items-center">
-        <input
-          placeholder="{{ 'SEARCH' | translate }}"
-          class="form-control custom-search"
-          [ngModel]="searchText"
-          (ngModelChange)="search($event)"
-        />
-      </div>
-    </div>
-
-    <div class="col-lg-3">
-      <button class="btn action-btn" routerLink="../tasks/addnew">
-        <img src="../../../../../assets/images/add-square.png" alt="Add Task"> Add Task
-      </button>
-    </div>
-  </div>
-</div> -->
+ 
 
 <div class="mb-4">
     <div class="row action-section align-items-center justify-content-between">
-        <div class="col-7 d-flex align-items-center">
-            <div class="col-lg-4">
-                <div class="d-flex flex-row justify-content-start align-items-center">
-                    <div style="width: 48px; height: 48px" class="rounded-circle d-flex align-items-center">
-                        <img class="mx-1" src="../../../../../assets/images/task.png" />
-                    </div>
-                    <p class="lead m-0">Task board</p>
-                </div>
-            </div>
-            <div class="col-lg-8 d-flex align-items-center justify-content-between">
+        <div class="col-9  d-flex align-items-center">
+            <div class="d-flex w-100  align-items-center gap-2">
                 <div class="d-flex flex-row justify-content-start align-items-center col-8">
                     <input placeholder="{{ 'SEARCH' | translate }}" class="form-control custom-search"
                         [(ngModel)]="searchText" (ngModelChange)="search(searchText)" />
@@ -49,26 +13,14 @@
                 </div>
             </div>
         </div>
-        <!-- <div
-        class="col-lg-3 d-flex justify-content-between align-items-center archive-filter-container"
-      >
-        <span class="d-inline-flex justify-content-center align-items-center">
-          <img src="../../../../../assets/images/filter-search.svg" />
-        </span>
-        <button class="btn archive-btn" routerLink="../AddAssets">
-          <img src="../../../../../assets/images/save-2.png" />archive
+        
+        <div class="col-lg-3 d-flex gap-2">
+            <button class="btn Analytics-btn" routerLink="../tasks/tasksArchived">
+           Analytics
         </button>
-      </div> -->
-        <div class="col-lg-5 d-flex gap-2">
             <!-- <button class="btn archive-btn" routerLink="../tasks/tasksArchived">
-          <img src="../../../../../assets/images/analytics.png" />Analytics
-        </button> -->
-            <button class="btn archive-btn" routerLink="../tasks/tasksArchived">
                 <img src="../../../../../assets/images/Archive.png" />Archive
-            </button>
-            <button class="btn action-btn" routerLink="../tasks/addnew" *ngIf="departmentId">
-                <img src="../../../../../assets/images/add-square.png" />Add task
-            </button>
+            </button> -->
         </div>
     </div>
 </div>
@@ -102,8 +54,7 @@
                 </div>
             </div>
 
-            <!-- Placeholder when no tasks are present -->
-            <div *ngIf="tasksByStatus[status]?.length === 0" class="placeholder">
+             <div *ngIf="tasksByStatus[status]?.length === 0" class="placeholder">
                 Drop tasks here
             </div>
         </div>

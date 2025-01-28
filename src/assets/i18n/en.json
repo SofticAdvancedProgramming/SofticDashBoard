@@ -419,6 +419,7 @@
   },
   "employeeDetails": {
     "Salarytype":"Salary type",
+    "tasks": "Tasks",
     "attendance": "Attendance & Departure",
     "SALARY_ASSIGN_SUCCESS": "Salary assigned successfully",
     "grossSalary": "Gross Salary",
