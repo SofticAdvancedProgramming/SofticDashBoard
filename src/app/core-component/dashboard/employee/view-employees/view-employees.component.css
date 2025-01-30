@@ -101,7 +101,7 @@ select.arabic{
 }
 
 .btn-danger {
-  background-color: #ff4d4f; 
+  background-color: #ff4d4f;
   border: none;
   color: #fff;
   transition: background-color 0.3s ease;
@@ -154,4 +154,7 @@ select.arabic{
 }
 .deactive-state{
   color:  #FD0000;;
+}
+.employee-name{
+  text-wrap:unset;
 }

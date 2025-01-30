@@ -1,4 +1,4 @@
-<div class="container">
+<div class="contai ner">
     <div class="row">
         <div class="col-lg-6">
             <p class="header"> <img  class="mx-1" src="../../../../../assets/images/chart.png">{{"Assets.title"|translate}}</p>
@@ -13,35 +13,46 @@
         </div>
     </div>
     <div class="row mt-4 ">
-       <div class="card-container d-flex gab-2 justify-content-between">
-          <div class="col-lg-3 card">
-            <div class="icon" routerLink="../ShowAssets">
-              <img src="../../../../../assets/images/allAssetsColored.png">{{"Assets.All Assets"|translate}}
+       <div class="card-container row   mx-auto px-0">
+          <div class="col-lg-3 ">
+            <div class="card">
+              <div class="icon" routerLink="../ShowAssets">
+                <img src="../../../../../assets/images/allAssetsColored.png">{{"Assets.All Assets"|translate}}
+              </div>
+              <h4 class="">{{assetsCount?.totalAssetsCount}}</h4>
+              <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
             </div>
-            <h4 class="">{{assetsCount?.totalAssetsCount}}</h4>
-            <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
-          </div>
-          <div class="col-lg-3 card">
+            </div>
+          <div class="col-lg-3">
+            <div class="card">
               <div class="icon"  [routerLink]="['../ShowAssets',true]" >
                 <img src="../../../../../assets/images/onDuty.png">{{"Assets.assigned Assets"|translate}}
             </div>
             <h4>{{assetsCount?.assignedAssetsCount}}</h4>
             <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
-          </div>
-          <div class="col-lg-3 card">
-            <div class="icon"  [routerLink]="['../ShowAssets',false]">
-              <img src="../../../../../assets/images/outserv.png">{{"Assets.not assigned Assets"|translate}}
-          </div>
-          <h4>{{assetsCount?.unassignedAssetsCount}}</h4>
-          <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
+
+            </div>
+            </div>
+          <div class="col-lg-3">
+            <div class="card">
+              <div class="icon"  [routerLink]="['../ShowAssets',false]">
+                <img src="../../../../../assets/images/outserv.png">{{"Assets.not assigned Assets"|translate}}
+            </div>
+            <h4>{{assetsCount?.unassignedAssetsCount}}</h4>
+            <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
+
+            </div>
 
           </div>
-          <div class="col-lg-3 card">
-            <div class="icon"  [routerLink]="['../ShowAssets',3]"  >
-              <img src="../../../../../assets/images/outService.png">{{"Assets.out Of Service Depreciation Count"|translate}}
-          </div>
-          <h4>{{assetsCount?.outOfServiceDepreciationCount}}</h4>
-          <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
+          <div class="col-lg-3">
+            <div class="card">
+              <div class="icon"  [routerLink]="['../ShowAssets',3]"  >
+                <img src="../../../../../assets/images/outService.png">{{"Assets.out Of Service Depreciation Count"|translate}}
+            </div>
+            <h4>{{assetsCount?.outOfServiceDepreciationCount}}</h4>
+            <p class="update">{{"Assets.Update"|translate}}:{{date | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</p>
+
+            </div>
 
           </div>
 
@@ -90,27 +101,27 @@
 
         </div> -->
 
-    <div class="row mt-5">
-      <div class="col-lg-6" *ngIf="!isArabic"
-        [ngClass]="{ 'ps-4': isArabic, 'pe-4': !isArabic }">
+    <div class="row mt-4">
+      <div class="col-lg-6 " *ngIf="!isArabic"
+        [ngClass]="{ 'ps-2': isArabic, 'pe-2': !isArabic }">
           <div class="chart">
             <app-basic-line-chart [chartOptions]="barChartOptions"></app-basic-line-chart>
           </div>
         </div>
         <div class="col-lg-6" *ngIf="isArabic"
-        [ngClass]="{ 'ps-4': isArabic, 'pe-4': !isArabic }">
+        [ngClass]="{ 'ps-2': isArabic, 'pe-2': !isArabic }">
           <div class="chart">
             <app-basic-line-chart [chartOptions]="barChartOptionsAr"></app-basic-line-chart>
           </div>
         </div>
-        <div class="col-lg-6" *ngIf="!isArabic"
-        [ngClass]="{ 'pe-4 ': isArabic, 'ps-4': !isArabic }">
+        <div class="col-lg-6 " *ngIf="!isArabic"
+        [ngClass]="{ 'pe-2 ': isArabic, 'ps-2': !isArabic }">
           <div class="chart">
             <app-basic-donut-chart [chartOptions]="donutChartOptions"></app-basic-donut-chart>
           </div>
         </div>
-        <div class="col-lg-6" *ngIf="isArabic"
-        [ngClass]="{ 'pe-4 ': isArabic, 'ps-4': !isArabic }">
+        <div class="col-lg-6 " *ngIf="isArabic"
+        [ngClass]="{ 'pe-2 ': isArabic, 'ps-2': !isArabic }">
           <div class="chart">
             <app-basic-donut-chart [chartOptions]="donutChartOptionsAr"></app-basic-donut-chart>
           </div>
