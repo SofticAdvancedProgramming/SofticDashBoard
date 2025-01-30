@@ -87,13 +87,6 @@ export class EmployeeTasksComponent {
     console.log("Searching for:", this.searchText);
     this.getAssignedTasks(this.searchText);  
   }
- 
-
-
- 
-
- 
-
   getAssignedTasks(searchText?: string): void {
     const companyId = Number(localStorage.getItem("companyId"));
     const query = {

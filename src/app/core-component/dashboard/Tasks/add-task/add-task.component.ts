@@ -135,16 +135,16 @@ export class AddTaskComponent implements OnInit {
           Validators.maxLength(300),
         ],
       ],
-      from: ['', Validators.required],
+      //from: ['', Validators.required],
       initialCost: [''],
-      duration: ['', Validators.required],
+     // duration: ['', Validators.required],
       taskToDoDescription: [''],
       AssetAttachment: [''],
       isGlobal: [false],
       priority: [''],
-      todos: this.fb.array([]), // Initialize the FormArray
-      departmentIds: [[]], // Initialize as an empty array
-      EmployeeIds: [[]] // Initialize as an empty array
+      todos: this.fb.array([]),  
+      departmentIds: [[]], 
+      EmployeeIds: [[]]  
     });
   }
   // Getter for the todos FormArray
@@ -169,15 +169,13 @@ export class AddTaskComponent implements OnInit {
     this.todoService.get(query).subscribe({
       next: (res) => { 
         this.todoItems = res.data.list; 
-        // this.todos.reset();
-        this.todoItems?.forEach((todo: any) => {
+         this.todoItems?.forEach((todo: any) => {
           const todoGroup1: any = this.fb.group({
             description: [todo.description, Validators.required],
             employeeId: [todo.employeeId, Validators.required],
             id: [todo.id],
           });
-          // this.form.setControl('todos', todoGroup);
-          this.todos.push(todoGroup1);
+           this.todos.push(todoGroup1);
           
           
         });
@@ -189,8 +187,7 @@ export class AddTaskComponent implements OnInit {
       },
     });
   }
-  // Remove a specific todo field
-  removeTodo(index: number): void {
+   removeTodo(index: number): void {
     this.isDelete = false;
     this.todos.removeAt(index);
     const todoId = this.todoItems[index].id;
@@ -217,11 +214,10 @@ export class AddTaskComponent implements OnInit {
       this.taskDetails?.startDate,
       'yyyy-MM-dd'
     );
-    // Populate static fields
-    this.form.patchValue({
+     this.form.patchValue({
       name: this.taskDetails?.name,
       taskDetails: this.taskDetails?.description,
-      from: formattedDate || '', // Provide default if missing
+      from: formattedDate || '', 
       initialCost: this.taskDetails?.initialBudget,
       taskToDoDescription: [''],
       AssetAttachment: [''],
@@ -268,10 +264,10 @@ export class AddTaskComponent implements OnInit {
         name: this.form.controls['name'].value,
         // taskFile: this.form.controls['taskFile'].value,
         description: this.form.controls['taskDetails'].value,
-        startDate: this.form.controls['from'].value,
+       // startDate: this.form.controls['from'].value,
         initialBudget: this.form.controls['initialCost'].value,
         statusId: 1,
-        duration: this.form.controls['duration'].value,
+       // duration: this.form.controls['duration'].value,
         taskAttachments: this.attachments,
         // departmentIds: this.form.value.departmentIds
     };
