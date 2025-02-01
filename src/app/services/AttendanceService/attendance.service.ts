@@ -17,5 +17,7 @@ export class AttendanceService {
   getChart(request: any = {}): Observable<any> {
     return this.apiCall.request('POST', EmployeeAttendances.GetChart, request);
   }
-  
+  GetAttendanceDetails(request: any = {}): Observable<any> {
+    return this.apiCall.request('POST', EmployeeAttendances.GetAttendanceDetails, request);
+  }
 }

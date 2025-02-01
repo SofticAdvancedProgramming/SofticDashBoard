@@ -8,28 +8,45 @@ import { Browser } from '../../../../assets/ej2-base';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TranslationService } from '../../../core/services/translationService/translation.service';
 import { TranslateModule } from '@ngx-translate/core';
- import { MapComponent } from "../../../common-component/map/map.component";
- import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MapComponent } from "../../../common-component/map/map.component";
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AttendanceService } from '../../../services/AttendanceService/attendance.service';
- import { EmployeeService } from '../../../services/employeeService/employee.service';
+import { EmployeeService } from '../../../services/employeeService/employee.service';
 import { GlobalFunctionsService } from '../../../services/Global Functions Dashboard/global-functions.service';
-import { math, string } from '@tensorflow/tfjs-core';
 import { AdminStaticsService } from '../../../services/AdminStatistics/AdminStatics.service';
-import { forEach } from 'lodash';
 import { Router } from '@angular/router';
+import { BasicLineChartComponent } from "../../../common-component/basic-line-chart/basic-line-chart.component";
+import { BasicDonutChartComponent } from "../../../common-component/basic-donut-chart/basic-donut-chart.component";
+import { ChartType } from 'ng-apexcharts';
+import { FinancialLog, LeavesLog } from '../../../../models/employee';
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
+  stroke: ApexStroke;
+  legend: ApexLegend;
+};
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, MatDatepickerModule, MatFormFieldModule, DashboardCardComponent, BarChartComponent, DonutChartComponent, ModernTableComponent, CommonModule, TranslateModule, MapComponent],
-  providers: [provideNativeDateAdapter(),DatePipe, GlobalFunctionsService],
+  providers: [provideNativeDateAdapter(), DatePipe, GlobalFunctionsService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   encapsulation: ViewEncapsulation.None,
+  imports: [RouterLink, ReactiveFormsModule, MatDatepickerModule, MatFormFieldModule, DashboardCardComponent, BarChartComponent, DonutChartComponent, ModernTableComponent, CommonModule, TranslateModule, MapComponent, BasicLineChartComponent, BasicDonutChartComponent]
 })
+
 export class HomeIndexComponent {
+  attendanceData: any = {};
   public employee: any;
   attendances: any = [];
   public addressData: any;
@@ -41,7 +58,8 @@ export class HomeIndexComponent {
   endDate!: Date;
   form!: FormGroup;
   cards: any = [];
-  comapnyId:number=Number(localStorage.getItem('companyId')) || 0;
+  comapnyId: number = Number(localStorage.getItem('companyId')) || 0;
+  public leavesLogData: LeavesLog = new LeavesLog();
 
   public newAction: any = [{
     isExisting: true,
@@ -50,11 +68,11 @@ export class HomeIndexComponent {
   constructor(
     private translateService: TranslationService,
     private attendanceService: AttendanceService,
-     private employeeService: EmployeeService,
-     private functionService: GlobalFunctionsService,
-     private adminStatics:AdminStaticsService,
+    private employeeService: EmployeeService,
+    private functionService: GlobalFunctionsService,
+    private adminStatics: AdminStaticsService,
     private fb: FormBuilder,
-    private router:Router
+    private router: Router
   ) {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
@@ -66,62 +84,34 @@ export class HomeIndexComponent {
     });
     this.getStatistics();
     this.getAttendances({}, 1);
-    this. getAdminStatistics();
-    this.getDepartmentEmployeeCounts();
-    this.assetCategorycounts();
+    this.getAdminStatistics();
+      this.GetAttendanceDetails();
+    this.fetchLeavesLog();
+    this.fetchFinancialLog(); 
   }
 
   public dashboardCards: any = [];
   public departmentEmploye: any[] = [];
-  public assetCategory:any[]=[];
+  public assetCategory: any[] = [];
   public adminCounts!:
-  {
-    companyId: number,
-    employeeCount: number,
-    branchCount: number,
-    assetCount: number,
-    positionCount: number,
-    departmentCount: number
-  }
-
-
-  public chartData: Object[] = [
-    { Country: this.translateService.translate("Request an advance"), Literacy_Rate: 19.1 },
-    { Country: this.translateService.translate("Delay requests"), Literacy_Rate: 48.1 },
-    { Country: this.translateService.translate("Vacation requests"), Literacy_Rate: 26.8 },
-  ];
-
-  public data: Object[] = [
-    { x: 'Chrome', y: 61.3, DataLabelMappingName: Browser.isDevice ? 'Chrome: <br> 61.3%' : 'Chrome: 61.3%' },
-    { x: 'Safari', y: 24.6, DataLabelMappingName: Browser.isDevice ? 'Safari: <br> 24.6%' : 'Safari: 24.6%' },
-    { x: 'Edge', y: 5.0, DataLabelMappingName: 'Edge: 5.0%' },
-    { x: 'Samsung Internet', y: 2.7, DataLabelMappingName: Browser.isDevice ? 'Samsung Internet: <br> 2.7%' : 'Samsung Internet: 2.7%' },
-    { x: 'Firefox', y: 2.6, DataLabelMappingName: Browser.isDevice ? 'Firefox: <br> 2.6%' : 'Firefox: 2.6%' },
-    { x: 'Others', y: 3.6, DataLabelMappingName: Browser.isDevice ? 'Others: <br> 3.6%' : 'Others: 3.6%' }
-  ];
-  public donutChartData = {
-    labels: ['Riyadh', 'Jeddah', 'Dammam', 'Other'],
-    datasets: [
-      {
-        data: [20.8, 10.2, 19, 50],
-        backgroundColor: ['#FF9800', '#4CAF50', '#2196F3', '#9E9E9E'],
-        hoverBackgroundColor: ['#FFB74D', '#81C784', '#64B5F6', '#BDBDBD']
-      }
-    ]
-  };
-
-
-  public donutChartOptions = {
-    cutout: '60%',
-    plugins: {
-      legend: {
-        display: false
-      }
+    {
+      companyId: number,
+      employeeCount: number,
+      branchCount: number,
+      assetCount: number,
+      positionCount: number,
+      departmentCount: number
     }
-  };
+    public financialLogData: FinancialLog = {
+      entitlements: 0,
+      deductions: 0,
+    };
 
-  columns: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'day', 'hour','department'];
-  columnsAr: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'dayAr', 'hour','department'];
+ 
+ 
+
+  columns: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'day', 'hour', 'department'];
+  columnsAr: any = ['employeeFirstName', 'attendanceType', 'attendanceDate', 'dayAr', 'hour', 'department'];
 
   getAddress(e: any) {
     this.addressData = e;
@@ -131,24 +121,23 @@ export class HomeIndexComponent {
     this.employee = event;
   }
 
-  navigateToSecondPageWithTab(index:number)
-  {
-    this.router.navigate([`/dashboard/company/${this.comapnyId}`], { queryParams: { tab: index} });
+  navigateToSecondPageWithTab(index: number) {
+    this.router.navigate([`/dashboard/company/${this.comapnyId}`], { queryParams: { tab: index } });
 
   }
 
-   getAttendances(searchDate = {}, pageIndex?: number) {
-    let query: any = pageIndex ? { pageIndex, sortIsAsc: false, sortCol: "attendanceDate" } : { sortIsAsc: false, sortCol: "attendanceDate"};
-      this.attendanceService.getAttendances({ ...searchDate,  attendanceTypeId: null }).subscribe((res) => {
-      //  console.log(res);
+  getAttendances(searchDate = {}, pageIndex?: number) {
+    let query: any = pageIndex ? { pageIndex, sortIsAsc: false, sortCol: "attendanceDate" } : { sortIsAsc: false, sortCol: "attendanceDate" };
+    this.attendanceService.getAttendances({ ...searchDate, attendanceTypeId: null }).subscribe((res) => {
+       console.log("hhhhhhhhhhhhhhhhhh",res);
       this.attendances = {
         ...res,
-        list: res.list.map( (item: any) => ({
+        list: res.data.list.map((item: any) => ({
           ...item,
           attendanceDate: this.functionService.formatDate(item.attendanceDate),
           hour: this.functionService.formatHour(item.attendanceDate),
           attendanceType: this.getAttendancebyTypeId(item.attendanceTypeId),
-          department: item.employeeDepartmentName||'no dept'
+          department: item.employeeDepartmentName || 'no dept'
 
           // department: this.isArabic?item.employeeDepartmentNameAr: item.employeeDepartmentName|| this.isArabic?'لايوجد قسم':'no dept'
           // //this.getEmployeeDepartment(item['employeeId'],) || 'no dept'
@@ -173,7 +162,7 @@ export class HomeIndexComponent {
 
   getStatistics() {
     let query: any = { ...this.form.value };
-       query = { ...query, employeeId: this.userId };
+    query = { ...query, employeeId: this.userId };
 
     this.employeeService.getStatistics(query).subscribe((res => {
       this.dashboardCards = res;
@@ -187,25 +176,90 @@ export class HomeIndexComponent {
     }))
   }
 
-  getDepartmentEmployeeCounts() {
-    this.adminStatics.employeeDepartmentcounts(null).subscribe((res => {
 
-      this.departmentEmploye = res;
-    }))
-  }
-
-  get isArabic():boolean{
-    return localStorage.getItem('lang')==='ar';
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
 
   }
 
 
-  assetCategorycounts() {
-    this.adminStatics.assetCategorycounts(null).subscribe((res => {
+  GetAttendanceDetails() {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1;
+    const companyId = Number(localStorage.getItem('companyId')) || 0;
 
-       this.assetCategory=res;
+    const query = {
+      companyId: companyId,
+      month: currentMonth,
+      year: currentYear,
+    };
 
-    }))
-  }}
+    this.attendanceService.GetAttendanceDetails(query).subscribe(
+      (res: any) => {
+        if (res && res.status === 200 && res.data) {
+          this.attendanceData = {
+            totalWorkedDays: res.data.totalWorkedDays,
+            totalWorkedHours: res.data.totalWorkedHours.toFixed(2),
+            totalAbsenceDays: res.data.totalAbsenceDays,
+            totalOvertimeHours: res.data.totalOvertimeHours.toFixed(2),
+          };
+          console.log('Attendance Data:', this.attendanceData);
+        } else {
+          console.error('Failed to fetch attendance data:', res);
+        }
+      },
+      (error) => {
+        console.error('Error fetching attendance data:', error);
+      }
+    );
+  }
+  fetchLeavesLog() {
+    const currentYear = new Date().getFullYear();
+
+    const query = {
+      companyId: this.comapnyId,
+      year: currentYear,
+    };
+
+    this.employeeService.getLeavesLog(query).subscribe(
+      (res: any) => {
+        if (res && res.status === 200 && res.data) {
+          this.leavesLogData = new LeavesLog(
+            res.data.holidayRequest,
+            res.data.vacationBalabnce
+          );
+        } else {
+          console.error('Failed to fetch leaves log data:', res);
+        }
+      },
+      (error) => {
+        console.error('Error fetching leaves log data:', error);
+      }
+    );
+  }
+  fetchFinancialLog() {
+    const currentYear = new Date().getFullYear(); 
+  
+    const request = {
+       companyId: this.comapnyId, 
+      year: currentYear, 
+    };
+  
+    this.employeeService.getFinancialLog(request).subscribe(
+      (res) => {
+        if (res && res.status === 200 && res.data) {
+          this.financialLogData = res.data;
+          console.log('Financial Log Data:', this.financialLogData);
+        } else {
+          console.error('Failed to fetch financial log data:', res);
+        }
+      },
+      (error) => {
+        console.error('Error fetching financial log data:', error);
+      }
+    );
+  }
+  
+}
 
 

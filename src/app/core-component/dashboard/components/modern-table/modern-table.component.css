@@ -29,9 +29,12 @@
   border-radius: 20px;
   padding: 10px 20px;
   font-size: 14px;
-  background-color: #8ebaff;
+  background-color: transparent;
   border: none;
-  color: white;
+ 
+  border: 1px solid #A2A1A833;
+  color: #2D3A49;
+
 }
 
 .custom-table {

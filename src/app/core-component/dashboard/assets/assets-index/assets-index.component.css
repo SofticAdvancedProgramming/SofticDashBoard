@@ -26,16 +26,16 @@ h4,p,button,.icon{
     display: flex;
     justify-content: center;
     margin-left: 371px;
-    
+
 }
 .card-container {
     display: flex;
-    gap: 20px;
+    /* gap: 20px; */
 }
 
 .card {
-    width: 276px;
-    height: 172px;
+    /* width: 276px; */
+    /* height: 172px; */
     gap: 0px;
     border-radius: 12px ;
     opacity: 0px;

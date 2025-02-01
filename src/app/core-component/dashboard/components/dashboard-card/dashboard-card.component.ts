@@ -11,8 +11,9 @@ import { Component, Input } from '@angular/core';
 export class DashboardCardComponent {
   @Input() title: string = '';
   @Input() value: number = 0;
-  @Input() percentage: string = '0%';
-  @Input() cardClass: string = 'lightCard';
+   @Input() cardClass: string = 'lightCard';
   @Input() bgColor: string = '#FFFFFF';
   @Input() icon: string = '';
+  @Input() color: string = '#FFFFFF';
+
 }

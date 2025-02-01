@@ -46,9 +46,13 @@
       <tbody>
         <tr *ngFor="let employee of filteredEmployees"   [ngClass]="{'arabic': isArabic }">
           <td>
-            <img [src]="employee.referancePhoto || 'assets/images/default-user.png'" alt="Profile Image" class="profile-img"
-                 (error)="onImageError($event)" />
-            {{ employee.fullName }}
+            <div class="d-inline-flex justify-content-start align-items-center" >
+              <img [src]="employee.referancePhoto || 'assets/images/default-user.png'" alt="Profile Image" class="profile-img"
+              (error)="onImageError($event)" />
+
+              <span class="mx-1 employee-name">{{ employee.fullName }}</span>
+            </div>
+
           </td>
           <td>{{ employee.id }}</td>
           <td ><span *ngIf="employee.accountStatus==1">{{isArabic? employee.department?.nameAr:employee.department?.name}}</span></td>
