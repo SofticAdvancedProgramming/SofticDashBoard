@@ -43,6 +43,8 @@ import { EvaluatoionComponent } from "../../components/evaluatoion/evaluatoion.c
     ]
 })
 export class TasksIndexComponent implements OnInit {
+  selectedTaskId: number = 0; // Default to 0 instead of null
+
   statuses = ['To-Do', 'In progress', 'Submit for review', 'Done'];
   Branches: any[] = [];
   departmentOptions: any[] = [];
@@ -59,8 +61,7 @@ export class TasksIndexComponent implements OnInit {
   connectedLists = this.statuses;
   branchId: any;
   isEvaluationPopupVisible: boolean = false;
-  selectedTaskId: number | null = null;
-  
+   
   get connectedStatuses(): string[] {
     return this.statuses;
   }
@@ -108,7 +109,7 @@ export class TasksIndexComponent implements OnInit {
     if (this.selectedTaskId) {
       this.changeTaskStatus(this.selectedTaskId, 4);  
       this.isEvaluationPopupVisible = false; 
-      this.selectedTaskId = null;
+     // this.selectedTaskId = null;
     }
   }
   
@@ -116,10 +117,14 @@ export class TasksIndexComponent implements OnInit {
     const droppedTask = event.item.data;
     const droppedIntoStatus = event.container.id;
   
-     if (droppedIntoStatus === 'Done') {
-      this.selectedTaskId = droppedTask.id;
-      this.isEvaluationPopupVisible = true;
-      return;  
+    // Check if the task is being moved to "Done"
+    if (droppedIntoStatus === 'Done') {
+      if (!droppedTask.isEvaluated) {
+        console.log(`Task ${droppedTask.id} is not evaluated. Showing evaluation popup.`);
+        this.selectedTaskId = droppedTask.id;
+        this.isEvaluationPopupVisible = true;
+        return; // Prevent the task from moving
+      }
     }
   
     let newStatus: number = 0;
@@ -133,6 +138,9 @@ export class TasksIndexComponent implements OnInit {
       case 'Submit for review':
         newStatus = 3;
         break;
+      case 'Done':
+        newStatus = 4;
+        break;
     }
   
     if (event.previousContainer === event.container) {
@@ -145,10 +153,12 @@ export class TasksIndexComponent implements OnInit {
   }
   
   showEvaluationPopup(taskId: number): void {
-    // Your logic to show the popup
-    this.selectedTaskId = taskId;
+    console.log('Opening evaluation popup for Task ID:', taskId);
+    this.selectedTaskId = taskId ?? 0; // Ensure it's never null
     this.isEvaluationPopupVisible = true;
   }
+  
+  
   changeTaskStatus(taskId: number, statusId: number) {
     this.tasksService
       .assignTaskStatus({ taskId: taskId, statusId: statusId })
