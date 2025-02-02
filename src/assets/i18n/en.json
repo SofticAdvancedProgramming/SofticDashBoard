@@ -419,6 +419,7 @@
   },
   "employeeDetails": {
     "Salarytype":"Salary type",
+    "tasks": "Tasks",
     "attendance": "Attendance & Departure",
     "SALARY_ASSIGN_SUCCESS": "Salary assigned successfully",
     "grossSalary": "Gross Salary",
@@ -1034,7 +1035,19 @@
     "BRANCH_NAME":"Branch:",
     "DEPARTMENT_NAME":"Department:",
     "POSITION_TYPE":"Position type :",
-    "CREATED_AT":"Created at :"
+    "CREATED_AT":"Created at :",
+    "SEARCH": "Search",
+    "TODO": "TODO",
+    "IN_PROGRESS": "In Progress",
+    "SUBMIT_FOR_REVIEW": "Submit For Review",
+    "DONE": "Done",
+    "NO_TASKS": "No tasks available",
+    "TASK_TITLE": "Task Title",
+    "TASK_DESCRIPTION": "Description",
+    "CALENDAR": "Start Date",
+    "ASSIGNEE": "Assignee",
+    "FILTER": "Filter",
+    "DROP_TASKS": "Drop tasks here"
 
 }
 

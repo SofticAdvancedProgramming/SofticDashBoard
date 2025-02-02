@@ -1,0 +1,64 @@
+ 
+
+<div class="mb-4">
+  <div class="row action-section align-items-center justify-content-between">
+      <div class="col-9  d-flex align-items-center">
+          <div class="d-flex w-100  align-items-center gap-2">
+              <div class="d-flex flex-row justify-content-start align-items-center col-8">
+                  <input placeholder="{{ 'SEARCH' | translate }}" class="form-control custom-search"
+                      [(ngModel)]="searchText" (ngModelChange)="search(searchText)" />
+              </div>
+              <div class="col-3" (click)="toggleFilterPopup()">
+                  <img src="../../../../../assets/images/filter.png" alt="filter Image" />
+              </div>
+          </div>
+      </div>
+      
+      <div class="col-lg-3 d-flex gap-2">
+          <!-- <button class="btn Analytics-btn" routerLink="../tasks/tasksArchived">
+         Analytics
+      </button> -->
+          <!-- <button class="btn archive-btn" routerLink="../tasks/tasksArchived">
+              <img src="../../../../../assets/images/Archive.png" />Archive
+          </button> -->
+      </div>
+  </div>
+</div>
+
+<div class="row row-gap-4">
+  <div class="col" *ngFor="let status of statuses">
+      <div [ngClass]="getClass(status)" class="task-group d-flex justify-content-between">
+          <p class="task-group-title">{{ status }}</p>
+          <p class="task-group-count">{{ tasksByStatus[status]?.length || 0 }}</p>
+      </div>
+
+      <br />
+
+      <div cdkDropList [id]="status" [cdkDropListData]="tasksByStatus[status]"
+          [cdkDropListConnectedTo]="connectedLists"   class="task-list">
+          <div *ngFor="let task of tasksByStatus[status]" cdkDrag [cdkDragData]="task" class="task"
+              [routerLink]="['/tasksDetails', task?.id]">
+              <div class="task-card done-card fixed-size-card p-3 mb-3" [routerLink]="['/tasksDetails', task?.id]">
+                  <h4 class="task-card-title">{{ task?.name }}</h4>
+                  <p class="task-card-description">{{ task?.description }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                      <span>
+                          <img src="../../../../../assets/images/calendar.png" class="px-1" alt="Calendar" />
+                          {{ task?.startDate | date : "short" }}
+                      </span>
+                      <span class="task-card-subscriber">
+                          <img src="../../../../../assets/images/Avatar (2).png" style="width: 15px; height: 15px"
+                              alt="Avatar" />
+                      </span>
+                  </div>
+              </div>
+          </div>
+
+           <div *ngIf="tasksByStatus[status]?.length === 0" class="placeholder">
+              Drop tasks here
+          </div>
+      </div>
+  </div>
+</div>
+
+  <app-tasks-filter-pop-up *ngIf="isFilterPopupVisible" (closeFilterPopup)="onFilterPopupClose($event)" (confirmFilterPopup)="applyFilterPopup($event)"></app-tasks-filter-pop-up>  

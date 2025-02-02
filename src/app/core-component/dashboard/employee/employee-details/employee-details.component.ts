@@ -22,6 +22,7 @@ import { LocalStorageService } from '../../../../services/local-storage-service/
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmployeeAssetsComponent } from '../employee-assets/employee-assets/employee-assets.component';
 import { EmployeeAttendanceComponent } from "../employee-attendance/employee-attendance.component";
+import { EmployeeTasksComponent } from "../employee-tasks/employee-tasks/employee-tasks.component";
 declare var bootstrap: any;
 
 @Component({
@@ -43,7 +44,8 @@ declare var bootstrap: any;
         EmployeeRequestsComponent,
         FormsModule, ReactiveFormsModule,
         EmployeeAssetsComponent,
-        EmployeeAttendanceComponent
+        EmployeeAttendanceComponent,
+        EmployeeTasksComponent
     ]
 })
 export class EmployeeDetailsComponent implements OnInit, OnDestroy {

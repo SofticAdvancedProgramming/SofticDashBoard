@@ -20,5 +20,24 @@ export interface Task
     startDate?:Date;
     statusId?:number;
     timeScore?:number;
-    taskAttachments:[];
+    taskId: number;
+    createdBy:number
 }
+export enum tasksStatus {
+    Todo = 1,
+    InProgress = 2,
+    SubmitForReview = 3,
+    Done = 4,
+    Archived = 5,
+  }
+  export interface TaskAssignment {
+    employeeName: string;
+    profileImage: string;
+    task: Task;
+    reason: string | null;
+    taskId: number;
+    employeeId: number;
+    id: number;
+    companyId: number;
+    statusId:number;
+  }
