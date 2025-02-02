@@ -85,13 +85,15 @@ export class AssetsIndexComponent {
       {
         next: (res) => {
 
-          this.assetsCount = {
-            companyId: res.companyId,
-            totalAssetsCount: res.totalAssetsCount,
-            outOfServiceDepreciationCount: res.outOfServiceDepreciationCount,
-            assignedAssetsCount: res.assignedAssetsCount,
-            unassignedAssetsCount: res.unassignedAssetsCount
-          }
+
+          // this.assetsCount = {
+          //   companyId: res.companyId,
+          //   totalAssetsCount: res.totalAssetsCount,
+          //   outOfServiceDepreciationCount: res.outOfServiceDepreciationCount,
+          //   assignedAssetsCount: res.assignedAssetsCount,
+          //   unassignedAssetsCount: res.unassignedAssetsCount
+          // }
+          this.assetsCount=res.data;
         },
         error: (res) => {
 
@@ -107,11 +109,11 @@ export class AssetsIndexComponent {
     this.assetsService.AssetCategorycounts(req).subscribe(
       {
         next: (res) => {
-          this.assetsInCategoriesCount = res;
-          res.map((item: any) => {
-            this.assetsCategoryInArabic.push(item.nameAr);
-            this.assetsCategoryInEnglish.push(item.name);
-            this.assetsInCatCount.push(item.count);
+          this.assetsInCategoriesCount = res.data;
+          res.data.map((item: any) => {
+            this.assetsCategoryInArabic.push(item.assetCategoryNameAr);
+            this.assetsCategoryInEnglish.push(item.assetCategoryName);
+            this.assetsInCatCount.push(item.assetCount);
           }
           )
         },
@@ -131,7 +133,7 @@ export class AssetsIndexComponent {
     this.assetsService.GetAssetCountPerLastThreeMonths(req).subscribe(
       {
         next: (res) => {
-          this.assetCountPerLastThreeMonths = res;
+          this.assetCountPerLastThreeMonths = res.data;
           res.data.map((item: any) => {
             this.assetCountPerLastThreeMonthsInArabic.push(item.month);
             this.assetCountPerLastThreeMonthsInEnglish.push(item.month);
@@ -220,10 +222,10 @@ export class AssetsIndexComponent {
         columnWidth: '25%',
         borderRadius: 10,
         colors: {
-          ranges: [],  
-          backgroundBarColors: [],  
+          ranges: [],
+          backgroundBarColors: [],
           backgroundBarOpacity: 0.5,
-          distributed: true 
+          distributed: true
         }
       }
     },
@@ -266,7 +268,7 @@ export class AssetsIndexComponent {
     //series: [44, 55, 41, 17, 15],
     series: this.assetsInCatCount,
     chart: {
-      width: 380,
+      width: +'380',
       type: 'donut' as ChartType
     },
     //   labels: ['Category 1', 'Category 2', 'Category 3'],

@@ -105,7 +105,7 @@
             (submitForm)="handleFormSubmission($event)"
           ></app-dynamic-modal>
 
-          <!-- Modern Table Component --> 
+          <!-- Modern Table Component -->
           <app-modern-table
             [tableTitle]="'Assets Category'"
             (newReqByPage)="loadEntities('AssetsCategories', $event)"
@@ -113,7 +113,7 @@
             [tableData]="newAssets"
             [columns]="columns"
             [modalId]="modalId"
-            searchPlaceholder="Search data..."
+            [searchPlaceholder]="'Search data'"
             (editItem)="openEditModal($event)"
             (deleteItem)="deleteEntity('AssetsCategories', $event.id)"
             [deleteId]="deleteId"
