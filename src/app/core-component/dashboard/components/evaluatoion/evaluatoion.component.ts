@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -19,6 +19,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './evaluatoion.component.css',
 })
 export class EvaluatoionComponent implements OnInit {
+  @Input() inputTaskId!: any;  
   @Output() closeEvaluationPopup = new EventEmitter<boolean>();
   taskId: number = 0;
   form!: FormGroup;
