@@ -1,17 +1,23 @@
-<div class="container">
-  <div class="d-flex col-4 gap-3 align-items-start flex-row">
-    <img src="../../../../../assets/images/chart.png" alt="taskImg" />
-    <p class="lead">{{ "Assets.title" | translate }}</p>
-    <img *ngIf="!isArabic" src="../../../../../assets/images/arrow-left2.png" alt="arrow" />
-    <img *ngIf="isArabic"  src="../../../../../assets/images/arrow-right2.png" alt="arrow" />
-    <p class="lead">{{ "Assets.AddNewAsset" | translate }}</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 align-items-start">
+      <div class="d-flex gab-2 justify-content-start align-items-start ">
+      <img src="../../../../../assets/images/chart.png" alt="taskImg" />
+      <p class="lead">{{ "Assets.title" | translate }}</p>
+      <img *ngIf="!isArabic" src="../../../../../assets/images/arrow-left2.png" alt="arrow" />
+      <img *ngIf="isArabic"  src="../../../../../assets/images/arrow-right2.png" alt="arrow" />
+      <p class="lead">{{ "Assets.AddNewAsset" | translate }}</p>
+      </div>
+
+    </div>
   </div>
+
   <div class="assets-form ">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-lg-6">
           <div class="form-group">
-            <label for="AssetName">{{ "Assets.AssetName" | translate }}</label>
+            <label class="form-label" for="AssetName">{{ "Assets.AssetName" | translate }}</label>
             <input
               type="text"
               id="AssetName"
@@ -40,7 +46,7 @@
         </div>
         <div class="col-lg-6">
           <div class="form-group">
-            <label for="AssetName">{{ "Assets.AssetNameAr" | translate }}</label>
+            <label  class="form-label" for="AssetName">{{ "Assets.AssetNameAr" | translate }}</label>
             <input
               type="text"
               id="AssetNameAr"
@@ -69,7 +75,7 @@
         </div>
         <div class="col-lg-6">
           <div class="form-group">
-            <label for="AssetCategory">{{
+            <label class="form-label"  for="AssetCategory">{{
               "Assets.AssetCategory" | translate
             }}</label>
             <app-drop-down
@@ -124,7 +130,7 @@
         </div>
         <div class="col-lg-6" *ngIf="isMainAsset">
           <div class="form-group">
-            <label for="AssetCategory">{{
+            <label class="form-label"  for="AssetCategory">{{
               "Assets.SubAssetCategory" | translate
             }}</label>
             <app-drop-down
@@ -141,7 +147,7 @@
         </div>
         <div class="col-lg-6">
           <div class="form-group">
-            <label for="Model">{{ "Assets.Model" | translate }}</label>
+            <label class="form-label"  for="Model">{{ "Assets.Model" | translate }}</label>
             <input
               type="text"
               id="Model"
@@ -170,7 +176,7 @@
         </div>
         <div class="col-lg-6">
           <div class="form-group">
-            <label for="serialNum">{{ "Assets.SerialNum" | translate }}</label>
+            <label class="form-label"  for="serialNum">{{ "Assets.SerialNum" | translate }}</label>
             <input
               type="text"
               id="serialNum"
@@ -199,7 +205,7 @@
         </div>
         <div class="col-lg-6">
           <div class="form-group">
-            <label for="plateNum">{{ "Assets.PlateNum" | translate }}</label>
+            <label class="form-label"  for="plateNum">{{ "Assets.PlateNum" | translate }}</label>
             <input
               type="text"
               id="plateNum"
@@ -271,7 +277,7 @@
         </div> -->
         <div class="col-12">
           <div class="form-group toggle-group" (click)="getAssets()">
-            <label class="switch">
+            <label class="switch form-label">
               <input type="checkbox" formControlName="isHasMainAsset"/>
               <span class="slider"></span>
             </label>
@@ -279,8 +285,10 @@
               "ADD_ASSETS.DIRECT_ASSET_PARENT" | translate
             }}</label>
           </div>
-          <div class="col-lg-6" *ngIf="form.get('isHasMainAsset')?.value">
-            <label>{{
+        </div>
+        <div class="col-lg-6" *ngIf="form.get('isHasMainAsset')?.value">
+          <div class="form-group">
+            <label class="form-label">{{
               "Assets.MainAsset" | translate
             }}</label>
             <app-drop-down
@@ -293,8 +301,9 @@
               (search)="getAssets(selectedAsset.id)"
               (onChange)="onAssetSelect($event)"
             ></app-drop-down>
-
           </div>
+
+
         </div>
 
         <!-- <div class="col-lg-12">
@@ -345,14 +354,14 @@
         </div>
         <div class="col-lg-12">
           <div class="form-group">
-            <label for="map">{{ "Assets.AssetLocation" | translate }}</label>
+            <label class="form-label" for="map">{{ "Assets.AssetLocation" | translate }}</label>
             <app-map
               (locationSelected)="onLocationSelected($event)"
             ></app-map>
           </div>
         </div>
         <div class="row">
-          <div class="col-3">
+          <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="form-group">
               <label for="photo">{{ "Assets.photo" | translate }}</label>
               <div class="container-upload">
@@ -394,7 +403,7 @@
               </div>
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="form-group">
               <label for="photo">{{ "Assets.attachment" | translate }}</label>
               <div class="container-upload">
@@ -427,11 +436,11 @@
               </div>
             </div>
           </div>
-          <div class="col-6 ">
-            <div  class=" form-group"*ngIf="files.length>0">
-              <label for="photo">{{ "Assets.AttachedFiles" | translate }}</label>
-              <div class="row">
-                <div class="col-6" *ngFor="let file of files">
+          <div class="col-lg-6 col-md-12 ">
+            <div  class="form-group"*ngIf="files.length>0">
+              <label class="form-label" for="photo">{{ "Assets.AttachedFiles" | translate }}</label>
+              <div class="row mx-auto justify-content-between ">
+                <div class="col-6 " *ngFor="let file of files">
                   <div class="attachment-container row justify-content-center align-items-center p-2" >
                     <!-- <button class="btn col-2">x</button> -->
                     <div class="col-10" *ngIf="!file.fileType?.startsWith('image/')">

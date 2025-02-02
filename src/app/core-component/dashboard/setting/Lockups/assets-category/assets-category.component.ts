@@ -65,8 +65,8 @@ export class AssetsCategoryComponent implements OnInit {
   };
   isEdit: boolean = false;
   structure = [
-    { name: 'assetName', label: 'Name In Arabic', type: 'text', required: true },
-    { name: 'assetNameInArabic', label: 'Name In English', type: 'text', required: true },
+    { name: 'assetName', label:this.isArabic?'الاسم الانجليزي':'Name En', type: 'text', required: true },
+    { name: 'assetNameInArabic', label: this.isArabic?'الاسم العربي': 'Name Ar', type: 'text', required: true },
   ];
   newAssets: any[] = [];
   constructor(
@@ -76,7 +76,9 @@ export class AssetsCategoryComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private toast: ToastrService
   ) {}
-
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+  }
   ngOnInit(): void {
     this.initiation();
     // this.getMainAssets();
@@ -94,7 +96,7 @@ export class AssetsCategoryComponent implements OnInit {
   // getMainAssets(name?:string) {
   //   this.assetsService.getMainAssetsCategory().subscribe({
   //     next: (res) => {
-  //     
+  //
   //       this.assets = res.data.list;
   //       this.totalRows = res.data.totalRows;
   //     },
@@ -110,17 +112,17 @@ export class AssetsCategoryComponent implements OnInit {
     if (name) {
       query.name = name;
     }
-  
+
     const methodName = this.entityTypes[entity].load as keyof AssetsService;
     (this.assetsService[methodName] as Function)(query).subscribe(
       (response: any) => {
         if (response.status === 200) {
            this.assets = [];
-  
+
           (this as any)[this.entityTypes[entity].data] = response.data.list;
           this.pageIndex[entity] = response.data.pageIndex;
           this.totalRows[entity] = response.data.totalRows;
-  
+
           for (let item of response.data.list) {
             let asset: AssetExportData = {
               assetName: item.name,
@@ -131,7 +133,7 @@ export class AssetsCategoryComponent implements OnInit {
             };
             this.assets.push(asset);
           }
-  
+
           this.newAssets = this.assets.filter((item) =>
             item.mainAssetName != null
               ? item.mainAssetName
@@ -142,7 +144,7 @@ export class AssetsCategoryComponent implements OnInit {
       }
     );
   }
-  
+
   editEntity(entity: string, updatedEntity: any): void {
     const methodName = this.entityTypes[entity].edit as keyof AssetsService;
     (this.assetsService[methodName] as Function)(updatedEntity).subscribe(

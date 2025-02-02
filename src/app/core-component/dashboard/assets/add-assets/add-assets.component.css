@@ -264,7 +264,7 @@
 }
 
 .container-upload {
-  width: 250px;
+  /* width: 250px; */
   border-radius: 10px;
   display: flex;
   flex-direction: column;
