@@ -254,52 +254,32 @@
       <div class="row my-3">
         <div class="col-12">
           <div class="form-group">
-            <label class="form-label" for="Name">Assign To</label>
-            <!-- <app-drop-down
-              [placeholder]="'Select Employee'"
-              [placeholderSearch]="'Search by Name'"
-              [items]="employees"
-              [currentPage]="employeePage"
-              [itemsLength]="employees.length"
-              (getNextPageApi)="loadEmployees()"
-              (search)="loadEmployees()"
-              (onChange)="onEmployeeSelect($event)"
-            ></app-drop-down> -->
+            <label class="form-label" for="assignedEmployees">Assign To</label>
             <mat-select
               class="custom-select"
-              [placeholder]="'Select Employees'"
+              placeholder="Select Employees"
               formControlName="EmployeeIds"
               multiple
+              disableOptionCentering
             >
-              <mat-option [value]="null" disabled>{{
-                "ToDo.selectEmployee" | translate
-              }}</mat-option>
-              <mat-option
-                *ngFor="let emp of employees"
-                [value]="emp.id"
-              >
-                {{ emp.firstName }} {{ emp.lastName }}
-              </mat-option>
-            </mat-select>
-            <!-- <mat-select class="custom-select" [placeholder]="'Select Employee'" formControlName="assignEmployee">
-              <mat-option [value]="null" disabled>Select Employee</mat-option>
+               <mat-select-trigger>
+                <span *ngIf="selectedEmployeeIds.length; else noSelection">
+                  {{ selectedEmployeeNames.join(', ') }}
+                </span>
+                <ng-template #noSelection>
+                  <span>Select Employees</span>
+                </ng-template>
+              </mat-select-trigger>
+        
+              <!-- Dropdown options -->
               <mat-option *ngFor="let emp of employees" [value]="emp.id">
                 {{ emp.firstName }} {{ emp.lastName }}
               </mat-option>
-            </mat-select> -->
+            </mat-select>
           </div>
         </div>
-        <!-- <div class="col-6">
-          <div class="form-group">
-            <label class="form-label">Position</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="position"
-              placeholder="Ui/UX"
-            />
-          </div>
-        </div> -->
+        
+        
       </div>
 
       <div class="col-12">
