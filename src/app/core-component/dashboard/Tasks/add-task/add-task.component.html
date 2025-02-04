@@ -211,21 +211,22 @@
           </label>
         </div>
         @if(!form.get('isGlobal')?.value){
-        <div class="col-6">
-          <div class="form-group">
-            <label class="form-label" for="Name">Branch</label>
-            <app-drop-down
-              [items]="Branches"
-              [placeholder]="'Select Branch' | translate"
-              [placeholderSearch]="'Search by Name' | translate"
-              [itemsLength]="Branches.length"
-              (onChange)="onBranchSelect($event)"
-              (getNextPageApi)="loadBranches()"
-              (search)="loadBranches()"
-            >
-            </app-drop-down>
+          <div class="col-6">
+            <div class="form-group">
+              <label class="form-label" for="branch">Branch</label>
+              <mat-select
+                class="custom-select"
+                placeholder="Select Branch"
+                formControlName="branchId"
+                (selectionChange)="onBranchSelect($event.value)"
+              >
+                <mat-option *ngFor="let branch of Branches" [value]="branch.id">
+                  {{ branch.name }}
+                </mat-option>
+              </mat-select>
+            </div>
           </div>
-        </div>
+          
         <div class="col-6">
           <div class="form-group">
             <label class="form-label" for="Name">Departments</label>

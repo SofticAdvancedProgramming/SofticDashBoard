@@ -134,6 +134,7 @@ export class AddTaskComponent implements OnInit {
       priority: [''],
       todos: this.fb.array([]),
       departmentIds: [[]],
+      branchId: [null], 
       EmployeeIds: [[]]
     });
   }
@@ -218,7 +219,7 @@ export class AddTaskComponent implements OnInit {
   onSubmit() {
     console.log(this.form.value.departmentIds);
 
-    this.todoValues = this.form.value.todos; // Get all to-do values
+    this.todoValues = this.form.value.todos; 
 
     const toDoItems: any[] = [];
     for (let i = 0; i < this.todoValues.length; i++) {
@@ -237,6 +238,7 @@ export class AddTaskComponent implements OnInit {
       // startDate: this.form.controls['from'].value,
       initialBudget: this.form.controls['initialCost'].value,
       statusId: 1,
+      branchId: this.form.controls['branchId'].value,
       // duration: this.form.controls['duration'].value,
       taskAttachments: this.attachments,
       // departmentIds: this.form.value.departmentIds
@@ -437,11 +439,6 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-
-
-
-
-
   getEmployeesAssignments() {
     let query = {
       companyId: this.companyId,
@@ -466,7 +463,7 @@ export class AddTaskComponent implements OnInit {
 
 
   updateSelectedEmployeeNames() {
- 
+
   }
 
   onSelectionChange() {
@@ -505,6 +502,8 @@ export class AddTaskComponent implements OnInit {
       this.branchId = branch.id;
       this.loadDepartments(branch.id);
     }
+    this.form.patchValue({ branchId });  
+
   }
   loadDepartments(branchId: number): void {
     this.requestTypeService.getDepartments({ branchId }).subscribe({
