@@ -108,7 +108,7 @@ export class AddTaskComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.id = params['id'];
       if (this.id) {
-        this.getTaksDetails();
+        this.getTasksDetails();
         this.getEmployeesAssignments();
         this.getTodoItems();
       }
@@ -123,20 +123,16 @@ export class AddTaskComponent implements OnInit {
   initiation() {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      taskDetails: [
-        '',
-        [Validators.required, Validators.minLength(5), Validators.maxLength(300)],
-      ],
+      taskDetails: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
       initialCost: [''],
-      taskToDoDescription: [''],
-      AssetAttachment: [''],
-      isGlobal: [false],  // Ensure default is set to false
       priority: [''],
-      todos: this.fb.array([]),
+      isGlobal: [false],
+      branchId: [null],  // ✅ Add branchId field
       departmentIds: [[]],
-      branchId: [null], 
-      EmployeeIds: [[]]
+      EmployeeIds: [[]],
+      todos: this.fb.array([]),
     });
+    
   }
 
   // Getter for the todos FormArray
@@ -212,7 +208,9 @@ export class AddTaskComponent implements OnInit {
       taskDetails: this.taskDetails?.description,
       initialCost: this.taskDetails?.initialBudget,
       priority: this.taskDetails?.priorityId,
-      isGlobal: this.taskDetails?.isGlobal,  // Ensure isGlobal is patched
+      isGlobal: this.taskDetails?.isGlobal, 
+      branchId: this.taskDetails?.branchId || null,
+      departmentIds: this.taskDetails?.departmentIds || [],  
     });
   }
 
@@ -470,24 +468,29 @@ export class AddTaskComponent implements OnInit {
     this.selectedEmployeeIds = this.form.value.EmployeeIds;
     this.updateSelectedEmployeeNames();
   }
-  getTaksDetails() {
+  getTasksDetails() {
     let query = {
       companyId: this.companyId,
       id: this.id,
       isDelete: false,
     };
-
+  
     this.tasksService.get(query).subscribe({
       next: (res) => {
         this.taskDetails = res.data.list[0];
-        this.populateForm();
+        this.populateForm();   
+  
+         if (this.taskDetails?.branchId) {
+          this.onBranchSelect(this.taskDetails.branchId);
+        }
       },
       error(err) {
         console.error(err);
       },
     });
   }
-
+  
+  
   loadBranches(): void {
     this.requestTypeService.getBranches({}).subscribe({
       next: (res) => {
@@ -502,8 +505,8 @@ export class AddTaskComponent implements OnInit {
       this.branchId = branch.id;
       this.loadDepartments(branch.id);
     }
-    this.form.patchValue({ branchId });  
-
+  
+    this.form.patchValue({ branchId });  // ✅ Update form control value
   }
   loadDepartments(branchId: number): void {
     this.requestTypeService.getDepartments({ branchId }).subscribe({
@@ -519,6 +522,10 @@ export class AddTaskComponent implements OnInit {
     if (department) {
       this.departmentId = department.id;
     }
+    this.form.patchValue({ departmentId }); 
   }
-
+  cancelTask() {
+    this.router.navigate(['/dashboard/tasks']); 
+  }
+  
 }
