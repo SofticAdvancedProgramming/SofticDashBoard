@@ -203,7 +203,7 @@
       <div class="about-content" >
         <h2><b>{{ 'PROFILE_DETAILS.ABOUT' | translate }}</b></h2>
         <p class="info-description">
-          {{ isArabic ? (company.descriptionAr || 'PROFILE_DETAILS.NO_DATA' | translate) : (company.description ||
+          {{ isArabic ? (company?.descriptionAr || 'PROFILE_DETAILS.NO_DATA' | translate) : (company?.description ||
           'PROFILE_DETAILS.NO_DATA' | translate) }}
         </p>
       </div>
@@ -218,7 +218,7 @@
               <span class="label"><b>{{ 'PROFILE_DETAILS.ADDRESS' | translate }}</b>:</span>
             </div>
             <div class="col-6">
-              <span class="value">{{ company.address || ('PROFILE_DETAILS.NO_DATA' | translate) }}</span>
+              <span class="value">{{ company?.address || ('PROFILE_DETAILS.NO_DATA' | translate) }}</span>
             </div>
           </div>
           <div class="detail row ">
@@ -226,7 +226,7 @@
               <span class="label"><b>{{ 'PROFILE_DETAILS.EMAIL' | translate }}</b>:</span>
             </div>
             <div class="col-6">
-              <span class="value">{{ company.email || ('PROFILE_DETAILS.NO_DATA' | translate) }}</span>
+              <span class="value">{{ company?.email || ('PROFILE_DETAILS.NO_DATA' | translate) }}</span>
             </div>
           </div>
           <div class="detail row ">
@@ -234,7 +234,7 @@
               <span class="label"><b>{{ 'PROFILE_DETAILS.MOBILE_NUMBER' | translate }}</b>:</span>
             </div>
             <div class="col-6">
-              <span class="value">{{ company.phoneNumber || ('PROFILE_DETAILS.NO_DATA' | translate) }}</span>
+              <span class="value">{{ company?.phoneNumber || ('PROFILE_DETAILS.NO_DATA' | translate) }}</span>
             </div>
           </div>
           <!-- <div class="detail row ">
@@ -250,7 +250,7 @@
               <span class="label"><b>{{ 'PROFILE_DETAILS.PHONE' | translate }}</b>:</span>
             </div>
             <div class="col-6">
-              <span class="value">{{ company.phone || ('PROFILE_DETAILS.NO_DATA' | translate) }}</span>
+              <span class="value">{{ company?.phone || ('PROFILE_DETAILS.NO_DATA' | translate) }}</span>
             </div>
           </div>
           <!-- <div class="detail row ">

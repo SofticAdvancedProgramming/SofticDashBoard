@@ -12,6 +12,7 @@ import { EmployeeService } from '../../../../../services/employeeService/employe
 import { BranchService } from '../../../../../services/lockupsServices/branchService/branch.service';
 import { ModernTableComponent } from '../../../components/modern-table/modern-table.component';
 import { BranchesActionComponent } from "./branches-action/branches-action.component";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-branches',
@@ -48,14 +49,20 @@ export class BranchesComponent implements OnInit {
   translatedColumns: string[] = [];
   constructor(private branchService: BranchService, private translate: TranslateService,
     private employeeService: EmployeeService, private messageService: MessageService,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
 
   ngOnInit(): void {
+
     this.isArabic = this.translate.currentLang === 'ar';
-    this.loadBranches();
-    this.loadEmployees();
-    this.companyId = Number(localStorage.getItem('companyId'));
+    this.activatedRoute.parent?.params.subscribe(params => {
+      this.companyId = +params['companyId'];
+      this.loadBranches();
+      this.loadEmployees();
+
+    });
     this.translate.onLangChange.subscribe((event) => {
       this.isArabic = event.lang === 'ar';
     });

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterModule, RouterOutlet } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { MessageService, ConfirmationService } from 'primeng/api';
@@ -36,7 +36,7 @@ providers: [ConfirmationService],
   styleUrl: './department.component.css'
 })
 export class DepartmentComponent implements OnInit {
-  @Input() companyId?: number;
+  companyId?: number;
   @Output() departmentAdded = new EventEmitter<void>();
   selectedBranchId: any | null = null;
   showOverView: boolean = false;
@@ -64,14 +64,20 @@ export class DepartmentComponent implements OnInit {
     private messageService: MessageService,
     private translate: TranslateService,
     private confirmationService: ConfirmationService,
+    private activatedRoute: ActivatedRoute,
     private branchService: BranchService
   ) { }
   private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
+    this.activatedRoute.parent?.params.subscribe(params => {
+      this.companyId = +params['companyId'];
+
+      this.loadBranches();
+      this.loadDepartments();
+
+    });
     this.isArabic = this.translate.currentLang === 'ar';
-    this.loadBranches();
-    this.loadDepartments();
     this.subscription.add(this.translate.onLangChange.subscribe(() => {
       this.checkLanguage();
     }));

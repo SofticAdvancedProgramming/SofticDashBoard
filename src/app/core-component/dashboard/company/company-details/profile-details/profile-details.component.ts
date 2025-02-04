@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
@@ -20,7 +21,7 @@ import { CurrencyService } from '../../../../../services/lockupsServices/Currenc
 })
 export class ProfileDetailsComponent implements OnInit {
   role: any = JSON.parse(localStorage.getItem('roles')!);
-  @Input() company!: Company;
+  company!: Company;
   @Input() cityName: string = '';
   @Input() countryName: string = '';
   uploadedImageBase64: string | null = null;
@@ -42,7 +43,8 @@ export class ProfileDetailsComponent implements OnInit {
     private translate: TranslateService,
     private messageService: MessageService,
     private subscriptionPlanService: SubscriptionPlanService,
-    private currenyService:CurrencyService
+    private currenyService:CurrencyService,
+    private activatedRoute:ActivatedRoute
   ) { }
 
   get isArabic(): boolean {
@@ -50,12 +52,13 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const companyIdString = localStorage.getItem('companyId');
-    if (companyIdString) {
-      this.companyId = parseInt(companyIdString, 10);
+    this.activatedRoute.parent?.params.subscribe(params => {
+      this.companyId = +params['companyId'];
       this.getCompanyData(this.companyId);
-      
-    }
+
+
+    });
+
     this.initializeForm();
     this.loadSubscriptionPlan();
     this.getCurrencies();
@@ -68,10 +71,10 @@ export class ProfileDetailsComponent implements OnInit {
     this.currenyService.getCurrencyTypes().subscribe({
       next: (res) => {
         this.currencies = res.data.list;
-      
+
       },
       error: (err) => console.log(err)
-      
+
     })
   }
 
@@ -111,7 +114,7 @@ export class ProfileDetailsComponent implements OnInit {
       descriptionAr: ['', [Validators.minLength(5), Validators.maxLength(250)]],
       subscriptionPlanId: [''],
       companyExtention: [''],
-      centralizedDepartment: [false] 
+      centralizedDepartment: [false]
     });
   }
 
@@ -130,9 +133,10 @@ export class ProfileDetailsComponent implements OnInit {
     const request = { id: id };
     this.companyService.getCompany(request).subscribe(
       (response: any) => {
-        
+
         if (response.data && response.data.list && response.data.list.length > 0) {
           const company = response.data.list[0];
+          this.company = company;
           this.populateForm(company);
         }
       }
@@ -168,7 +172,7 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   submitForm(): void {
-  
+
     if (this.companyForm.valid) {
       const updatedCompany: any = {
         ...this.companyForm.value,
@@ -184,7 +188,7 @@ export class ProfileDetailsComponent implements OnInit {
       } else {
         updatedCompany.logo = this.base64ImageForServer;
       }
-  
+
       this.companyService.editCompany(updatedCompany).subscribe(
         response => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Company updated successfully' });
@@ -199,7 +203,7 @@ export class ProfileDetailsComponent implements OnInit {
     }
     this.companyForm.markAllAsTouched();
   }
-  
+
 
 
   isFieldInvalid(field: string): boolean {

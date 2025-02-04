@@ -14,7 +14,7 @@ import { LocationManagmentComponent } from './core-component/dashboard/setting/L
 import { ProfileComponent } from './core-component/dashboard/profile/index/profile.component';
 import { EditProfileComponent } from './core-component/dashboard/profile/edit-profile/edit-profile.component';
 import { CompanyDetailsComponent } from './core-component/dashboard/company/company-details/company-details.component';
-import { ProfileDetailsComponent } from './core-component/dashboard/company/components/profile-details/profile-details.component';
+// import { ProfileDetailsComponent } from './core-component/dashboard/company/components/profile-details/profile-details.component';
 import { AddPositionComponent } from './core-component/dashboard/company/components/position/add-position/add-position.component';
 import { DepartmentDetailsComponent } from './core-component/dashboard/company/components/department/department-details/department-details.component';
 import { DepartmentOverviewComponent } from './core-component/dashboard/company/components/department/department-overview/department-overview.component';
@@ -88,7 +88,7 @@ export const routes: Routes = [
 
       },
 
-      { path: 'ProfileDetails', component: ProfileDetailsComponent },
+      // { path: 'ProfileDetails', component: ProfileDetailsComponent },
       { path: 'AddPosition', component: AddPositionComponent },
       { path: 'DepartmentDetails', component: DepartmentDetailsComponent },
       { path: 'HomeIndex', component: HomeIndexComponent },
