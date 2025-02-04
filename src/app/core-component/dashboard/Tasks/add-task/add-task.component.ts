@@ -105,48 +105,38 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {
     this.counter++;
     this.route.params.subscribe((params) => {
-      const id = params['id'];
       this.id = params['id'];
-      if (id) {
-        
+      if (this.id) {
+        this.getTaksDetails();
+        this.getEmployeesAssignments();
+        this.getTodoItems();
       }
     });
-    
+  
     this.initiation();
     this.loadEmployees();
     this.getPriorities();
     this.loadBranches();
-
-    this.todayDate = new Date().toISOString().split('T')[0];
-    if (this.id) {
-      this.getTaksDetails();
-      this.getEmployeesAssignments();
-      this.getTodoItems();
-    }
   }
+  
   initiation() {
     this.form = this.fb.group({
       name: ['', Validators.required],
       taskDetails: [
         '',
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(300),
-        ],
+        [Validators.required, Validators.minLength(5), Validators.maxLength(300)],
       ],
-      //from: ['', Validators.required],
       initialCost: [''],
-     // duration: ['', Validators.required],
       taskToDoDescription: [''],
       AssetAttachment: [''],
-      isGlobal: [false],
+      isGlobal: [false],  // Ensure default is set to false
       priority: [''],
       todos: this.fb.array([]),  
       departmentIds: [[]], 
       EmployeeIds: [[]]  
     });
   }
+  
   // Getter for the todos FormArray
   get todos(): FormArray {
     return this.form.get('todos') as FormArray;
@@ -214,37 +204,16 @@ export class AddTaskComponent implements OnInit {
       this.taskDetails?.startDate,
       'yyyy-MM-dd'
     );
-     this.form.patchValue({
+  
+    this.form.patchValue({
       name: this.taskDetails?.name,
       taskDetails: this.taskDetails?.description,
-      from: formattedDate || '', 
       initialCost: this.taskDetails?.initialBudget,
-      taskToDoDescription: [''],
-      AssetAttachment: [''],
-      duration: this.taskDetails?.duration,
       priority: this.taskDetails?.priorityId,
+      isGlobal: this.taskDetails?.isGlobal,  // Ensure isGlobal is patched
     });
-   
-
-    // Clear existing todos
-    // this.form.setControl('todos', this.fb.array([]));
-    
-
-    // Populate todos FormArray
-
-    // this.todoGroup.reset();
-    // this.todos.reset();
-    // this.todoItems?.forEach((todo: any) => {
-    //   this.todoGroup= this.fb.group({
-    //     description: [todo.description, Validators.required],
-    //     employeeId: [todo.employeeId, Validators.required],
-    //     id: [todo.id],
-    //   });
-    //   // this.form.setControl('todos', todoGroup);
-    //   this.todos.push(this.todoGroup);
-    // });
   }
-
+  
   onSubmit() {
     console.log(this.form.value.departmentIds);
     
@@ -493,65 +462,18 @@ export class AddTaskComponent implements OnInit {
       id: this.id,
       isDelete: false,
     };
+    
     this.tasksService.get(query).subscribe({
       next: (res) => {
-       
         this.taskDetails = res.data.list[0];
-        this.populateForm();
-        // this.form = this.fb.group({
-        //   // laborCost: [this.taskDetails.laborCost, Validators.required],
-        //   // materialCost: [this.taskDetails.materialCost, Validators.required],
-        //   // serviceCost: [this.taskDetails.serviceCost, Validators.required],
-        //   // additionalCost: [this.taskDetails.additionalCost, Validators.required],
-        //   name: [this.taskDetails.name, Validators.required],
-        //   // taskFile: ['', Validators.required],
-        //   taskDetails: [
-        //     this.taskDetails.description,
-        //     [
-        //       Validators.required,
-        //       Validators.minLength(5),
-        //       Validators.maxLength(300),
-        //     ],
-        //   ],
-        //   from: [formattedDate, Validators.required],
-        //   initialCost: [this.taskDetails.initialBudget],
-        //   actualCost: [''],
-        //   duration: [this.taskDetails.duration, Validators.required],
-        //   taskToDoDescription: [''],
-        //   AssetAttachment: [''],
-        //   todos: this.fb.array([]), // Initialize the FormArray
-        // });
-        // this.selectedEmployee = this.assignedEmployees[0]?.employeeId;
-        // console.log(this.selectedEmployee);
-        // for (let i = 0; i <= this.taskDetails.toDoItems.length; i++) {
-        //   this.todoGroup = this.fb.group({
-        //     description: [
-        //       this.taskDetails.toDoItems[i].description,
-        //       Validators.required,
-        //     ],
-        //     employeeId: [
-        //       this.taskDetails.toDoItems[i].employeeId,
-        //       Validators.required,
-        //     ], // Dropdown selection
-        //   });
-
-        // if(this.id){
-        //   // this.todos.push(this.todoGroup);
-        //   // this.todos.patchValue(this.todoGroup);
-        //   // this.form.setControl('todos', this.todoGroup);
-        // }
-        // else{
-        //   // this.todos.push(this.todoGroup);
-        // }
-        // console.log(this.todoGroup);
-        // console.log(this.todos);
-        // }
+        this.populateForm();  // Ensure form values are populated correctly
       },
       error(err) {
-       
+        console.error(err);
       },
     });
   }
+  
   loadBranches(): void {
     this.requestTypeService.getBranches({}).subscribe({
       next: (res) => {

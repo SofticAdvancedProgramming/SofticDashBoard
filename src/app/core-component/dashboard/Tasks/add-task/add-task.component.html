@@ -206,9 +206,9 @@
             <input type="checkbox" formControlName="isGlobal" />
             <span class="slider"></span>
           </label>
-          <label for="direct-manager" class="toggle-label">{{
-            "Assign to all department" | translate
-          }}</label>
+          <label for="direct-manager" class="toggle-label">
+            {{ "Assign to all department" | translate }}
+          </label>
         </div>
         @if(!form.get('isGlobal')?.value){
         <div class="col-6">
