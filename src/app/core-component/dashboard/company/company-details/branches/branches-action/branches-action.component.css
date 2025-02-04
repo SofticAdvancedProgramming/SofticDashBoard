@@ -1,22 +1,22 @@
 
-  
+
   .form-container {
     background-color: white;
     padding: 1em;
     border-radius: 8px;
     margin: auto;
   }
-  
+
   .form-group {
     margin-bottom: 20px;
   }
-  
+
   .form-group label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
   }
-  
+
   .form-group select,
   .form-group input ,
   .form-group textarea {
@@ -25,16 +25,16 @@
     border: 1px solid #E7E6E8;
     border-radius: 10px;
   }
-  
+
   .form-group input[disabled] {
     background-color: #f0f0f0;
   }
-  
+
   .toggle-group {
     display: flex;
     align-items: center;
   }
-  
+
   .switch {
     position: relative;
     display: inline-block;
@@ -42,13 +42,13 @@
     height: 24px;
     margin-right: 10px;
   }
-  
+
   .switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
-  
+
   .slider {
     position: absolute;
     cursor: pointer;
@@ -59,7 +59,7 @@
     border-radius: 34px;
     transition: 0.4s;
   }
-  
+
   .slider:before {
     position: absolute;
     content: "";
@@ -71,24 +71,24 @@
     border-radius: 50%;
     transition: 0.4s;
   }
-  
+
   input:checked + .slider {
     background-color: #6200EE;
   }
-  
+
   input:checked + .slider:before {
     transform: translateX(26px);
   }
-  
+
   .toggle-label {
     font-weight: normal;
   }
-  
+
   .form-buttons {
     display: flex;
     justify-content: space-between;
   }
-  
+
   .btn {
     padding: 10px 20px;
     border: none;
@@ -97,56 +97,56 @@
     width: 75%;
     border-radius: 10px;
   }
-  
+
   .btn-primary {
     background-color: #8BC34A;
     color: white;
   }
-  
+
   .btn-secondary {
     background-color: white;
     color: #333;
     border: 1px solid #ddd;
   }
-  
+
   .btn-secondary:hover {
     background-color: #f0f0f0;
   }
-  
+
   .card-container {
     display: flex;
     gap: 20px;
   }
-  
+
   .card {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
     border: none;
   }
-  
+
   .card-header {
     text-align: center;
     padding: 20px;
     background-color: white;
   }
-  
+
   .card-header h3 {
     margin: 0;
     font-size: 18px;
   }
-  
+
   .card-header p {
     margin: 0;
     color: #999;
     font-size: 14px;
   }
-  
+
   .card-body {
     padding: 20px;
     text-align: center;
   }
-  
+
   .btn-add {
     background: #663895;
     color: white;
@@ -156,12 +156,12 @@
     font-size: 14px;
     cursor: pointer;
   }
-  
+
   .btn-add i {
     margin-right: 5px;
     color: white;
   }
-  
+
   .card-footer {
     display: flex;
     align-items: center;
@@ -170,26 +170,26 @@
     border-top: 1px solid #f0f0f0;
     background-color: white;
   }
-  
+
   .toggle-label {
     display: flex;
     align-items: center;
     gap: 5px;
   }
-  
+
   .switch {
     position: relative;
     display: inline-block;
     width: 40px;
     height: 20px;
   }
-  
+
   .switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
-  
+
   .slider {
     position: absolute;
     cursor: pointer;
@@ -200,7 +200,7 @@
     transition: 0.4s;
     border-radius: 20px;
   }
-  
+
   .slider:before {
     position: absolute;
     content: "";
@@ -212,17 +212,17 @@
     transition: 0.4s;
     border-radius: 50%;
   }
-  
+
   input:checked + .slider {
     background: #663895;
   }
-  
+
   input:checked + .slider:before {
     transform: translateX(20px);
   }
-  
+
   .icon-trash, .icon-edit {
-    color: #663895;  
+    color: #663895;
     cursor: pointer;
   }
   .form-group label{
@@ -234,6 +234,5 @@
     letter-spacing: 0.03em;
      text-underline-position: from-font;
     text-decoration-skip-ink: none;
-    
+
   }
-  

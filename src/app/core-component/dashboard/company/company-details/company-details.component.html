@@ -31,16 +31,16 @@
 
 <mat-tab-group [(selectedIndex)]="activeTabIndex">
   <mat-tab label="{{ 'COMPANY_DETAILS.TITLE' | translate }}">
-    <app-profile-details [company]="company" [cityName]="cityName" [countryName]="countryName"></app-profile-details>
+    <!-- <app-profile-details [company]="company" [cityName]="cityName" [countryName]="countryName"></app-profile-details> -->
   </mat-tab>
   <mat-tab label="{{ 'COMPANY_DETAILS.BRANCHES' | translate }}">
-    <app-view-branches></app-view-branches>
+    <!-- <app-view-branches></app-view-branches> -->
   </mat-tab>
   <mat-tab label="{{ 'COMPANY_DETAILS.DEPARTMENTS' | translate }}">
-    <app-departments></app-departments>
+    <!-- <app-departments></app-departments> -->
   </mat-tab>
   <mat-tab label="{{ 'COMPANY_DETAILS.POSITION' | translate }}">
-    <app-index [companyId]="+companyId"></app-index>
+    <!-- <app-index [companyId]="+companyId"></app-index> -->
   </mat-tab>
   <!-- <mat-tab label="{{ 'COMPANY_DETAILS.TOP_MANAGEMENT' | translate }}">
     <app-top-managment></app-top-managment>

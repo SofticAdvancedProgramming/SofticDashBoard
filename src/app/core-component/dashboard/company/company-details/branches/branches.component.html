@@ -52,14 +52,11 @@
 </div>
 
 <ng-container *ngIf="isAdd || isEdit">
-  <app-add-branch [companyId]="companyId" (action)="handleAction($event)" [isEdit]="isEdit" [branch]="branch">
-  </app-add-branch>
-</ng-container>
 
-<app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedBranch?.id?.toString()" [entityType]="'Employee'"
-  [entities]="employees" [branch]="selectedBranch || null" (close)="handleClose()"
-  (submitForm)="handleEntityAssigned($event)">
-</app-assign-entity>
+  <app-branches-action [companyId]="companyId" (action)="handleAction($event)" [isEdit]="isEdit" [branch]="branch">
+
+  </app-branches-action>
+</ng-container>
 
 <p-toast position="top-center"></p-toast>
 

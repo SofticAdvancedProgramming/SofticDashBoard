@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssignEntityComponent } from './assign-entity.component';
+import { BranchesComponent } from './branches.component';
 
-describe('AssignEntityComponent', () => {
-  let component: AssignEntityComponent;
-  let fixture: ComponentFixture<AssignEntityComponent>;
+describe('BranchesComponent', () => {
+  let component: BranchesComponent;
+  let fixture: ComponentFixture<BranchesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AssignEntityComponent]
+      imports: [BranchesComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AssignEntityComponent);
+    fixture = TestBed.createComponent(BranchesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

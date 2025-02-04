@@ -1,39 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
-import { branch } from '../../../../../../../models/branch';
-import { EmployeeService } from '../../../../../../services/employeeService/employee.service';
-import { employee } from '../../../../../../../models/employee';
-import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ToastModule } from 'primeng/toast';
-import { ModernTableComponent } from '../../../../components/modern-table/modern-table.component';
-import { AddBranchComponent } from '../add-branch/add-branch.component';
-import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { branch } from '../../../../../../models/branch';
+import { employee } from '../../../../../../models/employee';
+import { EmployeeService } from '../../../../../services/employeeService/employee.service';
+import { BranchService } from '../../../../../services/lockupsServices/branchService/branch.service';
+import { ModernTableComponent } from '../../../components/modern-table/modern-table.component';
+import { BranchesActionComponent } from "./branches-action/branches-action.component";
 
 @Component({
-  selector: 'app-view-branches',
-  templateUrl: './view-branches.component.html',
-  styleUrls: ['./view-branches.component.css'],
-  providers: [BranchService, EmployeeService, MessageService,ConfirmationService],
+  selector: 'app-branches',
   standalone: true,
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     ToastModule,
-    AddBranchComponent,
-    AssignEntityComponent,
     ModernTableComponent,
     PaginationModule,
-    TranslateModule,ConfirmDialogModule
-  ],
+    TranslateModule, ConfirmDialogModule,
+    BranchesActionComponent
+],
+  templateUrl: './branches.component.html',
+  styleUrl: './branches.component.css'
 })
-export class ViewBranchesComponent implements OnInit {
+export class BranchesComponent implements OnInit {
   @Input() companyId?: number = 0;
   isAdd: boolean = false;
   isEdit: boolean = false;
@@ -227,3 +223,4 @@ export class ViewBranchesComponent implements OnInit {
   }
 
 }
+
