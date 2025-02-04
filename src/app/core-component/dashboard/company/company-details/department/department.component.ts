@@ -1,53 +1,41 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { Department } from '../../../../../../../models/department';
-import { employee } from '../../../../../../../models/employee';
-import { AddDepartmentComponent } from '../add-department/add-department.component';
-import { DepartmentOverviewComponent } from '../department-overview/department-overview.component';
-import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
-import { EmployeeService } from '../../../../../../services/employeeService/employee.service';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
-import { environment } from '../../../../../../environment/environment';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
-import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
-interface DepartmentPayload {
-  companyId: number;
-  pageIndex: number;
-  pageSize: number;
-  branchId?: number;
-  isCentralized?:boolean;
-}
+import { ToastModule } from 'primeng/toast';
+import { Subscription } from 'rxjs';
+import { Department } from '../../../../../../models/department';
+import { employee } from '../../../../../../models/employee';
+import { EmployeeService } from '../../../../../services/employeeService/employee.service';
+import { BranchService } from '../../../../../services/lockupsServices/branchService/branch.service';
+import { DepartmentService } from '../../../../../services/lockupsServices/DepartmentService/department.service';
+import { AssignEntityComponent } from '../../components/department/assign-entity/assign-entity.component';
+import { DepartmentOverviewComponent } from '../../components/department/department-overview/department-overview.component';
+import { DepartmentActionComponent } from "./department-action/department-action.component";
 
 @Component({
-  selector: 'app-departments',
+  selector: 'app-department',
   standalone: true,
-  templateUrl: './departments.component.html',
-  styleUrls: ['./departments.component.css'],
-  providers: [DepartmentService, EmployeeService, MessageService, ConfirmationService],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
-    RouterOutlet,
-    AddDepartmentComponent,
     DepartmentOverviewComponent,
     ToastModule,
     AssignEntityComponent,
     PaginationModule,
-    TranslateModule, ConfirmDialogModule
-
-  ]
+    TranslateModule, ConfirmDialogModule,
+    DepartmentActionComponent
+],
+providers: [ConfirmationService],
+  templateUrl: './department.component.html',
+  styleUrl: './department.component.css'
 })
-
-export class DepartmentsComponent implements OnInit {
+export class DepartmentComponent implements OnInit {
   @Input() companyId?: number;
   @Output() departmentAdded = new EventEmitter<void>();
   selectedBranchId: any | null = null;
@@ -95,7 +83,7 @@ export class DepartmentsComponent implements OnInit {
     const companyId = this.getCompanyId();
     if (!companyId) return;
 
-    const payload: DepartmentPayload = {
+    const payload: any = {
       companyId,
       pageIndex: page,
       pageSize: this.itemsPerPage,
@@ -115,7 +103,7 @@ export class DepartmentsComponent implements OnInit {
 
     this.departmentService.getDepartment(payload).subscribe({
       next: (response) => {
-        
+
         this.departments = response.data.list;
         this.filteredDepartments = [...this.departments];
         this.totalItems = response.data.totalRows;

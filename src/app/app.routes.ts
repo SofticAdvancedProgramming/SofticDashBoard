@@ -17,7 +17,6 @@ import { CompanyDetailsComponent } from './core-component/dashboard/company/comp
 import { ProfileDetailsComponent } from './core-component/dashboard/company/components/profile-details/profile-details.component';
 import { AddPositionComponent } from './core-component/dashboard/company/components/position/add-position/add-position.component';
 import { DepartmentDetailsComponent } from './core-component/dashboard/company/components/department/department-details/department-details.component';
-import { AddDepartmentComponent } from './core-component/dashboard/company/components/department/add-department/add-department.component';
 import { DepartmentOverviewComponent } from './core-component/dashboard/company/components/department/department-overview/department-overview.component';
 import { PositionTypeManagmentComponent } from './core-component/dashboard/setting/Lockups/position-type-managment/position-type-managment.component';
 import { DepartmentManagmentComponent } from './core-component/dashboard/setting/Lockups/department-managment/department-managment.component';
@@ -53,6 +52,8 @@ import { AddRequestTypeComponent } from './core-component/dashboard/workflow/req
 import { RequestTypeIndexComponent } from './core-component/dashboard/workflow/request-type/request-type-index/request-type-index.component';
 import { RequestTypeDetailsComponent } from './core-component/dashboard/workflow/request-type/request-type-details/request-type-details.component';
 import { TasksArchivedComponent } from './core-component/dashboard/Tasks/tasks-archived/tasks-archived/tasks-archived.component';
+import { DepartmentComponent } from './core-component/dashboard/company/company-details/department/department.component';
+import { BranchesComponent } from './core-component/dashboard/company/company-details/branches/branches.component';
 
 export const routes: Routes = [
   {
@@ -78,11 +79,18 @@ export const routes: Routes = [
       { path: 'addressManagement', component: LocationManagmentComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'EditProfile', component: EditProfileComponent },
-      { path: 'company/:companyId', component: CompanyDetailsComponent },
+      {
+        path: 'company/:companyId',
+        loadComponent:()=> import('./core-component/dashboard/company/company-details/company-details.component')
+        .then(a=>a.CompanyDetailsComponent),
+        loadChildren:()=>import('./core-component/dashboard/company/company-details/company-details.routes')
+        .then(r=>r.companyDetailsRoute)
+
+      },
+
       { path: 'ProfileDetails', component: ProfileDetailsComponent },
       { path: 'AddPosition', component: AddPositionComponent },
       { path: 'DepartmentDetails', component: DepartmentDetailsComponent },
-      { path: 'AddDepartment', component: AddDepartmentComponent },
       { path: 'HomeIndex', component: HomeIndexComponent },
       { path: 'DepartmentOverview', component: DepartmentOverviewComponent  },
       { path: 'PositionTypeManagment', component: PositionTypeManagmentComponent  },

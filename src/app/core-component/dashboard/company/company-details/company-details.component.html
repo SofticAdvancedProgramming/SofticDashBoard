@@ -28,21 +28,21 @@
 </div>
 
 
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['branch']" routerLinkActive="active">{{ 'COMPANY_DETAILS.TITLE' | translate }}</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['branches']" routerLinkActive="active" >{{ 'COMPANY_DETAILS.BRANCHES' | translate }}</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [routerLink]="['department']" routerLinkActive="active">{{ 'COMPANY_DETAILS.DEPARTMENTS' | translate }}</a>
+  </li>
 
-<mat-tab-group [(selectedIndex)]="activeTabIndex">
-  <mat-tab label="{{ 'COMPANY_DETAILS.TITLE' | translate }}">
-    <!-- <app-profile-details [company]="company" [cityName]="cityName" [countryName]="countryName"></app-profile-details> -->
-  </mat-tab>
-  <mat-tab label="{{ 'COMPANY_DETAILS.BRANCHES' | translate }}">
-    <!-- <app-view-branches></app-view-branches> -->
-  </mat-tab>
-  <mat-tab label="{{ 'COMPANY_DETAILS.DEPARTMENTS' | translate }}">
-    <!-- <app-departments></app-departments> -->
-  </mat-tab>
-  <mat-tab label="{{ 'COMPANY_DETAILS.POSITION' | translate }}">
-    <!-- <app-index [companyId]="+companyId"></app-index> -->
-  </mat-tab>
-  <!-- <mat-tab label="{{ 'COMPANY_DETAILS.TOP_MANAGEMENT' | translate }}">
-    <app-top-managment></app-top-managment>
-  </mat-tab> -->
-</mat-tab-group>
+  <li class="nav-item">
+    <a class="nav-link" href="#">{{ 'COMPANY_DETAILS.POSITION' | translate }}</a>
+  </li>
+
+</ul>
+
+<router-outlet></router-outlet>

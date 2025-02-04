@@ -26,11 +26,13 @@ import { BranchesActionComponent } from "./branches-action/branches-action.compo
     TranslateModule, ConfirmDialogModule,
     BranchesActionComponent
 ],
+  providers: [ConfirmationService],
   templateUrl: './branches.component.html',
   styleUrl: './branches.component.css'
 })
 export class BranchesComponent implements OnInit {
-  @Input() companyId?: number = 0;
+  // @Input() companyId?: number = 0;
+  companyId?: number = 0;
   isAdd: boolean = false;
   isEdit: boolean = false;
   showOverView: boolean = false;
@@ -83,7 +85,7 @@ export class BranchesComponent implements OnInit {
         }
       });
     } else {
-      this.showError('Company ID is missing');
+      // this.showError('Company ID is missing');
     }
   }
 
