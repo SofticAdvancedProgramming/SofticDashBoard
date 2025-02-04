@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, ChangeDetectorRef, ChangeDetectionStrategy, ApplicationRef } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PositionService } from '../../../../../../services/positionService/position.service';
 import { EmployeeService } from '../../../../../../services/employeeService/employee.service';
@@ -39,7 +39,7 @@ export class IndexComponent implements OnInit {
   directManger?: employee = {} as employee;
   employees: employee[] = [];
 
-  @Input() companyId?: any = '';
+  companyId?: any = '';
   positions: Position[] = [];
   departments: Department[] = [];
   currentPage: number = 1;
@@ -75,13 +75,18 @@ export class IndexComponent implements OnInit {
     private positionTypeService: PositionTypeService,
      private cdr: ChangeDetectorRef,
      private appRef: ApplicationRef,
+     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.isArabic = this.translate.currentLang === 'ar';
-    this.loadDepartments();
-    this.loadPositions();
-    this.loadAllDepartments(); // Load all departments for the filter
+    this.activatedRoute.parent?.params.subscribe(params => {
+      this.companyId = +params['companyId'];
+      this.loadDepartments();
+      this.loadPositions();
+      this.loadAllDepartments(); // Load all departments for the filter
+
+    });
 
     this.translate.onLangChange.subscribe((event) => {
       this.isArabic = event.lang === 'ar';
@@ -104,16 +109,16 @@ export class IndexComponent implements OnInit {
   loadPositions(page: number = this.currentPage): void {
     const companyId = this.getCompanyId();
     if (!companyId) return;
-  
+
     const payload: any = {
       companyId: companyId,
       pageIndex: page,
       pageSize: this.itemsPerPage,
     };
-  
+
     this.positionService.getPosition(payload).subscribe({
       next: (response) => {
-      
+
 
 
         setTimeout(() => {
@@ -125,7 +130,7 @@ export class IndexComponent implements OnInit {
         // Manually trigger change detection
         this.cdr.detectChanges();
 
-      
+
       },
     });
   }
@@ -289,7 +294,7 @@ export class IndexComponent implements OnInit {
     if (isAdd) {
       this.isAdd = isAdd;
       this.isEdit = isAdd;
-      this.currentPage = this.currentPage;  
+      this.currentPage = this.currentPage;
     } else {
        this.isEdit = isAdd;
       this.isAdd = isAdd;
