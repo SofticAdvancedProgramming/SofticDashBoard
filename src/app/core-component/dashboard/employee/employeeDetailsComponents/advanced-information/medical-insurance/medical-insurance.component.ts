@@ -33,6 +33,10 @@ export class MedicalInsuranceComponent {
         this.getMedicalInsurance();
       });
   }
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+    //return this.localStorageService.getCurrentLanguage() === 'ar';
+  }
 
   getMedicalInsurance() {
     this._UserMedicalInsuranceService
@@ -40,7 +44,7 @@ export class MedicalInsuranceComponent {
       .pipe(
         tap((res) => {
           this.userMedical = res.data.list[res.data.totalRows-1];
-         
+
         }),
         takeUntil(this.unsubscribe$)
       )
