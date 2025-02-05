@@ -42,7 +42,9 @@ export class ChangStatusAssetsPopupComponent {
 changeStatus(){
   this.assetService.changrStatus(this.assetId,this.selectedStatus).subscribe(
     {
-      next:(res:any)=>{}
+      next:(res:any)=>{
+      
+      }
     }
   )
 }
