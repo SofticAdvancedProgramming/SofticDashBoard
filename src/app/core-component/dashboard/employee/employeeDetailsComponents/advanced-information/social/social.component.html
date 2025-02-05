@@ -99,17 +99,6 @@
           </p>
       </div>
 
-      <div class="col-12 col-md-6 border-bottom-custom"  *ngIf="userSocial?.userRefernces!.length>=1" >
-        <label class="d-block fw-semibold text-dark" *ngIf="userSocial?.userRefernces!.length>=1">
-          {{ 'socialMediaContact.referance' | translate }}
-        </label>
-        <p  *ngFor="let referance of userSocial?.userRefernces;let i =index"
-          class="text-muted"
-        >
-          {{ referance?.email ? referance?.email : ('socialMediaContact.No_Data' | translate) }}
-      </p>
-      </div>
-
       <div class="col-12 col-md-6 border-bottom-custom"  *ngIf="userSocial?.userTelephones!.length>=1" >
         <label class="d-block fw-semibold text-dark" *ngIf="userSocial?.userTelephones!.length>=1">
           {{ 'socialMediaContact.userTelephone' | translate }}
@@ -125,6 +114,127 @@
 
       </p>
       </div>
+
+      <div *ngIf="userSocial?.userRefernces!.length>=1" >
+        @for (userRefernce of userSocial?.userRefernces; track $index) {
+        <div class="row">
+          <p class="text-center  fw-bold customHeader my-3">
+            {{ "socialMediaContact.referance" | translate }}
+          </p>
+          <div class="col-12 col-md-6 border-bottom-custom" >
+            <label class="d-block fw-semibold text-dark" >
+              {{ 'socialMediaContact.referance name' | translate }}
+            </label>
+            <p
+              class="text-muted"
+            >
+              {{ userRefernce?.name ? userRefernce?.name : ('socialMediaContact.No_Data' | translate) }}
+          </p>
+          </div>
+
+          <div class="col-12 col-md-6 border-bottom-custom" >
+            <label class="d-block fw-semibold text-dark" >
+              {{ 'socialMediaContact.referance telephone' | translate }}
+            </label>
+            <p
+              class="text-muted"
+            >
+              {{ userRefernce?.telephone ? userRefernce?.telephone : ('socialMediaContact.No_Data' | translate) }}
+          </p>
+          </div>
+
+          <div class="col-12 col-md-6 border-bottom-custom" >
+            <label class="d-block fw-semibold text-dark" >
+              {{ 'socialMediaContact.referance fullAddress' | translate }}
+            </label>
+            <p
+              class="text-muted"
+            >
+              {{ userRefernce?.fullAddress ? userRefernce?.fullAddress : ('socialMediaContact.No_Data' | translate) }}
+          </p>
+          </div>
+
+          <div class="col-12 col-md-6 border-bottom-custom" >
+            <label class="d-block fw-semibold text-dark" >
+              {{ 'socialMediaContact.referance nearBy' | translate }}
+            </label>
+            <p
+              class="text-muted"
+            >
+              {{ userRefernce?.nearBy ? userRefernce?.nearBy : ('socialMediaContact.No_Data' | translate) }}
+          </p>
+          </div>
+
+          <div class="col-12 col-md-6 border-bottom-custom" >
+            <label class="d-block fw-semibold text-dark" >
+              {{ 'socialMediaContact.referance street' | translate }}
+            </label>
+            <p
+              class="text-muted"
+            >
+              {{ userRefernce?.street ? userRefernce?.street : ('socialMediaContact.No_Data' | translate) }}
+          </p>
+          </div>
+
+          <div class="col-12 col-md-6 border-bottom-custom" >
+            <label class="d-block fw-semibold text-dark" >
+              {{ 'socialMediaContact.referance buildingNo' | translate }}
+            </label>
+            <p
+              class="text-muted"
+            >
+              {{ userRefernce?.buildingNo ? userRefernce?.buildingNo : ('socialMediaContact.No_Data' | translate) }}
+          </p>
+          </div>
+
+          <div class="col-12 col-md-6 border-bottom-custom" >
+            <label class="d-block fw-semibold text-dark" >
+              {{ 'socialMediaContact.referance floor' | translate }}
+            </label>
+            <p
+              class="text-muted"
+            >
+              {{ userRefernce?.floor ? userRefernce?.floor : ('socialMediaContact.No_Data' | translate) }}
+          </p>
+          </div>
+
+          <div class="col-12 col-md-6 border-bottom-custom" >
+            <label class="d-block fw-semibold text-dark" >
+              {{ 'socialMediaContact.referance unit' | translate }}
+            </label>
+            <p
+              class="text-muted"
+            >
+              {{ userRefernce?.unit ? userRefernce?.unit : ('socialMediaContact.No_Data' | translate) }}
+          </p>
+          </div>
+
+          <div class="col-12 col-md-6 border-bottom-custom" >
+            <label class="d-block fw-semibold text-dark" >
+              {{ 'socialMediaContact.referance refernceType' | translate }}
+            </label>
+            <p
+              class="text-muted"
+            >
+              {{ userRefernce?.refernceType ? userRefernce?.refernceType : ('socialMediaContact.No_Data' | translate) }}
+          </p>
+          </div>
+
+          <div class="col-12 col-md-6 border-bottom-custom" *ngIf="userRefernce.isEmployee">
+            <label class="d-block fw-semibold text-dark" >
+              {{ 'socialMediaContact.referance unit' | translate }}
+            </label>
+            <p
+              class="text-muted"
+            >
+              {{ userRefernce?.refernceEmployee? userRefernce?.refernceEmployee : ('socialMediaContact.No_Data' | translate) }}
+          </p>
+          </div>
+
+        </div>
+      }
+      </div>
+
   </div>
 </div>
 
