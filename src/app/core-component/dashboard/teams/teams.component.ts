@@ -10,6 +10,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MapComponent } from '../../../common-component/map/map.component';
 import { TeamsService } from '../../../services/teamsService/teams.service';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmnDeleteDialogComponent } from "../../../common-component/confirmn-delete-dialog/confirmn-delete-dialog.component";
 
 @Component({
     selector: 'app-teams',
@@ -26,7 +27,8 @@ import { ToastrService } from 'ngx-toastr';
         DropDownComponent,
         MatSelectModule,
         MatOptionModule,
-        MapComponent
+        MapComponent,
+        ConfirmnDeleteDialogComponent
     ]
 })
 export class TeamsComponent implements OnInit {
@@ -41,7 +43,8 @@ export class TeamsComponent implements OnInit {
   isEdit: boolean = false;
   showMap: boolean = false;
   location: { lat: number, lng: number } | null = null;
-
+  showDeleteDialog: boolean = false;
+  teamIdToDelete: number | null = null;
   constructor(
     private fb: FormBuilder,
     private employeeService: EmployeeService,
@@ -174,5 +177,33 @@ export class TeamsComponent implements OnInit {
       }
     });
   }
-  
+  openDeleteDialog(teamId: number) {
+    this.teamIdToDelete = teamId;
+    this.showDeleteDialog = true;
+  }
+
+  confirmDelete() {
+    if (!this.teamIdToDelete) return;
+
+    const companyId = Number(localStorage.getItem('companyId')) || 0;
+    
+    this.teamsService.delete(this.teamIdToDelete, companyId).subscribe({
+      next: () => {
+        this.toast.success('Team deleted successfully!', 'Success');
+        this.loadTeams();   
+        this.showDeleteDialog = false;  
+        this.teamIdToDelete = null;
+      },
+      error: (err) => {
+        console.error('Error deleting team:', err);
+        this.toast.error('Failed to delete team', 'Error');
+        this.showDeleteDialog = false;
+      }
+    });
+  }
+
+  cancelDelete() {
+    this.showDeleteDialog = false;
+    this.teamIdToDelete = null;
+  }
 }  

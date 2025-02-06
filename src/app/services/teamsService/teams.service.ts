@@ -18,4 +18,7 @@ export class TeamsService {
   getTeam(request: any): Observable<any> {
     return this.http.request('POST', teamsController.getTeam, request);
   }
+    delete(id: number, companyId: number): Observable<any> {
+      return this.http.request('POST', teamsController.deleteTeam(id, companyId), {});
+    }
 }

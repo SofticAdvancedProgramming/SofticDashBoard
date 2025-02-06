@@ -1,5 +1,4 @@
-<div class="container">
-    <div class="container">
+     <div class="container">
         <div class="d-flex col-4 gap-3 align-items-start flex-row">
             <p class="lead">{{ "Team Management" | translate }}</p>
             <img src="../../../../../assets/images/arrow-left2.png" alt="arrow" />
@@ -81,9 +80,12 @@
                 </div>
             </form>
         </div>
-    </div>
+   
 
     <!-- Teams Table -->
+     <div class="row">
+         
+     
     <div class="table">
         <table class="table mt-4">
             <thead>
@@ -94,17 +96,32 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let team of teams" (click)="navigateToDetails(team.id)" style="cursor: pointer;">
+                <tr *ngFor="let team of teams" style="cursor: pointer;">
                     <td>{{ team.name }}</td>
                     <td>{{ team.nameAr }}</td>
                     <td>
-                        <!-- <button class="btn btn-sm" (click)="openDeleteDialog(team.id); $event.stopPropagation()">
-                            <img src="../../../../../../assets/images/trash.png" alt="trash" />
-                        </button> -->
+                        <button class="btn btn-sm" (click)="navigateToDetails(team.id)">
+                            <img src="../../../../../../assets/images/view.png" alt="view" />
+                        </button>
+                        <button class="btn btn-sm" (click)="openDeleteDialog(team.id)">
+                            <img src="../../../../../../assets/images/trash.png" alt="delete" />
+                        </button>
                     </td>
+                </tr>
+                <tr *ngIf="teams.length === 0">
+                    <td colspan="3" class="text-center">{{ 'No Teams Available' | translate }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    
 </div>
+</div>
+    <!-- Delete Confirmation Dialog -->
+    <app-confirmn-delete-dialog
+      *ngIf="showDeleteDialog"
+      [title]="'Confirm Deletion'"
+      [message]="'Are you sure you want to delete?'"
+      (onConfirm)="confirmDelete()"
+      (onCancel)="cancelDelete()"
+    ></app-confirmn-delete-dialog>
+    
