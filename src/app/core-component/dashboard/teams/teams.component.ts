@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MapComponent } from '../../../common-component/map/map.component';
 import { TeamsService } from '../../../services/teamsService/teams.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-teams',
@@ -46,7 +47,8 @@ export class TeamsComponent implements OnInit {
     private employeeService: EmployeeService,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private teamsService: TeamsService
+    private teamsService: TeamsService,
+    private toast: ToastrService
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -63,7 +65,7 @@ export class TeamsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadEmployees();
-
+    this.loadTeams();
      this.form.get('isAttendance')?.valueChanges.subscribe((value) => {
       this.showMap = value;
       this.cdr.markForCheck(); 
@@ -104,7 +106,7 @@ export class TeamsComponent implements OnInit {
       return;
     }
   
-    const companyId = Number(localStorage.getItem('companyId')) || 0; // Get company ID from local storage
+    const companyId = Number(localStorage.getItem('companyId')) || 0; 
   
     const requestPayload = {
       id: 0,
@@ -113,25 +115,64 @@ export class TeamsComponent implements OnInit {
       nameAr: this.form.value.nameAr,
       long: this.form.value.long || 0,
       lat: this.form.value.lat || 0,
-      associatedToTask: this.form.value.associatedToTask || false, // ✅ Ensure it's fetched correctly
+      associatedToTask: this.form.value.associatedToTask || false,
       associatedToAttendance: this.form.value.isAttendance || false,
       expiryDate: this.form.value.expiryDate || new Date().toISOString(),
       employeeIds: this.form.value.EmployeeIds || []
     };
   
-    console.log("Submitting Request:", requestPayload); // Debugging purpose
+    console.log("Submitting Request:", requestPayload);
   
     this.teamsService.addTeam(requestPayload).subscribe({
       next: (response) => {
         console.log('Team added successfully', response);
+        
+        // ✅ Show success toaster
+        this.toast.success('Team added successfully!', 'Success');
+  
+        // ✅ Clear the form
+        this.form.reset({
+          name: '',
+          nameAr: '',
+          EmployeeIds: [],
+          isAttendance: false,
+          associatedToTask: false,
+          lat: null,
+          long: null,
+          expiryDate: null
+        });
+  
+        // ✅ Reload the teams in the table
+        this.loadTeams();
+  
+        // ✅ Refresh UI
+        this.cdr.markForCheck();
       },
       error: (err) => {
         console.error('Error adding team:', err);
+        this.toast.error('Failed to add team', 'Error'); // ✅ Show error message
       }
     });
   }
   
+  
   toggleTaskAssociation(event: any) {
     this.form.patchValue({ associatedToTask: event.target.checked });
   }
+  loadTeams() {
+    const companyId = Number(localStorage.getItem('companyId')) || 0;  
+  
+    const requestPayload = { companyId: companyId };
+  
+    this.teamsService.getTeam(requestPayload).subscribe({
+      next: (response) => {
+        this.teams = response.data.list || []; 
+        this.cdr.markForCheck();
+      },
+      error: (err) => {
+        console.error('Error loading teams:', err);
+      }
+    });
+  }
+  
 }  
