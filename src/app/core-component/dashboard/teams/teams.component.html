@@ -43,7 +43,14 @@
                             <input type="date" class="form-control" formControlName="expiryDate">
                          </div>
                     </div>
-
+                    <div class="form-group toggle-group">
+                        <label class="switch">
+                            <input type="checkbox" [checked]="form.get('associatedToTask')?.value" 
+                                   (change)="toggleTaskAssociation($event)" />
+                            <span class="slider"></span>
+                        </label>
+                        <label class="toggle-label">{{ "Is Task" | translate }}</label>
+                    </div>
                     <!-- Attendance Checkbox -->
                     <div class="form-group toggle-group">
                         <label class="switch">
@@ -60,14 +67,7 @@
                             [lat]="location?.lat"></app-map>
                     </div>
 
-                    <div class="form-group toggle-group">
-                        <label class="switch">
-                            <input type="checkbox" [checked]="form.get('associatedToTask')?.value" 
-                                   (change)="toggleTaskAssociation($event)" />
-                            <span class="slider"></span>
-                        </label>
-                        <label class="toggle-label">{{ "Is Task" | translate }}</label>
-                    </div>
+
                     
                     
                 </div>
