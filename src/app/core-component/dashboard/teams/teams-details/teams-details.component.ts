@@ -7,13 +7,14 @@ import { FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms'
 import { TeamsService } from '../../../../services/teamsService/teams.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { MapComponent } from "../../../../common-component/map/map.component";
 
 @Component({
-  selector: 'app-teams-details',
-  standalone: true,
-  imports: [TranslateModule , FormsModule, CommonModule],
-  templateUrl: './teams-details.component.html',
-  styleUrl: './teams-details.component.css',
+    selector: 'app-teams-details',
+    standalone: true,
+    templateUrl: './teams-details.component.html',
+    styleUrl: './teams-details.component.css',
+    imports: [TranslateModule, FormsModule, CommonModule, MapComponent]
 })
 export class TeamsDetailsComponent implements OnInit {
   teamId!: number;

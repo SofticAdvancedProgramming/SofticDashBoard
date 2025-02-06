@@ -27,13 +27,31 @@
                     <p class="text-muted">{{ teamDetails.nameAr }}</p>
                 </div>
                 <div class="col-lg-6 border-bottom-custom">
-                    <label class="d-block fw-semibold text-dark">{{ "Location" | translate }}</label>
-                    <p class="text-muted">Lat: {{ teamDetails.lat }}, Long: {{ teamDetails.long }}</p>
+                    <label class="d-block fw-semibold text-dark">{{ "Associated to Task" | translate }}</label>
+                    <p class="text-muted">
+                        <span *ngIf="teamDetails.associatedToTask; else notAssociated">
+                            ✅ {{ "Yes" | translate }}
+                        </span>
+                        <ng-template #notAssociated>
+                            ❌ {{ "No" | translate }}
+                        </ng-template>
+                    </p>
                 </div>
                 <div class="col-lg-6 border-bottom-custom">
                     <label class="d-block fw-semibold text-dark">{{ "Expiry Date" | translate }}</label>
-                    <p class="text-muted"> {{ teamDetails.expiryDate || 'N/A' }}</p>
+                    <p class="text-muted">{{ teamDetails.expiryDate ? (teamDetails.expiryDate | date) : 'N/A' }}</p>
                 </div>
+                     <div class="col-lg-6">
+                        <label class="d-block fw-semibold text-dark">{{ "Team Location" | translate }}</label>
+                        <app-map *ngIf="teamDetails.lat && teamDetails.long"
+                            [lat]="teamDetails.lat"
+                            [long]="teamDetails.long">
+                        </app-map>
+                        <p *ngIf="!teamDetails.lat || !teamDetails.long" class="text-muted">
+                            {{ "Location Not Available" | translate }}
+                        </p>
+                 </div>
+  
             </div>
         </div>
     </div>
