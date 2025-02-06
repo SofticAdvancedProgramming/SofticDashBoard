@@ -313,7 +313,8 @@
     "LOGOUT": "Logout",
     "ASSETS": "Assets",
     "COMPLAINSANDSUGGESTIONS": "Complaints & Suggetions",
-    "TASKS": "Tasks"
+    "TASKS": "Tasks",
+    "teams": "Teams"
   },
   "Home": {
     "ActiveCompanies": "Active Companies",
