@@ -145,3 +145,8 @@
   (closeFilterPopup)="onFilterPopupClose($event)"
   (confirmFilterPopup)="applyFilterPopup($event)"
 ></app-tasks-filter-pop-up>
+<app-evaluatoion
+  *ngIf="isEvaluationPopupVisible"
+  [inputTaskId]="selectedTaskId"
+  (closeEvaluationPopup)="isEvaluationPopupVisible = false"
+></app-evaluatoion>

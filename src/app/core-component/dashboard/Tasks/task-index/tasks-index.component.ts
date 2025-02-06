@@ -19,28 +19,32 @@ import { ShortenPipe } from '../../../../core/pipes/shorten.pipe';
 import { TasksFilterPopUpComponent } from '../../../../common-component/tasks-filter-pop-up/tasks-filter-pop-up/tasks-filter-pop-up.component';
 import { DropDownComponent } from '../../components/drop-down/drop-down.component';
 import { RequestTypeService } from '../../../../services/requestTypeService/request-type.service';
+import { EvaluatoionComponent } from "../../components/evaluatoion/evaluatoion.component";
 
 @Component({
-  selector: 'app-tasks-index',
-  standalone: true,
-  imports: [
-    ShortenPipe,
-    TranslateModule,
-    RouterLink,
-    RouterLinkActive,
-    DragDropModule,
-    NgIf,
-    NgFor,
-    NgClass,
-    DatePipe,
-    FormsModule,
-    TasksFilterPopUpComponent,
-    DropDownComponent
-  ],
-  templateUrl: './tasks-index.component.html',
-  styleUrl: './tasks-index.component.css',
+    selector: 'app-tasks-index',
+    standalone: true,
+    templateUrl: './tasks-index.component.html',
+    styleUrl: './tasks-index.component.css',
+    imports: [
+        ShortenPipe,
+        TranslateModule,
+        RouterLink,
+        RouterLinkActive,
+        DragDropModule,
+        NgIf,
+        NgFor,
+        NgClass,
+        DatePipe,
+        FormsModule,
+        TasksFilterPopUpComponent,
+        DropDownComponent,
+        EvaluatoionComponent
+    ]
 })
 export class TasksIndexComponent implements OnInit {
+  selectedTaskId: number = 0; // Default to 0 instead of null
+
   statuses = ['To-Do', 'In progress', 'Submit for review', 'Done'];
   Branches: any[] = [];
   departmentOptions: any[] = [];
@@ -54,15 +58,15 @@ export class TasksIndexComponent implements OnInit {
   };
   isFilterPopupVisible: boolean = false;
   companyId: number = 0;
-  connectedLists = this.statuses; // All lists are connected for drag-and-drop
+  connectedLists = this.statuses;
   branchId: any;
-
+  isEvaluationPopupVisible: boolean = false;
+   
   get connectedStatuses(): string[] {
     return this.statuses;
   }
 
   getClass(status: string): string {
-    // Return a different class based on the status
     switch (status) {
       case 'To-Do':
         return 'task-group-todo';
@@ -101,15 +105,28 @@ export class TasksIndexComponent implements OnInit {
 
     this.loadAllTasks(this.valueOfSearch);
   }
-
+  onEvaluationComplete() {
+    if (this.selectedTaskId) {
+      this.changeTaskStatus(this.selectedTaskId, 4);  
+      this.isEvaluationPopupVisible = false; 
+     // this.selectedTaskId = null;
+    }
+  }
+  
   onDrop(event: CdkDragDrop<Task[]>) {
-
-    // Access the dropped task
     const droppedTask = event.item.data;
-
-
     const droppedIntoStatus = event.container.id;
-
+  
+    // Check if the task is being moved to "Done"
+    if (droppedIntoStatus === 'Done') {
+      if (!droppedTask.isEvaluated) {
+        console.log(`Task ${droppedTask.id} is not evaluated. Showing evaluation popup.`);
+        this.selectedTaskId = droppedTask.id;
+        this.isEvaluationPopupVisible = true;
+        return; // Prevent the task from moving
+      }
+    }
+  
     let newStatus: number = 0;
     switch (droppedIntoStatus) {
       case 'To-Do':
@@ -125,26 +142,23 @@ export class TasksIndexComponent implements OnInit {
         newStatus = 4;
         break;
     }
-
+  
     if (event.previousContainer === event.container) {
-      // Reordering within the same list
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      // Moving between lists
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
-
+  
     this.changeTaskStatus(droppedTask.id, newStatus);
   }
+  
+  showEvaluationPopup(taskId: number): void {
+    console.log('Opening evaluation popup for Task ID:', taskId);
+    this.selectedTaskId = taskId ?? 0; // Ensure it's never null
+    this.isEvaluationPopupVisible = true;
+  }
+  
+  
   changeTaskStatus(taskId: number, statusId: number) {
     this.tasksService
       .assignTaskStatus({ taskId: taskId, statusId: statusId })
@@ -181,16 +195,14 @@ export class TasksIndexComponent implements OnInit {
     this.tasksService.get(query).subscribe({
       next: (response: any) => {
 
-        // Ensure Tasks is an array before iterating
-        this.tasksByStatus['To-Do'] = [];
+         this.tasksByStatus['To-Do'] = [];
         this.tasksByStatus['In progress'] = [];
         this.tasksByStatus['Done'] = [];
         this.tasksByStatus['Submit for review'] = [];
         for (let item of response['data'].list) {
           if (item.statusId === tasksStatus.Todo) {
             this.tasksByStatus['To-Do'].push(item);
-            // console.log(item);
-          } else if (item.statusId == tasksStatus.InProgress) {
+           } else if (item.statusId == tasksStatus.InProgress) {
             this.tasksByStatus['In progress'].push(item);
           } else if (item.statusId == tasksStatus.SubmitForReview) {
             this.tasksByStatus['Submit for review'].push(item);
@@ -251,16 +263,14 @@ export class TasksIndexComponent implements OnInit {
     this.tasksService.get(query).subscribe({
       next: (response) => {
         console.log(response);
-        // Ensure Tasks is an array before iterating
-        this.tasksByStatus['To-Do'] = [];
+         this.tasksByStatus['To-Do'] = [];
         this.tasksByStatus['In progress'] = [];
         this.tasksByStatus['Done'] = [];
         this.tasksByStatus['Submit For Review'] = [];
         for (let item of response['data'].list) {
           if (item.statusId === tasksStatus.Todo) {
             this.tasksByStatus['To-Do'].push(item);
-            // console.log(item);
-          } else if (item.statusId == tasksStatus.InProgress) {
+           } else if (item.statusId == tasksStatus.InProgress) {
             this.tasksByStatus['In Progress'].push(item);
           } else if (item.statusId == tasksStatus.SubmitForReview) {
             this.tasksByStatus['Submit For Review'].push(item);
@@ -286,8 +296,7 @@ export class TasksIndexComponent implements OnInit {
   onBranchSelect(branchId: any): void {
     const branch = this.Branches.find((b) => b.id === branchId);
     if (branch) {
-      // this.requestTypeConfigs.at(rowIndex).controls.branchId.setValue(branch.id);
-      this.branchId = branch.id;
+       this.branchId = branch.id;
       this.loadDepartments(branch.id);
     }
   }
@@ -305,8 +314,6 @@ export class TasksIndexComponent implements OnInit {
     if (department) {
       this.departmentId = department.id;
       this.loadAllTasks('', department.id);
-      // this.requestTypeConfigs.at(rowIndex).controls.departmentId.setValue(department.id);
-      // this.loadPositions(department.id, rowIndex);
     }
   }
 }
