@@ -73,7 +73,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'HomeIndex', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'teams', component: TeamsComponent },
-      { path: 'TeamsDetails', component: TeamsDetailsComponent },
+      { path: 'TeamsDetails/:id', component: TeamsDetailsComponent }, 
       { path: 'indexCompany', component: IndexComponent },
       { path: 'addCompany', component: AddCompanyComponent },
       { path: 'add-admin', component: AddAdminComponent },
@@ -129,3 +129,4 @@ export const routes: Routes = [
     component: NoPermissionComponent, pathMatch: 'full',
   },
 ];
+ 

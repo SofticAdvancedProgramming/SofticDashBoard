@@ -1,78 +1,89 @@
 <div class="container">
     <div class="container">
         <div class="d-flex col-4 gap-3 align-items-start flex-row">
-            <img src="../../../../../assets/images/team.png" alt="teamImg" />
             <p class="lead">{{ "Team Management" | translate }}</p>
             <img src="../../../../../assets/images/arrow-left2.png" alt="arrow" />
             <p class="lead">{{ "Add Teams" | translate }}</p>
         </div>
+
         <div class="add-team-container py-3 px-4">
-            <form [formGroup]="form" class="form p-2">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form p-2">
                 <div class="form-content container p-3 my-3">
                     <div class="row gy-3 d-flex align-items-center">
+                        <!-- Team Name English -->
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="titleEn" class="form-label">{{ "Team Name (English)" | translate }}</label>
-                                <input type="text" class="form-control" formControlName="name" />
+                                <input type="text" class="form-control" formControlName="name"
+                                    placeholder="Enter Team Name">
                             </div>
                         </div>
+
+                        <!-- Team Name Arabic -->
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="titleAr" class="form-label">{{ "Team Name (Arabic)" | translate }}</label>
-                                <input type="text" class="form-control" formControlName="nameAr" />
+                                <input type="text" class="form-control" formControlName="nameAr"
+                                    placeholder="أدخل اسم الفريق">
                             </div>
                         </div>
+
+                        <!-- Assign Employees -->
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label class="form-label">{{ "Assign Employees" | translate }}</label>
-                                <mat-select class="custom-select" [placeholder]="'Select Employees' | translate"
-                                    formControlName="EmployeeIds" multiple>
+                                <mat-select class="custom-select" formControlName="EmployeeIds" multiple>
                                     <mat-option *ngFor="let emp of employees" [value]="emp.id">
                                         {{ emp.firstName }} {{ emp.lastName }}
                                     </mat-option>
                                 </mat-select>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <label class="form-label">{{ "Expiry Date" | translate }}</label>
+                            <input type="date" class="form-control" formControlName="expiryDate">
+                         </div>
                     </div>
-                    <div>
-                        <div class="form-group toggle-group">
-                            <label class="switch">
-                                <input type="checkbox" formControlName="isAttendance" />
-                                <span class="slider"></span>
-                            </label>
-                            <label class="toggle-label">{{ "Is attendance" | translate }}</label>
-                        </div>
-                        <div class="form-group" *ngIf="showMap">
-                            <app-map (locationSelected)="onLocationSelected($event)" [long]="location?.lng"
-                                [lat]="location?.lat"></app-map>
-                        </div>
+
+                    <!-- Attendance Checkbox -->
+                    <div class="form-group toggle-group">
+                        <label class="switch">
+                            <input type="checkbox" formControlName="isAttendance">
+                            <span class="slider"></span>
+                        </label>
+                        <label class="toggle-label">{{ "Is attendance" | translate }}</label>
                     </div>
-                    <div>
-                        <div class="form-group toggle-group">
-                            <label class="switch">
-                                <input type="checkbox" formControlName="isTask" />
-                                <span class="slider"></span>
-                            </label>
-                            <label class="toggle-label">{{ "Is Task" | translate }}</label>
-                        </div>
+
+                    <!-- Show Map if Attendance is Checked -->
+                    <div class="form-group" *ngIf="form.get('isAttendance')?.value">
+                        <label for="map">{{ 'addBranch.BRANCH_LOCATION' | translate }}</label>
+                        <app-map (locationSelected)="onLocationSelected($event)" [long]="location?.lng"
+                            [lat]="location?.lat"></app-map>
                     </div>
+
+                    <div class="form-group toggle-group">
+                        <label class="switch">
+                            <input type="checkbox" [checked]="form.get('associatedToTask')?.value" 
+                                   (change)="toggleTaskAssociation($event)" />
+                            <span class="slider"></span>
+                        </label>
+                        <label class="toggle-label">{{ "Is Task" | translate }}</label>
+                    </div>
+                    
+                    
                 </div>
-                <div>
-                </div>
+
+                <!-- Submit Button -->
                 <div>
                     <button class="btn btn-primary w-100" type="submit" [disabled]="!form.valid || isSubmitting">
-                        Add Team
+                        {{ isEdit ? "Update Team" : "Add Team" | translate }}
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-
-
-
-
-
+    <!-- Teams Table -->
     <div class="table">
         <table class="table mt-4">
             <thead>
@@ -82,17 +93,17 @@
                     <th>{{ 'Action' | translate }}</th>
                 </tr>
             </thead>
-            <!-- <tbody>
+            <tbody>
                 <tr *ngFor="let team of teams" (click)="navigateToDetails(team.id)" style="cursor: pointer;">
                     <td>{{ team.name }}</td>
                     <td>{{ team.nameAr }}</td>
                     <td>
-                        <button class="btn btn-sm" (click)="openDeleteDialog(team.id); $event.stopPropagation()">
+                        <!-- <button class="btn btn-sm" (click)="openDeleteDialog(team.id); $event.stopPropagation()">
                             <img src="../../../../../../assets/images/trash.png" alt="trash" />
-                        </button>
+                        </button> -->
                     </td>
                 </tr>
-            </tbody> -->
+            </tbody>
         </table>
     </div>
 </div>

@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { DropDownComponent } from "../components/drop-down/drop-down.component";
 import { EmployeeService } from '../../../services/employeeService/employee.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MapComponent } from '../../../common-component/map/map.component';
+import { TeamsService } from '../../../services/teamsService/teams.service';
 
 @Component({
     selector: 'app-teams',
@@ -43,25 +44,29 @@ export class TeamsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private employeeService: EmployeeService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private teamsService: TeamsService
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
       EmployeeIds: [[]],
       isAttendance: [false],
+      associatedToTask: [false],  
       lat: [null],
-      long: [null]
+      long: [null],
+      expiryDate: [null, Validators.required]  
     });
+    
   }
 
   ngOnInit(): void {
     this.loadEmployees();
 
-    // Listen for isAttendance checkbox changes to update map visibility
-    this.form.get('isAttendance')?.valueChanges.subscribe((value) => {
+     this.form.get('isAttendance')?.valueChanges.subscribe((value) => {
       this.showMap = value;
-      this.cdr.markForCheck(); // Ensure UI updates
+      this.cdr.markForCheck(); 
     });
   }
   
@@ -76,7 +81,7 @@ export class TeamsComponent implements OnInit {
           name: `${employee.firstName} ${employee.lastName}`
         }));
         this.loadingMoreEmployees = false;
-        this.cdr.markForCheck(); // Force UI update
+        this.cdr.markForCheck();  
       },
       error: (err) => {
         console.error('Error loading employees:', err);
@@ -89,4 +94,44 @@ export class TeamsComponent implements OnInit {
     this.form.patchValue({ lat: location.lat, long: location.lng });
     this.location = location;
   }
-}
+  navigateToDetails(teamId: number) {
+     this.router.navigate([`/dashboard/TeamsDetails`, teamId]).then(success => {
+       
+    });
+  }
+  onSubmit() {
+    if (this.form.invalid) {
+      return;
+    }
+  
+    const companyId = Number(localStorage.getItem('companyId')) || 0; // Get company ID from local storage
+  
+    const requestPayload = {
+      id: 0,
+      companyId: companyId,
+      name: this.form.value.name,
+      nameAr: this.form.value.nameAr,
+      long: this.form.value.long || 0,
+      lat: this.form.value.lat || 0,
+      associatedToTask: this.form.value.associatedToTask || false, // ✅ Ensure it's fetched correctly
+      associatedToAttendance: this.form.value.isAttendance || false,
+      expiryDate: this.form.value.expiryDate || new Date().toISOString(),
+      employeeIds: this.form.value.EmployeeIds || []
+    };
+  
+    console.log("Submitting Request:", requestPayload); // Debugging purpose
+  
+    this.teamsService.addTeam(requestPayload).subscribe({
+      next: (response) => {
+        console.log('Team added successfully', response);
+      },
+      error: (err) => {
+        console.error('Error adding team:', err);
+      }
+    });
+  }
+  
+  toggleTaskAssociation(event: any) {
+    this.form.patchValue({ associatedToTask: event.target.checked });
+  }
+}  
