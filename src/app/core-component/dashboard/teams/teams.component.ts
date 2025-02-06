@@ -7,6 +7,7 @@ import { DropDownComponent } from "../components/drop-down/drop-down.component";
 import { EmployeeService } from '../../../services/employeeService/employee.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { MapComponent } from '../../../common-component/map/map.component';
 
 @Component({
     selector: 'app-teams',
@@ -22,7 +23,8 @@ import { MatOptionModule } from '@angular/material/core';
         FormsModule,
         DropDownComponent,
         MatSelectModule,
-        MatOptionModule
+        MatOptionModule,
+        MapComponent
     ]
 })
 export class TeamsComponent implements OnInit {
@@ -40,13 +42,17 @@ export class TeamsComponent implements OnInit {
   selectedTeamCategory: any;
   isSubmitting = false;
   loadingMoreEmployees = false;
+  isEdit: boolean = false;
+  location: { lat: number, lng: number } | null = null;
 
   constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
     this.form = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
       category: [null, Validators.required],
-      EmployeeIds: [[]]
+      EmployeeIds: [[]],
+      lat: [null, Validators.required],
+      long: [null, Validators.required]
     });
   }
 
@@ -71,5 +77,10 @@ export class TeamsComponent implements OnInit {
         this.loadingMoreEmployees = false;
       }
     });
+  }
+  
+  onLocationSelected(location: { lat: number, lng: number }): void {
+    this.form.patchValue({ lat: location.lat, long: location.lng });
+    this.location = location;
   }
 }

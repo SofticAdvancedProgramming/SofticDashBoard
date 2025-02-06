@@ -36,18 +36,24 @@
                 </div>
                 <div class="form-group toggle-group">
                     <label class="switch">
-                        <input type="checkbox" formControlName="isCustomize" />
+                        <input type="checkbox" formControlName="isAttendance" />
                         <span class="slider"></span>
                     </label>
-                    <label class="toggle-label">{{ "Is Customize" | translate }}</label>
+                    <label class="toggle-label">{{ "Is attendance" | translate }}</label>
                 </div>
             </div>
-            <div class="form-content container p-3 my-3" *ngIf="form.get('isCustomize')?.value">
+            <div class="form-content container p-3 my-3" *ngIf="form.get('isAttendance')?.value">
                 <div class="col-lg-6 d-flex justify-content-center align-items-center ">
                     <label class="form-label"> </label>
                     <label class="form-label"> </label>
                 </div>
                 <hr class="custom-divider" />
+            </div>
+            <div class="form-group">
+                <label for="map">{{ 'addBranch.BRANCH_LOCATION' | translate }}</label>
+                <app-map (locationSelected)="onLocationSelected($event)"
+                    [long]="isEdit ? location!.lng : undefined"
+                    [lat]="isEdit ? location!.lat : undefined"></app-map>
             </div>
             <div>
                 <button class="btn btn-primary w-100" type="submit" [disabled]="!form.valid || isSubmitting">
