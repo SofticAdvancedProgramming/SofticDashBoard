@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -33,37 +33,42 @@ export class TeamsComponent implements OnInit {
     { id: 1, name: 'Development Team', nameAr: 'فريق التطوير' },
     { id: 2, name: 'Marketing Team', nameAr: 'فريق التسويق' },
   ];
-  TeamCategories = [
-    { id: 1, name: 'Technical' },
-    { id: 2, name: 'Business' },
-    { id: 3, name: 'Support' },
-  ];
   employees: any[] = [];
-  selectedTeamCategory: any;
   isSubmitting = false;
   loadingMoreEmployees = false;
   isEdit: boolean = false;
+  showMap: boolean = false;
   location: { lat: number, lng: number } | null = null;
 
-  constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
+  constructor(
+    private fb: FormBuilder,
+    private employeeService: EmployeeService,
+    private cdr: ChangeDetectorRef
+  ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
       nameAr: ['', Validators.required],
-      category: [null, Validators.required],
       EmployeeIds: [[]],
-      lat: [null, Validators.required],
-      long: [null, Validators.required]
+      isAttendance: [false],
+      lat: [null],
+      long: [null]
     });
   }
 
   ngOnInit(): void {
     this.loadEmployees();
+
+    // Listen for isAttendance checkbox changes to update map visibility
+    this.form.get('isAttendance')?.valueChanges.subscribe((value) => {
+      this.showMap = value;
+      this.cdr.markForCheck(); // Ensure UI updates
+    });
   }
   
   loadEmployees() {
     if (this.loadingMoreEmployees) return;
     this.loadingMoreEmployees = true;
-    
+
     this.employeeService.loadEmployees({ pageSize: 1000 }).subscribe({
       next: (response) => {
         this.employees = response.data.list.map((employee: any) => ({
@@ -71,6 +76,7 @@ export class TeamsComponent implements OnInit {
           name: `${employee.firstName} ${employee.lastName}`
         }));
         this.loadingMoreEmployees = false;
+        this.cdr.markForCheck(); // Force UI update
       },
       error: (err) => {
         console.error('Error loading employees:', err);
