@@ -309,7 +309,8 @@
     "ASSETS": "أصول",
     "LOGOUT": "تسجيل الخروج",
     "COMPLAINSANDSUGGESTIONS": "الشكاوى والمقترحات",
-    "TASKS": "المهام"
+    "TASKS": "المهام",
+    "teams": "الفرق"
   },
   "Home": {
     "ActiveCompanies": "الشركات النشطة",

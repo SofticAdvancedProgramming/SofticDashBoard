@@ -3,164 +3,116 @@
     <i class="lni lni-grid-alt"></i> ☰
   </button>
 </div>
-<aside
-  id="sidebar"
-  [ngClass]="{ expand: isExpanded, 'd-none': !isVisible }"
-  class="h-100"
->
+<aside id="sidebar" [ngClass]="{ expand: isExpanded, 'd-none': !isVisible }" class="h-100">
   <div class="d-flex">
-    <button
-      class="toggle-btn d-none d-md-block"
-      type="button"
-      (click)="toggleSidebar()"
-    >
+    <button class="toggle-btn d-none d-md-block" type="button" (click)="toggleSidebar()">
       <i class="lni lni-grid-alt"></i> ☰
     </button>
     <div class="sidebar-logo">
       <a>
-        <img
-          style="width: 170px"
-          src="../../../../assets/images/Chabaka Al- Dhakia- logo options-01 1.svg"
-        />
+        <img style="width: 170px" src="../../../../assets/images/Chabaka Al- Dhakia- logo options-01 1.svg" />
       </a>
     </div>
   </div>
   <ul class="sidebar-nav">
     <li class="sidebar-item">
       <a class="sidebar-link">
-        <span  class="mx-1" class="lightDescription justify-content-between">{{
+        <span class="mx-1" class="lightDescription justify-content-between">{{
           "SIDEBAR.QUICK_ACCESS" | translate
-        }}</span>
+          }}</span>
       </a>
     </li>
 
     <!-- Apply `routerLinkActive` directive here -->
-    <li
-      class="sidebar-item"
-      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
+    <li class="sidebar-item" routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
+      [routerLinkActiveOptions]="{ exact: true }">
       <a routerLink="/dashboard/HomeIndex" class="sidebar-link">
-        <img class="mx-1"  src="../../../../assets/images/element-4.png" />
+        <img class="mx-1" src="../../../../assets/images/element-4.png" />
         <span>{{ "SIDEBAR.DASHBOARD" | translate }}</span>
       </a>
     </li>
 
     <!-- Admin Role Sidebar Link -->
-    <li
-      class="sidebar-item"
-      *ngIf="role[0] === 'Admin'"
-      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
-    >
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
       <a [routerLink]="'/dashboard/company/' + companyId" class="sidebar-link">
-        <img class="mx-1"  src="../../../../assets/images/softic/companyIcon.png" />
+        <img class="mx-1" src="../../../../assets/images/softic/companyIcon.png" />
         <span>{{ "SIDEBAR.COMPANY" | translate }}</span>
       </a>
     </li>
 
     <!-- SuperAdmin Role Sidebar Link -->
-    <li
-      class="sidebar-item"
-      *ngIf="role[0] === 'SuperAdmin'"
-      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
-    >
+    <li class="sidebar-item" *ngIf="role[0] === 'SuperAdmin'"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
       <a routerLink="/dashboard/indexCompany" class="sidebar-link">
-        <img class="mx-1"  src="../../../../assets/images/softic/companyIcon.png" />
+        <img class="mx-1" src="../../../../assets/images/softic/companyIcon.png" />
         <span> {{ "SIDEBAR.COMPANIES" | translate }}</span>
       </a>
     </li>
 
-    <li
-      class="sidebar-item"
-      *ngIf="role[0] === 'Admin'"
-      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
-    >
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
       <a routerLink="/dashboard/OrganizationCharts" class="sidebar-link">
-        <img class="mx-1"  src="../../../../assets/images/softic/orgIcon.png" />
+        <img class="mx-1" src="../../../../assets/images/softic/orgIcon.png" />
         <span> {{ "SIDEBAR.ORGANIZATIONAL_CHART" | translate }}</span>
       </a>
     </li>
-    <li
-      class="sidebar-item"
-      *ngIf="role[0] === 'Admin'"
-      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
-    >
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
       <a routerLink="/dashboard/ComplaintsSuggestions" class="sidebar-link">
-        <img  class="mx-1" src="../../../../assets/images/archive-book.png" />
+        <img class="mx-1" src="../../../../assets/images/archive-book.png" />
         <span> {{ "SIDEBAR.COMPLAINSANDSUGGESTIONS" | translate }}</span>
       </a>
     </li>
 
     <!-- Conditional Employee Link for Admin and SuperAdmin Roles -->
-    <li
-      class="sidebar-item"
-      *ngIf="role[0] === 'Admin'"
-      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
-    >
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
       <a routerLink="/dashboard/ViewEmployees" class="sidebar-link">
-        <img class="mx-1"  src="../../../../assets/images/profile-circle.png" />
+        <img class="mx-1" src="../../../../assets/images/profile-circle.png" />
         <span> {{ "SIDEBAR.EMPLOYEE" | translate }}</span>
       </a>
     </li>
-    <li
-      class="sidebar-item"
-      *ngIf="role[0] === 'Admin'"
-      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
-    >
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
       <a routerLink="/dashboard/AssetsIndex" class="sidebar-link">
-        <img class="mx-1"  src="../../../../assets/images/chart.png" />
+        <img class="mx-1" src="../../../../assets/images/chart.png" />
         <span> {{ "SIDEBAR.ASSETS" | translate }}</span>
       </a>
     </li>
-    <li
-      class="sidebar-item"
-      *ngIf="role[0] === 'Admin'"
-      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
-    >
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
       <a routerLink="/dashboard/tasks" class="sidebar-link">
-        <img class="mx-1"  src="../../../../assets/images/task.png" />
+        <img class="mx-1" src="../../../../assets/images/task.png" />
         <span> {{ "SIDEBAR.TASKS" | translate }}</span>
       </a>
+
     </li>
-    <li
-      class="sidebar-item"
-      *ngIf="role[0] === 'Admin'"
-      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
-    >
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
       <a routerLink="workflow/Request-type/addRequest-type" class="sidebar-link">
-        <img class="mx-1"  src="../../../../assets/images/send-1.png" />
+        <img class="mx-1" src="../../../../assets/images/send-1.png" />
         <span> {{ "SIDEBAR.Request" | translate }}</span>
+      </a>
+    </li>
+    <li class="sidebar-item" *ngIf="role[0] === 'Admin'" routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
+      <a routerLink="/dashboard/teams" class="sidebar-link">
+        <img style="width: 35px;" class="mx-1" src="../../../../assets/images/teams.svg" />
+        <span> {{ "SIDEBAR.teams" | translate }}</span>
       </a>
     </li>
   </ul>
   <div class="sidebar-footer">
-    <a
-      routerLink="add-admin"
-      *ngIf="role[0] === 'Admin'"
-      class="sidebar-link"
-      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
-      <img class="mx-1"  src="../../../../assets/images/softic/user-add.png" />
+    <a routerLink="add-admin" *ngIf="role[0] === 'Admin'" class="sidebar-link"
+      routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}" [routerLinkActiveOptions]="{ exact: true }">
+      <img class="mx-1" src="../../../../assets/images/softic/user-add.png" />
       <span class="settingText"> {{ "SIDEBAR.ADD_ADMIN" | translate }}</span>
     </a>
 
     <ng-container *ngIf="role[0] === 'Admin' || role[0] === 'SuperAdmin'">
-      <a
-        routerLink="generalLookups"
-        class="sidebar-link"
-        routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <img class="mx-1"  src="../../../../assets/images/settings.png" />
+      <a routerLink="generalLookups" class="sidebar-link" routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <img class="mx-1" src="../../../../assets/images/settings.png" />
         <span class="settingText"> {{ "SIDEBAR.SETTING" | translate }}</span>
       </a>
     </ng-container>
 
     <!-- Help Link -->
-    <a href="#" class="sidebar-link"
-    routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
-      <img class="mx-1"  src="../../../../assets/images/help.png" />
+    <a href="#" class="sidebar-link" routerLinkActive="{{isArabic?'active-link-ar':'active-link'}}">
+      <img class="mx-1" src="../../../../assets/images/help.png" />
       <span class="helpText"> {{ "SIDEBAR.HELP" | translate }}</span>
     </a>
 
