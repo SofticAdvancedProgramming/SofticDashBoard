@@ -34,16 +34,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group toggle-group">
-                        <label class="switch">
-                            <input type="checkbox" formControlName="isAttendance" />
-                            <span class="slider"></span>
-                        </label>
-                        <label class="toggle-label">{{ "Is attendance" | translate }}</label>
+                    <div>
+                        <div class="form-group toggle-group">
+                            <label class="switch">
+                                <input type="checkbox" formControlName="isAttendance" />
+                                <span class="slider"></span>
+                            </label>
+                            <label class="toggle-label">{{ "Is attendance" | translate }}</label>
+                        </div>
+                        <div class="form-group" *ngIf="showMap">
+                            <app-map (locationSelected)="onLocationSelected($event)" [long]="location?.lng"
+                                [lat]="location?.lat"></app-map>
+                        </div>
                     </div>
-                    <div class="form-group" *ngIf="showMap">
-                        <app-map (locationSelected)="onLocationSelected($event)" [long]="location?.lng"
-                            [lat]="location?.lat"></app-map>
+                    <div>
+                        <div class="form-group toggle-group">
+                            <label class="switch">
+                                <input type="checkbox" formControlName="isTask" />
+                                <span class="slider"></span>
+                            </label>
+                            <label class="toggle-label">{{ "Is Task" | translate }}</label>
+                        </div>
                     </div>
                 </div>
                 <div>
