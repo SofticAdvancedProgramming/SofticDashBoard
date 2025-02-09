@@ -11,6 +11,7 @@ import { MapComponent } from '../../../common-component/map/map.component';
 import { TeamsService } from '../../../services/teamsService/teams.service';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmnDeleteDialogComponent } from "../../../common-component/confirmn-delete-dialog/confirmn-delete-dialog.component";
+import { AddTeamRequest, Team } from '../../../../models/teams';
 
 @Component({
     selector: 'app-teams',
@@ -33,10 +34,7 @@ import { ConfirmnDeleteDialogComponent } from "../../../common-component/confirm
 })
 export class TeamsComponent implements OnInit {
   form: FormGroup;
-  teams = [
-    { id: 1, name: 'Development Team', nameAr: 'فريق التطوير' },
-    { id: 2, name: 'Marketing Team', nameAr: 'فريق التسويق' },
-  ];
+  teams: Team[] = [];
   employees: any[] = [];
   isSubmitting = false;
   loadingMoreEmployees = false;
@@ -105,15 +103,12 @@ export class TeamsComponent implements OnInit {
     });
   }
   onSubmit() {
-    if (this.form.invalid) {
-      return;
-    }
-  
-    const companyId = Number(localStorage.getItem('companyId')) || 0; 
-  
-    const requestPayload = {
+    if (this.form.invalid) return;
+
+    const companyId = Number(localStorage.getItem('companyId')) || 0;
+    const requestPayload: AddTeamRequest = {
       id: 0,
-      companyId: companyId,
+      companyId,
       name: this.form.value.name,
       nameAr: this.form.value.nameAr,
       long: this.form.value.long || 0,
@@ -123,41 +118,20 @@ export class TeamsComponent implements OnInit {
       expiryDate: this.form.value.expiryDate || new Date().toISOString(),
       employeeIds: this.form.value.EmployeeIds || []
     };
-  
-    console.log("Submitting Request:", requestPayload);
-  
+
     this.teamsService.addTeam(requestPayload).subscribe({
-      next: (response) => {
-        console.log('Team added successfully', response);
-        
-        // ✅ Show success toaster
+      next: () => {
         this.toast.success('Team added successfully!', 'Success');
-  
-        // ✅ Clear the form
-        this.form.reset({
-          name: '',
-          nameAr: '',
-          EmployeeIds: [],
-          isAttendance: false,
-          associatedToTask: false,
-          lat: null,
-          long: null,
-          expiryDate: null
-        });
-  
-        // ✅ Reload the teams in the table
+        this.form.reset();
         this.loadTeams();
-  
-        // ✅ Refresh UI
-        this.cdr.markForCheck();
       },
       error: (err) => {
         console.error('Error adding team:', err);
-        this.toast.error('Failed to add team', 'Error'); // ✅ Show error message
+        this.toast.error('Failed to add team', 'Error');
       }
     });
   }
-  
+
   
   toggleTaskAssociation(event: any) {
     this.form.patchValue({ associatedToTask: event.target.checked });

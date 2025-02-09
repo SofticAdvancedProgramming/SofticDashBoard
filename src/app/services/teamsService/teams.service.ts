@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiCall } from '../../core/services/http-service/HttpService';
 import { Observable } from 'rxjs';
 import { teamsController } from '../../apis/team';
+import { AddTeamRequest } from '../../../models/teams';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ import { teamsController } from '../../apis/team';
 export class TeamsService {
 
   constructor(private http: ApiCall) { }
-  addTeam(request: any): Observable<any> {
-    return this.http.request('POST', teamsController.AddTeam, request);
+  addTeam(teamData: AddTeamRequest): Observable<any> {
+    return this.http.request('POST', teamsController.AddTeam, teamData);
   }
   editTeam(request: any): Observable<any> {
     return this.http.request('POST', teamsController.editTeam, request);
