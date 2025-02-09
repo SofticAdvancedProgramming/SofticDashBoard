@@ -599,7 +599,11 @@
       "companyNameEn": {
         "label": "Company Name (English)",
         "placeholder": "Enter company name (English)"
+
       },
+      "centralizedDepartment":{
+          "label": "Centralized Department"
+        },
       "companyNameAr": {
         "label": "Company Name (Arabic)",
         "placeholder": "Enter company name (Arabic)"
