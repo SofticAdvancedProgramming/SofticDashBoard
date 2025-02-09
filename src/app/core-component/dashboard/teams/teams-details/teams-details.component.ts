@@ -53,15 +53,14 @@ export class TeamsDetailsComponent implements OnInit {
       }
     });
 
-    this.loadTeamDetails();
-  }
+   }
   loadTeamDetails() {
     const companyId = Number(localStorage.getItem('companyId')) || 0;
-    this.teamsService.getTeam({ companyId }).subscribe({
+    this.teamsService.getTeam({ companyId, id: this.teamId }).subscribe({
       next: (response) => {
         this.teamDetails = response.data.list.find((team: any) => team.id === this.teamId) || null;
         if (this.teamDetails) {
-          this.loadEmployees();  // Fetch employees for this team
+          this.loadEmployees();  
           this.editForm.patchValue(this.teamDetails);
         }
       },
