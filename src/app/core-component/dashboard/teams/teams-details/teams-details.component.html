@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="col-lg-12 d-flex justify-content-between mb-3">
+
+        <div class="d-flex col-4 gap-3 align-items-start flex-row">
+            <p class="lead">{{ "Team Management" | translate }}</p>
+            <img src="../../../../../assets/images/arrow-left2.png" alt="arrow" />
+            <p class="lead">{{ "Team Details" | translate }}</p>
+        </div>
+        <!-- <div>
+            <button class="btn mx-2 save-btn">
+                {{ 'Save Changes' | translate }}
+            </button>
+            <button class="btn edit-btn" (click)="toggleEdit()">
+                edit
+            </button>
+        </div> -->
+    </div>
+    <div *ngIf="teamDetails" class="add-team-container py-3 px-4">
+        <div *ngIf="!editMode" class="form-content container p-3 my-3">
+            <div class="row gy-3 add-type-request-sm-container">
+                <div class="col-lg-6 border-bottom-custom">
+                    <label class="d-block fw-semibold text-dark">{{ "Team Name (English)" | translate }}</label>
+                    <p class="text-muted">{{ teamDetails.name }}</p>
+                </div>
+                <div class="col-lg-6 border-bottom-custom">
+                    <label class="d-block fw-semibold text-dark">{{ "Team Name (Arabic)" | translate }}</label>
+                    <p class="text-muted">{{ teamDetails.nameAr }}</p>
+                </div>
+                <div class="col-lg-6 border-bottom-custom">
+                    <label class="d-block fw-semibold text-dark">{{ "Associated to Task" | translate }}</label>
+                    <p class="text-muted">
+                        <span *ngIf="teamDetails.associatedToTask; else notAssociated">
+                            ✅ {{ "Yes" | translate }}
+                        </span>
+                        <ng-template #notAssociated>
+                            ❌ {{ "No" | translate }}
+                        </ng-template>
+                    </p>
+                </div>
+                <div class="col-lg-6 border-bottom-custom">
+                    <label class="d-block fw-semibold text-dark">{{ "Expiry Date" | translate }}</label>
+                    <p class="text-muted">{{ teamDetails.expiryDate ? (teamDetails.expiryDate | date) : 'N/A' }}</p>
+                </div>
+                     <div class="col-lg-6">
+                        <label class="d-block fw-semibold text-dark">{{ "Team Location" | translate }}</label>
+                        <app-map *ngIf="teamDetails.lat && teamDetails.long"
+                            [lat]="teamDetails.lat"
+                            [long]="teamDetails.long">
+                        </app-map>
+                        <p *ngIf="!teamDetails.lat || !teamDetails.long" class="text-muted">
+                            {{ "Location Not Available" | translate }}
+                        </p>
+                 </div>
+  
+            </div>
+        </div>
+    </div>
+    <div class="table mt-4">
+        <h4>{{ 'Employees in this Team' | translate }}</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{{ 'Employee Name' | translate }}</th>
+                    <th>{{ 'jobTitle' | translate }}</th>
+                    <th>{{ 'phoneNumber' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employees" style="cursor: pointer;">
+                    <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+                    <td>{{ employee.jobTitle || 'N/A' }}</td>
+                    <td>{{ employee.phoneNumber || 'N/A' }}</td>
+                </tr>
+                <tr *ngIf="employees.length === 0">
+                    <td colspan="3" class="text-center">{{ 'No Employees Assigned to this Team' | translate }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
