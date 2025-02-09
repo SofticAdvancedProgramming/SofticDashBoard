@@ -108,10 +108,10 @@ export class AddTaskComponent implements OnInit {
       const id = params['id'];
       this.id = params['id'];
       if (id) {
-        
+
       }
     });
-    
+
     this.initiation();
     this.loadEmployees();
     this.getPriorities();
@@ -141,10 +141,29 @@ export class AddTaskComponent implements OnInit {
       taskToDoDescription: [''],
       AssetAttachment: [''],
       isGlobal: [false],
+      isTeam: [false],
+      teamId:[[]],
       priority: [''],
-      todos: this.fb.array([]),  
-      departmentIds: [[]], 
-      EmployeeIds: [[]]  
+      todos: this.fb.array([]),
+      departmentIds: [[]],
+      EmployeeIds: [[]]
+    });
+  }
+  Teams:any[]=[];
+
+  getTeams(){
+    let query={
+      companyId: this.companyId,
+      associatedToTask: true
+    }
+    this.tasksService.GetTeams(query).subscribe({
+      next: (res) => {
+        this.Teams = res.data.list;
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
   // Getter for the todos FormArray
@@ -165,10 +184,10 @@ export class AddTaskComponent implements OnInit {
       taskId: this.id,
       pageSize: 1000,
     };
-    
+
     this.todoService.get(query).subscribe({
-      next: (res) => { 
-        this.todoItems = res.data.list; 
+      next: (res) => {
+        this.todoItems = res.data.list;
          this.todoItems?.forEach((todo: any) => {
           const todoGroup1: any = this.fb.group({
             description: [todo.description, Validators.required],
@@ -176,14 +195,14 @@ export class AddTaskComponent implements OnInit {
             id: [todo.id],
           });
            this.todos.push(todoGroup1);
-          
-          
+
+
         });
         console.log(this.todos);
-        
+
       },
       error: (err) => {
-       
+
       },
     });
   }
@@ -193,12 +212,12 @@ export class AddTaskComponent implements OnInit {
     const todoId = this.todoItems[index].id;
     this.todoService.delete(todoId, this.companyId).subscribe({
       next: (res) => {
-        
+
         this.toast.success('Deleted Successfully');
         this.ngOnInit();
       },
       error(err) {
-        
+
       },
     });
   }
@@ -217,18 +236,18 @@ export class AddTaskComponent implements OnInit {
      this.form.patchValue({
       name: this.taskDetails?.name,
       taskDetails: this.taskDetails?.description,
-      from: formattedDate || '', 
+      from: formattedDate || '',
       initialCost: this.taskDetails?.initialBudget,
       taskToDoDescription: [''],
       AssetAttachment: [''],
       duration: this.taskDetails?.duration,
       priority: this.taskDetails?.priorityId,
     });
-   
+
 
     // Clear existing todos
     // this.form.setControl('todos', this.fb.array([]));
-    
+
 
     // Populate todos FormArray
 
@@ -247,9 +266,9 @@ export class AddTaskComponent implements OnInit {
 
   onSubmit() {
     console.log(this.form.value.departmentIds);
-    
+
     this.todoValues = this.form.value.todos; // Get all to-do values
-    
+
     const toDoItems: any[] = [];
     for (let i = 0; i < this.todoValues.length; i++) {
       toDoItems.push({
@@ -296,34 +315,38 @@ export class AddTaskComponent implements OnInit {
       query.isGlobal = true;
       query.departmentIds = [];
     }
-   
+
     if (this.id) {
-      
+
       query.id = this.id;
+    }
+    if(this.form.value.isTeam){
+      query.teamId = this.form.value.teamId[0];
+      query.isTeam = true;
     }
 
     if (this.form.value) {
       if (this.id) {
         this.tasksService.edit(query).subscribe({
           next: (res) => {
-         
+
             this.toast.success('Edited Successfully');
             this.ngOnInit();
           },
           error(err) {
-           
+
           },
         });
       } else {
         this.tasksService.add(query).subscribe({
           next: (res) => {
-        
+
             this.toast.success('Added Successfully');
             this.ngOnInit();
             this.router.navigateByUrl('/dashboard/tasks');
           },
           error(err) {
-           
+
           },
         });
       }
@@ -338,7 +361,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   onAttachmentChange(event: any): void {
-  
+
 
     const file = event.target.files[0];
     if (file) {
@@ -385,12 +408,12 @@ export class AddTaskComponent implements OnInit {
           // If the file is an image, add a preview URL
           if (attachmentfileType.startsWith('image/')) {
             this.attachmentImagePreviewUrl = result;
-            
+
           }
 
           // Add the file to the array
           this.files.push(fileDetails);
-         
+
 
           // Update message
           this.attachmentUploadMessage = this.translate.instant(
@@ -408,27 +431,28 @@ export class AddTaskComponent implements OnInit {
   getPriorities() {
     this.tasksService.getPriorities({}).subscribe({
       next: (res) => {
-       
+
         this.priorities = res.data.list;
       },
       error: (err) => {
-       
+
       },
     });
   }
 
-  loadEmployees(branchId?:number) {
+  loadEmployees(branchId?:number,teamId?:number) {
     if (this.loadingMoreEmployees) return;
     this.loadingMoreEmployees = true;
     let query: any = {
         accountStatus: 1,
         pageIndex: 1,
         pageSize: 1000,
+        companyId:this.companyId
     }
-    // if(branchId){
-    //   query.departmentId = branchId;
-    // }
-    if (Array.isArray(branchId)) {
+    if(teamId){
+      query.teamId =teamId
+    }
+    else if (Array.isArray(branchId)) { 
       branchId.forEach(value => {
         console.log('Selected department ID:', value);
         query.departmentId = value;
@@ -438,12 +462,14 @@ export class AddTaskComponent implements OnInit {
       this.employees = [];
       this.firstBind = true;
     }
+
+    console.log(query);
     this.employeeService
       .loadEmployees(query)
       .subscribe({
         next: (response) => {
           console.log(response);
-          
+
           const newItems = response.data.list
             .filter((item: any) => !this.employees.some((a) => a.id == item.id))
             .map((employee: any) => ({
@@ -451,10 +477,19 @@ export class AddTaskComponent implements OnInit {
               name: `${employee.firstName} ${employee.lastName}`,
             }));
 
+
+            console.log(this.form.value.EmployeeIds);
           this.employees = [...this.employees, ...newItems];
           this.employeePage++;
           this.loadingMoreEmployees = false;
-          console.log(this.employees);
+          if(teamId){
+            response.data.list.map((employee: any) => {
+              this.form.patchValue({ EmployeeIds: [...this.form.value.EmployeeIds, employee.id] })
+              })
+              console.log(this.form.value.EmployeeIds)
+          }
+          // this.employees=response.data.list;
+
         },
         error: (err) => {
           console.error('Error loading employees:', err);
@@ -467,10 +502,10 @@ export class AddTaskComponent implements OnInit {
     const employee = this.employees.find((emp) => emp.id === employeeId);
 
     if (employee) {
-   
+
       this.selectedEmployee = employee;
-      
-    } 
+
+    }
   }
   getEmployeesAssignments() {
     let query = {
@@ -479,7 +514,7 @@ export class AddTaskComponent implements OnInit {
     };
     this.tasksService.assignEmployees(query).subscribe({
       next: (res) => {
-     
+
         this.assignedEmployees = res.data.list;
       },
       error: (err) => {
@@ -495,7 +530,7 @@ export class AddTaskComponent implements OnInit {
     };
     this.tasksService.get(query).subscribe({
       next: (res) => {
-       
+
         this.taskDetails = res.data.list[0];
         this.populateForm();
         // this.form = this.fb.group({
@@ -548,7 +583,7 @@ export class AddTaskComponent implements OnInit {
         // }
       },
       error(err) {
-       
+
       },
     });
   }

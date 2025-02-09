@@ -1,8 +1,8 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="container px-5">
+  <div class="container containe-fluid px-5">
     <div class="form py-2">
       <div class="form-group my-3">
-        <label class="form-label">Task Name</label>
+        <label class="form-label">{{ 'TASKS.Task Name' | translate }}</label>
         <div class="row">
           <div class="col-12">
             <input
@@ -33,7 +33,7 @@
 
       <div class="row my-3">
         <div class="col-12 form-group">
-          <label class="form-label">Task Details</label>
+          <label class="form-label">{{ 'TASKS.Task Details' | translate }}</label>
           <textarea
             class="textarea form-control"
             formControlName="taskDetails"
@@ -129,7 +129,7 @@
 
       <div class="row my-3">
         <div class="col-12 form-group">
-          <label class="form-label">Initial cost</label>
+          <label class="form-label">{{'TASKS.Initial cost' |translate}}</label>
           <div class="custom-input">
             <input
               type="number"
@@ -213,7 +213,7 @@
         @if(!form.get('isGlobal')?.value){
         <div class="col-6">
           <div class="form-group">
-            <label class="form-label" for="Name">Branch</label>
+            <label class="form-label" for="Name">{{'TASKS.Branch' |translate}}</label>
             <app-drop-down
               [items]="Branches"
               [placeholder]="'Select Branch' | translate"
@@ -228,7 +228,7 @@
         </div>
         <div class="col-6">
           <div class="form-group">
-            <label class="form-label" for="Name">Departments</label>
+            <label class="form-label" for="Name">{{'TASKS.Departments' |translate}}</label>
             <mat-select
               class="custom-select"
               [placeholder]="'Select Department'"
@@ -250,11 +250,52 @@
         </div>
         }
       </div>
+      @if (form.get('isGlobal')?.value) {
+        <div class="row my-3">
+
+          <div class="form-group toggle-group">
+            <label class="switch">
+              <input type="checkbox" formControlName="isTeam" (change)="getTeams()"  />
+              <span class="slider"></span>
+            </label>
+            <label for="direct-manager" class="toggle-label">{{
+              "Assign to Team" | translate
+            }}</label>
+          </div>
+          @if(form.get('isTeam')?.value){
+
+          <div class="col-12">
+            <div class="form-group">
+              <label class="form-label" for="Name">{{
+                "Teams" | translate
+              }}</label>
+              <mat-select
+                class="custom-select"
+                [placeholder]="'Select Team'"
+                formControlName="teamId"
+
+                (selectionChange)="loadEmployees(0, $event.value)"
+              >
+                <mat-option [value]="null" disabled>{{
+                  "ToDo.selectEmployee" | translate
+                }}</mat-option>
+                <mat-option
+                  *ngFor="let team of Teams"
+                  [value]="team.id"
+                >
+                  {{ team.name }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          }
+        </div>
+      }
 
       <div class="row my-3">
         <div class="col-12">
           <div class="form-group">
-            <label class="form-label" for="Name">Assign To</label>
+            <label class="form-label" for="Name">{{'TASKS.Assign To' |translate}}</label>
             <!-- <app-drop-down
               [placeholder]="'Select Employee'"
               [placeholderSearch]="'Search by Name'"
