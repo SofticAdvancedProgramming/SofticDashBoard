@@ -19,4 +19,6 @@ export const TasksBaseController = {
     AssignTask:`${environment.apiBaseUrl}TaskAssignment/Add`,
     GetTaskAssignment:`${environment.apiBaseUrl}TaskAssignment/Get`,
 
+    GetTeams:`${environment.apiBaseUrl}Team/Get`,
+
 };

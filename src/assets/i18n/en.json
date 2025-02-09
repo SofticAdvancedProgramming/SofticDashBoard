@@ -999,6 +999,7 @@
       "addTaskBtn": "Add Task",
       "save": "Save",
       "cancel": "Cancel"
+
     },
     "validation": {
       "nameRequired": "Task Name Required",
@@ -1009,6 +1010,18 @@
       "durationRequired": "Duration Required",
       "initialCostRequired": "Initial Cost Required"
     }
+  },
+  "TASKS":{
+    "Task Name": "Task Name",
+    "Task Details": "Task Details",
+    "Initial cost": "Initial cost",
+    "Branch": "Branch",
+    "Departments": "Departments",
+    "Teams": "Teams",
+    "Assign To": "Assign To",
+    "TASKNAME":"Please write your task name",
+    "TASKDETAILS":"Please write your message no more than 300 words",
+    "INITIALCOST":"Please enter initial cost"
   },
   "Assets Category":"Assets Category",
   "SELECT_DEPARTMENT": "Select Department",
@@ -1034,9 +1047,6 @@
   "OVERVIEW": "Overview",
   "EMPLOYEE": "Employee",
   "CLOSE": "Close",
-  "TASKS.TASKNAME":"Please write your task name",
-  "TASKS.TASKDETAILS":"Please write your message no more than 300 words",
-  "TASKS.INITIALCOST":"Please enter initial cost",
   "ASSIGNED_TO_CENTERALIZED_DEPARTMENT":"Is assigned to centeralized department?",
 
   "IS_CENTERLIZED_DEPARTMENT":"Is Centerlized department ?",
