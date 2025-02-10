@@ -114,6 +114,20 @@
                 </tbody>
             </table>
         </div>
+        <div class="d-flex justify-content-center custom-pagination">
+            <pagination 
+            [totalItems]="totalRows"
+            [(ngModel)]="pageIndex"
+            [itemsPerPage]="itemsPerPage"
+            [maxSize]="5"
+            [boundaryLinks]="true"
+            [firstText]="'First' | translate"
+            [lastText]="'Last' | translate"
+            previousText="&laquo;"
+            nextText="&raquo;"
+            (pageChanged)="handlePageChange($event.page)">
+          </pagination>
+          </div>
     </div>
 </div>
 <!-- Delete Confirmation Dialog -->

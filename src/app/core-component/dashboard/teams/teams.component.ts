@@ -12,6 +12,9 @@ import { TeamsService } from '../../../services/teamsService/teams.service';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmnDeleteDialogComponent } from "../../../common-component/confirmn-delete-dialog/confirmn-delete-dialog.component";
 import { AddTeamRequest, Team } from '../../../../models/teams';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { Console } from 'console';
+import { response } from 'express';
 
 @Component({
     selector: 'app-teams',
@@ -29,7 +32,8 @@ import { AddTeamRequest, Team } from '../../../../models/teams';
         MatSelectModule,
         MatOptionModule,
         MapComponent,
-        ConfirmnDeleteDialogComponent
+        ConfirmnDeleteDialogComponent,
+        PaginationModule
     ]
 })
 export class TeamsComponent implements OnInit {
@@ -43,6 +47,9 @@ export class TeamsComponent implements OnInit {
   location: { lat: number, lng: number } | null = null;
   showDeleteDialog: boolean = false;
   teamIdToDelete: number | null = null;
+  pageIndex: number = 1;
+  totalRows: number = 0;
+  itemsPerPage: number = 10;
   constructor(
     private fb: FormBuilder,
     private employeeService: EmployeeService,
@@ -66,7 +73,7 @@ export class TeamsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadEmployees();
-    this.loadTeams();
+    this.loadTeams(1);
      this.form.get('isAttendance')?.valueChanges.subscribe((value) => {
       this.showMap = value;
       this.cdr.markForCheck(); 
@@ -123,7 +130,7 @@ export class TeamsComponent implements OnInit {
       next: () => {
         this.toast.success('Team added successfully!', 'Success');
         this.form.reset();
-        this.loadTeams();
+        this.loadTeams(1);
       },
       error: (err) => {
         console.error('Error adding team:', err);
@@ -136,21 +143,34 @@ export class TeamsComponent implements OnInit {
   toggleTaskAssociation(event: any) {
     this.form.patchValue({ associatedToTask: event.target.checked });
   }
-  loadTeams() {
-    const companyId = Number(localStorage.getItem('companyId')) || 0;  
+  loadTeams(pageIndex: number): void {
+    const companyId = Number(localStorage.getItem('companyId')) || 0;
   
-    const requestPayload = { companyId: companyId };
+    const requestPayload = {
+      companyId: companyId,
+      pageIndex: pageIndex,
+      pageSize: this.itemsPerPage
+    };
   
     this.teamsService.getTeam(requestPayload).subscribe({
       next: (response) => {
-        this.teams = response.data.list || []; 
-        this.cdr.markForCheck();
+        if (response && response.data) {
+          this.teams = response.data.list || [];
+          this.totalRows = response.data.total || 0;  // ✅ Ensure this is correct
+          this.pageIndex = pageIndex;
+          console.log("Total Rows:", this.totalRows);  // ✅ Debugging totalRows
+          console.log("Teams Loaded:", this.teams.length);  // ✅ Ensure correct count per page
+          this.cdr.markForCheck();
+        } else {
+          console.error("Unexpected API response:", response);
+        }
       },
       error: (err) => {
         console.error('Error loading teams:', err);
       }
     });
   }
+  
   openDeleteDialog(teamId: number) {
     this.teamIdToDelete = teamId;
     this.showDeleteDialog = true;
@@ -164,7 +184,7 @@ export class TeamsComponent implements OnInit {
     this.teamsService.delete(this.teamIdToDelete, companyId).subscribe({
       next: () => {
         this.toast.success('Team deleted successfully!', 'Success');
-        this.loadTeams();   
+        this.loadTeams(1);
         this.showDeleteDialog = false;  
         this.teamIdToDelete = null;
       },
@@ -179,5 +199,8 @@ export class TeamsComponent implements OnInit {
   cancelDelete() {
     this.showDeleteDialog = false;
     this.teamIdToDelete = null;
+  }
+  handlePageChange(event: number): void {
+    this.loadTeams(event);
   }
 }  
