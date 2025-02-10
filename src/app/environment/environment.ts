@@ -1,8 +1,8 @@
 export const environment = {
   //Production
-   apiBaseUrl: 'https://backendprod.smartnetworkai.com/api/',
+  // apiBaseUrl: 'https://backendprod.smartnetworkai.com/api/',
   //Test
-  //apiBaseUrl: 'http://162.55.240.20:8045/api/',
+  apiBaseUrl: 'http://162.55.240.20:8045/api/',
   dashboardBaseUrl: 'http://162.55.240.20:8090/',
   //apiBaseUrl: 'http://162.55.240.20:5050/',
   ElmedaniHub: 'https://sap-pro.xyz:44333/ElmedaniHub',

@@ -255,7 +255,7 @@ totalEmployees: number = 0;
         $(go.Shape, 'RoundedRectangle',
           {
             fill: '#FAF9FE',
-            stroke: '#000',
+            stroke: '#8413f8',
             strokeWidth: 1,
             width: 366,
             height: 153.05,
@@ -278,21 +278,21 @@ totalEmployees: number = 0;
           $(go.TextBlock,
             {
               font: 'bold 18px sans-serif',
-              stroke: '#000',
+              stroke: '#333333',
               margin: new go.Margin(10, 0, 0, 0)
             },
             new go.Binding('text', 'name')), // Employee name binding
           $(go.TextBlock,
             {
               font: '16px sans-serif',
-              stroke: '#000',
+              stroke: '#666666',
               margin: new go.Margin(10, 0, 0, 0)
             },
             new go.Binding('text', 'department')), // Department name binding
           $(go.TextBlock,
             {
               font: '14px sans-serif',
-              stroke: '#000',
+              stroke: '#999999',
               margin: new go.Margin(10, 0, 0, 0)
             },
             new go.Binding('text', 'title')) // Position type name binding
