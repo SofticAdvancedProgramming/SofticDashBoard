@@ -1,8 +1,8 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="container containe-fluid px-5">
+  <div class="container px-5">
     <div class="form py-2">
       <div class="form-group my-3">
-        <label class="form-label">{{ 'TASKS.Task Name' | translate }}</label>
+        <label class="form-label">Task Name</label>
         <div class="row">
           <div class="col-12">
             <input type="text" formControlName="name" class="form-control"
@@ -28,19 +28,9 @@
 
       <div class="row my-3">
         <div class="col-12 form-group">
-<<<<<<< Team--asmaa
-          <label class="form-label">{{ 'TASKS.Task Details' | translate }}</label>
-          <textarea
-            class="textarea form-control"
-            formControlName="taskDetails"
-            placeholder="{{ 'TASKS.TASKDETAILS' | translate }}"
-            placeholder=""
-            [ngClass]="{
-=======
           <label class="form-label">Task Details</label>
           <textarea class="textarea form-control" formControlName="taskDetails"
             placeholder="{{ 'TASKS.TASKDETAILS' | translate }}" placeholder="" [ngClass]="{
->>>>>>> TestEnvironment
               'is-invalid':
               form.controls['taskDetails'].touched &&
               form.controls['taskDetails'].errors,
@@ -69,67 +59,9 @@
         </div>
       </div>
 
-      <!-- <div class="row my-3">
-        <div class="col-6">
-          <div class="form-group">
-            <label class="form-label">From (date)</label>
-            <input
-              [min]="todayDate"
-              type="date"
-              style="text-transform: lowercase"
-              class="form-control"
-              formControlName="from"
-              [ngClass]="{
-              'is-invalid':
-              form.controls['from'].touched &&
-              form.controls['from'].errors,
-              'is-valid':
-              form.controls['from'].touched &&
-              form.controls['from'].errors == null ,
-              'is-touched':
-              form.controls['from'].untouched &&
-              form.controls['from'].errors == null,
-          }"
-            />
-            <div *ngIf="isFieldInvalid('from')" class="text-danger">
-              <small *ngIf="form.get('from')?.errors?.['required']">
-                {{ "Tasks.validation.startDateRequired" | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label class="form-label">Duration in days</label>
-            <input
-              type="number"
-              class="form-control"
-              formControlName="duration"
-              placeholder="Enter Your Duration"
-              [ngClass]="{
-              'is-invalid':
-              form.controls['duration'].touched &&
-              form.controls['duration'].errors,
-              'is-valid':
-              form.controls['duration'].touched &&
-              form.controls['duration'].errors == null ,
-              'is-touched':
-              form.controls['duration'].untouched &&
-              form.controls['duration'].errors == null,
-          }"
-            />
-            <div *ngIf="isFieldInvalid('duration')" class="text-danger">
-              <small *ngIf="form.get('duration')?.errors?.['required']">
-                {{ "Tasks.validation.durationRequired" | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
       <div class="row my-3">
         <div class="col-12 form-group">
-          <label class="form-label">{{'TASKS.Initial cost' |translate}}</label>
+          <label class="form-label">Initial cost</label>
           <div class="custom-input">
             <input type="number" class="textarea form-control" formControlName="initialCost"
               placeholder="{{'TASKS.INITIALCOST' |translate}}" placeholder="{{ 'TASKS.INITIALCOST' | translate }}"
@@ -156,41 +88,6 @@
       </div>
 
       <div class="row my-3">
-        <!-- <div class="col-12 form-group">
-          <label class="form-label">Actual cost</label>
-          <div class="custom-input">
-            <input
-              type="number"
-              class="textarea form-control"
-              formControlName="actualCost"
-              placeholder="Please write your message no more than 300 words"
-              [ngClass]="{
-                'is-invalid':
-                form.controls['actualCost'].touched &&
-                form.controls['actualCost'].errors,
-                'is-valid':
-                form.controls['actualCost'].touched &&
-                form.controls['actualCost'].errors == null ,
-                'is-touched':
-                form.controls['actualCost'].untouched &&
-                form.controls['actualCost'].errors == null,
-            }"
-            />
-            <img
-              src="../../../../../assets/images/dollar-circle.png"
-              alt="Icon"
-              class="input-icon"
-            />
-          </div>
-          <div *ngIf="isFieldInvalid('actualCost')" class="text-danger">
-            <small *ngIf="form.get('actualCost')?.errors?.['required']">
-              {{ "Tasks.validation.nameRequired" | translate }}
-            </small>
-          </div>
-        </div> -->
-      </div>
-
-      <div class="row my-3">
         <div class="form-group toggle-group">
           <label class="switch">
             <input type="checkbox" formControlName="isGlobal" />
@@ -200,142 +97,38 @@
             {{ "Assign to all department" | translate }}
           </label>
         </div>
-        @if(!form.get('isGlobal')?.value){
-        <div class="col-6">
-          <div class="form-group">
-<<<<<<< Team--asmaa
-            <label class="form-label" for="Name">{{'TASKS.Branch' |translate}}</label>
-            <app-drop-down
-              [items]="Branches"
-              [placeholder]="'Select Branch' | translate"
-              [placeholderSearch]="'Search by Name' | translate"
-              [itemsLength]="Branches.length"
-              (onChange)="onBranchSelect($event)"
-              (getNextPageApi)="loadBranches()"
-              (search)="loadBranches()"
-            >
-            </app-drop-down>
-=======
-            <label class="form-label" for="branch">Branch</label>
-            <mat-select class="custom-select" formControlName="branchId"
-              (selectionChange)="onBranchSelect($event.value)">
-              <mat-option *ngFor="let branch of Branches" [value]="branch.id">
-                {{ branch.name }}
-              </mat-option>
-            </mat-select>
->>>>>>> TestEnvironment
-          </div>
-        </div>
-
-
-        <div class="col-6">
-          <div class="form-group">
-<<<<<<< Team--asmaa
-            <label class="form-label" for="Name">{{'TASKS.Departments' |translate}}</label>
-            <mat-select
-              class="custom-select"
-              [placeholder]="'Select Department'"
-              formControlName="departmentIds"
-              multiple
-              (selectionChange)="loadEmployees($event.value)"
-            >
-              <mat-option [value]="null" disabled>{{
-                "ToDo.selectEmployee" | translate
-              }}</mat-option>
-              <mat-option
-                *ngFor="let department of departments"
-                [value]="department.id"
-              >
-=======
-            <label class="form-label" for="department">Departments</label>
-            <mat-select class="custom-select" placeholder="Select Departments" formControlName="departmentIds" multiple
-              (selectionChange)="onDepartmentSelect($event.value)">
-              <mat-option *ngFor="let department of departments" [value]="department.id">
->>>>>>> TestEnvironment
-                {{ department.name }}
-              </mat-option>
-            </mat-select>
-          </div>
-        </div>
-
-        }
-      </div>
-      @if (form.get('isGlobal')?.value) {
+        @if (form.get('isGlobal')?.value) {
         <div class="row my-3">
 
-          <div class="form-group toggle-group">
-            <label class="switch">
-              <input type="checkbox" formControlName="isTeam" (change)="getTeams()"  />
-              <span class="slider"></span>
-            </label>
-            <label for="direct-manager" class="toggle-label">{{
-              "Assign to Team" | translate
-            }}</label>
-          </div>
-          @if(form.get('isTeam')?.value){
+        <!-- Assign to Team Toggle -->
+<div class="form-group toggle-group">
+  <label class="switch">
+    <input type="checkbox" [checked]="form.value.isTeam" (change)="onTeamToggle()" />
+    <span class="slider"></span>
+  </label>
+  <label class="toggle-label">{{ "Assign to Team" | translate }}</label>
+</div>
 
-          <div class="col-12">
-            <div class="form-group">
-              <label class="form-label" for="Name">{{
-                "Teams" | translate
-              }}</label>
-              <mat-select
-                class="custom-select"
-                [placeholder]="'Select Team'"
-                formControlName="teamId"
+<!-- Team Dropdown (Visible Only When isTeam is True) -->
+<div class="col-12" *ngIf="form.value.isTeam && Teams.length > 0">
+  <div class="form-group">
+    <label class="form-label">{{ "Teams" | translate }}</label>
+    <mat-select class="custom-select" formControlName="teamId" (selectionChange)="onTeamSelectionChange($event)">
+      <mat-option *ngFor="let team of Teams" [value]="team.id">
+        {{ team.name }}
+      </mat-option>
+    </mat-select>
+  </div>
+</div>
 
-                (selectionChange)="loadEmployees(0, $event.value)"
-              >
-                <mat-option [value]="null" disabled>{{
-                  "ToDo.selectEmployee" | translate
-                }}</mat-option>
-                <mat-option
-                  *ngFor="let team of Teams"
-                  [value]="team.id"
-                >
-                  {{ team.name }}
-                </mat-option>
-              </mat-select>
-            </div>
-          </div>
-          }
+
         </div>
-      }
+        }
+      </div>
 
       <div class="row my-3">
         <div class="col-12">
           <div class="form-group">
-<<<<<<< Team--asmaa
-            <label class="form-label" for="Name">{{'TASKS.Assign To' |translate}}</label>
-            <!-- <app-drop-down
-              [placeholder]="'Select Employee'"
-              [placeholderSearch]="'Search by Name'"
-              [items]="employees"
-              [currentPage]="employeePage"
-              [itemsLength]="employees.length"
-              (getNextPageApi)="loadEmployees()"
-              (search)="loadEmployees()"
-              (onChange)="onEmployeeSelect($event)"
-            ></app-drop-down> -->
-            <mat-select
-              class="custom-select"
-              [placeholder]="'Select Employees'"
-              formControlName="EmployeeIds"
-              multiple
-            >
-              <mat-option [value]="null" disabled>{{
-                "ToDo.selectEmployee" | translate
-              }}</mat-option>
-              <mat-option
-                *ngFor="let emp of employees"
-                [value]="emp.id"
-              >
-                {{ emp.firstName }} {{ emp.lastName }}
-              </mat-option>
-            </mat-select>
-            <!-- <mat-select class="custom-select" [placeholder]="'Select Employee'" formControlName="assignEmployee">
-              <mat-option [value]="null" disabled>Select Employee</mat-option>
-=======
             <label class="form-label" for="assignedEmployees">Assign To</label>
             <mat-select class="custom-select" placeholder="Select Employees" formControlName="EmployeeIds" multiple
               disableOptionCentering>
@@ -349,7 +142,6 @@
               </mat-select-trigger>
 
               <!-- Dropdown options -->
->>>>>>> TestEnvironment
               <mat-option *ngFor="let emp of employees" [value]="emp.id">
                 {{ emp.firstName }} {{ emp.lastName }}
               </mat-option>
@@ -372,15 +164,6 @@
                   " class="header">
                   <p>{{ "ASSET_UPLOADER.BROWSE_FILE" | translate }}</p>
                 </div>
-                <!-- <label for="attachmentfile" class="footer">
-                <p *ngIf="files.length === 0 && !attachmentUploadMessage">
-                  {{ "ASSET_UPLOADER.NO_FILE_SELECTED" | translate }}
-                </p>
-
-                <p *ngIf="attachmentUploadMessage" class="upload-message">
-                  {{ attachmentUploadMessage }}
-                </p>
-              </label> -->
 
                 <input id="attachmentfile" type="file" (change)="onAttachmentChange($event)"
                   formControlName="AssetAttachment" class="form-control-file" />
@@ -459,17 +242,6 @@
                   {{ emp.firstName }} {{ emp.lastName }}
                 </mat-option>
               </mat-select>
-              <!-- @else{
-              <mat-select formControlName="employeeId">
-                <mat-option [value]="null" disabled>Select Employee</mat-option>
-                <mat-option
-                  *ngFor="let emp of employees"
-                  [value]="emp.id"
-                >
-                  {{ emp.firstName }} {{ emp.lastName }}
-                </mat-option>
-              </mat-select>
-            } -->
             </div>
           </div>
           <div class="d-flex col-6 justify-content-center align-items-end bnt-container">
