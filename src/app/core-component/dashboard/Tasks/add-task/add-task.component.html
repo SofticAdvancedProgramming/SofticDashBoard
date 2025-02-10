@@ -190,32 +190,27 @@
             {{ "Assign to all department" | translate }}
           </label>
         </div>
-        @if(!form.get('isGlobal')?.value){
-        <div class="col-6">
-          <div class="form-group">
-            <label class="form-label" for="branch">Branch</label>
-            <mat-select class="custom-select" formControlName="branchId"
-              (selectionChange)="onBranchSelect($event.value)">
-              <mat-option *ngFor="let branch of Branches" [value]="branch.id">
-                {{ branch.name }}
-              </mat-option>
-            </mat-select>
+        @if (form.get('isGlobal')?.value) {
+          <div class="row my-3">
+  
+            <div class="form-group toggle-group">
+              <label class="switch">
+                <input type="checkbox" formControlName="isTeam" (change)="getTeams()" />
+                <span class="slider"></span>
+              </label>
+              <label class="toggle-label">{{ "Assign to Team" | translate }}</label>
+            </div>
+            <div class="col-12" *ngIf="form.value.isTeam && Teams.length > 0">
+              <div class="form-group">
+                <label class="form-label">{{ "Teams" | translate }}</label>
+                <mat-select class="custom-select" formControlName="teamId" (selectionChange)="loadEmployees(0, $event.value)">
+                  <mat-option *ngFor="let team of Teams" [value]="team.id">
+                    {{ team.name }}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
           </div>
-        </div>
-
-
-        <div class="col-6">
-          <div class="form-group">
-            <label class="form-label" for="department">Departments</label>
-            <mat-select class="custom-select" placeholder="Select Departments" formControlName="departmentIds" multiple
-              (selectionChange)="onDepartmentSelect($event.value)">
-              <mat-option *ngFor="let department of departments" [value]="department.id">
-                {{ department.name }}
-              </mat-option>
-            </mat-select>
-          </div>
-        </div>
-
         }
       </div>
 

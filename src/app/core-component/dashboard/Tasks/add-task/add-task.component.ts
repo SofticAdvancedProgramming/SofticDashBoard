@@ -58,6 +58,8 @@ export class AddTaskComponent implements OnInit {
   attachmentUploadMessage: string | null = null;
   attachments: any[] = [];
   addToDo: number[] = [];
+  Teams:any[]=[];
+
   files: {
     companyId: number;
     fileExtension: string;
@@ -131,6 +133,8 @@ export class AddTaskComponent implements OnInit {
       departmentIds: [[]],
       EmployeeIds: [[]],
       todos: this.fb.array([]),
+      isTeam: [false],
+      teamId:[[]],
     });
     
   }
@@ -217,7 +221,8 @@ export class AddTaskComponent implements OnInit {
   onSubmit() {
     console.log(this.form.value.departmentIds);
 
-    this.todoValues = this.form.value.todos; 
+    this.todoValues = this.form.value.todos; // Get all to-do values
+
 
     const toDoItems: any[] = [];
     for (let i = 0; i < this.todoValues.length; i++) {
@@ -270,6 +275,10 @@ export class AddTaskComponent implements OnInit {
     if (this.id) {
 
       query.id = this.id;
+    }
+    if(this.form.value.isTeam){
+      query.teamId = this.form.value.teamId[0];
+      query.isTeam = true;
     }
 
     if (this.form.value) {
@@ -384,15 +393,21 @@ export class AddTaskComponent implements OnInit {
     });
   }
 
-  loadEmployees(branchId?: number) {
+ 
+  loadEmployees(branchId?:number,teamId?:number) {
     if (this.loadingMoreEmployees) return;
     this.loadingMoreEmployees = true;
     let query: any = {
-      accountStatus: 1,
-      pageIndex: 1,
-      pageSize: 1000,
+        accountStatus: 1,
+        pageIndex: 1,
+        pageSize: 1000,
+        companyId:this.companyId
     }
-    if (Array.isArray(branchId)) {
+    if(teamId){
+      query.teamId =teamId
+    }
+    else if (Array.isArray(branchId)) { 
+
       branchId.forEach(value => {
         console.log('Selected department ID:', value);
         query.departmentId = value;
@@ -402,6 +417,8 @@ export class AddTaskComponent implements OnInit {
       this.employees = [];
       this.firstBind = true;
     }
+
+    console.log(query);
     this.employeeService
       .loadEmployees(query)
       .subscribe({
@@ -415,10 +432,19 @@ export class AddTaskComponent implements OnInit {
               name: `${employee.firstName} ${employee.lastName}`,
             }));
 
+
+            console.log(this.form.value.EmployeeIds);
           this.employees = [...this.employees, ...newItems];
           this.employeePage++;
           this.loadingMoreEmployees = false;
-          console.log(this.employees);
+          if(teamId){
+            response.data.list.map((employee: any) => {
+              this.form.patchValue({ EmployeeIds: [...this.form.value.EmployeeIds, employee.id] })
+              })
+              console.log(this.form.value.EmployeeIds)
+          }
+          // this.employees=response.data.list;
+
         },
         error: (err) => {
           console.error('Error loading employees:', err);
@@ -527,5 +553,33 @@ export class AddTaskComponent implements OnInit {
   cancelTask() {
     this.router.navigate(['/dashboard/tasks']); 
   }
+  getTeams() {
+    if (this.form.value.isTeam) {   
+      let query = {
+        companyId: this.companyId,
+        associatedToTask: true
+      };
+  
+      this.tasksService.GetTeams(query).subscribe({
+        next: (res) => {
+          this.Teams = res.data.list;
+          console.log("Teams Loaded:", this.Teams);
+  
+          // ✅ Force UI to refresh and show the dropdown
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error("Error loading teams:", err);
+        }
+      });
+    } else {
+      this.Teams = [];  // Reset teams when unchecked
+      this.form.patchValue({ teamId: null }); // Clear selection
+  
+      // ✅ Ensure UI updates when teams are cleared
+      this.cdr.detectChanges();
+    }
+  }
+  
   
 }

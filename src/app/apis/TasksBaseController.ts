@@ -18,5 +18,5 @@ export const TasksBaseController = {
     Count: `${environment.apiBaseUrl}Tasks/Count`,
     AssignTask:`${environment.apiBaseUrl}TaskAssignment/Add`,
     GetTaskAssignment:`${environment.apiBaseUrl}TaskAssignment/Get`,
-
+    GetTeams:`${environment.apiBaseUrl}Team/Get`
 };
