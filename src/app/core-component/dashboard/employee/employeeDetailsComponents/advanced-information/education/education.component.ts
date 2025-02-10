@@ -31,7 +31,7 @@ import { FormsModule } from '@angular/forms';
   ]
 })
 export class HighSchoolComponent implements OnInit, OnDestroy {
-  isHighSchoolOpen = true;  
+  isHighSchoolOpen = true;
   isBachelorDegreeOpen = true;
   isMasterDegreeOpen = false;
   isDoctorate = false;
@@ -63,14 +63,17 @@ export class HighSchoolComponent implements OnInit, OnDestroy {
       this.getEducation();
     })
   }
-
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+    //return this.localStorageService.getCurrentLanguage() === 'ar';
+  }
   getEducation() {
     this.userEducationService
       .getEducation({employeeId: this.id})
       .pipe(
         tap((res) => {
           this.userEducation = res.data.list[0];
-      
+
         }),
         takeUntil(this.unsubscribe$)
       )

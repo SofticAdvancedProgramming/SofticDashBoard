@@ -479,10 +479,10 @@
     "Full_Address": "Address",
     "No_Data": "No Data",
     "progressAddressTitle": "Address completeness",
-    "nearBy": "nearBy",
-    "unit": "unit",
-    "floor": "floor",
-    "zone": "zone"
+    "nearBy": "NearBy",
+    "unit": "Unit",
+    "floor": "Floor",
+    "zone": "Zone"
   },
   "education": {
     "Title": "Education",
@@ -524,6 +524,7 @@
   "medicalInsurance": {
 
     "Title": "Medical Insurance",
+    "MedicalData": "Medical Data",
     "Blood_Type": "Blood Type",
     "Weight": "Weight (kg)",
     "Height": "Height (cm)",
@@ -570,8 +571,8 @@
     "Title": "Employee Type"
   },
   "attachments": {
-    "Title": "Attachments",
-    "Name": "Attachment Name",
+    "Title": "Other Attachments",
+    "Name": "Attachment Title",
     "File": "File",
     "No_Data": "No Data",
     "Download_PDF": "Download PDF"

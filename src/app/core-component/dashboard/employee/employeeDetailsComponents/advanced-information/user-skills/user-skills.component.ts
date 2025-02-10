@@ -27,7 +27,7 @@ export class UserSkillsComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribe$)
     ).subscribe(params => {
       this.id = Number(params.get('id'));
-     
+
       this.getSkills();
     })
   }
@@ -38,14 +38,17 @@ export class UserSkillsComponent implements OnInit, OnDestroy {
       .pipe(
         tap((res) => {
           this.userSkills = res.data.list;
-      
-          
+
+
         }),
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
   }
 
+  get isArabic(): boolean {
+    return localStorage.getItem('lang') === 'ar';
+  }
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();

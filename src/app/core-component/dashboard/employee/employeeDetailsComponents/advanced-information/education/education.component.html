@@ -54,7 +54,7 @@
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'education.Degree_Type' | translate }}</label>
       <div class="text-muted">
-        {{ userEducation?.name ? userEducation?.name : ('education.No_Data' | translate) }}
+        {{ isArabic? userEducation?.degreeNameAr  : userEducation?.degreeName  || ('education.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-6 border-bottom-custom">
@@ -84,7 +84,7 @@
     <div class="col-12 col-md-6 border-bottom-custom">
       <label class="d-block fw-semibold text-dark">{{ 'education.GPA_Grade' | translate }}</label>
       <div class="text-muted">
-        {{ userEducation?.degree ? userEducation?.degree : ('education.No_Data' | translate) }}
+        {{ isArabic? userEducation?.gradeNameAr  : userEducation?.gradeName  || ('education.No_Data' | translate) }}
       </div>
     </div>
     <div class="col-12 col-md-12 border-bottom-custom">

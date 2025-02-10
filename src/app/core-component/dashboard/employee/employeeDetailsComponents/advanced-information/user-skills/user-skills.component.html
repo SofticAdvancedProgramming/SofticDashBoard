@@ -53,7 +53,7 @@
       <div class="text-muted">
         {{
           item?.skillTypeName
-            ? item?.skillTypeName
+            ?  isArabic? item?.skillTypeNameAr  : item?.skillTypeName
             : ("skills.NoData" | translate)
         }}
       </div>

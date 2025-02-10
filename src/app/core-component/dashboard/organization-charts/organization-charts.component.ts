@@ -89,7 +89,7 @@ totalEmployees: number = 0;
     this.employeeService.loadEmployees({companyId:this.companyId}).subscribe(response => {
       if (response.status === 200) {
         response.data.list.forEach((employee: any) => {
-         
+
           this.employeeMap.set(employee.positionId, (employee.firstName+" "+employee.lastName));
           if(employee.profileImage)
           this.imageMap.set(employee.positionId,employee.profileImage);
@@ -110,11 +110,11 @@ totalEmployees: number = 0;
         const nodeDataArray: any[] = [];
         const linkDataArray: any[] = [];
         this.positions = response.data.list;
-       
+
         response.data.list.forEach((item: any) => {
-      
+
           const { nodeDataArray: nodes, linkDataArray: links } = this.transformData([item]);
-        
+
 
           nodeDataArray.push(...nodes);
           linkDataArray.push(...links);
@@ -163,12 +163,12 @@ totalEmployees: number = 0;
   loadUnassignedEmployees(): void {
     this.employeeService.loadEmployees({ companyId: this.companyId, accountStatus: 1 }).subscribe({
       next: (response) => {
-       
+
         this.employees = response.data.list.filter(
           (employee: any) => !employee.positionId
         );
         this.totalEmployees = response.data.totalRows;
-      
+
       }
     });
   }
@@ -177,7 +177,7 @@ totalEmployees: number = 0;
     this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
     this.loadUnassignedEmployees();
     this.isAddEmployee = true;
- 
+
   }
   getDepartmentName(departmentId: number): string {
     const department = this.departments.find(dep => dep.id === departmentId);
@@ -187,7 +187,7 @@ totalEmployees: number = 0;
     this.isAddEmployee = false;
   }
   handleFormSubmit(formData: { employeeId: number, positionId: number }): void {
-   
+
     this.employeeService.assginEmployeeToPosition({
       employeeId: formData.employeeId,
       positionId: formData.positionId
@@ -236,7 +236,7 @@ totalEmployees: number = 0;
   }
 
   initDiagram(nodeDataArray: any[], linkDataArray: any[]) {
- 
+
 
     const $ = go.GraphObject.make;
 
@@ -255,7 +255,7 @@ totalEmployees: number = 0;
         $(go.Shape, 'RoundedRectangle',
           {
             fill: '#FAF9FE',
-            stroke: '#8413f8',
+            stroke: '#000',
             strokeWidth: 1,
             width: 366,
             height: 153.05,
@@ -278,21 +278,21 @@ totalEmployees: number = 0;
           $(go.TextBlock,
             {
               font: 'bold 18px sans-serif',
-              stroke: '#333333',
+              stroke: '#000',
               margin: new go.Margin(10, 0, 0, 0)
             },
             new go.Binding('text', 'name')), // Employee name binding
           $(go.TextBlock,
             {
               font: '16px sans-serif',
-              stroke: '#666666',
+              stroke: '#000',
               margin: new go.Margin(10, 0, 0, 0)
             },
             new go.Binding('text', 'department')), // Department name binding
           $(go.TextBlock,
             {
               font: '14px sans-serif',
-              stroke: '#999999',
+              stroke: '#000',
               margin: new go.Margin(10, 0, 0, 0)
             },
             new go.Binding('text', 'title')) // Position type name binding
@@ -302,7 +302,7 @@ totalEmployees: number = 0;
             const node = obj.part as go.Node; // Cast obj.part to Node
             if (node && node.data) {
             const nodeId = node.data.id;
-            
+
             this.addEmployee(nodeId?.toString()||'0');
             }
           },
