@@ -109,6 +109,7 @@ export class AddTaskComponent implements OnInit {
     this.counter++;
     this.route.params.subscribe((params) => {
       this.id = params['id'];
+
       if (this.id) {
         this.getTasksDetails();
         this.getEmployeesAssignments();
@@ -130,15 +131,15 @@ export class AddTaskComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       taskDetails: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
-      initialCost: [''],
-      priority: [''],
+      initialCost: [''], 
+     // duration: ['', Validators.required],
+      taskToDoDescription: [''],
+      AssetAttachment: [''],
       isGlobal: [false],
-      branchId: [null],
+      branchId: [null],  // ✅ Add branchId field
       departmentIds: [[]],
       EmployeeIds: [[]],
       todos: this.fb.array([]),
-      isTeam: [false],
-      teamId: [[]],
     });
 
   }
@@ -164,13 +165,16 @@ export class AddTaskComponent implements OnInit {
     this.todoService.get(query).subscribe({
       next: (res) => {
         this.todoItems = res.data.list;
-        this.todoItems?.forEach((todo: any) => {
+
+         this.todoItems?.forEach((todo: any) => {
+
           const todoGroup1: any = this.fb.group({
             description: [todo.description, Validators.required],
             employeeId: [todo.employeeId, Validators.required],
             id: [todo.id],
           });
-          this.todos.push(todoGroup1);
+           this.todos.push(todoGroup1);
+
 
 
         });
@@ -213,6 +217,7 @@ export class AddTaskComponent implements OnInit {
     this.form.patchValue({
       name: this.taskDetails?.name,
       taskDetails: this.taskDetails?.description,
+      from: formattedDate || '',
       initialCost: this.taskDetails?.initialBudget,
       priority: this.taskDetails?.priorityId,
       isGlobal: this.taskDetails?.isGlobal,
@@ -221,12 +226,14 @@ export class AddTaskComponent implements OnInit {
       isTeam: this.taskDetails?.isTeam || false,
       teamId: this.taskDetails?.teamId ? [this.taskDetails.teamId] : [],
     });
+
   }
 
   onSubmit() {
-    console.log("Before Submit Form Values:", this.form.value);
-  
-    this.todoValues = this.form.value.todos;
+    console.log(this.form.value.departmentIds);
+
+    this.todoValues = this.form.value.todos; 
+
     const toDoItems: any[] = [];
     for (let i = 0; i < this.todoValues.length; i++) {
       toDoItems.push({
@@ -289,22 +296,33 @@ export class AddTaskComponent implements OnInit {
     // ✅ Send Data to API
     if (this.id) {
       query.id = this.id;
-      this.tasksService.edit(query).subscribe({
-        next: () => {
-          this.toast.success('Edited Successfully');
-          this.ngOnInit();
-        },
-        error: (err) => console.error("Edit Error:", err),
-      });
-    } else {
-      this.tasksService.add(query).subscribe({
-        next: () => {
-          this.toast.success('Added Successfully');
-          this.ngOnInit();
-          this.router.navigateByUrl('/dashboard/tasks');
-        },
-        error: (err) => console.error("Add Error:", err),
-      });
+    }
+
+    if (this.form.value) {
+      if (this.id) {
+        this.tasksService.edit(query).subscribe({
+          next: (res) => {
+
+            this.toast.success('Edited Successfully');
+            this.ngOnInit();
+          },
+          error(err) {
+
+          },
+        });
+      } else {
+        this.tasksService.add(query).subscribe({
+          next: (res) => {
+
+            this.toast.success('Added Successfully');
+            this.ngOnInit();
+            this.router.navigateByUrl('/dashboard/tasks');
+          },
+          error(err) {
+
+          },
+        });
+      }
     }
   }
   
@@ -369,6 +387,7 @@ export class AddTaskComponent implements OnInit {
           this.files.push(fileDetails);
 
 
+
           this.attachmentUploadMessage = this.translate.instant(
             attachmentfileType.startsWith('image/')
               ? 'ASSET_UPLOADER.uploadAnotherImage'
@@ -393,21 +412,15 @@ export class AddTaskComponent implements OnInit {
     });
   }
 
-
-  loadEmployees(branchId?: number, teamId?: number) {
+  loadEmployees(branchId?: number) {
     if (this.loadingMoreEmployees) return;
     this.loadingMoreEmployees = true;
     let query: any = {
       accountStatus: 1,
       pageIndex: 1,
       pageSize: 1000,
-      companyId: this.companyId
     }
-    if (teamId) {
-      query.teamId = teamId
-    }
-    else if (Array.isArray(branchId)) {
-
+    if (Array.isArray(branchId)) {
       branchId.forEach(value => {
         console.log('Selected department ID:', value);
         query.departmentId = value;
@@ -432,19 +445,10 @@ export class AddTaskComponent implements OnInit {
               name: `${employee.firstName} ${employee.lastName}`,
             }));
 
-
-          console.log(this.form.value.EmployeeIds);
           this.employees = [...this.employees, ...newItems];
           this.employeePage++;
           this.loadingMoreEmployees = false;
-          if (teamId) {
-            response.data.list.map((employee: any) => {
-              this.form.patchValue({ EmployeeIds: [...this.form.value.EmployeeIds, employee.id] })
-            })
-            console.log(this.form.value.EmployeeIds)
-          }
-          // this.employees=response.data.list;
-
+          console.log(this.employees);
         },
         error: (err) => {
           console.error('Error loading employees:', err);
@@ -471,6 +475,7 @@ export class AddTaskComponent implements OnInit {
 
     this.tasksService.assignEmployees(query).subscribe({
       next: (res) => {
+
         this.assignedEmployees = res.data.list;
 
         this.selectedEmployeeIds = this.assignedEmployees.map((emp: { employeeId: number }) => emp.employeeId);
@@ -503,6 +508,7 @@ export class AddTaskComponent implements OnInit {
 
     this.tasksService.get(query).subscribe({
       next: (res) => {
+
         this.taskDetails = res.data.list[0];
         this.populateForm();
 
@@ -511,7 +517,7 @@ export class AddTaskComponent implements OnInit {
         }
       },
       error(err) {
-        console.error(err);
+
       },
     });
   }

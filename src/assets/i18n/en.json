@@ -313,7 +313,8 @@
     "LOGOUT": "Logout",
     "ASSETS": "Assets",
     "COMPLAINSANDSUGGESTIONS": "Complaints & Suggetions",
-    "TASKS": "Tasks"
+    "TASKS": "Tasks",
+    "teams": "Teams"
   },
   "Home": {
     "ActiveCompanies": "Active Companies",
@@ -521,12 +522,15 @@
     "No_Data": "No Data"
   },
   "medicalInsurance": {
+
     "Title": "Medical Insurance",
     "Blood_Type": "Blood Type",
     "Weight": "Weight (kg)",
     "Height": "Height (cm)",
     "chronicdiseaseName": "chronic disease Name",
     "insuranceCompany": "insurance Company",
+    "Disease": "there are Disease",
+    "no Disease": "no Disease",
     "medicalInsuranceNumber": "medical Insurance Number",
     "expiryon": "expiry on",
     "healthCondition": "health Condition",
@@ -545,11 +549,22 @@
     "Twitter": "Twitter",
     "No_Data": "No Data",
     "progressSocialTitle": "Social Media completeness",
-    "referance": "referance",
+
     "email": "E-mail",
     "userTelephone": "telephone",
     "isWhatsApp": "whatsApp",
-    "isFavourit": "main"
+    "isFavourit": "main",
+
+    "referance": "Referance",
+    "referance name": "Referance Name",
+    "referance telephone": "Referance Telephone",
+    "referance buildingNo": "Building.No",
+    "referance fullAddress": "Full Address",
+    "referance nearBy": "Near by",
+    "referance unit": "Unit",
+    "referance floor": "Floor",
+    "referance refernceType": "Refernce Type",
+    "referance street": "Street"
   },
   "type": {
     "Title": "Employee Type"
@@ -585,7 +600,11 @@
       "companyNameEn": {
         "label": "Company Name (English)",
         "placeholder": "Enter company name (English)"
+
       },
+      "centralizedDepartment":{
+          "label": "Centralized Department"
+        },
       "companyNameAr": {
         "label": "Company Name (Arabic)",
         "placeholder": "Enter company name (Arabic)"
@@ -980,6 +999,7 @@
       "addTaskBtn": "Add Task",
       "save": "Save",
       "cancel": "Cancel"
+
     },
     "validation": {
       "nameRequired": "Task Name Required",
@@ -990,6 +1010,18 @@
       "durationRequired": "Duration Required",
       "initialCostRequired": "Initial Cost Required"
     }
+  },
+  "TASKS":{
+    "Task Name": "Task Name",
+    "Task Details": "Task Details",
+    "Initial cost": "Initial cost",
+    "Branch": "Branch",
+    "Departments": "Departments",
+    "Teams": "Teams",
+    "Assign To": "Assign To",
+    "TASKNAME":"Please write your task name",
+    "TASKDETAILS":"Please write your message no more than 300 words",
+    "INITIALCOST":"Please enter initial cost"
   },
   "Assets Category":"Assets Category",
   "SELECT_DEPARTMENT": "Select Department",
@@ -1015,9 +1047,6 @@
   "OVERVIEW": "Overview",
   "EMPLOYEE": "Employee",
   "CLOSE": "Close",
-  "TASKS.TASKNAME":"Please write your task name",
-  "TASKS.TASKDETAILS":"Please write your message no more than 300 words",
-  "TASKS.INITIALCOST":"Please enter initial cost",
   "ASSIGNED_TO_CENTERALIZED_DEPARTMENT":"Is assigned to centeralized department?",
 
   "IS_CENTERLIZED_DEPARTMENT":"Is Centerlized department ?",

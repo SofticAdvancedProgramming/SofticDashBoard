@@ -1,8 +1,8 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="container px-5">
+  <div class="container containe-fluid px-5">
     <div class="form py-2">
       <div class="form-group my-3">
-        <label class="form-label">Task Name</label>
+        <label class="form-label">{{ 'TASKS.Task Name' | translate }}</label>
         <div class="row">
           <div class="col-12">
             <input type="text" formControlName="name" class="form-control"

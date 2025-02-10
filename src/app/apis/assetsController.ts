@@ -14,7 +14,7 @@ export const assetsCategoryController = {
 export const assetsController = {
     addAsset: `${environment.apiBaseUrl}Asset/Add`,
     getAsset:`${environment.apiBaseUrl}Asset/Get`,
-    assignAsset: `${environment.apiBaseUrl}Asset/Assgin`,
+    assignAsset: `${environment.apiBaseUrl}Asset/Assign`,
     AssetAssignmentCounts:`${environment.apiBaseUrl}AdminStatics/AssetAssignmentCounts`,
     GetAssetCountPerLastThreeMonths:`${environment.apiBaseUrl}Asset/GetAssetCountPerLastThreeMonths`,
     AssetCategorycounts:`${environment.apiBaseUrl}AdminStatics/AssetCategorycounts`,

@@ -91,7 +91,7 @@ export class AssignAssetPopupComponent {
     if (employee) {
 
       this.selectedEmployee = employee;
-    } 
+    }
   }
 
 

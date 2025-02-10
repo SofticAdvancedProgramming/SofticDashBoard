@@ -73,6 +73,8 @@ export interface WorkHistory{
 }
 
 export interface Medical{
+  bloodTypeNameAr: string;
+  bloodTypeName: string;
   bloodType: string;
   weight: string;
   hight: string;
