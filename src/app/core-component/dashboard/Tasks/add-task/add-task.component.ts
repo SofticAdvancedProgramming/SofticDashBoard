@@ -247,6 +247,8 @@ export class AddTaskComponent implements OnInit {
       priorityId: this.form.controls['priority'].value || null,
       toDoItems: toDoItems,
       taskAssignments: [],
+      isTeam: this.form.value.isTeam, 
+      teamId: this.form.value.isTeam ? this.form.value.teamId : null,
     };
   
     // ✅ Assign employees if any are selected
@@ -572,7 +574,7 @@ export class AddTaskComponent implements OnInit {
   }
   
   onTeamToggle() {
-    let newValue = !this.form.value.isTeam; // Manually toggle the value
+    let newValue = !this.form.value.isTeam; // Toggle the value manually
     this.form.patchValue({ isTeam: newValue }); // Update the form value
   
     if (newValue) {
@@ -586,5 +588,11 @@ export class AddTaskComponent implements OnInit {
   
     console.log("Updated isTeam:", this.form.value.isTeam);
   }
+  onTeamSelectionChange(event: any) {
+    this.form.patchValue({ teamId: event.value });
+  
+    console.log("Selected Team ID:", this.form.value.teamId);
+  }
+  
   
 }

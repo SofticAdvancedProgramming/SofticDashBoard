@@ -100,26 +100,26 @@
         @if (form.get('isGlobal')?.value) {
         <div class="row my-3">
 
-          <!-- Assign to Team Toggle -->
-          <div class="form-group toggle-group">
-            <label class="switch">
-              <input type="checkbox" [checked]="form.value.isTeam" (change)="onTeamToggle()" />
-              <span class="slider"></span>
-            </label>
-            <label class="toggle-label">{{ "Assign to Team" | translate }}</label>
-          </div>
+        <!-- Assign to Team Toggle -->
+<div class="form-group toggle-group">
+  <label class="switch">
+    <input type="checkbox" [checked]="form.value.isTeam" (change)="onTeamToggle()" />
+    <span class="slider"></span>
+  </label>
+  <label class="toggle-label">{{ "Assign to Team" | translate }}</label>
+</div>
 
-          <!-- Team Dropdown (Visible Only When isTeam is True) -->
-          <div class="col-12" *ngIf="form.value.isTeam && Teams.length > 0">
-            <div class="form-group">
-              <label class="form-label">{{ "Teams" | translate }}</label>
-              <mat-select class="custom-select" formControlName="teamId">
-                <mat-option *ngFor="let team of Teams" [value]="team.id">
-                  {{ team.name }}
-                </mat-option>
-              </mat-select>
-            </div>
-          </div>
+<!-- Team Dropdown (Visible Only When isTeam is True) -->
+<div class="col-12" *ngIf="form.value.isTeam && Teams.length > 0">
+  <div class="form-group">
+    <label class="form-label">{{ "Teams" | translate }}</label>
+    <mat-select class="custom-select" formControlName="teamId" (selectionChange)="onTeamSelectionChange($event)">
+      <mat-option *ngFor="let team of Teams" [value]="team.id">
+        {{ team.name }}
+      </mat-option>
+    </mat-select>
+  </div>
+</div>
 
 
         </div>
