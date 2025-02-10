@@ -534,6 +534,7 @@
   },
   "medicalInsurance": {
     "Title": "التأمين الطبي",
+    "MedicalData": "التأمين الطبي",
     "Blood_Type": "فصيلة الدم",
     "Weight": "الوزن (كجم)",
     "Height": "الطول (سم)",
