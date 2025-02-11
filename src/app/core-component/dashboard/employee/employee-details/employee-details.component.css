@@ -158,8 +158,7 @@ body {
     align-items: center;
     margin-top: 10px;
     padding-bottom: 10px;
-    gap: 1rem !important;
-
+ 
 }
 
 .tab {
@@ -227,4 +226,96 @@ textarea
 }
 .modal-footer button{
   width: 40%;
+}
+.tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 10px;
+     scrollbar-width: none; /* Hide scrollbar for modern browsers */
+}
+
+.tabs::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for WebKit browsers */
+}
+
+.tab {
+    font-size: 16px;
+    color: #aaa;
+    cursor: pointer;
+    position: relative;
+    padding: 10px 15px;
+    flex-shrink: 0; 
+}
+
+.tab.active {
+    color: #6a0dad;
+    font-weight: bold;
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -5px;
+    width: 5px;
+    height: 5px;
+    background-color: #6a0dad;
+    border-radius: 50%;
+}
+
+.tab:hover {
+    color: #6a0dad;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .tabs {
+        display: flex;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+    }
+    
+    .tab {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+    
+    .profile-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .edit-profile-btn {
+        margin-top: 1em;
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tab {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    
+    .tabs {
+        gap: 0.5rem;
+    }
+    
+    .profile-img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .profile-info h1 {
+        font-size: 22px;
+    }
 }
