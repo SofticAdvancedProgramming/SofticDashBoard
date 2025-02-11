@@ -49,11 +49,12 @@ border-bottom: #0D0714;
 
 }
 .mdc-tab__content span {
-  /* font-family: Lama Sans; */
+  color: #9C999F;
+  font-family: Lama Sans;
+  font-weight: 300;
   font-size: 18px;
-  font-weight: 700;
-  line-height: 40px;
-  letter-spacing: 0.03em;
+   line-height: 28px;
+  letter-spacing: 3%;
   text-align: center;
 }
 
