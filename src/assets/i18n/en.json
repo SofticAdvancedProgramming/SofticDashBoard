@@ -849,7 +849,7 @@
   "Salary Types": "Salary Types",
   "Add Position": "Add Position",
   "benefitType": {
-    "ADD_BENEFIT": "Add Benefit",
+    "ADD_BENEFIT": "Add earning or deduction",
     "BENEFITS": "Benefits",
     "SEARCH_BENEFITS": "Search benefits..."
   },
