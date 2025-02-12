@@ -48,13 +48,13 @@ export class BasicLineChartComponent implements OnInit {
       chart: {
         ...this.chartOptions.chart,
         type: 'bar',
-        height: 350
+        height: 280
       },
       plotOptions: {
         bar: {
-          borderRadius: 8, // Rounded bars
-          columnWidth: '45%', // Adjust width
-          distributed: true // Allow different colors per bar
+          borderRadius: 8,  
+          columnWidth: '28',  
+          distributed: true 
         }
       },
       stroke: {

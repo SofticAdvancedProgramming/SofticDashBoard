@@ -29,7 +29,7 @@ export type ChartOptions = {
 export class BasicDonutChartComponent {
   @Input() chartOptions: ChartOptions = {} as ChartOptions;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.chartOptions = {
@@ -58,7 +58,7 @@ export class BasicDonutChartComponent {
           vertical: 5
         }
       },
-      
+
       responsive: [
         {
           breakpoint: 480,

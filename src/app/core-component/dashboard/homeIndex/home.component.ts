@@ -268,7 +268,7 @@ export class HomeIndexComponent {
       series: [
         {
           name: 'Assets Count',
-          data: [30, 40, 45, 50, 49, 60, 70] // Example demo data
+          data: [30, 40, 45]  
         }
       ],
       chart: {
@@ -276,7 +276,7 @@ export class HomeIndexComponent {
         height: 350
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
+        categories: ['Jan', 'Feb', 'Mar']
       }
     };
 
