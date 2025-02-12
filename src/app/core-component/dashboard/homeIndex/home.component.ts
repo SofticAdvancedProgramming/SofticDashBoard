@@ -60,7 +60,10 @@ export class HomeIndexComponent {
   cards: any = [];
   comapnyId: number = Number(localStorage.getItem('companyId')) || 0;
   public leavesLogData: LeavesLog = new LeavesLog();
-
+  barChartOptions: any;
+  donutChartOptions: any;
+  barChartOptionsAr: any;
+  donutChartOptionsAr: any;
   public newAction: any = [{
     isExisting: true,
     src: 'Location_.png'
@@ -88,6 +91,7 @@ export class HomeIndexComponent {
       this.GetAttendanceDetails();
     this.fetchLeavesLog();
     this.fetchFinancialLog(); 
+    this.loadDemoData();
   }
 
   public dashboardCards: any = [];
@@ -259,7 +263,44 @@ export class HomeIndexComponent {
       }
     );
   }
-  
+  loadDemoData() {
+    this.barChartOptions = {
+      series: [
+        {
+          name: 'Assets Count',
+          data: [30, 40, 45]  
+        }
+      ],
+      chart: {
+        type: 'bar',
+        height: 350
+      },
+      xaxis: {
+        categories: ['Jan', 'Feb', 'Mar']
+      }
+    };
+
+    this.donutChartOptions = {
+      series: [44, 55, 41, 17],  
+      labels: ['Assigned', 'Unassigned', 'In Maintenance', 'Out of Service'],
+      chart: {
+        type: 'donut',
+        height: 350
+      }
+    };
+
+     this.barChartOptionsAr = {
+      ...this.barChartOptions,
+      xaxis: {
+        categories: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو']
+      }
+    };
+
+    this.donutChartOptionsAr = {
+      ...this.donutChartOptions,
+      labels: ['Assigned', 'Unassigned', 'In Maintenance', 'Out of Service'],
+    };
+  }
 }
 
 

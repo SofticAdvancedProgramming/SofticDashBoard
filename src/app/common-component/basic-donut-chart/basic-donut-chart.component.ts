@@ -6,7 +6,8 @@ import {
   ApexChart,
   ApexFill,
   ApexDataLabels,
-  ApexLegend
+  ApexLegend,
+  ApexStroke
 } from 'ng-apexcharts';
 
 export type ChartOptions = {
@@ -17,6 +18,7 @@ export type ChartOptions = {
   fill: ApexFill;
   legend: ApexLegend;
   dataLabels: ApexDataLabels;
+  stroke?: ApexStroke;  // Ensuring stroke is defined in the type
 };
 
 @Component({
@@ -24,28 +26,55 @@ export type ChartOptions = {
   standalone: true,
   templateUrl: './basic-donut-chart.component.html',
   styleUrls: ['./basic-donut-chart.component.css'],
-  imports: [ChartComponent] // Import ChartComponent from ng-apexcharts
+  imports: [ChartComponent]
 })
 export class BasicDonutChartComponent {
-  @Input() chartOptions: ChartOptions = {
-    series: [44, 55, 41, 17, 15],
-    chart: { type: 'donut', width: 380 },
-    labels: ['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5'],
-    dataLabels: { enabled: false },
-    fill: { type: 'gradient' },
-    legend: {
-      formatter: (val, opts) => `${val} - ${opts.w.globals.series[opts.seriesIndex]}`
-    },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: { width: 200 },
-          legend: { position: 'bottom' }
-        }
-      }
-    ]
-  }; // Initialize with default values
+  @Input() chartOptions: ChartOptions = {} as ChartOptions;
 
   constructor() {}
+
+  ngOnInit(): void {
+    this.chartOptions = {
+      ...this.chartOptions,
+      chart: {
+        ...this.chartOptions.chart,
+        type: 'donut',
+        width: 380
+      },
+      fill: {
+        ...this.chartOptions.fill,
+        colors: ['#FF9800', '#4CAF50', '#2979FF', '#82B1FF']  
+      },
+      dataLabels: {
+        ...this.chartOptions.dataLabels,
+        enabled: false
+      },
+      legend: {
+        position: 'right',
+        fontSize: '14px',
+        labels: {
+          colors: '#000'
+        },
+        itemMargin: {
+          horizontal: 10,
+          vertical: 5
+        }
+      },
+      stroke: {
+        show: true,
+        width: 4,  
+        colors: ['#fff'],  
+        lineCap: 'round' 
+      },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: { width: 250 },
+            legend: { position: 'bottom' }
+          }
+        }
+      ]
+    };
+  }
 }

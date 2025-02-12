@@ -529,8 +529,8 @@
     "Bussiness Type": "نوع العمل"
   },
   "employeeTypes": {
-    "Title": "Employment Type",
-    "No_Data": "No Data"
+    "Title": "خصائص الموظف",
+    "No_Data": "لا توجد بيانات"
   },
   "medicalInsurance": {
     "Title": "التأمين الطبي",
