@@ -27,22 +27,22 @@
   </div>
 </div>
 
-
-<ul class="nav nav-tabs">
-  <li class="nav-item">
+<div class="row nav nav-tabs custom-tabs">
+  <div class="col-md-3 nav-item">
     <a class="nav-link" [routerLink]="['profile-details']" routerLinkActive="active">{{ 'COMPANY_DETAILS.TITLE' | translate }}</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="['branches']" routerLinkActive="active" >{{ 'COMPANY_DETAILS.BRANCHES' | translate }}</a>
-  </li>
-  <li class="nav-item">
+  </div>
+  <div class="col-md-3 nav-item">
+    <a class="nav-link" [routerLink]="['branches']" routerLinkActive="active">{{ 'COMPANY_DETAILS.BRANCHES' | translate }}</a>
+  </div>
+
+  <div class="col-md-3 nav-item">
     <a class="nav-link" [routerLink]="['department']" routerLinkActive="active">{{ 'COMPANY_DETAILS.DEPARTMENTS' | translate }}</a>
-  </li>
+  </div>
 
-  <li class="nav-item">
+  <div class="col-md-3 nav-item">
     <a class="nav-link" [routerLink]="['positions']" routerLinkActive="active">{{ 'COMPANY_DETAILS.POSITION' | translate }}</a>
-  </li>
+  </div>
 
-</ul>
+</div>
 
 <router-outlet></router-outlet>

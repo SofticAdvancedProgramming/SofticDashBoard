@@ -1,4 +1,4 @@
-<div class="container my-5" *ngIf="!showOverView && !isAdd && !isEdit && !isAssignEntity">
+<div class="container my-5" *ngIf="!isAdd && !isEdit && !isAssignEntity">
   <div class="row">
     <div class="justify-content-end d-flex">
       <button class="btn addBranchBtn" (click)="addBranch()">
@@ -38,17 +38,6 @@
       </div>
     </div>
   </div>
-</div>
-
-<div *ngIf="showOverView" class="table-container">
-  <button class="btn" (click)="goBack()">
-    <i class="fas fa-arrow-left"></i> {{ 'viewBranches.GO_BACK' | translate }}
-  </button>
-
-  <app-modern-table [tableTitle]="'Employees of ' + (isArabic ? selectedBranch?.nameAr : selectedBranch?.name)"
-    [tableData]="employees" [columns]="['id', 'fullName', 'position.name', 'department.name']"
-    [modalId]="'employeeDetailsModal'" [deleteId]="'employeeDeleteModal'" [showActions]="false">
-  </app-modern-table>
 </div>
 
 <ng-container *ngIf="isAdd || isEdit">

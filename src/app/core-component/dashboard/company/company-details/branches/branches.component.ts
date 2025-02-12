@@ -22,7 +22,6 @@ import { ActivatedRoute } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     ToastModule,
-    ModernTableComponent,
     PaginationModule,
     TranslateModule, ConfirmDialogModule,
     BranchesActionComponent
@@ -36,10 +35,8 @@ export class BranchesComponent implements OnInit {
   companyId?: number = 0;
   isAdd: boolean = false;
   isEdit: boolean = false;
-  showOverView: boolean = false;
   branches: branch[] = [];
   branch!: branch;
-  employees: employee[] = [];
   isAssignEntity: boolean = false;
   selectedBranch: branch | undefined = undefined;
   currentPage: number = 1;
@@ -47,8 +44,10 @@ export class BranchesComponent implements OnInit {
   totalItems: number = 0;
   isArabic: boolean =  localStorage.getItem('lang')=='ar'?true:false;;
   translatedColumns: string[] = [];
-  constructor(private branchService: BranchService, private translate: TranslateService,
-    private employeeService: EmployeeService, private messageService: MessageService,
+  constructor(
+    private branchService: BranchService,
+    private translate: TranslateService,
+    private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private activatedRoute: ActivatedRoute
   ) { }
@@ -60,8 +59,6 @@ export class BranchesComponent implements OnInit {
     this.activatedRoute.parent?.params.subscribe(params => {
       this.companyId = +params['companyId'];
       this.loadBranches();
-      this.loadEmployees();
-
     });
     this.translate.onLangChange.subscribe((event) => {
       this.isArabic = event.lang === 'ar';
@@ -82,19 +79,6 @@ export class BranchesComponent implements OnInit {
     this.loadBranches(this.currentPage);
   }
 
-  loadEmployees(): void {
-    if (this.companyId) {
-      this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
-        next: (response) => {
-          this.employees = response.data.list.filter(
-            (employee: any) => !employee.branchId
-          );
-        }
-      });
-    } else {
-      // this.showError('Company ID is missing');
-    }
-  }
 
   addBranch(): void {
     this.isAdd = true;
@@ -108,61 +92,10 @@ export class BranchesComponent implements OnInit {
     this.isEdit = isAdd;
     this.currentPage = 1;
     this.loadBranches(this.currentPage);
-    this.loadEmployees();
-  }
-  showDetails(branchId: number): void {
-    this.selectedBranch = this.branches.find(branch => branch.id === branchId);
-    if (this.selectedBranch) {
-      this.loadEmployeesForBranch(this.selectedBranch.id);
-      this.showOverView = true;
-    }
   }
 
-  loadEmployeesForBranch(branchId: number): void {
-    this.employeeService.loadEmployees({ branchId: branchId, companyId: this.companyId }).subscribe({
-      next: (response) => {
-        this.employees = response.data.list;
-      }
-    });
-  }
 
-  goBack(): void {
-    this.showOverView = false;
-    this.loadBranches(this.currentPage);
-    this.loadEmployees();
-  }
-  assignEntity(branchId: number): void {
-    this.selectedBranch = this.branches.find(branch => branch.id === branchId);
-    this.isAssignEntity = true;
-    this.loadUnassignedEmployees();
-  }
 
-  loadUnassignedEmployees(): void {
-    if (this.companyId) {
-      this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
-        next: (response) => {
-          this.employees = response.data.list.filter(
-            (employee: any) => !employee.branchId
-          );
-        }
-      });
-    }
-  }
-
-  handleEntityAssigned(event: { employeeId: number, branchId: number }): void {
-    const requestPayload = {
-      employeeId: event.employeeId,
-      branchId: event.branchId
-    };
-    this.employeeService.assginEmployeeToBranch(requestPayload).subscribe({
-      next: (response) => {
-        this.showSuccess('Employee assigned to branch successfully');
-        this.isAssignEntity = false;
-        this.loadBranches();
-        this.loadEmployees();
-      }
-    });
-  }
 
   private showSuccess(detail: string): void {
     this.messageService.add({ severity: 'success', summary: 'Success', detail });
@@ -172,10 +105,6 @@ export class BranchesComponent implements OnInit {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
   }
 
-
-  handleClose() {
-    this.isAssignEntity = false;
-  }
   toggleActivation(branch: branch): void {
     if (branch.isActive) {
       this.deactivateBranch(branch);
