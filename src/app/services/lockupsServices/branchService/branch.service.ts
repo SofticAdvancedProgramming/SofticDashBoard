@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { branch } from '../../../../models/branch'; 
 import { ApiCall } from '../../../core/services/http-service/HttpService';
 import { branchController } from '../../../apis/branchController';
+import { BranchSC } from '../../../core/models/Lookup/Branch.model';
  
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class BranchService {
 
   constructor(private apiCall: ApiCall) { }
 
-  getBranch(request: any = {}): Observable<any> {
+  getBranch(request: BranchSC = {}): Observable<any> {
     return this.apiCall.request('POST', branchController.getBranch, request);
   }
 

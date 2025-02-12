@@ -37,7 +37,6 @@ export class BranchesComponent implements OnInit {
   isEdit: boolean = false;
   branches: branch[] = [];
   branch!: branch;
-  isAssignEntity: boolean = false;
   selectedBranch: branch | undefined = undefined;
   currentPage: number = 1;
   itemsPerPage: number = 10;

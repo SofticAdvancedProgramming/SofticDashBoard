@@ -1,4 +1,4 @@
-<div class="container my-5" *ngIf="!isAdd && !isEdit && !isAssignEntity">
+<div class="container my-5" *ngIf=" !isAdd && !isEdit ">
   <div class="row">
     <div class="justify-content-end d-flex">
       <button class="btn addBranchBtn" (click)="addBranch()">
@@ -49,7 +49,7 @@
 
 <p-toast position="top-center"></p-toast>
 
-<div class="d-flex justify-content-center mt-3" *ngIf="!isAssignEntity">
+<div class="d-flex justify-content-center mt-3">
   <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
     (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;">
   </pagination>

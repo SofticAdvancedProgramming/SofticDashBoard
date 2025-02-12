@@ -12,10 +12,11 @@ import { Department } from '../../../../../../models/department';
 import { employee } from '../../../../../../models/employee';
 import { EmployeeService } from '../../../../../services/employeeService/employee.service';
 import { BranchService } from '../../../../../services/lockupsServices/branchService/branch.service';
-import { DepartmentService } from '../../../../../services/lockupsServices/DepartmentService/department.service';
 import { AssignEntityComponent } from '../../components/department/assign-entity/assign-entity.component';
 import { DepartmentOverviewComponent } from '../../components/department/department-overview/department-overview.component';
 import { DepartmentActionComponent } from "./department-action/department-action.component";
+import { DepartmentSC } from '../../../../../core/models/Lookup/Department.model';
+import { DepartmentService } from '../../../../../services/lockupsServices/DepartmentService/department.service';
 
 @Component({
   selector: 'app-department',
@@ -24,9 +25,7 @@ import { DepartmentActionComponent } from "./department-action/department-action
     CommonModule,
     FormsModule,
     RouterModule,
-    DepartmentOverviewComponent,
     ToastModule,
-    AssignEntityComponent,
     PaginationModule,
     TranslateModule, ConfirmDialogModule,
     DepartmentActionComponent
@@ -39,19 +38,14 @@ export class DepartmentComponent implements OnInit {
   companyId?: number;
   @Output() departmentAdded = new EventEmitter<void>();
   selectedBranchId: any | null = null;
-  showOverView: boolean = false;
   isAdd: boolean = false;
   isEdit: boolean = false;
-  isAssignEntity: boolean = false;
   branches: any[] = [];
   departments: Department[] = [];
   department!: Department;
   employees: employee[] = [];
   filteredDepartments: Department[] = [];
   selectedDepartment: Department | null = null;
-  selectedEntityId: string | undefined = undefined;
-  entityType: string = 'Employee';
-
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
@@ -60,7 +54,6 @@ export class DepartmentComponent implements OnInit {
 
   constructor(
     private departmentService: DepartmentService,
-    private employeeService: EmployeeService,
     private messageService: MessageService,
     private translate: TranslateService,
     private confirmationService: ConfirmationService,
@@ -89,7 +82,7 @@ export class DepartmentComponent implements OnInit {
     const companyId = this.getCompanyId();
     if (!companyId) return;
 
-    const payload: any = {
+    const payload: DepartmentSC = {
       companyId,
       pageIndex: page,
       pageSize: this.itemsPerPage,
@@ -129,48 +122,8 @@ export class DepartmentComponent implements OnInit {
     this.loadDepartments(this.currentPage);
   }
 
-  loadEmployees(): void {
-    const companyId = this.getCompanyId();
-    if (companyId) {
-      this.employeeService.loadEmployees({ companyId }).subscribe({
-        next: (response) => {
-          this.employees = response.data.list.filter((employee: employee) => !employee.departmentId);
-        }
-      });
-    }
-  }
-
   addDepartment(): void {
     this.isAdd = true;
-  }
-
-  assignEntity(departmentId: string): void {
-    this.selectedEntityId = departmentId;
-    this.isAssignEntity = true;
-    this.selectedDepartment = this.departments.find(dep => dep.id === Number(departmentId)) || null;
-  }
-
-  handleEntityAssigned(event: { entityId: number; relatedEntityId: number }): void {
-    const requestPayload = {
-      employeeId: event.entityId,
-      departmentId: event.relatedEntityId
-    };
-    this.employeeService.assginEmployeeToDepartment(requestPayload).subscribe({
-      next: () => {
-        this.showSuccess(this.isArabic?'تمت إضافة الموظف للقسم بنجاح':'Employee assigned to department successfully');
-        this.isAssignEntity = false;
-        this.loadDepartments();
-      }
-    });
-  }
-
-  showDetails(departmentId: number): void {
-    this.selectedDepartment = this.departments.find(dep => dep.id === departmentId) || null;
-    this.showOverView = !!this.selectedDepartment;
-  }
-
-  goBack(): void {
-    this.showOverView = this.isAdd = this.isAssignEntity = false;
   }
 
   handleAction(action: boolean): void {
