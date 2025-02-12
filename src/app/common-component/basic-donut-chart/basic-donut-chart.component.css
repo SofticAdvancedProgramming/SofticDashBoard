@@ -34,11 +34,10 @@
 .apexcharts-legend-series {
   display: flex;
   align-items: center;
-  gap: 10px; /* Adds spacing between marker and text */
+  gap: 10px; 
 }
 
 .apexcharts-legend-marker {
-  width: 10px !important; /* Manually set marker size */
+  width: 10px !important;  
   height: 10px !important;
-  border-radius: 50%; /* Ensures circular shape */
-}
+  border-radius: 50%;  }

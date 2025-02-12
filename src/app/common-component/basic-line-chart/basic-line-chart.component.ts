@@ -42,9 +42,8 @@ export class BasicLineChartComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    // Merge styles without overriding incoming data
-    this.chartOptions = {
-      ...this.chartOptions, // Keep existing data
+     this.chartOptions = {
+      ...this.chartOptions,  
       chart: {
         ...this.chartOptions.chart,
         type: 'bar',
@@ -74,7 +73,7 @@ export class BasicLineChartComponent implements OnInit {
         ...this.chartOptions.yaxis,
         labels: {
           formatter: function (val) {
-            return val + 'K'; // Display values as "30K"
+            return val + 'K';  
           },
           style: {
             fontSize: '12px',
@@ -83,7 +82,7 @@ export class BasicLineChartComponent implements OnInit {
         }
       },
       fill: {
-        colors: this.chartOptions.fill?.colors || ['#E57373', '#4CAF50', '#FFB74D'] // Use input colors or default ones
+        colors: this.chartOptions.fill?.colors || ['#E57373', '#4CAF50', '#FFB74D']  
       },
       tooltip: {
         enabled: true,

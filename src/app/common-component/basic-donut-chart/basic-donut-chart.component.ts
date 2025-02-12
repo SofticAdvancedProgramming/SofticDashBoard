@@ -6,7 +6,8 @@ import {
   ApexChart,
   ApexFill,
   ApexDataLabels,
-  ApexLegend
+  ApexLegend,
+  ApexStroke
 } from 'ng-apexcharts';
 
 export type ChartOptions = {
@@ -17,6 +18,7 @@ export type ChartOptions = {
   fill: ApexFill;
   legend: ApexLegend;
   dataLabels: ApexDataLabels;
+  stroke?: ApexStroke;  // Ensuring stroke is defined in the type
 };
 
 @Component({
@@ -29,7 +31,7 @@ export type ChartOptions = {
 export class BasicDonutChartComponent {
   @Input() chartOptions: ChartOptions = {} as ChartOptions;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.chartOptions = {
@@ -41,7 +43,7 @@ export class BasicDonutChartComponent {
       },
       fill: {
         ...this.chartOptions.fill,
-        colors: ['#FF9800', '#4CAF50', '#2979FF', '#82B1FF'] // Matching colors from the image
+        colors: ['#FF9800', '#4CAF50', '#2979FF', '#82B1FF']  
       },
       dataLabels: {
         ...this.chartOptions.dataLabels,
@@ -58,7 +60,12 @@ export class BasicDonutChartComponent {
           vertical: 5
         }
       },
-
+      stroke: {
+        show: true,
+        width: 4,  
+        colors: ['#fff'],  
+        lineCap: 'round' 
+      },
       responsive: [
         {
           breakpoint: 480,

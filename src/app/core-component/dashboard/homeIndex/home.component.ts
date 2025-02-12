@@ -281,7 +281,7 @@ export class HomeIndexComponent {
     };
 
     this.donutChartOptions = {
-      series: [44, 55, 41, 17], // Example values for each section
+      series: [44, 55, 41, 17],  
       labels: ['Assigned', 'Unassigned', 'In Maintenance', 'Out of Service'],
       chart: {
         type: 'donut',
@@ -289,8 +289,7 @@ export class HomeIndexComponent {
       }
     };
 
-    // Arabic versions of the charts
-    this.barChartOptionsAr = {
+     this.barChartOptionsAr = {
       ...this.barChartOptions,
       xaxis: {
         categories: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو']
