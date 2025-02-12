@@ -61,8 +61,13 @@
   font-family: Lama Sans;
   font-size: 15px;
   font-weight: 400;
-}
 
+}
+.chart{
+  width: 100%;
+  background: white;
+  height: 100%;
+}
 .chartText {
   background-color: white;
   padding: 20px;
