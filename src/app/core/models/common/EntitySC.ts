@@ -9,6 +9,7 @@ export interface EntitySC {
   companyId?: number | null;
 }
 
+
 export class DefaultEntitySC implements EntitySC {
   pageIndex = 1;
   pageSize = 100;
@@ -19,4 +20,9 @@ export class DefaultEntitySC implements EntitySC {
   id = null;
   companyId = null;
 
+}
+
+export interface BaseModel {
+  id?: number | null;
+  companyId?: number | null;
 }
