@@ -179,7 +179,21 @@
         </div>
       </div>  
   </div> -->
-
+  <div class="row">   
+  <div class="col-lg-6   " *ngIf="!isArabic">
+    <div class="chart">
+      <app-basic-line-chart [chartOptions]="barChartOptions"></app-basic-line-chart>
+    </div>
+  </div>
+  
+ 
+  
+  <div class="col-lg-6 d-flex   align-items-center justify-content-center" *ngIf="!isArabic">
+    <div class="chart">
+      <app-basic-donut-chart [chartOptions]="donutChartOptionsAr"></app-basic-donut-chart>
+    </div>
+  </div>
+</div>
   <app-modern-table [tableTitle]="'Overview'" [totalRows]="attendances.totalRows" [tableData]="attendances.list"
     [columns]="isArabic?columnsAr:columns" [isThereSearch]="false" [isThereEdit]="false" [isThereDelete]="false"
     [newAction]="newAction" (searchDateApi)="searchDateApi($event)" (newReqByPage)="getAttendances({},$event)"

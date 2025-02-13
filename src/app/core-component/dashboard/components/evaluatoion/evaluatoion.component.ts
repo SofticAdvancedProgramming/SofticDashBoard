@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -19,6 +19,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './evaluatoion.component.css',
 })
 export class EvaluatoionComponent implements OnInit {
+  @Input() inputTaskId!: number; 
   @Output() closeEvaluationPopup = new EventEmitter<boolean>();
   taskId: number = 0;
   form!: FormGroup;
@@ -26,60 +27,71 @@ export class EvaluatoionComponent implements OnInit {
   selectedQuality: number | null = null;
   selectedDuration: number | null = null;
   companyId!: number;
-  constructor(private fb: FormBuilder,private taskService:TasksService, private route: ActivatedRoute,private toast: ToastrService) {
+   constructor(private fb: FormBuilder,private taskService:TasksService, private route: ActivatedRoute,private toast: ToastrService) {
     this.companyId = Number(localStorage.getItem('companyId'));
   }
   ngOnInit(): void {
-    this.taskId = Number(this.route.snapshot.paramMap.get('id'));
-    
-    this.initiation();
+    this.taskId = this.inputTaskId; // Set the taskId when the component initializes
+    console.log('Received Task ID in Evaluation Component:', this.taskId); // Debugging
+    this.initiateForm();
   }
-  initiation() {
+
+  initiateForm() {
     this.form = this.fb.group({
-      selectedQuality: [null, Validators.required],
-      selectedDuration: [null, Validators.required],
-      cost:['', Validators.required],
-      comment:['', Validators.required],
+      cost: ['', Validators.required],
+      comment: ['', Validators.required],
     });
   }
-  Submit() {
-    if (this.form.value && this.taskId) {
-      
 
+  Submit() {
+    console.log('Submitting Evaluation for Task ID:', this.taskId); // Debugging
+    console.log('Form Data:', this.form.value);
+
+    if (!this.selectedQuality || !this.selectedDuration) {
+      this.toast.warning('Please select Quality and Duration');
+      return;
+    }
+
+    if (this.form.valid && this.taskId) {
       const query = {
+        id: this.taskId, // Send taskId as 'id'
         companyId: this.companyId,
-        id: this.taskId,
         qualityScore: this.selectedQuality,
         timeScore: this.selectedDuration,
         costScore: +this.form.controls['cost'].value,
-        evaluationComment: this.form.controls['comment'].value
+        evaluationComment: this.form.controls['comment'].value,
       };
+
+      console.log('Final Data Sent:', query); // Debugging
 
       this.taskService.AssignEvaluation(query).subscribe({
         next: (response) => {
-          this.toast.success('Task Done successfully');
-          // this.onEmployeeSelected.emit(this.selectedEmployee!);
+          console.log('API Response:', response); // Debugging
+          this.toast.success('Task evaluated successfully');
           this.closePopup();
-         
         },
-        error(err) {
-          console.log(err);
+        error: (err) => {
+          console.error('API Error:', err);
+          this.toast.error('Failed to submit evaluation');
         },
       });
+    } else {
+      console.warn('Form Invalid:', this.form.errors); // Debugging
+      this.toast.warning('Please fill all required fields');
     }
   }
+  
   closePopup() {
     this.closeEvaluationPopup.emit(false);
   }
-
   selectQuality(value: number): void {
     this.selectedQuality = value;
-    
   }
+  
   selectDuration(value: number): void {
     this.selectedDuration = value;
-    
   }
+  
 
   // selectQuality(index: number): void {
   //   this.selectedQuality = this.qualities[index];

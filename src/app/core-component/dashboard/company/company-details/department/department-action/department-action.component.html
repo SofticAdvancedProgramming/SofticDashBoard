@@ -39,6 +39,16 @@
             {{ 'ADD_DEPARTMENT.BRANCH' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
           </div>
         </div> -->
+        <div class="form-group col-lg-6" *ngIf="!hideBranch">
+          <label for="branchId">{{ 'ADD_DEPARTMENT.BRANCH' | translate }}</label>
+          <select id="branchId" formControlName="branchId" class="form-control">
+            <option value="null" disabled>{{ 'ADD_DEPARTMENT.SELECT_OPTION' | translate }}</option>
+            <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
+          </select>
+          <div *ngIf="form.get('branchId')?.invalid && form.get('branchId')?.touched" class="text-danger">
+            {{ 'ADD_DEPARTMENT.BRANCH' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
+          </div>
+        </div>
         <div class="form-group col-lg-6">
           <label for="description">{{ 'ADD_DEPARTMENT.DESCRIPTION_EN' | translate }}</label>
           <textarea id="description" formControlName="description"
@@ -68,16 +78,7 @@
       {{ descriptionArCharacterCount }} / 250 {{ 'ADD_DEPARTMENT.CHARACTERS_COUNT' | translate }}
     </div>
   </div>
-  <div class="form-group col-lg-6" *ngIf="!hideBranch">
-    <label for="branchId">{{ 'ADD_DEPARTMENT.BRANCH' | translate }}</label>
-    <select id="branchId" formControlName="branchId" class="form-control">
-      <option value="null" disabled>{{ 'ADD_DEPARTMENT.SELECT_OPTION' | translate }}</option>
-      <option *ngFor="let branch of branches" [value]="branch.id">{{ branch.name }}</option>
-    </select>
-    <div *ngIf="form.get('branchId')?.invalid && form.get('branchId')?.touched" class="text-danger">
-      {{ 'ADD_DEPARTMENT.BRANCH' | translate }} {{ 'ADD_DEPARTMENT.REQUIRED_FIELD' | translate }}
-    </div>
-  </div>
+
 
 </div>
 

@@ -1,11 +1,11 @@
-{ 
+{
   "Yes": "نعم",
-  "No": "لا", 
+  "No": "لا",
 "mainAssetName":"الفئة الرئيسية",
   "First":"الأولى",
   "Last":"الأخيرة",
   "Yes":"نعم",
-  "No":"لا", 
+  "No":"لا",
   "errorModels": {
     "1": "البريد الإلكتروني مستخدم بالفعل.",
     "2": "البريد الإلكتروني غير موجود.",
@@ -309,7 +309,8 @@
     "ASSETS": "أصول",
     "LOGOUT": "تسجيل الخروج",
     "COMPLAINSANDSUGGESTIONS": "الشكاوى والمقترحات",
-    "TASKS": "المهام"
+    "TASKS": "المهام",
+    "teams": "الفرق"
   },
   "Home": {
     "ActiveCompanies": "الشركات النشطة",
@@ -528,11 +529,12 @@
     "Bussiness Type": "نوع العمل"
   },
   "employeeTypes": {
-    "Title": "Employment Type",
-    "No_Data": "No Data"
+    "Title": "خصائص الموظف",
+    "No_Data": "لا توجد بيانات"
   },
   "medicalInsurance": {
     "Title": "التأمين الطبي",
+    "MedicalData": "التأمين الطبي",
     "Blood_Type": "فصيلة الدم",
     "Weight": "الوزن (كجم)",
     "Height": "الطول (سم)",
@@ -540,6 +542,8 @@
     "No_Data": "لا توجد بيانات",
     "chronicdiseaseName": "المرض",
     "insuranceCompany": "شركة التامين",
+    "Disease": "توجد أمراض مزمنة",
+    "no Disease": "لا توجد أمراض مزمنة",
     "medicalInsuranceNumber": "الرقم التاميني",
     "expiryon": "ينتهي في",
     "healthCondition": "الحالة الصحية",
@@ -553,7 +557,23 @@
     "LinkedIn": "لينكد إن",
     "Snapchat": "سناب شات",
     "Twitter": "تويتر",
-    "No_Data": "لا توجد بيانات"
+    "No_Data": "لا توجد بيانات",
+    "progressSocialTitle": "Social Media completeness",
+
+    "email": "البريد الإلكتروني",
+    "userTelephone": "الهاتف المحمول",
+    "isWhatsApp": "واتساب",
+    "isFavourit": "رئيسي",
+    "referance": "مرجع",
+    "referance name": "اسم المرجع",
+    "referance telephone": "هاتف المرجع",
+    "referance buildingNo": "المبنى",
+    "referance fullAddress": "العنوان بالكامل",
+    "referance nearBy": "بالقرب من",
+    "referance unit": "الوحدة",
+    "referance floor": "الطابق",
+    "referance refernceType": "الصلة",
+    "referance street": "الشارع"
   },
   "type": {
     "Title": "نوع الوظف"
@@ -838,7 +858,7 @@
   "Salary Types": "انواع المرتبات",
   "Add Position": "اضافة منصب",
   "benefitType": {
-    "ADD_BENEFIT": "إضافة ميزة",
+    "ADD_BENEFIT": "إضافة الربح أو الخصم",
     "BENEFITS": "المزايا",
     "SEARCH_BENEFITS": "ابحث عن المزايا..."
   },

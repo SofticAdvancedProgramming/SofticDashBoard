@@ -5,12 +5,8 @@
         <label class="form-label">Task Name</label>
         <div class="row">
           <div class="col-12">
-            <input
-              type="text"
-              formControlName="name"
-              class="form-control"
-              placeholder="{{ 'TASKS.TASKNAME' | translate }}"
-              [ngClass]="{
+            <input type="text" formControlName="name" class="form-control"
+              placeholder="{{ 'TASKS.TASKNAME' | translate }}" [ngClass]="{
                 'is-invalid':
                 form.controls['name'].touched &&
                 form.controls['name'].errors,
@@ -20,8 +16,7 @@
                 'is-touched':
                 form.controls['name'].untouched &&
                 form.controls['name'].errors == null,
-            }"
-            />
+            }" />
             <div *ngIf="isFieldInvalid('name')" class="text-danger">
               <small *ngIf="form.get('name')?.errors?.['required']">
                 {{ "Tasks.validation.nameRequired" | translate }}
@@ -34,12 +29,8 @@
       <div class="row my-3">
         <div class="col-12 form-group">
           <label class="form-label">Task Details</label>
-          <textarea
-            class="textarea form-control"
-            formControlName="taskDetails"
-            placeholder="{{ 'TASKS.TASKDETAILS' | translate }}"
-            placeholder=""
-            [ngClass]="{
+          <textarea class="textarea form-control" formControlName="taskDetails"
+            placeholder="{{ 'TASKS.TASKDETAILS' | translate }}" placeholder="" [ngClass]="{
               'is-invalid':
               form.controls['taskDetails'].touched &&
               form.controls['taskDetails'].errors,
@@ -49,8 +40,7 @@
               'is-touched':
               form.controls['taskDetails'].untouched &&
               form.controls['taskDetails'].errors == null,
-          }"
-          ></textarea>
+          }"></textarea>
           <div *ngIf="isFieldInvalid('taskDetails')" class="text-danger">
             <small *ngIf="form.get('taskDetails')?.errors?.['required']">
               {{ "Tasks.validation.detailsRequired" | translate }}
@@ -69,75 +59,12 @@
         </div>
       </div>
 
-      <!-- <div class="row my-3">
-        <div class="col-6">
-          <div class="form-group">
-            <label class="form-label">From (date)</label>
-            <input
-              [min]="todayDate"
-              type="date"
-              style="text-transform: lowercase"
-              class="form-control"
-              formControlName="from"
-              [ngClass]="{
-              'is-invalid':
-              form.controls['from'].touched &&
-              form.controls['from'].errors,
-              'is-valid':
-              form.controls['from'].touched &&
-              form.controls['from'].errors == null ,
-              'is-touched':
-              form.controls['from'].untouched &&
-              form.controls['from'].errors == null,
-          }"
-            />
-            <div *ngIf="isFieldInvalid('from')" class="text-danger">
-              <small *ngIf="form.get('from')?.errors?.['required']">
-                {{ "Tasks.validation.startDateRequired" | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label class="form-label">Duration in days</label>
-            <input
-              type="number"
-              class="form-control"
-              formControlName="duration"
-              placeholder="Enter Your Duration"
-              [ngClass]="{
-              'is-invalid':
-              form.controls['duration'].touched &&
-              form.controls['duration'].errors,
-              'is-valid':
-              form.controls['duration'].touched &&
-              form.controls['duration'].errors == null ,
-              'is-touched':
-              form.controls['duration'].untouched &&
-              form.controls['duration'].errors == null,
-          }"
-            />
-            <div *ngIf="isFieldInvalid('duration')" class="text-danger">
-              <small *ngIf="form.get('duration')?.errors?.['required']">
-                {{ "Tasks.validation.durationRequired" | translate }}
-              </small>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
       <div class="row my-3">
         <div class="col-12 form-group">
           <label class="form-label">Initial cost</label>
           <div class="custom-input">
-            <input
-              type="number"
-              class="textarea form-control"
-              formControlName="initialCost"
-              placeholder="{{'TASKS.INITIALCOST' |translate}}"
-
-              placeholder="{{ 'TASKS.INITIALCOST' | translate }}"
+            <input type="number" class="textarea form-control" formControlName="initialCost"
+              placeholder="{{'TASKS.INITIALCOST' |translate}}" placeholder="{{ 'TASKS.INITIALCOST' | translate }}"
               [ngClass]="{
                 'is-invalid':
                 form.controls['initialCost'].touched &&
@@ -148,14 +75,9 @@
                 'is-touched':
                 form.controls['initialCost'].untouched &&
                 form.controls['initialCost'].errors == null,
-            }"
-            />
+            }" />
 
-            <img
-              src="../../../../../assets/images/dollar-circle.png"
-              alt="Icon"
-              class="input-icon"
-            />
+            <img src="../../../../../assets/images/dollar-circle.png" alt="Icon" class="input-icon" />
           </div>
           <div *ngIf="isFieldInvalid('initialCost')" class="text-danger">
             <small *ngIf="form.get('initialCost')?.errors?.['required']">
@@ -166,87 +88,40 @@
       </div>
 
       <div class="row my-3">
-        <!-- <div class="col-12 form-group">
-          <label class="form-label">Actual cost</label>
-          <div class="custom-input">
-            <input
-              type="number"
-              class="textarea form-control"
-              formControlName="actualCost"
-              placeholder="Please write your message no more than 300 words"
-              [ngClass]="{
-                'is-invalid':
-                form.controls['actualCost'].touched &&
-                form.controls['actualCost'].errors,
-                'is-valid':
-                form.controls['actualCost'].touched &&
-                form.controls['actualCost'].errors == null ,
-                'is-touched':
-                form.controls['actualCost'].untouched &&
-                form.controls['actualCost'].errors == null,
-            }"
-            />
-            <img
-              src="../../../../../assets/images/dollar-circle.png"
-              alt="Icon"
-              class="input-icon"
-            />
-          </div>
-          <div *ngIf="isFieldInvalid('actualCost')" class="text-danger">
-            <small *ngIf="form.get('actualCost')?.errors?.['required']">
-              {{ "Tasks.validation.nameRequired" | translate }}
-            </small>
-          </div>
-        </div> -->
-      </div>
-
-      <div class="row my-3">
         <div class="form-group toggle-group">
           <label class="switch">
             <input type="checkbox" formControlName="isGlobal" />
             <span class="slider"></span>
           </label>
-          <label for="direct-manager" class="toggle-label">{{
-            "Assign to all department" | translate
-          }}</label>
+          <label for="direct-manager" class="toggle-label">
+            {{ "Assign to all department" | translate }}
+          </label>
         </div>
-        @if(!form.get('isGlobal')?.value){
-        <div class="col-6">
-          <div class="form-group">
-            <label class="form-label" for="Name">Branch</label>
-            <app-drop-down
-              [items]="Branches"
-              [placeholder]="'Select Branch' | translate"
-              [placeholderSearch]="'Search by Name' | translate"
-              [itemsLength]="Branches.length"
-              (onChange)="onBranchSelect($event)"
-              (getNextPageApi)="loadBranches()"
-              (search)="loadBranches()"
-            >
-            </app-drop-down>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <label class="form-label" for="Name">Departments</label>
-            <mat-select
-              class="custom-select"
-              [placeholder]="'Select Department'"
-              formControlName="departmentIds"
-              multiple
-              (selectionChange)="loadEmployees($event.value)"
-            >
-              <mat-option [value]="null" disabled>{{
-                "ToDo.selectEmployee" | translate
-              }}</mat-option>
-              <mat-option
-                *ngFor="let department of departments"
-                [value]="department.id"
-              >
-                {{ department.name }}
-              </mat-option>
-            </mat-select>
-          </div>
+        @if (form.get('isGlobal')?.value) {
+        <div class="row my-3">
+
+        <!-- Assign to Team Toggle -->
+<div class="form-group toggle-group">
+  <label class="switch">
+    <input type="checkbox" [checked]="form.value.isTeam" (change)="onTeamToggle()" />
+    <span class="slider"></span>
+  </label>
+  <label class="toggle-label">{{ "Assign to Team" | translate }}</label>
+</div>
+
+<!-- Team Dropdown (Visible Only When isTeam is True) -->
+<div class="col-12" *ngIf="form.value.isTeam && Teams.length > 0">
+  <div class="form-group">
+    <label class="form-label">{{ "Teams" | translate }}</label>
+    <mat-select class="custom-select" formControlName="teamId" (selectionChange)="onTeamSelectionChange($event)">
+      <mat-option *ngFor="let team of Teams" [value]="team.id">
+        {{ team.name }}
+      </mat-option>
+    </mat-select>
+  </div>
+</div>
+
+
         </div>
         }
       </div>
@@ -254,52 +129,27 @@
       <div class="row my-3">
         <div class="col-12">
           <div class="form-group">
-            <label class="form-label" for="Name">Assign To</label>
-            <!-- <app-drop-down
-              [placeholder]="'Select Employee'"
-              [placeholderSearch]="'Search by Name'"
-              [items]="employees"
-              [currentPage]="employeePage"
-              [itemsLength]="employees.length"
-              (getNextPageApi)="loadEmployees()"
-              (search)="loadEmployees()"
-              (onChange)="onEmployeeSelect($event)"
-            ></app-drop-down> -->
-            <mat-select
-              class="custom-select"
-              [placeholder]="'Select Employees'"
-              formControlName="EmployeeIds"
-              multiple
-            >
-              <mat-option [value]="null" disabled>{{
-                "ToDo.selectEmployee" | translate
-              }}</mat-option>
-              <mat-option
-                *ngFor="let emp of employees"
-                [value]="emp.id"
-              >
-                {{ emp.firstName }} {{ emp.lastName }}
-              </mat-option>
-            </mat-select>
-            <!-- <mat-select class="custom-select" [placeholder]="'Select Employee'" formControlName="assignEmployee">
-              <mat-option [value]="null" disabled>Select Employee</mat-option>
+            <label class="form-label" for="assignedEmployees">Assign To</label>
+            <mat-select class="custom-select" placeholder="Select Employees" formControlName="EmployeeIds" multiple
+              disableOptionCentering>
+              <mat-select-trigger>
+                <span *ngIf="selectedEmployeeIds.length; else noSelection">
+                  {{ selectedEmployeeNames.join(', ') }}
+                </span>
+                <ng-template #noSelection>
+                  <span>Select Employees</span>
+                </ng-template>
+              </mat-select-trigger>
+
+              <!-- Dropdown options -->
               <mat-option *ngFor="let emp of employees" [value]="emp.id">
                 {{ emp.firstName }} {{ emp.lastName }}
               </mat-option>
-            </mat-select> -->
+            </mat-select>
           </div>
         </div>
-        <!-- <div class="col-6">
-          <div class="form-group">
-            <label class="form-label">Position</label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="position"
-              placeholder="Ui/UX"
-            />
-          </div>
-        </div> -->
+
+
       </div>
 
       <div class="col-12">
@@ -308,32 +158,15 @@
             <label for="photo">{{ "Assets.attachment" | translate }}</label>
             <label for="attachmentfile">
               <div class="container-upload" for="attachmentfile">
-                <div
-                  *ngIf="
+                <div *ngIf="
                     !attachmentfileType ||
                     attachmentfileType.startsWith('image/')
-                  "
-                  class="header"
-                >
+                  " class="header">
                   <p>{{ "ASSET_UPLOADER.BROWSE_FILE" | translate }}</p>
                 </div>
-                <!-- <label for="attachmentfile" class="footer">
-                <p *ngIf="files.length === 0 && !attachmentUploadMessage">
-                  {{ "ASSET_UPLOADER.NO_FILE_SELECTED" | translate }}
-                </p>
 
-                <p *ngIf="attachmentUploadMessage" class="upload-message">
-                  {{ attachmentUploadMessage }}
-                </p>
-              </label> -->
-
-                <input
-                  id="attachmentfile"
-                  type="file"
-                  (change)="onAttachmentChange($event)"
-                  formControlName="AssetAttachment"
-                  class="form-control-file"
-                />
+                <input id="attachmentfile" type="file" (change)="onAttachmentChange($event)"
+                  formControlName="AssetAttachment" class="form-control-file" />
               </div>
             </label>
           </div>
@@ -343,20 +176,12 @@
               <span>{{ file.fileName }}</span>
             </div>
 
-            <img
-              *ngIf="file.previewUrl && file.fileType?.startsWith('image/')"
-              [src]="file.previewUrl"
-              alt="{{ file.fileName }}"
-              class="img-preview"
-            />
+            <img *ngIf="file.previewUrl && file.fileType?.startsWith('image/')" [src]="file.previewUrl"
+              alt="{{ file.fileName }}" class="img-preview" />
           </div>
           @if(id){
-          <img
-            *ngFor="let imgFile of taskDetails?.taskAttachments"
-            [src]="imgFile.file"
-            alt="taskImage"
-            class="img-preview"
-          />}
+          <img *ngFor="let imgFile of taskDetails?.taskAttachments" [src]="imgFile.file" alt="taskImage"
+            class="img-preview" />}
         </div>
       </div>
 
@@ -364,19 +189,13 @@
         <div class="form-group">
           <label for="Name" class="form-label">{{
             "ToDo.taskPriority" | translate
-          }}</label>
-          <mat-select
-            class="custom-select"
-            placeholder="{{ 'ToDo.selectPriority' | translate }}"
-            formControlName="priority"
-          >
+            }}</label>
+          <mat-select class="custom-select" placeholder="{{ 'ToDo.selectPriority' | translate }}"
+            formControlName="priority">
             <mat-option [value]="null" disabled>{{
               "ToDo.selectPriority" | translate
-            }}</mat-option>
-            <mat-option
-              *ngFor="let priority of priorities"
-              [value]="priority.id"
-            >
+              }}</mat-option>
+            <mat-option *ngFor="let priority of priorities" [value]="priority.id">
               {{ priority.name }}
             </mat-option>
           </mat-select>
@@ -388,28 +207,16 @@
   <div class="container mt-3 py-5 px-5">
     <div class="d-flex justify-content-between align-items-center">
       <p class="lead">{{ "ToDo.toDoTitle" | translate }}</p>
-      <button
-        class="btn action-btn"
-        type="button"
-        *ngIf="todos.length == 0"
-        (click)="addToDoFun()"
-      >
+      <button class="btn action-btn" type="button" *ngIf="todos.length == 0" (click)="addToDoFun()">
         {{ "ToDo.addToDo" | translate }}
       </button>
     </div>
     <div class="row" formArrayName="todos">
-      <div
-        class="col-12 form-group"
-        *ngFor="let todo of todos.controls; let i = index"
-        [formGroupName]="i"
-      >
+      <div class="col-12 form-group" *ngFor="let todo of todos.controls; let i = index" [formGroupName]="i">
 
         <label class="form-label">{{'ToDo.toDoDescription' | translate}}</label>
-        <textarea
-          class="textarea form-control"
-          formControlName="description"
-          placeholder="Please write your message no more than 300 words"
-          [ngClass]="{
+        <textarea class="textarea form-control" formControlName="description"
+          placeholder="Please write your message no more than 300 words" [ngClass]="{
           'is-invalid':
           form.controls['taskToDoDescription'].touched &&
           form.controls['taskToDoDescription'].errors,
@@ -419,60 +226,34 @@
           'is-touched':
           form.controls['taskToDoDescription'].untouched &&
           form.controls['taskToDoDescription'].errors == null,
-      }"
-        ></textarea>
+      }"></textarea>
         <div class="d-flex gap-2">
 
           <div class="col-6">
             <div class="form-group">
               <label for="Name" class="form-label">{{
                 "ToDo.assignTo" | translate
-              }}</label>
-              <mat-select
-                class="custom-select"
-                [placeholder]="'Select Employee'"
-                formControlName="employeeId"
-              >
+                }}</label>
+              <mat-select class="custom-select" [placeholder]="'Select Employee'" formControlName="employeeId">
                 <mat-option [value]="null" disabled>{{
                   "ToDo.selectEmployee" | translate
-                }}</mat-option>
+                  }}</mat-option>
                 <mat-option *ngFor="let emp of employees" [value]="emp.id">
                   {{ emp.firstName }} {{ emp.lastName }}
                 </mat-option>
               </mat-select>
-              <!-- @else{
-              <mat-select formControlName="employeeId">
-                <mat-option [value]="null" disabled>Select Employee</mat-option>
-                <mat-option
-                  *ngFor="let emp of employees"
-                  [value]="emp.id"
-                >
-                  {{ emp.firstName }} {{ emp.lastName }}
-                </mat-option>
-              </mat-select>
-            } -->
             </div>
           </div>
-          <div
-            class="d-flex col-6 justify-content-center align-items-end bnt-container"
-          >
+          <div class="d-flex col-6 justify-content-center align-items-end bnt-container">
             <button class="btn remove-btn" type="button" (click)="deleteTodo()">
               <img src="../../../../../assets/images/trash.png" alt="remove" />
               {{ "ToDo.remove" | translate }}
-              <app-delete-confirmation-pop-up
-                *ngIf="isDelete"
-                (cancel)="onCancel()"
-                (confirm)="removeTodo(i)"
-              ></app-delete-confirmation-pop-up>
+              <app-delete-confirmation-pop-up *ngIf="isDelete" (cancel)="onCancel()"
+                (confirm)="removeTodo(i)"></app-delete-confirmation-pop-up>
             </button>
           </div>
         </div>
-        <button
-          class="btn action-btn"
-          type="button"
-          *ngIf="todos.length - 1 == i"
-          (click)="addToDoFun()"
-        >
+        <button class="btn action-btn" type="button" *ngIf="todos.length - 1 == i" (click)="addToDoFun()">
           {{ "ToDo.addToDo" | translate }}
         </button>
 
@@ -481,10 +262,8 @@
   </div>
 
 
-  <div
-    class="col-12 d-flex justify-content-center align-items-center py-4 gap-2"
-  >
-    <button class="btn cancel-btn w-25" routerLink="/">
+  <div class="col-12 d-flex justify-content-center align-items-center py-4 gap-2">
+    <button class="btn cancel-btn w-25" type="button" (click)="cancelTask()">
       {{ "Tasks.addTasks.cancel" | translate }}
     </button>
     <button class="btn action-btn w-25" type="submit">

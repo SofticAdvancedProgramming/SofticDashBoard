@@ -84,7 +84,7 @@
             <div class="detail-info" *ngIf="asset.employeeName">{{ asset.employeeName }}<span *ngIf="!asset.isDrived"> - {{'assetDetails.pending'| translate}}</span></div>
             <div class="detail-info" *ngIf="!asset.employeeName">{{'assetDetails.not assigend'|translate}}</div>
           </div>
-          <div class="detail"  *ngIf="asset.employeeName">
+          <div class="detail"  *ngIf="asset.isDrived">
             <div class="detail-title">{{'assetDetails.assginDate'| translate}}</div>
             <div class="detail-info" *ngIf="asset.assginDate">{{ asset.assginDate | date: 'shortDate' :  undefined : (isArabic ? 'ar' : 'en')}}</div>
           </div>

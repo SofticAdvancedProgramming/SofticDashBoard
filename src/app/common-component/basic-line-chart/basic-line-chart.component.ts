@@ -11,10 +11,9 @@ import {
   ApexXAxis,
   ApexFill,
   ApexTooltip,
-  NgApexchartsModule,
-  ChartType
+  NgApexchartsModule
 } from 'ng-apexcharts';
- import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -38,51 +37,60 @@ export type ChartOptions = {
 })
 export class BasicLineChartComponent implements OnInit {
   @ViewChild('chart') chart?: ChartComponent;
-
-  @Input() chartOptions: ChartOptions = {} as ChartOptions;
+  @Input() chartOptions!: ChartOptions; // Allow dynamic input
 
   constructor() {}
 
   ngOnInit(): void {
      this.chartOptions = {
-      series: this.chartOptions.series || [],
-      chart: this.chartOptions.chart || {
+      ...this.chartOptions,  
+      chart: {
+        ...this.chartOptions.chart,
         type: 'bar',
-        height: 350
+        height: 280
       },
-
-      plotOptions: this.chartOptions.plotOptions || {
+      plotOptions: {
         bar: {
-          horizontal: false,
-          columnWidth: '55%',
+          borderRadius: 8,  
+          columnWidth: '28',  
+          distributed: true 
         }
       },
-      dataLabels: this.chartOptions.dataLabels || {
-        enabled: false
+      stroke: {
+        show: false
       },
-      stroke: this.chartOptions.stroke || {
-        show: false,
-        width: 0,
-       },
-      xaxis: this.chartOptions.xaxis || {
-        categories: []
-      },
-      yaxis: this.chartOptions.yaxis || {
-        title: {
-          text: '$ (thousands)'
-        }
-      },
-      fill: this.chartOptions.fill || {
-        opacity: 1
-      },
-      tooltip: this.chartOptions.tooltip || {
-        y: {
-          formatter: function (val) {
-            return '$ ' + val + ' thousands';
+      xaxis: {
+        ...this.chartOptions.xaxis,
+        labels: {
+          ...this.chartOptions.xaxis?.labels,
+          style: {
+            fontSize: '14px',
+            fontWeight: 'bold'
           }
         }
       },
-      legend: this.chartOptions.legend || {},
+      yaxis: {
+        ...this.chartOptions.yaxis,
+        labels: {
+          formatter: function (val) {
+            return val + 'K';  
+          },
+          style: {
+            fontSize: '12px',
+            fontWeight: 'bold'
+          }
+        }
+      },
+      fill: {
+        colors: this.chartOptions.fill?.colors || ['#E57373', '#4CAF50', '#FFB74D']  
+      },
+      tooltip: {
+        enabled: true,
+        theme: 'dark'
+      },
+      legend: {
+        show: false
+      }
     };
   }
 }

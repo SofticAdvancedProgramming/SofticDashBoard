@@ -110,11 +110,27 @@ export class IndexComponent implements OnInit {
     const companyId = this.getCompanyId();
     if (!companyId) return;
 
+
     const payload: any = {
       companyId: companyId,
       pageIndex: page,
       pageSize: this.itemsPerPage,
     };
+
+    // Apply department filter if selected
+    if (this.selectedDepartmentId) {
+      payload.departmentId = this.selectedDepartmentId;
+    }
+
+    // Apply search filter if available
+    if (this.searchText && this.searchText.trim() !== '') {
+      if (/^[a-zA-Z]/.test(this.searchText)) {
+        payload.positionTypeName = this.searchText.trim();
+      } else {
+        payload.positionTypeNameAr = this.searchText.trim();
+      }
+    }
+
 
     this.positionService.getPosition(payload).subscribe({
       next: (response) => {
@@ -125,68 +141,56 @@ export class IndexComponent implements OnInit {
           this.positions = [...response.data.list];
           this.totalItems = response.data.totalRows;
           this.getPositionEmployee();
-          this.appRef.tick(); // 🔥 Force complete UI refresh
+          this.appRef.tick();
         }, 0);
-        // Manually trigger change detection
         this.cdr.detectChanges();
-
-
       },
+      error: (err) => {
+        console.error("Error loading positions:", err);
+      }
     });
+}
+
+
+loadEntities(): void {
+  let query: any = {
+      companyId: this.companyId,
+      pageIndex: this.currentPage,
+      pageSize: this.itemsPerPage
+  };
+
+  // Apply search filter
+  if (this.searchText && this.searchText.trim() !== '') {
+      if (/^[a-zA-Z]/.test(this.searchText)) {
+          query.positionTypeName = this.searchText.trim();
+      } else {
+          query.positionTypeNameAr = this.searchText.trim();
+      }
   }
 
+  // Apply department filter
+  if (this.selectedDepartmentId) {
+      query.departmentId = this.selectedDepartmentId;
+  }
 
-  loadEntities( ): void {
-    let name=this.searchText.trim();
-    let query: any = { companyId: this.companyId,pageIndex :this.currentPage};
-    if(name){
-    if (/^[a-zA-Z]/.test(name)) {
-      query = {
-        ...query,
-        positionTypeName:name
-      };
-    }else if(name){
-      query = {
-        ...query,
-        positionTypeNameAr:name
-      };
-    }}
-    if(this.selectedDepartmentId){
-      query={
-        ...query,
-        departmentId:this.selectedDepartmentId
-      }
-    }
-    console.log(query)
-    this.positionService.getPosition(query).subscribe(
-      {
-        next: (response) => {
-          console.log( response.data.list)
+  this.positionService.getPosition(query).subscribe({
+      next: (response) => {
           this.positions = response.data.list;
           this.totalItems = response.data.totalRows;
           this.getPositionEmployee();
-        },
+      },
+      error: (err) => {
+          console.error("Error loading filtered positions:", err);
       }
-    )
-
-    //  const methodName = this.entityTypes[entity].load as keyof PositionTypeService;
-    // (this.positionTypeService[methodName] as Function)(query).subscribe(
-    //   (response: any) => {
-    //     console.log(response)
-    //      if (response.status === 200) {
-    //       (this as any)[this.entityTypes[entity].data] = response.data.list;
-    //      this.positions=response.data.list
-    //     }
-    //   }
-    // );
-  }
+  });
+}
 
 
 
   filterPositionsByDepartment(): void {
-    this.currentPage = 1;
-    this.loadPositions();
-  }
+    this.currentPage = 1; 
+    this.loadPositions();  
+}
 
   async getPositionEmployee(): Promise<void> {
     for (let item of this.positions) {

@@ -58,6 +58,8 @@ export class AddTaskComponent implements OnInit {
   attachmentUploadMessage: string | null = null;
   attachments: any[] = [];
   addToDo: number[] = [];
+  Teams: any[] = [];
+
   files: {
     companyId: number;
     fileExtension: string;
@@ -75,7 +77,8 @@ export class AddTaskComponent implements OnInit {
   taskDetails: any;
   todoItems: any;
   todoValues: any;
-  // todoGroup: any;
+  selectedEmployeeIds: number[] = [];
+  selectedEmployeeNames: string[] = [];
   assignedEmployees: any;
   isDelete: boolean = false;
   todoGroup!: FormGroup;
@@ -105,49 +108,41 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {
     this.counter++;
     this.route.params.subscribe((params) => {
-      const id = params['id'];
       this.id = params['id'];
-      if (id) {
-        
+      if (this.id) {
+        this.getTasksDetails();
+        this.getEmployeesAssignments();
+        this.getTodoItems();
       }
     });
-    
+  
     this.initiation();
     this.loadEmployees();
     this.getPriorities();
     this.loadBranches();
-
-    this.todayDate = new Date().toISOString().split('T')[0];
-    if (this.id) {
-      this.getTaksDetails();
-      this.getEmployeesAssignments();
-      this.getTodoItems();
-    }
+    this.getTeams();
+  
+     
   }
+  
+
   initiation() {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      taskDetails: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(300),
-        ],
-      ],
-      //from: ['', Validators.required],
+      taskDetails: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
       initialCost: [''],
-     // duration: ['', Validators.required],
-      taskToDoDescription: [''],
-      AssetAttachment: [''],
-      isGlobal: [false],
       priority: [''],
-      todos: this.fb.array([]),  
-      departmentIds: [[]], 
-      EmployeeIds: [[]]  
+      isGlobal: [false],
+      branchId: [null],
+      departmentIds: [[]],
+      EmployeeIds: [[]],
+      todos: this.fb.array([]),
+      isTeam: [false],
+      teamId: [[]],
     });
+
   }
-  // Getter for the todos FormArray
+
   get todos(): FormArray {
     return this.form.get('todos') as FormArray;
   }
@@ -155,7 +150,7 @@ export class AddTaskComponent implements OnInit {
     this.todos.push(
       this.fb.group({
         description: ['', Validators.required],
-        employeeId: [null, Validators.required], // Dropdown selection
+        employeeId: [null, Validators.required],
       })
     );
   }
@@ -165,40 +160,40 @@ export class AddTaskComponent implements OnInit {
       taskId: this.id,
       pageSize: 1000,
     };
-    
+
     this.todoService.get(query).subscribe({
-      next: (res) => { 
-        this.todoItems = res.data.list; 
-         this.todoItems?.forEach((todo: any) => {
+      next: (res) => {
+        this.todoItems = res.data.list;
+        this.todoItems?.forEach((todo: any) => {
           const todoGroup1: any = this.fb.group({
             description: [todo.description, Validators.required],
             employeeId: [todo.employeeId, Validators.required],
             id: [todo.id],
           });
-           this.todos.push(todoGroup1);
-          
-          
+          this.todos.push(todoGroup1);
+
+
         });
         console.log(this.todos);
-        
+
       },
       error: (err) => {
-       
+
       },
     });
   }
-   removeTodo(index: number): void {
+  removeTodo(index: number): void {
     this.isDelete = false;
     this.todos.removeAt(index);
     const todoId = this.todoItems[index].id;
     this.todoService.delete(todoId, this.companyId).subscribe({
       next: (res) => {
-        
+
         this.toast.success('Deleted Successfully');
         this.ngOnInit();
       },
       error(err) {
-        
+
       },
     });
   }
@@ -214,42 +209,24 @@ export class AddTaskComponent implements OnInit {
       this.taskDetails?.startDate,
       'yyyy-MM-dd'
     );
-     this.form.patchValue({
+
+    this.form.patchValue({
       name: this.taskDetails?.name,
       taskDetails: this.taskDetails?.description,
-      from: formattedDate || '', 
       initialCost: this.taskDetails?.initialBudget,
-      taskToDoDescription: [''],
-      AssetAttachment: [''],
-      duration: this.taskDetails?.duration,
       priority: this.taskDetails?.priorityId,
+      isGlobal: this.taskDetails?.isGlobal,
+      branchId: this.taskDetails?.branchId || null,
+      departmentIds: this.taskDetails?.departmentIds || [],
+      isTeam: this.taskDetails?.isTeam || false,
+      teamId: this.taskDetails?.teamId ? [this.taskDetails.teamId] : [],
     });
-   
-
-    // Clear existing todos
-    // this.form.setControl('todos', this.fb.array([]));
-    
-
-    // Populate todos FormArray
-
-    // this.todoGroup.reset();
-    // this.todos.reset();
-    // this.todoItems?.forEach((todo: any) => {
-    //   this.todoGroup= this.fb.group({
-    //     description: [todo.description, Validators.required],
-    //     employeeId: [todo.employeeId, Validators.required],
-    //     id: [todo.id],
-    //   });
-    //   // this.form.setControl('todos', todoGroup);
-    //   this.todos.push(this.todoGroup);
-    // });
   }
 
   onSubmit() {
-    console.log(this.form.value.departmentIds);
-    
-    this.todoValues = this.form.value.todos; // Get all to-do values
-    
+    console.log("Before Submit Form Values:", this.form.value);
+  
+    this.todoValues = this.form.value.todos;
     const toDoItems: any[] = [];
     for (let i = 0; i < this.todoValues.length; i++) {
       toDoItems.push({
@@ -258,78 +235,80 @@ export class AddTaskComponent implements OnInit {
         ...this.todoValues[i],
       });
     }
-    let query: any;
-    query = {
+  
+    let query: any = {
       companyId: this.companyId,
-        name: this.form.controls['name'].value,
-        // taskFile: this.form.controls['taskFile'].value,
-        description: this.form.controls['taskDetails'].value,
-       // startDate: this.form.controls['from'].value,
-        initialBudget: this.form.controls['initialCost'].value,
-        statusId: 1,
-       // duration: this.form.controls['duration'].value,
-        taskAttachments: this.attachments,
-        // departmentIds: this.form.value.departmentIds
+      name: this.form.controls['name'].value,
+      description: this.form.controls['taskDetails'].value,
+      initialBudget: this.form.controls['initialCost'].value,
+      statusId: 1,
+      branchId: this.form.controls['branchId'].value,
+      taskAttachments: this.attachments,
+      priorityId: this.form.controls['priority'].value || null,
+      toDoItems: toDoItems,
+      taskAssignments: [],
+      isTeam: this.form.value.isTeam, 
+      teamId: this.form.value.isTeam ? this.form.value.teamId : null,
     };
-    if (this.todoValues) {
-      query.toDoItems = toDoItems;
-    }
-    if(this.form.controls['priority'].value){
-      query.priorityId = this.form.controls['priority'].value
-    }
-    if (this.form.value.EmployeeIds) {
-      for(let i = 0; i< this.form.value.EmployeeIds.length; i++){
-        this.taskAssignments.push({
-          companyId: this.companyId,
-          employeeId: this.form.value.EmployeeIds[i]
-        })
-      }
+  
+    // ✅ Assign employees if any are selected
+    if (this.form.value.EmployeeIds.length > 0) {
+      this.taskAssignments = this.form.value.EmployeeIds.map((empId: number) => ({
+        companyId: this.companyId,
+        employeeId: empId,
+      }));
+  
       query.taskAssignments = this.taskAssignments;
-    } else {
-      query.taskAssignments = []
     }
-    if(this.form.value.departmentIds){
+  
+    // ✅ Handle Global Assignment
+    if (this.form.value.departmentIds.length > 0) {
       query.isGlobal = false;
       query.departmentIds = this.form.value.departmentIds;
+    } else {
+      query.isGlobal = this.form.value.isGlobal;
+      query.departmentIds = this.form.value.isGlobal ? [] : this.form.value.departmentIds;
     }
-    if(this.form.value.isGlobal){
-      query.isGlobal = true;
-      query.departmentIds = [];
-    }
-   
-    if (this.id) {
-      
-      query.id = this.id;
-    }
-
-    if (this.form.value) {
-      if (this.id) {
-        this.tasksService.edit(query).subscribe({
-          next: (res) => {
-         
-            this.toast.success('Edited Successfully');
-            this.ngOnInit();
-          },
-          error(err) {
-           
-          },
-        });
+  
+    // ✅ Ensure `teamId` and `isTeam` are correctly set
+    if (this.form.value.isTeam) {
+      if (this.form.value.teamId && this.form.value.teamId.length > 0) {
+        query.isTeam = true;
+        query.teamId = this.form.value.teamId[0]; // Ensure single value is assigned
       } else {
-        this.tasksService.add(query).subscribe({
-          next: (res) => {
-        
-            this.toast.success('Added Successfully');
-            this.ngOnInit();
-            this.router.navigateByUrl('/dashboard/tasks');
-          },
-          error(err) {
-           
-          },
-        });
+        query.isTeam = false;
+        query.teamId = null;
       }
+    } else {
+      query.isTeam = false;
+      query.teamId = null;
+    }
+  
+    console.log("Final Query to API:", query);
+  
+    // ✅ Send Data to API
+    if (this.id) {
+      query.id = this.id;
+      this.tasksService.edit(query).subscribe({
+        next: () => {
+          this.toast.success('Edited Successfully');
+          this.ngOnInit();
+        },
+        error: (err) => console.error("Edit Error:", err),
+      });
+    } else {
+      this.tasksService.add(query).subscribe({
+        next: () => {
+          this.toast.success('Added Successfully');
+          this.ngOnInit();
+          this.router.navigateByUrl('/dashboard/tasks');
+        },
+        error: (err) => console.error("Add Error:", err),
+      });
     }
   }
-
+  
+  
   isFieldInvalid(field: string): boolean {
     const control = this.form.get(field);
     return control
@@ -338,7 +317,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   onAttachmentChange(event: any): void {
-  
+
 
     const file = event.target.files[0];
     if (file) {
@@ -382,17 +361,14 @@ export class AddTaskComponent implements OnInit {
           };
           this.attachments.push(dataFile);
 
-          // If the file is an image, add a preview URL
           if (attachmentfileType.startsWith('image/')) {
             this.attachmentImagePreviewUrl = result;
-            
+
           }
 
-          // Add the file to the array
           this.files.push(fileDetails);
-         
 
-          // Update message
+
           this.attachmentUploadMessage = this.translate.instant(
             attachmentfileType.startsWith('image/')
               ? 'ASSET_UPLOADER.uploadAnotherImage'
@@ -408,42 +384,47 @@ export class AddTaskComponent implements OnInit {
   getPriorities() {
     this.tasksService.getPriorities({}).subscribe({
       next: (res) => {
-       
+
         this.priorities = res.data.list;
       },
       error: (err) => {
-       
+
       },
     });
   }
 
-  loadEmployees(branchId?:number) {
+
+  loadEmployees(branchId?: number, teamId?: number) {
     if (this.loadingMoreEmployees) return;
     this.loadingMoreEmployees = true;
     let query: any = {
-        accountStatus: 1,
-        pageIndex: 1,
-        pageSize: 1000,
+      accountStatus: 1,
+      pageIndex: 1,
+      pageSize: 1000,
+      companyId: this.companyId
     }
-    // if(branchId){
-    //   query.departmentId = branchId;
-    // }
-    if (Array.isArray(branchId)) {
+    if (teamId) {
+      query.teamId = teamId
+    }
+    else if (Array.isArray(branchId)) {
+
       branchId.forEach(value => {
         console.log('Selected department ID:', value);
         query.departmentId = value;
       });
     }
-    if(this.form.value.departmentIds.length > 0 && !this.firstBind && this.counter > 0){
+    if (this.form.value.departmentIds.length > 0 && !this.firstBind && this.counter > 0) {
       this.employees = [];
       this.firstBind = true;
     }
+
+    console.log(query);
     this.employeeService
       .loadEmployees(query)
       .subscribe({
         next: (response) => {
           console.log(response);
-          
+
           const newItems = response.data.list
             .filter((item: any) => !this.employees.some((a) => a.id == item.id))
             .map((employee: any) => ({
@@ -451,10 +432,19 @@ export class AddTaskComponent implements OnInit {
               name: `${employee.firstName} ${employee.lastName}`,
             }));
 
+
+          console.log(this.form.value.EmployeeIds);
           this.employees = [...this.employees, ...newItems];
           this.employeePage++;
           this.loadingMoreEmployees = false;
-          console.log(this.employees);
+          if (teamId) {
+            response.data.list.map((employee: any) => {
+              this.form.patchValue({ EmployeeIds: [...this.form.value.EmployeeIds, employee.id] })
+            })
+            console.log(this.form.value.EmployeeIds)
+          }
+          // this.employees=response.data.list;
+
         },
         error: (err) => {
           console.error('Error loading employees:', err);
@@ -467,91 +457,66 @@ export class AddTaskComponent implements OnInit {
     const employee = this.employees.find((emp) => emp.id === employeeId);
 
     if (employee) {
-   
+
       this.selectedEmployee = employee;
-      
-    } 
+
+    }
   }
+
   getEmployeesAssignments() {
     let query = {
       companyId: this.companyId,
       taskId: this.id,
     };
+
     this.tasksService.assignEmployees(query).subscribe({
       next: (res) => {
-     
         this.assignedEmployees = res.data.list;
+
+        this.selectedEmployeeIds = this.assignedEmployees.map((emp: { employeeId: number }) => emp.employeeId);
+
+        this.updateSelectedEmployeeNames();
+
+        this.form.patchValue({ EmployeeIds: this.selectedEmployeeIds });
       },
       error: (err) => {
         console.log(err);
       },
     });
   }
-  getTaksDetails() {
+
+
+  updateSelectedEmployeeNames() {
+
+  }
+
+  onSelectionChange() {
+    this.selectedEmployeeIds = this.form.value.EmployeeIds;
+    this.updateSelectedEmployeeNames();
+  }
+  getTasksDetails() {
     let query = {
       companyId: this.companyId,
       id: this.id,
       isDelete: false,
     };
+
     this.tasksService.get(query).subscribe({
       next: (res) => {
-       
         this.taskDetails = res.data.list[0];
         this.populateForm();
-        // this.form = this.fb.group({
-        //   // laborCost: [this.taskDetails.laborCost, Validators.required],
-        //   // materialCost: [this.taskDetails.materialCost, Validators.required],
-        //   // serviceCost: [this.taskDetails.serviceCost, Validators.required],
-        //   // additionalCost: [this.taskDetails.additionalCost, Validators.required],
-        //   name: [this.taskDetails.name, Validators.required],
-        //   // taskFile: ['', Validators.required],
-        //   taskDetails: [
-        //     this.taskDetails.description,
-        //     [
-        //       Validators.required,
-        //       Validators.minLength(5),
-        //       Validators.maxLength(300),
-        //     ],
-        //   ],
-        //   from: [formattedDate, Validators.required],
-        //   initialCost: [this.taskDetails.initialBudget],
-        //   actualCost: [''],
-        //   duration: [this.taskDetails.duration, Validators.required],
-        //   taskToDoDescription: [''],
-        //   AssetAttachment: [''],
-        //   todos: this.fb.array([]), // Initialize the FormArray
-        // });
-        // this.selectedEmployee = this.assignedEmployees[0]?.employeeId;
-        // console.log(this.selectedEmployee);
-        // for (let i = 0; i <= this.taskDetails.toDoItems.length; i++) {
-        //   this.todoGroup = this.fb.group({
-        //     description: [
-        //       this.taskDetails.toDoItems[i].description,
-        //       Validators.required,
-        //     ],
-        //     employeeId: [
-        //       this.taskDetails.toDoItems[i].employeeId,
-        //       Validators.required,
-        //     ], // Dropdown selection
-        //   });
 
-        // if(this.id){
-        //   // this.todos.push(this.todoGroup);
-        //   // this.todos.patchValue(this.todoGroup);
-        //   // this.form.setControl('todos', this.todoGroup);
-        // }
-        // else{
-        //   // this.todos.push(this.todoGroup);
-        // }
-        // console.log(this.todoGroup);
-        // console.log(this.todos);
-        // }
+        if (this.taskDetails?.branchId) {
+          this.onBranchSelect(this.taskDetails.branchId);
+        }
       },
       error(err) {
-       
+        console.error(err);
       },
     });
   }
+
+
   loadBranches(): void {
     this.requestTypeService.getBranches({}).subscribe({
       next: (res) => {
@@ -563,10 +528,11 @@ export class AddTaskComponent implements OnInit {
   onBranchSelect(branchId: any): void {
     const branch = this.Branches.find((b) => b.id === branchId);
     if (branch) {
-      // this.requestTypeConfigs.at(rowIndex).controls.branchId.setValue(branch.id);
       this.branchId = branch.id;
       this.loadDepartments(branch.id);
     }
+
+    this.form.patchValue({ branchId });
   }
   loadDepartments(branchId: number): void {
     this.requestTypeService.getDepartments({ branchId }).subscribe({
@@ -581,9 +547,52 @@ export class AddTaskComponent implements OnInit {
     const department = this.departments.find((d: any) => d.id === departmentId);
     if (department) {
       this.departmentId = department.id;
-      // this.requestTypeConfigs.at(rowIndex).controls.departmentId.setValue(department.id);
-      // this.loadPositions(department.id, rowIndex);
     }
+    this.form.patchValue({ departmentId });
   }
-
+  cancelTask() {
+    this.router.navigate(['/dashboard/tasks']);
+  }
+  getTeams() {
+    if (!this.form.value.isTeam) return; 
+  
+    let query = {
+      companyId: this.companyId,
+      associatedToTask: true
+    };
+  
+    this.tasksService.GetTeams(query).subscribe({
+      next: (res) => {
+        this.Teams = res.data.list;
+        console.log("Teams Loaded:", this.Teams);
+        this.cdr.detectChanges(); // Force update UI
+      },
+      error: (err) => {
+        console.error("Error loading teams:", err);
+      }
+    });
+  }
+  
+  onTeamToggle() {
+    let newValue = !this.form.value.isTeam; // Toggle the value manually
+    this.form.patchValue({ isTeam: newValue }); // Update the form value
+  
+    if (newValue) {
+      this.getTeams(); // Fetch teams only when toggled ON
+    } else {
+      this.Teams = []; // Reset teams list when toggled OFF
+      this.form.patchValue({ teamId: null }); // Reset selected team
+    }
+  
+    this.cdr.detectChanges(); // Ensure UI updates
+  
+    console.log("Updated isTeam:", this.form.value.isTeam);
+  }
+  onTeamSelectionChange(event: any) {
+    this.form.patchValue({ teamId: event.value });
+  
+    console.log("Selected Team ID:", this.form.value.teamId);
+  }
+  
+  
 }

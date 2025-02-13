@@ -52,6 +52,8 @@ import { AddRequestTypeComponent } from './core-component/dashboard/workflow/req
 import { RequestTypeIndexComponent } from './core-component/dashboard/workflow/request-type/request-type-index/request-type-index.component';
 import { RequestTypeDetailsComponent } from './core-component/dashboard/workflow/request-type/request-type-details/request-type-details.component';
 import { TasksArchivedComponent } from './core-component/dashboard/Tasks/tasks-archived/tasks-archived/tasks-archived.component';
+import { TeamsComponent } from './core-component/dashboard/teams/teams.component';
+import { TeamsDetailsComponent } from './core-component/dashboard/teams/teams-details/teams-details.component';
 import { DepartmentComponent } from './core-component/dashboard/company/company-details/department/department.component';
 import { BranchesComponent } from './core-component/dashboard/company/company-details/branches/branches.component';
 
@@ -71,6 +73,8 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'HomeIndex', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
+      { path: 'teams', component: TeamsComponent },
+      { path: 'TeamsDetails/:id', component: TeamsDetailsComponent }, 
       { path: 'indexCompany', component: IndexComponent },
       { path: 'addCompany', component: AddCompanyComponent },
       { path: 'add-admin', component: AddAdminComponent },
@@ -133,3 +137,4 @@ export const routes: Routes = [
     component: NoPermissionComponent, pathMatch: 'full',
   },
 ];
+ 

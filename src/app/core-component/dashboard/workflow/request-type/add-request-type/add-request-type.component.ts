@@ -125,7 +125,11 @@ export class AddRequestTypeComponent implements OnInit {
         this.requestTypeConfigs.clear();
         this.departmentOptions = [];
         this.positionOptions = [];
+      }else{
+        this.addRow();
       }
+      
+
     });
   }
 
@@ -367,7 +371,7 @@ export class AddRequestTypeComponent implements OnInit {
       containAsset: f.containAsset,
       isCustomized: f.isCustomize,
       requestCategoryId: this.selectedRequestCategory?.id,
-      requestTypeConfigs: null,  
+      requestTypeConfigs: null,
     };
 
     if (this.selectedRequestCategory?.id === 3) {
@@ -457,7 +461,7 @@ export class AddRequestTypeComponent implements OnInit {
       }
       this.companyService.getCompany(body).subscribe({
         next:companyData=>{
-          
+
           this.hasCenterlizedDepartment=companyData.data.list[0].centralizedDepartment;
         }
       })

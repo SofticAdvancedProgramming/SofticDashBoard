@@ -89,7 +89,7 @@ totalEmployees: number = 0;
     this.employeeService.loadEmployees({companyId:this.companyId}).subscribe(response => {
       if (response.status === 200) {
         response.data.list.forEach((employee: any) => {
-         
+
           this.employeeMap.set(employee.positionId, (employee.firstName+" "+employee.lastName));
           if(employee.profileImage)
           this.imageMap.set(employee.positionId,employee.profileImage);
@@ -110,11 +110,11 @@ totalEmployees: number = 0;
         const nodeDataArray: any[] = [];
         const linkDataArray: any[] = [];
         this.positions = response.data.list;
-       
+
         response.data.list.forEach((item: any) => {
-      
+
           const { nodeDataArray: nodes, linkDataArray: links } = this.transformData([item]);
-        
+
 
           nodeDataArray.push(...nodes);
           linkDataArray.push(...links);
@@ -163,12 +163,12 @@ totalEmployees: number = 0;
   loadUnassignedEmployees(): void {
     this.employeeService.loadEmployees({ companyId: this.companyId, accountStatus: 1 }).subscribe({
       next: (response) => {
-       
+
         this.employees = response.data.list.filter(
           (employee: any) => !employee.positionId
         );
         this.totalEmployees = response.data.totalRows;
-      
+
       }
     });
   }
@@ -177,7 +177,7 @@ totalEmployees: number = 0;
     this.selectedPositionData = this.positions.find(position => position.id === Number(positionId));
     this.loadUnassignedEmployees();
     this.isAddEmployee = true;
- 
+
   }
   getDepartmentName(departmentId: number): string {
     const department = this.departments.find(dep => dep.id === departmentId);
@@ -187,7 +187,7 @@ totalEmployees: number = 0;
     this.isAddEmployee = false;
   }
   handleFormSubmit(formData: { employeeId: number, positionId: number }): void {
-   
+
     this.employeeService.assginEmployeeToPosition({
       employeeId: formData.employeeId,
       positionId: formData.positionId
@@ -236,7 +236,7 @@ totalEmployees: number = 0;
   }
 
   initDiagram(nodeDataArray: any[], linkDataArray: any[]) {
- 
+
 
     const $ = go.GraphObject.make;
 
@@ -302,7 +302,7 @@ totalEmployees: number = 0;
             const node = obj.part as go.Node; // Cast obj.part to Node
             if (node && node.data) {
             const nodeId = node.data.id;
-            
+
             this.addEmployee(nodeId?.toString()||'0');
             }
           },

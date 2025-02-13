@@ -43,7 +43,10 @@ export interface Education{
   specialist: string;
   school: string;
   educationalEnd: string;
-  degree: string;
+  gradeName: string;
+  gradeNameAr: string;
+  degreeName: string;
+  degreeNameAr: string;
   file:any;
   description: string;
   educationalStart: string;
@@ -73,6 +76,8 @@ export interface WorkHistory{
 }
 
 export interface Medical{
+  bloodTypeNameAr: string;
+  bloodTypeName: string;
   bloodType: string;
   weight: string;
   hight: string;
@@ -107,6 +112,7 @@ export interface Attachments{
 
 export interface Skills{
   name: string;
+  skillTypeNameAr: string;
   skillTypeName: string;
   description: string;
 }
