@@ -14,10 +14,9 @@ import { LocationManagmentComponent } from './core-component/dashboard/setting/L
 import { ProfileComponent } from './core-component/dashboard/profile/index/profile.component';
 import { EditProfileComponent } from './core-component/dashboard/profile/edit-profile/edit-profile.component';
 import { CompanyDetailsComponent } from './core-component/dashboard/company/company-details/company-details.component';
-import { ProfileDetailsComponent } from './core-component/dashboard/company/components/profile-details/profile-details.component';
+// import { ProfileDetailsComponent } from './core-component/dashboard/company/components/profile-details/profile-details.component';
 import { AddPositionComponent } from './core-component/dashboard/company/components/position/add-position/add-position.component';
 import { DepartmentDetailsComponent } from './core-component/dashboard/company/components/department/department-details/department-details.component';
-import { AddDepartmentComponent } from './core-component/dashboard/company/components/department/add-department/add-department.component';
 import { DepartmentOverviewComponent } from './core-component/dashboard/company/components/department/department-overview/department-overview.component';
 import { PositionTypeManagmentComponent } from './core-component/dashboard/setting/Lockups/position-type-managment/position-type-managment.component';
 import { DepartmentManagmentComponent } from './core-component/dashboard/setting/Lockups/department-managment/department-managment.component';
@@ -55,6 +54,8 @@ import { RequestTypeDetailsComponent } from './core-component/dashboard/workflow
 import { TasksArchivedComponent } from './core-component/dashboard/Tasks/tasks-archived/tasks-archived/tasks-archived.component';
 import { TeamsComponent } from './core-component/dashboard/teams/teams.component';
 import { TeamsDetailsComponent } from './core-component/dashboard/teams/teams-details/teams-details.component';
+import { DepartmentComponent } from './core-component/dashboard/company/company-details/department/department.component';
+import { BranchesComponent } from './core-component/dashboard/company/company-details/branches/branches.component';
 
 export const routes: Routes = [
   {
@@ -82,11 +83,18 @@ export const routes: Routes = [
       { path: 'addressManagement', component: LocationManagmentComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'EditProfile', component: EditProfileComponent },
-      { path: 'company/:companyId', component: CompanyDetailsComponent },
-      { path: 'ProfileDetails', component: ProfileDetailsComponent },
+      {
+        path: 'company/:companyId',
+        loadComponent:()=> import('./core-component/dashboard/company/company-details/company-details.component')
+        .then(a=>a.CompanyDetailsComponent),
+        loadChildren:()=>import('./core-component/dashboard/company/company-details/company-details.routes')
+        .then(r=>r.companyDetailsRoute)
+
+      },
+
+      // { path: 'ProfileDetails', component: ProfileDetailsComponent },
       { path: 'AddPosition', component: AddPositionComponent },
       { path: 'DepartmentDetails', component: DepartmentDetailsComponent },
-      { path: 'AddDepartment', component: AddDepartmentComponent },
       { path: 'HomeIndex', component: HomeIndexComponent },
       { path: 'DepartmentOverview', component: DepartmentOverviewComponent  },
       { path: 'PositionTypeManagment', component: PositionTypeManagmentComponent  },

@@ -1,69 +1,51 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, RouterOutlet } from '@angular/router';
-import { Department } from '../../../../../../../models/department';
-import { employee } from '../../../../../../../models/employee';
-import { AddDepartmentComponent } from '../add-department/add-department.component';
-import { DepartmentOverviewComponent } from '../department-overview/department-overview.component';
-import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
-import { EmployeeService } from '../../../../../../services/employeeService/employee.service';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
-import { environment } from '../../../../../../environment/environment';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ActivatedRoute, RouterModule, RouterOutlet } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
-import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
-interface DepartmentPayload {
-  companyId: number;
-  pageIndex: number;
-  pageSize: number;
-  branchId?: number;
-  isCentralized?:boolean;
-}
+import { ToastModule } from 'primeng/toast';
+import { Subscription } from 'rxjs';
+import { Department } from '../../../../../../models/department';
+import { employee } from '../../../../../../models/employee';
+import { EmployeeService } from '../../../../../services/employeeService/employee.service';
+import { BranchService } from '../../../../../services/lockupsServices/branchService/branch.service';
+import { AssignEntityComponent } from '../../components/department/assign-entity/assign-entity.component';
+import { DepartmentOverviewComponent } from '../../components/department/department-overview/department-overview.component';
+import { DepartmentActionComponent } from "./department-action/department-action.component";
+import { DepartmentSC } from '../../../../../core/models/Lookup/Department.model';
+import { DepartmentService } from '../../../../../services/lockupsServices/DepartmentService/department.service';
 
 @Component({
-  selector: 'app-departments',
+  selector: 'app-department',
   standalone: true,
-  templateUrl: './departments.component.html',
-  styleUrls: ['./departments.component.css'],
-  providers: [DepartmentService, EmployeeService, MessageService, ConfirmationService],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
-    RouterOutlet,
-    AddDepartmentComponent,
-    DepartmentOverviewComponent,
     ToastModule,
-    AssignEntityComponent,
     PaginationModule,
-    TranslateModule, ConfirmDialogModule
-
-  ]
+    TranslateModule, ConfirmDialogModule,
+    DepartmentActionComponent
+],
+providers: [ConfirmationService],
+  templateUrl: './department.component.html',
+  styleUrl: './department.component.css'
 })
-
-export class DepartmentsComponent implements OnInit {
-  @Input() companyId?: number;
+export class DepartmentComponent implements OnInit {
+  companyId?: number;
   @Output() departmentAdded = new EventEmitter<void>();
   selectedBranchId: any | null = null;
-  showOverView: boolean = false;
   isAdd: boolean = false;
   isEdit: boolean = false;
-  isAssignEntity: boolean = false;
   branches: any[] = [];
   departments: Department[] = [];
   department!: Department;
   employees: employee[] = [];
   filteredDepartments: Department[] = [];
   selectedDepartment: Department | null = null;
-  selectedEntityId: string | undefined = undefined;
-  entityType: string = 'Employee';
-
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
@@ -72,18 +54,23 @@ export class DepartmentsComponent implements OnInit {
 
   constructor(
     private departmentService: DepartmentService,
-    private employeeService: EmployeeService,
     private messageService: MessageService,
     private translate: TranslateService,
     private confirmationService: ConfirmationService,
+    private activatedRoute: ActivatedRoute,
     private branchService: BranchService
   ) { }
   private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
+    this.activatedRoute.parent?.params.subscribe(params => {
+      this.companyId = +params['companyId'];
+
+      this.loadBranches();
+      this.loadDepartments();
+
+    });
     this.isArabic = this.translate.currentLang === 'ar';
-    this.loadBranches();
-    this.loadDepartments();
     this.subscription.add(this.translate.onLangChange.subscribe(() => {
       this.checkLanguage();
     }));
@@ -95,7 +82,7 @@ export class DepartmentsComponent implements OnInit {
     const companyId = this.getCompanyId();
     if (!companyId) return;
 
-    const payload: DepartmentPayload = {
+    const payload: DepartmentSC = {
       companyId,
       pageIndex: page,
       pageSize: this.itemsPerPage,
@@ -115,7 +102,7 @@ export class DepartmentsComponent implements OnInit {
 
     this.departmentService.getDepartment(payload).subscribe({
       next: (response) => {
-        
+
         this.departments = response.data.list;
         this.filteredDepartments = [...this.departments];
         this.totalItems = response.data.totalRows;
@@ -135,48 +122,8 @@ export class DepartmentsComponent implements OnInit {
     this.loadDepartments(this.currentPage);
   }
 
-  loadEmployees(): void {
-    const companyId = this.getCompanyId();
-    if (companyId) {
-      this.employeeService.loadEmployees({ companyId }).subscribe({
-        next: (response) => {
-          this.employees = response.data.list.filter((employee: employee) => !employee.departmentId);
-        }
-      });
-    }
-  }
-
   addDepartment(): void {
     this.isAdd = true;
-  }
-
-  assignEntity(departmentId: string): void {
-    this.selectedEntityId = departmentId;
-    this.isAssignEntity = true;
-    this.selectedDepartment = this.departments.find(dep => dep.id === Number(departmentId)) || null;
-  }
-
-  handleEntityAssigned(event: { entityId: number; relatedEntityId: number }): void {
-    const requestPayload = {
-      employeeId: event.entityId,
-      departmentId: event.relatedEntityId
-    };
-    this.employeeService.assginEmployeeToDepartment(requestPayload).subscribe({
-      next: () => {
-        this.showSuccess(this.isArabic?'تمت إضافة الموظف للقسم بنجاح':'Employee assigned to department successfully');
-        this.isAssignEntity = false;
-        this.loadDepartments();
-      }
-    });
-  }
-
-  showDetails(departmentId: number): void {
-    this.selectedDepartment = this.departments.find(dep => dep.id === departmentId) || null;
-    this.showOverView = !!this.selectedDepartment;
-  }
-
-  goBack(): void {
-    this.showOverView = this.isAdd = this.isAssignEntity = false;
   }
 
   handleAction(action: boolean): void {

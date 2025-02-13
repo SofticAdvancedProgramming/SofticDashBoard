@@ -1,63 +1,64 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
-import { branch } from '../../../../../../../models/branch';
-import { EmployeeService } from '../../../../../../services/employeeService/employee.service';
-import { employee } from '../../../../../../../models/employee';
-import { MessageService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ToastModule } from 'primeng/toast';
-import { ModernTableComponent } from '../../../../components/modern-table/modern-table.component';
-import { AddBranchComponent } from '../add-branch/add-branch.component';
-import { AssignEntityComponent } from '../assign-entity/assign-entity.component';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { branch } from '../../../../../../models/branch';
+import { employee } from '../../../../../../models/employee';
+import { EmployeeService } from '../../../../../services/employeeService/employee.service';
+import { BranchService } from '../../../../../services/lockupsServices/branchService/branch.service';
+import { ModernTableComponent } from '../../../components/modern-table/modern-table.component';
+import { BranchesActionComponent } from "./branches-action/branches-action.component";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-view-branches',
-  templateUrl: './view-branches.component.html',
-  styleUrls: ['./view-branches.component.css'],
-  providers: [BranchService, EmployeeService, MessageService,ConfirmationService],
+  selector: 'app-branches',
   standalone: true,
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     ToastModule,
-    AddBranchComponent,
-    AssignEntityComponent,
-    ModernTableComponent,
     PaginationModule,
-    TranslateModule,ConfirmDialogModule
-  ],
+    TranslateModule, ConfirmDialogModule,
+    BranchesActionComponent
+],
+  providers: [ConfirmationService],
+  templateUrl: './branches.component.html',
+  styleUrl: './branches.component.css'
 })
-export class ViewBranchesComponent implements OnInit {
-  @Input() companyId?: number = 0;
+export class BranchesComponent implements OnInit {
+  // @Input() companyId?: number = 0;
+  companyId?: number = 0;
   isAdd: boolean = false;
   isEdit: boolean = false;
-  showOverView: boolean = false;
   branches: branch[] = [];
   branch!: branch;
-  employees: employee[] = [];
-  isAssignEntity: boolean = false;
   selectedBranch: branch | undefined = undefined;
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
   isArabic: boolean =  localStorage.getItem('lang')=='ar'?true:false;;
   translatedColumns: string[] = [];
-  constructor(private branchService: BranchService, private translate: TranslateService,
-    private employeeService: EmployeeService, private messageService: MessageService,
-    private confirmationService: ConfirmationService) { }
+  constructor(
+    private branchService: BranchService,
+    private translate: TranslateService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
 
   ngOnInit(): void {
+
     this.isArabic = this.translate.currentLang === 'ar';
-    this.loadBranches();
-    this.loadEmployees();
-    this.companyId = Number(localStorage.getItem('companyId'));
+    this.activatedRoute.parent?.params.subscribe(params => {
+      this.companyId = +params['companyId'];
+      this.loadBranches();
+    });
     this.translate.onLangChange.subscribe((event) => {
       this.isArabic = event.lang === 'ar';
     });
@@ -77,19 +78,6 @@ export class ViewBranchesComponent implements OnInit {
     this.loadBranches(this.currentPage);
   }
 
-  loadEmployees(): void {
-    if (this.companyId) {
-      this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
-        next: (response) => {
-          this.employees = response.data.list.filter(
-            (employee: any) => !employee.branchId
-          );
-        }
-      });
-    } else {
-      this.showError('Company ID is missing');
-    }
-  }
 
   addBranch(): void {
     this.isAdd = true;
@@ -103,61 +91,10 @@ export class ViewBranchesComponent implements OnInit {
     this.isEdit = isAdd;
     this.currentPage = 1;
     this.loadBranches(this.currentPage);
-    this.loadEmployees();
-  }
-  showDetails(branchId: number): void {
-    this.selectedBranch = this.branches.find(branch => branch.id === branchId);
-    if (this.selectedBranch) {
-      this.loadEmployeesForBranch(this.selectedBranch.id);
-      this.showOverView = true;
-    }
   }
 
-  loadEmployeesForBranch(branchId: number): void {
-    this.employeeService.loadEmployees({ branchId: branchId, companyId: this.companyId }).subscribe({
-      next: (response) => {
-        this.employees = response.data.list;
-      }
-    });
-  }
 
-  goBack(): void {
-    this.showOverView = false;
-    this.loadBranches(this.currentPage);
-    this.loadEmployees();
-  }
-  assignEntity(branchId: number): void {
-    this.selectedBranch = this.branches.find(branch => branch.id === branchId);
-    this.isAssignEntity = true;
-    this.loadUnassignedEmployees();
-  }
 
-  loadUnassignedEmployees(): void {
-    if (this.companyId) {
-      this.employeeService.loadEmployees({ companyId: this.companyId }).subscribe({
-        next: (response) => {
-          this.employees = response.data.list.filter(
-            (employee: any) => !employee.branchId
-          );
-        }
-      });
-    }
-  }
-
-  handleEntityAssigned(event: { employeeId: number, branchId: number }): void {
-    const requestPayload = {
-      employeeId: event.employeeId,
-      branchId: event.branchId
-    };
-    this.employeeService.assginEmployeeToBranch(requestPayload).subscribe({
-      next: (response) => {
-        this.showSuccess('Employee assigned to branch successfully');
-        this.isAssignEntity = false;
-        this.loadBranches();
-        this.loadEmployees();
-      }
-    });
-  }
 
   private showSuccess(detail: string): void {
     this.messageService.add({ severity: 'success', summary: 'Success', detail });
@@ -167,10 +104,6 @@ export class ViewBranchesComponent implements OnInit {
     this.messageService.add({ severity: 'error', summary: 'Error', detail });
   }
 
-
-  handleClose() {
-    this.isAssignEntity = false;
-  }
   toggleActivation(branch: branch): void {
     if (branch.isActive) {
       this.deactivateBranch(branch);
@@ -227,3 +160,4 @@ export class ViewBranchesComponent implements OnInit {
   }
 
 }
+

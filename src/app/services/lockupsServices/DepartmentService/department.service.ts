@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 import { Department } from '../../../../models/department'; // Ensure this is correctly imported
 import { ApiCall } from '../../../core/services/http-service/HttpService';
 import { departmentController } from '../../../apis/departmentController';
- 
+import { DepartmentSC } from '../../../core/models/Lookup/Department.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +12,7 @@ export class DepartmentService {
 
   constructor(private apiCall: ApiCall) { }
 
-  getDepartment(request: any = {}): Observable<any> {
+  getDepartment(request: DepartmentSC = {}): Observable<any> {
     return this.apiCall.request('POST', departmentController.getDepartment, request);
   }
 
@@ -35,3 +36,6 @@ export class DepartmentService {
     return this.apiCall.request('POST', departmentController.deactivateDepartment(id, companyId), {});
   }
 }
+
+
+

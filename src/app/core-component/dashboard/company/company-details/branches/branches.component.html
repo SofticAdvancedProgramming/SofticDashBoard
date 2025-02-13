@@ -1,4 +1,4 @@
-<div class="container my-5" *ngIf="!showOverView && !isAdd && !isEdit && !isAssignEntity">
+<div class="container my-5" *ngIf=" !isAdd && !isEdit ">
   <div class="row">
     <div class="justify-content-end d-flex">
       <button class="btn addBranchBtn" (click)="addBranch()">
@@ -40,30 +40,16 @@
   </div>
 </div>
 
-<div *ngIf="showOverView" class="table-container">
-  <button class="btn" (click)="goBack()">
-    <i class="fas fa-arrow-left"></i> {{ 'viewBranches.GO_BACK' | translate }}
-  </button>
-
-  <app-modern-table [tableTitle]="'Employees of ' + (isArabic ? selectedBranch?.nameAr : selectedBranch?.name)"
-    [tableData]="employees" [columns]="['id', 'fullName', 'position.name', 'department.name']"
-    [modalId]="'employeeDetailsModal'" [deleteId]="'employeeDeleteModal'" [showActions]="false">
-  </app-modern-table>
-</div>
-
 <ng-container *ngIf="isAdd || isEdit">
-  <app-add-branch [companyId]="companyId" (action)="handleAction($event)" [isEdit]="isEdit" [branch]="branch">
-  </app-add-branch>
-</ng-container>
 
-<app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedBranch?.id?.toString()" [entityType]="'Employee'"
-  [entities]="employees" [branch]="selectedBranch || null" (close)="handleClose()"
-  (submitForm)="handleEntityAssigned($event)">
-</app-assign-entity>
+  <app-branches-action [companyId]="companyId" (action)="handleAction($event)" [isEdit]="isEdit" [branch]="branch">
+
+  </app-branches-action>
+</ng-container>
 
 <p-toast position="top-center"></p-toast>
 
-<div class="d-flex justify-content-center mt-3" *ngIf="!isAssignEntity">
+<div class="d-flex justify-content-center mt-3">
   <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
     (pageChanged)="handlePageChange($event)" previousText="&laquo;" nextText="&raquo;">
   </pagination>

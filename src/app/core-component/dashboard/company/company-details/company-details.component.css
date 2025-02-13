@@ -153,6 +153,23 @@ input:checked + .slider:before {
     }
 }
 
+.custom-tabs {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.custom-tabs .nav-link {
+  text-align: center;
+  color: #ccc;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+}
+
+.custom-tabs .nav-link.active {
+  color: #000;
+  border-bottom: 2px solid #000;
+  font-weight: bold;
+}
+
 @media (max-width: 480px) {
     .profile-info {
         padding: 10px;

@@ -1,4 +1,4 @@
-<div class="container my-5" *ngIf="!isAdd && !isEdit && !showOverView && !isAssignEntity">
+<div class="container my-5" *ngIf="!isAdd && !isEdit">
   <div class="row">
 
     <div class="col-6">
@@ -55,21 +55,14 @@
 
 
 
-<!-- Entity Assignment Popup -->
-<app-assign-entity *ngIf="isAssignEntity" [entityId]="selectedEntityId" [entityType]="entityType" [entities]="employees"
-  [department]="selectedDepartment" (close)="goBack()" (submitForm)="handleEntityAssigned($event)">
-</app-assign-entity>
 
 <ng-container *ngIf="isAdd || isEdit">
-  <app-add-department [companyId]="companyId" (action)="handleAction($event)" [isEdit]="isEdit"
-    [department]="department"></app-add-department>
+    <app-department-action [companyId]="companyId" (action)="handleAction($event)" [isEdit]="isEdit"
+    [department]="department">
+    </app-department-action>
 </ng-container>
 
-<!-- Department Overview -->
-<div *ngIf="showOverView">
-  <app-department-overview [Department]="selectedDepartment!" (departmentAdded)="goBack()">
-  </app-department-overview>
-</div>
+
 
 <p-toast position="top-center"></p-toast>
 <p-confirmDialog></p-confirmDialog>

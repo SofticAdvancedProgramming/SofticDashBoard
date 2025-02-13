@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewBranchesComponent } from './view-branches.component';
+import { BranchesActionComponent } from './branches-action.component';
 
-describe('ViewBranchesComponent', () => {
-  let component: ViewBranchesComponent;
-  let fixture: ComponentFixture<ViewBranchesComponent>;
+describe('BranchesActionComponent', () => {
+  let component: BranchesActionComponent;
+  let fixture: ComponentFixture<BranchesActionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewBranchesComponent]
+      imports: [BranchesActionComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewBranchesComponent);
+    fixture = TestBed.createComponent(BranchesActionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

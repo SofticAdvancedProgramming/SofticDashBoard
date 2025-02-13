@@ -1,24 +1,20 @@
-// add-department.component.ts
-import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
-import { Department } from '../../../../../../../models/department';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
 import { branch } from '../../../../../../../models/branch';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { Department } from '../../../../../../../models/department';
 import { InputRestrictionDirective } from '../../../../../../common-component/directives/lang-directive/input-restriction.directive';
 import { MapComponent } from '../../../../../../common-component/map/map.component';
 import { CompanyService } from '../../../../../../services/comapnyService/company.service';
+import { BranchService } from '../../../../../../services/lockupsServices/branchService/branch.service';
+import { DepartmentService } from '../../../../../../services/lockupsServices/DepartmentService/department.service';
 
 @Component({
-  selector: 'app-add-department',
+  selector: 'app-department-action',
   standalone: true,
-  templateUrl: './add-department.component.html',
-  styleUrls: ['./add-department.component.css'],
-  providers: [MessageService],
   imports: [
     CommonModule,
     TranslateModule,
@@ -27,9 +23,11 @@ import { CompanyService } from '../../../../../../services/comapnyService/compan
     ToastModule,
     MapComponent,
     InputRestrictionDirective
-  ]
+  ],
+  templateUrl: './department-action.component.html',
+  styleUrl: './department-action.component.css'
 })
-export class AddDepartmentComponent implements OnInit {
+export class DepartmentActionComponent implements OnInit {
   @Input() department!: Department;
   @Input() isEdit: boolean = false;
   @Output() action = new EventEmitter<boolean>();
